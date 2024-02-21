@@ -4,9 +4,9 @@ import model from "wink-eng-lite-web-model";
 import {marked, Token} from "marked";
 import {RecusiveGetToken} from "./function/RecusiveGetToken";
 import * as fs from "fs";
-import {GetTimelineDataFromDocumentArray} from "./GetTimelineDataFromDocumentArray";
+import {GetTimelineDataFromDocumentArray} from "./function/GetTimelineDataFromDocumentArray";
 import {FormatSentencesWithMarkElement} from "./function/FormatSentencesWithMarkElement";
-
+import * as chrono from 'chrono-node';
 
 async function writeCurrentFileToCache() {
 	const currentVaultPath = this.app.vault.adapter.basePath
@@ -15,7 +15,7 @@ async function writeCurrentFileToCache() {
 	if (!currentFile) {
 		return
 	}
-	console.log(currentFile.path)
+	// console.log(currentFile.path)
 	fs.writeFileSync(cachePath.trim(), currentFile.path, 'utf8')
 }
 
@@ -96,6 +96,10 @@ export default class HistoricaPlugin extends Plugin {
 
 
 		const ribbonIconEl = this.addRibbonIcon('heart', 'Historica icon', async (evt: MouseEvent) => {
+			const date = chrono.parseDate("11 June 1997")
+			console.log(date)
+			// @ts-ignore
+			console.log(new Date(date).getTime() / 1000)
 
 		});
 

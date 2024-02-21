@@ -1,5 +1,6 @@
 import {Token} from "marked";
 import {WinkMethods} from "wink-nlp";
+import * as chrono from 'chrono-node';
 type TimelineEntry = {
 	date: string;
 	unixTime: number;
@@ -31,9 +32,14 @@ export async function GetTimelineDataFromDocumentArray(documents: Token[] | null
 			entity.markup("<historica-mark>", "</historica-mark>")
 			// console.log(entity.out())
 			const eventDate = entity.out()
+			let unitTime = new Date(eventDate).getTime() / 1000
+			if (isNaN(unitTime)) {
+				// @ts-ignore
+				unitTime = chrono.parseDate(eventDate).getTime() / 1000
+			}
 			timeline.push({
 				date: eventDate,
-				unixTime: new Date(eventDate).getTime() / 1000,
+				unixTime: unitTime,
 				sentence: entity.parentSentence().out(nlp.its.markedUpText)
 			})
 		});
