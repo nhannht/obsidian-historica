@@ -1,10 +1,9 @@
 import {Plugin, TFile} from 'obsidian';
-import winkNLP from "wink-nlp";
-import model from "wink-eng-lite-web-model";
 import {marked, Token} from "marked";
 import {RecusiveGetToken} from "./function/RecusiveGetToken";
 import * as fs from "fs";
-import {GetTimelineDataFromDocumentArray} from "./function/GetTimelineDataFromDocumentArray";
+
+import {GetTimelineDataFromDocumentArrayWithChrono} from "./function/GetTimelineDataFromDocumentArray";
 import {FormatSentencesWithMarkElement} from "./function/FormatSentencesWithMarkElement";
 import * as chrono from 'chrono-node';
 
@@ -35,8 +34,25 @@ export default class HistoricaPlugin extends Plugin {
 	async onload() {
 
 		// set up wink nlp
-		const nlp = winkNLP(model);
+		// const nlp = winkNLP(model);
+
+		// set up custom chrono;
+		const customChrono = chrono.casual.clone()
+		customChrono.parsers.push({
+			pattern: () => {
+				return /\b(in|at|on|from|to)\s+(\d{4})\b/i
+			},
+			extract: (context, match) => {
+				return {
+					day: 1, month:1 , year: parseInt(match[2])
+				}
+			}
+		})
+		// console.log(customChrono.parseDate("In Christmas i was born"))
+
+
 		const currentFile = this.app.workspace.getActiveFile();
+
 
 		this.registerMarkdownCodeBlockProcessor("historica", async (source, el, ctx) => {
 
@@ -73,8 +89,8 @@ export default class HistoricaPlugin extends Plugin {
 				// @ts-ignore
 				return token.tokens === undefined
 			})
-			let timelineData = await GetTimelineDataFromDocumentArray(documentArray, nlp)
-
+			// let timelineData = await GetTimelineDataFromDocumentArray(documentArray, nlp)
+			let timelineData = await GetTimelineDataFromDocumentArrayWithChrono(documentArray, customChrono)
 
 			const timelineEl = el.createEl('div', {
 				cls: "historica-container"
@@ -84,9 +100,9 @@ export default class HistoricaPlugin extends Plugin {
 				const timelineEntryEl = timelineEl.createEl('div', {
 					cls: "historica-entry group"
 				})
-				timelineEntryEl.createEl('div', {cls: "historica-label", text: "this is the label"})
+				// timelineEntryEl.createEl('div', {cls: "historica-label", text: entry.date})
 				const verticalLine = timelineEntryEl.createEl('div', {cls: "historica-vertical-line"})
-				verticalLine.createEl('time', {cls: "historica-time", text: entry.date})
+				verticalLine.createEl('time', {cls: "historica-time", text: entry.dateString})
 				FormatSentencesWithMarkElement(entry.sentence, timelineEntryEl.createEl('div',
 					{cls: "historica-content"}))
 
@@ -96,17 +112,23 @@ export default class HistoricaPlugin extends Plugin {
 
 
 		const ribbonIconEl = this.addRibbonIcon('heart', 'Historica icon', async (evt: MouseEvent) => {
-			const date = chrono.parseDate("11 June 1997")
-			console.log(date)
+			const customChrono = chrono.casual.clone()
+			customChrono.parsers.push({
+				pattern: () => {
+					return /\b(in|at|on|from|to)\s+(\d{4})\b/i
+				},
+				extract: (context, match) => {
+					return {
+						day: 1, month: 1, year: parseInt(match[2])
+					}
+				}
+			})
+
+
 			// @ts-ignore
-			console.log(new Date(date).getTime() / 1000)
+			// console.log(new Date(date).getTime() / 1000)
 
 		});
-
-
-
-
-
 
 
 	}
@@ -116,8 +138,6 @@ export default class HistoricaPlugin extends Plugin {
 		await writeCurrentFileToCache()
 
 	}
-
-
 
 
 }

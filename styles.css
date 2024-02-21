@@ -568,8 +568,8 @@ button {
 
 .historica-label {
   margin-bottom: 0.25rem;
-  font-size: 1.5rem;
-  line-height: 2rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 500;
   --tw-text-opacity: 1;
   color: rgb(244 63 94 / var(--tw-text-opacity));
@@ -657,6 +657,7 @@ button {
   border-radius: 9999px;
   --tw-bg-opacity: 1;
   background-color: rgb(255 228 230 / var(--tw-bg-opacity));
+  text-align: center;
   font-size: 0.75rem;
   line-height: 1rem;
   font-weight: 600;

@@ -1,12 +1,15 @@
 import {Token} from "marked";
 import {WinkMethods} from "wink-nlp";
 import * as chrono from 'chrono-node';
-type TimelineEntry = {
+import {Chrono} from 'chrono-node';
+
+interface TimelineEntry  {
 	date: string;
 	unixTime: number;
 	sentence: string;
 
 }
+
 /**
  * get timeline data from document array, the document array is the output from lexical parser of mark.js
  * @example
@@ -50,4 +53,44 @@ export async function GetTimelineDataFromDocumentArray(documents: Token[] | null
 
 	})
 
+}
+interface TimelineEntryChrono extends TimelineEntry  {
+	dateString: string,
+}
+export async function GetTimelineDataFromDocumentArrayWithChrono(documents: Token[] | null, customChrono: Chrono) {
+	let timelineData: TimelineEntryChrono[] = []
+	// @ts-ignore
+	documents?.forEach(({text}: { text: string }) => {
+		// console.log(text)
+		const parseResult = customChrono.parse(text)
+		if (!parseResult || parseResult.length === 0) {
+			return
+		}
+
+		if (parseResult[0].start) {
+			const start = parseResult[0].start
+			const parseText = parseResult[0].text
+			timelineData.push({
+				dateString: parseText,
+				date: start.date().toString(),
+				unixTime: start.date().getTime() / 1000,
+				sentence: text.replace(parseText, `<historica-mark>${parseText}</historica-mark>`)
+			})
+		}
+		if (parseResult[0].end) {
+			const end = parseResult[0].end
+			const parseText = parseResult[0].text
+			timelineData.push({
+				dateString: parseText,
+				date: end.date().toString(),
+				unixTime: end.date().getTime() / 1000,
+				sentence: text.replace(parseText, `<historica-mark>${parseText}</historica-mark>`)
+			})
+		}
+
+
+	})
+	return timelineData.sort((a, b) => {
+		return a.unixTime - b.unixTime
+	})
 }
