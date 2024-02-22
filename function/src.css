@@ -2,38 +2,76 @@
 @tailwind utilities;
 @tailwind base;
 
-button{
+button {
 	@apply p-3
 }
 
-.historica-container {
+.historica-container-1 {
 	@apply -my-6
 }
 
-.historica-entry {
+.historica-entry-1 {
 	@apply relative pl-8 sm:pl-32 py-6
 }
 
-.historica-label {
-	@apply  font-medium text-sm text-rose-500 mb-1 sm:mb-0
+.historica-label-1 {
+	@apply font-medium text-sm text-rose-500 mb-1 sm:mb-0
 }
 
-.historica-vertical-line {
+.historica-vertical-line-1 {
 	@apply flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden before:absolute before:left-2 sm:before:left-0 before:h-full before:px-px before:bg-rose-100 sm:before:ml-[6.5rem] before:self-start before:-translate-x-1/2 before:translate-y-3 after:absolute after:left-2 sm:after:left-0 after:w-2 after:h-2 after:bg-rose-600 after:border-4 after:box-content after:border-rose-50 after:rounded-full sm:after:ml-[6.5rem] after:-translate-x-1/2 after:translate-y-1.5
 }
 
-.historica-time {
+.historica-time-1 {
 	@apply sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold text-center uppercase w-20 h-6 mb-3 sm:mb-0 text-rose-600 bg-rose-100 rounded-full
 }
 
-.historica-title {
+.historica-title-1 {
 	@apply text-xl font-bold text-slate-900
 }
 
-.historica-content {
+.historica-content-1 {
 	@apply text-slate-500
 }
 
 historica-mark {
 	@apply text-rose-600
+}
+
+/*style 2*/
+.historica-container-2 {
+	@apply space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent
+}
+
+.historica-item-2 {
+	@apply relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse
+}
+
+.historica-icon-2 {
+	@apply flex items-center justify-center w-10 h-10 rounded-full border border-white bg-rose-300  text-rose-500  shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2
+}
+
+/*.historica-inner-icon-2 {*/
+/*	@apply flex items-center justify-center w-5 h-5 rounded-full border border-white bg-rose-800  text-rose-900  shadow shrink-0 md:order-1 md:group-odd:-translate-x-[1/8] md:group-even:translate-x-[1/8]*/
+
+/*}*/
+
+.historica-card-container-2 {
+	@apply w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-4 rounded border border-rose-200 shadow
+}
+
+.historica-card-2 {
+	@apply flex items-center justify-between space-x-2 mb-1
+}
+
+.historica-card-title-2 {
+	@apply font-bold text-rose-900
+}
+
+.historica-card-time-2 {
+	@apply font-medium text-rose-500
+}
+
+.historica-card-content-2 {
+	@apply text-gray-500
 }

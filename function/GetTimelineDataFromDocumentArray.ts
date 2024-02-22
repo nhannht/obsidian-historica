@@ -3,7 +3,7 @@ import {WinkMethods} from "wink-nlp";
 import * as chrono from 'chrono-node';
 import {Chrono} from 'chrono-node';
 
-interface TimelineEntry  {
+export interface TimelineEntry  {
 	date: string;
 	unixTime: number;
 	sentence: string;
@@ -54,7 +54,7 @@ export async function GetTimelineDataFromDocumentArray(documents: Token[] | null
 	})
 
 }
-interface TimelineEntryChrono extends TimelineEntry  {
+export interface TimelineEntryChrono extends TimelineEntry  {
 	dateString: string,
 }
 export async function GetTimelineDataFromDocumentArrayWithChrono(documents: Token[] | null, customChrono: Chrono) {
