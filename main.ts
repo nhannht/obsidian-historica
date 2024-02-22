@@ -2,7 +2,6 @@ import {Plugin, TFile} from 'obsidian';
 import {marked, Token} from "marked";
 import {RecusiveGetToken} from "./function/RecusiveGetToken";
 import * as fs from "fs";
-
 import {GetTimelineDataFromDocumentArrayWithChrono} from "./function/GetTimelineDataFromDocumentArray";
 import {FormatSentencesWithMarkElement} from "./function/FormatSentencesWithMarkElement";
 import * as chrono from 'chrono-node';
@@ -18,6 +17,30 @@ async function writeCurrentFileToCache() {
 	fs.writeFileSync(cachePath.trim(), currentFile.path, 'utf8')
 }
 
+async function getCurrentFile(): Promise<TFile> {
+	let currentFile: TFile | null = this.app.workspace.getActiveFile();
+	//@ts-ignore
+	if (currentFile instanceof TFile) {
+
+	} else {
+
+		// @ts-ignore
+		let currentFilePath = await readCurrentFileFromCache()
+		if (currentFilePath) {
+
+			const currentFileAbstract = this.app.vault.getAbstractFileByPath(currentFilePath)
+			if (currentFileAbstract instanceof TFile) {
+				currentFile = currentFileAbstract
+			}
+		}
+
+	}
+	// @ts-ignore
+	return currentFile
+
+}
+
+
 async function readCurrentFileFromCache() {
 	const currentVaultPath = this.app.vault.adapter.basePath
 	if (!fs.existsSync(`${currentVaultPath}/.obsidian/historica-cache.json`)) {
@@ -25,6 +48,24 @@ async function readCurrentFileFromCache() {
 	}
 	const cachePath = `${currentVaultPath}/.obsidian/historica-cache.json`
 	return fs.readFileSync(cachePath, 'utf8')
+
+}
+
+/**
+ * parse tfile to documents. documents is a global array that will be updated be side effect after each parse
+ * @param file
+ * @param documents
+ */
+async function parseTFileAndUpdateDocuments(file: TFile, documents: Token[]) {
+	const lexerResult = marked.lexer(await this.app.vault.read(file));
+
+
+	lexerResult.map((token) => {
+
+		RecusiveGetToken(token, documents)
+	})
+	// filter token which is the smallest modulo
+
 
 }
 
@@ -44,51 +85,30 @@ export default class HistoricaPlugin extends Plugin {
 			},
 			extract: (context, match) => {
 				return {
-					day: 1, month:1 , year: parseInt(match[2])
+					day: 1, month: 1, year: parseInt(match[2])
 				}
 			}
 		})
-		// console.log(customChrono.parseDate("In Christmas i was born"))
-
-
-		const currentFile = this.app.workspace.getActiveFile();
 
 
 		this.registerMarkdownCodeBlockProcessor("historica", async (source, el, ctx) => {
 
-			let currentFile = this.app.workspace.getActiveFile();
+			// parse yaml in this block
+			// const blockConfig = toml.parse(source)
+			// console.log(blockConfig)
 
-			if (currentFile instanceof TFile) {
-				let currentFileText = await this.app.vault.read(currentFile);
-			} else {
-
-				// @ts-ignore
-				let currentFilePath = await readCurrentFileFromCache()
-				if (currentFilePath) {
-
-					const currentFileAbstract = this.app.vault.getAbstractFileByPath(currentFilePath)
-					if (currentFileAbstract instanceof TFile) {
-						currentFile = currentFileAbstract
-					}
-				}
-
-			}
-
-			// @ts-ignore
-			const lexerResult = marked.lexer(await this.app.vault.read(currentFile));
-
+			const currentFile = await getCurrentFile()
 			let documentArray: Token[] = [];
+			// <editor-fold desc="parse tfile and update documentArray with singlefile">
+			await parseTFileAndUpdateDocuments(currentFile, documentArray)
 
 
-			lexerResult.map((token) => {
-
-				RecusiveGetToken(token, documentArray)
-			})
 			// filter token which is the smallest modulo
 			documentArray = documentArray.filter((token) => {
 				// @ts-ignore
 				return token.tokens === undefined
 			})
+			// </editor-fold>
 			// let timelineData = await GetTimelineDataFromDocumentArray(documentArray, nlp)
 			let timelineData = await GetTimelineDataFromDocumentArrayWithChrono(documentArray, customChrono)
 
@@ -111,24 +131,14 @@ export default class HistoricaPlugin extends Plugin {
 		})
 
 
-		const ribbonIconEl = this.addRibbonIcon('heart', 'Historica icon', async (evt: MouseEvent) => {
-			const customChrono = chrono.casual.clone()
-			customChrono.parsers.push({
-				pattern: () => {
-					return /\b(in|at|on|from|to)\s+(\d{4})\b/i
-				},
-				extract: (context, match) => {
-					return {
-						day: 1, month: 1, year: parseInt(match[2])
-					}
-				}
-			})
-
-
-			// @ts-ignore
-			// console.log(new Date(date).getTime() / 1000)
-
-		});
+		// const ribbonIconEl = this.addRibbonIcon('heart', 'Historica icon', async (evt: MouseEvent) => {
+		// 	const yamlText = `title: "Historica"
+		// 	date: 2021-10-10`
+		// 	// const doc = yaml.load(yamlText.trim())
+		// 	console.log(yamlText.trim())
+		//
+		//
+		// });
 
 
 	}

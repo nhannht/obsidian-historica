@@ -14,6 +14,7 @@
 	"author": "",
 	"license": "MIT",
 	"devDependencies": {
+		"@types/js-yaml": "^4.0.9",
 		"@types/lodash": "^4.14.202",
 		"@types/node": "^16.11.6",
 		"@typescript-eslint/eslint-plugin": "5.29.0",
@@ -30,7 +31,9 @@
 	},
 	"dependencies": {
 		"chrono-node": "^2.7.5",
+		"js-yaml": "^4.1.0",
 		"marked": "^12.0.0",
+		"toml": "^3.0.0",
 		"wink-eng-lite-web-model": "^1.5.2",
 		"wink-nlp": "^1.14.3"
 	}
