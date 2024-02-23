@@ -51,7 +51,7 @@ Smart and dynamic extraction point of time in your note or multi notes
 					font-family: 'Times New Roman', Times, serif;
 				   color: #e03030;">Style 1</div>
 
-![](../images/.README_images/7385bfff.png)
+![](images/.README_images/7385bfff.png)
 
 <div style="text-align: center;
 				   font-size: 2em;
@@ -59,4 +59,4 @@ Smart and dynamic extraction point of time in your note or multi notes
 					font-family: 'Times New Roman', Times, serif;
 				   color: #e03030;">Style 2</div>
 
-![](../images/.README_images/9cea13cc.png)
+![](images/.README_images/9cea13cc.png)
