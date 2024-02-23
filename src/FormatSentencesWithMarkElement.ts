@@ -1,3 +1,5 @@
+
+
 export function FormatSentencesWithMarkElement(sen: string, el: HTMLElement) {
 	// split base on regex <mark>.*</mark>
 	const regex = /(<historica-mark>.*<\/historica-mark>)/g

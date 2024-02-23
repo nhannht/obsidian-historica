@@ -1,14 +1,13 @@
 import {Plugin, TFile} from 'obsidian';
 import {marked, Token} from "marked";
-import {RecusiveGetToken} from "./function/RecusiveGetToken";
-import * as fs from "fs";
-import {GetTimelineDataFromDocumentArrayWithChrono} from "./function/GetTimelineDataFromDocumentArray";
-import * as chrono from 'chrono-node';
-import * as toml from "toml";
-import {renderTimelineEntry} from "./function/renderTimelineEntry";
+import {RecusiveGetToken} from "./src/RecusiveGetToken";
+import {readFileSync, writeFileSync,existsSync} from "fs";
+import {GetTimelineDataFromDocumentArrayWithChrono} from "./src/GetTimelineDataFromDocumentArray";
+import {parse} from "toml";
+import {renderTimelineEntry} from "./src/renderTimelineEntry";
 import compromise from 'compromise';
-// @ts-ignore
-import * as winkNLPUtil from 'wink-nlp-utils';
+import {setupCustomChrono} from "./src/setupCustomChrono";
+import {generateUseFulInfomrationPatternTag} from "./src/generateUseFulInfomrationPatternTag";
 
 async function writeCurrentFileToCache() {
 	const currentVaultPath = this.app.vault.adapter.basePath
@@ -18,25 +17,7 @@ async function writeCurrentFileToCache() {
 		return
 	}
 	// console.log(currentFile.path)
-	fs.writeFileSync(cachePath.trim(), currentFile.path, 'utf8')
-}
-
-async function generateUseFulInfomrationPatternTag() {
-	// const usefulStringPatternTags:string[] = winkNLPUtil.string.composeCorpus("[|#Determiner] [|#Adjective|#Adverb] [|#Adjective] [#Noun]")
-
-	const usefulStringPatternTags2:string[] = winkNLPUtil.string.composeCorpus("[#Noun] [|#Adjective] [#Verb] [|#Verb] [|#Noun]")
-	for (let i = 0; i < usefulStringPatternTags2.length; i++) {
-			usefulStringPatternTags2[i] = usefulStringPatternTags2[i].trim().replace(/\s+/g, " ")
-
-		}
-	// connect 2 array
-	// short longest first
-
-	return usefulStringPatternTags2.sort((a, b) => {
-		return b.length - a.length
-
-	})
-
+	writeFileSync(cachePath.trim(), currentFile.path, 'utf8')
 }
 
 async function getCurrentFile(): Promise<TFile> {
@@ -64,11 +45,11 @@ async function getCurrentFile(): Promise<TFile> {
 
 async function readCurrentFileFromCache() {
 	const currentVaultPath = this.app.vault.adapter.basePath
-	if (!fs.existsSync(`${currentVaultPath}/.obsidian/historica-cache.json`)) {
+	if (!existsSync(`${currentVaultPath}/.obsidian/historica-cache.json`)) {
 		return
 	}
 	const cachePath = `${currentVaultPath}/.obsidian/historica-cache.json`
-	return fs.readFileSync(cachePath, 'utf8')
+	return readFileSync(cachePath, 'utf8')
 
 }
 
@@ -109,25 +90,13 @@ export default class HistoricaPlugin extends Plugin {
 		const useFullPatternTags = await generateUseFulInfomrationPatternTag()
 
 		// console.log(useFullPatternTags)
-
-		// set up custom chrono;
-		const customChrono = chrono.casual.clone()
-		customChrono.parsers.push({
-			pattern: () => {
-				return /\b(in|at|on|from|to)\s+(\d{4})\b/i
-			},
-			extract: (context, match) => {
-				return {
-					day: 1, month: 1, year: parseInt(match[2])
-				}
-			}
-		})
+		const customChrono = await setupCustomChrono()
 
 
 		this.registerMarkdownCodeBlockProcessor("historica", async (source, el, ctx) => {
 
 			// parse yaml in this block
-			let blockConfig: BlockConfig = toml.parse(source)
+			let blockConfig: BlockConfig = parse(source)
 			// console.log(Object.keys(blockConfig).length === 0)
 			if (Object.keys(blockConfig).length === 0) {
 				blockConfig = {
@@ -138,9 +107,12 @@ export default class HistoricaPlugin extends Plugin {
 			}
 			// console.log(blockConfig)
 
-			if (![1, 2].includes(blockConfig.style)) {
+			if (![1, 2].includes(blockConfig.style) || !blockConfig.style) {
 				blockConfig.style = 1
 
+			}
+			if (!blockConfig.include_files) {
+				blockConfig.include_files = []
 			}
 
 			let documentArray: Token[] = [];
@@ -170,9 +142,9 @@ export default class HistoricaPlugin extends Plugin {
 				// @ts-ignore
 				return token.tokens === undefined
 			})
+			// console.log(documentArray)
 
 
-			// let timelineData = await GetTimelineDataFromDocumentArray(documentArray, nlp)
 			let timelineData = await GetTimelineDataFromDocumentArrayWithChrono(
 				documentArray,
 				customChrono,
@@ -190,8 +162,9 @@ export default class HistoricaPlugin extends Plugin {
 
 		const ribbonIconEl = this.addRibbonIcon('heart', 'Historica icon', async (evt: MouseEvent) => {
 
-			console.log(compromise("god").match("#Adjective #Noun").json())
-			// console.log(compromise("i am going go to swimming pool").json())
+			console.log(compromise("human created their first civilization").match("#Noun #Verb #Noun    #Noun").text())
+			console.log(compromise("we are all smarter").json())
+
 
 
 		});
