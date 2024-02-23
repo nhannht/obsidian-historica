@@ -160,14 +160,14 @@ export default class HistoricaPlugin extends Plugin {
 		})
 
 
-		const ribbonIconEl = this.addRibbonIcon('heart', 'Historica icon', async (evt: MouseEvent) => {
-
-			console.log(compromise("human created their first civilization").match("#Noun #Verb #Noun    #Noun").text())
-			console.log(compromise("we are all smarter").json())
-
-
-
-		});
+		// const ribbonIconEl = this.addRibbonIcon('heart', 'Historica icon', async (evt: MouseEvent) => {
+		//
+		// 	console.log(compromise("human created their first civilization").match("#Noun #Verb #Noun    #Noun").text())
+		// 	console.log(compromise("we are all smarter").json())
+		//
+		//
+		//
+		// });
 
 
 	}

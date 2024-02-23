@@ -1,0 +1,35 @@
+name: "Release"
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: set up npm
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Build plugin
+        run: |
+          yarn 
+          yarn run build
+
+      - name: Create release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          tag="${GITHUB_REF#refs/tags/}"
+
+          gh release create "$tag" \
+            --title="$tag" \
+            --draft \
+            main.js manifest.json styles.css LICENSE README.md
+
+
+
