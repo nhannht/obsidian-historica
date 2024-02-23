@@ -1,7 +1,7 @@
 import {Plugin, TFile} from 'obsidian';
 import {marked, Token} from "marked";
 import {RecusiveGetToken} from "./src/RecusiveGetToken";
-import {readFileSync, writeFileSync,existsSync} from "fs";
+import {existsSync, readFileSync, writeFileSync} from "fs";
 import {GetTimelineDataFromDocumentArrayWithChrono} from "./src/GetTimelineDataFromDocumentArray";
 import {parse} from "toml";
 import {renderTimelineEntry} from "./src/renderTimelineEntry";
@@ -10,46 +10,46 @@ import {setupCustomChrono} from "./src/setupCustomChrono";
 import {generateUseFulInfomrationPatternTag} from "./src/generateUseFulInfomrationPatternTag";
 
 async function writeCurrentFileToCache() {
-	const currentVaultPath = this.app.vault.adapter.basePath
-	const cachePath = `${currentVaultPath}/.obsidian/historica-cache.dat`
-	const currentFile = this.app.workspace.getActiveFile();
-	if (!currentFile) {
-		return
-	}
-	// console.log(currentFile.path)
-	writeFileSync(cachePath.trim(), currentFile.path, 'utf8')
+    const currentVaultPath = this.app.vault.adapter.basePath
+    const cachePath = `${currentVaultPath}/.obsidian/historica-cache.dat`
+    const currentFile = this.app.workspace.getActiveFile();
+    if (!currentFile) {
+        return
+    }
+    // console.log(currentFile.path)
+    writeFileSync(cachePath.trim(), currentFile.path, 'utf8')
 }
 
 async function getCurrentFile(): Promise<TFile> {
-	let currentFile: TFile | null = this.app.workspace.getActiveFile();
-	//@ts-ignore
-	if (currentFile instanceof TFile) {
+    let currentFile: TFile | null = this.app.workspace.getActiveFile();
+    //@ts-ignore
+    if (currentFile instanceof TFile) {
 
-	} else {
+    } else {
 
-		// @ts-ignore
-		let currentFilePath = await readCurrentFileFromCache()
-		if (currentFilePath) {
+        // @ts-ignore
+        let currentFilePath = await readCurrentFileFromCache()
+        if (currentFilePath) {
 
-			const currentFileAbstract = this.app.vault.getAbstractFileByPath(currentFilePath)
-			if (currentFileAbstract instanceof TFile) {
-				currentFile = currentFileAbstract
-			}
-		}
+            const currentFileAbstract = this.app.vault.getAbstractFileByPath(currentFilePath)
+            if (currentFileAbstract instanceof TFile) {
+                currentFile = currentFileAbstract
+            }
+        }
 
-	}
-	// @ts-ignore
-	return currentFile
+    }
+    // @ts-ignore
+    return currentFile
 
 }
 
 async function readCurrentFileFromCache() {
-	const currentVaultPath = this.app.vault.adapter.basePath
-	if (!existsSync(`${currentVaultPath}/.obsidian/historica-cache.json`)) {
-		return
-	}
-	const cachePath = `${currentVaultPath}/.obsidian/historica-cache.json`
-	return readFileSync(cachePath, 'utf8')
+    const currentVaultPath = this.app.vault.adapter.basePath
+    if (!existsSync(`${currentVaultPath}/.obsidian/historica-cache.json`)) {
+        return
+    }
+    const cachePath = `${currentVaultPath}/.obsidian/historica-cache.json`
+    return readFileSync(cachePath, 'utf8')
 
 }
 
@@ -59,24 +59,24 @@ async function readCurrentFileFromCache() {
  * @param documents
  */
 async function parseTFileAndUpdateDocuments(file: TFile, documents: Token[]) {
-	const lexerResult = marked.lexer(await this.app.vault.read(file));
+    const lexerResult = marked.lexer(await this.app.vault.read(file));
 
 
-	lexerResult.map((token) => {
+    lexerResult.map((token) => {
 
-		RecusiveGetToken(token, documents)
-	})
-	// filter token which is the smallest modulo
+        RecusiveGetToken(token, documents)
+    })
+    // filter token which is the smallest modulo
 
 
 }
 
 interface BlockConfig {
-	style: number | 1,
-	include_files?: string[] | [],
-	// exclude_files?: string[]|[],
-	// include_tags: string[],
-	// exclude_tags: string[],
+    style: number | 1,
+    include_files?: string[] | [],
+    // exclude_files?: string[]|[],
+    // include_tags: string[],
+    // exclude_tags: string[],
 
 
 }
@@ -86,97 +86,97 @@ interface BlockConfig {
 export default class HistoricaPlugin extends Plugin {
 
 
-	async onload() {
-		const useFullPatternTags = await generateUseFulInfomrationPatternTag()
+    async onload() {
+        const useFullPatternTags = await generateUseFulInfomrationPatternTag()
 
-		// console.log(useFullPatternTags)
-		const customChrono = await setupCustomChrono()
-
-
-		this.registerMarkdownCodeBlockProcessor("historica", async (source, el, ctx) => {
-
-			// parse yaml in this block
-			let blockConfig: BlockConfig = parse(source)
-			// console.log(Object.keys(blockConfig).length === 0)
-			if (Object.keys(blockConfig).length === 0) {
-				blockConfig = {
-					style: 0,
-					include_files: [],
-					// exclude_files: []
-				}
-			}
-			// console.log(blockConfig)
-
-			if (![1, 2].includes(blockConfig.style) || !blockConfig.style) {
-				blockConfig.style = 1
-
-			}
-			if (!blockConfig.include_files) {
-				blockConfig.include_files = []
-			}
-
-			let documentArray: Token[] = [];
-
-			if (blockConfig.include_files!.length === 0) {
-				const currentFile = await getCurrentFile()
+        // console.log(useFullPatternTags)
+        const customChrono = await setupCustomChrono()
 
 
-				await parseTFileAndUpdateDocuments(currentFile, documentArray)
+        this.registerMarkdownCodeBlockProcessor("historica", async (source, el, ctx) => {
+
+            // parse yaml in this block
+            let blockConfig: BlockConfig = parse(source)
+            // console.log(Object.keys(blockConfig).length === 0)
+            if (Object.keys(blockConfig).length === 0) {
+                blockConfig = {
+                    style: 0,
+                    include_files: [],
+                    // exclude_files: []
+                }
+            }
+            // console.log(blockConfig)
+
+            if (![1, 2].includes(blockConfig.style) || !blockConfig.style) {
+                blockConfig.style = 1
+
+            }
+            if (!blockConfig.include_files) {
+                blockConfig.include_files = []
+            }
+
+            let documentArray: Token[] = [];
+
+            if (blockConfig.include_files!.length === 0) {
+                const currentFile = await getCurrentFile()
 
 
-			} else {
-				const allFiles = this.app.vault.getMarkdownFiles()
-
-				const includeFiles = blockConfig.include_files || []
-				for (let i = 0; i < includeFiles.length; i++) {
-					const file = this.app.vault.getAbstractFileByPath(includeFiles[i])
-					// console.log(file)
-					if (file instanceof TFile) {
-						await parseTFileAndUpdateDocuments(file, documentArray)
-					}
-				}
-				// filter token which is the smallest modulo
-
-			}
-			documentArray = documentArray.filter((token) => {
-				// @ts-ignore
-				return token.tokens === undefined
-			})
-			// console.log(documentArray)
+                await parseTFileAndUpdateDocuments(currentFile, documentArray)
 
 
-			let timelineData = await GetTimelineDataFromDocumentArrayWithChrono(
-				documentArray,
-				customChrono,
-				compromise,
-				useFullPatternTags)
+            } else {
+                const allFiles = this.app.vault.getMarkdownFiles()
+
+                const includeFiles = blockConfig.include_files || []
+                for (let i = 0; i < includeFiles.length; i++) {
+                    const file = this.app.vault.getAbstractFileByPath(includeFiles[i])
+                    // console.log(file)
+                    if (file instanceof TFile) {
+                        await parseTFileAndUpdateDocuments(file, documentArray)
+                    }
+                }
+                // filter token which is the smallest modulo
+
+            }
+            documentArray = documentArray.filter((token) => {
+                // @ts-ignore
+                return token.tokens === undefined
+            })
+            // console.log(documentArray)
 
 
-			const style = blockConfig.style || 1
+            let timelineData = await GetTimelineDataFromDocumentArrayWithChrono(
+                documentArray,
+                customChrono,
+                compromise,
+                useFullPatternTags)
 
 
-			await renderTimelineEntry(timelineData, style, el)
-			await writeCurrentFileToCache()
-		})
+            const style = blockConfig.style || 1
 
 
-		// const ribbonIconEl = this.addRibbonIcon('heart', 'Historica icon', async (evt: MouseEvent) => {
-		//
-		// 	console.log(compromise("human created their first civilization").match("#Noun #Verb #Noun    #Noun").text())
-		// 	console.log(compromise("we are all smarter").json())
-		//
-		//
-		//
-		// });
+            await renderTimelineEntry(timelineData, style, el)
+            await writeCurrentFileToCache()
+        })
 
 
-	}
+        // const ribbonIconEl = this.addRibbonIcon('heart', 'Historica icon', async (evt: MouseEvent) => {
+        //
+        // 	console.log(compromise("human created their first civilization").match("#Noun #Verb #Noun    #Noun").text())
+        // 	console.log(compromise("we are all smarter").json())
+        //
+        //
+        //
+        // });
 
-	async onunload() {
-		const currentFile = this.app.workspace.getActiveFile();
-		await writeCurrentFileToCache()
 
-	}
+    }
+
+    async onunload() {
+        const currentFile = this.app.workspace.getActiveFile();
+        await writeCurrentFileToCache()
+
+    }
 
 }
 

@@ -1,10 +1,10 @@
 {
-	"id": "obsidian-historica",
+	"id": "historica",
 	"name": "historica",
-	"version": "0.0.1-beta",
-	"minAppVersion": "0.0.1",
-	"description": "Auto generate timeline of content in the note or across the vault",
-	"author": "Nhannht",
+	"version": "0.0.2-beta",
+	"minAppVersion": "0.0.2",
+	"description": "Intelligence generates timeline from your content",
+	"author": "Nhan Nguyen",
 	"authorUrl": "https://github.com/nhannht",
 	"isDesktopOnly": true
 }
