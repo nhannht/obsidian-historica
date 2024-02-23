@@ -46,11 +46,10 @@ export async function renderTimelineEntry(timelineData: TimelineEntryChrono[],
 
 			})
 			// @ts-ignore
-			timelineSvg.createEl('path', {
+			timelineSvg.createSvg('path', {
 				attr: {
 					"fill-rule": "nonzero",
-					d: "M10.422 1.257 4.655 7.025 2.553 4.923A.916.916 0 0 0 1.257 6.22l2.75 2.75a.916.916 0 0 0 1.296 0l6.415-6.416a.916.916 0 0 0-1.296-1.296Z",
-
+					d: 'M10.422 1.257 4.655 7.025 2.553 4.923A.916.916 0 0 0 1.257 6.22l2.75 2.75a.916.916 0 0 0 1.296 0l6.415-6.416a.916.916 0 0 0-1.296-1.296Z'
 				}
 			})
 
