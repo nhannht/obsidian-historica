@@ -598,6 +598,15 @@ commander@^4.0.0:
   resolved "https://registry.yarnpkg.com/commander/-/commander-4.1.1.tgz#9fd602bd936294e9e9ef46a3f4d6964044b18068"
   integrity sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==
 
+compromise@^14.12.0:
+  version "14.12.0"
+  resolved "https://registry.yarnpkg.com/compromise/-/compromise-14.12.0.tgz#874d2b61a6d0723042e8ab896fb4897bad8a2e81"
+  integrity sha512-IVJ+ZXgm7Nc9Zobgl8glEir9QYJUc241EggW0JjKBdpRXJjvKB2Y7F+tiJ+vrVk9RQkHoQH5QhPgFX5jX+qL7A==
+  dependencies:
+    efrt "2.7.0"
+    grad-school "0.0.5"
+    suffix-thumb "5.0.2"
+
 concurrently@^8.2.2:
   version "8.2.2"
   resolved "https://registry.yarnpkg.com/concurrently/-/concurrently-8.2.2.tgz#353141985c198cfa5e4a3ef90082c336b5851784"
@@ -673,6 +682,11 @@ eastasianwidth@^0.2.0:
   resolved "https://registry.yarnpkg.com/eastasianwidth/-/eastasianwidth-0.2.0.tgz#696ce2ec0aa0e6ea93a397ffcf24aa7840c827cb"
   integrity sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==
 
+efrt@2.7.0:
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/efrt/-/efrt-2.7.0.tgz#8b021e69f75cfeed3f81ee058aa0c78265793324"
+  integrity sha512-/RInbCy1d4P6Zdfa+TMVsf/ufZVotat5hCw3QXmWtjU+3pFEOvOQ7ibo3aIxyCJw2leIeAMjmPj+1SLJiCpdrQ==
+
 electron-to-chromium@^1.4.668:
   version "1.4.677"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.677.tgz#49ee77713516740bdde32ac2d1443c444f0dafe7"
@@ -683,7 +697,7 @@ emoji-regex@^8.0.0:
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-8.0.0.tgz#e818fd69ce5ccfcb404594f842963bf53164cc37"
   integrity sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==
 
-emoji-regex@^9.2.2:
+emoji-regex@^9.0.0, emoji-regex@^9.2.2:
   version "9.2.2"
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-9.2.2.tgz#840c8803b0d8047f4ff0cf963176b32d4ef3ed72"
   integrity sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg==
@@ -857,6 +871,11 @@ globby@^11.1.0:
     ignore "^5.2.0"
     merge2 "^1.4.1"
     slash "^3.0.0"
+
+grad-school@0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/grad-school/-/grad-school-0.0.5.tgz#9e7b2084f3e137965c19b63ef0dfe49867194f43"
+  integrity sha512-rXunEHF9M9EkMydTBux7+IryYXEZinRk6g8OBOGDBzo/qWJjhTxy86i5q7lQYpCLHN8Sqv1XX3OIOc7ka2gtvQ==
 
 has-flag@^4.0.0:
   version "4.0.0"
@@ -1308,6 +1327,11 @@ sucrase@^3.32.0:
     pirates "^4.0.1"
     ts-interface-checker "^0.1.9"
 
+suffix-thumb@5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/suffix-thumb/-/suffix-thumb-5.0.2.tgz#b38940faddb3ae8b5fd281c7ec5830c25a6b2c9c"
+  integrity sha512-I5PWXAFKx3FYnI9a+dQMWNqTxoRt6vdBdb0O+BJ1sxXCWtSoQCusc13E58f+9p4MYx/qCnEMkD5jac6K2j3dgA==
+
 supports-color@^7.1.0:
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-7.2.0.tgz#1b7dcdcb32b8138801b3e478ba6a51caa89648da"
@@ -1443,15 +1467,57 @@ which@^2.0.1:
   dependencies:
     isexe "^2.0.0"
 
-wink-eng-lite-web-model@^1.5.2:
+wink-distance@^2.0.1:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/wink-distance/-/wink-distance-2.0.2.tgz#cd172f2af05c44fc54acae97cf4c2e279bda4231"
+  integrity sha512-pyEhUB/OKFYcgOC4J6E+c+gwVA/8qg2s5n49mIcUsJZM5iDSa17uOxRQXR4rvfp+gbj55K/I08FwjFBwb6fq3g==
+  dependencies:
+    wink-helpers "^2.0.0"
+    wink-jaro-distance "^2.0.0"
+
+wink-eng-lite-web-model@^1.4.3, wink-eng-lite-web-model@^1.5.2:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/wink-eng-lite-web-model/-/wink-eng-lite-web-model-1.5.2.tgz#df5c9fe7a31bc6ecbd5eda31a5e78f42a4f6846a"
   integrity sha512-qYxAtJi0DuF0mVNr3wwdNj5u+jG9xH8BH45MbNLGzwQrUUpgKs87GfBLup0+ZfuXcpunw6AsgL7xtdl5vtUd2w==
 
-wink-nlp@^1.14.3:
+wink-helpers@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/wink-helpers/-/wink-helpers-2.0.0.tgz#0aec1a2bddd0adcf9e6deb3bf7fa70c7e92dbe5c"
+  integrity sha512-I/ZzXrHcNRXuoeFJmp2vMVqDI6UCK02Tds1WP4kSGAmx520gjL1BObVzF7d2ps24tyHIly9ngdB2jwhlFUjPvg==
+
+wink-jaro-distance@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/wink-jaro-distance/-/wink-jaro-distance-2.0.0.tgz#96bc3fd69ec5dd48ee74055217f0dcd313148049"
+  integrity sha512-9bcUaXCi9N8iYpGWbFkf83OsBkg17r4hEyxusEzl+nnReLRPqxhB9YNeRn3g54SYnVRNXP029lY3HDsbdxTAuA==
+
+wink-nlp-utils@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/wink-nlp-utils/-/wink-nlp-utils-2.1.0.tgz#0386f666bee9453fa13576b2ea2f86a648af1c12"
+  integrity sha512-b7PcRhEBNxQmsmht70jLOkwYUyie3da4/cgEXL+CumYO5b/nwV+W7fuMXToh5BtGq1RABznmc2TGTp1Qf/JUXg==
+  dependencies:
+    wink-distance "^2.0.1"
+    wink-eng-lite-web-model "^1.4.3"
+    wink-helpers "^2.0.0"
+    wink-nlp "^1.12.0"
+    wink-porter2-stemmer "^2.0.1"
+    wink-tokenizer "^5.2.3"
+
+wink-nlp@^1.12.0, wink-nlp@^1.14.3:
   version "1.14.3"
   resolved "https://registry.yarnpkg.com/wink-nlp/-/wink-nlp-1.14.3.tgz#dd00604899796e4eb49b3314acfa19b9cd88b22f"
   integrity sha512-lvY5iCs3T8I34F8WKS70+2P0U9dWLn3vdPf/Z+m2VK14N7OmqnPzmHfh3moHdusajoQ37Em39z0IZB9K4x/96A==
+
+wink-porter2-stemmer@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/wink-porter2-stemmer/-/wink-porter2-stemmer-2.0.1.tgz#f7680e584e2b9b4c44766642325671662e98f44a"
+  integrity sha512-0g+RkkqhRXFmSpJQStVXW5N/WsshWpJXsoDRW7DwVkGI2uDT6IBCoq3xdH5p6IHLaC6ygk7RWUsUx4alKxoagQ==
+
+wink-tokenizer@^5.2.3:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/wink-tokenizer/-/wink-tokenizer-5.3.0.tgz#2af267ecddb794ef39344d700d92609f053eebaa"
+  integrity sha512-O/yAw0g3FmSgeeQuYAJJfP7fVPB4A6ay0018qASh79aWmIOyPYy4j4r9EQT8xBjicja6lCLvgRVAybmEBaATQA==
+  dependencies:
+    emoji-regex "^9.0.0"
 
 "wrap-ansi-cjs@npm:wrap-ansi@^7.0.0", wrap-ansi@^7.0.0:
   version "7.0.0"

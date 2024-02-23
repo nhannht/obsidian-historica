@@ -6,6 +6,9 @@ import {GetTimelineDataFromDocumentArrayWithChrono} from "./function/GetTimeline
 import * as chrono from 'chrono-node';
 import * as toml from "toml";
 import {renderTimelineEntry} from "./function/renderTimelineEntry";
+import compromise from 'compromise';
+// @ts-ignore
+import * as winkNLPUtil from 'wink-nlp-utils';
 
 async function writeCurrentFileToCache() {
 	const currentVaultPath = this.app.vault.adapter.basePath
@@ -16,6 +19,24 @@ async function writeCurrentFileToCache() {
 	}
 	// console.log(currentFile.path)
 	fs.writeFileSync(cachePath.trim(), currentFile.path, 'utf8')
+}
+
+async function generateUseFulInfomrationPatternTag() {
+	// const usefulStringPatternTags:string[] = winkNLPUtil.string.composeCorpus("[|#Determiner] [|#Adjective|#Adverb] [|#Adjective] [#Noun]")
+
+	const usefulStringPatternTags2:string[] = winkNLPUtil.string.composeCorpus("[#Noun] [|#Adjective] [#Verb] [|#Verb] [|#Noun]")
+	for (let i = 0; i < usefulStringPatternTags2.length; i++) {
+			usefulStringPatternTags2[i] = usefulStringPatternTags2[i].trim().replace(/\s+/g, " ")
+
+		}
+	// connect 2 array
+	// short longest first
+
+	return usefulStringPatternTags2.sort((a, b) => {
+		return b.length - a.length
+
+	})
+
 }
 
 async function getCurrentFile(): Promise<TFile> {
@@ -79,13 +100,15 @@ interface BlockConfig {
 
 }
 
+// @ts-ignore
+
 export default class HistoricaPlugin extends Plugin {
 
 
 	async onload() {
+		const useFullPatternTags = await generateUseFulInfomrationPatternTag()
 
-		// set up wink nlp
-		// const nlp = winkNLP(model);
+		// console.log(useFullPatternTags)
 
 		// set up custom chrono;
 		const customChrono = chrono.casual.clone()
@@ -150,22 +173,27 @@ export default class HistoricaPlugin extends Plugin {
 
 
 			// let timelineData = await GetTimelineDataFromDocumentArray(documentArray, nlp)
-			let timelineData = await GetTimelineDataFromDocumentArrayWithChrono(documentArray, customChrono)
+			let timelineData = await GetTimelineDataFromDocumentArrayWithChrono(
+				documentArray,
+				customChrono,
+				compromise,
+				useFullPatternTags)
 
 
 			const style = blockConfig.style || 1
 
 
-			await renderTimelineEntry(timelineData, style,el)
+			await renderTimelineEntry(timelineData, style, el)
 			await writeCurrentFileToCache()
 		})
 
 
 		const ribbonIconEl = this.addRibbonIcon('heart', 'Historica icon', async (evt: MouseEvent) => {
-			const allFiles = this.app.vault.getMarkdownFiles()
-			// console.log(allFiles)
 
-			console.log(this.app.vault.getAbstractFileByPath("go.md"))
+			console.log(compromise("god").match("#Adjective #Noun").json())
+			// console.log(compromise("i am going go to swimming pool").json())
+
+
 		});
 
 

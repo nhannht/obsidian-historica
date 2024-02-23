@@ -27,11 +27,11 @@ button {
 }
 
 .historica-title-1 {
-	@apply text-xl font-bold text-slate-900
+	@apply text-xl font-bold text-rose-900
 }
 
 .historica-content-1 {
-	@apply text-slate-500
+	@apply text-gray-500
 }
 
 historica-mark {
@@ -48,7 +48,7 @@ historica-mark {
 }
 
 .historica-icon-2 {
-	@apply flex items-center justify-center w-10 h-10 rounded-full border border-white bg-rose-300  text-rose-500  shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2
+	@apply flex items-center justify-center w-10 h-10 rounded-full border border-white bg-rose-300  text-rose-900  shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2
 }
 
 /*.historica-inner-icon-2 {*/
@@ -62,6 +62,10 @@ historica-mark {
 
 .historica-card-2 {
 	@apply flex items-center justify-between space-x-2 mb-1
+}
+
+.historica-svg-2 {
+	@apply fill-current
 }
 
 .historica-card-title-2 {

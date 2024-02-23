@@ -3,7 +3,7 @@ import {WinkMethods} from "wink-nlp";
 import * as chrono from 'chrono-node';
 import {Chrono} from 'chrono-node';
 
-export interface TimelineEntry  {
+export interface TimelineEntry {
 	date: string;
 	unixTime: number;
 	sentence: string;
@@ -54,11 +54,16 @@ export async function GetTimelineDataFromDocumentArray(documents: Token[] | null
 	})
 
 }
-export interface TimelineEntryChrono extends TimelineEntry  {
+
+export interface TimelineEntryChrono extends TimelineEntry {
 	dateString: string,
+	importantInformation: string
 }
-export async function GetTimelineDataFromDocumentArrayWithChrono(documents: Token[] | null, customChrono: Chrono) {
+
+
+export async function GetTimelineDataFromDocumentArrayWithChrono(documents: Token[] | null, customChrono: Chrono, compromiseNLP: Function,userfulInformationPatternTag: string[]) {
 	let timelineData: TimelineEntryChrono[] = []
+
 	// @ts-ignore
 	documents?.forEach(({text}: { text: string }) => {
 		// console.log(text)
@@ -66,11 +71,22 @@ export async function GetTimelineDataFromDocumentArrayWithChrono(documents: Toke
 		if (!parseResult || parseResult.length === 0) {
 			return
 		}
+		let importantInformation = ""
 
 		if (parseResult[0].start) {
 			const start = parseResult[0].start
 			const parseText = parseResult[0].text
+			for (const tag of userfulInformationPatternTag) {
+				const result = compromiseNLP(text).match(tag).text()
+				// console.log(`${tag.patterns} ${result} ${text}`)
+				if (result.length != 0) {
+					importantInformation = result
+					break
+				}
+			}
+
 			timelineData.push({
+				importantInformation,
 				dateString: parseText,
 				date: start.date().toString(),
 				unixTime: start.date().getTime() / 1000,
@@ -78,9 +94,18 @@ export async function GetTimelineDataFromDocumentArrayWithChrono(documents: Toke
 			})
 		}
 		if (parseResult[0].end) {
+			for (const tag of userfulInformationPatternTag) {
+				// @ts-ignore
+				const result = compromiseNLP(text).match(tag).text()
+				if (result.length != 0) {
+					importantInformation = result
+					break
+				}
+			}
 			const end = parseResult[0].end
 			const parseText = parseResult[0].text
 			timelineData.push({
+				importantInformation,
 				dateString: parseText,
 				date: end.date().toString(),
 				unixTime: end.date().getTime() / 1000,
