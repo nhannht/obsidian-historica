@@ -1,20 +1,12 @@
 
-<h1 style="text-align: center;
-				   font-size: 3em;
-				   font-weight: bold;
-					font-family: 'Times New Roman', Times, serif;
-				   color: #e03030;">
-Historica
+<h1 align="center" >
+<font color="#ff3c52">Historica</font>
 </h1>
 
-<p style="text-align: center;
-				   font-size: 1.5em;
-				   font-weight: bold;
-					font-family: 'Times New Roman', Times, serif;
-				   color: #736767;">
+<div align="center"><font color="#601b15">
 Smart and dynamic extraction point of time in your note or multi notes
-</p>
 
+</font></div>
 >[!info]
 > 
 > Smart and dynamic extraction point of time in your note or multi notes
@@ -45,18 +37,14 @@ Smart and dynamic extraction point of time in your note or multi notes
 > 
 > \```
 
-<div style="text-align: center;
-				   font-size: 2em;
-				   font-weight: bold;
-					font-family: 'Times New Roman', Times, serif;
-				   color: #e03030;">Style 1</div>
+<div align="center"><font color="#ff3c52">
+Style 1
+</font></div>
 
 ![](images/.README_images/7385bfff.png)
 
-<div style="text-align: center;
-				   font-size: 2em;
-				   font-weight: bold;
-					font-family: 'Times New Roman', Times, serif;
-				   color: #e03030;">Style 2</div>
+<div align="center"><font color="#ff3c52">
+Style 2
+</font></div>
 
 ![](images/.README_images/9cea13cc.png)
