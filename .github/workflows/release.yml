@@ -11,14 +11,16 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+
       - name: set up npm
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+
+
       - name: Build plugin
         run: |
           yarn
-#          craft corpus
           yarn run corpus:craft
           yarn run build
 
