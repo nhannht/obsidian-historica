@@ -2,16 +2,30 @@ import {Plugin, TFile} from 'obsidian';
 import {marked, Token} from "marked";
 import {RecusiveGetToken} from "./src/RecusiveGetToken";
 import {existsSync, readFileSync, writeFileSync} from "fs";
+import {join} from 'path';
 import {GetTimelineDataFromDocumentArrayWithChrono} from "./src/GetTimelineDataFromDocumentArray";
 import {parse} from "toml";
 import {renderTimelineEntry} from "./src/renderTimelineEntry";
 import compromise from 'compromise';
 import {setupCustomChrono} from "./src/setupCustomChrono";
-import {generateUseFulInfomrationPatternTag} from "./src/generateUseFulInfomrationPatternTag";
+import corpus from "./corpus.json"
+
+async function resolveConfigFile(file:string){
+    const currentVaultPath = this.app.vault.adapter.basePath
+    const configDir = this.app.vault.configDir
+
+    return join(currentVaultPath, configDir, file)
+
+}
 
 async function writeCurrentFileToCache() {
-    const currentVaultPath = this.app.vault.adapter.basePath
-    const cachePath = `${currentVaultPath}/.obsidian/historica-cache.dat`
+
+
+    // console.log(configDir)
+    const cacheFileName = 'historica-cache.json'
+    const cachePath = await resolveConfigFile(cacheFileName)
+    // console.log(cachePath)
+    // const cachePath = `${configDir}/historica-cache.dat`
     const currentFile = this.app.workspace.getActiveFile();
     if (!currentFile) {
         return
@@ -44,11 +58,12 @@ async function getCurrentFile(): Promise<TFile> {
 }
 
 async function readCurrentFileFromCache() {
+    const cacheFileName = 'historica-cache.json'
+    const cachePath = await resolveConfigFile(cacheFileName)
     const currentVaultPath = this.app.vault.adapter.basePath
-    if (!existsSync(`${currentVaultPath}/.obsidian/historica-cache.json`)) {
+    if (!existsSync(cachePath)) {
         return
     }
-    const cachePath = `${currentVaultPath}/.obsidian/historica-cache.json`
     return readFileSync(cachePath, 'utf8')
 
 }
@@ -81,15 +96,15 @@ interface BlockConfig {
 
 }
 
-// @ts-ignore
 
 export default class HistoricaPlugin extends Plugin {
 
 
     async onload() {
-        const useFullPatternTags = await generateUseFulInfomrationPatternTag()
+        // console.log(corpus)
 
-        // console.log(useFullPatternTags)
+
+        // console.log(corpus)
         const customChrono = await setupCustomChrono()
 
 
@@ -149,7 +164,7 @@ export default class HistoricaPlugin extends Plugin {
                 documentArray,
                 customChrono,
                 compromise,
-                useFullPatternTags)
+                corpus)
 
 
             const style = blockConfig.style || 1

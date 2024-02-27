@@ -5,13 +5,19 @@
   "main": "main.js",
   "scripts": {
     "dev": "concurrently \"yarn run css\" \"yarn run esbuild\" ",
+    "corpus:craft": "node corpusCraft.js",
     "css": "tailwindcss -i src/style/src.css -o styles.css --watch",
     "esbuild": "node esbuild.config.mjs",
     "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production && tailwindcss -i src/style/src.css -o styles.css --minify",
     "version": "node version-bump.mjs && git add manifest.json versions.json",
     "test": "jest"
   },
-  "keywords": ["timeline","nlp","obsidian","plugin"],
+  "keywords": [
+    "timeline",
+    "nlp",
+    "obsidian",
+    "plugin"
+  ],
   "author": "nhannht",
   "license": "MIT",
   "devDependencies": {
@@ -37,6 +43,5 @@
     "marked": "^12.0.0",
     "toml": "^3.0.0",
     "wink-eng-lite-web-model": "^1.5.2"
-
   }
 }

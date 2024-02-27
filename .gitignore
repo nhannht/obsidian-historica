@@ -235,3 +235,4 @@ dist
 .yarn/install-state.gz
 .pnp.*
 /styles.css
+/corpus.json

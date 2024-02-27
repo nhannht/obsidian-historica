@@ -16,11 +16,13 @@ export interface TimelineEntryChrono extends TimelineEntry {
 
 export async function GetTimelineDataFromDocumentArrayWithChrono(documents: Token[] | null, customChrono: Chrono, compromiseNLP: any,userfulInformationPatternTag: string[]) {
 	let timelineData: TimelineEntryChrono[] = []
+	// console.log(userfulInformationPatternTag)
 
 	// @ts-ignore
 	documents?.forEach(({text}: { text: string }) => {
 		// console.log(text)
 		const parseResult = customChrono.parse(text)
+		// console.log(parseResult)
 		if (!parseResult || parseResult.length === 0) {
 			return
 		}
@@ -30,11 +32,18 @@ export async function GetTimelineDataFromDocumentArrayWithChrono(documents: Toke
 			const start = parseResult[0].start
 			const parseText = parseResult[0].text
 			for (const tag of userfulInformationPatternTag) {
-				const result = compromiseNLP(text).match(tag).text()
-				// console.log(`${tag.patterns} ${result} ${text}`)
+				const result = compromiseNLP(text).match(tag).json()
+				// console.log(result)
 				if (result.length != 0) {
-					importantInformation = result
-					break
+					for (const r of result) {
+						// exclude the r that have dot comma
+						if (r.text.includes(".")||r.text.includes(",")) {
+							continue
+						}
+						importantInformation = r.text
+						break
+
+					}
 				}
 			}
 
@@ -49,7 +58,8 @@ export async function GetTimelineDataFromDocumentArrayWithChrono(documents: Toke
 		if (parseResult[0].end) {
 			for (const tag of userfulInformationPatternTag) {
 				// @ts-ignore
-				const result = compromiseNLP(text).match(tag).text()
+				const result = compromiseNLP(text).match(tag).json()
+				// console.log(result)
 				if (result.length != 0) {
 					importantInformation = result
 					break
