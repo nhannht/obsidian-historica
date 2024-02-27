@@ -1,6 +1,6 @@
 {
   "name": "obsidian-historica",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Auto generate timeline of content in the note or across the vault",
   "main": "main.js",
   "scripts": {
