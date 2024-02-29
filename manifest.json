@@ -3,7 +3,7 @@
 	"name": "historica",
 	"version": "0.0.5",
 	"minAppVersion": "0.0.1",
-	"description": "Intelligence generates timeline from your content",
+	"description": "Intelligently generates timeline from your content",
 	"author": "Nhan Nguyen",
 	"authorUrl": "https://github.com/nhannht",
 	"isDesktopOnly": true

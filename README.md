@@ -12,7 +12,7 @@
 
 <ul>
 
-- _(Not) Smart and dynamic extraction_ point of time in your note or multi notes</li>
+- _(Not) Smart and dynamic extraction_ point of time in your note or multi notes
 - _Auto sort_ and _visualize_ the time in your note 
 - Support 2 styles of visualization
 - _(Not) Smart generate the summary_ of content related to the point of time in your note

@@ -1,8 +1,6 @@
 import {Plugin, TFile} from 'obsidian';
 import {marked, Token} from "marked";
 import {RecusiveGetToken} from "./src/RecusiveGetToken";
-import {existsSync, readFileSync, writeFileSync} from "fs";
-import {join} from 'path';
 import {GetTimelineDataFromDocumentArrayWithChrono} from "./src/GetTimelineDataFromDocumentArray";
 import {parse} from "toml";
 import {renderTimelineEntry} from "./src/renderTimelineEntry";
@@ -10,42 +8,25 @@ import compromise from 'compromise';
 import {setupCustomChrono} from "./src/setupCustomChrono";
 import corpus from "./corpus.json"
 
-async function resolveConfigFile(file:string){
-    const currentVaultPath = this.app.vault.adapter.basePath
-    const configDir = this.app.vault.configDir
 
-    return join(currentVaultPath, configDir, file)
-
-}
-
-async function writeCurrentFileToCache() {
-
-
-    // console.log(configDir)
-    const cacheFileName = 'historica-cache.json'
-    const cachePath = await resolveConfigFile(cacheFileName)
-    // console.log(cachePath)
-    // const cachePath = `${configDir}/historica-cache.dat`
-    const currentFile = this.app.workspace.getActiveFile();
-    if (!currentFile) {
-        return
-    }
-    // console.log(currentFile.path)
-    writeFileSync(cachePath.trim(), currentFile.path, 'utf8')
-}
-
-async function getCurrentFile(): Promise<TFile> {
-    let currentFile: TFile | null = this.app.workspace.getActiveFile();
+/**
+ * get the current file. if the current file is not a TFile, get the latest file from plugin data.Why this function exist, because most time the plugin load faster than the buffer when fist start Obsidian, so getActiveFile - standard way to get current file in obsidian still not being loaded
+ * @param currentPlugin
+ */
+async function getCurrentFile(currentPlugin:Plugin): Promise<TFile> {
+    let currentFile: TFile | null = currentPlugin.app.workspace.getActiveFile();
     //@ts-ignore
     if (currentFile instanceof TFile) {
 
     } else {
 
         // @ts-ignore
-        let currentFilePath = await readCurrentFileFromCache()
-        if (currentFilePath) {
 
-            const currentFileAbstract = this.app.vault.getAbstractFileByPath(currentFilePath)
+        let data = await this.loadData()
+
+        if (data.latestFile) {
+
+            const currentFileAbstract = currentPlugin.app.vault.getAbstractFileByPath(data.latestFile)
             if (currentFileAbstract instanceof TFile) {
                 currentFile = currentFileAbstract
             }
@@ -57,24 +38,33 @@ async function getCurrentFile(): Promise<TFile> {
 
 }
 
-async function readCurrentFileFromCache() {
-    const cacheFileName = 'historica-cache.json'
-    const cachePath = await resolveConfigFile(cacheFileName)
-    const currentVaultPath = this.app.vault.adapter.basePath
-    if (!existsSync(cachePath)) {
-        return
+/**
+ * write the latest file to data. in case data never exist before, create a new data object
+ * @param currentPlugin
+ * @param file
+ */
+async function writeLatestFileToData(currentPlugin: Plugin,file:TFile){
+    let data = await currentPlugin.loadData()
+    if (!data){
+        data = {latestFile: file.path}
+
     }
-    return readFileSync(cachePath, 'utf8')
+    data.latestFile = file.path
+    await currentPlugin.saveData(data)
 
 }
+
 
 /**
  * parse tfile to documents. documents is a global array that will be updated be side effect after each parse
  * @param file
  * @param documents
  */
-async function parseTFileAndUpdateDocuments(file: TFile, documents: Token[]) {
-    const lexerResult = marked.lexer(await this.app.vault.read(file));
+async function parseTFileAndUpdateDocuments(currentPlugin: Plugin, file: TFile | null, documents: Token[]) {
+    if (!file) {
+        return
+    }
+    const lexerResult = marked.lexer(await currentPlugin.app.vault.read(file));
 
 
     lexerResult.map((token) => {
@@ -97,15 +87,26 @@ interface BlockConfig {
 }
 
 
+// async function writeCurrentFileToData() {
+//     const currentFile = await getCurrentFile()
+//     console.log(await this.loadData())
+//     if (currentFile) {
+//         let data = await this.loadData()
+//         data.latestFile = currentFile.path
+//         await this.saveData(data)
+//     }
+// }
+
 export default class HistoricaPlugin extends Plugin {
 
 
     async onload() {
-        // console.log(corpus)
 
 
         // console.log(corpus)
+
         const customChrono = await setupCustomChrono()
+        const currentPlugin = this
 
 
         this.registerMarkdownCodeBlockProcessor("historica", async (source, el, ctx) => {
@@ -133,21 +134,21 @@ export default class HistoricaPlugin extends Plugin {
             let documentArray: Token[] = [];
 
             if (blockConfig.include_files!.length === 0) {
-                const currentFile = await getCurrentFile()
 
+                let currentFile = await getCurrentFile(currentPlugin)
+                await writeLatestFileToData(currentPlugin, currentFile)
+                // console.log(currentFile)
 
-                await parseTFileAndUpdateDocuments(currentFile, documentArray)
-
+                await parseTFileAndUpdateDocuments(currentPlugin, currentFile, documentArray)
 
             } else {
-                const allFiles = this.app.vault.getMarkdownFiles()
 
                 const includeFiles = blockConfig.include_files || []
                 for (let i = 0; i < includeFiles.length; i++) {
                     const file = this.app.vault.getAbstractFileByPath(includeFiles[i])
                     // console.log(file)
                     if (file instanceof TFile) {
-                        await parseTFileAndUpdateDocuments(file, documentArray)
+                        await parseTFileAndUpdateDocuments(this, file, documentArray)
                     }
                 }
                 // filter token which is the smallest modulo
@@ -171,7 +172,7 @@ export default class HistoricaPlugin extends Plugin {
 
 
             await renderTimelineEntry(timelineData, style, el)
-            await writeCurrentFileToCache()
+            await writeLatestFileToData(currentPlugin, await getCurrentFile(currentPlugin))
         })
 
 
@@ -188,8 +189,10 @@ export default class HistoricaPlugin extends Plugin {
     }
 
     async onunload() {
-        const currentFile = this.app.workspace.getActiveFile();
-        await writeCurrentFileToCache()
+        const currentPlugin = this
+
+        await writeLatestFileToData(this, await getCurrentFile(currentPlugin))
+
 
     }
 

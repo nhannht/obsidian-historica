@@ -1,7 +1,7 @@
 {
   "name": "obsidian-historica",
   "version": "0.0.5",
-  "description": "Auto generate timeline of content in the note or across the vault",
+  "description": "Intelligently generates timeline from your content",
   "main": "main.js",
   "scripts": {
     "dev": "concurrently \"yarn run css\" \"yarn run esbuild\" ",
