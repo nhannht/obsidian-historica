@@ -67,6 +67,7 @@ async function parseTFileAndUpdateDocuments(currentPlugin: Plugin, file: TFile |
         return
     }
     const lexerResult = marked.lexer(await currentPlugin.app.vault.read(file));
+    // console.log(lexerResult)
 
 
     lexerResult.map((token) => {
