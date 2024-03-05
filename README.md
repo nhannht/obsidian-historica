@@ -89,3 +89,7 @@ Style 2
 <sub>It is not smart like it seem. Just like me</sub>
 </div>
 
+> [!important]
+> - It is not smart like it seem. Just like me
+> 
+

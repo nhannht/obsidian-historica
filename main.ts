@@ -1,4 +1,4 @@
-import {Plugin, TFile} from 'obsidian';
+import {getAllTags, Plugin, TFile} from 'obsidian';
 import {marked, Token} from "marked";
 import {RecusiveGetToken} from "./src/RecusiveGetToken";
 import {GetTimelineDataFromDocumentArrayWithChrono} from "./src/GetTimelineDataFromDocumentArray";
@@ -7,6 +7,7 @@ import {renderTimelineEntry} from "./src/renderTimelineEntry";
 import compromise from 'compromise';
 import {setupCustomChrono} from "./src/setupCustomChrono";
 import corpus from "./corpus.json"
+import {getTags} from "yaml/dist/schema/tags";
 
 
 /**
@@ -57,6 +58,7 @@ async function writeLatestFileToData(currentPlugin: Plugin,file:TFile){
 
 /**
  * parse tfile to documents. documents is a global array that will be updated be side effect after each parse
+ * @param currentPlugin
  * @param file
  * @param documents
  */
@@ -79,23 +81,10 @@ async function parseTFileAndUpdateDocuments(currentPlugin: Plugin, file: TFile |
 interface BlockConfig {
     style: number | 1,
     include_files?: string[] | [],
-    // exclude_files?: string[]|[],
-    // include_tags: string[],
-    // exclude_tags: string[],
 
 
 }
 
-
-// async function writeCurrentFileToData() {
-//     const currentFile = await getCurrentFile()
-//     console.log(await this.loadData())
-//     if (currentFile) {
-//         let data = await this.loadData()
-//         data.latestFile = currentFile.path
-//         await this.saveData(data)
-//     }
-// }
 
 export default class HistoricaPlugin extends Plugin {
 
@@ -118,6 +107,7 @@ export default class HistoricaPlugin extends Plugin {
                 blockConfig = {
                     style: 0,
                     include_files: [],
+
                     // exclude_files: []
                 }
             }
@@ -127,13 +117,15 @@ export default class HistoricaPlugin extends Plugin {
                 blockConfig.style = 1
 
             }
+
             if (!blockConfig.include_files) {
                 blockConfig.include_files = []
             }
 
+
             let documentArray: Token[] = [];
 
-            if (blockConfig.include_files!.length === 0) {
+            if (blockConfig.include_files.length === 0) {
 
                 let currentFile = await getCurrentFile(currentPlugin)
                 await writeLatestFileToData(currentPlugin, currentFile)
@@ -141,19 +133,18 @@ export default class HistoricaPlugin extends Plugin {
 
                 await parseTFileAndUpdateDocuments(currentPlugin, currentFile, documentArray)
 
-            } else {
+            }
+            if (blockConfig.include_files.length > 0) {
 
-                const includeFiles = blockConfig.include_files || []
-                for (let i = 0; i < includeFiles.length; i++) {
-                    const file = this.app.vault.getAbstractFileByPath(includeFiles[i])
-                    // console.log(file)
-                    if (file instanceof TFile) {
-                        await parseTFileAndUpdateDocuments(this, file, documentArray)
+                for (const file of blockConfig.include_files) {
+                    const currentFile = this.app.vault.getAbstractFileByPath(file)
+                    if (currentFile instanceof TFile) {
+                        await parseTFileAndUpdateDocuments(currentPlugin, currentFile, documentArray)
                     }
                 }
-                // filter token which is the smallest modulo
-
             }
+
+
             documentArray = documentArray.filter((token) => {
                 // @ts-ignore
                 return token.tokens === undefined
