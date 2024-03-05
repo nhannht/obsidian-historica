@@ -4,9 +4,15 @@
 
 ### Feat
 
-- add change log generator
-  
-  
+- try important block on github
+    - try important block on github
+    - add BCE and AD pattern to time recognize pattern
+    - add change log generator
+
+  ### Fix
+
+- tailwind on select element
+
 <a name="0.0.6"></a>
 
 ## [0.0.6] - 2024-02-29
