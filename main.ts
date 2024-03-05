@@ -22,7 +22,7 @@ async function getCurrentFile(currentPlugin:Plugin): Promise<TFile> {
 
         // @ts-ignore
 
-        let data = await this.loadData()
+        let data = await currentPlugin.loadData()
 
         if (data.latestFile) {
 
