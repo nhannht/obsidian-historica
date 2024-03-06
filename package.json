@@ -1,6 +1,6 @@
 {
   "name": "obsidian-historica",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Intelligently generates timeline from your content",
   "main": "main.js",
   "scripts": {

@@ -2,15 +2,24 @@
 
 ## [Unreleased]
 
-### Feat
+<a name="0.0.7"></a>
 
-- try important block on github
-    - try important block on github
-    - add BCE and AD pattern to time recognize pattern
-    - add change log generator
+## [0.0.7] - 2024-03-06
+
+### Docs
+
+- CHANGELOG.md
+
+  ### Feat
+- bump to version 0.0.7
+  - add setting tabs.
+  - improve pattern matching.
+  - try important block on github
+  - try important block on github
+  - add BCE and AD pattern to time recognize pattern
+  - add change log generator
 
   ### Fix
-
 - tailwind on select element
 
 <a name="0.0.6"></a>
@@ -69,9 +78,10 @@
   - fully change to chrono.js
   - add abit chrono.js
   - remove main.js. split main.ts files
-  
-  
-[Unreleased]: https://github.com/nhannht/obsidian-historica/compare/0.0.6...HEAD
+
+[Unreleased]: https://github.com/nhannht/obsidian-historica/compare/0.0.7...HEAD
+
+[0.0.7]: https://github.com/nhannht/obsidian-historica/compare/0.0.6...0.0.7
 [0.0.6]: https://github.com/nhannht/obsidian-historica/compare/0.0.5...0.0.6
 [0.0.5]: https://github.com/nhannht/obsidian-historica/compare/0.0.4...0.0.5
 [0.0.4]: https://github.com/nhannht/obsidian-historica/compare/0.0.3...0.0.4

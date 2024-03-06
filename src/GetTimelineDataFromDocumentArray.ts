@@ -38,7 +38,7 @@ export async function GetTimelineDataFromDocumentArrayWithChrono(documents: Toke
 																 customChrono: Chrono,
 																 compromiseNLP: any,
 																 userfulInformationPatternTag: string[],
-																 showSummaryTitle: boolean = true): Promise<TimelineEntryChrono[]> {
+																 showSummaryTitle: boolean): Promise<TimelineEntryChrono[]> {
 	let timelineData: TimelineEntryChrono[] = []
 	// console.log(userfulInformationPatternTag)
 

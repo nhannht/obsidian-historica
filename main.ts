@@ -16,7 +16,7 @@ interface HistoricaSetting {
 
 const DEFAULT_SETTINGS: HistoricaSetting = {
     latestFile: "",
-    showUseFulInformation: true,
+    showUseFulInformation: false,
     defaultStyle: "1"
 
 }
@@ -235,6 +235,7 @@ class HistoricaSettingTab extends PluginSettingTab {
 
     display(): any {
         const {containerEl} = this;
+        containerEl.empty();
         const settings = this.plugin.settings;
         new Setting(containerEl)
             .setName("Default Style")
@@ -250,7 +251,7 @@ class HistoricaSettingTab extends PluginSettingTab {
             })
         new Setting(containerEl)
             .setName("Show Summary Title")
-            .setDesc("Show short title in the timeline, turn it off if you think it is not smart enough")
+            .setDesc("Show short title in the timeline, turn it off if you think it is not smart enough, and this will make this plugin run at fastest speed")
             .addToggle(toggle => {
                 toggle.setValue(settings.showUseFulInformation)
                 toggle.onChange(async (value) => {
