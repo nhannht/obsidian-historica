@@ -24,8 +24,14 @@ jobs:
           yarn run corpus:craft
           yarn run build
       
-      
-      
+
+      - name: "✏️ Generate release notes"
+        uses: heinrichreimer/action-github-changelog-generator@v2.3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repo: ${{ github.repository }}
+          user: ${{ github.actor }}
+          singeTag: "${{GITHUB_REF#refs/tags/}}"
       
       
 
@@ -38,6 +44,7 @@ jobs:
           gh release create "$tag" \
             --title="$tag" \
           --prerelease \
+          --notes-file=CHANGELOG.md \
           main.js manifest.json styles.css LICENSE README.md
 
 
