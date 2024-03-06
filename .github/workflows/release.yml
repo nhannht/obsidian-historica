@@ -23,22 +23,37 @@ jobs:
           yarn
           yarn run corpus:craft
           yarn run build
-      
-      
-      
-      
-      
+
+      - name: "Get the tag"
+        id: get_tag
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/tags/}
 
       - name: Create release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          tag="${GITHUB_REF#refs/tags/}"
+          tag=${{ steps.get_tag.outputs.tag }}
 
           gh release create "$tag" \
             --title="$tag" \
-          --prerelease \
+          --draft \
           main.js manifest.json styles.css LICENSE README.md
+
+      - name: "✏️ Generate changelog.md"
+        uses: heinrichreimer/action-github-changelog-generator@v2.3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repo: ${{ github.repository }}
+          user: ${{ github.actor }}
+          output: CHANGELOG.md
+
+      - name: "📝 Commit changelog.md"
+        run: |
+          git config --local user.email "nhanclassroom@gmail.com"
+          git config --local user.name "nhannht"
+          git add CHANGELOG.md
+          git commit -m "chore: 📃 update changelog.md (automate by github action)"
+          git push origin HEAD:master
 
 
 
