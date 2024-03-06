@@ -24,10 +24,7 @@ jobs:
           yarn run corpus:craft
           yarn run build
 
-      - name: "✏️ Generate release changelog"
-        uses: heinrichreimer/action-github-changelog-generator@v2.3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+
 
       - name: Create release
         env:
@@ -37,8 +34,7 @@ jobs:
 
           gh release create "$tag" \
             --title="$tag" \
-            --notes='Changelog: "${{ steps.changelog.outputs.changelog }}"' \
-          --draft \
+          --prerelease \
           main.js manifest.json styles.css LICENSE README.md
 
 
