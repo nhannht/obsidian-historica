@@ -23,8 +23,11 @@ jobs:
           yarn
           yarn run corpus:craft
           yarn run build
-
-
+      
+      
+      
+      
+      
 
       - name: Create release
         env:
