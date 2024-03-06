@@ -34,7 +34,11 @@ function extractStringBaseOnTag(tags: string[], compromiseNLP: any, text: string
 
 }
 
-export async function GetTimelineDataFromDocumentArrayWithChrono(documents: Token[] | null, customChrono: Chrono, compromiseNLP: any,userfulInformationPatternTag: string[]) {
+export async function GetTimelineDataFromDocumentArrayWithChrono(documents: Token[] | null,
+																 customChrono: Chrono,
+																 compromiseNLP: any,
+																 userfulInformationPatternTag: string[],
+																 showSummaryTitle: boolean = true): Promise<TimelineEntryChrono[]> {
 	let timelineData: TimelineEntryChrono[] = []
 	// console.log(userfulInformationPatternTag)
 
@@ -46,15 +50,19 @@ export async function GetTimelineDataFromDocumentArrayWithChrono(documents: Toke
 		if (!parseResult || parseResult.length === 0) {
 			return
 		}
-		let importantInformation = ""
+		let summaryTitle = ""
 
 		if (parseResult[0].start) {
 			const start = parseResult[0].start
 			const parseText = parseResult[0].text
-			importantInformation = extractStringBaseOnTag(userfulInformationPatternTag, compromiseNLP, text)
+			if (showSummaryTitle) {
+				summaryTitle = extractStringBaseOnTag(userfulInformationPatternTag, compromiseNLP, text)
+			} else {
+				summaryTitle = ""
+			}
 
 			timelineData.push({
-				importantInformation,
+				importantInformation: summaryTitle,
 				dateString: parseText,
 				date: start.date().toString(),
 				unixTime: start.date().getTime() / 1000,
@@ -62,11 +70,15 @@ export async function GetTimelineDataFromDocumentArrayWithChrono(documents: Toke
 			})
 		}
 		if (parseResult[0].end) {
-			importantInformation = extractStringBaseOnTag(userfulInformationPatternTag, compromiseNLP, text)
+			if (showSummaryTitle) {
+				summaryTitle = extractStringBaseOnTag(userfulInformationPatternTag, compromiseNLP, text)
+			} else {
+				summaryTitle = ""
+			}
 			const end = parseResult[0].end
 			const parseText = parseResult[0].text
 			timelineData.push({
-				importantInformation,
+				importantInformation: summaryTitle,
 				dateString: parseText,
 				date: end.date().toString(),
 				unixTime: end.date().getTime() / 1000,

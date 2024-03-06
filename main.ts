@@ -1,4 +1,4 @@
-import {getAllTags, Plugin, TFile} from 'obsidian';
+import {App, Plugin, PluginSettingTab, Setting, TFile} from 'obsidian';
 import {marked, Token} from "marked";
 import {RecusiveGetToken} from "./src/RecusiveGetToken";
 import {GetTimelineDataFromDocumentArrayWithChrono} from "./src/GetTimelineDataFromDocumentArray";
@@ -7,23 +7,33 @@ import {renderTimelineEntry} from "./src/renderTimelineEntry";
 import compromise from 'compromise';
 import {setupCustomChrono} from "./src/setupCustomChrono";
 import corpus from "./corpus.json"
-import {getTags} from "yaml/dist/schema/tags";
 
+interface HistoricaSetting {
+    latestFile: string
+    showUseFulInformation: boolean
+    defaultStyle: string
+}
+
+const DEFAULT_SETTINGS: HistoricaSetting = {
+    latestFile: "",
+    showUseFulInformation: true,
+    defaultStyle: "1"
+
+}
 
 /**
  * get the current file. if the current file is not a TFile, get the latest file from plugin data.Why this function exist, because most time the plugin load faster than the buffer when fist start Obsidian, so getActiveFile - standard way to get current file in obsidian still not being loaded
  * @param currentPlugin
  */
-async function getCurrentFile(currentPlugin:Plugin): Promise<TFile> {
+async function getCurrentFile(currentPlugin: Plugin): Promise<TFile> {
     let currentFile: TFile | null = currentPlugin.app.workspace.getActiveFile();
     //@ts-ignore
     if (currentFile instanceof TFile) {
 
     } else {
 
-        // @ts-ignore
 
-        let data = await currentPlugin.loadData()
+        let data: HistoricaSetting = await currentPlugin.loadData()
 
         if (data.latestFile) {
 
@@ -44,14 +54,18 @@ async function getCurrentFile(currentPlugin:Plugin): Promise<TFile> {
  * @param currentPlugin
  * @param file
  */
-async function writeLatestFileToData(currentPlugin: Plugin,file:TFile){
-    let data = await currentPlugin.loadData()
-    if (!data){
-        data = {latestFile: file.path}
+async function writeLatestFileToData(currentPlugin: Plugin, file: TFile) {
+    let settings: HistoricaSetting = await currentPlugin.loadData()
+    if (!settings) {
+        settings = {
+            latestFile: file.path,
+            showUseFulInformation: true,
+            defaultStyle: "1"
+        }
 
     }
-    data.latestFile = file.path
-    await currentPlugin.saveData(data)
+    settings.latestFile = file.path
+    await currentPlugin.saveData(settings)
 
 }
 
@@ -89,8 +103,11 @@ interface BlockConfig {
 
 export default class HistoricaPlugin extends Plugin {
 
+    settings: HistoricaSetting;
+
 
     async onload() {
+        await this.loadSettings()
 
 
         // console.log(corpus)
@@ -99,23 +116,26 @@ export default class HistoricaPlugin extends Plugin {
         const currentPlugin = this
 
 
+
         this.registerMarkdownCodeBlockProcessor("historica", async (source, el, ctx) => {
 
             // parse yaml in this block
             let blockConfig: BlockConfig = parse(source)
             // console.log(Object.keys(blockConfig).length === 0)
             if (Object.keys(blockConfig).length === 0) {
+                const defaultStyle = this.settings.defaultStyle
                 blockConfig = {
-                    style: 0,
+                    style: parseInt(defaultStyle),
                     include_files: [],
 
                     // exclude_files: []
                 }
+
             }
             // console.log(blockConfig)
 
             if (![1, 2].includes(blockConfig.style) || !blockConfig.style) {
-                blockConfig.style = 1
+                blockConfig.style = parseInt(this.settings.defaultStyle)
 
             }
 
@@ -157,7 +177,8 @@ export default class HistoricaPlugin extends Plugin {
                 documentArray,
                 customChrono,
                 compromise,
-                corpus)
+                corpus,
+                this.settings.showUseFulInformation)
 
 
             const style = blockConfig.style || 1
@@ -166,6 +187,9 @@ export default class HistoricaPlugin extends Plugin {
             await renderTimelineEntry(timelineData, style, el)
             await writeLatestFileToData(currentPlugin, await getCurrentFile(currentPlugin))
         })
+
+        this.addSettingTab(new HistoricaSettingTab(this.app, this))
+
 
 
         // const ribbonIconEl = this.addRibbonIcon('heart', 'Historica icon', async (evt: MouseEvent) => {
@@ -186,6 +210,54 @@ export default class HistoricaPlugin extends Plugin {
         await writeLatestFileToData(this, await getCurrentFile(currentPlugin))
 
 
+    }
+
+    async loadSettings() {
+        this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData())
+    }
+
+    async saveSettings() {
+        await this.saveData(this.settings)
+
+    }
+
+
+
+}
+
+class HistoricaSettingTab extends PluginSettingTab {
+    plugin: HistoricaPlugin;
+
+    constructor(app: App, plugin: HistoricaPlugin) {
+        super(app, plugin);
+        this.plugin = plugin;
+    }
+
+    display(): any {
+        const {containerEl} = this;
+        const settings = this.plugin.settings;
+        new Setting(containerEl)
+            .setName("Default Style")
+            .setDesc("Choose the default style for the timeline")
+            .addDropdown(dropdown => {
+                dropdown.addOption('1', 'Style 1')
+                dropdown.addOption('2', 'Style 2')
+                dropdown.setValue(settings.defaultStyle)
+                dropdown.onChange(async (value) => {
+                    settings.defaultStyle = value
+                    await this.plugin.saveSettings()
+                })
+            })
+        new Setting(containerEl)
+            .setName("Show Summary Title")
+            .setDesc("Show short title in the timeline, turn it off if you think it is not smart enough")
+            .addToggle(toggle => {
+                toggle.setValue(settings.showUseFulInformation)
+                toggle.onChange(async (value) => {
+                    settings.showUseFulInformation = value
+                    await this.plugin.saveSettings()
+                })
+            })
     }
 
 }
