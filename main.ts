@@ -85,8 +85,10 @@ async function parseTFileAndUpdateDocuments(currentPlugin: Plugin, file: TFile |
     function filterHTMLAndEmphasis(text: string) {
         const stripHTML = text.replace(/<\/?("[^"]*"|'[^']*'|[^>])*(>|$)/g, ""),
             stripEm1 = stripHTML.replace(/\*{1,3}(.*?)\*{1,3}/g, "$1"),
-            stripEm2 = stripEm1.replace(/_{1,3}(.*?)_{1,3}/g, "$1");
-        return stripEm2.replace(/~{1,2}(.*?)~{1,2}/g, "$1")
+            stripEm2 = stripEm1.replace(/_{1,3}(.*?)_{1,3}/g, "$1"),
+            stripStrike = stripEm2.replace(/~{1,2}(.*?)~{1,2}/g, "$1"),
+            stripImage = stripStrike.replace(/!\[(.*?)]\((.*?)\)/g, "$2").replace(/!\[\[(.*?\.(png|jpeg|jpg|gif))]]/g, "$1");
+        return stripImage
 
     }
 
@@ -180,8 +182,7 @@ export default class HistoricaPlugin extends Plugin {
 
 
             documentArray = documentArray.filter((token) => {
-                // @ts-ignore
-                return token.tokens === undefined
+                return "tokens" in token ? token.tokens === undefined : true
             })
             // console.log(documentArray)
 
