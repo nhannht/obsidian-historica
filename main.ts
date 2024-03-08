@@ -80,7 +80,20 @@ async function parseTFileAndUpdateDocuments(currentPlugin: Plugin, file: TFile |
     if (!file) {
         return
     }
-    const lexerResult = marked.lexer(await currentPlugin.app.vault.read(file));
+    const fileContent = await currentPlugin.app.vault.read(file)
+
+    function filterHTMLAndEmphasis(text: string) {
+        const stripHTML = text.replace(/<\/?("[^"]*"|'[^']*'|[^>])*(>|$)/g, ""),
+            stripEm1 = stripHTML.replace(/\*{1,3}(.*?)\*{1,3}/g, "$1"),
+            stripEm2 = stripEm1.replace(/_{1,3}(.*?)_{1,3}/g, "$1");
+        return stripEm2.replace(/~{1,2}(.*?)~{1,2}/g, "$1")
+
+    }
+
+    const fileContentStripHTML = filterHTMLAndEmphasis(fileContent)
+    // console.log(fileContentStripHTML)
+    const lexerResult = marked.lexer(fileContentStripHTML);
+
     // console.log(lexerResult)
 
 
