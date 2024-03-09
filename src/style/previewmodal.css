@@ -1,0 +1,16 @@
+.historica-search-filename {
+    @apply text-2xl font-medium text-center ;
+
+}
+
+.historica-search-result-element {
+    @apply text-sm font-normal leading-relaxed hover:bg-rose-100 p-2 rounded-xl;
+}
+
+.historica-search-filename-container {
+    @apply border-b-2 border-gray-200 p-4;
+}
+
+.historica-search-result-container {
+    @apply p-4 ;
+}

@@ -1,3 +1,5 @@
+@import "./previewmodal.css";
+
 @tailwind components;
 @tailwind utilities;
 @tailwind base;
@@ -36,7 +38,7 @@ select {
 }
 
 .historica-content-1 {
-	@apply text-gray-500
+	@apply text-gray-500 hover:bg-rose-100 rounded-xl p-2 sm:p-4 cursor-pointer m-2
 }
 
 historica-mark {
@@ -82,5 +84,5 @@ historica-mark {
 }
 
 .historica-card-content-2 {
-	@apply text-gray-500
+	@apply text-gray-500 hover:bg-rose-100 rounded-xl p-2 cursor-pointer
 }

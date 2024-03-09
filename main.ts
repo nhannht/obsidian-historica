@@ -1,4 +1,4 @@
-import {App, Plugin, PluginSettingTab, Setting, TFile} from 'obsidian';
+import {App, ItemView, MarkdownView, Menu, Plugin, PluginSettingTab, Setting, TFile, WorkspaceLeaf} from 'obsidian';
 import {marked, Token} from "marked";
 import {RecusiveGetToken} from "./src/RecusiveGetToken";
 import {GetTimelineDataFromDocumentArrayWithChrono} from "./src/GetTimelineDataFromDocumentArray";
@@ -7,6 +7,7 @@ import {renderTimelineEntry} from "./src/renderTimelineEntry";
 import compromise from 'compromise';
 import {setupCustomChrono} from "./src/setupCustomChrono";
 import corpus from "./corpus.json"
+
 
 interface HistoricaSetting {
     latestFile: string
@@ -115,6 +116,10 @@ interface BlockConfig {
 
 }
 
+export const HISTORICA_VIEW_TYPE = "historica-note-location"
+
+
+
 
 export default class HistoricaPlugin extends Plugin {
 
@@ -128,11 +133,15 @@ export default class HistoricaPlugin extends Plugin {
         // console.log(corpus)
 
         const customChrono = await setupCustomChrono()
-        const currentPlugin = this
+        const currentPlugin: Plugin = this
 
+        currentPlugin.registerView("historica-preview", leaf => {
+            return new MarkdownView(leaf)
+        })
 
 
         this.registerMarkdownCodeBlockProcessor("historica", async (source, el, ctx) => {
+            // console.log(ctx)
 
             // parse yaml in this block
             let blockConfig: BlockConfig = parse(source)
@@ -198,12 +207,11 @@ export default class HistoricaPlugin extends Plugin {
             const style = blockConfig.style || 1
 
 
-            await renderTimelineEntry(timelineData, style, el)
+            await renderTimelineEntry(currentPlugin, timelineData, style, el)
             await writeLatestFileToData(currentPlugin, await getCurrentFile(currentPlugin))
         })
 
         this.addSettingTab(new HistoricaSettingTab(this.app, this))
-
 
 
         // const ribbonIconEl = this.addRibbonIcon('heart', 'Historica icon', async (evt: MouseEvent) => {
@@ -234,7 +242,6 @@ export default class HistoricaPlugin extends Plugin {
         await this.saveData(this.settings)
 
     }
-
 
 
 }
