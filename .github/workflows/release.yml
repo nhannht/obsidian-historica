@@ -17,13 +17,13 @@ jobs:
         with:
           node-version: '20'
 
-      - name: "✏️ Generate changelog.md"
-        uses: heinrichreimer/action-github-changelog-generator@v2.3
+      - name: "📔 Generate a changelog"
+        uses: orhun/git-cliff-action@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          repo: ${{ github.repository }}
-          user: ${{ github.actor }}
-          output: CHANGELOG.md
+          config: cliff.toml
+          args: --verbose
+        env:
+          OUTPUT: CHANGELOG.md
 
       - name: "📝 Commit changelog.md"
         run: |
