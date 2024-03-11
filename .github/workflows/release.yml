@@ -11,8 +11,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+
 
       - name: set up npm
         uses: actions/setup-node@v4
@@ -25,15 +24,10 @@ jobs:
           config: cliff.toml
           args: --verbose
         env:
-          OUTPUT: CHANGELOG.md
+          OUTPUT: CHANGELOG_temp.md
 
-      - name: "📝 Commit changelog.md"
-        run: |
-          git config --local user.email "nhanclassroom@gmail.com"
-          git config --local user.name "nhannht"
-          git add CHANGELOG.md
-          git commit -m "chore: 📃 update changelog.md (automate by github action)"
-          git push origin HEAD:master
+
+
 
 
       - name: Build plugin
@@ -53,8 +47,9 @@ jobs:
           tag=${{ steps.get_tag.outputs.tag }}
 
           gh release create "$tag" \
-            --title="$tag" \
+          --title="$tag" \
           --draft \
+          --notes-file=CHANGELOG_temp.md \
           main.js manifest.json styles.css LICENSE README.md
 
       
