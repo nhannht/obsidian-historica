@@ -1,4 +1,4 @@
-import {App, MarkdownView, Plugin, PluginSettingTab, Setting, TFile, WorkspaceLeaf} from 'obsidian';
+import {App, MarkdownView, Plugin, PluginSettingTab, Setting, TFile} from 'obsidian';
 import {marked, Token} from "marked";
 import {RecusiveGetToken} from "./src/RecusiveGetToken";
 import {GetTimelineDataFromDocumentArrayWithChrono} from "./src/GetTimelineDataFromDocumentArray";

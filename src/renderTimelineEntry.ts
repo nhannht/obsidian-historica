@@ -12,7 +12,7 @@ export async function renderTimelineEntry(currentPlugin: Plugin,
         const timelineEl = el.createEl('div', {
             cls: "historica-container-1"
         })
-        // console.log(isMobile())
+        console.log(isMobile())
         if (!isMobile().any) {
             timelineEl.addEventListener("contextmenu", async (e) => {
                 e.preventDefault()
