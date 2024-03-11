@@ -203,6 +203,8 @@ export default class HistoricaPlugin extends Plugin {
                 corpus,
                 this.settings.showUseFulInformation)
 
+            // console.log(timelineData)
+
 
             const style = blockConfig.style || 1
 

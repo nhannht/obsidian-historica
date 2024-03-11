@@ -1,8 +1,9 @@
 import {TimelineEntryChrono} from "./GetTimelineDataFromDocumentArray";
 import {FormatSentencesWithMarkElement} from "./FormatSentencesWithMarkElement";
 import {Plugin, setIcon} from "obsidian";
-import {HISTORICA_VIEW_TYPE} from "../main";
 import {HistoricaSearchResultModal} from "./SearchResultModal";
+import {TimelineActionModal} from "./TimelineActionModal";
+import {convertHTMLToImageData} from "./convertHTMLToImageData";
 
 export async function renderTimelineEntry(currentPlugin: Plugin,
                                           timelineData: TimelineEntryChrono[],
@@ -12,6 +13,11 @@ export async function renderTimelineEntry(currentPlugin: Plugin,
         const timelineEl = el.createEl('div', {
             cls: "historica-container-1"
         })
+        timelineEl.addEventListener("contextmenu", async (e) => {
+            e.preventDefault()
+            new TimelineActionModal(currentPlugin.app, timelineEl, currentPlugin).open()
+        })
+
 
         timelineData.map((entry) => {
             const timelineEntryEl = timelineEl.createEl('div', {
@@ -34,6 +40,13 @@ export async function renderTimelineEntry(currentPlugin: Plugin,
     } else if (style === 2) {
         const timelineContainer = el.createEl('div', {
             cls: "historica-container-2"
+        })
+        timelineContainer.addEventListener("contextmenu", async (e) => {
+            const image = await convertHTMLToImageData(timelineContainer)
+            const link = document.createElement('a');
+            link.href = image;
+            link.download = 'historica-timeline.png';
+            link.click();
         })
         timelineData.map((entry) => {
             const timelineItem = timelineContainer.createEl('div', {

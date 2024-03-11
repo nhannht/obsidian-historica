@@ -1,0 +1,10 @@
+.historica-timeline-action-modal {
+    @apply p-4 flex flex-col space-y-4 bg-white rounded-lg
+}
+
+.historica-timeline-action-button {
+    @apply p-3 text-xs  rounded-xl cursor-pointer transition-all duration-300 ease-in-out
+    text-rose-600 bg-white text-center
+    hover:bg-rose-800 hover:text-white
+
+}
