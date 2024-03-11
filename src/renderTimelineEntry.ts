@@ -3,8 +3,7 @@ import {FormatSentencesWithMarkElement} from "./FormatSentencesWithMarkElement";
 import {Plugin, setIcon} from "obsidian";
 import {HistoricaSearchResultModal} from "./SearchResultModal";
 import {TimelineActionModal} from "./TimelineActionModal";
-import {convertHTMLToImageData} from "./convertHTMLToImageData";
-
+import isMobile from "ismobilejs";
 export async function renderTimelineEntry(currentPlugin: Plugin,
                                           timelineData: TimelineEntryChrono[],
                                           style: number,
@@ -13,10 +12,13 @@ export async function renderTimelineEntry(currentPlugin: Plugin,
         const timelineEl = el.createEl('div', {
             cls: "historica-container-1"
         })
-        timelineEl.addEventListener("contextmenu", async (e) => {
-            e.preventDefault()
-            new TimelineActionModal(currentPlugin.app, timelineEl, currentPlugin).open()
-        })
+        // console.log(isMobile())
+        if (!isMobile().any) {
+            timelineEl.addEventListener("contextmenu", async (e) => {
+                e.preventDefault()
+                new TimelineActionModal(currentPlugin.app, timelineEl, currentPlugin).open()
+            })
+        }
 
 
         timelineData.map((entry) => {
@@ -41,13 +43,12 @@ export async function renderTimelineEntry(currentPlugin: Plugin,
         const timelineContainer = el.createEl('div', {
             cls: "historica-container-2"
         })
-        timelineContainer.addEventListener("contextmenu", async (e) => {
-            const image = await convertHTMLToImageData(timelineContainer)
-            const link = document.createElement('a');
-            link.href = image;
-            link.download = 'historica-timeline.png';
-            link.click();
-        })
+        if (!isMobile().any) {
+            timelineContainer.addEventListener("contextmenu", async (e) => {
+                e.preventDefault()
+                new TimelineActionModal(currentPlugin.app, timelineContainer, currentPlugin).open()
+            })
+        }
         timelineData.map((entry) => {
             const timelineItem = timelineContainer.createEl('div', {
                 cls: "historica-item-2 group"

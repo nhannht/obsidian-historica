@@ -1,4 +1,4 @@
-import {App, ItemView, MarkdownView, Menu, Plugin, PluginSettingTab, Setting, TFile, WorkspaceLeaf} from 'obsidian';
+import {App, MarkdownView, Plugin, PluginSettingTab, Setting, TFile, WorkspaceLeaf} from 'obsidian';
 import {marked, Token} from "marked";
 import {RecusiveGetToken} from "./src/RecusiveGetToken";
 import {GetTimelineDataFromDocumentArrayWithChrono} from "./src/GetTimelineDataFromDocumentArray";
@@ -116,6 +116,7 @@ interface BlockConfig {
 
 }
 
+
 export const HISTORICA_VIEW_TYPE = "historica-note-location"
 
 
@@ -128,7 +129,6 @@ export default class HistoricaPlugin extends Plugin {
 
     async onload() {
         await this.loadSettings()
-
 
         // console.log(corpus)
 
