@@ -1,5 +1,5 @@
 @import "./previewmodal.css";
-
+@import "./timelineactionmodal.css";
 @tailwind components;
 @tailwind utilities;
 @tailwind base;
@@ -14,7 +14,7 @@ select {
 
 
 .historica-container-1 {
-	@apply -my-6
+	@apply cursor-default py-4 bg-white px-4 shadow
 }
 
 .historica-entry-1 {
@@ -38,7 +38,7 @@ select {
 }
 
 .historica-content-1 {
-	@apply text-gray-500 hover:bg-rose-100 rounded-xl p-2 sm:p-4 cursor-pointer m-2
+	@apply text-gray-500 hover:bg-rose-100 rounded-xl  cursor-pointer
 }
 
 historica-mark {
@@ -47,7 +47,10 @@ historica-mark {
 
 /*style 2*/
 .historica-container-2 {
-	@apply space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent
+	@apply space-y-8 relative before:absolute before:inset-0 before:ml-5
+	before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full
+	before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent
+	cursor-default
 }
 
 .historica-item-2 {

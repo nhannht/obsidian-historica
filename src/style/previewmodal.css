@@ -1,16 +1,25 @@
+.historica-search-result-modal {
+    @apply p-4 flex flex-col space-y-4 bg-white rounded-lg ;
+}
+
 .historica-search-filename {
-    @apply text-2xl font-medium text-center ;
+    @apply text-2xl font-medium text-center text-rose-900 ;
 
 }
 
+
 .historica-search-result-element {
-    @apply text-sm font-normal leading-relaxed hover:bg-rose-100 p-2 rounded-xl;
+    @apply text-sm font-normal leading-relaxed hover:bg-rose-800 hover:text-white p-2 rounded-xl
+    text-black bg-white cursor-pointer transition-all duration-500 ease-in-out
+
 }
 
 .historica-search-filename-container {
     @apply border-b-2 border-gray-200 p-4;
+
 }
 
 .historica-search-result-container {
-    @apply p-4 ;
+    @apply p-4;
+
 }
