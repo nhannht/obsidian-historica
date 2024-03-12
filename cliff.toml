@@ -8,25 +8,26 @@
 [changelog]
 # changelog header
 header = """
-# Changelog\n
-All notable changes to this project will be documented in this file.\n
+# Release note\n
 """
 # template for the changelog body
 # https://keats.github.io/tera/docs/#introduction
-body = """
-{% if version %}\
+body = """{% if version %}\
     ## [{{ version | trim_start_matches(pat="v") }}] - {{ timestamp | date(format="%Y-%m-%d") }}
 {% else %}\
     ## [unreleased]
 {% endif %}\
 {% for group, commits in commits | group_by(attribute="group") %}
     ### {{ group | striptags | trim | upper_first }}
+    > [!note]\
     {% for commit in commits %}
-        - {% if commit.scope %}*({{ commit.scope }})* {% endif %}\
+    > - {% if commit.scope %}*({{ commit.scope }})* {% endif %}\
             {% if commit.breaking %}[**breaking**] {% endif %}\
             {{ commit.message | upper_first }}\
+
     {% endfor %}
-{% endfor %}\n
+
+{% endfor %}
 """
 # template for the changelog footer
 footer = """
@@ -45,7 +46,7 @@ conventional_commits = true
 # filter out the commits that are not conventional
 filter_unconventional = true
 # process each line of a commit as an individual commit
-split_commits = false
+split_commits = true
 # regex for preprocessing the commit messages
 commit_preprocessors = [
     # Replace issue numbers
