@@ -51,6 +51,8 @@ historica-mark {
 	before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full
 	before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent
 	cursor-default
+	bg-white
+	p-4
 }
 
 .historica-item-2 {
