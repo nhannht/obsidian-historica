@@ -1,94 +1,121 @@
 import {Token} from "marked";
-import {Chrono} from 'chrono-node';
+import {Chrono, ParsedResult} from 'chrono-node';
 
 export interface TimelineEntry {
-	date: string;
-	unixTime: number;
-	sentence: string;
+    date: string;
+    unixTime: number;
+    sentence: string;
 
 }
 
 export interface TimelineEntryChrono extends TimelineEntry {
-	dateString: string,
-	importantInformation: string
+    dateString: string,
+    importantInformation: string
 }
 
 function extractStringBaseOnTag(tags: string[], compromiseNLP: any, text: string): string {
-	for (const tag of tags) {
-		const result = compromiseNLP(text).match(tag).json()
-		// console.log(result)
-		if (result.length != 0) {
-			for (const r of result) {
-				// exclude the r that have dot comma
-				if (r.text.includes(".") || r.text.includes(",")) {
-					continue
-				}
+    for (const tag of tags) {
+        const result = compromiseNLP(text).match(tag).json()
+        // console.log(result)
+        if (result.length != 0) {
+            for (const r of result) {
+                // exclude the r that have dot comma
+                if (r.text.includes(".") || r.text.includes(",")) {
+                    continue
+                }
 
 
-				return r.text
+                return r.text
 
-			}
-		}
-	}
-	return ""
+            }
+        }
+    }
+    return ""
 
 }
 
+function extractDataToParseResult(parsingResult: ParsedResult,
+                                  isShowSummaryTitle: boolean,
+                                  userfulInformationPatternTag: string[],
+                                  compromiseNLP: any,
+                                  text: string,) {
+    let summaryTitle = ""
+    let startData: TimelineEntryChrono | null = null;
+    let endData: TimelineEntryChrono | null = null;
+    if (parsingResult.start) {
+        const start = parsingResult.start
+        const parseText = parsingResult.text
+        if (isShowSummaryTitle) {
+            summaryTitle = extractStringBaseOnTag(userfulInformationPatternTag, compromiseNLP, text)
+        } else {
+            summaryTitle = ""
+        }
+
+        startData = {
+            importantInformation: summaryTitle,
+            dateString: parseText,
+            date: start.date().toString(),
+            unixTime: start.date().getTime() / 1000,
+            sentence: text.replace(parseText, `<historica-mark>${parseText}</historica-mark>`)
+        }
+
+    }
+    if (parsingResult.end) {
+        const start = parsingResult.end
+        const parseText = parsingResult.text
+        if (isShowSummaryTitle) {
+            summaryTitle = extractStringBaseOnTag(userfulInformationPatternTag, compromiseNLP, text)
+        } else {
+            summaryTitle = ""
+        }
+
+        endData = {
+            importantInformation: summaryTitle,
+            dateString: parseText,
+            date: start.date().toString(),
+            unixTime: start.date().getTime() / 1000,
+            sentence: text.replace(parseText, `<historica-mark>${parseText}</historica-mark>`)
+        }
+
+    }
+
+    return [startData, endData]
+
+}
+
+
 export async function GetTimelineDataFromDocumentArrayWithChrono(documents: Token[] | null,
-																 customChrono: Chrono,
-																 compromiseNLP: any,
-																 userfulInformationPatternTag: string[],
-																 showSummaryTitle: boolean): Promise<TimelineEntryChrono[]> {
-	let timelineData: TimelineEntryChrono[] = []
-	// console.log(userfulInformationPatternTag)
+                                                                 customChrono: Chrono,
+                                                                 compromiseNLP: any,
+                                                                 userfulInformationPatternTag: string[],
+                                                                 isShowSummaryTitle: boolean): Promise<TimelineEntryChrono[]> {
+    let timelineData: TimelineEntryChrono[] = []
+    // console.log(userfulInformationPatternTag)
 
-	// @ts-ignore
-	documents?.forEach(({text}: { text: string }) => {
-		// console.log(text)
-		const parseResult = customChrono.parse(text)
-		// console.log(parseResult)
-		if (!parseResult || parseResult.length === 0) {
-			return
-		}
-		let summaryTitle = ""
-
-		if (parseResult[0].start) {
-			const start = parseResult[0].start
-			const parseText = parseResult[0].text
-			if (showSummaryTitle) {
-				summaryTitle = extractStringBaseOnTag(userfulInformationPatternTag, compromiseNLP, text)
-			} else {
-				summaryTitle = ""
-			}
-
-			timelineData.push({
-				importantInformation: summaryTitle,
-				dateString: parseText,
-				date: start.date().toString(),
-				unixTime: start.date().getTime() / 1000,
-				sentence: text.replace(parseText, `<historica-mark>${parseText}</historica-mark>`)
-			})
-		}
-		if (parseResult[0].end) {
-			if (showSummaryTitle) {
-				summaryTitle = extractStringBaseOnTag(userfulInformationPatternTag, compromiseNLP, text)
-			} else {
-				summaryTitle = ""
-			}
-			const end = parseResult[0].end
-			const parseText = parseResult[0].text
-			timelineData.push({
-				importantInformation: summaryTitle,
-				dateString: parseText,
-				date: end.date().toString(),
-				unixTime: end.date().getTime() / 1000,
-				sentence: text.replace(parseText, `<historica-mark>${parseText}</historica-mark>`)
-			})
-		}
+    // @ts-ignore
+    documents?.forEach(({text}: { text: string }) => {
+        // console.log(text)
+        const parseResults = customChrono.parse(text)
+        // console.log(parseResults)
+        if (!parseResults || parseResults.length === 0) {
+            return
+        }
+        parseResults.forEach((parseResult) => {
+            const [startData, endData] = extractDataToParseResult(parseResult, isShowSummaryTitle, userfulInformationPatternTag, compromiseNLP, text)
+            if (startData) {
+                timelineData.push(startData)
+            }
+            if (endData) {
+                timelineData.push(endData)
+            }
+        })
 
 
-	})
-	return timelineData.sort((a, b) => {
-		return a.unixTime - b.unixTime
-	})
+    })
+
+    const sortTimelineData = timelineData.sort((a, b) => {
+        return a.unixTime - b.unixTime
+    })
+
+    return sortTimelineData
 }
