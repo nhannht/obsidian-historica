@@ -1,4 +1,4 @@
-import {App, MarkdownView, Plugin, PluginSettingTab, Setting, TFile} from 'obsidian';
+import {App, Plugin, PluginSettingTab, Setting, TFile} from 'obsidian';
 import {marked, Token} from "marked";
 import {RecusiveGetToken} from "./src/RecusiveGetToken";
 import {GetTimelineDataFromDocumentArrayWithChrono} from "./src/GetTimelineDataFromDocumentArray";
@@ -7,6 +7,9 @@ import {renderTimelineEntry} from "./src/renderTimelineEntry";
 import compromise from 'compromise';
 import {setupCustomChrono} from "./src/setupCustomChrono";
 import corpus from "./corpus.json"
+
+import './src/lib/codemirror'
+import './src/mode/historica/historica'
 
 
 interface HistoricaSetting {
@@ -116,28 +119,105 @@ interface BlockConfig {
 
 }
 
+interface HistoricaCodeBlock {
+    beginLineNumber: number,
+    endLineNumber: number
+}
+
+// class HistoricaHighlightBlock implements PluginValue {
+//     decorations: DecorationSet;
+//
+//     constructor(view: EditorView) {
+//         this.decorations = this.buildDecorations(view)
+//     }
+//
+//     update(update: ViewUpdate): void {
+//         // console.log(update)
+//         if (update.viewportChanged || update.docChanged) {
+//             this.decorations = this.buildDecorations(update.view)
+//
+//         }
+//     }
+//
+//     buildDecorations(view: EditorView) {
+//         let beginBlockLineNumber = 0
+//         let endBlockLineNumber = 0
+//         let blocksToHighLight: HistoricaCodeBlock[] = []
+//         const decorations: Array<Range<Decoration>> = []
+//         for (const {from, to} of view.visibleRanges) {
+//             syntaxTree(view.state).iterate({
+//                 from, to,
+//                 enter(node) {
+//                     // start of block
+//                     if (node.type.name.includes("HyperMD-codeblock-begin")) {
+//                         const beginHistoricaBlockLine = view.state.doc.lineAt(node.from)
+//                         const lineText = view.state.sliceDoc(beginHistoricaBlockLine.from, beginHistoricaBlockLine.to)
+//                         if (/^\s*```\s*historica/.test(lineText)) {
+//
+//                             beginBlockLineNumber = beginHistoricaBlockLine.number
+//                             // console.log(beginHistoricaBlockLine)
+//                         }
+//                     }
+//                     // end of block
+//                     if (node.type.name.includes("HyperMD-codeblock-end")) {
+//                         const endOfHistoricaLine = view.state.doc.lineAt(node.from)
+//                         endBlockLineNumber = endOfHistoricaLine.number
+//                         // console.log(endOfHistoricaLine)
+//                         blocksToHighLight.push({
+//                             beginLineNumber: beginBlockLineNumber,
+//                             endLineNumber: endBlockLineNumber
+//                         })
+//
+//                     }
+//                     // console.log(linesToHighlight)
+//                 }
+//             })
+//         }
+//         // console.log(blocksToHighLight)
+//         // console.log(view.state.doc.lineAt(blocksToHighLight[0].beginLineNumber))
+//         // console.log(view.state.doc.line(10).from)
+//
+//         // add js highlight to this block
+//         // blocksToHighLight.map((block) => decorations.push(Decoration.mark({
+//         //     class: "historica-code-block"
+//         //
+//         //
+//         // }).range(view.state.doc.line(block.beginLineNumber).to, view.state.doc.line(block.endLineNumber).from)))
+//         return RangeSet.of(decorations, true)
+//
+//
+//     }
+// }
 
 export const HISTORICA_VIEW_TYPE = "historica-note-location"
-
-
 
 
 export default class HistoricaPlugin extends Plugin {
 
     settings: HistoricaSetting;
+    modesToKeep = ["hypermd", "markdown", "null", "xml"];
+
+    refreshLeaves = () => {
+        // re-set the editor mode to refresh the syntax highlighting
+        this.app.workspace.iterateCodeMirrors(cm => cm.setOption("mode", cm.getOption("mode")))
+    }
 
 
     async onload() {
         await this.loadSettings()
+        this.app.workspace.iterateCodeMirrors(cm => console.log(cm))
+        this.app.workspace.onLayoutReady(() => {
+            this.refreshLeaves()
+
+        })
+        // this.registerEditorExtension(ViewPlugin.fromClass(HistoricaHighlightBlock, {decorations: (plugin) => plugin.decorations}))
 
         // console.log(corpus)
 
         const customChrono = await setupCustomChrono()
         const currentPlugin: Plugin = this
 
-        currentPlugin.registerView("historica-preview", leaf => {
-            return new MarkdownView(leaf)
-        })
+
 
 
         this.registerMarkdownCodeBlockProcessor("historica", async (source, el, ctx) => {
@@ -232,6 +312,17 @@ export default class HistoricaPlugin extends Plugin {
         const currentPlugin = this
 
         await writeLatestFileToData(this, await getCurrentFile(currentPlugin))
+        // simply ignore the error releated to CodeMirror.modes, we using the built-in cm, esbuild will not touch them
+        // @ts-ignore
+        for (const key in CodeMirror.modes) {
+            // @ts-ignore
+            if (CodeMirror.modes.hasOwnProperty(key) && !this.modesToKeep.includes(key)) {
+                // @ts-ignore
+                delete CodeMirror.modes[key];
+            }
+            this.refreshLeaves()
+
+        }
 
 
     }
