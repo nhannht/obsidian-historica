@@ -1,6 +1,5 @@
-import {App, Plugin, PluginSettingTab, Setting, TFile} from 'obsidian';
-import {marked, Token} from "marked";
-import {RecusiveGetToken} from "./src/RecusiveGetToken";
+import {Notice, Plugin, TFile} from 'obsidian';
+import {Token} from "marked";
 import {GetTimelineDataFromDocumentArrayWithChrono} from "./src/GetTimelineDataFromDocumentArray";
 import {parse} from "toml";
 import {renderTimelineEntry} from "./src/renderTimelineEntry";
@@ -10,13 +9,12 @@ import corpus from "./corpus.json"
 
 import './src/lib/codemirror'
 import './src/mode/historica/historica'
+import {HistoricaSettingTab} from "./src/historicaSettingTab";
+import {parseTFileAndUpdateDocuments} from "./src/parseTFileAndUpdateDocuments";
+import {HistoricaSetting, writeLatestFileToData} from "./src/writeLatestFileToData";
+import {BlockConfig, verifyBlockConfig} from "./src/verifyBlockConfig";
+import {getCurrentFile} from "./src/getCurrentFile";
 
-
-interface HistoricaSetting {
-    latestFile: string
-    showUseFulInformation: boolean
-    defaultStyle: string
-}
 
 const DEFAULT_SETTINGS: HistoricaSetting = {
     latestFile: "",
@@ -25,172 +23,14 @@ const DEFAULT_SETTINGS: HistoricaSetting = {
 
 }
 
-/**
- * get the current file. if the current file is not a TFile, get the latest file from plugin data.Why this function exist, because most time the plugin load faster than the buffer when fist start Obsidian, so getActiveFile - standard way to get current file in obsidian still not being loaded
- * @param currentPlugin
- */
-async function getCurrentFile(currentPlugin: Plugin): Promise<TFile> {
-    let currentFile: TFile | null = currentPlugin.app.workspace.getActiveFile();
-    //@ts-ignore
-    if (currentFile instanceof TFile) {
 
-    } else {
-
-
-        let data: HistoricaSetting = await currentPlugin.loadData()
-
-        if (data.latestFile) {
-
-            const currentFileAbstract = currentPlugin.app.vault.getAbstractFileByPath(data.latestFile)
-            if (currentFileAbstract instanceof TFile) {
-                currentFile = currentFileAbstract
-            }
-        }
-
-    }
-    // @ts-ignore
-    return currentFile
-
-}
-
-/**
- * write the latest file to data. in case data never exist before, create a new data object
- * @param currentPlugin
- * @param file
- */
-async function writeLatestFileToData(currentPlugin: Plugin, file: TFile) {
-    let settings: HistoricaSetting = await currentPlugin.loadData()
-    if (!settings) {
-        settings = {
-            latestFile: file.path,
-            showUseFulInformation: true,
-            defaultStyle: "1"
-        }
-
-    }
-    settings.latestFile = file.path
-    await currentPlugin.saveData(settings)
-
+export interface HistoricaQuery {
+	start: string,
+	end: string
 }
 
 
-/**
- * parse tfile to documents. documents is a global array that will be updated be side effect after each parse
- * @param currentPlugin
- * @param file
- * @param documents
- */
-async function parseTFileAndUpdateDocuments(currentPlugin: Plugin, file: TFile | null, documents: Token[]) {
-    if (!file) {
-        return
-    }
-    const fileContent = await currentPlugin.app.vault.read(file)
-
-    function filterHTMLAndEmphasis(text: string) {
-        const stripHTML = text.replace(/<\/?("[^"]*"|'[^']*'|[^>])*(>|$)/g, ""),
-            stripEm1 = stripHTML.replace(/\*{1,3}(.*?)\*{1,3}/g, "$1"),
-            stripEm2 = stripEm1.replace(/_{1,3}(.*?)_{1,3}/g, "$1"),
-            stripStrike = stripEm2.replace(/~{1,2}(.*?)~{1,2}/g, "$1"),
-            stripImage = stripStrike.replace(/!\[(.*?)]\((.*?)\)/g, "$2").replace(/!\[\[(.*?\.(png|jpeg|jpg|gif))]]/g, "$1");
-        return stripImage
-
-    }
-
-    const fileContentStripHTML = filterHTMLAndEmphasis(fileContent)
-    // console.log(fileContentStripHTML)
-    const lexerResult = marked.lexer(fileContentStripHTML);
-
-    // console.log(lexerResult)
-
-
-    lexerResult.map((token) => {
-
-        RecusiveGetToken(token, documents)
-    })
-    // filter token which is the smallest modulo
-
-
-}
-
-interface BlockConfig {
-    style: number | 1,
-    include_files?: string[] | [],
-
-
-}
-
-interface HistoricaCodeBlock {
-    beginLineNumber: number,
-    endLineNumber: number
-}
-
-// class HistoricaHighlightBlock implements PluginValue {
-//     decorations: DecorationSet;
-//
-//     constructor(view: EditorView) {
-//         this.decorations = this.buildDecorations(view)
-//     }
-//
-//     update(update: ViewUpdate): void {
-//         // console.log(update)
-//         if (update.viewportChanged || update.docChanged) {
-//             this.decorations = this.buildDecorations(update.view)
-//
-//         }
-//     }
-//
-//     buildDecorations(view: EditorView) {
-//         let beginBlockLineNumber = 0
-//         let endBlockLineNumber = 0
-//         let blocksToHighLight: HistoricaCodeBlock[] = []
-//         const decorations: Array<Range<Decoration>> = []
-//         for (const {from, to} of view.visibleRanges) {
-//             syntaxTree(view.state).iterate({
-//                 from, to,
-//                 enter(node) {
-//                     // start of block
-//                     if (node.type.name.includes("HyperMD-codeblock-begin")) {
-//                         const beginHistoricaBlockLine = view.state.doc.lineAt(node.from)
-//                         const lineText = view.state.sliceDoc(beginHistoricaBlockLine.from, beginHistoricaBlockLine.to)
-//                         if (/^\s*```\s*historica/.test(lineText)) {
-//
-//                             beginBlockLineNumber = beginHistoricaBlockLine.number
-//                             // console.log(beginHistoricaBlockLine)
-//                         }
-//                     }
-//                     // end of block
-//                     if (node.type.name.includes("HyperMD-codeblock-end")) {
-//                         const endOfHistoricaLine = view.state.doc.lineAt(node.from)
-//                         endBlockLineNumber = endOfHistoricaLine.number
-//                         // console.log(endOfHistoricaLine)
-//                         blocksToHighLight.push({
-//                             beginLineNumber: beginBlockLineNumber,
-//                             endLineNumber: endBlockLineNumber
-//                         })
-//
-//                     }
-//                     // console.log(linesToHighlight)
-//                 }
-//             })
-//         }
-//         // console.log(blocksToHighLight)
-//         // console.log(view.state.doc.lineAt(blocksToHighLight[0].beginLineNumber))
-//         // console.log(view.state.doc.line(10).from)
-//
-//         // add js highlight to this block
-//         // blocksToHighLight.map((block) => decorations.push(Decoration.mark({
-//         //     class: "historica-code-block"
-//         //
-//         //
-//         // }).range(view.state.doc.line(block.beginLineNumber).to, view.state.doc.line(block.endLineNumber).from)))
-//         return RangeSet.of(decorations, true)
-//
-//
-//     }
-// }
-
-export const HISTORICA_VIEW_TYPE = "historica-note-location"
-
+// export const HISTORICA_VIEW_TYPE = "historica-note-location"
 
 export default class HistoricaPlugin extends Plugin {
 
@@ -215,10 +55,7 @@ export default class HistoricaPlugin extends Plugin {
         // console.log(corpus)
 
         const customChrono = await setupCustomChrono()
-        const currentPlugin: Plugin = this
-
-
-
+		const currentPlugin: HistoricaPlugin = this
 
         this.registerMarkdownCodeBlockProcessor("historica", async (source, el, ctx) => {
             // console.log(ctx)
@@ -226,31 +63,16 @@ export default class HistoricaPlugin extends Plugin {
             // parse yaml in this block
             let blockConfig: BlockConfig = parse(source)
             // console.log(Object.keys(blockConfig).length === 0)
-            if (Object.keys(blockConfig).length === 0) {
-                const defaultStyle = this.settings.defaultStyle
-                blockConfig = {
-                    style: parseInt(defaultStyle),
-                    include_files: [],
-
-                    // exclude_files: []
-                }
-
-            }
-            // console.log(blockConfig)
-
-            if (![1, 2].includes(blockConfig.style) || !blockConfig.style) {
-                blockConfig.style = parseInt(this.settings.defaultStyle)
-
-            }
-
-            if (!blockConfig.include_files) {
-                blockConfig.include_files = []
-            }
+			blockConfig = await verifyBlockConfig(blockConfig, currentPlugin)
 
 
             let documentArray: Token[] = [];
-
-            if (blockConfig.include_files.length === 0) {
+			if (blockConfig.include_files === "all") {
+				const allFiles = this.app.vault.getMarkdownFiles()
+				for (const file of allFiles) {
+					await parseTFileAndUpdateDocuments(currentPlugin, file, documentArray)
+				}
+			} else if (blockConfig.include_files!.length === 0) {
 
                 let currentFile = await getCurrentFile(currentPlugin)
                 await writeLatestFileToData(currentPlugin, currentFile)
@@ -258,15 +80,17 @@ export default class HistoricaPlugin extends Plugin {
 
                 await parseTFileAndUpdateDocuments(currentPlugin, currentFile, documentArray)
 
-            }
-            if (blockConfig.include_files.length > 0) {
+            } else if (blockConfig.include_files !== "all" && blockConfig.include_files!.length > 0) {
 
-                for (const file of blockConfig.include_files) {
+				for (const file of blockConfig.include_files!) {
                     const currentFile = this.app.vault.getAbstractFileByPath(file)
                     if (currentFile instanceof TFile) {
                         await parseTFileAndUpdateDocuments(currentPlugin, currentFile, documentArray)
                     }
                 }
+			} else {
+				new Notice("No file to include, check your config, include_files may be empty, list of file name or " +
+					"simply use 'all' to include all files in the vault")
             }
 
 
@@ -274,6 +98,26 @@ export default class HistoricaPlugin extends Plugin {
                 return "tokens" in token ? token.tokens === undefined : true
             })
             // console.log(documentArray)
+			// console.log("Query:")
+			// console.log(blockConfig.query)
+
+			let query: HistoricaQuery[] = []
+
+			if (!blockConfig.query) {
+				query = []
+			} else if (Object.keys(blockConfig.query).length === 0) {
+				query = []
+			} else if (!Array.isArray(blockConfig.query)) {
+				query = [blockConfig.query]
+			} else if (Array.isArray(blockConfig.query) && blockConfig.query[0].start) {
+				query = blockConfig.query
+			} else {
+				query = []
+				new Notice("Your query is not valid, please check your query")
+			}
+
+
+
 
 
             let timelineData = await GetTimelineDataFromDocumentArrayWithChrono(
@@ -281,7 +125,9 @@ export default class HistoricaPlugin extends Plugin {
                 customChrono,
                 compromise,
                 corpus,
-                this.settings.showUseFulInformation)
+				this.settings.showUseFulInformation,
+				query
+			)
 
             // console.log(timelineData)
 
@@ -312,6 +158,7 @@ export default class HistoricaPlugin extends Plugin {
         const currentPlugin = this
 
         await writeLatestFileToData(this, await getCurrentFile(currentPlugin))
+		// highlight obsidian  code syntax
         // simply ignore the error releated to CodeMirror.modes, we using the built-in cm, esbuild will not touch them
         // @ts-ignore
         for (const key in CodeMirror.modes) {
@@ -336,44 +183,6 @@ export default class HistoricaPlugin extends Plugin {
 
     }
 
-
-}
-
-class HistoricaSettingTab extends PluginSettingTab {
-    plugin: HistoricaPlugin;
-
-    constructor(app: App, plugin: HistoricaPlugin) {
-        super(app, plugin);
-        this.plugin = plugin;
-    }
-
-    display(): any {
-        const {containerEl} = this;
-        containerEl.empty();
-        const settings = this.plugin.settings;
-        new Setting(containerEl)
-            .setName("Default Style")
-            .setDesc("Choose the default style for the timeline")
-            .addDropdown(dropdown => {
-                dropdown.addOption('1', 'Style 1')
-                dropdown.addOption('2', 'Style 2')
-                dropdown.setValue(settings.defaultStyle)
-                dropdown.onChange(async (value) => {
-                    settings.defaultStyle = value
-                    await this.plugin.saveSettings()
-                })
-            })
-        new Setting(containerEl)
-            .setName("Show Summary Title")
-            .setDesc("Show short title in the timeline, turn it off if you think it is not smart enough, and this will make this plugin run at fastest speed")
-            .addToggle(toggle => {
-                toggle.setValue(settings.showUseFulInformation)
-                toggle.onChange(async (value) => {
-                    settings.showUseFulInformation = value
-                    await this.plugin.saveSettings()
-                })
-            })
-    }
 
 }
 

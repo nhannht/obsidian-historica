@@ -1,5 +1,7 @@
 import {Token} from "marked";
 import {Chrono, ParsedResult} from 'chrono-node';
+import {parseUserTimeRangeQuery} from "./parseUserTimeRangeQuery";
+import {HistoricaQuery} from "../main";
 
 export interface TimelineEntry {
     date: string;
@@ -88,7 +90,8 @@ export async function GetTimelineDataFromDocumentArrayWithChrono(documents: Toke
                                                                  customChrono: Chrono,
                                                                  compromiseNLP: any,
                                                                  userfulInformationPatternTag: string[],
-                                                                 isShowSummaryTitle: boolean): Promise<TimelineEntryChrono[]> {
+																 isShowSummaryTitle: boolean,
+																 query: HistoricaQuery[]): Promise<TimelineEntryChrono[]> {
     let timelineData: TimelineEntryChrono[] = []
     // console.log(userfulInformationPatternTag)
 
@@ -116,6 +119,31 @@ export async function GetTimelineDataFromDocumentArrayWithChrono(documents: Toke
     const sortTimelineData = timelineData.sort((a, b) => {
         return a.unixTime - b.unixTime
     })
+	let filterTimelineData: TimelineEntryChrono[] = []
 
-    return sortTimelineData
+	let parsedUserQueryArray = await parseUserTimeRangeQuery(query)
+	if (parsedUserQueryArray.length === 0) {
+		return sortTimelineData
+	}
+	// console.log(parsedUserQueryArray)
+	parsedUserQueryArray.map((parsedUserQuery) => {
+		sortTimelineData.map((timelineEntry) => {
+			if (parsedUserQuery.start && parsedUserQuery.end) {
+				if (timelineEntry.unixTime >= parsedUserQuery.start.unixTime && timelineEntry.unixTime <= parsedUserQuery.end.unixTime) {
+					filterTimelineData.push(timelineEntry)
+				}
+			} else if (parsedUserQuery.start) {
+				if (timelineEntry.unixTime >= parsedUserQuery.start.unixTime) {
+					filterTimelineData.push(timelineEntry)
+				}
+			} else if (parsedUserQuery.end) {
+				if (timelineEntry.unixTime <= parsedUserQuery.end.unixTime) {
+					filterTimelineData.push(timelineEntry)
+				}
+			}
+		})
+
+	})
+
+	return filterTimelineData
 }
