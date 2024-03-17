@@ -1,5 +1,5 @@
 import {Token} from "marked";
-import {Chrono, ParsedResult, ParsingResult} from 'chrono-node';
+import {Chrono, ParsedResult} from 'chrono-node';
 import {parseUserTimeRangeQuery} from "./parseUserTimeRangeQuery";
 import {HistoricaQuery} from "./verifyBlockConfig";
 export interface TimelineEntry {
@@ -141,18 +141,18 @@ export async function GetTimelineDataFromDocumentArrayWithChrono(tokens: Token[]
 
 	})
 
-	const sortTimelineData = timelineData.sort((a, b) => {
+	timelineData.sort((a, b) => {
 		return a.unixTime - b.unixTime
 	})
 	let filterTimelineData: TimelineEntryChrono[] = []
 
 	let parsedUserQueryArray = await parseUserTimeRangeQuery(query)
 	if (parsedUserQueryArray.length === 0) {
-		return sortTimelineData
+		return timelineData
 	}
 	// console.log(parsedUserQueryArray)
 	parsedUserQueryArray.map((parsedUserQuery) => {
-		sortTimelineData.map((timelineEntry) => {
+		timelineData.map((timelineEntry) => {
 			if (parsedUserQuery.start && parsedUserQuery.end) {
 				if (timelineEntry.unixTime >= parsedUserQuery.start.unixTime && timelineEntry.unixTime <= parsedUserQuery.end.unixTime) {
 					filterTimelineData.push(timelineEntry)
@@ -168,6 +168,11 @@ export async function GetTimelineDataFromDocumentArrayWithChrono(tokens: Token[]
 			}
 		})
 
+	})
+
+	// sort filterTimelineData
+	filterTimelineData.sort((a, b) => {
+		return a.unixTime - b.unixTime
 	})
 
 	return filterTimelineData
