@@ -16,7 +16,7 @@ export async function renderTimelineEntry(currentPlugin: Plugin,
         if (!isMobile().any) {
             timelineEl.addEventListener("contextmenu", async (e) => {
                 e.preventDefault()
-                new TimelineActionModal(currentPlugin.app, timelineEl, currentPlugin).open()
+				new TimelineActionModal(currentPlugin.app, timelineEl, currentPlugin, timelineData).open()
             })
         }
 
@@ -46,7 +46,7 @@ export async function renderTimelineEntry(currentPlugin: Plugin,
         if (!isMobile().any) {
             timelineContainer.addEventListener("contextmenu", async (e) => {
                 e.preventDefault()
-                new TimelineActionModal(currentPlugin.app, timelineContainer, currentPlugin).open()
+				new TimelineActionModal(currentPlugin.app, timelineContainer, currentPlugin, timelineData).open()
             })
         }
         timelineData.map((entry) => {
@@ -81,11 +81,11 @@ export async function renderTimelineEntry(currentPlugin: Plugin,
                 cls: "historica-card-2"
 
             })
-            const timelineCardTitle = timelineCard.createEl('div', {
+			timelineCard.createEl('div', {
                 cls: "historica-card-title-2",
                 text: entry.importantInformation
             })
-            const timelineCardTime = timelineCard.createEl('div', {
+			timelineCard.createEl('div', {
                 cls: "historica-card-time-2",
 				text: entry.dateStringCompact
             })

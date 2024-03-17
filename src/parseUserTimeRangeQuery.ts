@@ -26,7 +26,7 @@ export async function parseUserTimeRangeQuery(historicaQueryInputArray: Historic
 		}
 		if (timeInput.start) {
 			const startParsingResult = chrono.parse(timeInput.start)
-			console.log(parseTimeArray)
+			// console.log(parseTimeArray)
 			if (startParsingResult) {
 				start = {
 					dateString: startParsingResult[0].date().toString(),

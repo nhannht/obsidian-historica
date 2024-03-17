@@ -2,16 +2,19 @@ import {App, Modal, Notice, Plugin} from "obsidian";
 import {convertHTMLToImageData} from "./convertHTMLToImageData";
 import {convertImageToPdf} from "./convertImageToPdf";
 import {toBlob} from "html-to-image";
-
+import {TimelineEntryChrono} from "./GetTimelineDataFromDocumentArray";
+import {json2csv} from 'json-2-csv';
 
 export class TimelineActionModal extends Modal {
     thisPlugin: Plugin
     targetEl: HTMLElement
+	timelineData: TimelineEntryChrono[]
 
-    constructor(app: App, targetEl: HTMLElement, thisPlugin: Plugin) {
+	constructor(app: App, targetEl: HTMLElement, thisPlugin: Plugin, timelineData: TimelineEntryChrono[]) {
         super(app)
         this.targetEl = targetEl
         this.thisPlugin = thisPlugin
+		this.timelineData = timelineData
     }
 
     onOpen() {
@@ -65,6 +68,60 @@ export class TimelineActionModal extends Modal {
             this.close()
 
         })
+
+		actionModalEl.createEl('div', {
+			text: "Export as json",
+			cls: "historica-timeline-action-button"
+		}).addEventListener('click', async () => {
+			const data = JSON.stringify(this.timelineData, null, 4)
+			// console.table(data)
+			const blob = new Blob([data], {type: 'application/json'});
+			const url = URL.createObjectURL(blob);
+			const link = document.createElement('a');
+			link.href = url;
+			link.download = 'historica-timeline.json';
+			link.click();
+			URL.revokeObjectURL(url);
+			new Notice("Successfully download json")
+			this.close()
+		})
+		actionModalEl.createEl('div', {
+			text: "Export as csv",
+			cls: "historica-timeline-action-button"
+		}).addEventListener('click', async () => {
+
+			const csv = await json2csv(this.timelineData)
+			const blob = new Blob([csv], {type: 'text/csv'});
+			const url = URL.createObjectURL(blob);
+			const link = document.createElement('a');
+			link.href = url;
+			link.download = 'historica-timeline.csv';
+			link.click();
+			URL.revokeObjectURL(url);
+			new Notice("Successfully download csv")
+			this.close()
+
+		})
+		actionModalEl.createEl('div', {
+			text: "Copy as json",
+			cls: "historica-timeline-action-button"
+		}).addEventListener('click', async () => {
+			const data = JSON.stringify(this.timelineData, null, 4)
+			// console.table(data)
+			await navigator.clipboard.writeText(data)
+			new Notice("Successfully copied to clipboard")
+			this.close()
+		})
+		actionModalEl.createEl('div', {
+			text: "Copy as csv",
+			cls: "historica-timeline-action-button"
+		}).addEventListener('click', async () => {
+			const csv = json2csv(this.timelineData)
+
+			await navigator.clipboard.writeText(csv)
+			new Notice("Successfully copied to clipboard")
+			this.close()
+		})
 
 
     }

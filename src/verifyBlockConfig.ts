@@ -1,5 +1,5 @@
 import HistoricaPlugin from "../main";
-import {Notice, Plugin, TFile} from "obsidian"
+import {Notice} from "obsidian"
 
 
 export interface HistoricaQuery {
@@ -42,7 +42,7 @@ export async function verifyBlockConfig(blockConfig: BlockConfig, thisPlugin: Hi
 	}
 
 	let query: HistoricaQuery[] = []
-	console.log(blockConfig.query)
+	// console.log(blockConfig.query)
 
 	if (!blockConfig.query) {
 		query = []
