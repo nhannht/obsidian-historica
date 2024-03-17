@@ -27,12 +27,12 @@ export async function renderTimelineEntry(currentPlugin: Plugin,
             })
             // timelineEntryEl.createEl('div', {cls: "historica-label", text: entry.importantInformation})
             const verticalLine = timelineEntryEl.createEl('div', {cls: "historica-vertical-line-1"})
-            verticalLine.createEl('time', {cls: "historica-time-1", text: entry.dateString})
+			verticalLine.createEl('time', {cls: "historica-time-1", text: entry.dateStringCompact})
             verticalLine.createEl('div', {cls: "historica-title-1", text: entry.importantInformation})
             const historicaContent = timelineEntryEl.createEl('div', {cls: "historica-content-1"})
             historicaContent.addEventListener('click', async () => {
 
-                new HistoricaSearchResultModal(currentPlugin.app, entry.dateString, currentPlugin).open()
+				new HistoricaSearchResultModal(currentPlugin.app, entry.stringThatParseAsDate, currentPlugin).open()
 
 
             })
@@ -87,7 +87,7 @@ export async function renderTimelineEntry(currentPlugin: Plugin,
             })
             const timelineCardTime = timelineCard.createEl('div', {
                 cls: "historica-card-time-2",
-                text: entry.dateString
+				text: entry.stringThatParseAsDate
             })
             const timelineCardContent = timelineCardContainer.createEl('div', {
                 cls: "historica-card-content-2",
@@ -97,7 +97,7 @@ export async function renderTimelineEntry(currentPlugin: Plugin,
             FormatSentencesWithMarkElement(entry.sentence, timelineCardContent)
             timelineCardContent.addEventListener('click', async () => {
 
-                new HistoricaSearchResultModal(currentPlugin.app, entry.dateString, currentPlugin).open()
+				new HistoricaSearchResultModal(currentPlugin.app, entry.stringThatParseAsDate, currentPlugin).open()
 
 
             })

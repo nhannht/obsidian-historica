@@ -1,5 +1,5 @@
 import {setupCustomChrono} from "./setupCustomChrono";
-import {HistoricaQuery} from "../main";
+import {HistoricaQuery} from "./verifyBlockConfig";
 
 export interface ParseUserTimeRangeQuery {
 	start: {
