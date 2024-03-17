@@ -2,8 +2,6 @@ import {Token} from "marked";
 import {Chrono, ParsedResult, ParsingResult} from 'chrono-node';
 import {parseUserTimeRangeQuery} from "./parseUserTimeRangeQuery";
 import {HistoricaQuery} from "./verifyBlockConfig";
-import {moment} from "obsidian";
-
 export interface TimelineEntry {
 	dateString: string;
 	dateStringCompact: string,

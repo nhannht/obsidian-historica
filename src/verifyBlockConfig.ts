@@ -1,9 +1,6 @@
 import HistoricaPlugin from "../main";
 import {Notice, Plugin, TFile} from "obsidian"
-import {parseTFileAndUpdateDocuments} from "./parseTFileAndUpdateDocuments";
-import {writeLatestFileToData} from "./writeLatestFileToData";
-import {Token} from "marked";
-import {getCurrentFile} from "./getCurrentFile";
+
 
 export interface HistoricaQuery {
 	start: string,
@@ -45,11 +42,32 @@ export async function verifyBlockConfig(blockConfig: BlockConfig, thisPlugin: Hi
 	}
 
 	let query: HistoricaQuery[] = []
+	console.log(blockConfig.query)
 
 	if (!blockConfig.query) {
 		query = []
 	} else if (Object.keys(blockConfig.query).length === 0) {
 		query = []
+
+	} else if (Object.keys(blockConfig.query).length >= 0) {
+		const keys = Object.keys(blockConfig.query)
+		keys.map((key) => {
+			//@ts-ignore
+			if (!blockConfig.query[key].start && !typeof blockConfig.query[key].start === "string") {
+				new Notice(`Your query is not valid, please check your query at ${key}`)
+			}
+			//@ts-ignore
+			if (blockConfig.query[key].end && !typeof blockConfig.query[key].start === "string") {
+				new Notice(`Your query is not valid, please check your query at ${key}`)
+			}
+			query.push({
+				// @ts-ignore
+				start: blockConfig.query[key].start,
+				// @ts-ignore
+				end: blockConfig.query[key].end
+			})
+		})
+
 	} else if (!Array.isArray(blockConfig.query)) {
 		query = [blockConfig.query]
 	} else if (Array.isArray(blockConfig.query) && blockConfig.query[0].start) {
@@ -65,7 +83,6 @@ export async function verifyBlockConfig(blockConfig: BlockConfig, thisPlugin: Hi
 	if (!blockConfig.pin_time || blockConfig.pin_time && blockConfig.pin_time.trim() === "") {
 		blockConfig.pin_time = "now"
 	}
-
 
 
 	return blockConfig

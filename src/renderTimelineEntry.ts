@@ -87,7 +87,7 @@ export async function renderTimelineEntry(currentPlugin: Plugin,
             })
             const timelineCardTime = timelineCard.createEl('div', {
                 cls: "historica-card-time-2",
-				text: entry.stringThatParseAsDate
+				text: entry.dateStringCompact
             })
             const timelineCardContent = timelineCardContainer.createEl('div', {
                 cls: "historica-card-content-2",
