@@ -1,5 +1,6 @@
 import {setupCustomChrono} from "./setupCustomChrono";
 import {HistoricaQuery} from "./verifyBlockConfig";
+import {Notice} from "obsidian";
 
 export interface ParseUserTimeRangeQuery {
 	start: {
@@ -18,8 +19,14 @@ export async function parseUserTimeRangeQuery(historicaQueryInputArray: Historic
 	historicaQueryInputArray.map((timeInput) => {
 		let start = null
 		let end = null
+		if (!timeInput.start && !timeInput.end) {
+			new Notice("Your query is not valid, please check your query")
+			return []
+
+		}
 		if (timeInput.start) {
 			const startParsingResult = chrono.parse(timeInput.start)
+			console.log(parseTimeArray)
 			if (startParsingResult) {
 				start = {
 					dateString: startParsingResult[0].date().toString(),

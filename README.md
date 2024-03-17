@@ -17,7 +17,8 @@
 - Support 2 styles of visualization
 - _(Not) Smart generate the summary_ of content related to the point of time in your note
 - Multi files support
-
+- Export your timeline as image/pdf or simply copy it to clipboard
+-
 
 </ul>
 
@@ -50,7 +51,7 @@
 
 <div><sub>Oh, you want more configuration?</sub></div>
 
-
+###### Includes multi files
 
 ````markdown
 ```historica
@@ -67,6 +68,66 @@ include_files=["file1.md", "sub_dir/file2.md", "sub_dir2/sub_dir3/file3.md]
 
 <sub>Directories in include_files is relative path to vault directory </sub>
 </div>
+
+> [!info]
+> You can using "all" (without array notation) to include all files in vault, this option is not encourage because, it
+> is heavy task, and historica not good at detect non-English string
+
+###### Pin point of time
+
+<div align="center">
+<sub>
+Historica smart enough to work with all related time phrase like "now","2 days ago". But it also mean those releated point of time
+always be parsed from current time from your system.
+So now you can pin a point of time as "now", also using natural language too.
+</sub>
+</div>
+
+````
+```historica
+pin_time="1997/Jun/12"
+```
+````
+
+![](images/.README_images/historica_pin_time_example.png)
+
+<div align="right">
+<sub>
+Historica can even parse timezone too, just input pin_time like this "1997/Jun/12 GTM+7"?
+</sub>
+</div>
+
+###### Query your time strictly
+
+<div align="center">
+<sub>
+Give a stricter query by specific multi time ranges
+</sub>
+</div>
+
+````
+```historica
+[query.from-1997-to-2022]  
+start="1997/Jun/12"  
+end="2022/Jun/13"  
+  
+[query.from-1000-to-1500]  
+start="1000/Jun/12"  
+end="1500/Jun/13"
+```
+````
+
+![](images/.README_images/historica_query_example.png)
+
+> [!information]
+> Historica using `toml` as configuration syntax, so a table/table array is the syntax to define your query. You can
+> check more of them [here](https://toml.io/en/v1.0.0#table)
+
+###### Export or copy the timeline
+
+Just right-click anywhere in the timeline. The helper menu will appear.
+
+![](images/.README_images/historica_helper_menu.png)
 
 ---
 
@@ -86,7 +147,7 @@ Style 2
 
 
 <div align="center">
-<sub>It is not smart like it seem. Just like me</sub>
+<sub>It is not smart like it seems. Just like me</sub>
 </div>
 
 
