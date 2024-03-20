@@ -9,17 +9,21 @@ import corpus from "./corpus.json"
 
 import './src/lib/codemirror'
 import './src/mode/historica/historica'
-import {HistoricaSettingTab} from "./src/historicaSettingTab";
+import {HistoricaSetting, HistoricaSettingTab} from "./src/historicaSettingTab";
 import {parseTFileAndUpdateDocuments} from "./src/parseTFileAndUpdateDocuments";
-import {HistoricaSetting, writeLatestFileToData} from "./src/writeLatestFileToData";
+import {writeLatestFileToData} from "./src/writeLatestFileToData";
 import {BlockConfig, HistoricaQuery, verifyBlockConfig} from "./src/verifyBlockConfig";
 import {getCurrentFile} from "./src/getCurrentFile";
 
-
+/**
+ * The default historica setting
+ * showRelativeTime set to true by default because this is old behaviour of this plugin in the very first version, I want to keep backward compatibility
+ */
 const DEFAULT_SETTINGS: HistoricaSetting = {
 	latestFile: "",
 	showUseFulInformation: false,
-	defaultStyle: "1"
+	defaultStyle: "1",
+	showRelativeTime: true
 
 }
 

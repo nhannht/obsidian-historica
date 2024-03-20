@@ -1,6 +1,12 @@
 import {App, PluginSettingTab, Setting} from "obsidian";
 import HistoricaPlugin from "../main";
 
+export interface HistoricaSetting {
+	latestFile: string
+	showUseFulInformation: boolean
+	defaultStyle: string,
+	showRelativeTime: boolean
+}
 export class HistoricaSettingTab extends PluginSettingTab {
 	plugin: HistoricaPlugin;
 
@@ -35,6 +41,20 @@ export class HistoricaSettingTab extends PluginSettingTab {
 					await this.plugin.saveSettings()
 				})
 			})
+
+		new Setting(containerEl)
+			.setName("Implicit or explicit date showing in the time entry")
+			.setDesc("Example, your current date as 2024/Mar/20, if your date entry is have a string as - 2 day ago - turn this options on, the entry will be implicit '2 days ago', if turn it off, it will show as explicit day - 2024/Mar/18 ")
+			.addToggle(toggle => {
+				toggle.setValue(settings.showRelativeTime)
+				toggle.onChange(async (value) => {
+					settings.showRelativeTime = value
+					await this.plugin.saveSettings()
+				})
+			})
+
+
 	}
 
 }
+

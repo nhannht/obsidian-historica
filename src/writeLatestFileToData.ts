@@ -1,10 +1,8 @@
 import {Plugin, TFile} from "obsidian";
 
-export interface HistoricaSetting {
-	latestFile: string
-	showUseFulInformation: boolean
-	defaultStyle: string
-}
+import {HistoricaSetting} from "./historicaSettingTab";
+
+
 
 /**
  * write the latest file to data. in case data never exist before, create a new data object
@@ -13,11 +11,14 @@ export interface HistoricaSetting {
  */
 export async function writeLatestFileToData(currentPlugin: Plugin, file: TFile) {
 	let settings: HistoricaSetting = await currentPlugin.loadData()
+
 	if (!settings) {
 		settings = {
 			latestFile: file.path,
-			showUseFulInformation: true,
-			defaultStyle: "1"
+			showUseFulInformation: false,
+			defaultStyle: "1",
+			showRelativeTime: false,
+
 		}
 
 	}
