@@ -14,7 +14,7 @@ select {
 
 
 .historica-container-1 {
-	@apply cursor-default py-4 bg-white px-4 shadow
+	@apply cursor-default py-4  px-4 shadow bg-[color:var(--background-primary)]
 }
 
 .historica-entry-1 {
@@ -26,23 +26,37 @@ select {
 }
 
 .historica-vertical-line-1 {
-	@apply flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden before:absolute before:left-2 sm:before:left-0 before:h-full before:px-px before:bg-rose-100 sm:before:ml-[6.5rem] before:self-start before:-translate-x-1/2 before:translate-y-3 after:absolute after:left-2 sm:after:left-0 after:w-2 after:h-2 after:bg-rose-600 after:border-4 after:box-content after:border-rose-50 after:rounded-full sm:after:ml-[6.5rem] after:-translate-x-1/2 after:translate-y-1.5
+	@apply flex flex-col sm:flex-row
+	items-start mb-1 group-last:before:hidden
+	before:absolute before:left-2 sm:before:left-0
+	before:h-full before:px-px before:bg-[color:var(--background-secondary)]
+	sm:before:ml-[6.5rem] before:self-start before:-translate-x-1/2 before:translate-y-3
+	after:absolute after:left-2 sm:after:left-0 after:w-2
+	after:h-2 after:bg-[color:var(--background-primary-alt)] after:border-4 after:box-content
+	after:border-[color:var(--text-accent)] after:rounded-full sm:after:ml-[6.5rem]
+	after:-translate-x-1/2 after:translate-y-1.5;
+
 }
 
 .historica-time-1 {
-	@apply sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold text-center uppercase w-20 h-6 mb-3 sm:mb-0 text-rose-600 bg-rose-100 rounded-full
+	@apply text-[color:var(--text-accent)] bg-[color:var(--background-secondary)] sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold text-center uppercase w-20 h-12 mb-3 sm:mb-0  rounded-full;
+
 }
 
 .historica-title-1 {
-	@apply text-xl font-bold text-rose-900
+	@apply text-xl font-bold text-[color:var(--text-accent)];
 }
 
 .historica-content-1 {
-	@apply text-gray-500 hover:bg-rose-100 rounded-xl  cursor-pointer
+	@apply text-[color:var(--text-normal)]
+	rounded-xl  cursor-pointer hover:bg-[color:var(--interactive-hover)]
+	;
+
 }
 
+
 historica-mark {
-	@apply text-rose-600
+	@apply text-[color:var(--text-accent)]
 }
 
 /*style 2*/
@@ -51,7 +65,7 @@ historica-mark {
 	before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full
 	before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent
 	cursor-default
-	bg-white
+	bg-[color:var(--background-primary)]
 	p-4
 }
 
@@ -60,7 +74,11 @@ historica-mark {
 }
 
 .historica-icon-2 {
-	@apply flex items-center justify-center w-10 h-10 rounded-full border border-white bg-rose-300  text-rose-900  shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2
+	@apply flex items-center justify-center w-10 h-10 rounded-full
+	border border-white
+	bg-[color:var(--background-secondary)]  text-[color:var(--text-normal)]
+	shadow shrink-0 md:order-1
+	md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2
 }
 
 /*.historica-inner-icon-2 {*/
@@ -69,7 +87,9 @@ historica-mark {
 /*}*/
 
 .historica-card-container-2 {
-	@apply w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-4 rounded border border-rose-200 shadow
+	@apply w-[calc(100%-4rem)]
+	md:w-[calc(50%-2.5rem)] bg-[color:var(--background-secondary)] p-4 rounded border
+	border-[color:var(--text-normal)] shadow
 }
 
 .historica-card-2 {
@@ -81,13 +101,13 @@ historica-mark {
 }
 
 .historica-card-title-2 {
-	@apply font-bold text-rose-900
+	@apply font-bold text-[color:var(--text-accent)]
 }
 
 .historica-card-time-2 {
-	@apply font-medium text-rose-500
+	@apply font-medium text-[color:var(--text-on-accent)]
 }
 
 .historica-card-content-2 {
-	@apply text-gray-500 hover:bg-rose-100 rounded-xl p-2 cursor-pointer
+	@apply text-[color:var(--text-normal)] hover:bg-[color:var(--interactive-hover)] rounded-xl p-2 cursor-pointer
 }

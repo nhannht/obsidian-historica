@@ -19,8 +19,8 @@ export async function parseTFileAndUpdateDocuments(currentPlugin: Plugin, file: 
 			stripEm1 = stripHTML.replace(/\*{1,3}(.*?)\*{1,3}/g, "$1"),
 			stripEm2 = stripEm1.replace(/_{1,3}(.*?)_{1,3}/g, "$1"),
 			stripStrike = stripEm2.replace(/~{1,2}(.*?)~{1,2}/g, "$1"),
-			stripImage = stripStrike.replace(/!\[(.*?)]\((.*?)\)/g, "$2").replace(/!\[\[(.*?\.(png|jpeg|jpg|gif))]]/g, "$1");
-		return stripImage
+			stripLink = stripStrike.replace(/!?\[(.*?)]\((.*?)\)/g, "").replace(/!?\[\[(.*?)]]/g, "");
+		return stripLink
 
 	}
 
