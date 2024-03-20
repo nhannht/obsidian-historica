@@ -8,7 +8,7 @@ export interface HistoricaQuery {
 }
 
 export interface BlockConfig {
-	style: number | 1,
+	style: number,
 	include_files?: string[] | string,
 	query?: HistoricaQuery | HistoricaQuery[],
 	pin_time?: string | null,

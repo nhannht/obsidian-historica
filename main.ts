@@ -22,7 +22,7 @@ import {getCurrentFile} from "./src/getCurrentFile";
 const DEFAULT_SETTINGS: HistoricaSetting = {
 	latestFile: "",
 	showUseFulInformation: false,
-	defaultStyle: "1",
+	defaultStyle: "2",
 	showRelativeTime: true
 
 }
@@ -39,7 +39,6 @@ export default class HistoricaPlugin extends Plugin {
 		// re-set the editor mode to refresh the syntax highlighting
 		this.app.workspace.iterateCodeMirrors(cm => cm.setOption("mode", cm.getOption("mode")))
 	}
-
 
 	async onload() {
 		await this.loadSettings()
@@ -63,6 +62,7 @@ export default class HistoricaPlugin extends Plugin {
 			let blockConfig: BlockConfig = parse(source)
 			// console.log(Object.keys(blockConfig).length === 0)
 			blockConfig = await verifyBlockConfig(blockConfig, currentPlugin)
+			// console.log(blockConfig)
 
 
 			let tokensWithTypeText: Token[] = [];
@@ -115,7 +115,7 @@ export default class HistoricaPlugin extends Plugin {
 			// console.log(timelineData)
 
 
-			const style = blockConfig.style || 1
+			const style = blockConfig.style ? blockConfig.style : parseInt(this.settings.defaultStyle)
 
 
 			await renderTimelineEntry(currentPlugin, timelineData, style, el)
