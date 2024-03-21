@@ -133,11 +133,51 @@ end="1500/Jun/13"
 > Historica using `toml` as configuration syntax, so a table/table array is the syntax to define your query. You can
 > check more of them [here](https://toml.io/en/v1.0.0#table)
 
+---
+
 ###### Export or copy the timeline
 
 Just right-click anywhere in the timeline. The helper menu will appear.
 
 ![](images/.README_images/historica_helper_menu.png)
+
+> [!note]
+> This feature was being disabled on mobile due to unreliable behaviour
+
+---
+
+###### Smart theme
+
+<div align="center">
+<sub>
+Historica has it own theme—Legend Larva, which Nhan Nguyen had carefully designed, but now you have an option to use semantic theme, 
+which will change based on your current Obsidian Theme 
+</sub>
+</div>
+
+````toml 
+```historica
+smart_theme=true
+```
+````
+
+<div align="right">
+<sub>Or using global setting option</sub>
+</div>
+
+---
+
+###### Implicit or explicit showing point of time
+
+<div align="center">
+<sub>Control how time entry will be display in your timeline</sub>
+</div>
+
+````toml
+```historica
+implicit_time=true/false
+```
+````
 
 ---
 
