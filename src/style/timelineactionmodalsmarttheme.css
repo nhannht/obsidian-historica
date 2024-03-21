@@ -1,0 +1,10 @@
+.historica-timeline-action-modal-smart-theme {
+	@apply p-4 flex flex-col space-y-4 bg-[color:var(--background-primary)] rounded-lg
+}
+
+.historica-timeline-action-button-smart-theme {
+	@apply p-3 text-xs  rounded-xl cursor-pointer transition-all duration-300 ease-in-out
+	text-[color:var(--text-normal)] bg-[color:var(--background-primary)] text-center
+	hover:bg-[color:var(--background-modifier-hover)]
+
+}
