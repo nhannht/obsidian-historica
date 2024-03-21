@@ -5,7 +5,8 @@ export interface HistoricaSetting {
 	latestFile: string
 	showUseFulInformation: boolean
 	defaultStyle: string,
-	showRelativeTime: boolean
+	showRelativeTime: boolean,
+	usingSmartTheme: boolean,
 }
 export class HistoricaSettingTab extends PluginSettingTab {
 	plugin: HistoricaPlugin;
@@ -43,8 +44,9 @@ export class HistoricaSettingTab extends PluginSettingTab {
 			})
 
 		new Setting(containerEl)
-			.setName("Implicit or explicit date showing in the time entry")
-			.setDesc("Example, your current date as 2024/Mar/20, if your date entry is have a string as - 2 day ago - turn this options on, the entry will be implicit '2 days ago', if turn it off, it will show as explicit day - 2024/Mar/18 ")
+			.setName("Implicit date showing in the time entry")
+			.setDesc("Example, your current date as 2024/Mar/20," +
+				"a string like '2 day ago' will be show explicit as '2024/Mar/18' if you turn this option off")
 			.addToggle(toggle => {
 				toggle.setValue(settings.showRelativeTime)
 				toggle.onChange(async (value) => {
@@ -53,7 +55,16 @@ export class HistoricaSettingTab extends PluginSettingTab {
 				})
 			})
 
-
+		new Setting(containerEl)
+			.setName("Smart theme")
+			.setDesc("Theme that dynamic change base on your current obsidian  theme, turn it off if you want to using classic theme of Historica - Legend Larva")
+			.addToggle(toggle => {
+				toggle.setValue(settings.usingSmartTheme)
+				toggle.onChange(async (value) => {
+					settings.usingSmartTheme = value
+					await this.plugin.saveSettings()
+				})
+			})
 	}
 
 }

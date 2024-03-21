@@ -4,29 +4,41 @@ import {convertImageToPdf} from "./convertImageToPdf";
 import {toBlob} from "html-to-image";
 import {TimelineEntryChrono} from "./GetTimelineDataFromDocumentArray";
 import {json2csv} from 'json-2-csv';
+import HistoricaPlugin from "../main";
 
 export class TimelineActionModal extends Modal {
-    thisPlugin: Plugin
+	thisPlugin: HistoricaPlugin
     targetEl: HTMLElement
 	timelineData: TimelineEntryChrono[]
+	isUsingSmartTheme: boolean
 
-	constructor(app: App, targetEl: HTMLElement, thisPlugin: Plugin, timelineData: TimelineEntryChrono[]) {
+	constructor(app: App, targetEl: HTMLElement,
+				thisPlugin: HistoricaPlugin,
+				timelineData: TimelineEntryChrono[],
+				isUsingSMartTheme: boolean
+	) {
         super(app)
         this.targetEl = targetEl
         this.thisPlugin = thisPlugin
 		this.timelineData = timelineData
+		this.isUsingSmartTheme = isUsingSMartTheme
+
     }
 
     onOpen() {
         super.onOpen();
         const {contentEl} = this
+		const historicaTimelineActionModalClass = this.isUsingSmartTheme ? "historica-timeline-action-modal-smart-theme" : "historica-timeline-action-modal"
         const actionModalEl = contentEl.createEl('div', {
-            cls: "historica-timeline-action-modal"
+			cls: historicaTimelineActionModalClass
         })
+		const setting = this.thisPlugin.settings
+
+		const actionButtonClass = this.isUsingSmartTheme ? "historica-timeline-action-button-smart-theme" : "historica-timeline-action-button"
 
         actionModalEl.createEl('div', {
             text: "Export as image (clipboard)",
-            cls: "historica-timeline-action-button",
+			cls: actionButtonClass,
 
         }).addEventListener('click', async () => {
             const blob = await toBlob(this.targetEl)
@@ -41,7 +53,7 @@ export class TimelineActionModal extends Modal {
 
         actionModalEl.createEl('div', {
             text: "Export as image (PNG)",
-            cls: "historica-timeline-action-button",
+			cls: actionButtonClass,
 
         }).addEventListener('click', async () => {
             const image = await convertHTMLToImageData(this.targetEl)
@@ -55,7 +67,7 @@ export class TimelineActionModal extends Modal {
 
         actionModalEl.createEl('div', {
             text: "Export as pdf",
-            cls: "historica-timeline-action-button"
+			cls: actionButtonClass
         }).addEventListener('click', async () => {
             const imageData = await convertHTMLToImageData(this.targetEl)
             const image = new Image()
@@ -71,7 +83,7 @@ export class TimelineActionModal extends Modal {
 
 		actionModalEl.createEl('div', {
 			text: "Export as json",
-			cls: "historica-timeline-action-button"
+			cls: actionButtonClass
 		}).addEventListener('click', async () => {
 			const data = JSON.stringify(this.timelineData, null, 4)
 			// console.table(data)
@@ -87,7 +99,7 @@ export class TimelineActionModal extends Modal {
 		})
 		actionModalEl.createEl('div', {
 			text: "Export as csv",
-			cls: "historica-timeline-action-button"
+			cls: actionButtonClass
 		}).addEventListener('click', async () => {
 
 			const csv = await json2csv(this.timelineData)
@@ -104,7 +116,7 @@ export class TimelineActionModal extends Modal {
 		})
 		actionModalEl.createEl('div', {
 			text: "Copy as json",
-			cls: "historica-timeline-action-button"
+			cls: actionButtonClass
 		}).addEventListener('click', async () => {
 			const data = JSON.stringify(this.timelineData, null, 4)
 			// console.table(data)
@@ -114,7 +126,7 @@ export class TimelineActionModal extends Modal {
 		})
 		actionModalEl.createEl('div', {
 			text: "Copy as csv",
-			cls: "historica-timeline-action-button"
+			cls: actionButtonClass
 		}).addEventListener('click', async () => {
 			const csv = json2csv(this.timelineData)
 

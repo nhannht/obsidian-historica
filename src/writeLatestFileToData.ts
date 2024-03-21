@@ -18,6 +18,7 @@ export async function writeLatestFileToData(currentPlugin: Plugin, file: TFile) 
 			showUseFulInformation: false,
 			defaultStyle: "1",
 			showRelativeTime: false,
+			usingSmartTheme: true
 
 		}
 

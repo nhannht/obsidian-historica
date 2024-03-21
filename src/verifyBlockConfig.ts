@@ -7,29 +7,17 @@ export interface HistoricaQuery {
 	end: string
 }
 
-export interface BlockConfig {
+export interface HistoricaBlockConfig {
 	style: number,
 	include_files?: string[] | string,
 	query?: HistoricaQuery | HistoricaQuery[],
 	pin_time?: string | null,
-
-
+	smart_theme: boolean,
+	implicit_time: boolean
 }
 
-export async function verifyBlockConfig(blockConfig: BlockConfig, thisPlugin: HistoricaPlugin) {
-	if (Object.keys(blockConfig).length === 0) {
-		const defaultStyle = thisPlugin.settings.defaultStyle
-		blockConfig = {
-			style: parseInt(defaultStyle),
-			include_files: [],
-			query: [],
-			pin_time: "",
+export async function verifyBlockConfig(blockConfig: HistoricaBlockConfig, thisPlugin: HistoricaPlugin) {
 
-			// exclude_files: []
-		}
-		return blockConfig
-
-	}
 	// console.log(blockConfig)
 	// default style if style not setup
 	if (![1, 2].includes(blockConfig.style) || !blockConfig.style) {

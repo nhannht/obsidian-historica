@@ -1,126 +1,137 @@
 import {TimelineEntryChrono} from "./GetTimelineDataFromDocumentArray";
 import {FormatSentencesWithMarkElement} from "./FormatSentencesWithMarkElement";
-import {Plugin, setIcon} from "obsidian";
+import {setIcon} from "obsidian";
 import {HistoricaSearchResultModal} from "./SearchResultModal";
 import {TimelineActionModal} from "./TimelineActionModal";
 import isMobile from "ismobilejs";
 import {HistoricaSetting} from "./historicaSettingTab";
+import HistoricaPlugin from "../main";
+import {HistoricaBlockConfig} from "./verifyBlockConfig";
 
-export async function renderTimelineEntry(currentPlugin: Plugin,
+export async function renderTimelineEntry(currentPlugin: HistoricaPlugin,
 										  timelineData: TimelineEntryChrono[],
-										  style: number,
+										  blockConfig: HistoricaBlockConfig,
 										  el: HTMLElement) {
 	const settings: HistoricaSetting = await currentPlugin.loadData()
-	const isShowRelativeTime = settings.showRelativeTime
+	const isShowRelativeTime = blockConfig.implicit_time !== undefined ? blockConfig.implicit_time : settings.showRelativeTime
+	const isUsingSmartTheme = blockConfig.smart_theme !== undefined ? blockConfig.smart_theme : settings.usingSmartTheme
+
+	const style = blockConfig.style !== undefined ? blockConfig.style : settings.defaultStyle
+
 
 	if (style === 1) {
+		const historicaEntryClass = isUsingSmartTheme ? "historica-entry-1-smart-theme group" : "historica-entry-1 group"
+		const historicaVerticalLineClass = isUsingSmartTheme ? "historica-vertical-line-1-smart-theme" : "historica-vertical-line-1"
+		const historicaTimeClass = isUsingSmartTheme ? "historica-time-1-smart-theme" : "historica-time-1"
+		const historicaTitleClass = isUsingSmartTheme ? "historica-title-1-smart-theme" : "historica-title-1"
+		const historicaContentClass = isUsingSmartTheme ? "historica-content-1-smart-theme" : "historica-content-1"
+		const historicaContainerClass = isUsingSmartTheme ? "historica-container-1-smart-theme" : "historica-container-1"
+
 		const timelineEl = el.createEl('div', {
-			cls: "historica-container-1"
+			cls: historicaContainerClass
 		})
 		// console.log(isMobile())
 		if (!isMobile().any) {
 			timelineEl.addEventListener("contextmenu", async (e) => {
 				e.preventDefault()
-				new TimelineActionModal(currentPlugin.app, timelineEl, currentPlugin, timelineData).open()
+				new TimelineActionModal(currentPlugin.app, timelineEl, currentPlugin, timelineData, isUsingSmartTheme).open()
 			})
 		}
 
 
 		timelineData.map((entry) => {
 			const timelineEntryEl = timelineEl.createEl('div', {
-				cls: "historica-entry-1 group"
+				cls: historicaEntryClass
 			})
 			// timelineEntryEl.createEl('div', {cls: "historica-label", text: entry.importantInformation})
-			const verticalLine = timelineEntryEl.createEl('div', {cls: "historica-vertical-line-1"})
+			const verticalLine = timelineEntryEl.createEl('div', {cls: historicaVerticalLineClass})
 			if (isShowRelativeTime) {
-				verticalLine.createEl('time', {cls: "historica-time-1", text: entry.stringThatParseAsDate})
+				verticalLine.createEl('time', {cls: historicaTimeClass, text: entry.stringThatParseAsDate})
 			} else {
-				verticalLine.createEl('time', {cls: "historica-time-1", text: entry.dateStringCompact})
+				verticalLine.createEl('time', {cls: historicaTimeClass, text: entry.dateStringCompact})
 			}
-			verticalLine.createEl('div', {cls: "historica-title-1", text: entry.importantInformation})
-			const historicaContent = timelineEntryEl.createEl('div', {cls: "historica-content-1"})
+			verticalLine.createEl('div', {cls: historicaTitleClass, text: entry.importantInformation})
+			const historicaContent = timelineEntryEl.createEl('div', {cls: historicaContentClass})
 			historicaContent.addEventListener('click', async () => {
 
-				new HistoricaSearchResultModal(currentPlugin.app, entry.stringThatParseAsDate, currentPlugin).open()
-
-
+				new HistoricaSearchResultModal(currentPlugin.app, entry.stringThatParseAsDate, currentPlugin, isUsingSmartTheme).open()
 			})
-			FormatSentencesWithMarkElement(entry.sentence, historicaContent)
+			FormatSentencesWithMarkElement(entry.sentence, historicaContent, isUsingSmartTheme)
 
 		})
 	} else if (style === 2) {
+		let historicaCardTimeClass: string, historicaCardClass: string, historicaCardContainerClass: string,
+			historicaCardTitleClass: string, historicaContainerClass: string, historicaTimelineIconClass: string,
+			historicaTimelineItemClass: string, historicaCardContentClass: string;
+		if (isUsingSmartTheme) {
+			historicaContainerClass = "historica-container-2-smart-theme"
+			historicaTimelineItemClass = "historica-item-2-smart-theme group"
+			historicaTimelineIconClass = "historica-icon-2-smart-theme"
+			historicaCardContainerClass = "historica-card-container-2-smart-theme"
+			historicaCardClass = "historica-card-2-smart-theme"
+			historicaCardTitleClass = "historica-card-title-2-smart-theme"
+			historicaCardTimeClass = "historica-card-time-2-smart-theme"
+			historicaCardContentClass = "historica-card-content-2-smart-theme"
+
+		} else {
+			historicaContainerClass = "historica-container-2"
+			historicaTimelineItemClass = "historica-item-2 group"
+			historicaTimelineIconClass = "historica-icon-2"
+			historicaCardContainerClass = "historica-card-container-2"
+			historicaCardClass = "historica-card-2"
+			historicaCardTitleClass = "historica-card-title-2"
+			historicaCardTimeClass = "historica-card-time-2"
+			historicaCardContentClass = "historica-card-content-2"
+		}
 		const timelineContainer = el.createEl('div', {
-			cls: "historica-container-2"
+			cls: historicaContainerClass
 		})
 		if (!isMobile().any) {
 			timelineContainer.addEventListener("contextmenu", async (e) => {
 				e.preventDefault()
-				new TimelineActionModal(currentPlugin.app, timelineContainer, currentPlugin, timelineData).open()
+				new TimelineActionModal(currentPlugin.app,
+					timelineContainer, currentPlugin,
+					timelineData, isUsingSmartTheme).open()
 			})
 		}
 		timelineData.map((entry) => {
 			const timelineItem = timelineContainer.createEl('div', {
-				cls: "historica-item-2 group"
+				cls: historicaTimelineItemClass
 			})
 			const timelineIcon = timelineItem.createEl('div', {
-				cls: "historica-icon-2"
+				cls: historicaTimelineIconClass
 			})
 			const timelineCardContainer = timelineItem.createEl('div', {
-				cls: "historica-card-container-2"
+				cls: historicaCardContainerClass
 			})
 
-			// @ts-ignore
-			// const timelineSvg = timelineIcon.createEl('svg', {
-			// 	cls: "historica-svg-2",
-			// 	attr: {
-			// 		xmlns: "http://www.w3.org/2000/svg",
-			// 		width: "10",
-			// 		height: "10",
-			// 	}
-			//
-			// })
 			setIcon(timelineIcon, "shell")
 
-			// @ts-ignore
-			// const timelineInnerIcon = timelineIcon.createEl('div', {
-			// 	cls: "historica-inner-icon-2",
-			// })
 
 			const timelineCard = timelineCardContainer.createEl('div', {
-				cls: "historica-card-2"
+				cls: historicaCardClass
 
 			})
 			timelineCard.createEl('div', {
-				cls: "historica-card-title-2",
+				cls: historicaCardTitleClass,
 				text: entry.importantInformation
 			})
-			if (isShowRelativeTime) {
-				timelineCard.createEl('div', {
-					cls: "historica-card-time-2",
-					text: entry.stringThatParseAsDate
-				})
-			} else {
-				timelineCard.createEl('div', {
-					cls: "historica-card-time-2",
-					text: entry.dateStringCompact
-				})
-
-			}
+			timelineCard.createEl('div', {
+				cls: historicaCardTimeClass,
+				text: entry.stringThatParseAsDate
+			})
 			const timelineCardContent = timelineCardContainer.createEl('div', {
-				cls: "historica-card-content-2",
+				cls: historicaCardContentClass,
 
 			})
 
-			FormatSentencesWithMarkElement(entry.sentence, timelineCardContent)
+			FormatSentencesWithMarkElement(entry.sentence, timelineCardContent, isUsingSmartTheme)
 			timelineCardContent.addEventListener('click', async () => {
 
-				new HistoricaSearchResultModal(currentPlugin.app, entry.stringThatParseAsDate, currentPlugin).open()
-
-
+				new HistoricaSearchResultModal(currentPlugin.app, entry.stringThatParseAsDate, currentPlugin, isUsingSmartTheme).open()
 			})
-
-
 		})
+
 
 	}
 }

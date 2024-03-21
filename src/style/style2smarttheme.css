@@ -1,0 +1,52 @@
+.historica-container-2-smart-theme {
+	@apply space-y-8 relative before:absolute before:inset-0 before:ml-5
+	before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full
+	before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-[color:var(--text-normal)] before:to-transparent
+	cursor-default
+	bg-[color:var(--background-primary)]
+	p-4
+}
+
+.historica-item-2-smart-theme {
+	@apply relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse
+}
+
+.historica-icon-2-smart-theme {
+	@apply flex items-center justify-center w-10 h-10 rounded-full
+	border border-white
+	bg-[color:var(--background-secondary)]  text-[color:var(--text-normal)]
+	shadow shrink-0 md:order-1
+	md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2
+}
+
+/*.historica-inner-icon-2 {*/
+/*	@apply flex items-center justify-center w-5 h-5 rounded-full border border-white bg-rose-800  text-rose-900  shadow shrink-0 md:order-1 md:group-odd:-translate-x-[1/8] md:group-even:translate-x-[1/8]*/
+
+/*}*/
+
+.historica-card-container-2-smart-theme {
+	@apply w-[calc(100%-4rem)]
+	md:w-[calc(50%-2.5rem)] bg-[color:var(--background-secondary)] p-4 rounded border
+	border-[color:var(--text-normal)] shadow
+}
+
+.historica-card-2-smart-theme {
+	@apply flex items-center justify-between space-x-2 mb-1
+}
+
+.historica-svg-2-smart-theme {
+	@apply fill-current
+}
+
+.historica-card-title-2-smart-theme {
+	@apply font-bold text-[color:var(--text-accent)]
+}
+
+.historica-card-time-2-smart-theme {
+	@apply font-medium text-[color:var(--text-accent-hover)]
+}
+
+.historica-card-content-2-smart-theme {
+	@apply text-[color:var(--text-normal)] hover:bg-[color:var(--background-modifier-hover)] rounded-xl p-2 cursor-pointer
+	transition-all duration-500 ease-in-out
+}

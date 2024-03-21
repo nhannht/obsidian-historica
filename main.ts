@@ -12,7 +12,7 @@ import './src/mode/historica/historica'
 import {HistoricaSetting, HistoricaSettingTab} from "./src/historicaSettingTab";
 import {parseTFileAndUpdateDocuments} from "./src/parseTFileAndUpdateDocuments";
 import {writeLatestFileToData} from "./src/writeLatestFileToData";
-import {BlockConfig, HistoricaQuery, verifyBlockConfig} from "./src/verifyBlockConfig";
+import {HistoricaBlockConfig, HistoricaQuery, verifyBlockConfig} from "./src/verifyBlockConfig";
 import {getCurrentFile} from "./src/getCurrentFile";
 
 /**
@@ -23,7 +23,8 @@ const DEFAULT_SETTINGS: HistoricaSetting = {
 	latestFile: "",
 	showUseFulInformation: false,
 	defaultStyle: "2",
-	showRelativeTime: true
+	showRelativeTime: true,
+	usingSmartTheme: false
 
 }
 
@@ -59,7 +60,7 @@ export default class HistoricaPlugin extends Plugin {
 			// console.log(ctx)
 
 			// parse yaml in this block
-			let blockConfig: BlockConfig = parse(source)
+			let blockConfig: HistoricaBlockConfig = parse(source)
 			// console.log(Object.keys(blockConfig).length === 0)
 			blockConfig = await verifyBlockConfig(blockConfig, currentPlugin)
 			// console.log(blockConfig)
@@ -118,7 +119,7 @@ export default class HistoricaPlugin extends Plugin {
 			const style = blockConfig.style ? blockConfig.style : parseInt(this.settings.defaultStyle)
 
 
-			await renderTimelineEntry(currentPlugin, timelineData, style, el)
+			await renderTimelineEntry(currentPlugin, timelineData, blockConfig, el)
 			await writeLatestFileToData(currentPlugin, await getCurrentFile(currentPlugin))
 		})
 
