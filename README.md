@@ -15,7 +15,7 @@
 - _(Not) Smart and dynamic extraction_ point of time in your note or multi notes
 - _Auto sort_ and _visualize_ the time in your note 
 - Support for two styles of visualization
-- _(Not) Smart generate the summary_ of content related to the point of time in your note
+- _(Not) Smart generates the summary_ of content related to the point of time in your note
 - Multi files support
 - Export your timeline as image/pdf or copy it to clipboard
 
@@ -29,7 +29,7 @@
 <div align="left">
 <details>
 <summary> <sub> No 😍, it is not</sub> </summary>
-<sub>There is no heavy GPT or any remote server involve, just classic NLP that make sure anything as much fast as possible</sub>
+<sub>There is no heavy GPT or any remote server involved, just classic NLP that makes sure anything as fast as possible</sub>
 </details></div>
 
 ---
@@ -150,7 +150,7 @@ Just right-click anywhere in the timeline. The helper menu will appear.
 
 <div align="center">
 <sub>
-Historica has it own theme—Legend Larva, which Nhan Nguyen had carefully designed, but now you have an option to use semantic theme, 
+Historica has it own theme—Legend Larva, which I had carefully (I just joked, haha) designed, but now you have the option to use the semantic theme, 
 which will change based on your current Obsidian Theme 
 </sub>
 </div>
