@@ -14,6 +14,7 @@ import {parseTFileAndUpdateDocuments} from "./src/parseTFileAndUpdateDocuments";
 import {writeLatestFileToData} from "./src/writeLatestFileToData";
 import {HistoricaBlockConfig, HistoricaQuery, verifyBlockConfig} from "./src/verifyBlockConfig";
 import {getCurrentFile} from "./src/getCurrentFile";
+import ConfigManager from "./src/ConfigManager";
 
 /**
  * The default historica setting
@@ -23,8 +24,8 @@ const DEFAULT_SETTINGS: HistoricaSetting = {
 	latestFile: "",
 	showUseFulInformation: false,
 	defaultStyle: "2",
-	showRelativeTime: true,
-	usingSmartTheme: false
+	showRelativeTime: false,
+	usingSmartTheme: true
 
 }
 
@@ -32,8 +33,8 @@ const DEFAULT_SETTINGS: HistoricaSetting = {
 // export const HISTORICA_VIEW_TYPE = "historica-note-location"
 
 export default class HistoricaPlugin extends Plugin {
+	settingManager = new ConfigManager(this, DEFAULT_SETTINGS)
 
-	settings: HistoricaSetting;
 	modesToKeep = ["hypermd", "markdown", "null", "xml"];
 
 	refreshLeaves = () => {
@@ -42,7 +43,7 @@ export default class HistoricaPlugin extends Plugin {
 	}
 
 	async onload() {
-		await this.loadSettings()
+		await this.settingManager.loadSettings()
 		// this.app.workspace.iterateCodeMirrors(cm => console.log(cm))
 		this.app.workspace.onLayoutReady(() => {
 			this.refreshLeaves()
@@ -107,7 +108,7 @@ export default class HistoricaPlugin extends Plugin {
 				customChrono,
 				compromise,
 				corpus,
-				this.settings.showUseFulInformation,
+				this.settingManager.settings.showUseFulInformation,
 				// @ts-ignore
 				blockConfig.query,
 				blockConfig.pin_time
@@ -116,15 +117,12 @@ export default class HistoricaPlugin extends Plugin {
 			// console.log(timelineData)
 
 
-			const style = blockConfig.style ? blockConfig.style : parseInt(this.settings.defaultStyle)
-
 
 			await renderTimelineEntry(currentPlugin, timelineData, blockConfig, el)
 			await writeLatestFileToData(currentPlugin, await getCurrentFile(currentPlugin))
 		})
 
 		this.addSettingTab(new HistoricaSettingTab(this.app, this))
-
 
 		// const ribbonIconEl = this.addRibbonIcon('heart', 'Historica icon', async (evt: MouseEvent) => {
 		//
@@ -134,7 +132,6 @@ export default class HistoricaPlugin extends Plugin {
 		//
 		//
 		// });
-
 
 	}
 
@@ -158,14 +155,7 @@ export default class HistoricaPlugin extends Plugin {
 
 	}
 
-	async loadSettings() {
-		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData())
-	}
 
-	async saveSettings() {
-		await this.saveData(this.settings)
-
-	}
 
 
 }

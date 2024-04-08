@@ -32,7 +32,7 @@ export class TimelineActionModal extends Modal {
         const actionModalEl = contentEl.createEl('div', {
 			cls: historicaTimelineActionModalClass
         })
-		const setting = this.thisPlugin.settings
+		const setting = this.thisPlugin.settingManager.settings
 
 		const actionButtonClass = this.isUsingSmartTheme ? "historica-timeline-action-button-smart-theme" : "historica-timeline-action-button"
 

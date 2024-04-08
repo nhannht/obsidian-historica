@@ -12,20 +12,15 @@ export async function renderTimelineEntry(currentPlugin: HistoricaPlugin,
 										  timelineData: TimelineEntryChrono[],
 										  blockConfig: HistoricaBlockConfig,
 										  el: HTMLElement) {
-	const settings: HistoricaSetting = await currentPlugin.loadData()
-	const isShowRelativeTime = blockConfig.implicit_time !== undefined ? blockConfig.implicit_time : settings.showRelativeTime
-	const isUsingSmartTheme = blockConfig.smart_theme !== undefined ? blockConfig.smart_theme : settings.usingSmartTheme
-
-	const style = blockConfig.style !== undefined ? blockConfig.style : settings.defaultStyle
 
 
-	if (style === 1) {
-		const historicaEntryClass = isUsingSmartTheme ? "historica-entry-1-smart-theme group" : "historica-entry-1 group"
-		const historicaVerticalLineClass = isUsingSmartTheme ? "historica-vertical-line-1-smart-theme" : "historica-vertical-line-1"
-		const historicaTimeClass = isUsingSmartTheme ? "historica-time-1-smart-theme" : "historica-time-1"
-		const historicaTitleClass = isUsingSmartTheme ? "historica-title-1-smart-theme" : "historica-title-1"
-		const historicaContentClass = isUsingSmartTheme ? "historica-content-1-smart-theme" : "historica-content-1"
-		const historicaContainerClass = isUsingSmartTheme ? "historica-container-1-smart-theme" : "historica-container-1"
+	if (blockConfig.style === 1) {
+		const historicaEntryClass = blockConfig.smart_theme ? "historica-entry-1-smart-theme group" : "historica-entry-1 group"
+		const historicaVerticalLineClass = blockConfig.smart_theme ? "historica-vertical-line-1-smart-theme" : "historica-vertical-line-1"
+		const historicaTimeClass = blockConfig.smart_theme ? "historica-time-1-smart-theme" : "historica-time-1"
+		const historicaTitleClass = blockConfig.smart_theme ? "historica-title-1-smart-theme" : "historica-title-1"
+		const historicaContentClass = blockConfig.smart_theme ? "historica-content-1-smart-theme" : "historica-content-1"
+		const historicaContainerClass = blockConfig.smart_theme ? "historica-container-1-smart-theme" : "historica-container-1"
 
 		const timelineEl = el.createEl('div', {
 			cls: historicaContainerClass
@@ -34,7 +29,7 @@ export async function renderTimelineEntry(currentPlugin: HistoricaPlugin,
 		if (!isMobile().any) {
 			timelineEl.addEventListener("contextmenu", async (e) => {
 				e.preventDefault()
-				new TimelineActionModal(currentPlugin.app, timelineEl, currentPlugin, timelineData, isUsingSmartTheme).open()
+				new TimelineActionModal(currentPlugin.app, timelineEl, currentPlugin, timelineData, blockConfig.smart_theme).open()
 			})
 		}
 
@@ -45,7 +40,8 @@ export async function renderTimelineEntry(currentPlugin: HistoricaPlugin,
 			})
 			// timelineEntryEl.createEl('div', {cls: "historica-label", text: entry.importantInformation})
 			const verticalLine = timelineEntryEl.createEl('div', {cls: historicaVerticalLineClass})
-			if (isShowRelativeTime) {
+			console.log(entry.dateStringCompact)
+			if (blockConfig.implicit_time) {
 				verticalLine.createEl('time', {cls: historicaTimeClass, text: entry.stringThatParseAsDate})
 			} else {
 				verticalLine.createEl('time', {cls: historicaTimeClass, text: entry.dateStringCompact})
@@ -54,16 +50,16 @@ export async function renderTimelineEntry(currentPlugin: HistoricaPlugin,
 			const historicaContent = timelineEntryEl.createEl('div', {cls: historicaContentClass})
 			historicaContent.addEventListener('click', async () => {
 
-				new HistoricaSearchResultModal(currentPlugin.app, entry.stringThatParseAsDate, currentPlugin, isUsingSmartTheme).open()
+				new HistoricaSearchResultModal(currentPlugin.app, entry.stringThatParseAsDate, currentPlugin, blockConfig.smart_theme).open()
 			})
-			FormatSentencesWithMarkElement(entry.sentence, historicaContent, isUsingSmartTheme)
+			FormatSentencesWithMarkElement(entry.sentence, historicaContent, blockConfig.smart_theme)
 
 		})
-	} else if (style === 2) {
+	} else if (blockConfig.style === 2) {
 		let historicaCardTimeClass: string, historicaCardClass: string, historicaCardContainerClass: string,
 			historicaCardTitleClass: string, historicaContainerClass: string, historicaTimelineIconClass: string,
 			historicaTimelineItemClass: string, historicaCardContentClass: string;
-		if (isUsingSmartTheme) {
+		if (blockConfig.smart_theme) {
 			historicaContainerClass = "historica-container-2-smart-theme"
 			historicaTimelineItemClass = "historica-item-2-smart-theme group"
 			historicaTimelineIconClass = "historica-icon-2-smart-theme"
@@ -91,7 +87,7 @@ export async function renderTimelineEntry(currentPlugin: HistoricaPlugin,
 				e.preventDefault()
 				new TimelineActionModal(currentPlugin.app,
 					timelineContainer, currentPlugin,
-					timelineData, isUsingSmartTheme).open()
+					timelineData, blockConfig.smart_theme).open()
 			})
 		}
 		timelineData.map((entry) => {
@@ -116,22 +112,29 @@ export async function renderTimelineEntry(currentPlugin: HistoricaPlugin,
 				cls: historicaCardTitleClass,
 				text: entry.importantInformation
 			})
-			timelineCard.createEl('div', {
-				cls: historicaCardTimeClass,
-				text: entry.stringThatParseAsDate
-			})
+			if (blockConfig.implicit_time) {
+				timelineCard.createEl('div', {
+					cls: historicaCardTimeClass,
+					text: entry.stringThatParseAsDate
+				})
+			} else {
+				timelineCard.createEl('div', {
+					cls: historicaCardTimeClass,
+					text: entry.dateStringCompact
+				})
+			}
+
 			const timelineCardContent = timelineCardContainer.createEl('div', {
 				cls: historicaCardContentClass,
 
 			})
 
-			FormatSentencesWithMarkElement(entry.sentence, timelineCardContent, isUsingSmartTheme)
+			FormatSentencesWithMarkElement(entry.sentence, timelineCardContent, blockConfig.smart_theme)
 			timelineCardContent.addEventListener('click', async () => {
 
-				new HistoricaSearchResultModal(currentPlugin.app, entry.stringThatParseAsDate, currentPlugin, isUsingSmartTheme).open()
+				new HistoricaSearchResultModal(currentPlugin.app, entry.stringThatParseAsDate, currentPlugin, blockConfig.smart_theme).open()
 			})
 		})
-
 
 	}
 }

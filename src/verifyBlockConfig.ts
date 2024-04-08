@@ -18,16 +18,20 @@ export interface HistoricaBlockConfig {
 
 export async function verifyBlockConfig(blockConfig: HistoricaBlockConfig, thisPlugin: HistoricaPlugin) {
 
+
+	// STYLE
 	// console.log(blockConfig)
 	// default style if style not setup
 	if (![1, 2].includes(blockConfig.style) || !blockConfig.style) {
-		blockConfig.style = parseInt(thisPlugin.settings.defaultStyle)
+		blockConfig.style = parseInt(thisPlugin.settingManager.settings.defaultStyle)
 
 	}
+	// INCLUDE_FILES
 	// default include files if include files not setup
 	if (!blockConfig.include_files) {
 		blockConfig.include_files = []
 	}
+	// QUERY
 
 	let query: HistoricaQuery[] = []
 	// console.log(blockConfig.query)
@@ -67,11 +71,22 @@ export async function verifyBlockConfig(blockConfig: HistoricaBlockConfig, thisP
 	blockConfig.query = query
 
 
+	// PIN_TIME
 	// default pin time if pin time not setup
 	if (!blockConfig.pin_time || blockConfig.pin_time && blockConfig.pin_time.trim() === "") {
 		blockConfig.pin_time = "now"
 	}
 
+	// SMART_THEME
+	if (!blockConfig.smart_theme ) {
+		blockConfig.smart_theme = thisPlugin.settingManager.settings.usingSmartTheme
+	}
+
+	// IMPLICIT_TIME
+	// console.log(blockConfig.implicit_time)
+	if (![true,false].includes(blockConfig.implicit_time) ) {
+		blockConfig.implicit_time = thisPlugin.settingManager.settings.showRelativeTime
+	}
 
 	return blockConfig
 }

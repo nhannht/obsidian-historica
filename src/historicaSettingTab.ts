@@ -19,7 +19,7 @@ export class HistoricaSettingTab extends PluginSettingTab {
 	display(): any {
 		const {containerEl} = this;
 		containerEl.empty();
-		const settings = this.plugin.settings;
+		const settings = this.plugin.settingManager.settings;
 		new Setting(containerEl)
 			.setName("Default Style")
 			.setDesc("Choose the default style for the timeline")
@@ -29,7 +29,7 @@ export class HistoricaSettingTab extends PluginSettingTab {
 				dropdown.setValue(settings.defaultStyle)
 				dropdown.onChange(async (value) => {
 					settings.defaultStyle = value
-					await this.plugin.saveSettings()
+					await this.plugin.settingManager.saveSettings()
 				})
 			})
 		new Setting(containerEl)
@@ -39,7 +39,7 @@ export class HistoricaSettingTab extends PluginSettingTab {
 				toggle.setValue(settings.showUseFulInformation)
 				toggle.onChange(async (value) => {
 					settings.showUseFulInformation = value
-					await this.plugin.saveSettings()
+					await this.plugin.settingManager.saveSettings()
 				})
 			})
 
@@ -51,7 +51,7 @@ export class HistoricaSettingTab extends PluginSettingTab {
 				toggle.setValue(settings.showRelativeTime)
 				toggle.onChange(async (value) => {
 					settings.showRelativeTime = value
-					await this.plugin.saveSettings()
+					await this.plugin.settingManager.saveSettings()
 				})
 			})
 
@@ -62,7 +62,7 @@ export class HistoricaSettingTab extends PluginSettingTab {
 				toggle.setValue(settings.usingSmartTheme)
 				toggle.onChange(async (value) => {
 					settings.usingSmartTheme = value
-					await this.plugin.saveSettings()
+					await this.plugin.settingManager.saveSettings()
 				})
 			})
 	}
