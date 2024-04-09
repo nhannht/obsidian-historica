@@ -1,6 +1,6 @@
 import HistoricaPlugin from "../main";
 import {Notice} from "obsidian"
-
+import {isUndefined} from "lodash";
 
 export interface HistoricaQuery {
 	start: string,
@@ -28,7 +28,7 @@ export async function verifyBlockConfig(blockConfig: HistoricaBlockConfig, thisP
 	}
 	// INCLUDE_FILES
 	// default include files if include files not setup
-	if (!blockConfig.include_files) {
+	if (isUndefined(blockConfig.include_files)) {
 		blockConfig.include_files = []
 	}
 	// QUERY
@@ -36,7 +36,7 @@ export async function verifyBlockConfig(blockConfig: HistoricaBlockConfig, thisP
 	let query: HistoricaQuery[] = []
 	// console.log(blockConfig.query)
 
-	if (!blockConfig.query) {
+	if (blockConfig.query === undefined) {
 		query = []
 	} else if (Object.keys(blockConfig.query).length === 0) {
 		query = []
@@ -73,12 +73,13 @@ export async function verifyBlockConfig(blockConfig: HistoricaBlockConfig, thisP
 
 	// PIN_TIME
 	// default pin time if pin time not setup
-	if (!blockConfig.pin_time || blockConfig.pin_time && blockConfig.pin_time.trim() === "") {
+	if (isUndefined(blockConfig.pin_time) || blockConfig.pin_time && blockConfig.pin_time.trim() === "") {
 		blockConfig.pin_time = "now"
 	}
 
 	// SMART_THEME
-	if (!blockConfig.smart_theme ) {
+
+	if (![true,false].includes(blockConfig.smart_theme) ) {
 		blockConfig.smart_theme = thisPlugin.settingManager.settings.usingSmartTheme
 	}
 

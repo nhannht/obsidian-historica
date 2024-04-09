@@ -1,6 +1,6 @@
 {
   "name": "obsidian-historica",
-	"version": "0.2.3",
+  "version": "0.2.3",
   "description": "Intelligently generates timeline from your content",
   "main": "main.js",
   "scripts": {
@@ -37,12 +37,14 @@
     "wink-nlp-utils": "^2.1.0"
   },
   "dependencies": {
+    "@types/lodash": "^4.17.0",
     "chrono-node": "^2.7.5",
     "compromise": "^14.12.0",
     "html-to-image": "^1.11.11",
     "ismobilejs": "^1.1.1",
     "json-2-csv": "^5.5.0",
     "jspdf": "^2.5.1",
+    "lodash": "^4.17.21",
     "marked": "^12.0.0",
     "toml": "^3.0.0",
     "wink-eng-lite-web-model": "^1.5.2"
