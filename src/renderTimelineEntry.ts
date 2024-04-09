@@ -26,12 +26,10 @@ export async function renderTimelineEntry(currentPlugin: HistoricaPlugin,
 			cls: historicaContainerClass
 		})
 		// console.log(isMobile())
-		if (!isMobile().any) {
-			timelineEl.addEventListener("contextmenu", async (e) => {
-				e.preventDefault()
-				new TimelineActionModal(currentPlugin.app, timelineEl, currentPlugin, timelineData, blockConfig.smart_theme).open()
-			})
-		}
+		timelineEl.addEventListener("contextmenu", async (e) => {
+			e.preventDefault()
+			new TimelineActionModal(currentPlugin.app, timelineEl, currentPlugin, timelineData, blockConfig.smart_theme).open()
+		})
 
 
 		timelineData.map((entry) => {
@@ -82,14 +80,13 @@ export async function renderTimelineEntry(currentPlugin: HistoricaPlugin,
 		const timelineContainer = el.createEl('div', {
 			cls: historicaContainerClass
 		})
-		if (!isMobile().any) {
-			timelineContainer.addEventListener("contextmenu", async (e) => {
-				e.preventDefault()
-				new TimelineActionModal(currentPlugin.app,
-					timelineContainer, currentPlugin,
-					timelineData, blockConfig.smart_theme).open()
-			})
-		}
+		timelineContainer.addEventListener("contextmenu", async (e) => {
+			e.preventDefault()
+			new TimelineActionModal(currentPlugin.app,
+				timelineContainer, currentPlugin,
+				timelineData, blockConfig.smart_theme).open()
+		})
+
 		timelineData.map((entry) => {
 			const timelineItem = timelineContainer.createEl('div', {
 				cls: historicaTimelineItemClass
