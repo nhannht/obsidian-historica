@@ -1,8 +1,8 @@
 import {Notice, TFile} from "obsidian";
 import {marked, Token} from "marked";
-import HistoricaPlugin from "../main";
+import HistoricaPlugin from "../../main";
 import {Chrono, ParsedResult} from "chrono-node";
-import {HistoricaQuery} from "./verifyBlockConfig";
+import {HistoricaQuery} from "./HistoricaUserBlockProcesser";
 
 
 export interface TimelineEntry {

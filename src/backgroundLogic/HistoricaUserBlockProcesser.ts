@@ -1,7 +1,6 @@
-import HistoricaPlugin from "../main";
-import {Notice} from "obsidian"
-import {isUndefined} from "lodash";
-
+import HistoricaPlugin from "../../main";
+import {Notice} from "obsidian";
+import {isUndefined, parseInt} from "lodash";
 export interface HistoricaQuery {
 	start: string,
 	end: string
@@ -15,15 +14,27 @@ export interface HistoricaBlockConfig {
 	smart_theme: boolean,
 	implicit_time: boolean
 }
+export default class HistoricaUserBlockProcesser {
+	get plugin(): HistoricaPlugin {
+		return this._plugin;
+	}
 
-export async function verifyBlockConfig(blockConfig: HistoricaBlockConfig, thisPlugin: HistoricaPlugin) {
+	set plugin(value: HistoricaPlugin) {
+		this._plugin = value;
+	}
+	private _plugin: HistoricaPlugin;
+	constructor(plugin:HistoricaPlugin){
+		this._plugin = plugin;
+	}
+
+	 async verifyBlockConfig(blockConfig: HistoricaBlockConfig) {
 
 
 	// STYLE
 	// console.log(blockConfig)
 	// default style if style not setup
 	if (![1, 2].includes(blockConfig.style) || !blockConfig.style) {
-		blockConfig.style = parseInt(thisPlugin.settingManager.settings.defaultStyle)
+		blockConfig.style = parseInt(this.plugin.settingManager.settings.defaultStyle)
 
 	}
 	// INCLUDE_FILES
@@ -80,14 +91,16 @@ export async function verifyBlockConfig(blockConfig: HistoricaBlockConfig, thisP
 	// SMART_THEME
 
 	if (![true,false].includes(blockConfig.smart_theme) ) {
-		blockConfig.smart_theme = thisPlugin.settingManager.settings.usingSmartTheme
+		blockConfig.smart_theme = this.plugin.settingManager.settings.usingSmartTheme
 	}
 
 	// IMPLICIT_TIME
 	// console.log(blockConfig.implicit_time)
 	if (![true,false].includes(blockConfig.implicit_time) ) {
-		blockConfig.implicit_time = thisPlugin.settingManager.settings.showRelativeTime
+		blockConfig.implicit_time = this.plugin.settingManager.settings.showRelativeTime
 	}
 
 	return blockConfig
+}
+
 }

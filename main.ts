@@ -7,11 +7,11 @@ import corpus from "./corpus.json"
 import './src/lib/codemirror'
 import './src/mode/historica/historica'
 import {HistoricaSetting, HistoricaSettingTab} from "./src/ui/historicaSettingTab";
-import {HistoricaBlockConfig, verifyBlockConfig} from "./src/verifyBlockConfig";
-import ConfigManager from "./src/ConfigManager";
-import HistoricaUltility from "./src/HistoricaUtility";
-import HistoricaDocumentProcesser from "./src/HistoricaDocumentProcesser";
+import ConfigManager from "./src/backgroundLogic/ConfigManager";
+import HistoricaUltility from "./src/backgroundLogic/HistoricaUtility";
+import HistoricaDocumentProcesser from "./src/backgroundLogic/HistoricaDocumentProcesser";
 import HistoricaTimelineRenderer from "./src/ui/HistoricaTimelineRenderer";
+import HistoricaUserBlockProcesser, {HistoricaBlockConfig} from "./src/backgroundLogic/HistoricaUserBlockProcesser";
 
 /**
  * The default historica setting
@@ -38,6 +38,8 @@ export default class HistoricaPlugin extends Plugin {
 
 	historicaTimelineRenderer = new HistoricaTimelineRenderer(this)
 
+	historicaUserBlockProcesser = new HistoricaUserBlockProcesser(this)
+
 
 
 	modesToKeep = ["hypermd", "markdown", "null", "xml"];
@@ -59,7 +61,6 @@ export default class HistoricaPlugin extends Plugin {
 		// console.log(corpus)
 
 		const customChrono = await this.historicaUltility.setupCustomChrono()
-		const currentPlugin: HistoricaPlugin = this
 
 		this.registerMarkdownCodeBlockProcessor("historica", async (source, el) => {
 
@@ -68,7 +69,7 @@ export default class HistoricaPlugin extends Plugin {
 			// parse yaml in this block
 			let blockConfig: HistoricaBlockConfig = parse(source)
 			// console.log(Object.keys(blockConfig).length === 0)
-			blockConfig = await verifyBlockConfig(blockConfig, currentPlugin)
+			blockConfig = await this.historicaUserBlockProcesser.verifyBlockConfig(blockConfig)
 			// console.log(blockConfig)
 
 

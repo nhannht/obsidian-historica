@@ -1,5 +1,5 @@
-import HistoricaPlugin from "../main";
-import {HistoricaSetting} from "./ui/historicaSettingTab";
+import HistoricaPlugin from "../../main";
+import {HistoricaSetting} from "../ui/historicaSettingTab";
 import {TFile} from "obsidian";
 
 export default class ConfigManager {

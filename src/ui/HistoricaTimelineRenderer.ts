@@ -1,9 +1,9 @@
 import HistoricaPlugin from "../../main";
-import {TimelineEntryChrono} from "../HistoricaDocumentProcesser";
-import {HistoricaBlockConfig} from "../verifyBlockConfig";
+import {TimelineEntryChrono} from "../backgroundLogic/HistoricaDocumentProcesser";
 import {HistoricaSearchResultModal} from "./SearchResultModal";
 import {TimelineActionModal} from "./TimelineActionModal";
 import {setIcon} from "obsidian";
+import {HistoricaBlockConfig} from "../backgroundLogic/HistoricaUserBlockProcesser";
 
 export default class HistoricaTimelineRenderer {
 	private _plugin: HistoricaPlugin;

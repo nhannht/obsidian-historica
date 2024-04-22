@@ -1,8 +1,8 @@
 import {TFile} from "obsidian";
-import {HistoricaSetting} from "./ui/historicaSettingTab";
+import {HistoricaSetting} from "../ui/historicaSettingTab";
 import {isNull} from "lodash"
 import * as chrono from "chrono-node";
-import HistoricaPlugin from "../main";
+import HistoricaPlugin from "../../main";
 import {toPng} from "html-to-image";
 import {jsPDF} from "jspdf";
 

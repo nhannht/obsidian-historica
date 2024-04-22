@@ -1,6 +1,6 @@
 import {App, Modal, Notice} from "obsidian";
 import {toBlob} from "html-to-image";
-import {TimelineEntryChrono} from "../HistoricaDocumentProcesser";
+import {TimelineEntryChrono} from "../backgroundLogic/HistoricaDocumentProcesser";
 import {json2csv} from 'json-2-csv';
 import HistoricaPlugin from "../../main";
 
