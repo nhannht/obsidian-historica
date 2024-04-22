@@ -1,7 +1,7 @@
-interface HistoricaCodeBlock {
-	beginLineNumber: number,
-	endLineNumber: number
-}
+// interface HistoricaCodeBlock {
+// 	beginLineNumber: number,
+// 	endLineNumber: number
+// }
 
 export {}
 // class HistoricaHighlightBlock implements PluginValue {

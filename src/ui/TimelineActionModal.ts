@@ -1,10 +1,8 @@
-import {App, Modal, Notice, Plugin} from "obsidian";
-import {convertHTMLToImageData} from "./convertHTMLToImageData";
-import {convertImageToPdf} from "./convertImageToPdf";
+import {App, Modal, Notice} from "obsidian";
 import {toBlob} from "html-to-image";
-import {TimelineEntryChrono} from "./GetTimelineDataFromDocumentArray";
+import {TimelineEntryChrono} from "../HistoricaDocumentProcesser";
 import {json2csv} from 'json-2-csv';
-import HistoricaPlugin from "../main";
+import HistoricaPlugin from "../../main";
 
 export class TimelineActionModal extends Modal {
 	thisPlugin: HistoricaPlugin
@@ -25,14 +23,14 @@ export class TimelineActionModal extends Modal {
 
     }
 
-    onOpen() {
+	override onOpen() {
         super.onOpen();
         const {contentEl} = this
 		const historicaTimelineActionModalClass = this.isUsingSmartTheme ? "historica-timeline-action-modal-smart-theme" : "historica-timeline-action-modal"
         const actionModalEl = contentEl.createEl('div', {
 			cls: historicaTimelineActionModalClass
         })
-		const setting = this.thisPlugin.settingManager.settings
+		// const setting = this.thisPlugin.settingManager.settings
 
 		const actionButtonClass = this.isUsingSmartTheme ? "historica-timeline-action-button-smart-theme" : "historica-timeline-action-button"
 
@@ -56,7 +54,7 @@ export class TimelineActionModal extends Modal {
 			cls: actionButtonClass,
 
         }).addEventListener('click', async () => {
-            const image = await convertHTMLToImageData(this.targetEl)
+            const image = await this.thisPlugin.historicaUltility.convertHTMLToImageData(this.targetEl)
             const link = document.createElement('a');
             link.href = image;
             link.download = 'historica-timeline.png';
@@ -69,10 +67,10 @@ export class TimelineActionModal extends Modal {
             text: "Export as pdf",
 			cls: actionButtonClass
         }).addEventListener('click', async () => {
-            const imageData = await convertHTMLToImageData(this.targetEl)
+            const imageData = await this.thisPlugin.historicaUltility.convertHTMLToImageData(this.targetEl)
             const image = new Image()
             image.src = imageData
-            const pdf = await convertImageToPdf(imageData)
+            const pdf = await this.thisPlugin.historicaUltility.convertImageToPdf(imageData)
 
             pdf.save('historica-timeline.pdf')
 
@@ -139,7 +137,7 @@ export class TimelineActionModal extends Modal {
     }
 
 
-    onClose() {
+	override onClose() {
         super.onClose();
     }
 }

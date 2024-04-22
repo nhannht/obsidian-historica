@@ -1,20 +1,17 @@
 import {Notice, Plugin, TFile} from 'obsidian';
 import {Token} from "marked";
-import {GetTimelineDataFromDocumentArrayWithChrono} from "./src/GetTimelineDataFromDocumentArray";
 import {parse} from "toml";
-import {renderTimelineEntry} from "./src/renderTimelineEntry";
 import compromise from 'compromise';
-import {setupCustomChrono} from "./src/setupCustomChrono";
 import corpus from "./corpus.json"
 
 import './src/lib/codemirror'
 import './src/mode/historica/historica'
-import {HistoricaSetting, HistoricaSettingTab} from "./src/historicaSettingTab";
-import {parseTFileAndUpdateDocuments} from "./src/parseTFileAndUpdateDocuments";
-import {writeLatestFileToData} from "./src/writeLatestFileToData";
-import {HistoricaBlockConfig, HistoricaQuery, verifyBlockConfig} from "./src/verifyBlockConfig";
-import {getCurrentFile} from "./src/getCurrentFile";
+import {HistoricaSetting, HistoricaSettingTab} from "./src/ui/historicaSettingTab";
+import {HistoricaBlockConfig, verifyBlockConfig} from "./src/verifyBlockConfig";
 import ConfigManager from "./src/ConfigManager";
+import HistoricaUltility from "./src/HistoricaUtility";
+import HistoricaDocumentProcesser from "./src/HistoricaDocumentProcesser";
+import HistoricaTimelineRenderer from "./src/ui/HistoricaTimelineRenderer";
 
 /**
  * The default historica setting
@@ -35,6 +32,14 @@ const DEFAULT_SETTINGS: HistoricaSetting = {
 export default class HistoricaPlugin extends Plugin {
 	settingManager = new ConfigManager(this, DEFAULT_SETTINGS)
 
+	historicaUltility = new HistoricaUltility(this);
+
+	historicaDocumentPrcesser = new HistoricaDocumentProcesser(this);
+
+	historicaTimelineRenderer = new HistoricaTimelineRenderer(this)
+
+
+
 	modesToKeep = ["hypermd", "markdown", "null", "xml"];
 
 	refreshLeaves = () => {
@@ -42,7 +47,7 @@ export default class HistoricaPlugin extends Plugin {
 		this.app.workspace.iterateCodeMirrors(cm => cm.setOption("mode", cm.getOption("mode")))
 	}
 
-	async onload() {
+	override async onload() {
 		await this.settingManager.loadSettings()
 		// this.app.workspace.iterateCodeMirrors(cm => console.log(cm))
 		this.app.workspace.onLayoutReady(() => {
@@ -53,10 +58,10 @@ export default class HistoricaPlugin extends Plugin {
 
 		// console.log(corpus)
 
-		const customChrono = await setupCustomChrono()
+		const customChrono = await this.historicaUltility.setupCustomChrono()
 		const currentPlugin: HistoricaPlugin = this
 
-		this.registerMarkdownCodeBlockProcessor("historica", async (source, el, ctx) => {
+		this.registerMarkdownCodeBlockProcessor("historica", async (source, el) => {
 
 			// console.log(ctx)
 
@@ -71,22 +76,22 @@ export default class HistoricaPlugin extends Plugin {
 			if (blockConfig.include_files === "all") {
 				const allFiles = this.app.vault.getMarkdownFiles()
 				for (const file of allFiles) {
-					await parseTFileAndUpdateDocuments(currentPlugin, file, tokensWithTypeText)
+					await this.historicaDocumentPrcesser.parseTFileAndUpdateDocuments( file, tokensWithTypeText)
 				}
 			} else if (blockConfig.include_files!.length === 0) {
 
-				let currentFile = await getCurrentFile(currentPlugin)
-				await writeLatestFileToData(currentPlugin, currentFile)
+				let currentFile = await this.historicaUltility.getCurrentFile()
+				await this.settingManager.writeLatestFileToData(currentFile)
 				// console.log(currentFile)
 
-				await parseTFileAndUpdateDocuments(currentPlugin, currentFile, tokensWithTypeText)
+				await this.historicaDocumentPrcesser.parseTFileAndUpdateDocuments(currentFile, tokensWithTypeText)
 
 			} else if (blockConfig.include_files !== "all" && blockConfig.include_files!.length > 0) {
 
 				for (const file of blockConfig.include_files!) {
 					const currentFile = this.app.vault.getAbstractFileByPath(file)
 					if (currentFile instanceof TFile) {
-						await parseTFileAndUpdateDocuments(currentPlugin, currentFile, tokensWithTypeText)
+						await this.historicaDocumentPrcesser.parseTFileAndUpdateDocuments( currentFile, tokensWithTypeText)
 					}
 				}
 			} else {
@@ -103,7 +108,7 @@ export default class HistoricaPlugin extends Plugin {
 			// console.log(blockConfig.query)
 
 
-			let timelineData = await GetTimelineDataFromDocumentArrayWithChrono(
+			let timelineData = await this.historicaDocumentPrcesser.GetTimelineDataFromDocumentArrayWithChrono(
 				tokensWithTypeText,
 				customChrono,
 				compromise,
@@ -118,8 +123,8 @@ export default class HistoricaPlugin extends Plugin {
 
 
 
-			await renderTimelineEntry(currentPlugin, timelineData, blockConfig, el)
-			await writeLatestFileToData(currentPlugin, await getCurrentFile(currentPlugin))
+			await this.historicaTimelineRenderer.renderTimelineEntry(timelineData, blockConfig, el)
+			await this.settingManager.writeLatestFileToData(await this.historicaUltility.getCurrentFile())
 		})
 
 		this.addSettingTab(new HistoricaSettingTab(this.app, this))
@@ -135,10 +140,9 @@ export default class HistoricaPlugin extends Plugin {
 
 	}
 
-	async onunload() {
-		const currentPlugin = this
+	override async onunload() {
 
-		await writeLatestFileToData(this, await getCurrentFile(currentPlugin))
+		await this.settingManager.writeLatestFileToData( await this.historicaUltility.getCurrentFile())
 		// highlight obsidian  code syntax
 		// simply ignore the error releated to CodeMirror.modes, we using the built-in cm, esbuild will not touch them
 		// @ts-ignore

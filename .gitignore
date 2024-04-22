@@ -238,3 +238,5 @@ dist
 /release_note.md
 /release_note.mjs
 /corpus.json
+!/styles.css
+

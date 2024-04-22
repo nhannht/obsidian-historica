@@ -1,5 +1,6 @@
 import HistoricaPlugin from "../main";
-import {HistoricaSetting} from "./historicaSettingTab";
+import {HistoricaSetting} from "./ui/historicaSettingTab";
+import {TFile} from "obsidian";
 
 export default class ConfigManager {
 	private _plugin: HistoricaPlugin;
@@ -33,6 +34,27 @@ export default class ConfigManager {
 	async saveSettings(){
 		await this.plugin.saveData(this.plugin.settingManager.settings)
 	}
+
+
+	 async  writeLatestFileToData( file: TFile) {
+	let settings: HistoricaSetting = await this.plugin.loadData()
+
+	if (!settings) {
+		settings = {
+			latestFile: file.path,
+			showUseFulInformation: false,
+			defaultStyle: "1",
+			showRelativeTime: false,
+			usingSmartTheme: true
+
+		}
+
+	}
+	settings.latestFile = file.path
+	await this.plugin.saveData(settings)
+
+}
+
 
 
 }

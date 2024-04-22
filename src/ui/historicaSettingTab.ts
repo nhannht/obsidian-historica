@@ -1,5 +1,5 @@
 import {App, PluginSettingTab, Setting} from "obsidian";
-import HistoricaPlugin from "../main";
+import HistoricaPlugin from "../../main";
 
 export interface HistoricaSetting {
 	latestFile: string
