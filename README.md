@@ -4,7 +4,6 @@
 
 <div align="center">
 <sub> (Not) Smart and dynamic extraction point of time in your note or multi notes</sub>
-
 </div>
 
 ---
