@@ -1,13 +1,7 @@
 import {App, PluginSettingTab, Setting} from "obsidian";
 import HistoricaPlugin from "../../main";
 
-export interface HistoricaSetting {
-	latestFile: string
-	showUseFulInformation: boolean
-	defaultStyle: string,
-	showRelativeTime: boolean,
-	usingSmartTheme: boolean,
-}
+
 export class HistoricaSettingTab extends PluginSettingTab {
 	plugin: HistoricaPlugin;
 
@@ -19,7 +13,7 @@ export class HistoricaSettingTab extends PluginSettingTab {
 	display(): any {
 		const {containerEl} = this;
 		containerEl.empty();
-		const settings = this.plugin.settingManager.settings;
+		const settings = this.plugin.configManager.settings;
 		new Setting(containerEl)
 			.setName("Default Style")
 			.setDesc("Choose the default style for the timeline")
@@ -29,7 +23,7 @@ export class HistoricaSettingTab extends PluginSettingTab {
 				dropdown.setValue(settings.defaultStyle)
 				dropdown.onChange(async (value) => {
 					settings.defaultStyle = value
-					await this.plugin.settingManager.saveSettings()
+					await this.plugin.configManager.saveSettings()
 				})
 			})
 		new Setting(containerEl)
@@ -39,7 +33,7 @@ export class HistoricaSettingTab extends PluginSettingTab {
 				toggle.setValue(settings.showUseFulInformation)
 				toggle.onChange(async (value) => {
 					settings.showUseFulInformation = value
-					await this.plugin.settingManager.saveSettings()
+					await this.plugin.configManager.saveSettings()
 				})
 			})
 
@@ -51,7 +45,7 @@ export class HistoricaSettingTab extends PluginSettingTab {
 				toggle.setValue(settings.showRelativeTime)
 				toggle.onChange(async (value) => {
 					settings.showRelativeTime = value
-					await this.plugin.settingManager.saveSettings()
+					await this.plugin.configManager.saveSettings()
 				})
 			})
 
@@ -62,9 +56,36 @@ export class HistoricaSettingTab extends PluginSettingTab {
 				toggle.setValue(settings.usingSmartTheme)
 				toggle.onChange(async (value) => {
 					settings.usingSmartTheme = value
-					await this.plugin.settingManager.saveSettings()
+					await this.plugin.configManager.saveSettings()
 				})
 			})
+
+		new Setting(containerEl)
+			.setName("Language support")
+			.setDesc("Historica only support one language at the same time")
+			.addDropdown(dropdown => {
+				dropdown.addOption('en',"English (US)")
+				dropdown.addOption('fr',"French")
+				dropdown.addOption("de","Deutsch")
+				dropdown.addOption("ja","Japanese")
+				dropdown.addOption("nl","Ductch")
+				dropdown.addOption("uk","English (UK)")
+				dropdown.addOption("ru","Russian")
+				dropdown.addOption("pt","Portugues")
+				dropdown.addOption("zh.hant","Chinese (Traditional)")
+
+
+				dropdown.setValue(settings.language)
+
+				dropdown.onChange(async (value) => {
+					//@ts-ignore
+					settings.language = value
+					await this.plugin.configManager.saveSettings()
+				})
+
+
+			})
+
 	}
 
 }

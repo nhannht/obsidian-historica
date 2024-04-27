@@ -1,6 +1,15 @@
 import HistoricaPlugin from "../../main";
-import {HistoricaSetting} from "../ui/historicaSettingTab";
 import {TFile} from "obsidian";
+import {HistoricaSupportLanguages} from "./HistoricaChrono";
+
+export interface HistoricaSetting {
+	latestFile: string
+	showUseFulInformation: boolean
+	defaultStyle: string,
+	showRelativeTime: boolean,
+	usingSmartTheme: boolean,
+	language: typeof HistoricaSupportLanguages[number]
+}
 
 export default class ConfigManager {
 	private _plugin: HistoricaPlugin;
@@ -28,11 +37,11 @@ export default class ConfigManager {
 	}
 
 	 async loadSettings(){
-		this.plugin.settingManager.settings = Object.assign({}, this._settings, await this.plugin.loadData())
+		this.plugin.configManager.settings = Object.assign({}, this._settings, await this.plugin.loadData())
 
 	}
 	async saveSettings(){
-		await this.plugin.saveData(this.plugin.settingManager.settings)
+		await this.plugin.saveData(this.plugin.configManager.settings)
 	}
 
 
@@ -45,7 +54,8 @@ export default class ConfigManager {
 			showUseFulInformation: false,
 			defaultStyle: "1",
 			showRelativeTime: false,
-			usingSmartTheme: true
+			usingSmartTheme: true,
+			language: "en"
 
 		}
 
