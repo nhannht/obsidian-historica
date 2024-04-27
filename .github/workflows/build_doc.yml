@@ -24,24 +24,25 @@ jobs:
                     path: historica
 
 
-            -   name: set up yarn
+            -   name: set up node
                 uses: actions/setup-node@v4
                 with:
                     node-version: '20'
 
-            -   name: set up wrangler in knowledgebase-template
+            -   name: build and deploy doc
+                env:
+                    CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+                    CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
                 run:  |
                     cd quartz
                     npm install
                     npm install wrangler
-                    cp ../historica/historica_document/ ./content/ -r
+                    cp ../historica/historica_document/* ./content/ -r
                     cp ../historica/quartz.config.ts ./
                     cp ../historica/quartz.layout.ts ./
                     cp ../historica/wrangler.toml ./
                     npx  quartz build
-                    export CLOUDFLARE_ACCOUNT_ID ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-                    export CLOUDFLARE_API_TOKEN ${{ secrets.CLOUDFLARE_API_TOKEN }}
-                    wrangler pages deploy
+                    npx wrangler pages deploy
                     
 
 

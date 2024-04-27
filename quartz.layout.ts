@@ -10,7 +10,7 @@ export const sharedPageComponents: SharedLayout = {
   footer: Component.Footer(
     {
     links: {
-      GitHub: "https://historica.pages.dev",
+      "Source code": "https://github.com/nhannht/historica",
       "RSS": "https://historica.pages.dev/index.xml"
       ,
     },
