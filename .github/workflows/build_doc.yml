@@ -1,0 +1,47 @@
+name: "build doc"
+on:
+    push:
+        branches:
+            - master
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        permissions: write-all
+        steps:
+            -   name: "check out quartz custom template "
+                uses: actions/checkout@v4
+                with:
+                    repository: "nhannht/knowledgebase-template"
+                    fetch-depth: 0
+                    ref: knowledgebase
+                    path: quartz
+
+            -   name: check out this repo
+                uses: actions/checkout@v4
+                with:
+                    fetch-depth: 0
+                    path: historica
+
+
+            -   name: set up yarn
+                uses: actions/setup-node@v4
+                with:
+                    node-version: '20'
+
+            -   name: set up wrangler in knowledgebase-template
+                run:  |
+                    cd quartz
+                    yarn install
+                    yarn add wrangler
+                    cp ../historica/historica-document/* ./content/ -r
+                    cp ../historica/quartz.config.ts ./
+                    cp ../historica/quartz.layout.ts ./
+                    cp ../historica/wrangler.toml ./
+                    yarn run quartz build
+                    export CLOUDFLARE_ACCOUNT_ID ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+                    export CLOUDFLARE_API_TOKEN ${{ secrets.CLOUDFLARE_API_TOKEN }}
+                    wrangler pages deploy
+                    
+
+
