@@ -19,3 +19,4 @@ pin_time="1997/Jun/12"
 Historica can even parse timezone too, just input pin_time like this "1997/Jun/12 GTM+7"?  
 </sub>  
 </div>
+
