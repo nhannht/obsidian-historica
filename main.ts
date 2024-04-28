@@ -108,7 +108,7 @@ export default class HistoricaPlugin extends Plugin {
 			tokensWithTypeText = tokensWithTypeText.filter((token) => {
 				return "tokens" in token ? token.tokens === undefined : true
 			})
-			// console.log(tokensWithTypeText)
+			console.log(tokensWithTypeText)
 			// console.log("Query:")
 			// console.log(blockConfig.query)
 

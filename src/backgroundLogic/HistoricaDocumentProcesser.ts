@@ -119,8 +119,9 @@ export default class HistoricaDocumentProcesser {
 			// console.log(text)
 			let parseResults;
 			if (pintime) {
+				console.log(customChrono.parse("now"))
 				const referenceTime = customChrono.parse(pintime)
-				// console.log(referenceTime)
+				console.log(referenceTime)
 				parseResults = customChrono.parse(doc.raw, referenceTime[0].start.date())
 			} else {
 				parseResults = customChrono.parse(doc.raw)
@@ -297,22 +298,25 @@ export default class HistoricaDocumentProcesser {
 			return
 		}
 		const fileContent = await this.plugin.app.vault.read(file)
+		// console.log(1)
+		// console.log(fileContent)
 
-		function filterHTMLAndEmphasis(text: string) {
-			const stripHTML = text.replace(/<\/?("[^"]*"|'[^']*'|[^>])*(>|$)/g, ""),
-				stripEm1 = stripHTML.replace(/\*{1,3}(.*?)\*{1,3}/g, "$1"),
-				stripEm2 = stripEm1.replace(/_{1,3}(.*?)_{1,3}/g, "$1"),
-				stripStrike = stripEm2.replace(/~{1,2}(.*?)~{1,2}/g, "$1"),
-				stripLink = stripStrike.replace(/!?\[(.*?)]\((.*?)\)/g, "").replace(/!?\[\[(.*?)]]/g, "");
-			return stripLink
+		// function filterHTMLAndEmphasis(text: string) {
+		// 	const stripHTML = text.replace(/<\/?("[^"]*"|'[^']*'|[^>])*(>|$)/g, ""),
+		// 		stripEm1 = stripHTML.replace(/\*{1,3}(.*?)\*{1,3}/g, "$1"),
+		// 		stripEm2 = stripEm1.replace(/_{1,3}(.*?)_{1,3}/g, "$1"),
+		// 		stripStrike = stripEm2.replace(/~{1,2}(.*?)~{1,2}/g, "$1"),
+		// 		stripLink = stripStrike.replace(/!?\[(.*?)]\((.*?)\)/g, "").replace(/!?\[\[(.*?)]]/g, "");
+		// 	// return stripLink
+		// 	return text
+		//
+		// }
 
-		}
-
-		const fileContentStripHTML = filterHTMLAndEmphasis(fileContent)
+		// const fileContentStripHTML = filterHTMLAndEmphasis(fileContent)
 		// console.log(fileContentStripHTML)
-		const lexerResult = marked.lexer(fileContentStripHTML);
+		const lexerResult = marked.lexer(fileContent);
 
-		// console.log(lexerResult)
+		console.log(lexerResult)
 
 
 		lexerResult.map((token) => {

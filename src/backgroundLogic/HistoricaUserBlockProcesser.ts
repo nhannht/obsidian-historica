@@ -96,7 +96,7 @@ export default class HistoricaUserBlockProcesser {
 		// PIN_TIME
 		// default pin time if pin time not setup
 		if (isUndefined(blockConfig.pin_time) || blockConfig.pin_time && blockConfig.pin_time.trim() === "") {
-			blockConfig.pin_time = "now"
+			blockConfig.pin_time = null
 		}
 
 		// SMART_THEME
