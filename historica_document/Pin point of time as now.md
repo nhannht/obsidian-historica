@@ -12,7 +12,7 @@ pin_time="1997/Jun/12"
 ```  
 ````  
   
-![](images/.README_images/historica_pin_time_example.png)  
+  
   
 <div align="right">  
 <sub>  

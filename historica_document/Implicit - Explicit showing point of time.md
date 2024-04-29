@@ -8,10 +8,7 @@ implicit_time=true/false
 ```  
 ````  
   
----  
+
   
-<div align="center"><font color="#ff3c52">  
-Style 1  
-</font></div>  
+
   
-![](images/.README_images/ebfc0193.png)

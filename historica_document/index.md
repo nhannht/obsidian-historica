@@ -37,7 +37,7 @@
 - [[Include multi files]]
 - [[Pin point of time as now]] 
 - [[Advantage query]]
-- [[Multi language support]]
+- [[Multi languages support]]
 - [[Export - Copy timeline]]
 - [[Smart theme]]
 - [[Implicit - Explicit showing point of time]]

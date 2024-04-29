@@ -14,3 +14,10 @@ smart_theme=true
 <div align="right">  
 <sub>Or using global setting option</sub>  
 </div>
+
+## Old theme (static color)
+![[legend_larva_theme.png]]
+## Semantic theme
+
+- Work seemless with your current obsidian theme
+![[world war 2.png]]

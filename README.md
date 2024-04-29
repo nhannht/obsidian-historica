@@ -1,3 +1,6 @@
+>[!tip]
+> Historica have new document system at [historica](https://historica.pages.dev)
+
 <h1
     align="center"
 >Historica</h1>

@@ -42,160 +42,168 @@ export default class HistoricaChrono {
 	}
 
 
-
 	private _customChrono!: Chrono;
 
 
-	async setupCustomChrono(userLang:string) {
-		if (userLang === "en"){
+	async setupCustomChrono(userLang: string) {
+		if (userLang === "en") {
 			this.customChrono = chrono.en.casual.clone()
-		} else if (userLang === "de"){
+		} else if (userLang === "de") {
 			this.customChrono = chrono.de.casual.clone()
 
-		} else if (userLang === "fr"){
+		} else if (userLang === "fr") {
 			this.customChrono = chrono.fr.casual.clone()
-		} else if (userLang === "ja"){
+		} else if (userLang === "ja") {
 			this.customChrono = chrono.ja.casual.clone()
-		} else if (userLang === "nl"){
+		} else if (userLang === "nl") {
 			this.customChrono = chrono.nl.casual.clone()
-		} else if (userLang === "ru"){
+		} else if (userLang === "ru") {
 			this.customChrono = chrono.ru.casual.clone()
 
-		} else if (userLang === "uk"){
+		} else if (userLang === "uk") {
 			this.customChrono = chrono.uk.casual.clone()
-		} else if (userLang === "pt"){
+		} else if (userLang === "pt") {
 			this.customChrono = chrono.pt.casual.clone()
-		} else if (userLang === "zh.hant"){
+		} else if (userLang === "zh.hant") {
 			this.customChrono = chrono.zh.hant.clone()
 		}
 
-		if (userLang === "en"){
+		if (userLang === "en") {
 			// in/at/on... year
-		this.customChrono.parsers.push({
-			pattern: () => {
-				return /\b(in|at|on|from|to|year)\s+(\d{4})\b/i
-			},
-			extract: (_context, match) => {
-				return {
-					day: 1, month: 1, year: parseInt(match[2])
-				}
-			}
-		})
-		// YYYY/MM/DD
-		this.customChrono.parsers.push({
-			pattern: () => {
-				return /\b(\d{4})[\/,-](\d{1,2})[\/,-](\d{1,2})\b/i
-			},
-			extract: (_context, match) => {
-				return {
-					day: parseInt(match[3]), month: parseInt(match[2]), year: parseInt(match[1])
-				}
-			}
-		})
-		// MM/DD/YYYY
-		this.customChrono.parsers.push({
-			pattern: () => {
-				return /\b(\d{1,2})[\/,-](\d{1,2})[\/,-](\d{4})\b/i
-			},
-			extract: (_context, match) => {
-				return {
-					day: parseInt(match[2]), month: parseInt(match[1]), year: parseInt(match[3])
-				}
-			}
-		})
-		// dd/Aug/YYYY
-		this.customChrono.parsers.push({
-			pattern: () => {
-				return /\b(\d{1,2})\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d{4})\b/i
-			},
-			extract: (_context, match) => {
-				return {
-					day: parseInt(match[1]),
-					month: new Date(Date.parse(match[2] + " 1, 2000")).getMonth() + 1,
-					year: parseInt(match[3])
-				}
-			}
-		})
-		// Aug/dd/YYYY
-		this.customChrono.parsers.push({
-			pattern: () => {
-				return /\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d{1,2})\s+(\d{4})\b/i
-			},
-			extract: (_context, match) => {
-				return {
-					day: parseInt(match[2]),
-					month: new Date(Date.parse(match[1] + " 1, 2000")).getMonth() + 1,
-					year: parseInt(match[3])
-				}
-			}
-		})
-		// YYYY/MM
-		this.customChrono.parsers.push({
-			pattern: () => {
-				return /\b(\d{4})[\/,-](\d{1,2})\b/i
-			},
-			extract: (_context, match) => {
-				return {
-					day: 1, month: parseInt(match[2]), year: parseInt(match[1])
-				}
-			}
-		})
-
-		// MM/YYYY
-		this.customChrono.parsers.push({
-			pattern: () => {
-				return /\b(\d{1,2})[\/,-](\d{4})\b/i
-			},
-			extract: (_context, match) => {
-				return {
-					day: 1, month: parseInt(match[1]), year: parseInt(match[2])
-				}
-			}
-		})
-
-		//Aug/YYYY
-		this.customChrono.parsers.push({
-			pattern: () => {
-				return /\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d{4})\b/i
-			},
-			extract: (_context, match) => {
-				return {
-					day: 1,
-					month: new Date(Date.parse(match[1] + " 1, 2000")).getMonth() + 1,
-					year: parseInt(match[2])
-				}
-			}
-		})
-
-
-		BCEpattern.forEach((pattern) => {
 			this.customChrono.parsers.push({
 				pattern: () => {
-					return pattern
+					return /\b(in|at|on|from|to|year)\s+(\d{4})\b/i
 				},
 				extract: (_context, match) => {
 					return {
-						year: -parseInt(match[1])
+						day: 1, month: 1, year: parseInt(match[2])
 					}
 				}
 			})
-		})
-		ADpattern.forEach((pattern) => {
+			// YYYY/MM/DD
 			this.customChrono.parsers.push({
 				pattern: () => {
-					return pattern
+					return /\b(\d{4})[\/,-](\d{1,2})[\/,-](\d{1,2})\b/i
 				},
 				extract: (_context, match) => {
 					return {
-						year: parseInt(match[1])
+						day: parseInt(match[3]), month: parseInt(match[2]), year: parseInt(match[1])
 					}
 				}
 			})
-		})
+			// MM/DD/YYYY
+			this.customChrono.parsers.push({
+				pattern: () => {
+					return /\b(\d{1,2})[\/,-](\d{1,2})[\/,-](\d{4})\b/i
+				},
+				extract: (_context, match) => {
+					return {
+						day: parseInt(match[2]), month: parseInt(match[1]), year: parseInt(match[3])
+					}
+				}
+			})
+			// dd/Aug/YYYY
+			this.customChrono.parsers.push({
+				pattern: () => {
+					return /\b(\d{1,2})\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d{4})\b/i
+				},
+				extract: (_context, match) => {
+					return {
+						day: parseInt(match[1]),
+						month: new Date(Date.parse(match[2] + " 1, 2000")).getMonth() + 1,
+						year: parseInt(match[3])
+					}
+				}
+			})
+			// Aug/dd/YYYY
+			this.customChrono.parsers.push({
+				pattern: () => {
+					return /\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d{1,2})\s+(\d{4})\b/i
+				},
+				extract: (_context, match) => {
+					return {
+						day: parseInt(match[2]),
+						month: new Date(Date.parse(match[1] + " 1, 2000")).getMonth() + 1,
+						year: parseInt(match[3])
+					}
+				}
+			})
+			// YYYY/MM
+			this.customChrono.parsers.push({
+				pattern: () => {
+					return /\b(\d{4})[\/,-](\d{1,2})\b/i
+				},
+				extract: (_context, match) => {
+					return {
+						day: 1, month: parseInt(match[2]), year: parseInt(match[1])
+					}
+				}
+			})
+
+			// MM/YYYY
+			this.customChrono.parsers.push({
+				pattern: () => {
+					return /\b(\d{1,2})[\/,-](\d{4})\b/i
+				},
+				extract: (_context, match) => {
+					return {
+						day: 1, month: parseInt(match[1]), year: parseInt(match[2])
+					}
+				}
+			})
+
+			//Aug/YYYY
+			this.customChrono.parsers.push({
+				pattern: () => {
+					return /\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d{4})\b/i
+				},
+				extract: (_context, match) => {
+					return {
+						day: 1,
+						month: new Date(Date.parse(match[1] + " 1, 2000")).getMonth() + 1,
+						year: parseInt(match[2])
+					}
+				}
+			})
+			// this.customChrono.parsers.push({
+			// 	pattern:()=> {
+			// 		return /\b(\d{4})\b/i
+			// 	},
+			// 	extract: (_context, match)=>{
+			// 		return {
+			// 			day: 1,
+			// 			month: 1,
+			// 			year: parseInt(match[1])
+			// 		}
+			// 	}
+			// })
+
+
+			BCEpattern.forEach((pattern) => {
+				this.customChrono.parsers.push({
+					pattern: () => {
+						return pattern
+					},
+					extract: (_context, match) => {
+						return {
+							year: -parseInt(match[1])
+						}
+					}
+				})
+			})
+			ADpattern.forEach((pattern) => {
+				this.customChrono.parsers.push({
+					pattern: () => {
+						return pattern
+					},
+					extract: (_context, match) => {
+						return {
+							year: parseInt(match[1])
+						}
+					}
+				})
+			})
 		}
-
-
-
 
 
 		return this.customChrono
