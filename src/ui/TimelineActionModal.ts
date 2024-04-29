@@ -54,7 +54,7 @@ export class TimelineActionModal extends Modal {
 			cls: actionButtonClass,
 
         }).addEventListener('click', async () => {
-            const image = await this.thisPlugin.historicaUltility.convertHTMLToImageData(this.targetEl)
+            const image = await this.thisPlugin.historicaExportHelper.convertHTMLToImageData(this.targetEl)
             const link = document.createElement('a');
             link.href = image;
             link.download = 'historica-timeline.png';
@@ -67,10 +67,10 @@ export class TimelineActionModal extends Modal {
             text: "Export as pdf",
 			cls: actionButtonClass
         }).addEventListener('click', async () => {
-            const imageData = await this.thisPlugin.historicaUltility.convertHTMLToImageData(this.targetEl)
+            const imageData = await this.thisPlugin.historicaExportHelper.convertHTMLToImageData(this.targetEl)
             const image = new Image()
             image.src = imageData
-            const pdf = await this.thisPlugin.historicaUltility.convertImageToPdf(imageData)
+            const pdf = await this.thisPlugin.historicaExportHelper.convertImageToPdf(imageData)
 
             pdf.save('historica-timeline.pdf')
 

@@ -8,11 +8,13 @@ import './src/lib/codemirror'
 import './src/mode/historica/historica'
 import {HistoricaSettingTab} from "./src/ui/historicaSettingTab";
 import ConfigManager, {HistoricaSetting} from "./src/backgroundLogic/ConfigManager";
-import HistoricaUltility from "./src/backgroundLogic/HistoricaUtility";
+import HistoricaFileHelper from "./src/backgroundLogic/HistoricaFileHelper";
 import HistoricaDocumentProcesser from "./src/backgroundLogic/HistoricaDocumentProcesser";
 import HistoricaTimelineRenderer from "./src/ui/HistoricaTimelineRenderer";
 import HistoricaUserBlockProcesser, {HistoricaBlockConfig} from "./src/backgroundLogic/HistoricaUserBlockProcesser";
 import HistoricaChrono from "./src/backgroundLogic/HistoricaChrono";
+import HistoricaDocumentFileParser from "./src/backgroundLogic/HistoricaDocumentFileParser";
+import HistoricaExportHelper from "./src/backgroundLogic/HistoricaExportHelper";
 
 /**
  * The default historica setting
@@ -34,15 +36,18 @@ const DEFAULT_SETTINGS: HistoricaSetting = {
 export default class HistoricaPlugin extends Plugin {
 	configManager = new ConfigManager(this, DEFAULT_SETTINGS)
 
-	historicaUltility = new HistoricaUltility(this);
+	historicaFileHelper = new HistoricaFileHelper(this);
+	historicaExportHelper = new HistoricaExportHelper()
 
-	historicaDocumentPrcesser = new HistoricaDocumentProcesser(this);
+	historicaDocumentProcesser = new HistoricaDocumentProcesser();
 
 	historicaTimelineRenderer = new HistoricaTimelineRenderer(this)
 
 	historicaUserBlockProcesser = new HistoricaUserBlockProcesser(this)
 
 	historicaChrono = new HistoricaChrono()
+
+	historicaFileParser = new HistoricaDocumentFileParser(this,this.historicaDocumentProcesser)
 
 
 	modesToKeep = ["hypermd", "markdown", "null", "xml"];
@@ -81,22 +86,22 @@ export default class HistoricaPlugin extends Plugin {
 			if (blockConfig.include_files === "all") {
 				const allFiles = this.app.vault.getMarkdownFiles()
 				for (const file of allFiles) {
-					await this.historicaDocumentPrcesser.parseTFileAndUpdateDocuments(file, tokensWithTypeText)
+					await this.historicaFileParser.parseTFileAndUpdateDocuments(file, tokensWithTypeText)
 				}
 			} else if (blockConfig.include_files!.length === 0) {
 
-				let currentFile = await this.historicaUltility.getCurrentFile()
+				let currentFile = await this.historicaFileHelper.getCurrentFile()
 				await this.configManager.writeLatestFileToData(currentFile)
 				// console.log(currentFile)
 
-				await this.historicaDocumentPrcesser.parseTFileAndUpdateDocuments(currentFile, tokensWithTypeText)
+				await this.historicaFileParser.parseTFileAndUpdateDocuments(currentFile, tokensWithTypeText)
 
 			} else if (blockConfig.include_files !== "all" && blockConfig.include_files!.length > 0) {
 
 				for (const file of blockConfig.include_files!) {
 					const currentFile = this.app.vault.getAbstractFileByPath(file)
 					if (currentFile instanceof TFile) {
-						await this.historicaDocumentPrcesser.parseTFileAndUpdateDocuments(currentFile, tokensWithTypeText)
+						await this.historicaFileParser.parseTFileAndUpdateDocuments(currentFile, tokensWithTypeText)
 					}
 				}
 			} else {
@@ -113,7 +118,7 @@ export default class HistoricaPlugin extends Plugin {
 			// console.log(blockConfig.query)
 
 
-			let timelineData = await this.historicaDocumentPrcesser
+			let timelineData = await this.historicaDocumentProcesser
 				.GetTimelineDataFromDocumentArrayWithChrono(
 					tokensWithTypeText,
 					customChrono,
@@ -129,7 +134,7 @@ export default class HistoricaPlugin extends Plugin {
 
 
 			await this.historicaTimelineRenderer.renderTimelineEntry(timelineData, blockConfig, el)
-			await this.configManager.writeLatestFileToData(await this.historicaUltility.getCurrentFile())
+			await this.configManager.writeLatestFileToData(await this.historicaFileHelper.getCurrentFile())
 		})
 
 		this.addSettingTab(new HistoricaSettingTab(this.app, this))
@@ -147,7 +152,7 @@ export default class HistoricaPlugin extends Plugin {
 
 	override async onunload() {
 
-		await this.configManager.writeLatestFileToData(await this.historicaUltility.getCurrentFile())
+		await this.configManager.writeLatestFileToData(await this.historicaFileHelper.getCurrentFile())
 		// highlight obsidian  code syntax
 		// simply ignore the error releated to CodeMirror.modes, we using the built-in cm, esbuild will not touch them
 		// @ts-ignore

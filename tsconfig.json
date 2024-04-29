@@ -33,6 +33,7 @@
 		]
 	},
 	"include": [
-		"**/*.ts"
-	]
+      "**/*.ts",
+      "node_modules/ts-jest/globals.d.ts"
+    ]
 }

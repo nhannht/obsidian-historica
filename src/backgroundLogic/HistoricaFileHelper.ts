@@ -1,14 +1,12 @@
 import {TFile} from "obsidian";
 import {isNull} from "lodash"
 import HistoricaPlugin from "../../main";
-import {toPng} from "html-to-image";
-import {jsPDF} from "jspdf";
 import {HistoricaSetting} from "./ConfigManager";
 
 
 
 
-export default class HistoricaUltility {
+export default class HistoricaFileHelper {
 	get plugin(): HistoricaPlugin {
 		return this._plugin;
 	}
@@ -49,27 +47,7 @@ export default class HistoricaUltility {
 		}
 	}
 
-	async convertHTMLToImageData(el: HTMLElement) {
-		const image = await toPng(el)
-		return image
-	}
 
-	async convertImageToPdf(imageData: string) {
-		const image = new Image()
-		image.src = imageData
-		const width = image.naturalWidth
-		const height = image.naturalHeight
-		const pdf = new jsPDF();
-		pdf.addImage(imageData,
-			'PNG',
-			0,
-			0,
-			width,
-			height);
-
-
-		return pdf
-	}
 
 
 }

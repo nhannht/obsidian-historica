@@ -1,6 +1,5 @@
-import {Notice, TFile} from "obsidian";
-import {marked, Token} from "marked";
-import HistoricaPlugin from "../../main";
+import {Notice} from "obsidian";
+import { Token} from "marked";
 import {Chrono, ParsedResult} from "chrono-node";
 import {HistoricaQuery} from "./HistoricaUserBlockProcesser";
 
@@ -36,23 +35,15 @@ export interface ParseUserTimeRangeQuery {
 }
 
 export default class HistoricaDocumentProcesser {
-	get plugin(): HistoricaPlugin {
-		return this._plugin;
-	}
 
-	set plugin(value: HistoricaPlugin) {
-		this._plugin = value;
-	}
 
-	private _plugin: HistoricaPlugin;
 
-	constructor(plugin: HistoricaPlugin) {
-		this._plugin = plugin;
+	constructor() {
 
 
 	}
 
-	async parseUserTimeRangeQuery(historicaQueryInputArray: HistoricaQuery[], chrono:Chrono) {
+	async parseUserTimeRangeQuery(historicaQueryInputArray: HistoricaQuery[], chrono: Chrono) {
 		let parseTimeArray: ParseUserTimeRangeQuery[] = []
 		// @ts-ignore
 		historicaQueryInputArray.map((timeInput) => {
@@ -119,9 +110,9 @@ export default class HistoricaDocumentProcesser {
 			// console.log(text)
 			let parseResults;
 			if (pintime) {
-				console.log(customChrono.parse("now"))
+				// console.log(customChrono.parse("now"))
 				const referenceTime = customChrono.parse(pintime)
-				console.log(referenceTime)
+				// console.log(referenceTime)
 				parseResults = customChrono.parse(doc.raw, referenceTime[0].start.date())
 			} else {
 				parseResults = customChrono.parse(doc.raw)
@@ -151,7 +142,7 @@ export default class HistoricaDocumentProcesser {
 		})
 		let filterTimelineData: TimelineEntryChrono[] = []
 
-		let parsedUserQueryArray = await this.parseUserTimeRangeQuery(query,customChrono)
+		let parsedUserQueryArray = await this.parseUserTimeRangeQuery(query, customChrono)
 		if (parsedUserQueryArray.length === 0) {
 			return timelineData
 		}
@@ -292,40 +283,5 @@ export default class HistoricaDocumentProcesser {
 
 	}
 
-
-	async parseTFileAndUpdateDocuments(file: TFile | null, documents: Token[]) {
-		if (!file) {
-			return
-		}
-		const fileContent = await this.plugin.app.vault.read(file)
-		// console.log(1)
-		// console.log(fileContent)
-
-		// function filterHTMLAndEmphasis(text: string) {
-		// 	const stripHTML = text.replace(/<\/?("[^"]*"|'[^']*'|[^>])*(>|$)/g, ""),
-		// 		stripEm1 = stripHTML.replace(/\*{1,3}(.*?)\*{1,3}/g, "$1"),
-		// 		stripEm2 = stripEm1.replace(/_{1,3}(.*?)_{1,3}/g, "$1"),
-		// 		stripStrike = stripEm2.replace(/~{1,2}(.*?)~{1,2}/g, "$1"),
-		// 		stripLink = stripStrike.replace(/!?\[(.*?)]\((.*?)\)/g, "").replace(/!?\[\[(.*?)]]/g, "");
-		// 	// return stripLink
-		// 	return text
-		//
-		// }
-
-		// const fileContentStripHTML = filterHTMLAndEmphasis(fileContent)
-		// console.log(fileContentStripHTML)
-		const lexerResult = marked.lexer(fileContent);
-
-		console.log(lexerResult)
-
-
-		lexerResult.map((token) => {
-
-			this.RecusiveGetToken(token, documents)
-		})
-		// filter token which is the smallest modulo
-
-
-	}
 
 }
