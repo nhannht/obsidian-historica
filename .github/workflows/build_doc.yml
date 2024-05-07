@@ -13,9 +13,9 @@ jobs:
             -   name: "check out quartz custom template "
                 uses: actions/checkout@v4
                 with:
-                    repository: "nhannht/knowledgebase-template"
+                    repository: "nhannht/quartz"
                     fetch-depth: 0
-                    ref: knowledgebase
+                    ref: nhannht
                     path: quartz
 
             -   name: check out this repo
