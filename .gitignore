@@ -244,3 +244,8 @@ dist
 /historica_document/.obsidian/plugins/
 /historica_document/.obsidian/workspace.json
 /historica_document/.obsidian/
+
+
+# Added by cargo
+
+/target

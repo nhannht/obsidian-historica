@@ -1,18 +1,6 @@
+import * as chrono from "chrono-node";
 import {Chrono} from "chrono-node";
-import * as chrono from "chrono-node"
 import {parseInt} from "lodash";
-
-export const HistoricaSupportLanguages = [
-	"en",
-	"ja",
-	"fr",
-	"de",
-	"nl",
-	"ru",
-	"uk",
-	"pt",
-	"zh.hant",
-]
 
 const BCEpattern: RegExp[] = [
 	/\b(\d{4})\s+B\.?C\.?E?\.?\b/i,

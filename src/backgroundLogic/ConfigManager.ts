@@ -1,15 +1,6 @@
 import HistoricaPlugin from "../../main";
 import {TFile} from "obsidian";
-import {HistoricaSupportLanguages} from "./HistoricaChrono";
-
-export interface HistoricaSetting {
-	latestFile: string
-	showUseFulInformation: boolean
-	defaultStyle: string,
-	showRelativeTime: boolean,
-	usingSmartTheme: boolean,
-	language: typeof HistoricaSupportLanguages[number]
-}
+import {HistoricaSetting} from "../global";
 
 export default class ConfigManager {
 	private _plugin: HistoricaPlugin;

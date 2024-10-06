@@ -1,7 +1,8 @@
 import HistoricaPlugin from "../../main";
 import {Notice} from "obsidian";
 import {isUndefined, parseInt} from "lodash";
-import {HistoricaSupportLanguages} from "./HistoricaChrono";
+
+import {HistoricaSupportLanguages} from "@/src/global";
 
 export interface HistoricaQuery {
 	start: string,

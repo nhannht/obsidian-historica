@@ -23,6 +23,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.11.20",
+    "@types/unist": "^3.0.3",
     "@typescript-eslint/eslint-plugin": "5.29.0",
     "@typescript-eslint/parser": "5.29.0",
     "autoprefixer": "^10.4.17",
@@ -42,16 +43,34 @@
     "wink-nlp-utils": "^2.1.0"
   },
   "dependencies": {
+    "@ltd/j-toml": "^1.38.0",
+    "@radix-ui/react-slot": "^1.1.0",
     "@types/lodash": "^4.17.0",
+    "@types/react": "^18.3.7",
+    "@types/react-dom": "^18.3.0",
     "chrono-node": "^2.7.5",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
     "compromise": "^14.12.0",
     "html-to-image": "^1.11.11",
     "ismobilejs": "^1.1.1",
     "json-2-csv": "^5.5.0",
     "jspdf": "^2.5.1",
     "lodash": "^4.17.21",
+    "lucide-react": "^0.441.0",
     "marked": "^12.0.0",
+    "natural": "^8.0.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remark-gfm": "^4.0.0",
+    "remark-parse": "^11.0.0",
+    "remark-wiki-link": "^2.0.1",
+    "remark-wiki-link-plus": "^1.1.1",
+    "tailwind-merge": "^2.5.2",
+    "tailwindcss-animate": "^1.0.7",
     "toml": "^3.0.0",
+    "unified": "^11.0.5",
+    "unist": "^0.0.1",
     "wink-eng-lite-web-model": "^1.5.2"
   }
 }

@@ -1,7 +1,8 @@
 import {TFile} from "obsidian";
 import {isNull} from "lodash"
 import HistoricaPlugin from "../../main";
-import {HistoricaSetting} from "./ConfigManager";
+
+import {HistoricaSetting} from "../global";
 
 
 

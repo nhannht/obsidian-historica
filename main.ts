@@ -1,20 +1,19 @@
-import {Notice, Plugin, TFile} from 'obsidian';
-import {Token} from "marked";
-import {parse} from "toml";
-import compromise from 'compromise';
-import corpus from "./corpus.json"
+import { Plugin} from 'obsidian';
+
 
 import './src/lib/codemirror'
 import './src/mode/historica/historica'
 import {HistoricaSettingTab} from "./src/ui/historicaSettingTab";
-import ConfigManager, {HistoricaSetting} from "./src/backgroundLogic/ConfigManager";
+import ConfigManager from "./src/backgroundLogic/ConfigManager";
 import HistoricaFileHelper from "./src/backgroundLogic/HistoricaFileHelper";
 import HistoricaDocumentProcesser from "./src/backgroundLogic/HistoricaDocumentProcesser";
 import HistoricaTimelineRenderer from "./src/ui/HistoricaTimelineRenderer";
-import HistoricaUserBlockProcesser, {HistoricaBlockConfig} from "./src/backgroundLogic/HistoricaUserBlockProcesser";
+import HistoricaUserBlockProcesser from "./src/backgroundLogic/HistoricaUserBlockProcesser";
 import HistoricaChrono from "./src/backgroundLogic/HistoricaChrono";
 import HistoricaDocumentFileParser from "./src/backgroundLogic/HistoricaDocumentFileParser";
 import HistoricaExportHelper from "./src/backgroundLogic/HistoricaExportHelper";
+import {HistoricaSetting} from "./src/global";
+import HistoricaBlockManager from "@/src/backgroundLogic/HistoricaBlockManager";
 
 /**
  * The default historica setting
@@ -26,7 +25,8 @@ const DEFAULT_SETTINGS: HistoricaSetting = {
 	defaultStyle: "2",
 	showRelativeTime: false,
 	usingSmartTheme: true,
-	language: "en"
+	language: "en",
+	pathListFilter: ["CurrentFile"]
 
 }
 
@@ -49,6 +49,8 @@ export default class HistoricaPlugin extends Plugin {
 
 	historicaFileParser = new HistoricaDocumentFileParser(this,this.historicaDocumentProcesser)
 
+	blockManager = new HistoricaBlockManager(this)
+
 
 	modesToKeep = ["hypermd", "markdown", "null", "xml"];
 
@@ -57,7 +59,16 @@ export default class HistoricaPlugin extends Plugin {
 		this.app.workspace.iterateCodeMirrors(cm => cm.setOption("mode", cm.getOption("mode")))
 	}
 
+	darkModeAdapt = () => {
+		if (document.body.hasClass("theme-dark")) {
+			document.body.addClass("dark")
+		} else {
+			document.body.removeClass("dark")
+		}
+	}
+
 	override async onload() {
+		this.darkModeAdapt()
 		await this.configManager.loadSettings()
 		// this.app.workspace.iterateCodeMirrors(cm => console.log(cm))
 		this.app.workspace.onLayoutReady(() => {
@@ -68,74 +79,9 @@ export default class HistoricaPlugin extends Plugin {
 
 		// console.log(corpus)
 
+		await this.blockManager.registerHistoricaBlock()
+		await this.blockManager.registerHistoricaBlockNg()
 
-		this.registerMarkdownCodeBlockProcessor("historica", async (source, el) => {
-
-			// console.log(ctx)
-
-			// parse yaml in this block
-			let blockConfig: HistoricaBlockConfig = parse(source)
-			// console.log(Object.keys(blockConfig).length === 0)
-			blockConfig = await this.historicaUserBlockProcesser.verifyBlockConfig(blockConfig)
-			const customChrono = await this.historicaChrono.setupCustomChrono(blockConfig.language)
-
-			// console.log(blockConfig)
-
-
-			let tokensWithTypeText: Token[] = [];
-			if (blockConfig.include_files === "all") {
-				const allFiles = this.app.vault.getMarkdownFiles()
-				for (const file of allFiles) {
-					await this.historicaFileParser.parseTFileAndUpdateDocuments(file, tokensWithTypeText)
-				}
-			} else if (blockConfig.include_files!.length === 0) {
-
-				let currentFile = await this.historicaFileHelper.getCurrentFile()
-				await this.configManager.writeLatestFileToData(currentFile)
-				// console.log(currentFile)
-
-				await this.historicaFileParser.parseTFileAndUpdateDocuments(currentFile, tokensWithTypeText)
-
-			} else if (blockConfig.include_files !== "all" && blockConfig.include_files!.length > 0) {
-
-				for (const file of blockConfig.include_files!) {
-					const currentFile = this.app.vault.getAbstractFileByPath(file)
-					if (currentFile instanceof TFile) {
-						await this.historicaFileParser.parseTFileAndUpdateDocuments(currentFile, tokensWithTypeText)
-					}
-				}
-			} else {
-				new Notice("No file to include, check your config, include_files may be empty, list of file name or " +
-					"simply use 'all' to include all files in the vault")
-			}
-
-
-			tokensWithTypeText = tokensWithTypeText.filter((token) => {
-				return "tokens" in token ? token.tokens === undefined : true
-			})
-			// console.log(tokensWithTypeText)
-			// console.log("Query:")
-			// console.log(blockConfig.query)
-
-
-			let timelineData = await this.historicaDocumentProcesser
-				.GetTimelineDataFromDocumentArrayWithChrono(
-					tokensWithTypeText,
-					customChrono,
-					compromise,
-					corpus,
-					this.configManager.settings.showUseFulInformation,
-					// @ts-ignore
-					blockConfig.query,
-					blockConfig.pin_time
-				)
-
-			// console.log(timelineData)
-
-
-			await this.historicaTimelineRenderer.renderTimelineEntry(timelineData, blockConfig, el)
-			await this.configManager.writeLatestFileToData(await this.historicaFileHelper.getCurrentFile())
-		})
 
 		this.addSettingTab(new HistoricaSettingTab(this.app, this))
 
