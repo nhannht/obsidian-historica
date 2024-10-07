@@ -1,5 +1,6 @@
 import {TFile} from "obsidian";
 import {Node} from "unist";
+import {ParsedResult} from "chrono-node";
 
 export const HistoricaSupportLanguages = [
 	"en",
@@ -20,7 +21,13 @@ export interface HistoricaSetting {
 	showRelativeTime: boolean,
 	usingSmartTheme: boolean,
 	language: typeof HistoricaSupportLanguages[number],
-	pathListFilter: String[]|"CurrentFile" |"All" ,
+	pathListFilter: String[]|"Current" |"All" ,
+}
+
+export type Query = {
+	start: string,
+	end: string
+
 }
 
 export type HistoricaSettingNg = {
@@ -29,9 +36,11 @@ export type HistoricaSettingNg = {
 	implicit_time:boolean,
 	smart_theme: boolean,
 	language: typeof HistoricaSupportLanguages[number],
-	path_list: String[],
+	path_list: String[]| "All" | "Current",
 	include_files: String[],
-	pin_time:String
+	pin_time?:String,
+	query?: Query[]
+
 
 
 }
@@ -53,4 +62,11 @@ export function HistoricaSettingNgTypeGuard(s: any): s is HistoricaSettingNg {
 export type NodeFromParseTree = {
 	node: Node,
 	file: TFile
+}
+
+export interface SentenceWithOffset {
+	node: NodeFromParseTree;
+	text: string;
+	parsedResult: ParsedResult[]
+
 }

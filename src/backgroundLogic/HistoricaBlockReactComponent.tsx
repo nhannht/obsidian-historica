@@ -1,8 +1,8 @@
 import {MarkdownPostProcessorContext, MarkdownView, TFile} from "obsidian";
 import HistoricaPlugin from "@/main";
-import {HistoricaSettingNg, NodeFromParseTree} from "@/src/global";
+import {HistoricaSettingNg, NodeFromParseTree, SentenceWithOffset} from "@/src/global";
 import {useEffect, useState} from "react";
-import MarkdownProcesser, {SentenceWithOffset} from "@/src/MarkdownProcesser";
+import MarkdownProcesser from "@/src/MarkdownProcesser";
 
 export function HistoricaBlockReactComponent(props: {
     src: string,
@@ -48,14 +48,13 @@ export function HistoricaBlockReactComponent(props: {
 
     useEffect(() => {
         const extractTimeline = async () => {
-            const allMarkdownFiles = props.thisPlugin.app.vault.getMarkdownFiles()
-            const markdownProcesser = new MarkdownProcesser(allMarkdownFiles, props.thisPlugin)
-            await markdownProcesser.parseAllFilesNg(internalSettings)
-            const allnodes = markdownProcesser.nodes
+            const markdownProcesser = new MarkdownProcesser(props.thisPlugin,props.settings)
+            await markdownProcesser.parseAllFilesNg()
+            // const allnodes = markdownProcesser.nodes
             const currentFile = props.thisPlugin.app.workspace.getActiveFile()
             if (currentFile) {
                 let text = await props.thisPlugin.app.vault.read(currentFile)
-                const sentencesWithOffSet = await markdownProcesser.ExtractSentenceDataFromEachNode(text)
+                const sentencesWithOffSet = await markdownProcesser.ExtractValidSentences(text)
                 setSentences(sentencesWithOffSet)
 
             }
