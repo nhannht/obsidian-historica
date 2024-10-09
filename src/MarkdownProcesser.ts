@@ -4,7 +4,7 @@ import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse";
 import {Node} from "unist"
 import {Processor, unified} from "unified";
-import {HistoricaSettingNg, NodeFromParseTree, SentenceWithOffset} from "@/src/global";
+import {HistoricaSettingNg, NodeFromParseTree, QueryObject, SentenceWithOffset} from "@/src/global";
 import {SentenceTokenizer} from "natural/lib/natural/tokenizers"
 import {ParsedResult} from "chrono-node";
 
@@ -47,7 +47,9 @@ export default class MarkdownProcesser {
 
 	async ExtractValidSentences(fileText:string){
 		const customChrono = await this.currentPlugin.historicaChrono.setupCustomChrono(this.settings.language)
+		// console.log(customChrono)
 		const sentencesWithOffsets: SentenceWithOffset[] = []
+		// console.log(this.nodes)
 		this.nodes.map(n=>{
 			const paragraphText = fileText.slice(n.node.position?.start.offset,n.node.position?.end.offset)
 			const sentences = this.sentencesTokenize(paragraphText)
@@ -55,7 +57,7 @@ export default class MarkdownProcesser {
 			for (const sentence of sentences) {
 				var parsedResult:ParsedResult[];
 				// what if user add pin time
-				if (this.settings.pin_time){
+				if (this.settings.pin_time && this.settings.pin_time.trim().toLowerCase() !== "now"){
 					const referencedTime = customChrono.parse(this.settings.pin_time.trim())
 					parsedResult = customChrono.parse(sentence,referencedTime[0].start.date())
 
@@ -65,17 +67,19 @@ export default class MarkdownProcesser {
 				}
 
 				// solve the fucking stupid query
-				if (this.settings.query){
+				if (this.settings.query && Object.keys(this.settings.query).length !== 0){
 					let filterR:ParsedResult[] = []
-					this.settings.query.map(q =>{
-						if (q.start){
-							const start = customChrono.parse(q.start)
+					const queryKeys = Object.keys(this.settings.query)
+					queryKeys.map(k =>{
+						const query = this.settings.query[k]
+						if (query.start){
+							const start = customChrono.parse(query.start)
 							parsedResult.map(r =>{
 								if (r.start && r.start.date() >= start[0].start.date()) filterR.push(r)
 							})
 						}
-						if (q.end){
-							const end = customChrono.parse(q.end)
+						if (query.end){
+							const end = customChrono.parse(query.end)
 							parsedResult.map(r=>{
 								if (r.end && r.end.date() <= end[0].start.date()) filterR.push(r)
 							})
@@ -84,7 +88,7 @@ export default class MarkdownProcesser {
 					parsedResult = filterR
 				}
 				// if this sentence didn't have parsed result ignore it, god, I lost, this things is the one of the most stupid thing I have ever created
-				if (parsedResult.length != 0 ){
+				if (parsedResult.length !== 0 ){
 					sentencesWithOffsets.push({
 						node: n,
 						text: sentence,
@@ -94,6 +98,7 @@ export default class MarkdownProcesser {
 				}
 			}
 		})
+		// console.log(sentencesWithOffsets)
 
 		return sentencesWithOffsets;
 
@@ -131,11 +136,11 @@ export default class MarkdownProcesser {
 
 	// this is where we filter valid file base on block or global setting
 	async parseAllFilesNg() {
-		const pathFilterSettings = this.settings.path_list
+		const pathFilterSettings = this.settings.path_list ? this.settings.path_list : "CurrentFile"
 		const allMarkdownFiles = this.currentPlugin.app.vault.getMarkdownFiles()
 		let filteredFiles:TFile[] = []
 		if (pathFilterSettings === "All"){
-			filteredFiles = structuredClone(allMarkdownFiles)
+			filteredFiles = [...allMarkdownFiles]
 		} else if (pathFilterSettings === "Current"){
 			const currentFile = this.currentPlugin.app.workspace.getActiveFile()
 			if (currentFile instanceof TFile) {
@@ -149,11 +154,15 @@ export default class MarkdownProcesser {
 			})
 		}
 
-		this.settings.include_files.map(f =>{
+		const includeFiles = this.settings.include_files ? this.settings.include_files : []
+
+		includeFiles.map(f =>{
 			allMarkdownFiles.map(_f =>{
 				if (_f.path.trim() === f) filteredFiles.push(_f)
 			})
 		})
+		// console.log(filteredFiles)
+
 
 		filteredFiles.map(f=>{
 			this.parseFilesAndUpdateTokensNg(f)

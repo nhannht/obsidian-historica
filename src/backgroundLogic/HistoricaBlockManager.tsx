@@ -1,27 +1,13 @@
 import HistoricaPlugin from "../../main";
-import {HistoricaBlockConfig} from "./HistoricaUserBlockProcesser";
-import {Token} from "marked";
-import {MarkdownPostProcessorContext, Notice, TFile} from "obsidian";
-import compromise from "compromise";
-import corpus from "../../corpus.json";
-import {parse as TomlParse} from "toml";
+
+import {MarkdownPostProcessorContext, TFile} from "obsidian";
 import {createRoot} from "react-dom/client";
 import {StrictMode} from "react";
-import {HistoricaSettingNg} from "@/src/global";
+import {HistoricaSettingNg, HistoricaSupportLanguages} from "@/src/global";
 import {HistoricaBlockReactComponent} from "@/src/backgroundLogic/HistoricaBlockReactComponent";
 import TOML from "@ltd/j-toml"
 
-const defaultSettings: HistoricaSettingNg = {
-	path_list: ["CurrentFile"],
-	style: "default",
-	language: "en",
-	implicit_time: false,
-	summary: false,
-	smart_theme: true
-
-}
-
-async function UpdateBlockSetting(settings: HistoricaSettingNg,
+export async function UpdateBlockSetting(settings: HistoricaSettingNg,
 								  blockCtx: MarkdownPostProcessorContext,
 								  thisPlugin: HistoricaPlugin
 ) {
@@ -38,7 +24,10 @@ async function UpdateBlockSetting(settings: HistoricaSettingNg,
 		// console.log(linesFromFile)
 		linesFromFile.splice(elInfo.lineStart + 1,
 			elInfo.lineEnd - elInfo.lineStart - 1,
-			JSON.stringify(settings, null, "\t"), "\n")
+			TOML.stringify(settings, {
+				indent: "\t",
+				newline:"\n"
+			}), "\n")
 		// console.log(linesFromFile)
 		const newSettingsString = linesFromFile.join("")
 		const file = thisPlugin.app.vault.getAbstractFileByPath(sourcePath)
@@ -51,6 +40,18 @@ async function UpdateBlockSetting(settings: HistoricaSettingNg,
 
 }
 
+function validateSetting(settings: HistoricaSettingNg) {
+	if (!settings.path_list || settings.path_list.length === 0) settings.path_list = "Current"
+	if (!settings.smart_theme) settings.smart_theme = true
+	if ([1,2,3,"default","1","2","3"].indexOf(settings.style) === -1 || !settings.style) settings.style = 1
+	if (HistoricaSupportLanguages.indexOf(settings.language) === -1 || !settings.language) settings.language = "en"
+	if (!settings.summary) settings.summary = false
+	if (!settings.query ) settings.query = {}
+	if (!settings.include_files || settings.include_files.length ===0) settings.include_files = []
+	if (!settings.pin_time || settings.pin_time.trim() === "") settings.pin_time = "now"
+	return settings
+}
+
 
 export default class HistoricaBlockManager {
 	constructor(public thisPlugin: HistoricaPlugin) {
@@ -60,9 +61,11 @@ export default class HistoricaBlockManager {
 
 		this.thisPlugin.registerMarkdownCodeBlockProcessor("historica-ng", async (source, el, ctx) => {
 			// console.log(TOML.parse(source))
+			let  settings: HistoricaSettingNg  = source.trim() === "" ? this.thisPlugin.configManager.settings : TOML.parse(source) as unknown as HistoricaSettingNg
+			settings = validateSetting(settings)
 
-			const settings: HistoricaSettingNg|any  = source.trim() === "" ? defaultSettings : TOML.parse(source)
-			console.log(settings)
+			// console.log(settings)
+			// console.log(settings.query)
 			let root = el.createEl("div", {
 				cls: "root"
 			})
@@ -74,81 +77,12 @@ export default class HistoricaBlockManager {
 						src={source}
 						ctx={ctx}
 						thisPlugin={this.thisPlugin}
-						settings={settings}
+						setting={settings}
 					/>
+					{/*<RouterProvider router={router} />*/}
 				</StrictMode>
 			)
 		})
 	}
 
-	async registerHistoricaBlock() {
-		this.thisPlugin.registerMarkdownCodeBlockProcessor("historica", async (source, el) => {
-
-			// console.log(ctx)
-
-			// parse yaml in this block
-			let blockConfig: HistoricaBlockConfig = TomlParse(source)
-			// console.log(Object.keys(blockConfig).length === 0)
-			blockConfig = await this.thisPlugin.historicaUserBlockProcesser.verifyBlockConfig(blockConfig)
-			const customChrono = await this.thisPlugin.historicaChrono.setupCustomChrono(blockConfig.language)
-
-			// console.log(blockConfig)
-
-
-			let tokensWithTypeText: Token[] = [];
-			if (blockConfig.include_files === "all") {
-				const allFiles = this.thisPlugin.app.vault.getMarkdownFiles()
-				for (const file of allFiles) {
-					await this.thisPlugin.historicaFileParser.parseTFileAndUpdateDocuments(file, tokensWithTypeText)
-				}
-			} else if (blockConfig.include_files!.length === 0) {
-
-				let currentFile = await this.thisPlugin.historicaFileHelper.getCurrentFile()
-				await this.thisPlugin.configManager.writeLatestFileToData(currentFile)
-				// console.log(currentFile)
-
-				await this.thisPlugin.historicaFileParser.parseTFileAndUpdateDocuments(currentFile, tokensWithTypeText)
-
-			} else if (blockConfig.include_files !== "all" && blockConfig.include_files!.length > 0) {
-
-				for (const file of blockConfig.include_files!) {
-					const currentFile = this.thisPlugin.app.vault.getAbstractFileByPath(file)
-					if (currentFile instanceof TFile) {
-						await this.thisPlugin.historicaFileParser.parseTFileAndUpdateDocuments(currentFile, tokensWithTypeText)
-					}
-				}
-			} else {
-				new Notice("No file to include, check your config, include_files may be empty, list of file name or " +
-					"simply use 'all' to include all files in the vault")
-			}
-
-
-			tokensWithTypeText = tokensWithTypeText.filter((token) => {
-				return "tokens" in token ? token.tokens === undefined : true
-			})
-			// console.log(tokensWithTypeText)
-			// console.log("Query:")
-			// console.log(blockConfig.query)
-
-
-			let timelineData = await this.thisPlugin.historicaDocumentProcesser
-				.GetTimelineDataFromDocumentArrayWithChrono(
-					tokensWithTypeText,
-					customChrono,
-					compromise,
-					corpus,
-					this.thisPlugin.configManager.settings.showUseFulInformation,
-					// @ts-ignore
-					blockConfig.query,
-					blockConfig.pin_time
-				)
-
-			// console.log(timelineData)
-
-
-			await this.thisPlugin.historicaTimelineRenderer.renderTimelineEntry(timelineData, blockConfig, el)
-			await this.thisPlugin.configManager.writeLatestFileToData(await this.thisPlugin.historicaFileHelper.getCurrentFile())
-		})
-
-	}
 }

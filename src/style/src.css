@@ -1,11 +1,11 @@
-@import "./searchResultModalSmartTheme.css";
-@import "./searchResultModal.css";
-@import "./timelineactionmodalsmarttheme.css";
-@import "./timelineactionmodal.css";
-@import "./style1smarttheme.css";
-@import "./style2smarttheme.css";
-@import "./style1.css";
-@import "./style2.css";
+/*@import "./searchResultModalSmartTheme.css";*/
+/*@import "./searchResultModal.css";*/
+/*@import "./timelineactionmodalsmarttheme.css";*/
+/*@import "./timelineactionmodal.css";*/
+/*@import "./style1smarttheme.css";*/
+/*@import "./style2smarttheme.css";*/
+/*@import "./style1.css";*/
+/*@import "./style2.css";*/
 
 
 @tailwind components;
@@ -20,13 +20,13 @@ select {
 	@apply pl-2 pr-2 text-xs text-center
 }
 
-.historica-mark {
-	@apply text-rose-600
-}
+/*.historica-mark {*/
+/*	@apply text-rose-600*/
+/*}*/
 
-.historica-mark-smart-theme {
-	@apply text-[color:var(--text-accent)]
-}
+/*.historica-mark-smart-theme {*/
+/*	@apply text-[color:var(--text-accent)]*/
+/*}*/
 
 
 @layer base {

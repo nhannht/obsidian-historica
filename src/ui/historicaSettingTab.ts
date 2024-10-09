@@ -1,7 +1,7 @@
 import {App, PluginSettingTab, Setting} from "obsidian";
 import HistoricaPlugin from "../../main";
 
-
+// oh my god, it took hilarious cumplicated piece of shit-code to make a setting ui
 export class HistoricaSettingTab extends PluginSettingTab {
 	plugin: HistoricaPlugin;
 
@@ -20,9 +20,13 @@ export class HistoricaSettingTab extends PluginSettingTab {
 			.addDropdown(dropdown => {
 				dropdown.addOption('1', 'Style 1')
 				dropdown.addOption('2', 'Style 2')
-				dropdown.setValue(settings.defaultStyle)
+				dropdown.addOption('3','Style 3')
+				dropdown.setValue(settings.style.toString())
 				dropdown.onChange(async (value) => {
-					settings.defaultStyle = value
+					if (["1","2","3"].includes(value.trim())){
+						//@ts-ignore
+						settings.style = value
+					}
 					await this.plugin.configManager.saveSettings()
 				})
 			})
@@ -30,9 +34,9 @@ export class HistoricaSettingTab extends PluginSettingTab {
 			.setName("Show Summary Title")
 			.setDesc("Show short title in the timeline, turn it off if you think it is not smart enough, and this will make this plugin run at fastest speed")
 			.addToggle(toggle => {
-				toggle.setValue(settings.showUseFulInformation)
+				toggle.setValue(settings.summary)
 				toggle.onChange(async (value) => {
-					settings.showUseFulInformation = value
+					settings.summary = value
 					await this.plugin.configManager.saveSettings()
 				})
 			})
@@ -42,9 +46,9 @@ export class HistoricaSettingTab extends PluginSettingTab {
 			.setDesc("Example, your current date as 2024/Mar/20," +
 				"a string like '2 day ago' will be show explicit as '2024/Mar/18' if you turn this option off")
 			.addToggle(toggle => {
-				toggle.setValue(settings.showRelativeTime)
+				toggle.setValue(settings.implicit_time)
 				toggle.onChange(async (value) => {
-					settings.showRelativeTime = value
+					settings.implicit_time = value
 					await this.plugin.configManager.saveSettings()
 				})
 			})
@@ -53,9 +57,9 @@ export class HistoricaSettingTab extends PluginSettingTab {
 			.setName("Smart theme")
 			.setDesc("Theme that dynamic change base on your current obsidian  theme, turn it off if you want to using classic theme of Historica - Legend Larva")
 			.addToggle(toggle => {
-				toggle.setValue(settings.usingSmartTheme)
+				toggle.setValue(settings.smart_theme)
 				toggle.onChange(async (value) => {
-					settings.usingSmartTheme = value
+					settings.smart_theme = value
 					await this.plugin.configManager.saveSettings()
 				})
 			})
@@ -68,11 +72,11 @@ export class HistoricaSettingTab extends PluginSettingTab {
 				dropdown.addOption("uk","Ukrainian")
 				dropdown.addOption('fr',"French")
 				dropdown.addOption("de","Deutsch")
-				dropdown.addOption("ja","Japanese")
+				// dropdown.addOption("ja","Japanese")
 				dropdown.addOption("nl","Dutch")
 				dropdown.addOption("ru","Russian")
 				dropdown.addOption("pt","Portugues")
-				dropdown.addOption("zh.hant","Chinese (Traditional)")
+				// dropdown.addOption("zh.hant","Chinese (Traditional)")
 
 
 				dropdown.setValue(settings.language)

@@ -24,22 +24,26 @@ export interface HistoricaSetting {
 	pathListFilter: String[]|"Current" |"All" ,
 }
 
-export type Query = {
+export type QueryObject = {
 	start: string,
 	end: string
 
 }
 
+export type Query = {
+	[key:string]: QueryObject
+}
+
 export type HistoricaSettingNg = {
 	summary : boolean,
-	style:"1"|"2"|"3"|"default",
+	style:1|2|3|"default"|"1"|"2"|"3",
 	implicit_time:boolean,
 	smart_theme: boolean,
 	language: typeof HistoricaSupportLanguages[number],
 	path_list: String[]| "All" | "Current",
 	include_files: String[],
-	pin_time?:String,
-	query?: Query[]
+	pin_time:String,
+	query: Query
 
 
 
@@ -68,5 +72,19 @@ export interface SentenceWithOffset {
 	node: NodeFromParseTree;
 	text: string;
 	parsedResult: ParsedResult[]
+
+}
+
+// using for place holder when setting is missing
+export const DefaultSettings: HistoricaSettingNg = {
+	path_list: ["CurrentFile"],
+	style: "default",
+	language: "en",
+	implicit_time: false,
+	summary: false,
+	smart_theme: true,
+	include_files: [],
+	pin_time: "",
+	query: {}
 
 }
