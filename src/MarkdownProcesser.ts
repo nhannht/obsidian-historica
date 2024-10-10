@@ -136,19 +136,19 @@ export default class MarkdownProcesser {
 
 	// this is where we filter valid file base on block or global setting
 	async parseAllFilesNg() {
-		const pathFilterSettings = this.settings.path_list ? this.settings.path_list : "CurrentFile"
+		const path_option = this.settings.path_option ? this.settings.path_option : "current"
 		const allMarkdownFiles = this.currentPlugin.app.vault.getMarkdownFiles()
 		let filteredFiles:TFile[] = []
-		if (pathFilterSettings === "All"){
+		if (path_option.toLowerCase() === "all"){
 			filteredFiles = [...allMarkdownFiles]
-		} else if (pathFilterSettings === "Current"){
+		} else if (path_option.toLowerCase() === "current"){
 			const currentFile = this.currentPlugin.app.workspace.getActiveFile()
 			if (currentFile instanceof TFile) {
 				filteredFiles.push(currentFile)
 			}
-		} else if (Array.isArray(pathFilterSettings)) {
+		} else if (path_option.toLowerCase() === "custom") {
 			allMarkdownFiles.map(async (file)=>{
-				if (pathFilterSettings.indexOf(<String>file.parent?.path) !== -1) {
+				if (this.settings.custom_path.indexOf(<string>file.parent?.path) !== -1) {
 					filteredFiles.push(file)
 				} else return
 			})

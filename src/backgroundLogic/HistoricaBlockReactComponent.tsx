@@ -99,6 +99,39 @@ export function NavigationMenuReactComponent(props: {
 
 }
 
+async function JumpToParagraphPosition(n: NodeFromParseTree,p:HistoricaPlugin) {
+	const fileNeedToBeOpen = p.app.vault.getAbstractFileByPath(n.file.path)
+	const leaf = p.app.workspace.getLeaf(true)
+	if (fileNeedToBeOpen instanceof TFile) {
+		await leaf.openFile(fileNeedToBeOpen)
+		await leaf.setViewState({
+			type: "markdown",
+		})
+		// console.log(leaf.getViewState())
+
+		let view = leaf.view as MarkdownView
+
+		let startLine = n.node.position?.start.line ? n.node.position.start.line - 1 : 0
+		let startCol = n.node.position?.start.column ? n.node.position.start.column - 1 : 0
+		let endLine = n.node.position?.end.line ? n.node.position.end.line - 1 : 0
+		let endCol = n.node.position?.end.column ? n.node.position.end.column - 1 : 0
+
+
+		view.editor.setSelection({
+			line: startLine,
+			ch: startCol
+		}, {
+			line: endLine,
+			ch: endCol
+		})
+
+		view.editor.focus()
+		view.editor.scrollTo(0, startLine)
+
+	}
+}
+
+
 export function HistoricaBlockReactComponent(props: {
 	src: string,
 	ctx: MarkdownPostProcessorContext,
@@ -108,37 +141,6 @@ export function HistoricaBlockReactComponent(props: {
 
 	const [sentences, setSentences] = useState<SentenceWithOffset[]>([])
 
-	async function JumpToParagraphPosition(n: NodeFromParseTree) {
-		const fileNeedToBeOpen = props.thisPlugin.app.vault.getAbstractFileByPath(n.file.path)
-		const leaf = props.thisPlugin.app.workspace.getLeaf(true)
-		if (fileNeedToBeOpen instanceof TFile) {
-			await leaf.openFile(fileNeedToBeOpen)
-			await leaf.setViewState({
-				type: "markdown",
-			})
-			// console.log(leaf.getViewState())
-
-			let view = leaf.view as MarkdownView
-
-			let startLine = n.node.position?.start.line ? n.node.position.start.line - 1 : 0
-			let startCol = n.node.position?.start.column ? n.node.position.start.column - 1 : 0
-			let endLine = n.node.position?.end.line ? n.node.position.end.line - 1 : 0
-			let endCol = n.node.position?.end.column ? n.node.position.end.column - 1 : 0
-
-
-			view.editor.setSelection({
-				line: startLine,
-				ch: startCol
-			}, {
-				line: endLine,
-				ch: endCol
-			})
-
-			view.editor.focus()
-			view.editor.scrollTo(0, startLine)
-
-		}
-	}
 
 
 
@@ -184,7 +186,7 @@ export function HistoricaBlockReactComponent(props: {
 							className={"border"}
 							key={i}
 							onClick={async () => {
-								await JumpToParagraphPosition(s.node)
+								await JumpToParagraphPosition(s.node,props.thisPlugin)
 							}}
 							dangerouslySetInnerHTML={{__html: formattedText}}
 						></li>

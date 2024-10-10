@@ -1,19 +1,217 @@
-import {useEffect, useRef, useState} from "react"
+import {useEffect, useState} from "react"
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/src/ui/shadcn/Card"
 import {Label} from "@/src/ui/shadcn/Label"
 import {Switch} from "@/src/ui/shadcn/Switch"
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/src/ui/shadcn/Select"
-import {Input} from "@/src/ui/shadcn/Input"
 // import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/src/ui/shadcn/Table"
 import {Button} from "@/src/ui/shadcn/Button"
 import {HistoricaSettingNg,} from "./global";
 import {RadioGroup, RadioGroupItem} from "@/src/ui/shadcn/RadioGroup";
 import TOML from "@ltd/j-toml"
 import HistoricaPlugin from "@/main";
-import {MarkdownPostProcessorContext} from "obsidian";
+import {MarkdownPostProcessorContext, TFile, TFolder} from "obsidian";
 import {UpdateBlockSetting} from "@/src/backgroundLogic/HistoricaBlockManager";
+import {Popover, PopoverContent, PopoverTrigger} from "@/src/ui/shadcn/Popover";
+import {Command, CommandEmpty, CommandGroup, CommandInput, CommandItem} from "@/src/ui/shadcn/Command"
+import {ChevronsUpDownIcon} from "lucide-react";
+import {Checkbox} from "@/src/ui/shadcn/Checkbox"
+import {CommandList} from "cmdk";
+import {Input} from "@/src/ui/shadcn/Input"
+function PathPickerComponent(props: {
+	setting: HistoricaSettingNg,
+	setSetting: (s: HistoricaSettingNg) => void,
+	plugin: HistoricaPlugin
+
+}) {
+
+	// useEffect(() => {
+	// 	console.log(getAllDirInVault(props.plugin))
+	// }, []);
+
+	return (
+		<Popover>
+			<PopoverTrigger asChild>
+				<Button variant="outline" role="combobox" className="w-[300px] justify-between">
+					<div className="flex items-center gap-2 truncate">
+						<span className="truncate">Select options...</span>
+						<ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50"/>
+					</div>
+				</Button>
+			</PopoverTrigger>
+			<PopoverContent className="w-[300px] p-0">
+				<Command>
+					<CommandInput placeholder="Search options..." className="border-b px-4 py-3 focus:outline-none"/>
+					<CommandEmpty className="py-3 px-4 text-muted-foreground">No options found.</CommandEmpty>
+					<CommandGroup>
+						<CommandList>
+							{getAllDirInVault(props.plugin).map((tfolder, index) => (
+							<CommandItem
+								key={index}
+								className="flex items-center gap-2">
+								<Checkbox
+									checked={props.setting.custom_path.indexOf(tfolder.path) >= 0}
+									onCheckedChange={(checked) => {
+										let paths = props.setting.custom_path
+										if (checked) {
+											paths.push(tfolder.path)
+										} else {
+											paths.splice(paths.indexOf(tfolder.path), 1)
+										}
+										props.setSetting({...props.setting, custom_path: paths})
+
+									}}
+								/>
+								<span>{tfolder.path}</span>
+							</CommandItem>
+						))}
+						</CommandList>
+					</CommandGroup>
+				</Command>
+			</PopoverContent>
+		</Popover>
+	)
+}
 
 
+function FilePickerComponent(props:{
+	setting: HistoricaSettingNg,
+    setSetting: (s: HistoricaSettingNg) => void,
+    plugin: HistoricaPlugin,
+}){
+	return (
+		<Popover>
+			<PopoverTrigger asChild>
+				<Button variant="outline" role="combobox" className="w-[300px] justify-between">
+					<div className="flex items-center gap-2 truncate">
+						<span className="truncate">Select options...</span>
+						<ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50"/>
+					</div>
+				</Button>
+			</PopoverTrigger>
+			<PopoverContent className="w-[300px] p-0">
+				<Command>
+					<CommandInput placeholder="Search options..." className="border-b px-4 py-3 focus:outline-none"/>
+					<CommandEmpty className="py-3 px-4 text-muted-foreground">No options found.</CommandEmpty>
+					<CommandGroup>
+						<CommandList>
+							{getAllMarkdownFileInVault(props.plugin).map((tfile, index) => (
+								<CommandItem
+									key={index}
+									className="flex items-center gap-2">
+									<Checkbox
+										checked={props.setting.include_files.indexOf(tfile.path) >= 0}
+										onCheckedChange={(checked) => {
+											let paths = props.setting.include_files
+											if (checked) {
+												paths.push(tfile.path)
+											} else {
+												paths.splice(paths.indexOf(tfile.path), 1)
+											}
+											props.setSetting({...props.setting, include_files: paths})
+
+										}}
+									/>
+									<span>{tfile.path}</span>
+								</CommandItem>
+							))}
+						</CommandList>
+					</CommandGroup>
+				</Command>
+			</PopoverContent>
+		</Popover>
+	)
+
+
+}
+
+function getAllDirInVault(plugin: HistoricaPlugin) {
+	const fs = plugin.app.vault.getFiles()
+	let dirs = new Set<TFolder>([])
+	fs.map(f => {
+		if (f.parent) dirs.add(f.parent)
+	})
+	return Array.from(dirs)
+
+}
+
+function getAllMarkdownFileInVault(plugin:HistoricaPlugin){
+	const fs = plugin.app.vault.getMarkdownFiles()
+	let files = new Set<TFile>()
+	fs.map(f=> files.add(f))
+	return Array.from(files)
+}
+
+function PathListComponent(props: {
+	setting: HistoricaSettingNg,
+	setSetting: (s: HistoricaSettingNg) => void,
+	plugin: HistoricaPlugin,
+}) {
+
+	function handleChange(v: string) {
+		if (v === "all") {
+			props.setSetting({...props.setting, path_option: "all"})
+		} else if (v === "current") {
+			props.setSetting({...props.setting, path_option: "current"})
+		} else if (v === "custom") {
+			props.setSetting({...props.setting, path_option: "custom"})
+		}
+	}
+
+	return (
+		<div>
+			<div className="grid gap-2">
+				<Label>Path List</Label>
+				<RadioGroup
+					onValueChange={handleChange}
+					defaultValue={props.setting.path_option}
+					className="flex flex-col gap-2"
+				>
+					<Label className="flex items-center gap-2">
+						<RadioGroupItem value="all"/>
+						All
+					</Label>
+					<Label className="flex items-center gap-2">
+						<RadioGroupItem value="current"/>
+						Current
+					</Label>
+					<Label className="flex items-center gap-2">
+						<RadioGroupItem value="custom"/>
+						Custom
+					</Label>
+				</RadioGroup>
+				{props.setting.path_option === "custom" && <div className="grid gap-2">
+					<Label htmlFor="pathListOptions">Path List Options</Label>
+					<PathPickerComponent setting={props.setting} setSetting={props.setSetting} plugin={props.plugin}/>
+
+					<div/>
+				</div>}
+			</div>
+
+		</div>
+	)
+}
+
+function ReviewPinTime(props:{
+	input:string,
+	plugin:HistoricaPlugin
+}) {
+
+	const [parsed,setParsed] = useState(props.plugin.historicaChrono.customChrono.parse(props.input.toString()))
+	useEffect(() => {
+		setParsed(props.plugin.historicaChrono.customChrono.parse(props.input))
+	}, [props.input]);
+
+	if (parsed.length > 0){
+		return <div className={"grid gap-2"}><Label htmlFor={"parsedPinTime"}>Parsed pin time</Label>
+			<div
+				id={"parsedPinTime"}>{parsed[0].start.date().toString()}</div>
+		</div>
+
+	} else {
+		return <div>This is not a valid pin_time</div>
+	}
+
+}
 
 
 export default function SettingReactComponent(props: {
@@ -45,6 +243,13 @@ export default function SettingReactComponent(props: {
 		await UpdateBlockSetting(setting, props.blocCtx, props.plugin)
 
 	}
+
+	useEffect(() => {
+		props.plugin.historicaChrono.setupCustomChrono(setting.language)
+			.then(() => console.log("Oops here we go again"))
+
+	}, [setting.language]);
+
 
 
 	return <Card className="w-full max-w-4xl">
@@ -117,62 +322,32 @@ export default function SettingReactComponent(props: {
 							</SelectContent>
 						</Select>
 					</div>
-					{/*<div className="grid gap-2">*/}
-					{/*	<Label>Path List</Label>*/}
-					{/*	<RadioGroup*/}
-					{/*		onValueChange={(value) => handleChange("pathList", value)}*/}
-					{/*		className="flex flex-col gap-2"*/}
-					{/*	>*/}
-					{/*		<Label className="flex items-center gap-2">*/}
-					{/*			<RadioGroupItem value="All"/>*/}
-					{/*			All*/}
-					{/*		</Label>*/}
-					{/*		<Label className="flex items-center gap-2">*/}
-					{/*			<RadioGroupItem value="Current"/>*/}
-					{/*			Current*/}
-					{/*		</Label>*/}
-					{/*		<Label className="flex items-center gap-2">*/}
-					{/*			<RadioGroupItem value="Custom"/>*/}
-					{/*			Custom*/}
-					{/*		</Label>*/}
-					{/*	</RadioGroup>*/}
-					{/*	{setting.path_list === "Custom" && <div className="grid gap-2">*/}
-					{/*		<Label htmlFor="pathListOptions">Path List Options</Label>*/}
-					{/*		<div/>*/}
-					{/*	</div>}*/}
-					{/*</div>*/}
+					<PathListComponent setting={setting} setSetting={setSetting} plugin={props.plugin}/>
+
 				</div>
-				{/*<div className="grid gap-2">*/}
-				{/*	<Label htmlFor="includeFiles">Include Files</Label>*/}
-				{/*	<Select*/}
-				{/*		onValueChange={(value) => handleChange("includeFiles", value)}*/}
-				{/*	>*/}
-				{/*		<SelectTrigger className="w-full">*/}
-				{/*			<SelectValue placeholder="Select files"/>*/}
-				{/*		</SelectTrigger>*/}
-				{/*		<SelectContent className="w-full">*/}
-				{/*			{setting.include_files.map((option, index) => <SelectItem key={index}*/}
-				{/*																	  value={option.valueOf()}>*/}
-				{/*				{option}*/}
-				{/*			</SelectItem>)}*/}
-				{/*		</SelectContent>*/}
-				{/*	</Select>*/}
-				{/*</div>*/}
-				{/*<div className="grid grid-cols-2 gap-4">*/}
-				{/*	<div className="grid gap-2">*/}
-				{/*		<Label htmlFor="pinTime">Pin Time</Label>*/}
-				{/*		<Input*/}
-				{/*			id="pinTime"*/}
-				{/*			value={setting.pin_time.toString()}*/}
-				{/*			onChange={(e) => handleChange("pinTime", e.target.value)}*/}
-				{/*		/>*/}
-				{/*	</div>*/}
-				{/*</div>*/}
+				<div className="grid gap-2">
+					<Label htmlFor="includeFiles">Include Files</Label>
+					<FilePickerComponent setting={setting} setSetting={setSetting} plugin={props.plugin}/>
+				</div>
+				<div className="grid grid-cols-2 gap-4">
+					<div className="grid gap-2">
+						<Label htmlFor="pinTime">Pin Time</Label>
+						<Input
+							id="pinTime"
+							value={setting.pin_time.toString()}
+
+							onChange={(e) => handleChange("pin_time", e.target.value)}
+						/>
+					</div>
+					<ReviewPinTime input={setting.pin_time.toString()} plugin={props.plugin}/>
+
+				</div>
 				<div>
 					<div>Preview your settings</div>
 					<pre className={"border rounded-lg"}>
 						<code>
-						{TOML.stringify(setting, {
+							{/*@ts-ignore*/}
+						{TOML.stringify(setting , {
 							newline: '\n',
 							indent: '\t',
 						})}

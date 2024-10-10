@@ -40,7 +40,8 @@ export type HistoricaSettingNg = {
 	implicit_time:boolean,
 	smart_theme: boolean,
 	language: typeof HistoricaSupportLanguages[number],
-	path_list: String[]| "All" | "Current",
+	path_option:  "all" | "current"| "custom",
+	custom_path: string[], // only work when path_option is custom
 	include_files: String[],
 	pin_time:String,
 	query: Query
@@ -77,7 +78,8 @@ export interface SentenceWithOffset {
 
 // using for place holder when setting is missing
 export const DefaultSettings: HistoricaSettingNg = {
-	path_list: ["CurrentFile"],
+	path_option: "current",
+	custom_path: [],
 	style: "default",
 	language: "en",
 	implicit_time: false,

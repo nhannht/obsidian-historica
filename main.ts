@@ -21,7 +21,7 @@ const DEFAULT_SETTINGS: HistoricaSettingNg = {
 	implicit_time:true,
 	smart_theme:true,
 	language: "en",
-	path_list: "Current",
+	path_option: "Current",
 
 
 }
