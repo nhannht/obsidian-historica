@@ -244,11 +244,11 @@ export default function SettingReactComponent(props: {
 
 	}
 
-	useEffect(() => {
-		props.plugin.historicaChrono.setupCustomChrono(setting.language)
-			.then(() => console.log("Oops here we go again"))
-
-	}, [setting.language]);
+	// useEffect(() => {
+	// 	props.plugin.historicaChrono.setupCustomChrono(setting.language)
+	// 		.then(() => console.log("Oops here we go again"))
+	//
+	// }, [setting.language]);
 
 
 

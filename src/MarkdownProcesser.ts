@@ -4,20 +4,20 @@ import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse";
 import {Node} from "unist"
 import {Processor, unified} from "unified";
-import {HistoricaSettingNg, NodeFromParseTree, QueryObject, SentenceWithOffset} from "@/src/global";
+import { HistoricaSettingNg, NodeAndTFile, PlotUnit, SentenceWithOffset} from "@/src/global";
 import {SentenceTokenizer} from "natural/lib/natural/tokenizers"
 import {ParsedResult} from "chrono-node";
 
 
 export default class MarkdownProcesser {
 
-	get nodes(): NodeFromParseTree[] {
+	get nodes(): NodeAndTFile[] {
 		return this._nodes;
 	}
 
 	private _remarkProcessor: Processor;
 
-	private _nodes: NodeFromParseTree[] = [];
+	private _nodes: NodeAndTFile[] = [];
 
 
 	private  sentenceTokenizer = new SentenceTokenizer(['i.e','e.g'])
@@ -42,6 +42,35 @@ export default class MarkdownProcesser {
 	private sentencesTokenize(text:string){
 
 		return this.sentenceTokenizer.tokenize(text)
+	}
+
+	async GetPlotUnits(sens:SentenceWithOffset[]):Promise<PlotUnit[]>{
+		let u:PlotUnit[] = []
+		sens.map( s=>{
+			// const par = await ExtractParagraph(s,this.currentPlugin)
+			// console.log(par)
+			s.parsedResults.map( r => {
+				u.push({
+					parsedResult: r,
+					node: s.node,
+					text: s.text,
+					// paragraph:par
+				})
+			})
+		})
+
+		if (this.settings.sort === "asc"){
+			u.sort((u1,u2)=>{
+				return u1.parsedResult.date().getTime() - u2.parsedResult.date().getTime()
+			})
+		} else if (this.settings.sort === "desc") {
+			u.sort((u1,u2)=>{
+				return u2.parsedResult.date().getTime() - u1.parsedResult.date().getTime()
+			})
+		}
+
+		return u
+
 	}
 
 
@@ -92,7 +121,7 @@ export default class MarkdownProcesser {
 					sentencesWithOffsets.push({
 						node: n,
 						text: sentence,
-						parsedResult:parsedResult
+						parsedResults:parsedResult
 
 					})
 				}

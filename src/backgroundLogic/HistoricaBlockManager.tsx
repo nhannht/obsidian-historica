@@ -57,7 +57,7 @@ export async function UpdateBlockSetting(settings: HistoricaSettingNg,
 
 function validateSetting(settings: HistoricaSettingNg) {
 	if (!settings.path_option || settings.path_option.length === 0) settings.path_option = "current"
-	if (!settings.smart_theme) settings.smart_theme = true
+	// if (!settings.smart_theme) settings.smart_theme = true
 	if ([1,2,3,"default","1","2","3"].indexOf(settings.style) === -1 || !settings.style) settings.style = 1
 	if (HistoricaSupportLanguages.indexOf(settings.language) === -1 || !settings.language) settings.language = "en"
 	if (!settings.summary) settings.summary = false
@@ -65,6 +65,7 @@ function validateSetting(settings: HistoricaSettingNg) {
 	if (!settings.include_files || !Array.isArray(settings.include_files)) settings.include_files = []
 	if (!settings.pin_time || settings.pin_time.trim() === "") settings.pin_time = "now"
 	if (!settings.custom_path || !Array.isArray(settings.include_files)) settings.custom_path = []
+	if (!settings.sort || !["asc","desc"].includes(settings.sort.trim().toLowerCase()) ) settings.sort = "asc"
 	return settings
 }
 

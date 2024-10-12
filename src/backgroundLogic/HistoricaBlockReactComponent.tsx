@@ -1,20 +1,14 @@
-import {MarkdownPostProcessorContext, MarkdownView, TFile} from "obsidian";
+import {MarkdownPostProcessorContext} from "obsidian";
 import HistoricaPlugin from "@/main";
-import {HistoricaSettingNg, NodeFromParseTree, SentenceWithOffset} from "@/src/global";
-import {PropsWithChildren, useEffect, useState} from "react";
+import {HistoricaSettingNg, PlotUnit} from "@/src/global";
+import {PropsWithChildren, useEffect, useRef, useState} from "react";
 import MarkdownProcesser from "@/src/MarkdownProcesser";
-import {
-	NavigationMenu,
-	NavigationMenuContent,
-	NavigationMenuItem,
-	NavigationMenuLink,
-	NavigationMenuList,
-	NavigationMenuTrigger,
-	navigationMenuTriggerStyle
-} from "@/src/ui/shadcn/NavigationMenu"
+import {NavigationMenuLink, navigationMenuTriggerStyle} from "@/src/ui/shadcn/NavigationMenu"
 import {cn} from "@/lib/utils";
 import SettingReactComponent from "@/src/SettingReactComponent";
-
+import {TimelineI} from "@/src/TimelineI";
+import {TimelineII} from "@/src/TimelineII";
+import HistoricaExportHelper from "@/src/backgroundLogic/HistoricaExportHelper";
 
 
 function ListItem(props: PropsWithChildren<{
@@ -63,7 +57,10 @@ const pages = [
 
 export function NavigationMenuReactComponent(props: {
 	page: string,
-	setPage: (p: string) => void
+	setPage: (p: string) => void,
+	handleConvertToPngAndSave?: ()=>void,
+	handleConvertToPngAndCopy?: ()=>void,
+	handleConvertToPdfAndSave?: ()=>void
 }) {
 
 	// return <NavigationMenu>
@@ -85,50 +82,20 @@ export function NavigationMenuReactComponent(props: {
 	// </NavigationMenu>
 
 	return (
-		<div>
-			{pages.map((p,i)=>{
+		<div className={"flex flex-row justify-around p-2 "}>
+			{pages.map((p, i) => {
 				return <button
 					key={i}
-				onClick={()=>{
-					props.setPage(p.page)
-				}}
+					onClick={() => {
+						props.setPage(p.page)
+					}}
 				>{p.title}</button>
 			})}
+			{props.handleConvertToPngAndSave ? <button onClick={props.handleConvertToPngAndSave}>Save as Image</button> : null}
+			{props.handleConvertToPngAndCopy ? <button onClick={props.handleConvertToPngAndCopy}>Copy as Image</button> : null }
 		</div>
 	)
 
-}
-
-async function JumpToParagraphPosition(n: NodeFromParseTree,p:HistoricaPlugin) {
-	const fileNeedToBeOpen = p.app.vault.getAbstractFileByPath(n.file.path)
-	const leaf = p.app.workspace.getLeaf(true)
-	if (fileNeedToBeOpen instanceof TFile) {
-		await leaf.openFile(fileNeedToBeOpen)
-		await leaf.setViewState({
-			type: "markdown",
-		})
-		// console.log(leaf.getViewState())
-
-		let view = leaf.view as MarkdownView
-
-		let startLine = n.node.position?.start.line ? n.node.position.start.line - 1 : 0
-		let startCol = n.node.position?.start.column ? n.node.position.start.column - 1 : 0
-		let endLine = n.node.position?.end.line ? n.node.position.end.line - 1 : 0
-		let endCol = n.node.position?.end.column ? n.node.position.end.column - 1 : 0
-
-
-		view.editor.setSelection({
-			line: startLine,
-			ch: startCol
-		}, {
-			line: endLine,
-			ch: endCol
-		})
-
-		view.editor.focus()
-		view.editor.scrollTo(0, startLine)
-
-	}
 }
 
 
@@ -139,10 +106,10 @@ export function HistoricaBlockReactComponent(props: {
 	setting: HistoricaSettingNg
 }) {
 
-	const [sentences, setSentences] = useState<SentenceWithOffset[]>([])
+	const [plotUnit, setPlotUnit] = useState<PlotUnit[]>([])
 
-
-
+	const elementRef = useRef<HTMLDivElement | null>(null);
+	const exportHelper = new HistoricaExportHelper();
 
 
 	useEffect(() => {
@@ -154,47 +121,74 @@ export function HistoricaBlockReactComponent(props: {
 			if (currentFile) {
 				let text = await props.thisPlugin.app.vault.read(currentFile)
 				const sentencesWithOffSet = await markdownProcesser.ExtractValidSentences(text)
-				setSentences(sentencesWithOffSet)
-
+				// console.log(sentencesWithOffSet)
+				const plotUnits = await markdownProcesser.GetPlotUnits(sentencesWithOffSet)
+				setPlotUnit(plotUnits)
 			}
-
-
 			// console.log(allnodes)
 		}
 		extractTimeline().then()
+	},[])
 
-
-	}, [])
+	// useEffect(()=>{
+	// 	console.log(plotUnit)
+	// },[plotUnit])
 
 	const [internalSetting, setInternalSetting] =
 		useState<HistoricaSettingNg>(structuredClone(props.setting))
 	const [page, setPage] = useState("timeline")
 
+	const handleConvertToPngAndSave = async () => {
+		if (elementRef.current) {
+			const imageData = await exportHelper.convertHTMLToImageData(elementRef.current);
+			// Create a link element
+			const link = document.createElement('a');
+			link.href = imageData;
+			link.download = 'exported-image.png';
+
+			// Append to the body, click and remove it
+			document.body.appendChild(link);
+			link.click();
+			document.body.removeChild(link);
+
+
+		}
+	};
+
+	const handleConvertToPngAndCopyToClipboard = async ()=>{
+		if (elementRef.current){
+			const imageData = await exportHelper.convertHTMLToImageData(elementRef.current)
+			// Convert the image data URL to a Blob
+			const response = await fetch(imageData);
+			const blob = await response.blob();
+
+			// Use the Clipboard API to write the image to the clipboard
+			try {
+				await navigator.clipboard.write([
+					new ClipboardItem({
+						[blob.type]: blob
+					})
+				]);
+				console.log("Image copied to clipboard successfully!");
+			} catch (error) {
+				console.error("Failed to copy image to clipboard:", error);
+			}
+
+		}
+	}
+
+
+
 
 
 	if (page === "timeline") {
 		return <div>
-			<NavigationMenuReactComponent page={page} setPage={setPage}/>
-			<ul>
-				{sentences.map((s, i) => {
-					if (s.parsedResult.length != 0) {
-						let formattedText = s.text
-						s.parsedResult.map((r) => {
-							formattedText = formattedText.replace(r.text, `<historica-mark class="text-rose-500">${r.text}</historica-mark>`)
-						})
-						return <li
-							className={"border"}
-							key={i}
-							onClick={async () => {
-								await JumpToParagraphPosition(s.node,props.thisPlugin)
-							}}
-							dangerouslySetInnerHTML={{__html: formattedText}}
-						></li>
+			<NavigationMenuReactComponent page={page} setPage={setPage}
+										  handleConvertToPngAndSave={handleConvertToPngAndSave}
+										  handleConvertToPngAndCopy={handleConvertToPngAndCopyToClipboard}
 
-					}
-					return null
-				})}
-			</ul>
+			/>
+			<TimelineII units={plotUnit} shitRef={elementRef}/>
 		</div>
 
 	}
