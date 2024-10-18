@@ -1,22 +1,30 @@
-import {useEffect, useState} from "react"
+import {useState} from "react"
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/src/ui/shadcn/Card"
 import {Label} from "@/src/ui/shadcn/Label"
 import {Switch} from "@/src/ui/shadcn/Switch"
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/src/ui/shadcn/Select"
 // import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/src/ui/shadcn/Table"
 import {Button} from "@/src/ui/shadcn/Button"
-import {HistoricaSettingNg,} from "./global";
+import {
+	GetAllDirInVault,
+	GetAllMarkdownFileInVault,
+	HistoricaSettingNg,
+	PlotUnitNg,
+	UpdateBlockSetting,
+} from "./global";
 import {RadioGroup, RadioGroupItem} from "@/src/ui/shadcn/RadioGroup";
-import TOML from "@ltd/j-toml"
 import HistoricaPlugin from "@/main";
-import {MarkdownPostProcessorContext, TFile, TFolder} from "obsidian";
-import {UpdateBlockSetting} from "@/src/backgroundLogic/HistoricaBlockManager";
+import {MarkdownPostProcessorContext} from "obsidian";
 import {Popover, PopoverContent, PopoverTrigger} from "@/src/ui/shadcn/Popover";
 import {Command, CommandEmpty, CommandGroup, CommandInput, CommandItem} from "@/src/ui/shadcn/Command"
 import {ChevronsUpDownIcon} from "lucide-react";
 import {Checkbox} from "@/src/ui/shadcn/Checkbox"
 import {CommandList} from "cmdk";
 import {Input} from "@/src/ui/shadcn/Input"
+import PlotUnitNgEditor from "@/src/PlotUnitEditor";
+
+// import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/src/ui/shadcn/Table";
+
 function PathPickerComponent(props: {
 	setting: HistoricaSettingNg,
 	setSetting: (s: HistoricaSettingNg) => void,
@@ -25,7 +33,7 @@ function PathPickerComponent(props: {
 }) {
 
 	// useEffect(() => {
-	// 	console.log(getAllDirInVault(props.plugin))
+	// 	console.log(GetAllDirInVault(props.plugin))
 	// }, []);
 
 	return (
@@ -44,26 +52,26 @@ function PathPickerComponent(props: {
 					<CommandEmpty className="py-3 px-4 text-muted-foreground">No options found.</CommandEmpty>
 					<CommandGroup>
 						<CommandList>
-							{getAllDirInVault(props.plugin).map((tfolder, index) => (
-							<CommandItem
-								key={index}
-								className="flex items-center gap-2">
-								<Checkbox
-									checked={props.setting.custom_path.indexOf(tfolder.path) >= 0}
-									onCheckedChange={(checked) => {
-										let paths = props.setting.custom_path
-										if (checked) {
-											paths.push(tfolder.path)
-										} else {
-											paths.splice(paths.indexOf(tfolder.path), 1)
-										}
-										props.setSetting({...props.setting, custom_path: paths})
+							{GetAllDirInVault(props.plugin).map((tfolder, index) => (
+								<CommandItem
+									key={index}
+									className="flex items-center gap-2">
+									<Checkbox
+										checked={props.setting.custom_path.indexOf(tfolder.path) >= 0}
+										onCheckedChange={(checked) => {
+											let paths = props.setting.custom_path
+											if (checked) {
+												paths.push(tfolder.path)
+											} else {
+												paths.splice(paths.indexOf(tfolder.path), 1)
+											}
+											props.setSetting({...props.setting, custom_path: paths})
 
-									}}
-								/>
-								<span>{tfolder.path}</span>
-							</CommandItem>
-						))}
+										}}
+									/>
+									<span>{tfolder.path}</span>
+								</CommandItem>
+							))}
 						</CommandList>
 					</CommandGroup>
 				</Command>
@@ -73,11 +81,11 @@ function PathPickerComponent(props: {
 }
 
 
-function FilePickerComponent(props:{
+function FilePickerComponent(props: {
 	setting: HistoricaSettingNg,
-    setSetting: (s: HistoricaSettingNg) => void,
-    plugin: HistoricaPlugin,
-}){
+	setSetting: (s: HistoricaSettingNg) => void,
+	plugin: HistoricaPlugin,
+}) {
 	return (
 		<Popover>
 			<PopoverTrigger asChild>
@@ -94,7 +102,7 @@ function FilePickerComponent(props:{
 					<CommandEmpty className="py-3 px-4 text-muted-foreground">No options found.</CommandEmpty>
 					<CommandGroup>
 						<CommandList>
-							{getAllMarkdownFileInVault(props.plugin).map((tfile, index) => (
+							{GetAllMarkdownFileInVault(props.plugin).map((tfile, index) => (
 								<CommandItem
 									key={index}
 									className="flex items-center gap-2">
@@ -124,23 +132,6 @@ function FilePickerComponent(props:{
 
 }
 
-function getAllDirInVault(plugin: HistoricaPlugin) {
-	const fs = plugin.app.vault.getFiles()
-	let dirs = new Set<TFolder>([])
-	fs.map(f => {
-		if (f.parent) dirs.add(f.parent)
-	})
-	return Array.from(dirs)
-
-}
-
-function getAllMarkdownFileInVault(plugin:HistoricaPlugin){
-	const fs = plugin.app.vault.getMarkdownFiles()
-	let files = new Set<TFile>()
-	fs.map(f=> files.add(f))
-	return Array.from(files)
-}
-
 function PathListComponent(props: {
 	setting: HistoricaSettingNg,
 	setSetting: (s: HistoricaSettingNg) => void,
@@ -163,7 +154,7 @@ function PathListComponent(props: {
 				<Label>Path List</Label>
 				<RadioGroup
 					onValueChange={handleChange}
-					defaultValue={props.setting.path_option}
+					value={props.setting.path_option}
 					className="flex flex-col gap-2"
 				>
 					<Label className="flex items-center gap-2">
@@ -181,7 +172,12 @@ function PathListComponent(props: {
 				</RadioGroup>
 				{props.setting.path_option === "custom" && <div className="grid gap-2">
 					<Label htmlFor="pathListOptions">Path List Options</Label>
-					<PathPickerComponent setting={props.setting} setSetting={props.setSetting} plugin={props.plugin}/>
+					<PathPickerComponent
+						setting={props.setting}
+						setSetting={props.setSetting}
+						plugin={props.plugin}
+
+					/>
 
 					<div/>
 				</div>}
@@ -191,27 +187,58 @@ function PathListComponent(props: {
 	)
 }
 
-function ReviewPinTime(props:{
-	input:string,
-	plugin:HistoricaPlugin
-}) {
+// function QueryEditTable(props:{
+// 	setting:HistoricaSettingNg,
+// 	handleQueryChange: (index:number,key:string,value:string) => void,
+// 	handleRemoveQuery: (index:number)=> void,
+// 	handleAddQuery:()=>void
+//
+//
+// }){
+// 	return (
+// 		<div className={"grid gap-4"}>
+//
+// 			<Label>Queries</Label>
+// 			<Table>
+// 				<TableHeader>
+// 					<TableRow>
+// 						<TableHead>Key</TableHead>
+// 						<TableHead>Start</TableHead>
+// 						<TableHead>End</TableHead>
+// 						<TableHead>Actions</TableHead>
+// 					</TableRow>
+// 				</TableHeader>
+// 				<TableBody>
+// 					{props.setting.query.map((query, index) => (
+// 						<TableRow key={index}>
+// 							<TableCell>
+// 								<Input value={query.key} onChange={(e) => {
+// 									props.handleQueryChange(index,"key",e.target.value)
+// 								}} />
+// 							</TableCell>
+// 							<TableCell>
+// 								<Input value={query.start} onChange={(e) => props.handleQueryChange(index, "start", e.target.value)} />
+// 							</TableCell>
+// 							<TableCell>
+// 								<Input value={query.end} onChange={(e) => props.handleQueryChange(index, "end", e.target.value)} />
+// 							</TableCell>
+// 							<TableCell>
+// 								<Button variant="ghost" size="icon" onClick={() => props.handleRemoveQuery(index)}>
+// 									<TrashIcon className="w-4 h-4" />
+// 									<span className="sr-only">Remove query</span>
+// 								</Button>
+// 							</TableCell>
+// 						</TableRow>
+// 					))}
+// 				</TableBody>
+// 			</Table>
+// 			<Button onClick={props.handleAddQuery}>Add Query</Button>
+//
+// 		</div>
+// 	)
+// }
 
-	const [parsed,setParsed] = useState(props.plugin.historicaChrono.customChrono.parse(props.input.toString()))
-	useEffect(() => {
-		setParsed(props.plugin.historicaChrono.customChrono.parse(props.input))
-	}, [props.input]);
 
-	if (parsed.length > 0){
-		return <div className={"grid gap-2"}><Label htmlFor={"parsedPinTime"}>Parsed pin time</Label>
-			<div
-				id={"parsedPinTime"}>{parsed[0].start.date().toString()}</div>
-		</div>
-
-	} else {
-		return <div>This is not a valid pin_time</div>
-	}
-
-}
 
 
 export default function SettingReactComponent(props: {
@@ -219,6 +246,7 @@ export default function SettingReactComponent(props: {
 	setSetting: (s: HistoricaSettingNg) => void,
 	blocCtx: MarkdownPostProcessorContext,
 	plugin: HistoricaPlugin,
+	handleSaveCache: () => void
 
 }) {
 
@@ -244,12 +272,53 @@ export default function SettingReactComponent(props: {
 
 	}
 
+	const setPlotUnits = (us:PlotUnitNg[])=>{
+		setSetting({...setting, custom_units:us})
+	}
+
+	// function handleQueryChange(index:number,key:string,value:string){
+	// 	let newQuery = [...setting.query]
+	//
+	// 	if (key === "key"){
+	// 		newQuery[index].key = value
+	// 	} else if (key==="start"){
+	// 		newQuery[index].start = value
+	// 	} else if (key === "end"){
+	// 		newQuery[index].end = value
+	// 	}
+	//
+	// 	setSetting({...setting,query:newQuery})
+	//
+	// }
+	//
+	// function handleRemoveQuery(index:number){
+	// 	let newQuery = [...setting.query]
+	// 	newQuery = newQuery.filter((_, i) => i!== index)
+	// 	setSetting({...setting,query: newQuery})
+	// }
+	//
+	// function handleAddQuery(){
+	// 	const currentTime = new Date().getTime().toString();
+	// 	let hash = 0;
+	// 	for (let i = 0; i < currentTime.length; i++) {
+	// 		const char = currentTime.charCodeAt(i);
+	// 		hash = ((hash << 5) - hash) + char;
+	// 		hash |= 0; // Convert to 32bit integer
+	// 	}
+	// 	let randomKey = hash.toString();
+	// 	let newQuery = [...setting.query]
+	// 	// console.log(newQuery)
+	// 	newQuery.push({key: randomKey, start: "", end: ""})
+	// 	// console.log(newQuery)
+	// 	setSetting({...setting,query:newQuery})
+	// }
+
+
 	// useEffect(() => {
 	// 	props.plugin.historicaChrono.setupCustomChrono(setting.language)
 	// 		.then(() => console.log("Oops here we go again"))
 	//
 	// }, [setting.language]);
-
 
 
 	return <Card className="w-full max-w-4xl">
@@ -258,16 +327,16 @@ export default function SettingReactComponent(props: {
 			<CardDescription>Customize your HistoricaSettingNg settings.</CardDescription>
 		</CardHeader>
 		<CardContent>
-			<form onSubmit={handleSubmit} className="grid gap-6">
+			<div  className="grid gap-6">
 				<div className="grid grid-cols-2 gap-4">
-					<div className="grid gap-2">
-						<Label htmlFor="summary">Summary</Label>
-						<Switch
-							id="summary"
-							checked={setting.summary}
-							onCheckedChange={(value) => handleChange("summary", value)}
-						/>
-					</div>
+					{/*<div className="grid gap-2">*/}
+					{/*	<Label htmlFor="summary">Summary</Label>*/}
+					{/*	<Switch*/}
+					{/*		id="summary"*/}
+					{/*		checked={setting.summary}*/}
+					{/*		onCheckedChange={(value) => handleChange("summary", value)}*/}
+					{/*	/>*/}
+					{/*</div>*/}
 					<div className="grid gap-2">
 						<Label htmlFor="style">Style</Label>
 						<Select
@@ -296,14 +365,39 @@ export default function SettingReactComponent(props: {
 						/>
 					</div>
 					<div className="grid gap-2">
-						<Label htmlFor="smartTheme">Smart Theme</Label>
-						<Switch
-							id="smartTheme"
-							checked={setting.smart_theme}
-							onCheckedChange={(value) => handleChange("smartTheme", value)}
-						/>
+						<Label htmlFor="sort">Sort</Label>
+						<Select
+							value={setting.sort}
+							onValueChange={(v) => handleChange("sort", v)}
+						>
+							<SelectTrigger>
+								<SelectValue placeholder={"Sort order"}/>
+							</SelectTrigger>
+							<SelectContent>
+								<SelectItem key={"asc"} value="asc">Ascending</SelectItem>
+								<SelectItem key={"desc"} value="desc">Descending</SelectItem>
+							</SelectContent>
+						</Select>
 					</div>
 				</div>
+
+				<div className="grid grid-cols-2 gap-4">
+					<div className="grid gap-2">
+						<Label htmlFor="cache">Using cache</Label>
+						<Switch
+							id="cache"
+							checked={setting.cache}
+							onCheckedChange={(value) => {
+								handleChange("cache", value)
+								if (value) {
+									props.handleSaveCache()
+								}
+							}}
+						/>
+					</div>
+					{/*<div className="grid gap-2"></div>*/}
+				</div>
+
 				<div className="grid grid-cols-2 gap-4">
 					<div className="grid gap-2">
 						<Label htmlFor="language">Language</Label>
@@ -339,62 +433,34 @@ export default function SettingReactComponent(props: {
 							onChange={(e) => handleChange("pin_time", e.target.value)}
 						/>
 					</div>
-					<ReviewPinTime input={setting.pin_time.toString()} plugin={props.plugin}/>
+					{/*<ReviewPinTime input={setting.pin_time.toString()} plugin={props.plugin}/>*/}
 
 				</div>
+
+				{/*<QueryEditTable setting={setting} handleQueryChange={handleQueryChange} handleRemoveQuery={handleRemoveQuery} handleAddQuery={handleAddQuery}/>*/}
+				<PlotUnitNgEditor
+					plotUnits={setting.custom_units}
+					setPlotUnits={setPlotUnits}
+					plugin={props.plugin}
+				/>
+
 				<div>
 					<div>Preview your settings</div>
 					<pre className={"border rounded-lg"}>
 						<code>
-							{/*@ts-ignore*/}
-						{TOML.stringify(setting , {
-							newline: '\n',
-							indent: '\t',
-						})}
+							{JSON.stringify(setting, null,2)}
 					</code>
 					</pre>
 				</div>
-				{/*<div className="grid gap-4">*/}
-				{/*	<Label>Queries</Label>*/}
-				{/*	<Table>*/}
-				{/*		<TableHeader>*/}
-				{/*			<TableRow>*/}
-				{/*				<TableHead>Key</TableHead>*/}
-				{/*				<TableHead>Start</TableHead>*/}
-				{/*				<TableHead>End</TableHead>*/}
-				{/*				<TableHead>Actions</TableHead>*/}
-				{/*			</TableRow>*/}
-				{/*		</TableHeader>*/}
-				{/*		<TableBody>*/}
-				{/*			{setting.query.map((query, index) => (*/}
-				{/*				<TableRow key={index}>*/}
-				{/*					<TableCell>*/}
-				{/*						<Input value={query.key} onChange={(e) => handleQueryChange(index, "key", e.target.value)} />*/}
-				{/*					</TableCell>*/}
-				{/*					<TableCell>*/}
-				{/*						<Input value={query.start} onChange={(e) => handleQueryChange(index, "start", e.target.value)} />*/}
-				{/*					</TableCell>*/}
-				{/*					<TableCell>*/}
-				{/*						<Input value={query.end} onChange={(e) => handleQueryChange(index, "end", e.target.value)} />*/}
-				{/*					</TableCell>*/}
-				{/*					<TableCell>*/}
-				{/*						<Button variant="ghost" size="icon" onClick={() => handleRemoveQuery(index)}>*/}
-				{/*							<TrashIcon className="w-4 h-4" />*/}
-				{/*							<span className="sr-only">Remove query</span>*/}
-				{/*						</Button>*/}
-				{/*					</TableCell>*/}
-				{/*				</TableRow>*/}
-				{/*			))}*/}
-				{/*		</TableBody>*/}
-				{/*	</Table>*/}
-				{/*	<Button onClick={handleAddQuery}>Add Query</Button>*/}
-				{/*</div>*/}
+
 				<div className="flex justify-end">
 					<Button
+						onClick={handleSubmit}
 
 						type="submit">Save Settings</Button>
 				</div>
-			</form>
+			</div>
+
 		</CardContent>
 	</Card>
 }

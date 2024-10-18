@@ -1,5 +1,5 @@
-import {MarkdownView, TFile} from "obsidian";
-import {Node} from "unist";
+import {MarkdownPostProcessorContext, MarkdownView, TFile, TFolder} from "obsidian";
+import {Node, Point} from "unist";
 import {ParsedResult} from "chrono-node";
 import HistoricaPlugin from "@/main";
 
@@ -27,13 +27,14 @@ export interface HistoricaSetting {
 
 export type QueryObject = {
 	start: string,
-	end: string
+	end: string,
+	key:string,
+
 
 }
 
-export type Query = {
-	[key:string]: QueryObject
-}
+
+
 
 export type HistoricaSettingNg = {
 	summary : boolean,
@@ -45,72 +46,96 @@ export type HistoricaSettingNg = {
 	custom_path: string[], // only work when path_option is custom
 	include_files: String[],
 	pin_time:String,
-	query: Query,
-	sort: "asc"|"desc"
-
+	// query: QueryObject[],
+	sort: "asc"|"desc",
+	cache: boolean,
+	blockId: string,
+	custom_units: PlotUnitNg[]
 
 
 }
 
-export type PlotUnit = {
-	node:NodeAndTFile,
-	text:string,
-	parsedResult: ParsedResult,
-	paragraph?: string,
+export function GenerateBlockId(){
+	const currentTime = new Date().getTime().toString();
+	let hash = 0;
+	for (let i = 0; i < currentTime.length; i++) {
+		const char = currentTime.charCodeAt(i);
+		hash = ((hash << 5) - hash) + char;
+		hash |= 0; // Convert to 32bit integer
+	}
+	return hash.toString();
 }
 
-export async function ExtractParagraph (s:SentenceWithOffset, p:HistoricaPlugin):Promise<string>{
-	const fileContent = await p.app.vault.read(s.node.file)
-	return  fileContent.slice(s.node.node.position?.start.offset,s.node.node.position?.end.offset)
+export type Attachment = {
+	id:string,
+	path:string,
+}
+
+export type PlotUnitNg = {
+	id:string,
+	nodePos?: {
+		start:Point,
+		end:Point
+	},
+	filePath: string,
+	fileParent?:string,
+	parsedResultText: string,
+	sentence:string,
+	parsedResultUnixTime:number,
+	attachments: Attachment[]
 
 }
 
-export async function JumpToParagraphPosition(n: NodeAndTFile, p: HistoricaPlugin) {
-	const fileNeedToBeOpen = p.app.vault.getAbstractFileByPath(n.file.path)
-	const leaf = p.app.workspace.getLeaf(true)
-	if (fileNeedToBeOpen instanceof TFile) {
-		await leaf.openFile(fileNeedToBeOpen)
+
+
+export async function JumpToTextInParagraph(paragraphPos: { start: Point, end: Point }|undefined, filePath: string, text: string, plugin: HistoricaPlugin) {
+	// console.log(paragraphPos)
+
+	const fileNeedToBeOpen = plugin.app.vault.getAbstractFileByPath(filePath);
+	const leaf = plugin.app.workspace.getLeaf(true);
+
+	if (fileNeedToBeOpen instanceof TFile && paragraphPos) {
+		await leaf.openFile(fileNeedToBeOpen);
 		await leaf.setViewState({
 			type: "markdown",
-		})
-		// console.log(leaf.getViewState())
+		});
 
-		let view = leaf.view as MarkdownView
+		let view = leaf.view as MarkdownView;
+		const editor = view.editor;
 
-		let startLine = n.node.position?.start.line ? n.node.position.start.line - 1 : 0
-		let startCol = n.node.position?.start.column ? n.node.position.start.column - 1 : 0
-		let endLine = n.node.position?.end.line ? n.node.position.end.line - 1 : 0
-		let endCol = n.node.position?.end.column ? n.node.position.end.column - 1 : 0
+		const fileContent = await  plugin.app.vault.read(fileNeedToBeOpen)
+		const paragraphText = fileContent.slice(paragraphPos.start.offset,paragraphPos.end.offset)
+		// console.log(paragraphText)
 
-
-		view.editor.setSelection({
-			line: startLine,
-			ch: startCol
-		}, {
-			line: endLine,
-			ch: endCol
-		})
-
-		view.editor.focus()
-		view.editor.scrollTo(0, startLine)
+		let	start= paragraphPos.start.offset ? (paragraphPos.start.offset + paragraphText.indexOf(text)) : paragraphText.indexOf(text)
+		// console.log(start)
+		let	end = start + text.length
+		// console.log(end)
+		const editorPos = {
+			start: editor.offsetToPos(start),
+			end: editor.offsetToPos(end)
+		}
+		editor.setSelection(editorPos.start,editorPos.end)
+		editor.scrollTo(editorPos.start.ch,editorPos.start.line)
 
 	}
 }
 
-
-export function HistoricaSettingNgTypeGuard(s: any): s is HistoricaSettingNg {
-	return (
-		typeof s === "object" &&
-		s !== null &&
-		typeof s.summaryData === "boolean" &&
-		(s.defaultStyle === "1" || s.defaultStyle === "2" || s.defaultStyle === "3" || s.defaultStyle === "default") &&
-		typeof s.showRelativeTime === "boolean" &&
-		typeof s.usingSmartTheme === "boolean" &&
-		typeof s.language === "string" && // Assuming language is a string, you might want to check against the actual supported languages
-		Array.isArray(s.pathListFilter) &&
-		s.pathListFilter.every((item: any) => typeof item === "string")
-	);
+export function GenerateRandomId() {
+	const currentTime = new Date().getTime().toString();
+	const randomNum = Math.floor(Math.random() * 1000000).toString(); // Generate a random number
+	let hash = 0;
+	const combinedString = currentTime + randomNum;
+	for (let i = 0; i < combinedString.length; i++) {
+		const char = combinedString.charCodeAt(i);
+		hash = ((hash << 5) - hash) + char;
+		hash |= 0; // Convert to 32bit integer
+	}
+	return hash.toString();
 }
+
+
+
 
 export type NodeAndTFile = {
 	node: Node,
@@ -124,7 +149,7 @@ export interface SentenceWithOffset {
 
 }
 
-// using for place holder when setting is missing
+// this default setting will be using for global settings. Or if some settings is missing in the block
 export const DefaultSettings: HistoricaSettingNg = {
 	path_option: "current",
 	custom_path: [],
@@ -132,10 +157,15 @@ export const DefaultSettings: HistoricaSettingNg = {
 	language: "en",
 	implicit_time: false,
 	summary: false,
-	smart_theme: true,
 	include_files: [],
 	pin_time: "",
-	query: {}
+	// query: [],
+	sort: "asc",
+	blockId:"-1",
+	cache: false,
+	custom_units: []
+
+
 
 }
 
@@ -145,4 +175,124 @@ export function FormatDate(date:Date): string {
 		month: 'short',
 		day: 'numeric'
 	}).format(date)
+}
+
+
+
+
+
+
+
+// Example usage:
+
+/**
+ * Modify the block setting and ensure we will jump to the current block position. This function must be use via user action, avoid using via hook or auto api, because it will conflict with async
+ * nature of obsidian
+ * @param settings
+ * @param blockCtx
+ * @param plugin
+ * @constructor
+ */
+export async function UpdateBlockSetting(settings: HistoricaSettingNg,
+										 blockCtx: MarkdownPostProcessorContext,
+										 plugin: HistoricaPlugin
+) {
+	const sourcePath = blockCtx.sourcePath
+	//@ts-expect-error: el not define in blockCtx
+	const elInfo = blockCtx.getSectionInfo(blockCtx.el)
+	// console.log(elInfo)
+	if (elInfo) {
+		// console.log(elInfo.text)
+		let linesFromFile = elInfo.text.split(/(.*?\n)/g)
+		linesFromFile.forEach((e: string, i: number) => {
+			if (e === "") linesFromFile.splice(i, 1)
+		})
+		// console.log(linesFromFile)
+		linesFromFile.splice(elInfo.lineStart + 1,
+			elInfo.lineEnd - elInfo.lineStart - 1,
+			JSON.stringify(settings, null,2), "\n")
+		// console.log(linesFromFile)
+		const newSettingsString = linesFromFile.join("")
+		const file = plugin.app.vault.getAbstractFileByPath(sourcePath)
+		if (file) {
+			if (file instanceof TFile) {
+				await plugin.app.vault.modify(file, newSettingsString)
+			}
+		}
+	}
+
+	// scroll back to the location of this block, why we need it because Obsidian behaviour so stupid and keep scrolling around after we modify the file uisng api
+	const currentFile = plugin.app.workspace.getActiveFile()
+	if (currentFile instanceof TFile) {
+		const leaf = plugin.app.workspace.getLeaf(false)
+		await leaf.openFile(currentFile)
+		await leaf.setViewState({
+			type: "markdown",
+		})
+		let view = leaf.view as MarkdownView
+		view.editor.setCursor({
+			line: elInfo?.lineStart ? elInfo.lineEnd : 0,
+			ch: 0,
+		})
+	}
+
+}
+
+export function GetAllDirInVault(plugin: HistoricaPlugin) {
+	const fs = plugin.app.vault.getFiles()
+	let dirs = new Set<TFolder>([])
+	fs.map(f => {
+		if (f instanceof TFolder) dirs.add(f)
+	})
+	return Array.from(dirs)
+
+}
+
+export function GetAllMarkdownFileInVault(plugin: HistoricaPlugin) {
+	const fs = plugin.app.vault.getMarkdownFiles()
+	let files = new Set<TFile>()
+	fs.map(f => files.add(f))
+	return Array.from(files)
+}
+
+export function GetAllFileInVault(plugin: HistoricaPlugin) {
+	// console.log("Hello from get all file in vault")
+	const fs = plugin.app.vault.getFiles()
+	let results = new Set<TFile>([])
+	fs.map(f=>{
+		if (f instanceof TFile){
+			results.add(f)
+		}
+	})
+	// console.log(Array.from(results))
+
+
+	return Array.from(results)
+
+}
+
+export async function ReadImage(plugin:HistoricaPlugin,filepath:string){
+	const file = plugin.app.vault.getAbstractFileByPath(filepath)
+	if (file instanceof  TFile){
+		const content = await plugin.app.vault.readBinary(file)
+		return content
+
+	}
+	return ""
+
+
+}
+
+export function GetFileExtensionFromPath(plugin:HistoricaPlugin,path:string){
+	const file = plugin.app.vault.getAbstractFileByPath(path)
+	if (file instanceof TFile) return file.extension
+	else return "md"
+}
+
+export function SelectRandomElement(r: any[]): any {
+	if (r.length === 0) {
+		return null; // or throw an error if you prefer
+	}
+	const randomIndex = Math.floor(Math.random() * r.length);
+	return r[randomIndex];
 }

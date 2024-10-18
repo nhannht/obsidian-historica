@@ -2,7 +2,7 @@ import esbuild from "esbuild";
 import process from "process";
 import builtins from "builtin-modules";
 import svgr from 'esbuild-plugin-svgr'
-
+import mdx from '@mdx-js/esbuild'
 
 const banner =
 	`/*
@@ -42,6 +42,9 @@ const context = await esbuild.context({
 	outfile: "main.js",
 	plugins: [
 		svgr(),
+		mdx({
+
+		})
 	],
 
 

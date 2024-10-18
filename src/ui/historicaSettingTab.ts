@@ -30,16 +30,6 @@ export class HistoricaSettingTab extends PluginSettingTab {
 					await this.plugin.configManager.saveSettings()
 				})
 			})
-		new Setting(containerEl)
-			.setName("Show Summary Title")
-			.setDesc("Show short title in the timeline, turn it off if you think it is not smart enough, and this will make this plugin run at fastest speed")
-			.addToggle(toggle => {
-				toggle.setValue(settings.summary)
-				toggle.onChange(async (value) => {
-					settings.summary = value
-					await this.plugin.configManager.saveSettings()
-				})
-			})
 
 		new Setting(containerEl)
 			.setName("Implicit date showing in the time entry")
@@ -53,16 +43,6 @@ export class HistoricaSettingTab extends PluginSettingTab {
 				})
 			})
 
-		new Setting(containerEl)
-			.setName("Smart theme")
-			.setDesc("Theme that dynamic change base on your current obsidian  theme, turn it off if you want to using classic theme of Historica - Legend Larva")
-			.addToggle(toggle => {
-				toggle.setValue(settings.smart_theme)
-				toggle.onChange(async (value) => {
-					settings.smart_theme = value
-					await this.plugin.configManager.saveSettings()
-				})
-			})
 
 		new Setting(containerEl)
 			.setName("Language support")

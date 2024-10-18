@@ -1,16 +1,18 @@
-import {MarkdownPostProcessorContext} from "obsidian";
+import {MarkdownPostProcessorContext, Notice, TFile, TFolder} from "obsidian";
 import HistoricaPlugin from "@/main";
-import {HistoricaSettingNg, PlotUnit} from "@/src/global";
+import { HistoricaSettingNg, PlotUnitNg, UpdateBlockSetting} from "@/src/global";
 import {PropsWithChildren, useEffect, useRef, useState} from "react";
 import MarkdownProcesser from "@/src/MarkdownProcesser";
 import {NavigationMenuLink, navigationMenuTriggerStyle} from "@/src/ui/shadcn/NavigationMenu"
 import {cn} from "@/lib/utils";
 import SettingReactComponent from "@/src/SettingReactComponent";
-import {TimelineI} from "@/src/TimelineI";
 import {TimelineII} from "@/src/TimelineII";
 import HistoricaExportHelper from "@/src/backgroundLogic/HistoricaExportHelper";
+import {NavigationMenuReactComponent} from "@/src/NavigationMenuReactComponent";
+import {TimelineI} from "@/src/TimelineI";
+import {TimelineIII} from "@/src/TimelineIII";
 
-
+//@ts-ignore
 function ListItem(props: PropsWithChildren<{
 	title: string,
 	page: string,
@@ -44,69 +46,15 @@ function ListItem(props: PropsWithChildren<{
 
 }
 
-const pages = [
-	{
-		title: "Timeline",
-		page: "timeline"
-	},
-	{
-		title: "Setting",
-		page: "setting"
-	}
-]
-
-export function NavigationMenuReactComponent(props: {
-	page: string,
-	setPage: (p: string) => void,
-	handleConvertToPngAndSave?: ()=>void,
-	handleConvertToPngAndCopy?: ()=>void,
-	handleConvertToPdfAndSave?: ()=>void
-}) {
-
-	// return <NavigationMenu>
-	// 	<NavigationMenuList >
-	// 		<NavigationMenuItem>
-	// 			<NavigationMenuTrigger className={"m-0 "}>Menu</NavigationMenuTrigger>
-	// 			<NavigationMenuContent>
-	// 				<ul className="grid w-[200px] gap-4 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-	// 					{pages.map(p => {
-	// 						return <ListItem key={p.page} title={p.title} page={p.page} setPage={props.setPage}
-	//
-	// 						/>
-	// 					})}
-	//
-	// 				</ul>
-	// 			</NavigationMenuContent>
-	// 		</NavigationMenuItem>
-	// 	</NavigationMenuList>
-	// </NavigationMenu>
-
-	return (
-		<div className={"flex flex-row justify-around p-2 "}>
-			{pages.map((p, i) => {
-				return <button
-					key={i}
-					onClick={() => {
-						props.setPage(p.page)
-					}}
-				>{p.title}</button>
-			})}
-			{props.handleConvertToPngAndSave ? <button onClick={props.handleConvertToPngAndSave}>Save as Image</button> : null}
-			{props.handleConvertToPngAndCopy ? <button onClick={props.handleConvertToPngAndCopy}>Copy as Image</button> : null }
-		</div>
-	)
-
-}
-
 
 export function HistoricaBlockReactComponent(props: {
 	src: string,
 	ctx: MarkdownPostProcessorContext,
-	thisPlugin: HistoricaPlugin
+	plugin: HistoricaPlugin
 	setting: HistoricaSettingNg
 }) {
 
-	const [plotUnit, setPlotUnit] = useState<PlotUnit[]>([])
+	const [plotUnits, setPlotUnits] = useState<PlotUnitNg[]>([])
 
 	const elementRef = useRef<HTMLDivElement | null>(null);
 	const exportHelper = new HistoricaExportHelper();
@@ -114,25 +62,68 @@ export function HistoricaBlockReactComponent(props: {
 
 	useEffect(() => {
 		const extractTimeline = async () => {
-			const markdownProcesser = new MarkdownProcesser(props.thisPlugin, props.setting)
-			await markdownProcesser.parseAllFilesNg()
-			// const allnodes = markdownProcesser.nodes
-			const currentFile = props.thisPlugin.app.workspace.getActiveFile()
-			if (currentFile) {
-				let text = await props.thisPlugin.app.vault.read(currentFile)
-				const sentencesWithOffSet = await markdownProcesser.ExtractValidSentences(text)
-				// console.log(sentencesWithOffSet)
-				const plotUnits = await markdownProcesser.GetPlotUnits(sentencesWithOffSet)
-				setPlotUnit(plotUnits)
+			if (internalSetting.cache){
+				const blockId= internalSetting.blockId
+				if (blockId != "-1" || blockId.trim().toLowerCase() != ""){
+					const file = props.plugin.app.vault.getAbstractFileByPath(`historica-data/${blockId}.json`)
+					if (file instanceof TFile){
+						const fileContent = props.plugin.app.vault.read(file)
+						setPlotUnits(JSON.parse(await fileContent))
+					}
+				}
+			} else {
+				const markdownProcesser = new MarkdownProcesser(props.plugin, props.setting)
+				await markdownProcesser.parseAllFilesNg()
+				// const allnodes = markdownProcesser.nodes
+				// console.log(allnodes)
+				const currentFile = props.plugin.app.workspace.getActiveFile()
+				if (currentFile) {
+					let text = await props.plugin.app.vault.read(currentFile)
+					const sentencesWithOffSet = await markdownProcesser.ExtractValidSentences(text)
+					// console.log(sentencesWithOffSet)
+					let plotUnits = await markdownProcesser.GetPlotUnits(sentencesWithOffSet)
+
+
+					internalSetting.custom_units.map(u=>{
+						plotUnits.push(u)
+					})
+
+
+
+					setPlotUnits(plotUnits)
+				}
+
 			}
+
 			// console.log(allnodes)
 		}
 		extractTimeline().then()
-	},[])
+	}, [])
 
-	// useEffect(()=>{
-	// 	console.log(plotUnit)
-	// },[plotUnit])
+	const handleSaveCache = async () => {
+		let historicaDataPath = props.plugin.app.vault.getAbstractFileByPath("historica-data")
+		if (!historicaDataPath || !(historicaDataPath instanceof TFolder)){
+			await props.plugin.app.vault.createFolder("historica-data")
+			historicaDataPath = props.plugin.app.vault.getAbstractFileByPath("historica-data")
+		}
+		// console.log(historicaDataPath)
+
+		const blockId = internalSetting.blockId
+		const filePath = `${historicaDataPath!.path}/${blockId}.json`
+		const fileExist = props.plugin.app.vault.getAbstractFileByPath(filePath) instanceof TFile
+		if (!fileExist) {
+			await props.plugin.app.vault.create(filePath, JSON.stringify(plotUnits))
+		} else {
+			await props.plugin.app.vault.modify(props.plugin.app.vault.getAbstractFileByPath(filePath) as TFile, JSON.stringify(plotUnits,null,2))
+		}
+
+		new Notice(`The cache was save to ${filePath}, and the cache option was turn on, if you don't want using cache, modify cache to false`,10000)
+
+
+		await UpdateBlockSetting({...internalSetting,cache:true}, props.ctx, props.plugin)
+
+
+	}
 
 	const [internalSetting, setInternalSetting] =
 		useState<HistoricaSettingNg>(structuredClone(props.setting))
@@ -155,8 +146,8 @@ export function HistoricaBlockReactComponent(props: {
 		}
 	};
 
-	const handleConvertToPngAndCopyToClipboard = async ()=>{
-		if (elementRef.current){
+	const handleConvertToPngAndCopyToClipboard = async () => {
+		if (elementRef.current) {
 			const imageData = await exportHelper.convertHTMLToImageData(elementRef.current)
 			// Convert the image data URL to a Blob
 			const response = await fetch(imageData);
@@ -177,8 +168,17 @@ export function HistoricaBlockReactComponent(props: {
 		}
 	}
 
+	const timelineRender = ()=>{
+		if ([1,"default","1"].includes(internalSetting.style)){
+			return <TimelineI units={plotUnits} shitRef={elementRef} plugin={props.plugin}  />
+		} else if (["2",2].includes(internalSetting.style)){
+			return <TimelineII units={plotUnits} shitRef={elementRef} plugin={props.plugin}/>
+		} else if (["3",3].includes(internalSetting.style)){
+			return <TimelineIII units={plotUnits} shitRef={elementRef} plugin={props.plugin}/>
 
-
+		}
+		return <></>
+	}
 
 
 	if (page === "timeline") {
@@ -186,19 +186,23 @@ export function HistoricaBlockReactComponent(props: {
 			<NavigationMenuReactComponent page={page} setPage={setPage}
 										  handleConvertToPngAndSave={handleConvertToPngAndSave}
 										  handleConvertToPngAndCopy={handleConvertToPngAndCopyToClipboard}
+										  handleSaveCache={handleSaveCache}
+										  plugin={props.plugin}
 
 			/>
-			<TimelineII units={plotUnit} shitRef={elementRef}/>
+			{timelineRender()}
+
 		</div>
 
 	}
 
 	if (page === "setting") {
 		return <div>
-			<NavigationMenuReactComponent page={page} setPage={setPage}/>
+			<NavigationMenuReactComponent page={page} setPage={setPage} plugin={props.plugin}/>
 			<SettingReactComponent
+				handleSaveCache={handleSaveCache}
 				blocCtx={props.ctx}
-				plugin={props.thisPlugin}
+				plugin={props.plugin}
 				setting={internalSetting}
 				setSetting={setInternalSetting}
 

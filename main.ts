@@ -6,7 +6,7 @@ import './src/mode/historica/historica'
 import {HistoricaSettingTab} from "./src/ui/historicaSettingTab";
 import HistoricaFileHelper from "./src/backgroundLogic/HistoricaFileHelper";
 import HistoricaExportHelper from "./src/backgroundLogic/HistoricaExportHelper";
-import {HistoricaSettingNg} from "./src/global";
+import {DefaultSettings} from "./src/global";
 import HistoricaBlockManager from "@/src/backgroundLogic/HistoricaBlockManager";
 import ConfigManagerNg from "@/src/ConfigManagerNg";
 import HistoricaChrono from "@/src/backgroundLogic/HistoricaChrono";
@@ -15,25 +15,16 @@ import HistoricaChrono from "@/src/backgroundLogic/HistoricaChrono";
  * The default historica setting
  * showRelativeTime set to true by default because this is old behaviour of this plugin in the very first version, I want to keep backward compatibility
  */
-const DEFAULT_SETTINGS: HistoricaSettingNg = {
-	summary:false,
-	style:1,
-	implicit_time:true,
-	smart_theme:true,
-	language: "en",
-	path_option: "Current",
 
-
-}
 
 
 // export const HISTORICA_VIEW_TYPE = "historica-note-location"
 
 export default class HistoricaPlugin extends Plugin {
-	configManager = new ConfigManagerNg(this, DEFAULT_SETTINGS)
+	configManager = new ConfigManagerNg(this, DefaultSettings)
 
-	historicaFileHelper = new HistoricaFileHelper(this);
-	historicaExportHelper = new HistoricaExportHelper()
+	// historicaFileHelper = new HistoricaFileHelper(this);
+	// historicaExportHelper = new HistoricaExportHelper()
 
 	// historicaDocumentProcesser = new HistoricaDocumentProcesser();
 
@@ -74,6 +65,10 @@ export default class HistoricaPlugin extends Plugin {
 
 
 	override async onload() {
+		// fetch("https://ipinfo.io/json",{
+		// 	method:"GET"
+		// }).then(response => response.json()).then(data => console.log(data))
+
 		this.darkModeAdapt()
 		this.registerListener()
 		await this.configManager.loadSettings()
@@ -91,6 +86,8 @@ export default class HistoricaPlugin extends Plugin {
 
 
 	}
+
+
 
 	override async onunload() {
 
@@ -110,10 +107,6 @@ export default class HistoricaPlugin extends Plugin {
 
 
 	}
-
-
-
-
 }
 
 

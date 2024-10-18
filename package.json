@@ -22,6 +22,7 @@
   "author": "nhannht",
   "license": "MIT",
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.15",
     "@types/node": "^20.11.20",
     "@types/unist": "^3.0.3",
     "@typescript-eslint/eslint-plugin": "5.29.0",
@@ -45,6 +46,7 @@
   },
   "dependencies": {
     "@ltd/j-toml": "^1.38.0",
+    "@mdx-js/esbuild": "^3.0.1",
     "@radix-ui/react-checkbox": "^1.1.2",
     "@radix-ui/react-dialog": "^1.1.2",
     "@radix-ui/react-label": "^2.1.0",
@@ -72,10 +74,9 @@
     "natural": "^8.0.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "rehype-highlight": "^7.0.0",
     "remark-gfm": "^4.0.0",
     "remark-parse": "^11.0.0",
-    "remark-wiki-link": "^2.0.1",
-    "remark-wiki-link-plus": "^1.1.1",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
     "toml": "^3.0.0",

@@ -4,7 +4,7 @@ import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse";
 import {Node} from "unist"
 import {Processor, unified} from "unified";
-import { HistoricaSettingNg, NodeAndTFile, PlotUnit, SentenceWithOffset} from "@/src/global";
+import {GenerateBlockId, HistoricaSettingNg, NodeAndTFile, PlotUnitNg, SentenceWithOffset} from "@/src/global";
 import {SentenceTokenizer} from "natural/lib/natural/tokenizers"
 import {ParsedResult} from "chrono-node";
 
@@ -20,11 +20,11 @@ export default class MarkdownProcesser {
 	private _nodes: NodeAndTFile[] = [];
 
 
-	private  sentenceTokenizer = new SentenceTokenizer(['i.e','e.g'])
+	private sentenceTokenizer = new SentenceTokenizer(['i.e', 'e.g'])
 
 	constructor(
-				public currentPlugin: HistoricaPlugin,
-				private settings :HistoricaSettingNg
+		public currentPlugin: HistoricaPlugin,
+		private settings: HistoricaSettingNg
 	) {
 
 		//@ts-ignore
@@ -32,40 +32,56 @@ export default class MarkdownProcesser {
 
 	}
 
-	async extractTextEachNode(text:string){
-		this.nodes.map(n =>{
+	async extractTextEachNode(text: string) {
+		this.nodes.map(n => {
 
-			console.log(text.slice(n.node.position?.start.offset,n.node.position?.end.offset))
+			console.log(text.slice(n.node.position?.start.offset, n.node.position?.end.offset))
 		})
 	}
 
-	private sentencesTokenize(text:string){
+	private sentencesTokenize(text: string) {
 
 		return this.sentenceTokenizer.tokenize(text)
 	}
 
-	async GetPlotUnits(sens:SentenceWithOffset[]):Promise<PlotUnit[]>{
-		let u:PlotUnit[] = []
-		sens.map( s=>{
+	async GetPlotUnits(sens: SentenceWithOffset[]): Promise<PlotUnitNg[]> {
+		let u: PlotUnitNg[] = []
+		sens.map(s => {
 			// const par = await ExtractParagraph(s,this.currentPlugin)
 			// console.log(par)
-			s.parsedResults.map( r => {
+			s.parsedResults.map(r => {
 				u.push({
-					parsedResult: r,
-					node: s.node,
-					text: s.text,
-					// paragraph:par
+					nodePos: s.node.node.position ? s.node.node.position : {
+						start: {
+							line: 1,
+							column: 1,
+							offset: 0
+						},
+						end: {
+							line: 1,
+							column: 1,
+							offset: 0
+
+						}
+					},
+					filePath: s.node.file.path,
+					fileParent: s.node.file.parent ? s.node.file.parent.path : "this path is not exist",
+					parsedResultText: r.text,
+					sentence: s.text,
+					parsedResultUnixTime: r.date().getTime(),
+					id: GenerateBlockId(),
+					attachments: []
 				})
 			})
 		})
 
-		if (this.settings.sort === "asc"){
-			u.sort((u1,u2)=>{
-				return u1.parsedResult.date().getTime() - u2.parsedResult.date().getTime()
+		if (this.settings.sort === "asc") {
+			u.sort((u1, u2) => {
+				return u1.parsedResultUnixTime - u2.parsedResultUnixTime
 			})
 		} else if (this.settings.sort === "desc") {
-			u.sort((u1,u2)=>{
-				return u2.parsedResult.date().getTime() - u1.parsedResult.date().getTime()
+			u.sort((u1, u2) => {
+				return u2.parsedResultUnixTime - u1.parsedResultUnixTime
 			})
 		}
 
@@ -74,54 +90,92 @@ export default class MarkdownProcesser {
 	}
 
 
-	async ExtractValidSentences(fileText:string){
+	async ExtractValidSentences(fileText: string) {
+		// console.log("trigger 1")
 		const customChrono = await this.currentPlugin.historicaChrono.setupCustomChrono(this.settings.language)
 		// console.log(customChrono)
 		const sentencesWithOffsets: SentenceWithOffset[] = []
 		// console.log(this.nodes)
-		this.nodes.map(n=>{
-			const paragraphText = fileText.slice(n.node.position?.start.offset,n.node.position?.end.offset)
+		// console.log(this.nodes.length)
+		this.nodes.map(n => {
+			// console.log("trigger 2")
+
+			const paragraphText = fileText.slice(n.node.position?.start.offset, n.node.position?.end.offset)
 			const sentences = this.sentencesTokenize(paragraphText)
 
+
 			for (const sentence of sentences) {
-				var parsedResult:ParsedResult[];
+				var parsedResult: ParsedResult[];
 				// what if user add pin time
-				if (this.settings.pin_time && this.settings.pin_time.trim().toLowerCase() !== "now"){
+				if (this.settings.pin_time && this.settings.pin_time.trim().toLowerCase() !== "now") {
 					const referencedTime = customChrono.parse(this.settings.pin_time.trim())
-					parsedResult = customChrono.parse(sentence,referencedTime[0].start.date())
+					parsedResult = customChrono.parse(sentence, referencedTime[0].start.date())
 
 				} else {
 					parsedResult = customChrono.parse(sentence)
 
 				}
 
-				// solve the fucking stupid query
-				if (this.settings.query && Object.keys(this.settings.query).length !== 0){
-					let filterR:ParsedResult[] = []
-					const queryKeys = Object.keys(this.settings.query)
-					queryKeys.map(k =>{
-						const query = this.settings.query[k]
-						if (query.start){
-							const start = customChrono.parse(query.start)
-							parsedResult.map(r =>{
-								if (r.start && r.start.date() >= start[0].start.date()) filterR.push(r)
-							})
-						}
-						if (query.end){
-							const end = customChrono.parse(query.end)
-							parsedResult.map(r=>{
-								if (r.end && r.end.date() <= end[0].start.date()) filterR.push(r)
-							})
-						}
-					})
-					parsedResult = filterR
-				}
+
+				// // solve the fucking stupid query
+				// let filterR: ParsedResult[] = []
+				// if (this.settings.query && this.settings.query.length !== 0) {
+				// 	// console.log("trigger 3")
+				// 	// const queryKeys = Object.keys(this.settings.query)
+				// 	this.settings.query.map(query => {
+				// 		// console.log("trigger 4")
+				//
+				//
+				// 		if (query.start && query.start.trim() !== "") {
+				// 			const start = customChrono.parse(query.start)
+				// 			// console.log(start)
+				// 			parsedResult.map((r) => {
+				// 				if (r.start && r.start.date().getTime() < start[0].start.date().getTime()) {
+				// 					filterR.push(r)
+				//
+				// 				}
+				// 			})
+				// 		}
+				// 		if (query.end && query.end.trim() !== "") {
+				// 			const end = customChrono.parse(query.end)
+				// 			const endTime = end[0].start.date().getTime()
+				// 			// console.log(end)
+				// 			parsedResult.map((r) => {
+				// 				if (r.end && r.end.date().getTime() > endTime) {
+				// 					filterR.push(r)
+				// 					// why this, because for fucking stupid reasons the end maybe return null
+				// 				}
+				//
+				// 				if (r.end === null && r.start.date().getTime() > endTime) {
+				// 					filterR.push(r)
+				//
+				//
+				//
+				// 				}
+				// 			})
+				// 		}
+				// 	})
+				//
+				//
+				// }
+				//
+				// let temp: ParsedResult[] = []
+				// parsedResult.map(r=>{
+				// 	const filterRContainShit = filterR.some(fr=>fr.text === r.text)
+				// 	if (!filterRContainShit){
+				// 		temp.push(r)
+				// 	}
+				// })
+				// parsedResult = temp
+
+
+
 				// if this sentence didn't have parsed result ignore it, god, I lost, this things is the one of the most stupid thing I have ever created
-				if (parsedResult.length !== 0 ){
+				if (parsedResult.length !== 0) {
 					sentencesWithOffsets.push({
 						node: n,
 						text: sentence,
-						parsedResults:parsedResult
+						parsedResults: parsedResult
 
 					})
 				}
@@ -132,7 +186,6 @@ export default class MarkdownProcesser {
 		return sentencesWithOffsets;
 
 	}
-
 
 
 	private async recursiveGetListItemFromParseTree(node: Node, file: TFile) {
@@ -167,16 +220,16 @@ export default class MarkdownProcesser {
 	async parseAllFilesNg() {
 		const path_option = this.settings.path_option ? this.settings.path_option : "current"
 		const allMarkdownFiles = this.currentPlugin.app.vault.getMarkdownFiles()
-		let filteredFiles:TFile[] = []
-		if (path_option.toLowerCase() === "all"){
+		let filteredFiles: TFile[] = []
+		if (path_option.toLowerCase() === "all") {
 			filteredFiles = [...allMarkdownFiles]
-		} else if (path_option.toLowerCase() === "current"){
+		} else if (path_option.toLowerCase() === "current") {
 			const currentFile = this.currentPlugin.app.workspace.getActiveFile()
 			if (currentFile instanceof TFile) {
 				filteredFiles.push(currentFile)
 			}
 		} else if (path_option.toLowerCase() === "custom") {
-			allMarkdownFiles.map(async (file)=>{
+			allMarkdownFiles.map(async (file) => {
 				if (this.settings.custom_path.indexOf(<string>file.parent?.path) !== -1) {
 					filteredFiles.push(file)
 				} else return
@@ -185,22 +238,19 @@ export default class MarkdownProcesser {
 
 		const includeFiles = this.settings.include_files ? this.settings.include_files : []
 
-		includeFiles.map(f =>{
-			allMarkdownFiles.map(_f =>{
+		includeFiles.map(f => {
+			allMarkdownFiles.map(_f => {
 				if (_f.path.trim() === f) filteredFiles.push(_f)
 			})
 		})
 		// console.log(filteredFiles)
 
 
-		filteredFiles.map(f=>{
+		filteredFiles.map(f => {
 			this.parseFilesAndUpdateTokensNg(f)
 		})
 
 	}
-
-
-
 
 
 }

@@ -8,18 +8,9 @@ import {HistoricaSetting} from "../global";
 
 
 export default class HistoricaFileHelper {
-	get plugin(): HistoricaPlugin {
-		return this._plugin;
-	}
 
-	set plugin(value: HistoricaPlugin) {
-		this._plugin = value;
-	}
+	constructor(public plugin: HistoricaPlugin) {
 
-	private _plugin: HistoricaPlugin;
-
-	constructor(plugin: HistoricaPlugin) {
-		this._plugin = plugin;
 	}
 
 	async getCurrentFile(): Promise<TFile> {
