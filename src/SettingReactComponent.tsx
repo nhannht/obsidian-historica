@@ -6,13 +6,11 @@ import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/s
 // import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/src/ui/shadcn/Table"
 import {Button} from "@/src/ui/shadcn/Button"
 import {
-	GetAllDirInVault,
 	GetAllMarkdownFileInVault,
 	HistoricaSettingNg,
 	PlotUnitNg,
 	UpdateBlockSetting,
 } from "./global";
-import {RadioGroup, RadioGroupItem} from "@/src/ui/shadcn/RadioGroup";
 import HistoricaPlugin from "@/main";
 import {MarkdownPostProcessorContext} from "obsidian";
 import {Popover, PopoverContent, PopoverTrigger} from "@/src/ui/shadcn/Popover";
@@ -24,61 +22,6 @@ import {Input} from "@/src/ui/shadcn/Input"
 import PlotUnitNgEditor from "@/src/PlotUnitEditor";
 
 // import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/src/ui/shadcn/Table";
-
-function PathPickerComponent(props: {
-	setting: HistoricaSettingNg,
-	setSetting: (s: HistoricaSettingNg) => void,
-	plugin: HistoricaPlugin
-
-}) {
-
-	// useEffect(() => {
-	// 	console.log(GetAllDirInVault(props.plugin))
-	// }, []);
-
-	return (
-		<Popover>
-			<PopoverTrigger asChild>
-				<Button variant="outline" role="combobox" className="w-[300px] justify-between">
-					<div className="flex items-center gap-2 truncate">
-						<span className="truncate">Select options...</span>
-						<ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50"/>
-					</div>
-				</Button>
-			</PopoverTrigger>
-			<PopoverContent className="w-[300px] p-0">
-				<Command>
-					<CommandInput placeholder="Search options..." className="border-b px-4 py-3 focus:outline-none"/>
-					<CommandEmpty className="py-3 px-4 text-muted-foreground">No options found.</CommandEmpty>
-					<CommandGroup>
-						<CommandList>
-							{GetAllDirInVault(props.plugin).map((tfolder, index) => (
-								<CommandItem
-									key={index}
-									className="flex items-center gap-2">
-									<Checkbox
-										checked={props.setting.custom_path.indexOf(tfolder.path) >= 0}
-										onCheckedChange={(checked) => {
-											let paths = props.setting.custom_path
-											if (checked) {
-												paths.push(tfolder.path)
-											} else {
-												paths.splice(paths.indexOf(tfolder.path), 1)
-											}
-											props.setSetting({...props.setting, custom_path: paths})
-
-										}}
-									/>
-									<span>{tfolder.path}</span>
-								</CommandItem>
-							))}
-						</CommandList>
-					</CommandGroup>
-				</Command>
-			</PopoverContent>
-		</Popover>
-	)
-}
 
 
 function FilePickerComponent(props: {
@@ -132,60 +75,6 @@ function FilePickerComponent(props: {
 
 }
 
-function PathListComponent(props: {
-	setting: HistoricaSettingNg,
-	setSetting: (s: HistoricaSettingNg) => void,
-	plugin: HistoricaPlugin,
-}) {
-
-	function handleChange(v: string) {
-		if (v === "all") {
-			props.setSetting({...props.setting, path_option: "all"})
-		} else if (v === "current") {
-			props.setSetting({...props.setting, path_option: "current"})
-		} else if (v === "custom") {
-			props.setSetting({...props.setting, path_option: "custom"})
-		}
-	}
-
-	return (
-		<div>
-			<div className="grid gap-2">
-				<Label>Path List</Label>
-				<RadioGroup
-					onValueChange={handleChange}
-					value={props.setting.path_option}
-					className="flex flex-col gap-2"
-				>
-					<Label className="flex items-center gap-2">
-						<RadioGroupItem value="all"/>
-						All
-					</Label>
-					<Label className="flex items-center gap-2">
-						<RadioGroupItem value="current"/>
-						Current
-					</Label>
-					<Label className="flex items-center gap-2">
-						<RadioGroupItem value="custom"/>
-						Custom
-					</Label>
-				</RadioGroup>
-				{props.setting.path_option === "custom" && <div className="grid gap-2">
-					<Label htmlFor="pathListOptions">Path List Options</Label>
-					<PathPickerComponent
-						setting={props.setting}
-						setSetting={props.setSetting}
-						plugin={props.plugin}
-
-					/>
-
-					<div/>
-				</div>}
-			</div>
-
-		</div>
-	)
-}
 
 // function QueryEditTable(props:{
 // 	setting:HistoricaSettingNg,
@@ -416,7 +305,6 @@ export default function SettingReactComponent(props: {
 							</SelectContent>
 						</Select>
 					</div>
-					<PathListComponent setting={setting} setSetting={setSetting} plugin={props.plugin}/>
 
 				</div>
 				<div className="grid gap-2">

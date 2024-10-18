@@ -67,8 +67,8 @@ export function HistoricaBlockReactComponent(props: {
 				if (blockId != "-1" || blockId.trim().toLowerCase() != ""){
 					const file = props.plugin.app.vault.getAbstractFileByPath(`historica-data/${blockId}.json`)
 					if (file instanceof TFile){
-						const fileContent = props.plugin.app.vault.read(file)
-						setPlotUnits(JSON.parse(await fileContent))
+						const fileContent = await props.plugin.app.vault.read(file)
+						setPlotUnits(JSON.parse(fileContent))
 					}
 				}
 			} else {
@@ -78,27 +78,24 @@ export function HistoricaBlockReactComponent(props: {
 				// console.log(allnodes)
 				const currentFile = props.plugin.app.workspace.getActiveFile()
 				if (currentFile) {
-					let text = await props.plugin.app.vault.read(currentFile)
-					const sentencesWithOffSet = await markdownProcesser.ExtractValidSentences(text)
+					// let text = await props.plugin.app.vault.read(currentFile)
+					const sentencesWithOffSet = await markdownProcesser.ExtractValidSentences(currentFile)
 					// console.log(sentencesWithOffSet)
 					let plotUnits = await markdownProcesser.GetPlotUnits(sentencesWithOffSet)
-
-
-					internalSetting.custom_units.map(u=>{
+					internalSetting.custom_units.map(u => {
 						plotUnits.push(u)
 					})
-
-
-
 					setPlotUnits(plotUnits)
 				}
-
 			}
-
 			// console.log(allnodes)
 		}
 		extractTimeline().then()
 	}, [])
+
+	// useEffect(() => {
+	// 	console.log(plotUnits)
+	// }, [plotUnits]);
 
 	const handleSaveCache = async () => {
 		let historicaDataPath = props.plugin.app.vault.getAbstractFileByPath("historica-data")
@@ -182,7 +179,7 @@ export function HistoricaBlockReactComponent(props: {
 
 
 	if (page === "timeline") {
-		return <div>
+		return <div className={"min-h-full"}>
 			<NavigationMenuReactComponent page={page} setPage={setPage}
 										  handleConvertToPngAndSave={handleConvertToPngAndSave}
 										  handleConvertToPngAndCopy={handleConvertToPngAndCopyToClipboard}
@@ -191,7 +188,6 @@ export function HistoricaBlockReactComponent(props: {
 
 			/>
 			{timelineRender()}
-
 		</div>
 
 	}

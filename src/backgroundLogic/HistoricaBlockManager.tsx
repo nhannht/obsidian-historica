@@ -5,7 +5,6 @@ import {DefaultSettings, GenerateBlockId, HistoricaSettingNg, HistoricaSupportLa
 import {HistoricaBlockReactComponent} from "@/src/backgroundLogic/HistoricaBlockReactComponent";
 
 function fixSettingProblem(settings: HistoricaSettingNg) {
-	if (!settings.path_option || settings.path_option.length === 0 || !["all","current","custom"].includes(settings.path_option) ) settings.path_option = DefaultSettings.path_option
 	// if (!settings.smart_theme) settings.smart_theme = true
 	if ([1,2,3,"default","1","2","3"].indexOf(settings.style) === -1 || !settings.style) settings.style = DefaultSettings.style
 	if (HistoricaSupportLanguages.indexOf(settings.language) === -1 || !settings.language) settings.language = DefaultSettings.language
@@ -13,7 +12,6 @@ function fixSettingProblem(settings: HistoricaSettingNg) {
 	// if (!settings.query || !Array.isArray(settings.query) ) settings.query = DefaultSettings.query
 	if (!settings.include_files || !Array.isArray(settings.include_files)) settings.include_files = DefaultSettings.include_files
 	if (!settings.pin_time || settings.pin_time.trim() === "") settings.pin_time = DefaultSettings.pin_time
-	if (!settings.custom_path || !Array.isArray(settings.include_files)) settings.custom_path = DefaultSettings.custom_path
 	if (!settings.sort || !["asc","desc"].includes(settings.sort.trim().toLowerCase()) ) settings.sort = DefaultSettings.sort
 	if (!settings.blockId || settings.blockId.toLowerCase().trim() === "-1") settings.blockId = GenerateBlockId()
 	// if (!settings.a || !Array.isArray(settings.custom_units)) settings.custom_units = DefaultSettings.custom_units

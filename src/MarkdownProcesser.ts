@@ -90,95 +90,99 @@ export default class MarkdownProcesser {
 	}
 
 
-	async ExtractValidSentences(fileText: string) {
+	async ExtractValidSentences(file: TFile) {
 		// console.log("trigger 1")
 		const customChrono = await this.currentPlugin.historicaChrono.setupCustomChrono(this.settings.language)
 		// console.log(customChrono)
 		const sentencesWithOffsets: SentenceWithOffset[] = []
 		// console.log(this.nodes)
 		// console.log(this.nodes.length)
+		const fileText = await this.currentPlugin.app.vault.read(file)
 		this.nodes.map(n => {
-			// console.log("trigger 2")
+			if (n.file.path === file.path){
+				// console.log("trigger 2")
 
-			const paragraphText = fileText.slice(n.node.position?.start.offset, n.node.position?.end.offset)
-			const sentences = this.sentencesTokenize(paragraphText)
+				const paragraphText = fileText.slice(n.node.position?.start.offset, n.node.position?.end.offset)
+				const sentences = this.sentencesTokenize(paragraphText)
 
 
-			for (const sentence of sentences) {
-				var parsedResult: ParsedResult[];
-				// what if user add pin time
-				if (this.settings.pin_time && this.settings.pin_time.trim().toLowerCase() !== "now") {
-					const referencedTime = customChrono.parse(this.settings.pin_time.trim())
-					parsedResult = customChrono.parse(sentence, referencedTime[0].start.date())
+				for (const sentence of sentences) {
+					var parsedResult: ParsedResult[];
+					// what if user add pin time
+					if (this.settings.pin_time && this.settings.pin_time.trim().toLowerCase() !== "now") {
+						const referencedTime = customChrono.parse(this.settings.pin_time.trim())
+						parsedResult = customChrono.parse(sentence, referencedTime[0].start.date())
 
-				} else {
-					parsedResult = customChrono.parse(sentence)
+					} else {
+						parsedResult = customChrono.parse(sentence)
 
+					}
+
+
+					// // solve the fucking stupid query
+					// let filterR: ParsedResult[] = []
+					// if (this.settings.query && this.settings.query.length !== 0) {
+					// 	// console.log("trigger 3")
+					// 	// const queryKeys = Object.keys(this.settings.query)
+					// 	this.settings.query.map(query => {
+					// 		// console.log("trigger 4")
+					//
+					//
+					// 		if (query.start && query.start.trim() !== "") {
+					// 			const start = customChrono.parse(query.start)
+					// 			// console.log(start)
+					// 			parsedResult.map((r) => {
+					// 				if (r.start && r.start.date().getTime() < start[0].start.date().getTime()) {
+					// 					filterR.push(r)
+					//
+					// 				}
+					// 			})
+					// 		}
+					// 		if (query.end && query.end.trim() !== "") {
+					// 			const end = customChrono.parse(query.end)
+					// 			const endTime = end[0].start.date().getTime()
+					// 			// console.log(end)
+					// 			parsedResult.map((r) => {
+					// 				if (r.end && r.end.date().getTime() > endTime) {
+					// 					filterR.push(r)
+					// 					// why this, because for fucking stupid reasons the end maybe return null
+					// 				}
+					//
+					// 				if (r.end === null && r.start.date().getTime() > endTime) {
+					// 					filterR.push(r)
+					//
+					//
+					//
+					// 				}
+					// 			})
+					// 		}
+					// 	})
+					//
+					//
+					// }
+					//
+					// let temp: ParsedResult[] = []
+					// parsedResult.map(r=>{
+					// 	const filterRContainShit = filterR.some(fr=>fr.text === r.text)
+					// 	if (!filterRContainShit){
+					// 		temp.push(r)
+					// 	}
+					// })
+					// parsedResult = temp
+
+
+
+					// if this sentence didn't have parsed result ignore it, god, I lost, this things is the one of the most stupid thing I have ever created
+					if (parsedResult.length !== 0) {
+						sentencesWithOffsets.push({
+							node: n,
+							text: sentence,
+							parsedResults: parsedResult
+
+						})
+					}
 				}
 
-
-				// // solve the fucking stupid query
-				// let filterR: ParsedResult[] = []
-				// if (this.settings.query && this.settings.query.length !== 0) {
-				// 	// console.log("trigger 3")
-				// 	// const queryKeys = Object.keys(this.settings.query)
-				// 	this.settings.query.map(query => {
-				// 		// console.log("trigger 4")
-				//
-				//
-				// 		if (query.start && query.start.trim() !== "") {
-				// 			const start = customChrono.parse(query.start)
-				// 			// console.log(start)
-				// 			parsedResult.map((r) => {
-				// 				if (r.start && r.start.date().getTime() < start[0].start.date().getTime()) {
-				// 					filterR.push(r)
-				//
-				// 				}
-				// 			})
-				// 		}
-				// 		if (query.end && query.end.trim() !== "") {
-				// 			const end = customChrono.parse(query.end)
-				// 			const endTime = end[0].start.date().getTime()
-				// 			// console.log(end)
-				// 			parsedResult.map((r) => {
-				// 				if (r.end && r.end.date().getTime() > endTime) {
-				// 					filterR.push(r)
-				// 					// why this, because for fucking stupid reasons the end maybe return null
-				// 				}
-				//
-				// 				if (r.end === null && r.start.date().getTime() > endTime) {
-				// 					filterR.push(r)
-				//
-				//
-				//
-				// 				}
-				// 			})
-				// 		}
-				// 	})
-				//
-				//
-				// }
-				//
-				// let temp: ParsedResult[] = []
-				// parsedResult.map(r=>{
-				// 	const filterRContainShit = filterR.some(fr=>fr.text === r.text)
-				// 	if (!filterRContainShit){
-				// 		temp.push(r)
-				// 	}
-				// })
-				// parsedResult = temp
-
-
-
-				// if this sentence didn't have parsed result ignore it, god, I lost, this things is the one of the most stupid thing I have ever created
-				if (parsedResult.length !== 0) {
-					sentencesWithOffsets.push({
-						node: n,
-						text: sentence,
-						parsedResults: parsedResult
-
-					})
-				}
 			}
 		})
 		// console.log(sentencesWithOffsets)
@@ -218,34 +222,19 @@ export default class MarkdownProcesser {
 
 	// this is where we filter valid file base on block or global setting
 	async parseAllFilesNg() {
-		const path_option = this.settings.path_option ? this.settings.path_option : "current"
 		const allMarkdownFiles = this.currentPlugin.app.vault.getMarkdownFiles()
 		let filteredFiles: TFile[] = []
-		if (path_option.toLowerCase() === "all") {
-			filteredFiles = [...allMarkdownFiles]
-		} else if (path_option.toLowerCase() === "current") {
-			const currentFile = this.currentPlugin.app.workspace.getActiveFile()
-			if (currentFile instanceof TFile) {
-				filteredFiles.push(currentFile)
-			}
-		} else if (path_option.toLowerCase() === "custom") {
-			allMarkdownFiles.map(async (file) => {
-				if (this.settings.custom_path.indexOf(<string>file.parent?.path) !== -1) {
-					filteredFiles.push(file)
-				} else return
-			})
+		const currentFile = this.currentPlugin.app.workspace.getActiveFile()
+		if (currentFile instanceof TFile) {
+			filteredFiles.push(currentFile)
 		}
-
 		const includeFiles = this.settings.include_files ? this.settings.include_files : []
-
 		includeFiles.map(f => {
 			allMarkdownFiles.map(_f => {
 				if (_f.path.trim() === f) filteredFiles.push(_f)
 			})
 		})
 		// console.log(filteredFiles)
-
-
 		filteredFiles.map(f => {
 			this.parseFilesAndUpdateTokensNg(f)
 		})

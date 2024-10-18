@@ -11,7 +11,7 @@ export function TimelineI(props: {
 
 
 	return <div className={"-my-6"}>
-		{props.units.map((u, i) => {
+		{props.units.length > 0 && props.units.map((u, i) => {
 			return (
 				<div key={i} className="relative pl-8 sm:pl-32 py-6 group">
 					<div

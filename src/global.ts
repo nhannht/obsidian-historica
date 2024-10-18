@@ -42,8 +42,6 @@ export type HistoricaSettingNg = {
 	implicit_time:boolean,
 	// smart_theme: boolean,
 	language: typeof HistoricaSupportLanguages[number],
-	path_option:  "all" | "current"| "custom",
-	custom_path: string[], // only work when path_option is custom
 	include_files: String[],
 	pin_time:String,
 	// query: QueryObject[],
