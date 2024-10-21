@@ -4,8 +4,6 @@ import { Plugin} from 'obsidian';
 import './src/lib/codemirror'
 import './src/mode/historica/historica'
 import {HistoricaSettingTab} from "./src/ui/historicaSettingTab";
-import HistoricaFileHelper from "./src/backgroundLogic/HistoricaFileHelper";
-import HistoricaExportHelper from "./src/backgroundLogic/HistoricaExportHelper";
 import {DefaultSettings} from "./src/global";
 import HistoricaBlockManager from "@/src/backgroundLogic/HistoricaBlockManager";
 import ConfigManagerNg from "@/src/ConfigManagerNg";

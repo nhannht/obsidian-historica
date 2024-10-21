@@ -11,13 +11,8 @@ import {ParsedResult} from "chrono-node";
 
 export default class MarkdownProcesser {
 
-	get nodes(): NodeAndTFile[] {
-		return this._nodes;
-	}
 
-	private _remarkProcessor: Processor;
-
-	private _nodes: NodeAndTFile[] = [];
+	 RemarkProcessor: Processor;
 
 
 	private sentenceTokenizer = new SentenceTokenizer(['i.e', 'e.g'])
@@ -28,16 +23,10 @@ export default class MarkdownProcesser {
 	) {
 
 		//@ts-ignore
-		this._remarkProcessor = unified().use(remarkGfm).use(remarkParse)
+		this.RemarkProcessor = unified().use(remarkGfm).use(remarkParse)
 
 	}
 
-	async extractTextEachNode(text: string) {
-		this.nodes.map(n => {
-
-			console.log(text.slice(n.node.position?.start.offset, n.node.position?.end.offset))
-		})
-	}
 
 	private sentencesTokenize(text: string) {
 
@@ -75,22 +64,12 @@ export default class MarkdownProcesser {
 			})
 		})
 
-		if (this.settings.sort === "asc") {
-			u.sort((u1, u2) => {
-				return u1.parsedResultUnixTime - u2.parsedResultUnixTime
-			})
-		} else if (this.settings.sort === "desc") {
-			u.sort((u1, u2) => {
-				return u2.parsedResultUnixTime - u1.parsedResultUnixTime
-			})
-		}
-
 		return u
 
 	}
 
 
-	async ExtractValidSentences(file: TFile) {
+	async ExtractValidSentencesFromFile(file: TFile, nodes: NodeAndTFile[]) {
 		// console.log("trigger 1")
 		const customChrono = await this.currentPlugin.historicaChrono.setupCustomChrono(this.settings.language)
 		// console.log(customChrono)
@@ -98,8 +77,8 @@ export default class MarkdownProcesser {
 		// console.log(this.nodes)
 		// console.log(this.nodes.length)
 		const fileText = await this.currentPlugin.app.vault.read(file)
-		this.nodes.map(n => {
-			if (n.file.path === file.path){
+		nodes.map(n => {
+			if (n.file.path === file.path) {
 				// console.log("trigger 2")
 
 				const paragraphText = fileText.slice(n.node.position?.start.offset, n.node.position?.end.offset)
@@ -171,7 +150,6 @@ export default class MarkdownProcesser {
 					// parsedResult = temp
 
 
-
 					// if this sentence didn't have parsed result ignore it, god, I lost, this things is the one of the most stupid thing I have ever created
 					if (parsedResult.length !== 0) {
 						sentencesWithOffsets.push({
@@ -192,10 +170,10 @@ export default class MarkdownProcesser {
 	}
 
 
-	private async recursiveGetListItemFromParseTree(node: Node, file: TFile) {
+	 private async recursiveGetNodeDataFromSingleFile(node: Node, file: TFile, nodes: NodeAndTFile[]) {
 
 		if (node.type == "paragraph") {
-			this.nodes.push({
+			nodes.push({
 				node,
 				file
 			})
@@ -203,41 +181,22 @@ export default class MarkdownProcesser {
 		if ("children" in node) {
 			//@ts-ignore
 			node.children.forEach((childNode: Node) => {
-				this.recursiveGetListItemFromParseTree(childNode, file)
+				this.recursiveGetNodeDataFromSingleFile(childNode, file, nodes)
 			})
 		}
 	}
 
 
-	// from this function we parse the input file and get the node, the suitable node must be type paragraph, and inside this function the
-	// this.nodes will be created
-	private async parseFilesAndUpdateTokensNg(file: TFile) {
-		if (!file) return
+
+	 async ParseFilesAndGetNodeData(file: TFile) {
+		let nodes: NodeAndTFile[] = []
 		const fileContent = await this.currentPlugin.app.vault.cachedRead(file)
-		const parseTree: Node = this._remarkProcessor.parse(fileContent)
+		const parseTree: Node = this.RemarkProcessor.parse(fileContent)
 		// console.log(parseTree)
-		await this.recursiveGetListItemFromParseTree(parseTree, file)
-
-	}
-
-	// this is where we filter valid file base on block or global setting
-	async parseAllFilesNg() {
-		const allMarkdownFiles = this.currentPlugin.app.vault.getMarkdownFiles()
-		let filteredFiles: TFile[] = []
-		const currentFile = this.currentPlugin.app.workspace.getActiveFile()
-		if (currentFile instanceof TFile) {
-			filteredFiles.push(currentFile)
-		}
-		const includeFiles = this.settings.include_files ? this.settings.include_files : []
-		includeFiles.map(f => {
-			allMarkdownFiles.map(_f => {
-				if (_f.path.trim() === f) filteredFiles.push(_f)
-			})
-		})
-		// console.log(filteredFiles)
-		filteredFiles.map(f => {
-			this.parseFilesAndUpdateTokensNg(f)
-		})
+		await this.recursiveGetNodeDataFromSingleFile(parseTree, file, nodes)
+		if (nodes){
+			return nodes
+		} else return []
 
 	}
 

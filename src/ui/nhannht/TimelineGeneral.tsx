@@ -1,6 +1,6 @@
 import {Attachment, PlotUnitNg, SelectRandomElement} from "@/src/global";
 import HistoricaPlugin from "@/main";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {TFile} from "obsidian";
 import ImageFromPath from "@/src/ui/nhannht/ImageFromPath";
 import ShortendableParagraph from "@/src/ShortendableParagraph";
@@ -23,6 +23,9 @@ export function Content(props: {
 	unit: PlotUnitNg,
 	plugin: HistoricaPlugin
 }) {
+	// useEffect(() => {
+	// 	console.log(props.unit)
+	// }, []);
 
 	return (
 		<div>

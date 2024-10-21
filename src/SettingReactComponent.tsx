@@ -1,133 +1,68 @@
 import {useState} from "react"
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/src/ui/shadcn/Card"
 import {Label} from "@/src/ui/shadcn/Label"
-import {Switch} from "@/src/ui/shadcn/Switch"
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/src/ui/shadcn/Select"
 // import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/src/ui/shadcn/Table"
 import {Button} from "@/src/ui/shadcn/Button"
-import {
-	GetAllMarkdownFileInVault,
-	HistoricaSettingNg,
-	PlotUnitNg,
-	UpdateBlockSetting,
-} from "./global";
+import {HistoricaSettingNg, UpdateBlockSetting,} from "./global";
 import HistoricaPlugin from "@/main";
 import {MarkdownPostProcessorContext} from "obsidian";
-import {Popover, PopoverContent, PopoverTrigger} from "@/src/ui/shadcn/Popover";
-import {Command, CommandEmpty, CommandGroup, CommandInput, CommandItem} from "@/src/ui/shadcn/Command"
-import {ChevronsUpDownIcon} from "lucide-react";
-import {Checkbox} from "@/src/ui/shadcn/Checkbox"
-import {CommandList} from "cmdk";
+import {ChevronDown, ChevronUp} from "lucide-react";
 import {Input} from "@/src/ui/shadcn/Input"
-import PlotUnitNgEditor from "@/src/PlotUnitEditor";
+import {Collapsible, CollapsibleContent, CollapsibleTrigger} from "@/src/ui/shadcn/Collapsible"
 
 // import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/src/ui/shadcn/Table";
 
 
-function FilePickerComponent(props: {
-	setting: HistoricaSettingNg,
-	setSetting: (s: HistoricaSettingNg) => void,
-	plugin: HistoricaPlugin,
+function CollapsibleSettingPreview(props: {
+	content: string,
 }) {
+	const [isOpen, setIsOpen] = useState(false)
+	const previewContent = props.content.trim().split("\n").slice(0, 3).join('\n')
+	const remainingContent = props.content.trim().split("\n").slice(3).join('\n')
+
 	return (
-		<Popover>
-			<PopoverTrigger asChild>
-				<Button variant="outline" role="combobox" className="w-[300px] justify-between">
-					<div className="flex items-center gap-2 truncate">
-						<span className="truncate">Select options...</span>
-						<ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50"/>
-					</div>
-				</Button>
-			</PopoverTrigger>
-			<PopoverContent className="w-[300px] p-0">
-				<Command>
-					<CommandInput placeholder="Search options..." className="border-b px-4 py-3 focus:outline-none"/>
-					<CommandEmpty className="py-3 px-4 text-muted-foreground">No options found.</CommandEmpty>
-					<CommandGroup>
-						<CommandList>
-							{GetAllMarkdownFileInVault(props.plugin).map((tfile, index) => (
-								<CommandItem
-									key={index}
-									className="flex items-center gap-2">
-									<Checkbox
-										checked={props.setting.include_files.indexOf(tfile.path) >= 0}
-										onCheckedChange={(checked) => {
-											let paths = props.setting.include_files
-											if (checked) {
-												paths.push(tfile.path)
-											} else {
-												paths.splice(paths.indexOf(tfile.path), 1)
-											}
-											props.setSetting({...props.setting, include_files: paths})
+		<div className="w-full max-w-2xl mx-auto ">
+			<Collapsible open={isOpen} onOpenChange={setIsOpen}>
+				<div>
+					<pre className={"rounded-none"}>
+						<code>
+						{previewContent.split('\n\n').map((paragraph, index) => (
+							<p key={index}>{paragraph}</p>
+						))}
+					</code>
+					</pre>
+				</div>
 
-										}}
-									/>
-									<span>{tfile.path}</span>
-								</CommandItem>
-							))}
-						</CommandList>
-					</CommandGroup>
-				</Command>
-			</PopoverContent>
-		</Popover>
+				<CollapsibleContent>
+					<pre className={"rounded-none"}>
+						<code>
+						{remainingContent.split('\n\n').map((paragraph, index) => (
+							<p key={index}>{paragraph}</p>
+						))}
+						</code>
+					</pre>
+				</CollapsibleContent>
+
+				<CollapsibleTrigger asChild>
+					<Button variant="outline" className="w-full mt-2">
+						{isOpen ? (
+							<>
+								<ChevronUp className="h-4 w-4 mr-2"/>
+								Show Less
+							</>
+						) : (
+							<>
+								<ChevronDown className="h-4 w-4 mr-2"/>
+								Read More
+							</>
+						)}
+					</Button>
+				</CollapsibleTrigger>
+			</Collapsible>
+		</div>
 	)
-
-
 }
-
-
-// function QueryEditTable(props:{
-// 	setting:HistoricaSettingNg,
-// 	handleQueryChange: (index:number,key:string,value:string) => void,
-// 	handleRemoveQuery: (index:number)=> void,
-// 	handleAddQuery:()=>void
-//
-//
-// }){
-// 	return (
-// 		<div className={"grid gap-4"}>
-//
-// 			<Label>Queries</Label>
-// 			<Table>
-// 				<TableHeader>
-// 					<TableRow>
-// 						<TableHead>Key</TableHead>
-// 						<TableHead>Start</TableHead>
-// 						<TableHead>End</TableHead>
-// 						<TableHead>Actions</TableHead>
-// 					</TableRow>
-// 				</TableHeader>
-// 				<TableBody>
-// 					{props.setting.query.map((query, index) => (
-// 						<TableRow key={index}>
-// 							<TableCell>
-// 								<Input value={query.key} onChange={(e) => {
-// 									props.handleQueryChange(index,"key",e.target.value)
-// 								}} />
-// 							</TableCell>
-// 							<TableCell>
-// 								<Input value={query.start} onChange={(e) => props.handleQueryChange(index, "start", e.target.value)} />
-// 							</TableCell>
-// 							<TableCell>
-// 								<Input value={query.end} onChange={(e) => props.handleQueryChange(index, "end", e.target.value)} />
-// 							</TableCell>
-// 							<TableCell>
-// 								<Button variant="ghost" size="icon" onClick={() => props.handleRemoveQuery(index)}>
-// 									<TrashIcon className="w-4 h-4" />
-// 									<span className="sr-only">Remove query</span>
-// 								</Button>
-// 							</TableCell>
-// 						</TableRow>
-// 					))}
-// 				</TableBody>
-// 			</Table>
-// 			<Button onClick={props.handleAddQuery}>Add Query</Button>
-//
-// 		</div>
-// 	)
-// }
-
-
 
 
 export default function SettingReactComponent(props: {
@@ -135,7 +70,7 @@ export default function SettingReactComponent(props: {
 	setSetting: (s: HistoricaSettingNg) => void,
 	blocCtx: MarkdownPostProcessorContext,
 	plugin: HistoricaPlugin,
-	handleSaveCache: () => void
+
 
 }) {
 
@@ -161,9 +96,9 @@ export default function SettingReactComponent(props: {
 
 	}
 
-	const setPlotUnits = (us:PlotUnitNg[])=>{
-		setSetting({...setting, custom_units:us})
-	}
+	// const setPlotUnits = (us: PlotUnitNg[]) => {
+	// 	setSetting({...setting, custom_units: us})
+	// }
 
 	// function handleQueryChange(index:number,key:string,value:string){
 	// 	let newQuery = [...setting.query]
@@ -216,7 +151,7 @@ export default function SettingReactComponent(props: {
 			<CardDescription>Customize your HistoricaSettingNg settings.</CardDescription>
 		</CardHeader>
 		<CardContent>
-			<div  className="grid gap-6">
+			<div className="grid gap-6">
 				<div className="grid grid-cols-2 gap-4">
 					{/*<div className="grid gap-2">*/}
 					{/*	<Label htmlFor="summary">Summary</Label>*/}
@@ -245,45 +180,45 @@ export default function SettingReactComponent(props: {
 					</div>
 				</div>
 				<div className="grid grid-cols-2 gap-4">
-					<div className="grid gap-2">
-						<Label htmlFor="implicitTime">Implicit Time</Label>
-						<Switch
-							id="implicitTime"
-							checked={setting.implicit_time}
-							onCheckedChange={(value) => handleChange("implicitTime", value)}
-						/>
-					</div>
-					<div className="grid gap-2">
-						<Label htmlFor="sort">Sort</Label>
-						<Select
-							value={setting.sort}
-							onValueChange={(v) => handleChange("sort", v)}
-						>
-							<SelectTrigger>
-								<SelectValue placeholder={"Sort order"}/>
-							</SelectTrigger>
-							<SelectContent>
-								<SelectItem key={"asc"} value="asc">Ascending</SelectItem>
-								<SelectItem key={"desc"} value="desc">Descending</SelectItem>
-							</SelectContent>
-						</Select>
-					</div>
+					{/*<div className="grid gap-2">*/}
+					{/*	<Label htmlFor="implicitTime">Implicit Time</Label>*/}
+					{/*	<Switch*/}
+					{/*		id="implicitTime"*/}
+					{/*		checked={setting.implicit_time}*/}
+					{/*		onCheckedChange={(value) => handleChange("implicitTime", value)}*/}
+					{/*	/>*/}
+					{/*</div>*/}
+					{/*<div className="grid gap-2">*/}
+					{/*	<Label htmlFor="sort">Sort</Label>*/}
+					{/*	<Select*/}
+					{/*		value={setting.sort}*/}
+					{/*		onValueChange={(v) => handleChange("sort", v)}*/}
+					{/*	>*/}
+					{/*		<SelectTrigger>*/}
+					{/*			<SelectValue placeholder={"Sort order"}/>*/}
+					{/*		</SelectTrigger>*/}
+					{/*		<SelectContent>*/}
+					{/*			<SelectItem key={"asc"} value="asc">Ascending</SelectItem>*/}
+					{/*			<SelectItem key={"desc"} value="desc">Descending</SelectItem>*/}
+					{/*		</SelectContent>*/}
+					{/*	</Select>*/}
+					{/*</div>*/}
 				</div>
 
 				<div className="grid grid-cols-2 gap-4">
-					<div className="grid gap-2">
-						<Label htmlFor="cache">Using cache</Label>
-						<Switch
-							id="cache"
-							checked={setting.cache}
-							onCheckedChange={(value) => {
-								handleChange("cache", value)
-								if (value) {
-									props.handleSaveCache()
-								}
-							}}
-						/>
-					</div>
+					{/*<div className="grid gap-2">*/}
+					{/*	<Label htmlFor="cache">Using cache</Label>*/}
+					{/*	<Switch*/}
+					{/*		id="cache"*/}
+					{/*		checked={setting.cache}*/}
+					{/*		onCheckedChange={(value) => {*/}
+					{/*			handleChange("cache", value)*/}
+					{/*			if (value) {*/}
+					{/*				props.handleSaveCache()*/}
+					{/*			}*/}
+					{/*		}}*/}
+					{/*	/>*/}
+					{/*</div>*/}
 					{/*<div className="grid gap-2"></div>*/}
 				</div>
 
@@ -307,10 +242,10 @@ export default function SettingReactComponent(props: {
 					</div>
 
 				</div>
-				<div className="grid gap-2">
-					<Label htmlFor="includeFiles">Include Files</Label>
-					<FilePickerComponent setting={setting} setSetting={setSetting} plugin={props.plugin}/>
-				</div>
+				{/*<div className="grid gap-2">*/}
+				{/*	<Label htmlFor="includeFiles">Include Files</Label>*/}
+				{/*	<FilePickerComponent setting={setting} setSetting={setSetting} plugin={props.plugin}/>*/}
+				{/*</div>*/}
 				<div className="grid grid-cols-2 gap-4">
 					<div className="grid gap-2">
 						<Label htmlFor="pinTime">Pin Time</Label>
@@ -326,19 +261,17 @@ export default function SettingReactComponent(props: {
 				</div>
 
 				{/*<QueryEditTable setting={setting} handleQueryChange={handleQueryChange} handleRemoveQuery={handleRemoveQuery} handleAddQuery={handleAddQuery}/>*/}
-				<PlotUnitNgEditor
-					plotUnits={setting.custom_units}
-					setPlotUnits={setPlotUnits}
-					plugin={props.plugin}
-				/>
+				{/*<PlotUnitNgEditor*/}
+				{/*	plotUnits={setting.custom_units}*/}
+				{/*	setPlotUnits={setPlotUnits}*/}
+				{/*	plugin={props.plugin}*/}
+				{/*/>*/}
 
 				<div>
 					<div>Preview your settings</div>
-					<pre className={"border rounded-lg"}>
-						<code>
-							{JSON.stringify(setting, null,2)}
-					</code>
-					</pre>
+
+					<CollapsibleSettingPreview content={JSON.stringify(setting, null, 2)}/>
+
 				</div>
 
 				<div className="flex justify-end">

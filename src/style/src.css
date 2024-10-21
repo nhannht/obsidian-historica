@@ -1,9 +1,8 @@
-
+@import 'react-quill/dist/quill.snow.css';
 
 @tailwind components;
 @tailwind utilities;
 @tailwind base;
-
 button {
 	@apply p-3 text-xs
 }

@@ -37,31 +37,29 @@ export type QueryObject = {
 
 
 export type HistoricaSettingNg = {
-	summary : boolean,
+
 	style:1|2|3|"default"|"1"|"2"|"3"|"table"|"horizon",
-	implicit_time:boolean,
-	// smart_theme: boolean,
 	language: typeof HistoricaSupportLanguages[number],
-	include_files: String[],
 	pin_time:String,
-	// query: QueryObject[],
-	sort: "asc"|"desc",
-	cache: boolean,
 	blockId: string,
-	custom_units: PlotUnitNg[]
+}
 
-
+export type HistoricaFileData = {
+	settings:HistoricaSettingNg,
+	units:PlotUnitNg[]
 }
 
 export function GenerateBlockId(){
 	const currentTime = new Date().getTime().toString();
+	const randomNum = Math.floor(Math.random() * 1000000).toString(); // Add a random number
+	const input = currentTime + randomNum; // Combine time and random number
 	let hash = 0;
-	for (let i = 0; i < currentTime.length; i++) {
-		const char = currentTime.charCodeAt(i);
+	for (let i = 0; i < input.length; i++) {
+		const char = input.charCodeAt(i);
 		hash = ((hash << 5) - hash) + char;
 		hash |= 0; // Convert to 32bit integer
 	}
-	return hash.toString();
+	return Math.abs(hash).toString();
 }
 
 export type Attachment = {
@@ -124,12 +122,14 @@ export function GenerateRandomId() {
 	const randomNum = Math.floor(Math.random() * 1000000).toString(); // Generate a random number
 	let hash = 0;
 	const combinedString = currentTime + randomNum;
+	// console.log(combinedString)
 	for (let i = 0; i < combinedString.length; i++) {
 		const char = combinedString.charCodeAt(i);
 		hash = ((hash << 5) - hash) + char;
 		hash |= 0; // Convert to 32bit integer
 	}
-	return hash.toString();
+	// console.log(hash.toString())
+	return Math.abs(hash).toString();
 }
 
 
@@ -149,22 +149,12 @@ export interface SentenceWithOffset {
 
 // this default setting will be using for global settings. Or if some settings is missing in the block
 export const DefaultSettings: HistoricaSettingNg = {
-	path_option: "current",
-	custom_path: [],
 	style: "default",
 	language: "en",
-	implicit_time: false,
-	summary: false,
-	include_files: [],
 	pin_time: "",
 	// query: [],
-	sort: "asc",
 	blockId:"-1",
-	cache: false,
-	custom_units: []
-
-
-
+	plot_units:[]
 }
 
 export function FormatDate(date:Date): string {
@@ -293,4 +283,21 @@ export function SelectRandomElement(r: any[]): any {
 	}
 	const randomIndex = Math.floor(Math.random() * r.length);
 	return r[randomIndex];
+}
+
+export const QuillFormat = [
+	'header',
+	'bold', 'italic', 'underline', 'strike', 'blockquote',
+	'list', 'bullet', 'indent',
+	'link', 'image'
+]
+
+export const QuillModules  = {
+	toolbar: [
+		[{ 'header': [1, 2, false] }],
+		['bold', 'italic', 'underline','strike', 'blockquote'],
+		[{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+		['link', 'image'],
+		['clean']
+	],
 }
