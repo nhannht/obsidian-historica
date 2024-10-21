@@ -9,6 +9,15 @@ import HistoricaExportHelper from "@/src/backgroundLogic/HistoricaExportHelper";
 import {NavigationMenuReactComponent} from "@/src/NavigationMenuReactComponent";
 import {TimelineI} from "@/src/TimelineI";
 import {TimelineIII} from "@/src/TimelineIII";
+import {
+	ContextMenu,
+	ContextMenuContent,
+	ContextMenuItem,
+	ContextMenuSub,
+	ContextMenuSubContent,
+	ContextMenuSubTrigger,
+	ContextMenuTrigger
+} from "@/src/ui/shadcn/ContextMenu";
 
 export function HistoricaMotherReactComponent(props: {
 	src: string,
@@ -48,7 +57,7 @@ export function HistoricaMotherReactComponent(props: {
 				if (currentFile instanceof TFile) {
 					// let text = await props.plugin.app.vault.read(currentFile)
 					const nodes = await markdownProcesser.ParseFilesAndGetNodeData(currentFile)
-					const sentencesWithOffSet = await markdownProcesser.ExtractValidSentencesFromFile(currentFile, nodes)
+					const sentencesWithOffSet = await markdownProcesser.ExtractValidSentencesFromFile(currentFile, nodes,props.setting.language)
 					// console.log(sentencesWithOffSet)
 					let plotUnits = await markdownProcesser.GetPlotUnits(sentencesWithOffSet)
 					units.push(...plotUnits)
@@ -79,9 +88,9 @@ export function HistoricaMotherReactComponent(props: {
 		const blockId = internalSetting.blockId === "-1" ? GenerateRandomId() : internalSetting.blockId
 		internalSetting.blockId = blockId
 		setInternalSetting(internalSetting)
-		let data:HistoricaFileData = {
+		let data: HistoricaFileData = {
 			settings: internalSetting,
-			units:plotUnits
+			units: plotUnits
 		}
 		const filePath = `${historicaDataPath!.path}/${blockId}.json`
 		const fileExist = props.plugin.app.vault.getAbstractFileByPath(filePath) instanceof TFile
@@ -93,7 +102,7 @@ export function HistoricaMotherReactComponent(props: {
 
 		new Notice(`The cache was save to ${filePath}`, 10000)
 
-		await UpdateBlockSetting(internalSetting,props.ctx,props.plugin)
+		await UpdateBlockSetting(internalSetting, props.ctx, props.plugin)
 
 
 	}
@@ -101,14 +110,12 @@ export function HistoricaMotherReactComponent(props: {
 	const [internalSetting, setInternalSetting] =
 		useState<HistoricaSettingNg>(structuredClone(props.setting))
 	const [mode, setMode] = useState("normal")
-	function handleChangeModeLikeABro(mode:string){
-		setMode(mode)
-	}
+
 
 	const handleConvertToPngAndSave = async () => {
-		console.log("Hello")
+		// console.log("Hello")
 		if (elementRef.current) {
-			console.log(elementRef.current)
+			// console.log(elementRef.current)
 			const imageData = await exportHelper.convertHTMLToImageData(elementRef.current);
 			// Create a link element
 			const link = document.createElement('a');
@@ -119,8 +126,9 @@ export function HistoricaMotherReactComponent(props: {
 			document.body.appendChild(link);
 			link.click();
 			document.body.removeChild(link);
-
-
+			new Notice("If everything go right, the image should be saved", 10000)
+		} else {
+			new Notice("Oops, things is not kool as I want, reported it please ", 10000)
 		}
 	};
 
@@ -138,11 +146,10 @@ export function HistoricaMotherReactComponent(props: {
 						[blob.type]: blob
 					})
 				]);
-				console.log("Image copied to clipboard successfully!");
+				new Notice("Image will sit in your clipboard, bro!", 10000)
 			} catch (error) {
 				console.error("Failed to copy image to clipboard:", error);
 			}
-
 		}
 	}
 
@@ -160,21 +167,30 @@ export function HistoricaMotherReactComponent(props: {
 		});
 	}
 
-	function handleAddPlotUnit(index:number){
+	function handleAddPlotUnit(index: number) {
 		const id = GenerateRandomId()
-		const newUnit:PlotUnitNg = {
-			attachments:[],
-			parsedResultText:"wait, what",
-			parsedResultUnixTime:new Date().getTime(),
+		const newUnit: PlotUnitNg = {
+			attachments: [],
+			parsedResultText: "title",
+			parsedResultUnixTime: new Date().getTime(),
 
-			sentence:"mother fucker",
-			filePath:"okie.md",
-			id:id,
+			sentence: "main content",
+			filePath: "",
+			id: id,
 		}
-		let a = structuredClone(plotUnits.slice(0,index))
+		let a = structuredClone(plotUnits.slice(0, index))
 		let b = structuredClone(plotUnits.slice(index))
-		setPlotUnits([...a,newUnit,...b])
+		setPlotUnits([...a, newUnit, ...b])
 
+	}
+
+	function handleSort(order: "asc" | "desc") {
+		const sortedUnits = [...plotUnits].sort((a, b) => {
+			return order === "asc"
+				? a.parsedResultUnixTime - b.parsedResultUnixTime
+				: b.parsedResultUnixTime - a.parsedResultUnixTime;
+		});
+		setPlotUnits(sortedUnits);
 	}
 
 	const timelineRender = () => {
@@ -198,16 +214,35 @@ export function HistoricaMotherReactComponent(props: {
 
 
 	if (mode === "normal") {
-		return <div
-			onContextMenu={(e)=>{
-				e.preventDefault()
-				handleChangeModeLikeABro("shitting")
-			}}
-			className={"min-h-full"}>
-			<button onClick={handleSaveCache}>Save the plot</button>
+		return (
+			<ContextMenu>
+				<ContextMenuTrigger>
+					<div
+						className={"min-h-full p-4"}>
 
-			{timelineRender()}
-		</div>
+						{timelineRender()}
+					</div>
+				</ContextMenuTrigger>
+				<ContextMenuContent>
+					<ContextMenuItem onClick={async () => {
+						await handleSaveCache()
+					}}>Save</ContextMenuItem>
+					<ContextMenuItem onClick={async () => {
+						await handleConvertToPngAndSave()
+					}}>Export as Image (png)</ContextMenuItem>
+					<ContextMenuItem onClick={async () => {
+						await handleConvertToPngAndCopyToClipboard()
+					}}>Copy to clipboard</ContextMenuItem>
+					<ContextMenuSub>
+						<ContextMenuSubTrigger>Sort</ContextMenuSubTrigger>
+						<ContextMenuSubContent>
+							<ContextMenuItem onClick={() => handleSort("asc")}>Asc</ContextMenuItem>
+							<ContextMenuItem onClick={() => handleSort("desc")}>Desc</ContextMenuItem>
+						</ContextMenuSubContent>
+					</ContextMenuSub>
+				</ContextMenuContent>
+			</ContextMenu>
+		)
 
 	}
 
@@ -230,5 +265,5 @@ export function HistoricaMotherReactComponent(props: {
 			/>
 		</div>
 	}
-	return <>Wait, something go wrong</>
+	return <div>Wait, something go wrong</div>
 }

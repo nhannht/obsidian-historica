@@ -25,13 +25,6 @@ export interface HistoricaSetting {
 	pathListFilter: String[]|"Current" |"All" ,
 }
 
-export type QueryObject = {
-	start: string,
-	end: string,
-	key:string,
-
-
-}
 
 
 
@@ -40,8 +33,8 @@ export type HistoricaSettingNg = {
 
 	style:1|2|3|"default"|"1"|"2"|"3"|"table"|"horizon",
 	language: typeof HistoricaSupportLanguages[number],
-	pin_time:String,
-	blockId: string,
+	pin_time:number, //unix timestamp
+	blockId: string|"-1",
 }
 
 export type HistoricaFileData = {
@@ -154,7 +147,6 @@ export const DefaultSettings: HistoricaSettingNg = {
 	pin_time: "",
 	// query: [],
 	blockId:"-1",
-	plot_units:[]
 }
 
 export function FormatDate(date:Date): string {
@@ -195,10 +187,15 @@ export async function UpdateBlockSetting(settings: HistoricaSettingNg,
 		linesFromFile.forEach((e: string, i: number) => {
 			if (e === "") linesFromFile.splice(i, 1)
 		})
+		// trim setting
+		const newSetting = {
+			id:settings.blockId
+		}
+
 		// console.log(linesFromFile)
 		linesFromFile.splice(elInfo.lineStart + 1,
 			elInfo.lineEnd - elInfo.lineStart - 1,
-			JSON.stringify(settings, null,2), "\n")
+			JSON.stringify(newSetting, null,2), "\n")
 		// console.log(linesFromFile)
 		const newSettingsString = linesFromFile.join("")
 		const file = plugin.app.vault.getAbstractFileByPath(sourcePath)
@@ -211,7 +208,7 @@ export async function UpdateBlockSetting(settings: HistoricaSettingNg,
 
 	// scroll back to the location of this block, why we need it because Obsidian behaviour so stupid and keep scrolling around after we modify the file uisng api
 	const currentFile = plugin.app.workspace.getActiveFile()
-	if (currentFile instanceof TFile) {
+	if (currentFile instanceof TFile ) {
 		const leaf = plugin.app.workspace.getLeaf(false)
 		await leaf.openFile(currentFile)
 		await leaf.setViewState({

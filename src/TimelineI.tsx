@@ -1,6 +1,6 @@
 import {PlotUnitNg} from "./global";
 import HistoricaPlugin from "@/main";
-import {PlotUnitPlot} from "@/src/ui/nhannht/SinglePlotUnit";
+import {SinglePlotUnit} from "@/src/ui/nhannht/SinglePlotUnit";
 
 export function TimelineI(props: {
 	units: PlotUnitNg[],
@@ -19,9 +19,9 @@ export function TimelineI(props: {
 	return <div className={"-my-6"} ref={props.shitRef}>
 		{props.units.length > 0 && props.units.map((u, index) => {
 			return (
-				<PlotUnitPlot plugin={props.plugin} handleRemovePlotUnit={props.handleRemovePlotUnit}
-							  handleEditPlotUnit={props.handleEditPlotUnit}
-							  handleAddPlotUnit={props.handleAddPlotUnit} u={u} index={index}/>
+				<SinglePlotUnit plugin={props.plugin} handleRemovePlotUnit={props.handleRemovePlotUnit}
+								handleEditPlotUnit={props.handleEditPlotUnit}
+								handleAddPlotUnit={props.handleAddPlotUnit} u={u} index={index}/>
 			)
 		})}
 	</div>

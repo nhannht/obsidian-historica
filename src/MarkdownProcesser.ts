@@ -1,5 +1,5 @@
 import HistoricaPlugin from "@/main";
-import {TFile} from "obsidian";
+import {moment, TFile} from "obsidian";
 import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse";
 import {Node} from "unist"
@@ -69,9 +69,9 @@ export default class MarkdownProcesser {
 	}
 
 
-	async ExtractValidSentencesFromFile(file: TFile, nodes: NodeAndTFile[]) {
+	async ExtractValidSentencesFromFile(file: TFile, nodes: NodeAndTFile[],lang:string,pin_time?:number) {
 		// console.log("trigger 1")
-		const customChrono = await this.currentPlugin.historicaChrono.setupCustomChrono(this.settings.language)
+		const customChrono = await this.currentPlugin.historicaChrono.setupCustomChrono(lang)
 		// console.log(customChrono)
 		const sentencesWithOffsets: SentenceWithOffset[] = []
 		// console.log(this.nodes)
@@ -88,9 +88,8 @@ export default class MarkdownProcesser {
 				for (const sentence of sentences) {
 					var parsedResult: ParsedResult[];
 					// what if user add pin time
-					if (this.settings.pin_time && this.settings.pin_time.trim().toLowerCase() !== "now") {
-						const referencedTime = customChrono.parse(this.settings.pin_time.trim())
-						parsedResult = customChrono.parse(sentence, referencedTime[0].start.date())
+					if (pin_time) {
+						parsedResult = customChrono.parse(sentence, moment.unix(this.settings.pin_time).toDate())
 
 					} else {
 						parsedResult = customChrono.parse(sentence)

@@ -1,6 +1,6 @@
 import {Attachment, PlotUnitNg, SelectRandomElement} from "@/src/global";
 import HistoricaPlugin from "@/main";
-import {useEffect, useState} from "react";
+import { useState} from "react";
 import {TFile} from "obsidian";
 import ImageFromPath from "@/src/ui/nhannht/ImageFromPath";
 import ShortendableParagraph from "@/src/ShortendableParagraph";
@@ -21,7 +21,10 @@ export function AttachmentPlot(props: {
 
 export function Content(props: {
 	unit: PlotUnitNg,
-	plugin: HistoricaPlugin
+	plugin: HistoricaPlugin,
+	isExpanded: boolean,
+	setIsExpanded: (b:boolean)=>void
+
 }) {
 	// useEffect(() => {
 	// 	console.log(props.unit)
@@ -29,7 +32,10 @@ export function Content(props: {
 
 	return (
 		<div>
-			<ShortendableParagraph className="text-[color:--text-accent-hover]]"
+			<ShortendableParagraph
+				isExpanded={props.isExpanded}
+				setIsExpanded={props.setIsExpanded}
+				className="text-[color:--text-accent-hover]]"
 								   content={props.unit.sentence.replace(props.unit.parsedResultText, `<historica-mark class="text-[color:--text-accent-hover]">${props.unit.parsedResultText}</historica-mark>`)}/>
 
 			<div className={"columns-2 md:columns-4 gap-4 space-y-4"}>
