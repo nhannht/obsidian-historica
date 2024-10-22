@@ -1,7 +1,7 @@
 {
   "name": "obsidian-historica",
-  "version": "0.2.5",
-  "description": "Intelligently generates timeline from your content",
+  "version": "0.3.0",
+  "description": "Intelligently generates timeline from your content ... like a bro!",
   "main": "main.js",
   "scripts": {
     "dev": "concurrently \"yarn run css\" \"yarn run esbuild\" ",

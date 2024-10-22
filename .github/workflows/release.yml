@@ -35,7 +35,6 @@ jobs:
       - name: Build plugin
         run: |
           yarn
-          yarn run corpus:craft
           yarn run build
 
       - name: "Get the tag"
