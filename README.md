@@ -1,8 +1,8 @@
-::: {align="center" style="color:red"}
+<div align="center" style="color:#b300ff">
 <sub>
 (Not) Smart and dynamic extraction point of time in your note
 </sub>
-:::
+</div>
 
 ------------------------------------------------------------------------
 
