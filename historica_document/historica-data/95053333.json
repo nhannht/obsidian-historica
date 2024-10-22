@@ -1,0 +1,186 @@
+{
+  "settings": {
+    "style": "default",
+    "language": "en",
+    "pin_time": 0,
+    "blockId": "95053333"
+  },
+  "units": [
+    {
+      "nodePos": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 2606,
+          "offset": 2605
+        }
+      },
+      "filePath": "2020 United States presidential election - 0.3.xx.md",
+      "fileParent": "/",
+      "parsedResultText": "Rotten democracy => just play game",
+      "sentence": "<p>Why should I care or give a sh*t about America rotten election. Let 's play game with me. <img src=\"https://static.wikia.nocookie.net/allthetropes/images/5/56/Camp_Buddy_Game.jpg/revision/latest/scale-to-width-down/1000?cb=20180730105844\"></p>",
+      "parsedResultUnixTime": 1604336400000,
+      "id": "501911263",
+      "attachments": [],
+      "isExpanded": true
+    },
+    {
+      "nodePos": {
+        "start": {
+          "line": 7,
+          "column": 1,
+          "offset": 6084
+        },
+        "end": {
+          "line": 7,
+          "column": 1115,
+          "offset": 7198
+        }
+      },
+      "filePath": "2020 United States presidential election - 0.3.xx.md",
+      "fileParent": "/",
+      "parsedResultText": "morning of November 7",
+      "sentence": "[[16]](https://en.wikipedia.org/wiki/2020_United_States_presidential_election#cite_note-20)[[17]](https://en.wikipedia.org/wiki/2020_United_States_presidential_election#cite_note-21) As a result of a large number of mail-in ballots, some [swing states](https://en.wikipedia.org/wiki/Swing_state \"Swing state\") saw delays in vote counting and reporting; this led to major news outlets delaying their projection of Biden and Harris as the [president-elect](https://en.wikipedia.org/wiki/Presidential_transition_of_Joe_Biden \"Presidential transition of Joe Biden\") and [vice president-elect](https://en.wikipedia.org/wiki/Vice_president-elect_of_the_United_States \"Vice president-elect of the United States\") until the morning of November 7.",
+      "parsedResultUnixTime": 1729573200000,
+      "id": "413408716",
+      "attachments": [],
+      "isExpanded": true
+    },
+    {
+      "nodePos": {
+        "start": {
+          "line": 9,
+          "column": 1,
+          "offset": 7200
+        },
+        "end": {
+          "line": 9,
+          "column": 7929,
+          "offset": 15128
+        }
+      },
+      "filePath": "2020 United States presidential election - 0.3.xx.md",
+      "fileParent": "/",
+      "parsedResultText": "in 2016",
+      "sentence": "Key to Biden's victory were his wins in the Democratic-leaning [Rust Belt](https://en.wikipedia.org/wiki/Rust_Belt \"Rust Belt\") states of [Michigan](https://en.wikipedia.org/wiki/2020_United_States_presidential_election_in_Michigan \"2020 United States presidential election in Michigan\"), [Pennsylvania](https://en.wikipedia.org/wiki/2020_United_States_presidential_election_in_Pennsylvania \"2020 United States presidential election in Pennsylvania\"), and [Wisconsin](https://en.wikipedia.org/wiki/2020_United_States_presidential_election_in_Wisconsin \"2020 United States presidential election in Wisconsin\"), which Trump narrowly carried in 2016 and whose combined 46 electoral votes were enough to swing the election to either candidate.",
+      "parsedResultUnixTime": 1451624400000,
+      "id": "530569149",
+      "attachments": [],
+      "isExpanded": true
+    },
+    {
+      "nodePos": {
+        "start": {
+          "line": 9,
+          "column": 1,
+          "offset": 7200
+        },
+        "end": {
+          "line": 9,
+          "column": 7929,
+          "offset": 15128
+        }
+      },
+      "filePath": "2020 United States presidential election - 0.3.xx.md",
+      "fileParent": "/",
+      "parsedResultText": "January 6",
+      "sentence": "[[25]](https://en.wikipedia.org/wiki/2020_United_States_presidential_election#cite_note-coup-bundle-29) With Trump vowing that he would never concede the election and after exhorting his followers to \"fight like hell\", a mob of Trump supporters [attacked the United States Capitol](https://en.wikipedia.org/wiki/January_6_United_States_Capitol_attack \"January 6 United States Capitol attack\") on January 6, 2021, during the joint session of Congress held to certify the Electoral College count.",
+      "parsedResultUnixTime": 1736139600000,
+      "id": "418769295",
+      "attachments": [],
+      "isExpanded": true
+    },
+    {
+      "nodePos": {
+        "start": {
+          "line": 9,
+          "column": 1,
+          "offset": 7200
+        },
+        "end": {
+          "line": 9,
+          "column": 7929,
+          "offset": 15128
+        }
+      },
+      "filePath": "2020 United States presidential election - 0.3.xx.md",
+      "fileParent": "/",
+      "parsedResultText": "January 6, 2021",
+      "sentence": "[[25]](https://en.wikipedia.org/wiki/2020_United_States_presidential_election#cite_note-coup-bundle-29) With Trump vowing that he would never concede the election and after exhorting his followers to \"fight like hell\", a mob of Trump supporters [attacked the United States Capitol](https://en.wikipedia.org/wiki/January_6_United_States_Capitol_attack \"January 6 United States Capitol attack\") on January 6, 2021, during the joint session of Congress held to certify the Electoral College count.",
+      "parsedResultUnixTime": 1609909200000,
+      "id": "297041344",
+      "attachments": [],
+      "isExpanded": true
+    },
+    {
+      "nodePos": {
+        "start": {
+          "line": 9,
+          "column": 1,
+          "offset": 7200
+        },
+        "end": {
+          "line": 9,
+          "column": 7929,
+          "offset": 15128
+        }
+      },
+      "filePath": "2020 United States presidential election - 0.3.xx.md",
+      "fileParent": "/",
+      "parsedResultText": "January 7",
+      "sentence": "[[39]](https://en.wikipedia.org/wiki/2020_United_States_presidential_election#cite_note-43) On January 7, Trump acknowledged the incoming administration without mentioning Biden's name.",
+      "parsedResultUnixTime": 1736226000000,
+      "id": "355194398",
+      "attachments": [],
+      "isExpanded": true
+    },
+    {
+      "nodePos": {
+        "start": {
+          "line": 9,
+          "column": 1,
+          "offset": 7200
+        },
+        "end": {
+          "line": 9,
+          "column": 7929,
+          "offset": 15128
+        }
+      },
+      "filePath": "2020 United States presidential election - 0.3.xx.md",
+      "fileParent": "/",
+      "parsedResultText": "January 20, 2021",
+      "sentence": "[[40]](https://en.wikipedia.org/wiki/2020_United_States_presidential_election#cite_note-44) Biden and Harris were [inaugurated](https://en.wikipedia.org/wiki/Inauguration_of_Joe_Biden \"Inauguration of Joe Biden\") on January 20, 2021; in a break from tradition, Trump did not attend his successor's inauguration.",
+      "parsedResultUnixTime": 1611118800000,
+      "id": "332996979",
+      "attachments": [],
+      "isExpanded": true
+    },
+    {
+      "nodePos": {
+        "start": {
+          "line": 9,
+          "column": 1,
+          "offset": 7200
+        },
+        "end": {
+          "line": 9,
+          "column": 7929,
+          "offset": 15128
+        }
+      },
+      "filePath": "2020 United States presidential election - 0.3.xx.md",
+      "fileParent": "/",
+      "parsedResultText": "August 1, 2023",
+      "sentence": "[[41]](https://en.wikipedia.org/wiki/2020_United_States_presidential_election#cite_note-45) Trump was [indicted](https://en.wikipedia.org/wiki/Federal_prosecution_of_Donald_Trump_(election_obstruction_case) \"Federal prosecution of Donald Trump (election obstruction case)\") on August 1, 2023, on four counts relating to conspiring to overturn the results.",
+      "parsedResultUnixTime": 1690866000000,
+      "id": "530479587",
+      "attachments": [],
+      "isExpanded": true
+    }
+  ]
+}
