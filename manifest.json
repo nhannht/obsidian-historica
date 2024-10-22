@@ -1,7 +1,7 @@
 {
 	"id": "historica",
 	"name": "historica",
-	"version": "0.3.0",
+	"version": "0.3.1",
 	"minAppVersion": "0.2.4",
 	"description": "Intelligently generates timeline from your content ... like a bro!",
 	"author": "Nhan Nguyen",
