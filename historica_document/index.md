@@ -9,7 +9,7 @@
 
 <ul>
 
-<li>(Not) Smart and dynamic extraction point of time in your note or multi notes</li>
+<li>(Not) Smart and dynamic extraction point of time in your note</li>
 
 <li>  visualize the time in your note </li>
 
@@ -29,14 +29,14 @@
 ```
 ````
 
-- Oh yeah, after you did that, the block will just work, it will read the content in the current file (except anything in the code block). Split them to sentences, and if a sentence have a string that can be parse as date or time. It will show up in the timeline
-- Well, in the legacy version, I try to support multi language, but I realize it just the technical dept, why I try to support languages that I never using. So Historica will just port only English.
+- After you did that, the block will just work, it will read the content in the current file (except anything in the code block). Split them to sentences, and if a sentence have a string that can be parsed as date or time. It will show up in the timeline
+- Well, in the legacy version, I try to support multi-languages, but I realize it just the technical dept, why I try to support languages that I am never using. So Historica will just port only English.
 - Below is the example when I try to extract the first paragraph from https://en.wikipedia.org/wiki/2020_United_States_presidential_election . You can check the example at [[2020 United States presidential election - 0.3.xx]]
 
 
 ![[Pasted image 20241022232403.png]]
 ### More customize
-- And you can try to toys with so many funny thing when you right click/ or hold your finger long enough in the screen if you using mobile - to trigger the context me.
+- And you can try to toys with so many funny things when you right-click/ or hold your finger long enough in the screen if you're using mobile - to trigger the context me.
 
 
 
@@ -52,9 +52,9 @@
 ![[Pasted image 20241022233635.png]]
 
 - Let see, I want to create a add funny detail on our plot.
-- I will click `edit` and edit our timeline like a Brotato
+- I will click `edit` and edit our timeline like a [Brotato](https://store.steampowered.com/app/1942280/Brotato/)
 ![[Pasted image 20241022233902.png]]
-- And hehe, now I can edit any thing I want in the rich text editor, even add an image to it (by copy-paste)
+- And he-he, now I can edit anything I want in the rich text editor, even add an image to it (by copy-paste)
 ![[Pasted image 20241022234521.png]]
 
 - and now we have the result
@@ -63,8 +63,8 @@
 - That all, but wait, we still not finish, please remember to SAVE YOUR PLOT, because Historica will not auto save - all the custom contents you created - for you.
 
  ![[Pasted image 20241022234801.png]]
-- Well, you will see that the data will be save in a json file in  `historica-data/xxxx.json`. Well, and the block will be modified to store the file id. Next time, if this block need to render, it will load from that file instead of recompute. So what if you want to using NLP auto generate timeline feature again, hum, in this case, simply recreate the block, or empty the setting, or just change the id to "-1". In future I will consider add feature to manual parse content from file using NLP and import it to current timeline, but right now I don't need that feature much. 
-- Ah, I need to remind you that you can open the historica-data directory to check how the data was saved, they are just json. But by default Obsidian cannot view json file, please using other tool and please don't being confused when there is nothing being  shown via the Files panel.
+- Well, you will see that the data will be saved in a JSON file in  `historica-data/xxxx.json`. Well, and the block will be modified to store the file id. Next time, if this block needs to render, it will load from that file instead of recompute. So what if you want to use NLP auto generate timeline feature again, hum, in this case, simply recreate the block, or empty the setting, or just change the ID to "-1". In future, I will consider add feature to manual parse content from file using NLP and import it to current timeline, but right now I don't need that feature much. 
+- Ah, I need to remind you that you can open the historical-data directory to check how the data was saved, they are just JSON. But by default Obsidian cannot view JSON file, please use other tool,  don't being confused when there is nothing being shown via the Files panel.
 
 ![[Pasted image 20241022235212.png]]
 
