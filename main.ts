@@ -3,7 +3,6 @@ import { Plugin} from 'obsidian';
 
 import './src/lib/codemirror'
 import './src/mode/historica/historica'
-import {HistoricaSettingTab} from "./src/ui/historicaSettingTab";
 import HistoricaBlockManager from "@/src/backgroundLogic/HistoricaBlockManager";
 import {DefaultSettings} from "@/src/global";
 import ConfigManagerNg from "@/src/ConfigManagerNg";
@@ -80,7 +79,7 @@ export default class HistoricaPlugin extends Plugin {
 		await this.blockManager.registerHistoricaBlockNg()
 
 
-		this.addSettingTab(new HistoricaSettingTab(this.app, this))
+		// this.addSettingTab(new HistoricaSettingTab(this.app, this))
 
 
 	}
