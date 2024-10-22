@@ -7,17 +7,24 @@ import {ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger} fr
 export function SinglePlotUnit(props: {
 	plugin: HistoricaPlugin,
 	handleRemovePlotUnit: (id: string) => void,
-	handleEditPlotUnit: (id: string, updatedUnit: PlotUnitNg) => void
+	handleEditPlotUnit: (id: string, updatedUnit: PlotUnitNg) => void,
 	handleAddPlotUnit: (index: number) => void,
 	u: PlotUnitNg,
-	index: number
+	index: number,
+	handleMove: ((index: number, direction: string) => void),
+	// handleExpandSingle: ((id: string, isExpanded: boolean) => void)
 }) {
 	const [mode, setMode] = useState("normal")
-	const [isExpanded,setIsExpanded] = useState(true)
+
 
 	function handleModeChange(mode: string) {
 		setMode(mode)
 	}
+
+	function handleMove(i:number,d:string){
+		if (props.handleMove) props.handleMove(i,d)
+	}
+
 
 	if (mode === "normal") {
 		return (
@@ -41,9 +48,11 @@ export function SinglePlotUnit(props: {
 					<ContextMenuTrigger>
 						<div>
 							<Content
-								isExpanded={isExpanded}
-								setIsExpanded={setIsExpanded}
-								unit={props.u} plugin={props.plugin}/>
+
+								unit={props.u} plugin={props.plugin}
+								// handleExpandSingle={props.handleExpandSingle}
+
+							/>
 						</div>
 					</ContextMenuTrigger>
 					<ContextMenuContent>
@@ -59,16 +68,22 @@ export function SinglePlotUnit(props: {
 						<ContextMenuItem onClick={() => {
 							handleModeChange("edit")
 						}}>Edit</ContextMenuItem>
-						<ContextMenuItem
-							onClick={()=>{
-								setIsExpanded(!isExpanded)
-							}}
-						>Fold/Unfold</ContextMenuItem>
+						{/*<ContextMenuItem*/}
+						{/*	onClick={()=>{*/}
+						{/*		props.handleExpandSingle(props.u.id,!props.u.isExpanded)*/}
+						{/*	}}*/}
+						{/*>Fold/Unfold</ContextMenuItem>*/}
 						<ContextMenuItem
 						onClick={async ()=>{
 							await JumpToTextInParagraph(props.u.nodePos, props.u.filePath, props.u.sentence, props.plugin)
 						}}
 						>Jump to source</ContextMenuItem>
+						<ContextMenuItem
+						onClick={()=>handleMove(props.index,"up")}
+						>Move up</ContextMenuItem>
+						<ContextMenuItem
+							onClick={()=>handleMove(props.index,"down")}
+						>Move down</ContextMenuItem>
 					</ContextMenuContent>
 				</ContextMenu>
 

@@ -22,9 +22,7 @@ export function AttachmentPlot(props: {
 export function Content(props: {
 	unit: PlotUnitNg,
 	plugin: HistoricaPlugin,
-	isExpanded: boolean,
-	setIsExpanded: (b:boolean)=>void
-
+	// handleExpandSingle: ((id: string, isExpanded: boolean) => void)
 }) {
 	// useEffect(() => {
 	// 	console.log(props.unit)
@@ -33,8 +31,7 @@ export function Content(props: {
 	return (
 		<div>
 			<ShortendableParagraph
-				isExpanded={props.isExpanded}
-				setIsExpanded={props.setIsExpanded}
+				isExpanded={props.unit.isExpanded}
 				className="text-[color:--text-accent-hover]]"
 								   content={props.unit.sentence.replace(props.unit.parsedResultText, `<historica-mark class="text-[color:--text-accent-hover]">${props.unit.parsedResultText}</historica-mark>`)}/>
 

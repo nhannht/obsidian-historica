@@ -3,10 +3,8 @@ import HistoricaPlugin from "@/main";
 import {GenerateRandomId, HistoricaFileData, HistoricaSettingNg, PlotUnitNg, UpdateBlockSetting} from "@/src/global";
 import {useEffect, useRef, useState} from "react";
 import MarkdownProcesser from "@/src/MarkdownProcesser";
-import SettingReactComponent from "@/src/SettingReactComponent";
 import {TimelineII} from "@/src/TimelineII";
 import HistoricaExportHelper from "@/src/backgroundLogic/HistoricaExportHelper";
-import {NavigationMenuReactComponent} from "@/src/NavigationMenuReactComponent";
 import {TimelineI} from "@/src/TimelineI";
 import {TimelineIII} from "@/src/TimelineIII";
 import {
@@ -57,7 +55,7 @@ export function HistoricaMotherReactComponent(props: {
 				if (currentFile instanceof TFile) {
 					// let text = await props.plugin.app.vault.read(currentFile)
 					const nodes = await markdownProcesser.ParseFilesAndGetNodeData(currentFile)
-					const sentencesWithOffSet = await markdownProcesser.ExtractValidSentencesFromFile(currentFile, nodes,props.setting.language)
+					const sentencesWithOffSet = await markdownProcesser.ExtractValidSentencesFromFile(currentFile, nodes, props.setting.language)
 					// console.log(sentencesWithOffSet)
 					let plotUnits = await markdownProcesser.GetPlotUnits(sentencesWithOffSet)
 					units.push(...plotUnits)
@@ -109,7 +107,7 @@ export function HistoricaMotherReactComponent(props: {
 
 	const [internalSetting, setInternalSetting] =
 		useState<HistoricaSettingNg>(structuredClone(props.setting))
-	const [mode, setMode] = useState("normal")
+	const [mode] = useState("normal")
 
 
 	const handleConvertToPngAndSave = async () => {
@@ -177,11 +175,54 @@ export function HistoricaMotherReactComponent(props: {
 			sentence: "main content",
 			filePath: "",
 			id: id,
+			isExpanded: true
 		}
 		let a = structuredClone(plotUnits.slice(0, index))
 		let b = structuredClone(plotUnits.slice(index))
 		setPlotUnits([...a, newUnit, ...b])
 
+	}
+
+	// function handleIsExpandedLikeABro(id: string, isExpanded: boolean) {
+	// 	setPlotUnits((prevPlotUnits) => {
+	// 		return prevPlotUnits.map((unit) =>
+	// 			unit.id === id ? {...unit, isExpanded} : unit
+	// 		);
+	// 	});
+	//
+	//
+	//
+	// }
+
+	// function handleExpandAll(willExpand:boolean) {
+	// 	setPlotUnits((prevPlotUnits) => {
+	// 		return prevPlotUnits.map((unit) => ({
+	// 			...unit,
+	// 			isExpanded: willExpand
+	// 		}));
+	// 	});
+	// }
+
+	setPlotUnits((prevPlotUnits) => {
+		return prevPlotUnits.map((unit) => ({
+			...unit,
+			isExpanded: false
+		}));
+	});
+
+
+	function handleMovePlotUnit(index: number, direction: string) {
+		setPlotUnits((prevUnits) => {
+			const newUnits = [...prevUnits];
+			if (direction === "up" && index > 0) {
+				// Swap with the previous unit
+				[newUnits[index], newUnits[index - 1]] = [newUnits[index - 1], newUnits[index]];
+			} else if (direction === "down" && index < newUnits.length - 1) {
+				// Swap with the next unit
+				[newUnits[index], newUnits[index + 1]] = [newUnits[index + 1], newUnits[index]];
+			}
+			return newUnits;
+		});
 	}
 
 	function handleSort(order: "asc" | "desc") {
@@ -200,6 +241,8 @@ export function HistoricaMotherReactComponent(props: {
 						   handleRemovePlotUnit={handleRemovePlotUnit}
 						   handleEditPlotUnit={handleEditPlotUnit}
 						   handleAddPlotUnit={handleAddPlotUnit}
+						   handleMove={handleMovePlotUnit}
+						   // handleExpandSingle={handleIsExpandedLikeABro}
 				/>
 
 			</div>
@@ -240,30 +283,32 @@ export function HistoricaMotherReactComponent(props: {
 							<ContextMenuItem onClick={() => handleSort("desc")}>Desc</ContextMenuItem>
 						</ContextMenuSubContent>
 					</ContextMenuSub>
+					{/*<ContextMenuItem onClick={() => handleExpandAll(true)}>Expand All</ContextMenuItem>*/}
+					{/*<ContextMenuItem onClick={()=> handleExpandAll(false)}>Fold All</ContextMenuItem>*/}
 				</ContextMenuContent>
 			</ContextMenu>
 		)
 
 	}
 
-	if (mode === "shitting") {
-		return <div>
-			<NavigationMenuReactComponent mode={mode} setMode={setMode}
-										  handleConvertToPngAndSave={handleConvertToPngAndSave}
-										  handleConvertToPngAndCopy={handleConvertToPngAndCopyToClipboard}
-
-										  plugin={props.plugin}
-
-			/>
-			<SettingReactComponent
-
-				blocCtx={props.ctx}
-				plugin={props.plugin}
-				setting={internalSetting}
-				setSetting={setInternalSetting}
-
-			/>
-		</div>
-	}
+	// if (mode === "shitting") {
+	// 	return <div>
+	// 		<NavigationMenuReactComponent mode={mode} setMode={setMode}
+	// 									  handleConvertToPngAndSave={handleConvertToPngAndSave}
+	// 									  handleConvertToPngAndCopy={handleConvertToPngAndCopyToClipboard}
+	//
+	// 									  plugin={props.plugin}
+	//
+	// 		/>
+	// 		<SettingReactComponent
+	//
+	// 			blocCtx={props.ctx}
+	// 			plugin={props.plugin}
+	// 			setting={internalSetting}
+	// 			setSetting={setInternalSetting}
+	//
+	// 		/>
+	// 	</div>
+	// }
 	return <div>Wait, something go wrong</div>
 }

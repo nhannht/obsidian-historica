@@ -1,14 +1,17 @@
 import {PlotUnitNg} from "./global";
 import HistoricaPlugin from "@/main";
 import {SinglePlotUnit} from "@/src/ui/nhannht/SinglePlotUnit";
+import React from "react";
 
 export function TimelineI(props: {
 	units: PlotUnitNg[],
 	plugin: HistoricaPlugin,
-	shitRef?: React.MutableRefObject<HTMLDivElement | null>
+	shitRef?: React.MutableRefObject<HTMLDivElement | null>,
 	handleRemovePlotUnit: (id: string) => void,
-	handleEditPlotUnit: (id: string, updatedUnit: PlotUnitNg) => void
-	handleAddPlotUnit: (index: number) => void
+	handleEditPlotUnit: (id: string, updatedUnit: PlotUnitNg) => void,
+	handleAddPlotUnit: (index: number) => void,
+	handleMove: (index: number, direction: string) => void,
+	// handleExpandSingle?: (id: string, isExpanded: boolean) => void
 }) {
 
 	// useEffect(() => {
@@ -21,7 +24,10 @@ export function TimelineI(props: {
 			return (
 				<SinglePlotUnit plugin={props.plugin} handleRemovePlotUnit={props.handleRemovePlotUnit}
 								handleEditPlotUnit={props.handleEditPlotUnit}
-								handleAddPlotUnit={props.handleAddPlotUnit} u={u} index={index}/>
+								handleAddPlotUnit={props.handleAddPlotUnit} u={u} index={index}
+								handleMove={props.handleMove}
+								// handleExpandSingle={props.handleExpandSingle}
+				/>
 			)
 		})}
 	</div>

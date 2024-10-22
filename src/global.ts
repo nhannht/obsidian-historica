@@ -71,7 +71,8 @@ export type PlotUnitNg = {
 	parsedResultText: string,
 	sentence:string,
 	parsedResultUnixTime:number,
-	attachments: Attachment[]
+	attachments: Attachment[],
+	isExpanded: boolean,
 
 }
 

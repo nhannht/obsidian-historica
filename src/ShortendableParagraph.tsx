@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { Badge } from "@/src/ui/shadcn/Badge"
 import { Card, CardContent } from "@/src/ui/shadcn/Card"
 import {cn} from "@/lib/utils";
 
@@ -7,7 +6,6 @@ export default function ShortendableParagraph(props: {
 	content: string,
 	className?: string,
 	isExpanded: boolean,
-	setIsExpanded: (b:boolean)=>void
 }) {
 	const [fullText] = useState(props.content)
 	const [truncatedText] = useState(fullText.slice(0,150) + "...")

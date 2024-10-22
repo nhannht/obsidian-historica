@@ -75,13 +75,12 @@ export default function SinglePlotUnitNgEditor(props: {
 
 	return (
 		<div className="p-4 max-w-2xl mx-auto">
-			<h2 className="text-2xl font-bold mb-4">Edit PlotUnitNg</h2>
 			<form onSubmit={handleSubmit} className="space-y-4">
 				<div>
 					<label className="block text-sm font-medium text-gray-700">ID: {plotUnit.id}</label>
 				</div>
 				<div>
-					<label className="block text-sm font-medium text-gray-700">Node Position</label>
+					{/*<label className="block text-sm font-medium text-gray-700">Position</label>*/}
 					{/*<div className="grid grid-cols-2 gap-2">*/}
 					{/*	<Input*/}
 					{/*		name="start.line"*/}
@@ -131,7 +130,7 @@ export default function SinglePlotUnitNgEditor(props: {
 				</div>
 
 				<div>
-					<label className="block text-sm font-medium text-gray-700">Parsed Result Text</label>
+					<label className="block text-sm font-medium text-gray-700">Title</label>
 					<Input name="parsedResultText" value={plotUnit.parsedResultText} onChange={handleChange}/>
 				</div>
 
@@ -139,13 +138,16 @@ export default function SinglePlotUnitNgEditor(props: {
 				{/*	<label className="block text-sm font-medium text-gray-700">Sentence</label>*/}
 				{/*	<Textarea name="sentence" value={plotUnit.sentence} onChange={handleChange} rows={4}/>*/}
 				{/*</div>*/}
-				<ReactQuill formats={QuillFormat} modules={QuillModules} theme="snow" value={plotUnit.sentence} onChange={(value)=>{
+				<div>
+					<label>Content</label>
+					<ReactQuill  formats={QuillFormat} modules={QuillModules} theme="snow" value={plotUnit.sentence} onChange={(value)=>{
 
-					setPlotUnit((prev)=> ({...prev,sentence:value}))
-				}} />
+						setPlotUnit((prev)=> ({...prev,sentence:value}))
+					}} />
+				</div>
 
 				<div>
-					<label className="block text-sm font-medium text-gray-700">Parsed Result Date</label>
+					<label className="block text-sm font-medium text-gray-700">Date</label>
 					<div className="grid grid-cols-3 gap-2">
 						<Input
 							name="year"
