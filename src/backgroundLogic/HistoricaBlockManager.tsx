@@ -21,7 +21,7 @@ export default class HistoricaBlockManager {
 
 	async registerHistoricaBlockNg() {
 
-		this.thisPlugin.registerMarkdownCodeBlockProcessor("historica-ng", async (source, el, ctx) => {
+		this.thisPlugin.registerMarkdownCodeBlockProcessor("historica", async (source, el, ctx) => {
 			// console.log(TOML.parse(source))
 			// setting will be ensure always correct via 3 phase, from config manager, from the block, and if the config still undefined, it will be populated with the default config constant again via validate
 			let  settings: HistoricaSettingNg  = source.trim() === "" ? DefaultSettings : JSON.parse(source) as unknown as HistoricaSettingNg
