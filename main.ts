@@ -4,8 +4,8 @@ import { Plugin} from 'obsidian';
 import './src/lib/codemirror'
 import './src/mode/historica/historica'
 import {HistoricaSettingTab} from "./src/ui/historicaSettingTab";
-import {DefaultSettings} from "./src/global";
 import HistoricaBlockManager from "@/src/backgroundLogic/HistoricaBlockManager";
+import {DefaultSettings} from "@/src/global";
 import ConfigManagerNg from "@/src/ConfigManagerNg";
 import HistoricaChrono from "@/src/backgroundLogic/HistoricaChrono";
 
@@ -69,7 +69,7 @@ export default class HistoricaPlugin extends Plugin {
 
 		this.darkModeAdapt()
 		this.registerListener()
-		await this.configManager.loadSettings()
+		// await this.configManager.loadSettings()
 		// this.app.workspace.iterateCodeMirrors(cm => console.log(cm))
 		this.app.workspace.onLayoutReady(() => {
 			this.refreshLeaves()
@@ -89,7 +89,7 @@ export default class HistoricaPlugin extends Plugin {
 
 	override async onunload() {
 
-		await this.configManager.saveSettings()
+		// await this.configManager.saveSettings()
 		// highlight obsidian  code syntax
 		// simply ignore the error releated to CodeMirror.modes, we using the built-in cm, esbuild will not touch them
 		// @ts-ignore

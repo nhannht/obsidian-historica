@@ -3,10 +3,10 @@ import HistoricaPlugin from "@/main";
 import {GenerateRandomId, HistoricaFileData, HistoricaSettingNg, PlotUnitNg, UpdateBlockSetting} from "@/src/global";
 import {useEffect, useRef, useState} from "react";
 import MarkdownProcesser from "@/src/MarkdownProcesser";
-import {TimelineII} from "@/src/TimelineII";
+// import {TimelineII} from "@/src/TimelineII";
 import HistoricaExportHelper from "@/src/backgroundLogic/HistoricaExportHelper";
 import {TimelineI} from "@/src/TimelineI";
-import {TimelineIII} from "@/src/TimelineIII";
+// import {TimelineIII} from "@/src/TimelineIII";
 import {
 	ContextMenu,
 	ContextMenuContent,
@@ -28,12 +28,14 @@ export function HistoricaMotherReactComponent(props: {
 
 	const elementRef = useRef<HTMLDivElement | null>(null);
 	const exportHelper = new HistoricaExportHelper();
+	const [internalSetting, setInternalSetting] =
+		useState<HistoricaSettingNg>(structuredClone(props.setting))
+
 
 
 	useEffect(() => {
 		const extractTimeline = async () => {
 			const blockId = internalSetting.blockId
-			// console.log(internalSetting.blockId)
 			if (blockId != "-1") {
 				const file = props.plugin.app.vault.getAbstractFileByPath(`historica-data/${blockId}.json`)
 				if (file instanceof TFile) {
@@ -57,11 +59,10 @@ export function HistoricaMotherReactComponent(props: {
 					const nodes = await markdownProcesser.ParseFilesAndGetNodeData(currentFile)
 					const sentencesWithOffSet = await markdownProcesser.ExtractValidSentencesFromFile(currentFile, nodes, props.setting.language)
 					// console.log(sentencesWithOffSet)
-					let plotUnits = await markdownProcesser.GetPlotUnits(sentencesWithOffSet)
-					units.push(...plotUnits)
+					let us = await markdownProcesser.GetPlotUnits(sentencesWithOffSet)
+					units.push(...us)
 				}
 
-				// console.log(units)
 
 				setPlotUnits(units)
 
@@ -105,8 +106,6 @@ export function HistoricaMotherReactComponent(props: {
 
 	}
 
-	const [internalSetting, setInternalSetting] =
-		useState<HistoricaSettingNg>(structuredClone(props.setting))
 	const [mode] = useState("normal")
 
 
@@ -175,7 +174,9 @@ export function HistoricaMotherReactComponent(props: {
 			sentence: "main content",
 			filePath: "",
 			id: id,
-			isExpanded: true
+			isExpanded: true,
+			nodePos: {start: {line: 1, column:1}, end: { line:1,column:1}
+			}
 		}
 		let a = structuredClone(plotUnits.slice(0, index))
 		let b = structuredClone(plotUnits.slice(index))
@@ -183,32 +184,27 @@ export function HistoricaMotherReactComponent(props: {
 
 	}
 
-	// function handleIsExpandedLikeABro(id: string, isExpanded: boolean) {
-	// 	setPlotUnits((prevPlotUnits) => {
-	// 		return prevPlotUnits.map((unit) =>
-	// 			unit.id === id ? {...unit, isExpanded} : unit
-	// 		);
-	// 	});
-	//
-	//
-	//
-	// }
+	function handleIsExpandedLikeABro(id: string, isExpanded: boolean) {
+		setPlotUnits((prevPlotUnits) => {
+			return prevPlotUnits.map((unit) =>
+				unit.id === id ? {...unit, isExpanded} : unit
+			);
+		});
 
-	// function handleExpandAll(willExpand:boolean) {
-	// 	setPlotUnits((prevPlotUnits) => {
-	// 		return prevPlotUnits.map((unit) => ({
-	// 			...unit,
-	// 			isExpanded: willExpand
-	// 		}));
-	// 	});
-	// }
 
-	setPlotUnits((prevPlotUnits) => {
-		return prevPlotUnits.map((unit) => ({
-			...unit,
-			isExpanded: false
-		}));
-	});
+
+	}
+
+	function handleExpandAll(willExpand:boolean) {
+		setPlotUnits((prevPlotUnits) => {
+			return prevPlotUnits.map((unit) => ({
+				...unit,
+				isExpanded: willExpand
+			}));
+		});
+	}
+
+
 
 
 	function handleMovePlotUnit(index: number, direction: string) {
@@ -242,16 +238,16 @@ export function HistoricaMotherReactComponent(props: {
 						   handleEditPlotUnit={handleEditPlotUnit}
 						   handleAddPlotUnit={handleAddPlotUnit}
 						   handleMove={handleMovePlotUnit}
-						   // handleExpandSingle={handleIsExpandedLikeABro}
+						   handleExpandSingle={handleIsExpandedLikeABro}
 				/>
 
-			</div>
-		} else if (["2", 2].includes(internalSetting.style)) {
-			return <TimelineII units={plotUnits} shitRef={elementRef} plugin={props.plugin}/>
-		} else if (["3", 3].includes(internalSetting.style)) {
-			return <TimelineIII units={plotUnits} shitRef={elementRef} plugin={props.plugin}/>
-
-		}
+			</div>}
+		// } else if (["2", 2].includes(internalSetting.style)) {
+		// 	return <TimelineII units={plotUnits} shitRef={elementRef} plugin={props.plugin}/>
+		// } else if (["3", 3].includes(internalSetting.style)) {
+		// 	return <TimelineIII units={plotUnits} shitRef={elementRef} plugin={props.plugin}/>
+		//
+		// }
 		return <></>
 	}
 
@@ -283,8 +279,8 @@ export function HistoricaMotherReactComponent(props: {
 							<ContextMenuItem onClick={() => handleSort("desc")}>Desc</ContextMenuItem>
 						</ContextMenuSubContent>
 					</ContextMenuSub>
-					{/*<ContextMenuItem onClick={() => handleExpandAll(true)}>Expand All</ContextMenuItem>*/}
-					{/*<ContextMenuItem onClick={()=> handleExpandAll(false)}>Fold All</ContextMenuItem>*/}
+					<ContextMenuItem onClick={() => handleExpandAll(true)}>Expand All</ContextMenuItem>
+					<ContextMenuItem onClick={()=> handleExpandAll(false)}>Fold All</ContextMenuItem>
 				</ContextMenuContent>
 			</ContextMenu>
 		)

@@ -7,7 +7,7 @@ import {HistoricaMotherReactComponent} from "@/src/backgroundLogic/HistoricaMoth
 function fixSettingProblem(settings: HistoricaSettingNg) {
 	if ([1,2,3,"default","1","2","3"].indexOf(settings.style) === -1 || !settings.style) settings.style = DefaultSettings.style
 	if (HistoricaSupportLanguages.indexOf(settings.language) === -1 || !settings.language) settings.language = DefaultSettings.language
-	if (!settings.pin_time || settings.pin_time.trim() === "") settings.pin_time = DefaultSettings.pin_time
+	if (!settings.pin_time) settings.pin_time = DefaultSettings.pin_time
 	if (!settings.blockId || settings.blockId.toLowerCase().trim() === "-1") settings.blockId = DefaultSettings.blockId
 
 	return settings

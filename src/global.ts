@@ -145,7 +145,7 @@ export interface SentenceWithOffset {
 export const DefaultSettings: HistoricaSettingNg = {
 	style: "default",
 	language: "en",
-	pin_time: "",
+	pin_time: 0,
 	// query: [],
 	blockId:"-1",
 }
@@ -190,7 +190,7 @@ export async function UpdateBlockSetting(settings: HistoricaSettingNg,
 		})
 		// trim setting
 		const newSetting = {
-			id:settings.blockId
+			blockId:settings.blockId
 		}
 
 		// console.log(linesFromFile)

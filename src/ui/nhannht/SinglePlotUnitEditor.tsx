@@ -1,4 +1,3 @@
-"use client"
 
 import {useEffect, useState} from "react"
 import {Input} from "@/src/ui/shadcn/Input"
@@ -10,7 +9,7 @@ import ReactQuill from "react-quill";
 export default function SinglePlotUnitNgEditor(props: {
 	u: PlotUnitNg,
 	handleEditPlotUnit: (id: string, u: PlotUnitNg) => void,
-	handleModeChange: (mode:string) => void
+	handleModeChange: (mode: string) => void
 }) {
 	const [plotUnit, setPlotUnit] = useState<PlotUnitNg>(structuredClone(props.u))
 
@@ -29,9 +28,9 @@ export default function SinglePlotUnitNgEditor(props: {
 	//
 	// }
 	const [date, setDate] = useState({
-		year: moment.unix(props.u.parsedResultUnixTime/1000).year(),
-		month: moment.unix(props.u.parsedResultUnixTime/1000).month() + 1,
-		day: moment.unix(props.u.parsedResultUnixTime/1000).date(),
+		year: moment.unix(props.u.parsedResultUnixTime / 1000).year(),
+		month: moment.unix(props.u.parsedResultUnixTime / 1000).month() + 1,
+		day: moment.unix(props.u.parsedResultUnixTime / 1000).date(),
 	})
 
 	useEffect(() => {
@@ -39,16 +38,14 @@ export default function SinglePlotUnitNgEditor(props: {
 		// console.log(props.u.parsedResultUnixTime)
 		const parsedDate = moment(dateString, 'YYYY-M-D');
 		const unixTime = parsedDate.unix();
-		setPlotUnit((prev) => ({ ...prev, parsedResultUnixTime: unixTime * 1000 }))
+		setPlotUnit((prev) => ({...prev, parsedResultUnixTime: unixTime * 1000}))
 	}, [date])
 
 
-
 	const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { name, value } = e.target
-		setDate((prev) => ({ ...prev, [name]: parseInt(value) }))
+		const {name, value} = e.target
+		setDate((prev) => ({...prev, [name]: parseInt(value)}))
 	}
-
 
 
 	// const handleAttachmentChange = (value: string[]) => {
@@ -72,6 +69,7 @@ export default function SinglePlotUnitNgEditor(props: {
 		props.handleModeChange("normal")
 		// Here you would typically send the data to your backend or perform other actions
 	}
+
 
 	return (
 		<div className="p-4 max-w-2xl mx-auto">
@@ -140,10 +138,11 @@ export default function SinglePlotUnitNgEditor(props: {
 				{/*</div>*/}
 				<div>
 					<label>Content</label>
-					<ReactQuill  formats={QuillFormat} modules={QuillModules} theme="snow" value={plotUnit.sentence} onChange={(value)=>{
+					<ReactQuill formats={QuillFormat} modules={QuillModules} theme="snow" value={plotUnit.sentence}
+								onChange={(value) => {
 
-						setPlotUnit((prev)=> ({...prev,sentence:value}))
-					}} />
+									setPlotUnit((prev) => ({...prev, sentence: value}))
+								}}/>
 				</div>
 
 				<div>
@@ -208,7 +207,7 @@ export default function SinglePlotUnitNgEditor(props: {
 				{/*</div>*/}
 
 				<Button type="submit">Save Changes</Button>
-				<Button onClick={()=>props.handleModeChange("normal")}>Cancel</Button>
+				<Button onClick={() => props.handleModeChange("normal")}>Cancel</Button>
 			</form>
 		</div>
 	)

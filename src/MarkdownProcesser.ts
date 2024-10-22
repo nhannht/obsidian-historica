@@ -59,7 +59,8 @@ export default class MarkdownProcesser {
 					sentence: s.text,
 					parsedResultUnixTime: r.date().getTime(),
 					id: GenerateBlockId(),
-					attachments: []
+					attachments: [],
+					isExpanded:true
 				})
 			})
 		})

@@ -1,28 +1,32 @@
-import {Attachment, PlotUnitNg, SelectRandomElement} from "@/src/global";
+import { PlotUnitNg} from "@/src/global";
 import HistoricaPlugin from "@/main";
 import { useState} from "react";
 import {TFile} from "obsidian";
 import ImageFromPath from "@/src/ui/nhannht/ImageFromPath";
 import ShortendableParagraph from "@/src/ShortendableParagraph";
+import {cn} from "@/lib/utils";
 
 export function AttachmentPlot(props: {
-	attachment: Attachment,
-	plugin: HistoricaPlugin
+	path: string,
+	plugin: HistoricaPlugin,
+	className?: string
 }) {
-	const [file] = useState<TFile>(props.plugin.app.vault.getAbstractFileByPath(props.attachment.path) as TFile)
+	const [file] = useState<TFile>(props.plugin.app.vault.getAbstractFileByPath(props.path) as TFile)
 	if (["png", "jpeg", "jpg"].includes(file.extension)) {
-		return <ImageFromPath height={SelectRandomElement([290, 170, 150, 350, 310, 330, 250])}
-							  key={props.attachment.id} className={"w-full rounded-xl shadow"} width={"230"}
-							  path={props.attachment.path} plugin={props.plugin}/>
+		return <ImageFromPath
+			className={cn(props.className)} width={"230"}
+			path={props.path} plugin={props.plugin}/>
 	} else {
-		return null
+		return <div>
+			<div className={cn("rounded-full bg-accent text-lg",props.className)}>{file.extension.toUpperCase()}</div>
+		</div>
 	}
 }
 
 export function Content(props: {
 	unit: PlotUnitNg,
 	plugin: HistoricaPlugin,
-	// handleExpandSingle: ((id: string, isExpanded: boolean) => void)
+	handleExpandSingle: ((id: string, isExpanded: boolean) => void)
 }) {
 	// useEffect(() => {
 	// 	console.log(props.unit)
@@ -38,7 +42,7 @@ export function Content(props: {
 			<div className={"columns-2 md:columns-4 gap-4 space-y-4"}>
 				{props.unit.attachments.map((a) => {
 					return (
-						<AttachmentPlot attachment={a} plugin={props.plugin}/>
+						<AttachmentPlot  path={a.path} plugin={props.plugin}/>
 					)
 				})}
 

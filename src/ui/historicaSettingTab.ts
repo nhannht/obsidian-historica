@@ -31,17 +31,6 @@ export class HistoricaSettingTab extends PluginSettingTab {
 				})
 			})
 
-		new Setting(containerEl)
-			.setName("Implicit date showing in the time entry")
-			.setDesc("Example, your current date as 2024/Mar/20," +
-				"a string like '2 day ago' will be show explicit as '2024/Mar/18' if you turn this option off")
-			.addToggle(toggle => {
-				toggle.setValue(settings.implicit_time)
-				toggle.onChange(async (value) => {
-					settings.implicit_time = value
-					await this.plugin.configManager.saveSettings()
-				})
-			})
 
 
 		new Setting(containerEl)

@@ -11,7 +11,7 @@ export function TimelineI(props: {
 	handleEditPlotUnit: (id: string, updatedUnit: PlotUnitNg) => void,
 	handleAddPlotUnit: (index: number) => void,
 	handleMove: (index: number, direction: string) => void,
-	// handleExpandSingle?: (id: string, isExpanded: boolean) => void
+	handleExpandSingle: (id: string, isExpanded: boolean) => void
 }) {
 
 	// useEffect(() => {
@@ -26,7 +26,7 @@ export function TimelineI(props: {
 								handleEditPlotUnit={props.handleEditPlotUnit}
 								handleAddPlotUnit={props.handleAddPlotUnit} u={u} index={index}
 								handleMove={props.handleMove}
-								// handleExpandSingle={props.handleExpandSingle}
+								handleExpandSingle={props.handleExpandSingle}
 				/>
 			)
 		})}

@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Check, ChevronsUpDown, Plus, Trash2, ChevronDown, ChevronUp } from "lucide-react"
+import { Check, ChevronsUpDown, Trash2, ChevronDown, ChevronUp } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/src/ui/shadcn/Button"
 import {
@@ -18,7 +18,7 @@ import {
 } from "@/src/ui/shadcn/Popover"
 import { Label } from "@/src/ui/shadcn/Label"
 import { Card, CardContent, CardHeader, CardTitle } from "@/src/ui/shadcn/Card"
-import {Attachment, GenerateRandomId, GetAllFileInVault} from "../../global";
+import {Attachment, GetAllFileInVault} from "../../global";
 import HistoricaPlugin from "../../../main";
 import {CommandList} from "cmdk";
 import ImageFromPath from "@/src/ui/nhannht/ImageFromPath";
@@ -34,13 +34,13 @@ export default function AttachmentEditor(props:{
 
 	const [foldedAttachments, setFoldedAttachments] = React.useState<Set<string>>(new Set())
 
-	const addAttachment = () => {
-		const newAttachment: Attachment = {
-			id: GenerateRandomId(),
-			path: "",
-		}
-		props.setAttachments(props.plotUnitId,[...props.attachments, newAttachment])
-	}
+	// const addAttachment = () => {
+	// 	const newAttachment: Attachment = {
+	// 		id: GenerateRandomId(),
+	// 		path: "",
+	// 	}
+	// 	props.setAttachments(props.plotUnitId,[...props.attachments, newAttachment])
+	// }
 
 	const removeAttachment = (id: string) => {
 		props.setAttachments(props.plotUnitId, props.attachments.filter(attachment => attachment.id !== id))
@@ -152,9 +152,9 @@ export default function AttachmentEditor(props:{
 				</Card>
 			))}
 
-			<Button type="button" onClick={addAttachment} className="w-full">
-				<Plus className="mr-2 h-4 w-4" /> Add Attachment
-			</Button>
+			{/*<Button type="button" onClick={addAttachment} className="w-full">*/}
+			{/*	<Plus className="mr-2 h-4 w-4" /> Add Attachment*/}
+			{/*</Button>*/}
 		</div>
 	)
 }

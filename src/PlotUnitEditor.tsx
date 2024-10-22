@@ -34,7 +34,8 @@ export default function PlotUnitNgEditor(
 			parsedResultText: "",
 			sentence: "",
 			parsedResultUnixTime: Date.now(),
-			attachments: []
+			attachments: [],
+			isExpanded:true
 		}
 		props.setPlotUnits([...props.plotUnits, newUnit])
 		setExpandedCards([...expandedCards, true])

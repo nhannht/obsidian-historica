@@ -36,7 +36,7 @@ export default function ImageFromPath (props:{
 			className={cn(props.className)}
 			width={props.width}
 			height={props.height}
-			src={imageSrc}  />}
+			src={imageSrc}   alt={props.path}/>}
 	</div>
 
 }

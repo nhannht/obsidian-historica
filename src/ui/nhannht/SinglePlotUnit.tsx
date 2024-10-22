@@ -1,9 +1,30 @@
 import HistoricaPlugin from "@/main";
-import {FormatDate, JumpToTextInParagraph, PlotUnitNg} from "@/src/global";
+import {
+	Attachment,
+	FormatDate,
+	GenerateRandomId,
+	GetAllFileInVault,
+	JumpToTextInParagraph,
+	PlotUnitNg
+} from "@/src/global";
 import {useState} from "react";
-import {Content} from "@/src/ui/nhannht/TimelineGeneral";
+import {AttachmentPlot, Content} from "@/src/ui/nhannht/TimelineGeneral";
 import SinglePlotUnitNgEditor from "@/src/ui/nhannht/SinglePlotUnitEditor";
-import {ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger} from "@/src/ui/shadcn/ContextMenu";
+import {
+	ContextMenu,
+	ContextMenuContent,
+	ContextMenuItem,
+	ContextMenuSub,
+	ContextMenuSubContent,
+	ContextMenuSubTrigger,
+	ContextMenuTrigger,
+} from "@/src/ui/shadcn/ContextMenu";
+import {Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList,} from "@/src/ui/shadcn/Command"
+import {Check} from "lucide-react";
+import {cn} from "@/lib/utils";
+import {Badge} from "@/src/ui/shadcn/Badge"
+
+
 export function SinglePlotUnit(props: {
 	plugin: HistoricaPlugin,
 	handleRemovePlotUnit: (id: string) => void,
@@ -12,7 +33,7 @@ export function SinglePlotUnit(props: {
 	u: PlotUnitNg,
 	index: number,
 	handleMove: ((index: number, direction: string) => void),
-	// handleExpandSingle: ((id: string, isExpanded: boolean) => void)
+	handleExpandSingle: ((id: string, isExpanded: boolean) => void)
 }) {
 	const [mode, setMode] = useState("normal")
 
@@ -21,8 +42,28 @@ export function SinglePlotUnit(props: {
 		setMode(mode)
 	}
 
-	function handleMove(i:number,d:string){
-		if (props.handleMove) props.handleMove(i,d)
+	function handleMove(i: number, d: string) {
+		if (props.handleMove) props.handleMove(i, d)
+	}
+
+	function handleAddAttachment(id: string, filePath: string) {
+		let as: Attachment[] = props.u.attachments
+		let newAtt: Attachment = {
+			id: GenerateRandomId(),
+			path: filePath
+		}
+		props.handleEditPlotUnit(id, {...props.u, attachments: [...as, newAtt]})
+	}
+
+	function handleRemoveAttachment(uId: string, path: string) {
+		let as: Attachment[] = props.u.attachments
+		let newAtts = as.filter((a) => a.path !== path)
+		props.handleEditPlotUnit(uId, {...props.u, attachments: newAtts})
+
+	}
+
+	function handleChangePath(uId: string, newPath: string) {
+		props.handleEditPlotUnit(uId, {...props.u, filePath: newPath})
 	}
 
 
@@ -40,7 +81,6 @@ export function SinglePlotUnit(props: {
 				<div
 					className="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden before:absolute before:left-2 sm:before:left-0 before:h-full before:px-px before:bg-[--background-modifier-hover] sm:before:ml-[6.5rem] before:self-start before:-translate-x-1/2 before:translate-y-3 after:absolute after:left-2 sm:after:left-0 after:w-2 after:h-2 after:bg-[--background-modifier-hover] after:border-4 after:box-content after:border-[--background-modifier-hover] after:rounded-full sm:after:ml-[6.5rem] after:-translate-x-1/2 after:translate-y-1.5">
 
-					{/*<button onClick={()=>props.handleEditPlotUnit(u.id)}>Edit</button>*/}
 					<time
 						className="sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold uppercase w-20 h-6 mb-3 sm:mb-0 text-[color:--text-accent] bg-[--background-primary-alt] border rounded-full">{FormatDate(new Date(props.u.parsedResultUnixTime))}</time>
 				</div>
@@ -50,7 +90,7 @@ export function SinglePlotUnit(props: {
 							<Content
 
 								unit={props.u} plugin={props.plugin}
-								// handleExpandSingle={props.handleExpandSingle}
+								handleExpandSingle={props.handleExpandSingle}
 
 							/>
 						</div>
@@ -68,24 +108,102 @@ export function SinglePlotUnit(props: {
 						<ContextMenuItem onClick={() => {
 							handleModeChange("edit")
 						}}>Edit</ContextMenuItem>
-						{/*<ContextMenuItem*/}
-						{/*	onClick={()=>{*/}
-						{/*		props.handleExpandSingle(props.u.id,!props.u.isExpanded)*/}
-						{/*	}}*/}
-						{/*>Fold/Unfold</ContextMenuItem>*/}
 						<ContextMenuItem
+							onClick={() => {
+								props.handleExpandSingle(props.u.id, !props.u.isExpanded)
+							}}
+						>Fold/Unfold</ContextMenuItem>
+						<ContextMenuItem
+							onClick={async () => {
+								await JumpToTextInParagraph(props.u.nodePos, props.u.filePath, props.u.sentence, props.plugin)
+							}}
+						>Jump to source</ContextMenuItem>
+						<ContextMenuItem
+							onClick={() => handleMove(props.index, "up")}
+						>Move up</ContextMenuItem>
+						<ContextMenuItem
+							onClick={() => handleMove(props.index, "down")}
+						>Move down</ContextMenuItem>
+						<ContextMenuSub>
+							<ContextMenuSubTrigger>Add attachment</ContextMenuSubTrigger>
+							<ContextMenuSubContent>
+								<Command className={"w-80"}>
+									<CommandInput placeholder={"Search attachments"}></CommandInput>
+									<CommandList>
+										<CommandEmpty>No attachments</CommandEmpty>
+										<CommandGroup>
+											{GetAllFileInVault(props.plugin).map((f, i) => {
+												return (
+													<CommandItem
+														key={f.path}
+														value={f.path}
+														onSelect={() => {
+															if (props.u.attachments.some(a => a.path === f.path)) {
+																handleRemoveAttachment(props.u.id, f.path)
+															} else {
+																handleAddAttachment(props.u.id, f.path)
+															}
+
+														}}
+
+													>
+														<Check
+															className={cn("mr-2 h-4 w-4", props.u.attachments.some(a => a.path === f.path) ? "opacity-100" : "opacity-0")}/>
+														<AttachmentPlot className={"w-12"} key={i} path={f.path}
+																		plugin={props.plugin}/>
+														<div className={"text-wrap w-full text-left"}>{f.path}</div>
+
+													</CommandItem>
+												)
+											})}
+										</CommandGroup>
+									</CommandList>
+								</Command>
+							</ContextMenuSubContent>
+						</ContextMenuSub>
+						<ContextMenuSub>
+							<ContextMenuSubTrigger>Choose file source</ContextMenuSubTrigger>
+							<ContextMenuSubContent>
+								<Command className={"w-80"}>
+									<CommandInput placeholder={"This is the file u will jump to if u want"}/>
+									<CommandList>
+										<CommandEmpty>No file</CommandEmpty>
+										<CommandGroup>
+											{GetAllFileInVault(props.plugin).map((f, i) => {
+												return (
+													<CommandItem
+														key={f.path}
+														value={f.path}
+														onSelect={() => {
+															handleChangePath(props.u.id, f.path)
+
+														}}
+
+													>
+														<Check
+															className={cn("mr-2 h-4 w-4", props.u.filePath === f.path ? "opacity-100" : "opacity-0")}/>
+														<AttachmentPlot className={"w-12"} key={i} path={f.path}
+																		plugin={props.plugin}/>
+														<div className={"text-wrap w-full text-left"}>{f.path}</div>
+
+													</CommandItem>
+												)
+											})}
+										</CommandGroup>
+
+									</CommandList>
+								</Command>
+							</ContextMenuSubContent>
+						</ContextMenuSub>
+					</ContextMenuContent>
+				</ContextMenu>
+				<div className={"flex  justify-end"}>
+					<Badge
 						onClick={async ()=>{
 							await JumpToTextInParagraph(props.u.nodePos, props.u.filePath, props.u.sentence, props.plugin)
 						}}
-						>Jump to source</ContextMenuItem>
-						<ContextMenuItem
-						onClick={()=>handleMove(props.index,"up")}
-						>Move up</ContextMenuItem>
-						<ContextMenuItem
-							onClick={()=>handleMove(props.index,"down")}
-						>Move down</ContextMenuItem>
-					</ContextMenuContent>
-				</ContextMenu>
+						className={"p-2 text-sm hover:cursor-pointer hover:text-[--text-accent-hover] "} variant={"outline"}>{props.u.filePath}</Badge>
+				</div>
 
 
 			</div>)
