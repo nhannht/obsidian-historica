@@ -1,7 +1,6 @@
 
 import {useEffect, useState} from "react"
 import {Input} from "@/src/ui/shadcn/Input"
-import {Button} from "@/src/ui/shadcn/Button"
 import {PlotUnitNg, QuillFormat, QuillModules} from "../../global";
 import {moment} from "obsidian";
 import ReactQuill from "react-quill";
@@ -111,21 +110,21 @@ export default function SinglePlotUnitNgEditor(props: {
 					{/*</div>*/}
 				</div>
 
-				<div>
-					<label className="block text-sm font-medium text-gray-700">File Path</label>
-					{/*<Select onValueChange={handleFilePathChange} value={plotUnit.filePath}>*/}
-					{/*	<SelectTrigger>*/}
-					{/*		<SelectValue placeholder="Select file path" />*/}
-					{/*	</SelectTrigger>*/}
-					{/*	<SelectContent>*/}
-					{/*		{attachmentOptions.map((att) => (*/}
-					{/*			<SelectItem key={att.id} value={att.path}>*/}
-					{/*				{att.path}*/}
-					{/*			</SelectItem>*/}
-					{/*		))}*/}
-					{/*	</SelectContent>*/}
-					{/*</Select>*/}
-				</div>
+				{/*<div>*/}
+				{/*	<label className="block text-sm font-medium text-gray-700">File Path</label>*/}
+				{/*	/!*<Select onValueChange={handleFilePathChange} value={plotUnit.filePath}>*!/*/}
+				{/*	/!*	<SelectTrigger>*!/*/}
+				{/*	/!*		<SelectValue placeholder="Select file path" />*!/*/}
+				{/*	/!*	</SelectTrigger>*!/*/}
+				{/*	/!*	<SelectContent>*!/*/}
+				{/*	/!*		{attachmentOptions.map((att) => (*!/*/}
+				{/*	/!*			<SelectItem key={att.id} value={att.path}>*!/*/}
+				{/*	/!*				{att.path}*!/*/}
+				{/*	/!*			</SelectItem>*!/*/}
+				{/*	/!*		))}*!/*/}
+				{/*	/!*	</SelectContent>*!/*/}
+				{/*	/!*</Select>*!/*/}
+				{/*</div>*/}
 
 				<div>
 					<label className="block text-sm font-medium text-gray-700">Title</label>
@@ -206,8 +205,10 @@ export default function SinglePlotUnitNgEditor(props: {
 				{/*	</Select>*/}
 				{/*</div>*/}
 
-				<Button type="submit">Save Changes</Button>
-				<Button onClick={() => props.handleModeChange("normal")}>Cancel</Button>
+				<div className={"grid grid-cols-2 gap-4"}>
+					<button type="submit">Save</button>
+					<button onClick={() => props.handleModeChange("normal")}>Cancel</button>
+				</div>
 			</form>
 		</div>
 	)
