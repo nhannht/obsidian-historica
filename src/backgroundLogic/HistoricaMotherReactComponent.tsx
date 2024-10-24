@@ -1,12 +1,22 @@
 import {MarkdownPostProcessorContext, Notice, TFile, TFolder} from "obsidian";
 import HistoricaPlugin from "@/main";
-import {GenerateRandomId, HistoricaFileData, HistoricaSettingNg, PlotUnitNg, UpdateBlockSetting} from "@/src/global";
+import {
+	GenerateRandomId,
+	GetAllHistoricaDataFile,
+	GetAllMarkdownFileInVault,
+	HistoricaFileData,
+	HistoricaSettingNg,
+	PlotUnitNg,
+	UpdateBlockSetting
+} from "@/src/global";
 import {useEffect, useRef, useState} from "react";
 import MarkdownProcesser from "@/src/MarkdownProcesser";
 // import {TimelineII} from "@/src/TimelineII";
 import HistoricaExportHelper from "@/src/backgroundLogic/HistoricaExportHelper";
 import {TimelineI} from "@/src/TimelineI";
 // import {TimelineIII} from "@/src/TimelineIII";
+import {Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList} from "@/src/ui/shadcn/Command"
+
 import {
 	ContextMenu,
 	ContextMenuContent,
@@ -30,7 +40,6 @@ export function HistoricaMotherReactComponent(props: {
 	const exportHelper = new HistoricaExportHelper();
 	const [internalSetting, setInternalSetting] =
 		useState<HistoricaSettingNg>(structuredClone(props.setting))
-
 
 
 	useEffect(() => {
@@ -175,7 +184,8 @@ export function HistoricaMotherReactComponent(props: {
 			filePath: "",
 			id: id,
 			isExpanded: true,
-			nodePos: {start: {line: 1, column:1}, end: { line:1,column:1}
+			nodePos: {
+				start: {line: 1, column: 1}, end: {line: 1, column: 1}
 			}
 		}
 		let a = structuredClone(plotUnits.slice(0, index))
@@ -192,10 +202,9 @@ export function HistoricaMotherReactComponent(props: {
 		});
 
 
-
 	}
 
-	function handleExpandAll(willExpand:boolean) {
+	function handleExpandAll(willExpand: boolean) {
 		setPlotUnits((prevPlotUnits) => {
 			return prevPlotUnits.map((unit) => ({
 				...unit,
@@ -203,8 +212,6 @@ export function HistoricaMotherReactComponent(props: {
 			}));
 		});
 	}
-
-
 
 
 	function handleMovePlotUnit(index: number, direction: string) {
@@ -241,7 +248,8 @@ export function HistoricaMotherReactComponent(props: {
 						   handleExpandSingle={handleIsExpandedLikeABro}
 				/>
 
-			</div>}
+			</div>
+		}
 		// } else if (["2", 2].includes(internalSetting.style)) {
 		// 	return <TimelineII units={plotUnits} shitRef={elementRef} plugin={props.plugin}/>
 		// } else if (["3", 3].includes(internalSetting.style)) {
@@ -249,6 +257,49 @@ export function HistoricaMotherReactComponent(props: {
 		//
 		// }
 		return <></>
+	}
+
+	function handleRemoveAll() {
+		setPlotUnits([])
+	}
+
+	async function parseTimelineFromFile(path: string) {
+		let units: PlotUnitNg[] = []
+		const markdownProcesser = new MarkdownProcesser(props.plugin, props.setting)
+		// const allnodes = markdownProcesser.nodes
+		// console.log(allnodes)
+		const file = props.plugin.app.vault.getAbstractFileByPath(path)
+		if (file instanceof TFile) {
+			// let text = await props.plugin.app.vault.read(currentFile)
+			const nodes = await markdownProcesser.ParseFilesAndGetNodeData(file)
+			const sentencesWithOffSet = await markdownProcesser.ExtractValidSentencesFromFile(file, nodes, props.setting.language)
+			// console.log(sentencesWithOffSet)
+			let us = await markdownProcesser.GetPlotUnits(sentencesWithOffSet)
+			units.push(...us)
+		}
+		if (units.length === 0) new Notice("There is no unit can be parsed from this file", 10000)
+		else new Notice(`There is ${units.length} was parsed from this file`, 10000)
+
+		setPlotUnits([...units, ...plotUnits])
+	}
+
+	async function importFromOtherTimeline(path: string) {
+		const file = props.plugin.app.vault.getAbstractFileByPath(path)
+		if (file instanceof TFile) {
+			const content = await props.plugin.app.vault.read(file)
+			const data:HistoricaFileData = JSON.parse(content)
+			if (data && data.units && data.units.length > 0) {
+				const importedUnit = data.units
+				new Notice(`There are ${importedUnit.length} imported to your timeline`,10000)
+				setPlotUnits([...plotUnits, ...importedUnit])
+			} else if (data.units && data.units.length === 0){
+				new Notice("Oops, we don't have any unit being stored in this file")
+			}
+			else {
+				new Notice("Sorry, the json in that file is corrupted, cannot import", 10000)
+			}
+		} else new Notice(`The file historica-data/${path} does not exist or not a normal json file`, 10000)
+
 	}
 
 
@@ -280,7 +331,58 @@ export function HistoricaMotherReactComponent(props: {
 						</ContextMenuSubContent>
 					</ContextMenuSub>
 					<ContextMenuItem onClick={() => handleExpandAll(true)}>Expand All</ContextMenuItem>
-					<ContextMenuItem onClick={()=> handleExpandAll(false)}>Fold All</ContextMenuItem>
+					<ContextMenuItem onClick={() => handleExpandAll(false)}>Fold All</ContextMenuItem>
+					<ContextMenuItem onClick={handleRemoveAll}>Remove all</ContextMenuItem>
+					<ContextMenuSub>
+						<ContextMenuSubTrigger>Parse timeline from file</ContextMenuSubTrigger>
+						<ContextMenuSubContent>
+							<Command>
+								<CommandInput placeholder={"search file path"}/>
+								<CommandList>
+									<CommandEmpty>No file was pick</CommandEmpty>
+									<CommandGroup>
+										{GetAllMarkdownFileInVault(props.plugin).map((f) => {
+											return (
+												<CommandItem
+													key={f.path}
+													value={f.path}
+													onSelect={async (value) => {
+														await parseTimelineFromFile(value)
+													}}>
+													{f.path}
+												</CommandItem>
+											)
+										})}
+									</CommandGroup>
+								</CommandList>
+							</Command>
+						</ContextMenuSubContent>
+					</ContextMenuSub>
+					<ContextMenuSub>
+						<ContextMenuSubTrigger>Import timeline units from antoher file</ContextMenuSubTrigger>
+
+						<ContextMenuSubContent>
+							<Command>
+								<CommandInput placeholder={"pick file to import"}/>
+								<CommandList>
+									<CommandEmpty>No files was picked</CommandEmpty>
+									<CommandGroup>
+										{GetAllHistoricaDataFile(props.plugin).map(f => {
+											return (
+												<CommandItem
+													key={f.path}
+													value={f.path}
+													onSelect={async (value) => {
+														await importFromOtherTimeline(value)
+													}}
+												>{f.path}</CommandItem>
+											)
+										})}
+									</CommandGroup>
+								</CommandList>
+							</Command>
+						</ContextMenuSubContent>
+					</ContextMenuSub>
 				</ContextMenuContent>
 			</ContextMenu>
 		)

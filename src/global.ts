@@ -299,3 +299,14 @@ export const QuillModules  = {
 		['clean']
 	],
 }
+
+export function GetAllHistoricaDataFile (plugin:HistoricaPlugin){
+	const fs = plugin.app.vault.getFiles()
+    let files = new Set<TFile>()
+    fs.map(f=>{
+        if (f.path.startsWith("historica-data") && f.extension === "json"){
+            files.add(f)
+        }
+    })
+    return Array.from(files)
+}
