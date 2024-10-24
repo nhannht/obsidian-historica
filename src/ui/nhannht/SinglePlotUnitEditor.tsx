@@ -206,7 +206,9 @@ export default function SinglePlotUnitNgEditor(props: {
 				{/*</div>*/}
 
 				<div className={"grid grid-cols-2 gap-4"}>
-					<button type="submit">Save</button>
+					<button
+
+						type="submit">Save</button>
 					<button onClick={() => props.handleModeChange("normal")}>Cancel</button>
 				</div>
 			</form>

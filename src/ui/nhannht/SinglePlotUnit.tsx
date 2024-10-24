@@ -23,8 +23,12 @@ import {Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandL
 import {Check} from "lucide-react";
 import {cn} from "@/lib/utils";
 import {Badge} from "@/src/ui/shadcn/Badge"
-
-
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger,
+} from "@/src/ui/shadcn/Tooltip"
 export function SinglePlotUnit(props: {
 	plugin: HistoricaPlugin,
 	handleRemovePlotUnit: (id: string) => void,
@@ -129,10 +133,10 @@ export function SinglePlotUnit(props: {
 							<ContextMenuSubContent>
 								<Command className={"w-80"}>
 									<CommandInput placeholder={"Search attachments"}></CommandInput>
-									<CommandList>
+									<CommandList >
 										<CommandEmpty>No attachments</CommandEmpty>
-										<CommandGroup>
-											{GetAllFileInVault(props.plugin).map((f, i) => {
+										<CommandGroup title={""} content={""}>
+											{GetAllFileInVault(props.plugin).map((f) => {
 												return (
 													<CommandItem
 														key={f.path}
@@ -149,9 +153,19 @@ export function SinglePlotUnit(props: {
 													>
 														<Check
 															className={cn("mr-2 h-4 w-4", props.u.attachments.some(a => a.path === f.path) ? "opacity-100" : "opacity-0")}/>
-														<AttachmentPlot className={"w-12"} key={i} path={f.path}
-																		plugin={props.plugin}/>
-														<div className={"text-wrap w-full text-left"}>{f.path}</div>
+
+														<TooltipProvider>
+															<Tooltip>
+																<TooltipTrigger asChild>
+																	<div
+																		className={"text-wrap w-full text-left"}>{f.path}</div>
+																</TooltipTrigger>
+																<TooltipContent>
+																	<AttachmentPlot path={f.path} plugin={props.plugin}/>
+																</TooltipContent>
+															</Tooltip>
+														</TooltipProvider>
+
 
 													</CommandItem>
 												)
@@ -169,7 +183,7 @@ export function SinglePlotUnit(props: {
 									<CommandList>
 										<CommandEmpty>No file</CommandEmpty>
 										<CommandGroup>
-											{GetAllFileInVault(props.plugin).map((f, i) => {
+											{GetAllFileInVault(props.plugin).map((f) => {
 												return (
 													<CommandItem
 														key={f.path}
@@ -178,12 +192,11 @@ export function SinglePlotUnit(props: {
 															handleChangePath(props.u.id, f.path)
 
 														}}
-
 													>
 														<Check
 															className={cn("mr-2 h-4 w-4", props.u.filePath === f.path ? "opacity-100" : "opacity-0")}/>
-														<AttachmentPlot className={"w-12"} key={i} path={f.path}
-																		plugin={props.plugin}/>
+														{/*<AttachmentPlot className={"w-12"} key={i} path={f.path}*/}
+														{/*				plugin={props.plugin}/>*/}
 														<div className={"text-wrap w-full text-left"}>{f.path}</div>
 
 													</CommandItem>
@@ -199,10 +212,11 @@ export function SinglePlotUnit(props: {
 				</ContextMenu>
 				<div className={"flex  justify-end"}>
 					<Badge
-						onClick={async ()=>{
+						onClick={async () => {
 							await JumpToTextInParagraph(props.u.nodePos, props.u.filePath, props.u.sentence, props.plugin)
 						}}
-						className={"p-2 text-sm hover:cursor-pointer hover:text-[--text-accent-hover] "} variant={"outline"}>{props.u.filePath}</Badge>
+						className={"p-2 text-sm hover:cursor-pointer hover:text-[--text-accent-hover] "}
+						variant={"outline"}>{props.u.filePath}</Badge>
 				</div>
 
 
