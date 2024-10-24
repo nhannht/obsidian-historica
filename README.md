@@ -122,7 +122,7 @@ aria-hidden="true">Pastedimage20241022233635.png</figcaption>
 </details>
 
 
-- Well, you will see that the data will be saved in a json file in `historica-data/xxxx.json`. Well, and the block will be modified to store the file id. Next time, if this block need to render, it will load from that file instead of recompute. So what if you want to use NLP auto generate timeline feature again, hum, in this case, simply recreate the block, or empty the setting, or just change the id to "-1". In the future, I will consider add feature to manual parse content from file using NLP and import it to current timeline, but right now I don't need that feature much.
+- Well, you will see that the data will be saved in a json file in `historica-data/xxxx.json`. Well, and the block will be modified to store the file id. Next time, if this block need to render, it will load from that file instead of recompute. 
 - Or you can manual change the blockId to any string, when the id is different from "-1", everytime you edit your timeline, the  autosave will trigger.
 - Ah, I need to remind you that you can open the historica-data directory to check how the data was saved, they are just json. But by default Obsidian cannot view json file, please using other tool and please don't being confused when there is nothing being shown via the Files panel.
 
@@ -138,5 +138,3 @@ aria-hidden="true">Pastedimage20241022235212.png</figcaption>
 
 </details>
 
-> [!note]
-> Why I didn't implement autosave (via react-hook or similar) , because it nearly impossible due to the async nature of Obsidian. All behaviours which have side effect that can change the content of the vault, must be manual trigger by user.
