@@ -34,8 +34,10 @@ export default function SinglePlotUnitNgEditor(props: {
 
 	useEffect(() => {
 		const dateString = `${date.year}-${date.month}-${date.day}`;
+		// console.log(date)
 		// console.log(props.u.parsedResultUnixTime)
-		const parsedDate = moment(dateString, 'YYYY-M-D');
+		const parsedDate = moment(dateString);
+		// console.log(parsedDate.toDate())
 		const unixTime = parsedDate.unix();
 		setPlotUnit((prev) => ({...prev, parsedResultUnixTime: unixTime * 1000}))
 	}, [date])
@@ -76,65 +78,12 @@ export default function SinglePlotUnitNgEditor(props: {
 				<div>
 					<label className="block text-sm font-medium text-gray-700">ID: {plotUnit.id}</label>
 				</div>
-				<div>
-					{/*<label className="block text-sm font-medium text-gray-700">Position</label>*/}
-					{/*<div className="grid grid-cols-2 gap-2">*/}
-					{/*	<Input*/}
-					{/*		name="start.line"*/}
-					{/*		type="number"*/}
-					{/*		placeholder="Start Line"*/}
-					{/*		value={plotUnit.nodePos?.start.line || ""}*/}
-					{/*		onChange={handleNodePosChange}*/}
-					{/*	/>*/}
-					{/*	<Input*/}
-					{/*		name="start.column"*/}
-					{/*		type="number"*/}
-					{/*		placeholder="Start Column"*/}
-					{/*		value={plotUnit.nodePos?.start.column || ""}*/}
-					{/*		onChange={handleNodePosChange}*/}
-					{/*	/>*/}
-					{/*	<Input*/}
-					{/*		name="end.line"*/}
-					{/*		type="number"*/}
-					{/*		placeholder="End Line"*/}
-					{/*		value={plotUnit.nodePos?.end.line || ""}*/}
-					{/*		onChange={handleNodePosChange}*/}
-					{/*	/>*/}
-					{/*	<Input*/}
-					{/*		name="end.column"*/}
-					{/*		type="number"*/}
-					{/*		placeholder="End Column"*/}
-					{/*		value={plotUnit.nodePos?.end.column || ""}*/}
-					{/*		onChange={handleNodePosChange}*/}
-					{/*	/>*/}
-					{/*</div>*/}
-				</div>
-
-				{/*<div>*/}
-				{/*	<label className="block text-sm font-medium text-gray-700">File Path</label>*/}
-				{/*	/!*<Select onValueChange={handleFilePathChange} value={plotUnit.filePath}>*!/*/}
-				{/*	/!*	<SelectTrigger>*!/*/}
-				{/*	/!*		<SelectValue placeholder="Select file path" />*!/*/}
-				{/*	/!*	</SelectTrigger>*!/*/}
-				{/*	/!*	<SelectContent>*!/*/}
-				{/*	/!*		{attachmentOptions.map((att) => (*!/*/}
-				{/*	/!*			<SelectItem key={att.id} value={att.path}>*!/*/}
-				{/*	/!*				{att.path}*!/*/}
-				{/*	/!*			</SelectItem>*!/*/}
-				{/*	/!*		))}*!/*/}
-				{/*	/!*	</SelectContent>*!/*/}
-				{/*	/!*</Select>*!/*/}
-				{/*</div>*/}
 
 				<div>
 					<label className="block text-sm font-medium text-gray-700">Title</label>
 					<Input name="parsedResultText" value={plotUnit.parsedResultText} onChange={handleChange}/>
 				</div>
 
-				{/*<div>*/}
-				{/*	<label className="block text-sm font-medium text-gray-700">Sentence</label>*/}
-				{/*	<Textarea name="sentence" value={plotUnit.sentence} onChange={handleChange} rows={4}/>*/}
-				{/*</div>*/}
 				<div>
 					<label>Content</label>
 					<ReactQuill formats={QuillFormat} modules={QuillModules} theme="snow" value={plotUnit.sentence}
@@ -149,13 +98,10 @@ export default function SinglePlotUnitNgEditor(props: {
 					<div className="grid grid-cols-3 gap-2">
 						<Input
 							name="year"
-							type="number"
+							type="tel"
 							placeholder="Year"
 							value={date.year}
 							onChange={handleDateChange}
-							max={9999}
-							maxLength={4}
-
 						/>
 						<Input
 							name="month"
@@ -205,11 +151,10 @@ export default function SinglePlotUnitNgEditor(props: {
 				{/*	</Select>*/}
 				{/*</div>*/}
 
-				<div className={"grid grid-cols-2 gap-4"}>
-					<button
+				<div className={"flex justify-center"}>
+					<button className={"w-1/2"}
 
-						type="submit">Save</button>
-					<button onClick={() => props.handleModeChange("normal")}>Cancel</button>
+						type="submit">Back</button>
 				</div>
 			</form>
 		</div>

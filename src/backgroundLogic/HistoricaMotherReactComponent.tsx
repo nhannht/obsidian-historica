@@ -1,4 +1,4 @@
-import {MarkdownPostProcessorContext, Notice, TFile, TFolder} from "obsidian";
+import {MarkdownPostProcessorContext, moment, Notice, TFile, TFolder} from "obsidian";
 import HistoricaPlugin from "@/main";
 import {
 	GenerateRandomId,
@@ -16,7 +16,7 @@ import HistoricaExportHelper from "@/src/backgroundLogic/HistoricaExportHelper";
 import {TimelineI} from "@/src/TimelineI";
 // import {TimelineIII} from "@/src/TimelineIII";
 import {Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList} from "@/src/ui/shadcn/Command"
-
+import iamlarvarandiknowit from "@/images/iamlarvarandiknowit.jpg"
 import {
 	ContextMenu,
 	ContextMenuContent,
@@ -50,10 +50,10 @@ export function HistoricaMotherReactComponent(props: {
 				if (file instanceof TFile) {
 					const fileContent = await props.plugin.app.vault.read(file)
 					let parseResult: HistoricaFileData = JSON.parse(fileContent)
+					console.log(parseResult)
 					if (parseResult) {
 						setInternalSetting(parseResult.settings)
-						setPlotUnits(parseResult.units)
-
+							setPlotUnits(parseResult.units)
 					}
 				}
 			} else {
@@ -81,12 +81,9 @@ export function HistoricaMotherReactComponent(props: {
 		extractTimeline().then()
 	}, [])
 
-	async function saveData(blockId:string,filePath:string){
+	async function saveData(data:HistoricaFileData,filePath:string){
 
-		let data: HistoricaFileData = {
-			settings: {...internalSetting,blockId},
-			units: plotUnits
-		}
+
 
 		const fileExist = props.plugin.app.vault.getAbstractFileByPath(filePath) instanceof TFile
 		if (!fileExist) {
@@ -98,9 +95,12 @@ export function HistoricaMotherReactComponent(props: {
 	}
 
 	useEffect(() => {
-
 		if (internalSetting.blockId !== "-1" && plotUnits.length !== 0){
-			saveData(internalSetting.blockId,`historica-data/${internalSetting.blockId}.json`).then()
+			const data:HistoricaFileData = {
+				settings: internalSetting,
+                units: plotUnits
+			}
+			saveData(data,`historica-data/${internalSetting.blockId}.json`).then()
 		}
 	}, [internalSetting,plotUnits]);
 
@@ -119,7 +119,11 @@ export function HistoricaMotherReactComponent(props: {
 		// console.log(historicaDataPath)
 
 		const blockId = internalSetting.blockId === "-1" ? GenerateRandomId() : internalSetting.blockId
-		await saveData(blockId,`${historicaDataPath!.path}/${blockId}.json`)
+		const data:HistoricaFileData = {
+			settings: {...internalSetting,blockId},
+			units: plotUnits
+		}
+		await saveData(data,`${historicaDataPath!.path}/${blockId}.json`)
 		new Notice(`The cache was save to ${historicaDataPath!.path}/${blockId}.json`, 10000)
 		await UpdateBlockSetting({...internalSetting,blockId}, props.ctx, props.plugin)
 
@@ -188,7 +192,7 @@ export function HistoricaMotherReactComponent(props: {
 		const newUnit: PlotUnitNg = {
 			attachments: [],
 			parsedResultText: "title",
-			parsedResultUnixTime: new Date().getTime(),
+			parsedResultUnixTime: moment().unix(),
 
 			sentence: "main content",
 			filePath: "",
@@ -248,15 +252,23 @@ export function HistoricaMotherReactComponent(props: {
 	}
 
 	const timelineRender = () => {
-		if ([1, "default", "1"].includes(internalSetting.style)) {
-			return <div className={"p-4"}>
-				<TimelineI units={plotUnits} shitRef={elementRef} plugin={props.plugin}
-						   handleRemovePlotUnit={handleRemovePlotUnit}
-						   handleEditPlotUnit={handleEditPlotUnit}
-						   handleAddPlotUnit={handleAddPlotUnit}
-						   handleMove={handleMovePlotUnit}
-						   handleExpandSingle={handleIsExpandedLikeABro}
-				/>
+		if (plotUnits.length > 0){
+			if ([1, "default", "1"].includes(internalSetting.style)) {
+				return <div className={"p-4"}>
+					<TimelineI units={plotUnits} shitRef={elementRef} plugin={props.plugin}
+							   handleRemovePlotUnit={handleRemovePlotUnit}
+							   handleEditPlotUnit={handleEditPlotUnit}
+							   handleAddPlotUnit={handleAddPlotUnit}
+							   handleMove={handleMovePlotUnit}
+							   handleExpandSingle={handleIsExpandedLikeABro}
+					/>
+
+				</div>
+			}
+		} else {
+			return <div>
+				<div>Hehe, this timeline is empty like the Void, right click on it and add a plot unit, Bro</div>
+				<img className={"w-full"} alt={"iamlarvarandiknowit"} src={iamlarvarandiknowit}/>
 
 			</div>
 		}

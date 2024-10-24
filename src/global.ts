@@ -1,7 +1,8 @@
-import {MarkdownPostProcessorContext, MarkdownView, TFile, TFolder} from "obsidian";
+import {MarkdownPostProcessorContext, MarkdownView, moment, TFile, TFolder} from "obsidian";
 import {Node, Point} from "unist";
 import {ParsedResult} from "chrono-node";
 import HistoricaPlugin from "@/main";
+import {Moment} from "moment";
 
 export const HistoricaSupportLanguages = [
 	"en",
@@ -43,7 +44,7 @@ export type HistoricaFileData = {
 }
 
 export function GenerateBlockId(){
-	const currentTime = new Date().getTime().toString();
+	const currentTime = moment().unix().toString();
 	const randomNum = Math.floor(Math.random() * 1000000).toString(); // Add a random number
 	const input = currentTime + randomNum; // Combine time and random number
 	let hash = 0;
@@ -117,7 +118,7 @@ export async function JumpToSource(paragraphPos: { start: Point, end: Point }|un
 }
 
 export function GenerateRandomId() {
-	const currentTime = new Date().getTime().toString();
+	const currentTime = moment().unix().toString();
 	const randomNum = Math.floor(Math.random() * 1000000).toString(); // Generate a random number
 	let hash = 0;
 	const combinedString = currentTime + randomNum;
@@ -155,12 +156,9 @@ export const DefaultSettings: HistoricaSettingNg = {
 	blockId:"-1",
 }
 
-export function FormatDate(date:Date): string {
-	return new Intl.DateTimeFormat('en-US', {
-		year: 'numeric',
-		month: 'short',
-		day: 'numeric'
-	}).format(date)
+export function FormatDate(m:Moment): string {
+
+	return m.format("YYYY-MM-DD")
 }
 
 

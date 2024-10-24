@@ -46,6 +46,11 @@ const context = await esbuild.context({
 
 		})
 	],
+	loader:{
+		'.jpeg':'dataurl',
+		'.jpg':'dataurl'
+
+	}
 
 
 });
