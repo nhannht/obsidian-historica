@@ -5,13 +5,13 @@ import {arrayBufferToBase64} from "obsidian";
 import {cn} from "@/lib/utils";
 
 
-export default function ImageFromPath (props:{
-	path:string,
-	plugin:HistoricaPlugin,
-	className?:string,
-	width?: number|string,
-	height?: number|string
-
+export default function ImageFromPath(props: {
+	path: string,
+	plugin: HistoricaPlugin,
+	className?: string,
+	width?: number | string,
+	height?: number | string,
+	handleClick?: (() => void) | undefined
 }){
 	const [imageSrc, setImageSrc] = useState<string | null>(null);
 
@@ -33,6 +33,7 @@ export default function ImageFromPath (props:{
 	}, []);
 	return <div >
 		{imageSrc && <img
+			onClick={props.handleClick}
 			className={cn(props.className)}
 			width={props.width}
 			height={props.height}

@@ -78,35 +78,40 @@ export type PlotUnitNg = {
 
 
 
-export async function JumpToTextInParagraph(paragraphPos: { start: Point, end: Point }|undefined, filePath: string, text: string, plugin: HistoricaPlugin) {
+export async function JumpToSource(paragraphPos: { start: Point, end: Point }|undefined,
+								   filePath: string,
+								   text: string|undefined,
+								   plugin: HistoricaPlugin) {
 	// console.log(paragraphPos)
 
-	const fileNeedToBeOpen = plugin.app.vault.getAbstractFileByPath(filePath);
+	const fileNeedToBeOpen =  plugin.app.vault.getAbstractFileByPath(filePath);
 	const leaf = plugin.app.workspace.getLeaf(true);
 
-	if (fileNeedToBeOpen instanceof TFile && paragraphPos) {
+	if (fileNeedToBeOpen instanceof TFile) {
 		await leaf.openFile(fileNeedToBeOpen);
-		await leaf.setViewState({
-			type: "markdown",
-		});
 
-		let view = leaf.view as MarkdownView;
-		const editor = view.editor;
 
-		const fileContent = await  plugin.app.vault.read(fileNeedToBeOpen)
-		const paragraphText = fileContent.slice(paragraphPos.start.offset,paragraphPos.end.offset)
-		// console.log(paragraphText)
+		if (paragraphPos && text){
+			await leaf.setViewState({
+				type: "markdown",
+			});
+			let view = leaf.view as MarkdownView;
+			const editor = view.editor;
+			const fileContent = await  plugin.app.vault.read(fileNeedToBeOpen)
+			const paragraphText = fileContent.slice(paragraphPos.start.offset,paragraphPos.end.offset)
+			// console.log(paragraphText)
 
-		let	start= paragraphPos.start.offset ? (paragraphPos.start.offset + paragraphText.indexOf(text)) : paragraphText.indexOf(text)
-		// console.log(start)
-		let	end = start + text.length
-		// console.log(end)
-		const editorPos = {
-			start: editor.offsetToPos(start),
-			end: editor.offsetToPos(end)
+			let	start= paragraphPos.start.offset ? (paragraphPos.start.offset + paragraphText.indexOf(text)) : paragraphText.indexOf(text)
+			// console.log(start)
+			let	end = start + text.length
+			// console.log(end)
+			const editorPos = {
+				start: editor.offsetToPos(start),
+				end: editor.offsetToPos(end)
+			}
+			editor.setSelection(editorPos.start,editorPos.end)
+			editor.scrollTo(editorPos.start.ch,editorPos.start.line)
 		}
-		editor.setSelection(editorPos.start,editorPos.end)
-		editor.scrollTo(editorPos.start.ch,editorPos.start.line)
 
 	}
 }

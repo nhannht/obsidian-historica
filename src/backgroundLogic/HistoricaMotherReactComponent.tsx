@@ -81,37 +81,47 @@ export function HistoricaMotherReactComponent(props: {
 		extractTimeline().then()
 	}, [])
 
-	// useEffect(() => {
-	// 	console.log(plotUnits)
-	// }, [plotUnits]);
+	async function saveData(blockId:string,filePath:string){
 
-	const handleSaveCache = async () => {
-		let historicaDataPath = props.plugin.app.vault.getAbstractFileByPath("historica-data")
-		if (!historicaDataPath || !(historicaDataPath instanceof TFolder)) {
-			await props.plugin.app.vault.createFolder("historica-data")
-			historicaDataPath = props.plugin.app.vault.getAbstractFileByPath("historica-data")
-		}
-		// console.log(historicaDataPath)
-
-		const blockId = internalSetting.blockId === "-1" ? GenerateRandomId() : internalSetting.blockId
-		internalSetting.blockId = blockId
-		setInternalSetting(internalSetting)
 		let data: HistoricaFileData = {
-			settings: internalSetting,
+			settings: {...internalSetting,blockId},
 			units: plotUnits
 		}
-		const filePath = `${historicaDataPath!.path}/${blockId}.json`
+
 		const fileExist = props.plugin.app.vault.getAbstractFileByPath(filePath) instanceof TFile
 		if (!fileExist) {
 			await props.plugin.app.vault.create(filePath, JSON.stringify(data, null, 2))
 		} else {
 			await props.plugin.app.vault.modify(props.plugin.app.vault.getAbstractFileByPath(filePath) as TFile, JSON.stringify(data, null, 2))
 		}
+		// setInternalSetting({...internalSetting,blockId:blockId})
+	}
 
-		new Notice(`The cache was save to ${filePath}`, 10000)
+	useEffect(() => {
 
-		await UpdateBlockSetting(internalSetting, props.ctx, props.plugin)
+		if (internalSetting.blockId !== "-1" && plotUnits.length !== 0){
+			saveData(internalSetting.blockId,`historica-data/${internalSetting.blockId}.json`).then()
+		}
+	}, [internalSetting,plotUnits]);
 
+
+	// useEffect(() => {
+	// 	console.log(plotUnits)
+	// }, [plotUnits]);
+
+	const manualSave = async () => {
+		let historicaDataPath = props.plugin.app.vault.getAbstractFileByPath("historica-data")
+		if (!historicaDataPath || !(historicaDataPath instanceof TFolder)) {
+			await props.plugin.app.vault.createFolder("historica-data")
+			historicaDataPath = props.plugin.app.vault.getAbstractFileByPath("historica-data")
+		}
+
+		// console.log(historicaDataPath)
+
+		const blockId = internalSetting.blockId === "-1" ? GenerateRandomId() : internalSetting.blockId
+		await saveData(blockId,`${historicaDataPath!.path}/${blockId}.json`)
+		new Notice(`The cache was save to ${historicaDataPath!.path}/${blockId}.json`, 10000)
+		await UpdateBlockSetting({...internalSetting,blockId}, props.ctx, props.plugin)
 
 	}
 
@@ -315,7 +325,7 @@ export function HistoricaMotherReactComponent(props: {
 				</ContextMenuTrigger>
 				<ContextMenuContent>
 					<ContextMenuItem onClick={async () => {
-						await handleSaveCache()
+						await manualSave()
 					}}>Save</ContextMenuItem>
 					<ContextMenuItem onClick={async () => {
 						await handleConvertToPngAndSave()
@@ -383,6 +393,13 @@ export function HistoricaMotherReactComponent(props: {
 							</Command>
 						</ContextMenuSubContent>
 					</ContextMenuSub>
+					<ContextMenuItem
+					onClick={()=> {
+
+						handleAddPlotUnit(0)
+
+					}}
+					>Add in the first position</ContextMenuItem>
 				</ContextMenuContent>
 			</ContextMenu>
 		)

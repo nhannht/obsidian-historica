@@ -1,4 +1,4 @@
-import {FormatDate, JumpToTextInParagraph, PlotUnitNg} from "./global";
+import {FormatDate, JumpToSource, PlotUnitNg} from "./global";
 import React from "react";
 import HistoricaPlugin from "@/main";
 import {Content} from "@/src/ui/nhannht/TimelineGeneral"
@@ -33,7 +33,7 @@ export function TimelineII(props: {
 							<div
 								title={"Jump to position"}
 								onClick={async ()=>{
-									await JumpToTextInParagraph(u.nodePos,u.filePath,u.sentence,props.plugin)
+									await JumpToSource(u.nodePos,u.filePath,u.sentence,props.plugin)
 								}}
 								className="hover:cursor-pointer p-1 rounded-lg hover:bg-[color:--background-modifier-hover] font-bold text-[color:--text-normal]]">{u.filePath}</div>
 							<time

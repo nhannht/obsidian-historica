@@ -4,7 +4,7 @@ import {
 	FormatDate,
 	GenerateRandomId,
 	GetAllFileInVault,
-	JumpToTextInParagraph,
+	JumpToSource,
 	PlotUnitNg
 } from "@/src/global";
 import {useState} from "react";
@@ -119,7 +119,7 @@ export function SinglePlotUnit(props: {
 						>Fold/Unfold</ContextMenuItem>
 						<ContextMenuItem
 							onClick={async () => {
-								await JumpToTextInParagraph(props.u.nodePos, props.u.filePath, props.u.sentence, props.plugin)
+								await JumpToSource(props.u.nodePos, props.u.filePath, props.u.sentence, props.plugin)
 							}}
 						>Jump to source</ContextMenuItem>
 						<ContextMenuItem
@@ -213,7 +213,7 @@ export function SinglePlotUnit(props: {
 				<div className={"flex  justify-end"}>
 					<Badge
 						onClick={async () => {
-							await JumpToTextInParagraph(props.u.nodePos, props.u.filePath, props.u.sentence, props.plugin)
+							await JumpToSource(props.u.nodePos, props.u.filePath, props.u.sentence, props.plugin)
 						}}
 						className={"p-2 text-sm hover:cursor-pointer hover:text-[--text-accent-hover] "}
 						variant={"outline"}>{props.u.filePath}</Badge>

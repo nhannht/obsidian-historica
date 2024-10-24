@@ -1,4 +1,4 @@
-import {FormatDate, JumpToTextInParagraph, PlotUnitNg} from "./global";
+import {FormatDate, JumpToSource, PlotUnitNg} from "./global";
 import HistoricaPlugin from "@/main";
 import {Content} from "@/src/ui/nhannht/TimelineGeneral"
 export function TimelineIII(props:{
@@ -33,7 +33,7 @@ export function TimelineIII(props:{
 
 							<div
 								onClick={async ()=>{
-									await JumpToTextInParagraph(u.nodePos,u.filePath,u.sentence,props.plugin)
+									await JumpToSource(u.nodePos,u.filePath,u.sentence,props.plugin)
 								}}
 								title={"jump to position"}
 								className="text-[color:--text-accent-hover] ml-14 rounded-lg p-1 hover:cursor-pointer hover:bg-[color:--background-modifier-hover] ">{u.filePath}
