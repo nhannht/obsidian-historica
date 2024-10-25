@@ -37,7 +37,7 @@ export function TimelineII(props: {
 								}}
 								className="hover:cursor-pointer p-1 rounded-lg hover:bg-[color:--background-modifier-hover] font-bold text-[color:--text-normal]]">{u.filePath}</div>
 							<time
-								className="font-caveat font-medium text-[color:--text-accent]]">{FormatDate(new Date(u.parsedResultUnixTime))}</time>
+								className="font-caveat font-medium text-[color:--text-accent]]">{FormatDate(new Date(u.time))}</time>
 						</div>
 						<Content unit={u} plugin={props.plugin}/>
 					</div>

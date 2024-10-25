@@ -57,7 +57,11 @@ export default class MarkdownProcesser {
 					fileParent: s.node.file.parent ? s.node.file.parent.path : "this path is not exist",
 					parsedResultText: r.text,
 					sentence: s.text,
-					parsedResultUnixTime: r.date().getTime(),
+					time: {
+						value: r.date().getTime().toString(),
+						style: "unix"
+
+					},
 					id: GenerateBlockId(),
 					attachments: [],
 					isExpanded:true

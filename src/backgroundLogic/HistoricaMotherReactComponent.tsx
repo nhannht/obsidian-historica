@@ -50,7 +50,7 @@ export function HistoricaMotherReactComponent(props: {
 				if (file instanceof TFile) {
 					const fileContent = await props.plugin.app.vault.read(file)
 					let parseResult: HistoricaFileData = JSON.parse(fileContent)
-					console.log(parseResult)
+					// console.log(parseResult)
 					if (parseResult) {
 						setInternalSetting(parseResult.settings)
 							setPlotUnits(parseResult.units)
@@ -192,7 +192,10 @@ export function HistoricaMotherReactComponent(props: {
 		const newUnit: PlotUnitNg = {
 			attachments: [],
 			parsedResultText: "title",
-			parsedResultUnixTime: moment().unix(),
+			time: {
+				value: moment().unix().toString(),
+				style:"unix"
+			},
 
 			sentence: "main content",
 			filePath: "",
@@ -243,13 +246,16 @@ export function HistoricaMotherReactComponent(props: {
 	}
 
 	function handleSort(order: "asc" | "desc") {
-		const sortedUnits = [...plotUnits].sort((a, b) => {
-			return order === "asc"
-				? a.parsedResultUnixTime - b.parsedResultUnixTime
-				: b.parsedResultUnixTime - a.parsedResultUnixTime;
-		});
-		setPlotUnits(sortedUnits);
-	}
+    const unixUnits = plotUnits.filter(unit => unit.time.style === "unix");
+    const sortedUnixUnits = unixUnits.sort((a, b) => {
+        const timeA = parseInt(a.time.value, 10);
+        const timeB = parseInt(b.time.value, 10);
+        return order === "asc" ? timeA - timeB : timeB - timeA;
+    });
+
+    const nonUnixUnits = plotUnits.filter(unit => unit.time.style !== "unix");
+    setPlotUnits([...sortedUnixUnits, ...nonUnixUnits]);
+}
 
 	const timelineRender = () => {
 		if (plotUnits.length > 0){

@@ -2,7 +2,6 @@ import {MarkdownPostProcessorContext, MarkdownView, moment, TFile, TFolder} from
 import {Node, Point} from "unist";
 import {ParsedResult} from "chrono-node";
 import HistoricaPlugin from "@/main";
-import {Moment} from "moment";
 
 export const HistoricaSupportLanguages = [
 	"en",
@@ -71,10 +70,15 @@ export type PlotUnitNg = {
 	fileParent?:string,
 	parsedResultText: string,
 	sentence:string,
-	parsedResultUnixTime:number,
+	time:TimeData,
 	attachments: Attachment[],
 	isExpanded: boolean,
 
+}
+
+export type TimeData =  {
+	style: "unix"|"free",
+	value: string
 }
 
 
@@ -156,9 +160,17 @@ export const DefaultSettings: HistoricaSettingNg = {
 	blockId:"-1",
 }
 
-export function FormatDate(m:Moment): string {
+export function FormatDate(t:TimeData): string {
+	if (t.style === "unix"){
+		const unixTime = parseInt(t.value)
+		const m =  moment.unix(unixTime / 1000)
+		return m.format("YYYY-MM-DD")
 
-	return m.format("YYYY-MM-DD")
+	} else if (t.style === "free"){
+		return t.value
+	}
+	return "No date"
+
 }
 
 

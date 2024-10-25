@@ -27,7 +27,7 @@ export function TimelineIII(props:{
 								</div>
 
 								<time
-									className="font-caveat font-medium text-xl text-[--text-accent] md:w-28">{FormatDate(new Date(u.parsedResultUnixTime))}
+									className="font-caveat font-medium text-xl text-[--text-accent] md:w-28">{FormatDate(new Date(u.time))}
 								</time>
 							</div>
 
