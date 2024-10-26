@@ -37,7 +37,8 @@ export function SinglePlotUnit(props: {
 	u: PlotUnitNg,
 	index: number,
 	handleMove: ((index: number, direction: string) => void),
-	handleExpandSingle: ((id: string, isExpanded: boolean) => void)
+	handleExpandSingle: ((id: string, isExpanded: boolean) => void),
+
 }) {
 	const [mode, setMode] = useState("normal")
 

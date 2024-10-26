@@ -2,7 +2,6 @@ import {MarkdownPostProcessorContext, MarkdownView, moment, TFile, TFolder} from
 import {Node, Point} from "unist";
 import {ParsedResult} from "chrono-node";
 import HistoricaPlugin from "@/main";
-
 export const HistoricaSupportLanguages = [
 	"en",
 	"ja",
@@ -35,6 +34,8 @@ export type HistoricaSettingNg = {
 	language: typeof HistoricaSupportLanguages[number],
 	pin_time:number, //unix timestamp
 	blockId: string|"-1",
+	header: string,
+	footer: string
 }
 
 export type HistoricaFileData = {
@@ -158,6 +159,8 @@ export const DefaultSettings: HistoricaSettingNg = {
 	pin_time: 0,
 	// query: [],
 	blockId:"-1",
+	footer:"",
+	header:""
 }
 
 export function FormatDate(t:TimeData): string {
@@ -302,15 +305,24 @@ export const QuillFormat = [
 	'header',
 	'bold', 'italic', 'underline', 'strike', 'blockquote',
 	'list', 'bullet', 'indent',
-	'link', 'image'
+	'link', 'image', 'code-block',
+	"formula","video","table",
+	"font","color","background",
+	"align","script"
 ]
 
 export const QuillModules  = {
 	toolbar: [
-		[{ 'header': [1, 2, false] }],
-		['bold', 'italic', 'underline','strike', 'blockquote'],
-		[{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
-		['link', 'image'],
+		[{ 'header': [1,2,3,4,5,6, false] }],
+		[{ 'font': [] }],
+		['bold', 'italic', 'underline','strike', 'blockquote',"code-block"],
+		[{'indent': '-1'}, {'indent': '+1'}],
+		[{'list':'ordered'},{'list':'bullet'},{'list':'check'}],
+
+		['link', 'image', 'video', 'formula'],
+		[{ 'script': 'sub'}, { 'script': 'super' }],
+		[{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+		[{ 'align': [] }],
 		['clean']
 	],
 }

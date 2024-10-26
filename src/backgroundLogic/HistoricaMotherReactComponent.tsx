@@ -26,6 +26,7 @@ import {
 	ContextMenuSubTrigger,
 	ContextMenuTrigger
 } from "@/src/ui/shadcn/ContextMenu";
+import HeaderAndFooterEditor from "@/src/ui/nhannht/HeaderAndFooterEditor";
 
 export function HistoricaMotherReactComponent(props: {
 	src: string,
@@ -41,6 +42,12 @@ export function HistoricaMotherReactComponent(props: {
 	const [internalSetting, setInternalSetting] =
 		useState<HistoricaSettingNg>(structuredClone(props.setting))
 
+	const handleEditHeaderAndFooter = (content: string, type: string) => {
+		const headerOrFooter = type as "header" | "footer"
+		if (headerOrFooter === "header") setInternalSetting({...internalSetting, header: content})
+		else if (headerOrFooter === "footer") setInternalSetting({...internalSetting, footer: content})
+	}
+
 
 	useEffect(() => {
 		const extractTimeline = async () => {
@@ -53,7 +60,7 @@ export function HistoricaMotherReactComponent(props: {
 					// console.log(parseResult)
 					if (parseResult) {
 						setInternalSetting(parseResult.settings)
-							setPlotUnits(parseResult.units)
+						setPlotUnits(parseResult.units)
 					}
 				}
 			} else {
@@ -81,8 +88,7 @@ export function HistoricaMotherReactComponent(props: {
 		extractTimeline().then()
 	}, [])
 
-	async function saveData(data:HistoricaFileData,filePath:string){
-
+	async function saveData(data: HistoricaFileData, filePath: string) {
 
 
 		const fileExist = props.plugin.app.vault.getAbstractFileByPath(filePath) instanceof TFile
@@ -95,14 +101,14 @@ export function HistoricaMotherReactComponent(props: {
 	}
 
 	useEffect(() => {
-		if (internalSetting.blockId !== "-1" && plotUnits.length !== 0){
-			const data:HistoricaFileData = {
+		if (internalSetting.blockId !== "-1" && plotUnits.length !== 0) {
+			const data: HistoricaFileData = {
 				settings: internalSetting,
-                units: plotUnits
+				units: plotUnits
 			}
-			saveData(data,`historica-data/${internalSetting.blockId}.json`).then()
+			saveData(data, `historica-data/${internalSetting.blockId}.json`).then()
 		}
-	}, [internalSetting,plotUnits]);
+	}, [internalSetting, plotUnits]);
 
 
 	// useEffect(() => {
@@ -119,13 +125,13 @@ export function HistoricaMotherReactComponent(props: {
 		// console.log(historicaDataPath)
 
 		const blockId = internalSetting.blockId === "-1" ? GenerateRandomId() : internalSetting.blockId
-		const data:HistoricaFileData = {
-			settings: {...internalSetting,blockId},
+		const data: HistoricaFileData = {
+			settings: {...internalSetting, blockId},
 			units: plotUnits
 		}
-		await saveData(data,`${historicaDataPath!.path}/${blockId}.json`)
+		await saveData(data, `${historicaDataPath!.path}/${blockId}.json`)
 		new Notice(`The cache was save to ${historicaDataPath!.path}/${blockId}.json`, 10000)
-		await UpdateBlockSetting({...internalSetting,blockId}, props.ctx, props.plugin)
+		await UpdateBlockSetting({...internalSetting, blockId}, props.ctx, props.plugin)
 
 	}
 
@@ -194,7 +200,7 @@ export function HistoricaMotherReactComponent(props: {
 			parsedResultText: "title",
 			time: {
 				value: moment().unix().toString(),
-				style:"unix"
+				style: "unix"
 			},
 
 			sentence: "main content",
@@ -246,28 +252,46 @@ export function HistoricaMotherReactComponent(props: {
 	}
 
 	function handleSort(order: "asc" | "desc") {
-    const unixUnits = plotUnits.filter(unit => unit.time.style === "unix");
-    const sortedUnixUnits = unixUnits.sort((a, b) => {
-        const timeA = parseInt(a.time.value, 10);
-        const timeB = parseInt(b.time.value, 10);
-        return order === "asc" ? timeA - timeB : timeB - timeA;
-    });
+		const unixUnits = plotUnits.filter(unit => unit.time.style === "unix");
+		const sortedUnixUnits = unixUnits.sort((a, b) => {
+			const timeA = parseInt(a.time.value, 10);
+			const timeB = parseInt(b.time.value, 10);
+			return order === "asc" ? timeA - timeB : timeB - timeA;
+		});
 
-    const nonUnixUnits = plotUnits.filter(unit => unit.time.style !== "unix");
-    setPlotUnits([...sortedUnixUnits, ...nonUnixUnits]);
-}
+		const nonUnixUnits = plotUnits.filter(unit => unit.time.style !== "unix");
+		setPlotUnits([...sortedUnixUnits, ...nonUnixUnits]);
+
+
+	}
+
+	const [isShowHeaderEditor, setIsShowHeaderEditor] = useState(false)
+	const [isShowFooterEditor, setIsShowFooterEditor] = useState(false)
 
 	const timelineRender = () => {
-		if (plotUnits.length > 0){
+		if (plotUnits.length > 0) {
 			if ([1, "default", "1"].includes(internalSetting.style)) {
 				return <div className={"p-4"}>
-					<TimelineI units={plotUnits} shitRef={elementRef} plugin={props.plugin}
-							   handleRemovePlotUnit={handleRemovePlotUnit}
-							   handleEditPlotUnit={handleEditPlotUnit}
-							   handleAddPlotUnit={handleAddPlotUnit}
-							   handleMove={handleMovePlotUnit}
-							   handleExpandSingle={handleIsExpandedLikeABro}
+					{isShowHeaderEditor && <HeaderAndFooterEditor
+						setIsShow={setIsShowHeaderEditor}
+						plugin={props.plugin} handleEdit={handleEditHeaderAndFooter} content={internalSetting.header}
+						type={"header"}/>}
+					<TimelineI
+						settings={internalSetting}
+						units={plotUnits} shitRef={elementRef} plugin={props.plugin}
+						handleRemovePlotUnit={handleRemovePlotUnit}
+						handleEditPlotUnit={handleEditPlotUnit}
+						handleAddPlotUnit={handleAddPlotUnit}
+						handleMove={handleMovePlotUnit}
+						handleExpandSingle={handleIsExpandedLikeABro}
+						isDisplayFooter={!isShowFooterEditor}
+						isDisplayHeader={!isShowHeaderEditor}
+
 					/>
+					{isShowFooterEditor && <HeaderAndFooterEditor
+						setIsShow={setIsShowFooterEditor}
+						plugin={props.plugin} handleEdit={handleEditHeaderAndFooter} content={internalSetting.footer}
+						type={"footer"}/>}
 
 				</div>
 			}
@@ -315,15 +339,14 @@ export function HistoricaMotherReactComponent(props: {
 		const file = props.plugin.app.vault.getAbstractFileByPath(path)
 		if (file instanceof TFile) {
 			const content = await props.plugin.app.vault.read(file)
-			const data:HistoricaFileData = JSON.parse(content)
+			const data: HistoricaFileData = JSON.parse(content)
 			if (data && data.units && data.units.length > 0) {
 				const importedUnit = data.units
-				new Notice(`There are ${importedUnit.length} imported to your timeline`,10000)
+				new Notice(`There are ${importedUnit.length} imported to your timeline`, 10000)
 				setPlotUnits([...plotUnits, ...importedUnit])
-			} else if (data.units && data.units.length === 0){
+			} else if (data.units && data.units.length === 0) {
 				new Notice("Oops, we don't have any unit being stored in this file")
-			}
-			else {
+			} else {
 				new Notice("Sorry, the json in that file is corrupted, cannot import", 10000)
 			}
 		} else new Notice(`The file historica-data/${path} does not exist or not a normal json file`, 10000)
@@ -341,16 +364,24 @@ export function HistoricaMotherReactComponent(props: {
 						{timelineRender()}
 					</div>
 				</ContextMenuTrigger>
+
 				<ContextMenuContent>
 					<ContextMenuItem onClick={async () => {
 						await manualSave()
 					}}>Save</ContextMenuItem>
-					<ContextMenuItem onClick={async () => {
-						await handleConvertToPngAndSave()
-					}}>Export as Image (png)</ContextMenuItem>
-					<ContextMenuItem onClick={async () => {
-						await handleConvertToPngAndCopyToClipboard()
-					}}>Copy to clipboard</ContextMenuItem>
+					<ContextMenuSub>
+						<ContextMenuSubTrigger>Edit other decorations</ContextMenuSubTrigger>
+						<ContextMenuSubContent>
+							<ContextMenuItem
+								onClick={() => setIsShowHeaderEditor(true)}
+							>Header</ContextMenuItem>
+							<ContextMenuItem
+								onClick={() => setIsShowFooterEditor(true)}
+							>Footer</ContextMenuItem>
+
+						</ContextMenuSubContent>
+					</ContextMenuSub>
+					{/*// sort*/}
 					<ContextMenuSub>
 						<ContextMenuSubTrigger>Sort</ContextMenuSubTrigger>
 						<ContextMenuSubContent>
@@ -361,6 +392,7 @@ export function HistoricaMotherReactComponent(props: {
 					<ContextMenuItem onClick={() => handleExpandAll(true)}>Expand All</ContextMenuItem>
 					<ContextMenuItem onClick={() => handleExpandAll(false)}>Fold All</ContextMenuItem>
 					<ContextMenuItem onClick={handleRemoveAll}>Remove all</ContextMenuItem>
+					{/*parse timeline from file*/}
 					<ContextMenuSub>
 						<ContextMenuSubTrigger>Parse timeline from file</ContextMenuSubTrigger>
 						<ContextMenuSubContent>
@@ -386,9 +418,26 @@ export function HistoricaMotherReactComponent(props: {
 							</Command>
 						</ContextMenuSubContent>
 					</ContextMenuSub>
+					{/*export :*/}
 					<ContextMenuSub>
-						<ContextMenuSubTrigger>Import timeline units from antoher file</ContextMenuSubTrigger>
-
+						<ContextMenuSubTrigger>Export</ContextMenuSubTrigger>
+						<ContextMenuSubContent>
+							<ContextMenuSub>
+								<ContextMenuSubTrigger>Image (png)</ContextMenuSubTrigger>
+								<ContextMenuSubContent>
+									<ContextMenuItem onClick={async () => {
+										await handleConvertToPngAndSave()
+									}}>As file</ContextMenuItem>
+									<ContextMenuItem onClick={async () => {
+										await handleConvertToPngAndCopyToClipboard()
+									}}>Copy</ContextMenuItem>
+								</ContextMenuSubContent>
+							</ContextMenuSub>
+						</ContextMenuSubContent>
+					</ContextMenuSub>
+					{/*import timeline*/}
+					<ContextMenuSub>
+						<ContextMenuSubTrigger>Import timeline units from another file</ContextMenuSubTrigger>
 						<ContextMenuSubContent>
 							<Command>
 								<CommandInput placeholder={"pick file to import"}/>
@@ -412,11 +461,11 @@ export function HistoricaMotherReactComponent(props: {
 						</ContextMenuSubContent>
 					</ContextMenuSub>
 					<ContextMenuItem
-					onClick={()=> {
+						onClick={() => {
 
-						handleAddPlotUnit(0)
+							handleAddPlotUnit(0)
 
-					}}
+						}}
 					>Add in the first position</ContextMenuItem>
 				</ContextMenuContent>
 			</ContextMenu>

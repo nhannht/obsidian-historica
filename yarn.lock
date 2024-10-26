@@ -3529,6 +3529,11 @@ he@^1.2.0:
   resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
 
+highlight.js@^11.10.0:
+  version "11.10.0"
+  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-11.10.0.tgz#6e3600dc4b33d6dc23d5bd94fbf72405f5892b92"
+  integrity sha512-SYVnVFswQER+zu1laSya563s+F8VDGt7o35d4utbamowvUNLLMovFqwCLSocpZTz3MgaSRA1IbqRWZv97dtErQ==
+
 highlight.js@~11.9.0:
   version "11.9.0"
   resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-11.9.0.tgz#04ab9ee43b52a41a047432c8103e2158a1b8b5b0"
@@ -5561,6 +5566,11 @@ portfinder@^1.0.28:
     debug "^3.2.7"
     mkdirp "^0.5.6"
 
+positioning@^2.0.0:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/positioning/-/positioning-2.0.1.tgz#4f1b3a65ed4b830e0922a3fcdf6de58a545bd398"
+  integrity sha512-DsAgM42kV/ObuwlRpAzDTjH9E8fGKkMDJHWFX+kfNXSxh7UCCQxEmdjv/Ws5Ft1XDnt3JT8fIDYeKNSE2TbttA==
+
 postcss-import@^15.1.0:
   version "15.1.0"
   resolved "https://registry.yarnpkg.com/postcss-import/-/postcss-import-15.1.0.tgz#41c64ed8cc0e23735a9698b3249ffdbf704adc70"
@@ -5698,6 +5708,11 @@ queue-microtask@^1.2.2:
   resolved "https://registry.yarnpkg.com/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
 
+quill-better-table@^1.2.10:
+  version "1.2.10"
+  resolved "https://registry.yarnpkg.com/quill-better-table/-/quill-better-table-1.2.10.tgz#ed0e21cdbaff672189b902187720fde08ae2a96a"
+  integrity sha512-CFwxAQzt4EPCQuynQ65R/FU7Yu//kcDBb/rmBBOsFfO758+q50zvG/PDt4Lenv9DcrSgwnyNkfo4yeA5fzzVYQ==
+
 quill-delta@^3.6.2:
   version "3.6.3"
   resolved "https://registry.yarnpkg.com/quill-delta/-/quill-delta-3.6.3.tgz#b19fd2b89412301c60e1ff213d8d860eac0f1032"
@@ -5706,6 +5721,13 @@ quill-delta@^3.6.2:
     deep-equal "^1.0.1"
     extend "^3.0.2"
     fast-diff "1.1.2"
+
+quill-table-ui@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/quill-table-ui/-/quill-table-ui-1.0.7.tgz#62acf5c2cbc7fa80a27ebe9fbc0d0a98a88bcf7d"
+  integrity sha512-Zr/KWiLmCkaaS1eybwkQX17FUGJEBvpHAOSP7A8J+E2P4R56S+Uvs+U2i+fIxaydfnPksDV/sDJ8EWsFg37dsQ==
+  dependencies:
+    positioning "^2.0.0"
 
 quill@^1.3.7:
   version "1.3.7"

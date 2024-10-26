@@ -9,6 +9,8 @@ function fixSettingProblem(settings: HistoricaSettingNg) {
 	if (HistoricaSupportLanguages.indexOf(settings.language) === -1 || !settings.language) settings.language = DefaultSettings.language
 	if (!settings.pin_time) settings.pin_time = DefaultSettings.pin_time
 	if (!settings.blockId || settings.blockId.toLowerCase().trim() === "-1") settings.blockId = DefaultSettings.blockId
+	if (!settings.header) settings.header = DefaultSettings.header
+	if (!settings.footer) settings.footer = DefaultSettings.footer
 
 	return settings
 }
