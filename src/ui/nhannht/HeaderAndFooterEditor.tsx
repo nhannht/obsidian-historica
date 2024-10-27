@@ -23,7 +23,7 @@ export default function HeaderAndFooterEditor(props: {
 		<form onSubmit={handleSubmit} >
 			<div>
 				<label>Content</label>
-				<ReactQuill formats={QuillFormat} modules={QuillModules} theme="snow" value={content}
+				<ReactQuill className={"ql-editor"} formats={QuillFormat} modules={QuillModules} theme="snow" value={content}
 							onChange={(value) => {
 								setContent(value)
 							}}/>

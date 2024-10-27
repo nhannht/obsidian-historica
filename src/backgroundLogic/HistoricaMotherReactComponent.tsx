@@ -1,6 +1,7 @@
 import {MarkdownPostProcessorContext, moment, Notice, TFile, TFolder} from "obsidian";
 import HistoricaPlugin from "@/main";
 import {
+	ExportAsJSONToClipboard, ExportAsMarkdownToClipboard,
 	GenerateRandomId,
 	GetAllHistoricaDataFile,
 	GetAllMarkdownFileInVault,
@@ -433,6 +434,11 @@ export function HistoricaMotherReactComponent(props: {
 									}}>Copy</ContextMenuItem>
 								</ContextMenuSubContent>
 							</ContextMenuSub>
+							<ContextMenuItem onClick={()=>ExportAsJSONToClipboard({units:plotUnits,settings:internalSetting})}>As json to clipboard</ContextMenuItem>
+							<ContextMenuItem onClick={()=>ExportAsMarkdownToClipboard({
+								settings:internalSetting,units:plotUnits
+							},props.plugin)}>As markdown to clipboard</ContextMenuItem>
+
 						</ContextMenuSubContent>
 					</ContextMenuSub>
 					{/*import timeline*/}

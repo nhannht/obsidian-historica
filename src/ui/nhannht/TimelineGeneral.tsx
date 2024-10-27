@@ -40,7 +40,7 @@ export function Content(props: {
 		<div>
 			<ShortendableParagraph
 				isExpanded={props.unit.isExpanded}
-				className="text-[color:--text-accent-hover]"
+				className="text-[color:--text-normal]"
 								   content={props.unit.sentence.replace(props.unit.parsedResultText, `<historica-mark class="text-[color:--text-accent-hover]">${props.unit.parsedResultText}</historica-mark>`)}/>
 
 			<div className={"columns-2 md:columns-4 gap-4 space-y-4"}>

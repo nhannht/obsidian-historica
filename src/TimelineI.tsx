@@ -27,25 +27,23 @@ export function TimelineI(props: {
 		{props.settings.header
 			&& props.settings.header.trim() !== ""
 			&& props.isDisplayHeader
-			&& <div dangerouslySetInnerHTML={{__html:props.settings.header}}
+			&& <div className={"ql-editor"} dangerouslySetInnerHTML={{__html:props.settings.header}}
 			/>}
-		<div className={"relative  py-6 group"}>
-			{props.units.length > 0 && props.units.map((u, index) => {
-				return (
-					<SinglePlotUnit plugin={props.plugin} handleRemovePlotUnit={props.handleRemovePlotUnit}
-									handleEditPlotUnit={props.handleEditPlotUnit}
-									handleAddPlotUnit={props.handleAddPlotUnit} u={u} index={index}
-									handleMove={props.handleMove}
-									handleExpandSingle={props.handleExpandSingle}
+		{props.units.length > 0 && props.units.map((u, index) => {
+			return (
+				<SinglePlotUnit plugin={props.plugin} handleRemovePlotUnit={props.handleRemovePlotUnit}
+								handleEditPlotUnit={props.handleEditPlotUnit}
+								handleAddPlotUnit={props.handleAddPlotUnit} u={u} index={index}
+								handleMove={props.handleMove}
+								handleExpandSingle={props.handleExpandSingle}
 
-					/>
-				)
-			})}
+				/>
+			)
+		})}
 
-		</div>
 		{props.settings.footer
 			&& props.settings.footer.trim() !== ""
 			&& props.isDisplayFooter
-			&& <div dangerouslySetInnerHTML={{__html:props.settings.footer}}/>}
+			&& <div className={"ql-editor"} dangerouslySetInnerHTML={{__html:props.settings.footer}}/>}
 	</div>
 }
