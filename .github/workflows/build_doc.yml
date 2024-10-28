@@ -15,7 +15,7 @@ jobs:
                 with:
                     repository: "nhannht/quartz"
                     fetch-depth: 0
-                    ref: nhannht
+                    ref: v4
                     path: quartz
 
             -   name: check out this repo
