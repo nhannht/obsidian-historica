@@ -10,10 +10,10 @@
 <ul>
 
 <li>(Not) Smart and dynamic extraction point of time in your note</li>
-
-<li>  visualize the time in your note </li>
-
-<li>Give you the abilities (but I am not sure they will give you absolute freedom) to custom your timeline </li>
+<br/>
+<li> Easy to create timeline </li>
+<br/>
+<li>Give you the abilities (but I am not sure they will give you absolute freedom) to custom the most aesthetic timeline </li>
 
 
 </ul>
@@ -30,24 +30,36 @@
 ````
 
 - After you did that, the block will just work, it will read the content in the current file (except anything in the code block). Split them to sentences, and if a sentence have a string that can be parsed as date or time. It will show up in the timeline
-- Well, in the legacy version, I try to support multi-languages, but I realize it just the technical dept, why I try to support languages that I am never using. So Historica will just port only English.
+- Well, in the legacy version, I try to support multi-languages, but I realize it just the technical debts, why I try to support languages that I am never using. So Historica will just support only English.
 - Below is the example when I try to extract the first paragraph from https://en.wikipedia.org/wiki/2020_United_States_presidential_election . You can check the example at [[2020 United States presidential election - 0.3.xx]]
+
+<details>
 
 
 ![[Pasted image 20241022232403.png]]
-### More customize
-- And you can try to toys with so many funny things when you right-click/ or hold your finger long enough in the screen if you're using mobile - to trigger the context me.
+
+</details>
 
 
+### More customizes - contexts menu
+- And you can try to toys with so many funny things  by right clicking  to trigger the context menu. Historica support 2 main context menus. One for action that affect the entire timeline/global context and one that affect single plot unit
+
+<details>
 
 ![[Pasted image 20241022233205.png]]
 
 
+</details>
+
+<details>
+
 
 ![[Pasted image 20241022233235.png]]
 
->[!note]
-> Oh remember that if you open context menu in the content areas (number 2)- and the area outside them (number 1) - different menu will appear - Menu 1 intend for interactive in the entire timeline, and so we have the opposite with menu 2 for each plot event
+
+</details>
+
+
 
 ![[Pasted image 20241022233635.png]]
 
@@ -55,21 +67,65 @@
 - I will click `edit` and edit our timeline like a [Brotato](https://store.steampowered.com/app/1942280/Brotato/)
 ![[Pasted image 20241022233902.png]]
 - And he-he, now I can edit anything I want in the rich text editor, even add an image to it (by copy-paste)
+
+<details>
+
+
 ![[Pasted image 20241022234521.png]]
 
-- and now we have the result
-![[Pasted image 20241022234622.png]]
 
-- That all, but wait, we still not finish, please remember to SAVE YOUR PLOT, because Historica will not auto save - all the custom contents you created - for you.
+</details>
+
+<details>
+
+
+- and now we have the results
+
+
+</details>
+
+![[Pasted image 20241022234622.png]]
+#### Details about context menus
+- [[timline menu]]
+- [[unit menu]]
+ 
+### About UI
+- [[UI - timeline]]
+- [[UI - unit]]
+
+
+### Save you plot
+- That all, but wait, we still not finish, please remember to SAVE YOUR PLOT, by default, with an empty Historica block. The block will be binding with a hidden blockId "-1". Any block with blockId "-1" will not auto save. And everytime you rerender the block, all customizes you add will be lost, or you need to recompute to extract time using NLP again. So how to save the plot. We have so many way, by right click global context menu -> save
+
+<details>
+
 
  ![[Pasted image 20241022234801.png]]
-- Well, you will see that the data will be saved in a JSON file in  `historica-data/xxxx.json`. Well, and the block will be modified to store the file id. Next time, if this block needs to render, it will load from that file instead of recompute. So what if you want to use NLP auto generate timeline feature again, hum, in this case, simply recreate the block, or empty the setting, or just change the ID to "-1". In future, I will consider add feature to manual parse content from file using NLP and import it to current timeline, but right now I don't need that feature much. 
-- Ah, I need to remind you that you can open the historical-data directory to check how the data was saved, they are just JSON. But by default Obsidian cannot view JSON file, please use other tool,  don't being confused when there is nothing being shown via the Files panel.
+
+
+</details>
+
+- Well, you will see that the data will be saved in a JSON file in  `historica-data/xxxx.json`. Well, and the block will be modified to store the file id. After the block is binded with the id other than "-1". Any custom data you add will be autosave. 
+- Or the second way, when you first create the block, manual add a id with any text you want to it. Example
+````
+```historica
+{
+"blockId":"It-is-so-kute-and-I-know-it"
+}
+```
+````
+Now, the block will be autosave the `historica-data/It-is-so-kute-and-I-know-it.json` file 
+- Ah, I need to remind you that you can open the historical-data directory to check how the data was saved, they are just JSON. But by default Obsidian cannot view JSON file, please use other tool, don't being confused when there is nothing being shown via the Files panel.
+
+<details>
+
 
 ![[Pasted image 20241022235212.png]]
 
->[!note]
->Why I didn't implement autosave (via react-hook or similar) , because it nearly imposible due to the async nature of Obsidian. All behaviours which have side effect that can change the content of the vault, must be manual trigger by user.
+
+</details>
+
+
 
 
 
