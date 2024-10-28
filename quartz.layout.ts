@@ -38,6 +38,7 @@ export const defaultContentPageLayout: PageLayout = {
 		Component.Backlinks(),
 	],
 	// footer: Component.Discussion()
+	afterBody:[]
 
 
 }
@@ -53,4 +54,5 @@ export const defaultListPageLayout: PageLayout = {
 		Component.DesktopOnly(Component.Explorer()),
 	],
 	right: [],
+	afterBody:[]
 }
