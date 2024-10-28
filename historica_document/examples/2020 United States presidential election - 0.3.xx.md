@@ -10,7 +10,5 @@ Biden ultimately received the majority in the [Electoral College](https://en.wi
 
 
 ```historica
-{
-  "blockId": "95053333"
-}
+
 ```

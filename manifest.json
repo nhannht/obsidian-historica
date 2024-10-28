@@ -6,5 +6,5 @@
 	"description": "Intelligently generates timeline from your content ... like a bro!",
 	"author": "Nhan Nguyen",
 	"authorUrl": "https://github.com/nhannht",
-	"isDesktopOnly": false
+	"isDesktopOnly": true
 }
