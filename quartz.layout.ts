@@ -37,7 +37,7 @@ export const defaultContentPageLayout: PageLayout = {
 		Component.DesktopOnly(Component.TableOfContents()),
 		Component.Backlinks(),
 	],
-	footer: Component.Discussion()
+	// footer: Component.Discussion()
 
 
 }
