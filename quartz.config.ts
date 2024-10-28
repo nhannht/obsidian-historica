@@ -13,21 +13,21 @@ const config: QuartzConfig = {
 		pageTitle: "HISTORICA",
 		enableSPA: true,
 		enablePopovers: true,
-		discussion: {
-			provider: "giscus",
-			configuration: {
-				dataRepo: "nhannht/obsidian-historica",
-				dataRepoId: "R_kgDOLWDFnQ",
-				dataCategory: "Comments from documents",
-				dataCategoryId: "DIC_kwDOLWDFnc4CfMtK",
-			}
-		},
+		// discussion: {
+		// 	provider: "giscus",
+		// 	configuration: {
+		// 		dataRepo: "nhannht/obsidian-historica",
+		// 		dataRepoId: "R_kgDOLWDFnQ",
+		// 		dataCategory: "Comments from documents",
+		// 		dataCategoryId: "DIC_kwDOLWDFnc4CfMtK",
+		// 	}
+		// },
 		analytics: {
 // @ts-ignore
 			provider: null,
 		},
 		locale: "en-US",
-		baseUrl: "https://historica.pages.dev",
+		baseUrl: "https://nhannht.historica.pages.dev",
 		ignorePatterns: ["private", "templates", ".obsidian"],
 		defaultDateType: "created",
 		theme: {
@@ -81,6 +81,7 @@ const config: QuartzConfig = {
 			Plugin.TableOfContents(),
 			Plugin.CrawlLinks({markdownLinkResolution: "shortest"}),
 			Plugin.Description(),
+			Plugin.Latex({ renderEngine: "katex" }),
 		],
 		filters: [Plugin.RemoveDrafts()],
 		emitters: [

@@ -7,11 +7,12 @@ import * as Component from "./quartz/components"
 export const sharedPageComponents: SharedLayout = {
 	head: Component.Head(),
 	header: [],
+	afterBody:[],
 	footer: Component.Footer(
 		{
 			links: {
 				"Source code": "https://github.com/nhannht/historica",
-				"RSS": "https://historica.pages.dev/index.xml"
+				"RSS": "https://nhannht.historica.pages.dev/index.xml"
 				,
 			},
 		}),
@@ -38,7 +39,7 @@ export const defaultContentPageLayout: PageLayout = {
 		Component.Backlinks(),
 	],
 	// footer: Component.Discussion()
-	afterBody:[]
+
 
 
 }
@@ -54,5 +55,5 @@ export const defaultListPageLayout: PageLayout = {
 		Component.DesktopOnly(Component.Explorer()),
 	],
 	right: [],
-	afterBody:[]
+
 }
