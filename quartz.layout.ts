@@ -12,7 +12,7 @@ export const sharedPageComponents: SharedLayout = {
 		{
 			links: {
 				"Source code": "https://github.com/nhannht/historica",
-				"RSS": "https://nhannht.historica.pages.dev/index.xml"
+				"RSS": "https://v4.historica.pages.dev/index.xml"
 				,
 			},
 		}),

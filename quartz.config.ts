@@ -27,7 +27,7 @@ const config: QuartzConfig = {
 			provider: null,
 		},
 		locale: "en-US",
-		baseUrl: "https://nhannht.historica.pages.dev",
+		baseUrl: "https://v4.historica.pages.dev",
 		ignorePatterns: ["private", "templates", ".obsidian"],
 		defaultDateType: "created",
 		theme: {
