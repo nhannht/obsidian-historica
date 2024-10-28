@@ -20,6 +20,8 @@
 
 ---
 
+>[!note]
+>These documents for version 0.3.xx and above, which have many breaking change in ux/ui compared to legacy versions. And from this version I dropped support for mobile.
 
 ### The most basic
 - Just create a `historica` block
@@ -59,32 +61,35 @@
 
 </details>
 
-
+<details>
 
 ![[Pasted image 20241022233635.png]]
 
+</details>
+
+
 - Let see, I want to create a add funny detail on our plot.
 - I will click `edit` and edit our timeline like a [Brotato](https://store.steampowered.com/app/1942280/Brotato/)
+<details>
+
 ![[Pasted image 20241022233902.png]]
+
+</details>
 - And he-he, now I can edit anything I want in the rich text editor, even add an image to it (by copy-paste)
 
 <details>
 
-
 ![[Pasted image 20241022234521.png]]
 
-
 </details>
+- and now we have the results
 
 <details>
 
-
-- and now we have the results
-
+![[Pasted image 20241022234622.png]]
 
 </details>
 
-![[Pasted image 20241022234622.png]]
 #### Details about context menus
 - [[timline menu]]
 - [[unit menu]]
@@ -124,11 +129,6 @@ Now, the block will be autosave the `historica-data/It-is-so-kute-and-I-know-it.
 
 
 </details>
-
-
-
-
-
 
 
 ---
