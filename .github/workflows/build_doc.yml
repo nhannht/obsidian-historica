@@ -38,7 +38,7 @@ jobs:
                     cd quartz
                     npm install
                     npm install wrangler
-                    cp ../historica/historica_document/* ./content/ -r
+                    cp ../historica/* ./content/ -r
                     cp ../historica/quartz.config.ts ./
                     cp ../historica/quartz.layout.ts ./
                     cp ../historica/wrangler.toml ./
