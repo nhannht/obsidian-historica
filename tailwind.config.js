@@ -1,7 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 const { fontFamily } = require("tailwindcss/defaultTheme")
+import { scopedPreflightStyles, isolateInsideOfContainer } from 'tailwindcss-scoped-preflight';
+
 
 module.exports = {
+
 	darkMode: ["class"],
 	content: ["./main.ts", "src/**/*.{ts,tsx}"],
 	theme: {
@@ -72,9 +75,18 @@ module.exports = {
 			},
 		},
 	},
-	plugins: [require("tailwindcss-animate"),require('@tailwindcss/typography'),],
+	plugins: [
+		require("tailwindcss-animate"),
+		require('@tailwindcss/typography'),
+		scopedPreflightStyles({
+			isolationStrategy: isolateInsideOfContainer('.twp', {
+				except: '.no-twp', // optional, to exclude some elements under .twp from being preflighted, like external markup
+			}),
+		})
+
+	],
 	corePlugins: {
-		preflight: true,
+		preflight: false,
 	},
 	important:true
 };

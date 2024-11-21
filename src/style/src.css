@@ -3,13 +3,13 @@
 @tailwind components;
 @tailwind utilities;
 @tailwind base;
-button {
-	@apply p-3 text-xs
-}
+/*button {*/
+/*	@apply p-3 text-xs*/
+/*}*/
 
-select {
-	@apply pl-2 pr-2 text-xs text-center
-}
+/*select {*/
+/*	@apply pl-2 pr-2 text-xs text-center*/
+/*}*/
 
 /*.historica-mark {*/
 /*	@apply text-rose-600*/

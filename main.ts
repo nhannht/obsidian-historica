@@ -40,6 +40,7 @@ export default class HistoricaPlugin extends Plugin {
 
 	refreshLeaves = () => {
 		// re-set the editor mode to refresh the syntax highlighting
+		//@ts-ignore
 		this.app.workspace.iterateCodeMirrors(cm => cm.setOption("mode", cm.getOption("mode")))
 	}
 

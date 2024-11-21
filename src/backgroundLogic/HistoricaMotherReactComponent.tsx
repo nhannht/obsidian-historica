@@ -357,146 +357,130 @@ export function HistoricaMotherReactComponent(props: {
 
 	if (mode === "normal") {
 		return (
-			<ContextMenu>
-				<ContextMenuTrigger>
-					<div
-						className={"min-h-full p-4"}>
+			<div className={"twp"}>
+				<ContextMenu>
+					<ContextMenuTrigger>
+						<div
+							className={"min-h-full p-4"}>
 
-						{timelineRender()}
-					</div>
-				</ContextMenuTrigger>
+							{timelineRender()}
+						</div>
+					</ContextMenuTrigger>
 
-				<ContextMenuContent>
-					<ContextMenuItem onClick={async () => {
-						await manualSave()
-					}}>Save</ContextMenuItem>
-					<ContextMenuSub>
-						<ContextMenuSubTrigger>Edit other decorations</ContextMenuSubTrigger>
-						<ContextMenuSubContent>
-							<ContextMenuItem
-								onClick={() => setIsShowHeaderEditor(true)}
-							>Header</ContextMenuItem>
-							<ContextMenuItem
-								onClick={() => setIsShowFooterEditor(true)}
-							>Footer</ContextMenuItem>
+					<ContextMenuContent>
+						<ContextMenuItem onClick={async () => {
+							await manualSave()
+						}}>Save</ContextMenuItem>
+						<ContextMenuSub>
+							<ContextMenuSubTrigger>Edit other decorations</ContextMenuSubTrigger>
+							<ContextMenuSubContent>
+								<ContextMenuItem
+									onClick={() => setIsShowHeaderEditor(true)}
+								>Header</ContextMenuItem>
+								<ContextMenuItem
+									onClick={() => setIsShowFooterEditor(true)}
+								>Footer</ContextMenuItem>
 
-						</ContextMenuSubContent>
-					</ContextMenuSub>
-					{/*// sort*/}
-					<ContextMenuSub>
-						<ContextMenuSubTrigger>Sort</ContextMenuSubTrigger>
-						<ContextMenuSubContent>
-							<ContextMenuItem onClick={() => handleSort("asc")}>Asc</ContextMenuItem>
-							<ContextMenuItem onClick={() => handleSort("desc")}>Desc</ContextMenuItem>
-						</ContextMenuSubContent>
-					</ContextMenuSub>
-					<ContextMenuItem onClick={() => handleExpandAll(true)}>Expand All</ContextMenuItem>
-					<ContextMenuItem onClick={() => handleExpandAll(false)}>Fold All</ContextMenuItem>
-					<ContextMenuItem onClick={handleRemoveAll}>Remove all</ContextMenuItem>
-					{/*parse timeline from file*/}
-					<ContextMenuSub>
-						<ContextMenuSubTrigger>Parse timeline from file</ContextMenuSubTrigger>
-						<ContextMenuSubContent>
-							<Command>
-								<CommandInput placeholder={"search file path"}/>
-								<CommandList>
-									<CommandEmpty>No file was pick</CommandEmpty>
-									<CommandGroup>
-										{GetAllMarkdownFileInVault(props.plugin).map((f) => {
-											return (
-												<CommandItem
-													key={f.path}
-													value={f.path}
-													onSelect={async (value) => {
-														await parseTimelineFromFile(value)
-													}}>
-													{f.path}
-												</CommandItem>
-											)
-										})}
-									</CommandGroup>
-								</CommandList>
-							</Command>
-						</ContextMenuSubContent>
-					</ContextMenuSub>
-					{/*export :*/}
-					<ContextMenuSub>
-						<ContextMenuSubTrigger>Export</ContextMenuSubTrigger>
-						<ContextMenuSubContent>
-							<ContextMenuSub>
-								<ContextMenuSubTrigger>Image (png)</ContextMenuSubTrigger>
-								<ContextMenuSubContent>
-									<ContextMenuItem onClick={async () => {
-										await handleConvertToPngAndSave()
-									}}>As file</ContextMenuItem>
-									<ContextMenuItem onClick={async () => {
-										await handleConvertToPngAndCopyToClipboard()
-									}}>Copy</ContextMenuItem>
-								</ContextMenuSubContent>
-							</ContextMenuSub>
-							<ContextMenuItem onClick={()=>ExportAsJSONToClipboard({units:plotUnits,settings:internalSetting})}>As json to clipboard</ContextMenuItem>
-							<ContextMenuItem onClick={()=>ExportAsMarkdownToClipboard({
-								settings:internalSetting,units:plotUnits
-							},props.plugin)}>As markdown to clipboard</ContextMenuItem>
+							</ContextMenuSubContent>
+						</ContextMenuSub>
+						{/*// sort*/}
+						<ContextMenuSub>
+							<ContextMenuSubTrigger>Sort</ContextMenuSubTrigger>
+							<ContextMenuSubContent>
+								<ContextMenuItem onClick={() => handleSort("asc")}>Asc</ContextMenuItem>
+								<ContextMenuItem onClick={() => handleSort("desc")}>Desc</ContextMenuItem>
+							</ContextMenuSubContent>
+						</ContextMenuSub>
+						<ContextMenuItem onClick={() => handleExpandAll(true)}>Expand All</ContextMenuItem>
+						<ContextMenuItem onClick={() => handleExpandAll(false)}>Fold All</ContextMenuItem>
+						<ContextMenuItem onClick={handleRemoveAll}>Remove all</ContextMenuItem>
+						{/*parse timeline from file*/}
+						<ContextMenuSub>
+							<ContextMenuSubTrigger>Parse timeline from file</ContextMenuSubTrigger>
+							<ContextMenuSubContent>
+								<Command>
+									<CommandInput placeholder={"search file path"}/>
+									<CommandList>
+										<CommandEmpty>No file was pick</CommandEmpty>
+										<CommandGroup>
+											{GetAllMarkdownFileInVault(props.plugin).map((f) => {
+												return (
+													<CommandItem
+														key={f.path}
+														value={f.path}
+														onSelect={async (value) => {
+															await parseTimelineFromFile(value)
+														}}>
+														{f.path}
+													</CommandItem>
+												)
+											})}
+										</CommandGroup>
+									</CommandList>
+								</Command>
+							</ContextMenuSubContent>
+						</ContextMenuSub>
+						{/*export :*/}
+						<ContextMenuSub>
+							<ContextMenuSubTrigger>Export</ContextMenuSubTrigger>
+							<ContextMenuSubContent>
+								<ContextMenuSub>
+									<ContextMenuSubTrigger>Image (png)</ContextMenuSubTrigger>
+									<ContextMenuSubContent>
+										<ContextMenuItem onClick={async () => {
+											await handleConvertToPngAndSave()
+										}}>As file</ContextMenuItem>
+										<ContextMenuItem onClick={async () => {
+											await handleConvertToPngAndCopyToClipboard()
+										}}>Copy</ContextMenuItem>
+									</ContextMenuSubContent>
+								</ContextMenuSub>
+								<ContextMenuItem onClick={()=>ExportAsJSONToClipboard({units:plotUnits,settings:internalSetting})}>As json to clipboard</ContextMenuItem>
+								<ContextMenuItem onClick={()=>ExportAsMarkdownToClipboard({
+									settings:internalSetting,units:plotUnits
+								},props.plugin)}>As markdown to clipboard</ContextMenuItem>
 
-						</ContextMenuSubContent>
-					</ContextMenuSub>
-					{/*import timeline*/}
-					<ContextMenuSub>
-						<ContextMenuSubTrigger>Import timeline units from another file</ContextMenuSubTrigger>
-						<ContextMenuSubContent>
-							<Command>
-								<CommandInput placeholder={"pick file to import"}/>
-								<CommandList>
-									<CommandEmpty>No files was picked</CommandEmpty>
-									<CommandGroup>
-										{GetAllHistoricaDataFile(props.plugin).map(f => {
-											return (
-												<CommandItem
-													key={f.path}
-													value={f.path}
-													onSelect={async (value) => {
-														await importFromOtherTimeline(value)
-													}}
-												>{f.path}</CommandItem>
-											)
-										})}
-									</CommandGroup>
-								</CommandList>
-							</Command>
-						</ContextMenuSubContent>
-					</ContextMenuSub>
-					<ContextMenuItem
-						onClick={() => {
+							</ContextMenuSubContent>
+						</ContextMenuSub>
+						{/*import timeline*/}
+						<ContextMenuSub>
+							<ContextMenuSubTrigger>Import timeline units from another file</ContextMenuSubTrigger>
+							<ContextMenuSubContent>
+								<Command>
+									<CommandInput placeholder={"pick file to import"}/>
+									<CommandList>
+										<CommandEmpty>No files was picked</CommandEmpty>
+										<CommandGroup>
+											{GetAllHistoricaDataFile(props.plugin).map(f => {
+												return (
+													<CommandItem
+														key={f.path}
+														value={f.path}
+														onSelect={async (value) => {
+															await importFromOtherTimeline(value)
+														}}
+													>{f.path}</CommandItem>
+												)
+											})}
+										</CommandGroup>
+									</CommandList>
+								</Command>
+							</ContextMenuSubContent>
+						</ContextMenuSub>
+						<ContextMenuItem
+							onClick={() => {
 
-							handleAddPlotUnit(0)
+								handleAddPlotUnit(0)
 
-						}}
-					>Add in the first position</ContextMenuItem>
-				</ContextMenuContent>
-			</ContextMenu>
+							}}
+						>Add in the first position</ContextMenuItem>
+					</ContextMenuContent>
+				</ContextMenu>
+			</div>
 		)
 
 	}
 
-	// if (mode === "shitting") {
-	// 	return <div>
-	// 		<NavigationMenuReactComponent mode={mode} setMode={setMode}
-	// 									  handleConvertToPngAndSave={handleConvertToPngAndSave}
-	// 									  handleConvertToPngAndCopy={handleConvertToPngAndCopyToClipboard}
-	//
-	// 									  plugin={props.plugin}
-	//
-	// 		/>
-	// 		<SettingReactComponent
-	//
-	// 			blocCtx={props.ctx}
-	// 			plugin={props.plugin}
-	// 			setting={internalSetting}
-	// 			setSetting={setInternalSetting}
-	//
-	// 		/>
-	// 	</div>
-	// }
+
 	return <div>Wait, something go wrong</div>
 }

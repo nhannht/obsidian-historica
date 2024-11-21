@@ -53,8 +53,6 @@ export default class HistoricaChrono {
 			this.customChrono = chrono.uk.casual.clone()
 		} else if (userLang === "pt") {
 			this.customChrono = chrono.pt.casual.clone()
-		} else if (userLang === "zh.hant") {
-			this.customChrono = chrono.zh.hant.clone()
 		}
 
 		if (userLang === "en") {
