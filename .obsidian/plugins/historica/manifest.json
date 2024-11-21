@@ -1,0 +1,10 @@
+{
+	"id": "historica",
+	"name": "historica",
+	"version": "0.3.6",
+	"minAppVersion": "0.2.4",
+	"description": "Intelligently generates timeline from your content ... like a bro!",
+	"author": "Nhan Nguyen",
+	"authorUrl": "https://github.com/nhannht",
+	"isDesktopOnly": true
+}

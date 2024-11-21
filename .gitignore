@@ -10,7 +10,7 @@ node_modules
 
 # Don't include the compiled main.js file in the repo.
 # They should be uploaded to GitHub releases instead.
-main.js
+/main.js
 
 # Exclude sourcemaps
 *.map
@@ -236,12 +236,8 @@ dist
 /styles.css
 /release_note.md
 /release_note.mjs
-!/styles.css
 
-/styles.css
-/historica_document/.obsidian/plugins/
-/historica_document/.obsidian/workspace.json
-/historica_document/.obsidian/
+
 
 
 # Added by cargo

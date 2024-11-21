@@ -13,30 +13,15 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "index.md",
+                "file": "historica_document/timline menu.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "index"
-            }
-          },
-          {
-            "id": "e17bee5a8dad2372",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "README.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "README"
+              "title": "timline menu"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -177,14 +162,14 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "e17bee5a8dad2372",
+  "active": "90feb848f128cae4",
   "lastOpenFiles": [
     "index.md",
     "README.md",
-    "2020 United States presidential election - 0.3.xx.md",
+    "historica_document/unit menu.md",
     "historica_document/timline menu.md",
+    "2020 United States presidential election - 0.3.xx.md",
     "historica_documents/timline menu.md",
-    "historica_documents",
-    "historica_document/unit menu.md"
+    "historica_documents"
   ]
 }
