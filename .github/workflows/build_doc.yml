@@ -41,7 +41,7 @@ jobs:
                     cp ../historica/* ./content/ -r
                     cp ../historica/quartz.config.ts ./
                     cp ../historica/quartz.layout.ts ./
-                    cp ../historica/wrangler.toml ./
+                    cp ../historica/wrangler_user_doc.toml ./
                     npx  quartz build
                     npx wrangler pages deploy --config wrangler_user_doc.toml
                     cd ../historica/
