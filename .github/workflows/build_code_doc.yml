@@ -29,5 +29,6 @@ jobs:
                     yarn install
                     npx typedoc
                     npx wrangler pages deploy --config wrangler_code_doc.toml
+                    ls -al
                     
                     
