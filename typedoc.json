@@ -1,0 +1,14 @@
+{
+	"plugin": [
+		"typedoc-plugin-inline-sources",
+		"typedoc-umlclass",
+		"typedoc-theme-hierarchy"
+	],
+	"entryPoints": [
+		"./src/**/*.{ts,tsx}",
+		"./main.ts"
+	],
+	"readme": "none",
+	"skipErrorChecking": true,
+	"theme": "hierarchy"
+}

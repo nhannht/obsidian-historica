@@ -243,3 +243,4 @@ dist
 # Added by cargo
 
 /target
+/docs/
