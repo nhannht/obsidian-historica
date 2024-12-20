@@ -36,14 +36,20 @@ jobs:
                     CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
                 run:  |
                     cd quartz
-                    npm install
-                    npm install wrangler
+                    yarn 
+                    yarn add wrangler
                     cp ../historica/* ./content/ -r
                     cp ../historica/quartz.config.ts ./
                     cp ../historica/quartz.layout.ts ./
                     cp ../historica/wrangler.toml ./
                     npx  quartz build
                     npx wrangler pages deploy --config wrangler_user_doc.toml
+                    cd ../historica/
+                    yarn
+                    npx typedoc
+                    npx wrangler pages deploy --config wrangler_code_doc.toml
+                    
+                    
                     
 
 
