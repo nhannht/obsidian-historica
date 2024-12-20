@@ -52,7 +52,7 @@ jobs:
                     cp ../historica/quartz.layout.ts ./
                     cp ../historica/wrangler_config/wrangler_user_doc.toml ./wrangler.toml
                     npx  quartz build
-                    npx wrangler pages deploy --branch=main 
+                    npx wrangler pages deploy --branch=nhancoolcoolcool
                     
                     cd ../historica/
                     yarn
