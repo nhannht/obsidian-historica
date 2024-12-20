@@ -23,6 +23,10 @@
 >[!note]
 >These documents for version 0.3.xx and above, which have many breaking change in ux/ui compared to legacy versions. And from this version I dropped support for mobile.
 
+>[!note]
+> The user document is https://historica.pages.dev
+> The programming document is https://obsidian-historica-code-doc.pages.dev/
+
 ### The most basic
 - Just create a `historica` block
 
