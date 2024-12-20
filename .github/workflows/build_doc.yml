@@ -30,6 +30,15 @@ jobs:
                 with:
                     node-version: '20'
 
+            -   name: setup java
+                uses: actions/setup-java@v4
+                with:
+                    distribution: 'temurin' # See 'Supported distributions' for available options
+                    java-version: '21'
+
+            -   name: Setup Graphviz
+                uses: ts-graphviz/setup-graphviz@v2
+
             -   name: build and deploy doc
                 env:
                     CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -43,7 +52,8 @@ jobs:
                     cp ../historica/quartz.layout.ts ./
                     cp ../historica/wrangler_config/wrangler_user_doc.toml ./wrangler.toml
                     npx  quartz build
-                    npx wrangler pages deploy
+                    npx wrangler pages deploy --branch=main 
+                    
                     cd ../historica/
                     yarn
                     npx typedoc

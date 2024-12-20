@@ -8,15 +8,6 @@ import {DefaultSettings} from "@/src/global";
 import ConfigManagerNg from "@/src/ConfigManagerNg";
 import HistoricaChrono from "@/src/backgroundLogic/HistoricaChrono";
 
-/**
- * The default historica setting
- * showRelativeTime set to true by default because this is old behaviour of this plugin in the very first version, I want to keep backward compatibility
- */
-
-
-
-// export const HISTORICA_VIEW_TYPE = "historica-note-location"
-
 export default class HistoricaPlugin extends Plugin {
 	configManager = new ConfigManagerNg(this, DefaultSettings)
 
@@ -29,21 +20,36 @@ export default class HistoricaPlugin extends Plugin {
 
 	// historicaUserBlockProcesser = new HistoricaUserBlockProcesser(this)
 
+	/**
+	 * @source
+	 */
 	historicaChrono = new HistoricaChrono()
 
 	// historicaFileParser = new HistoricaDocumentFileParser(this,this.historicaDocumentProcesser)
 
+	/**
+	 * @source
+	 */
 	blockManager = new HistoricaBlockManager(this)
 
 
+	/**
+	 * @source
+	 */
 	modesToKeep = ["hypermd", "markdown", "null", "xml"];
 
+	/**
+	 * @source
+	 */
 	refreshLeaves = () => {
 		// re-set the editor mode to refresh the syntax highlighting
 		//@ts-ignore
 		this.app.workspace.iterateCodeMirrors(cm => cm.setOption("mode", cm.getOption("mode")))
 	}
 
+	/**
+	 * @source
+	 */
 	darkModeAdapt = () => {
 		if (document.body.hasClass("theme-dark")) {
 			document.body.addClass("dark")
@@ -52,16 +58,18 @@ export default class HistoricaPlugin extends Plugin {
 		}
 	}
 
+	/**
+	 * @source
+	 */
 	registerListener(){
 		this.registerEvent(this.app.workspace.on("css-change",()=>{
 			this.darkModeAdapt()
 		}))
 	}
 
-
-
-
-
+	/**
+	 * @source
+	 */
 	override async onload() {
 		// fetch("https://ipinfo.io/json",{
 		// 	method:"GET"
@@ -85,8 +93,9 @@ export default class HistoricaPlugin extends Plugin {
 
 	}
 
-
-
+	/**
+	 * @source
+	 */
 	override async onunload() {
 
 		// await this.configManager.saveSettings()
@@ -100,9 +109,7 @@ export default class HistoricaPlugin extends Plugin {
 				delete CodeMirror.modes[key];
 			}
 			this.refreshLeaves()
-
 		}
-
 
 	}
 }
