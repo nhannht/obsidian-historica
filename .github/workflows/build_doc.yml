@@ -48,7 +48,7 @@ jobs:
                     yarn
                     npx typedoc
                     cp ./wrangler_config/wrangler_code_doc.toml ./wrangler.toml
-                    npx wrangler pages deploy --branch=master
+                    npx wrangler pages deploy --branch=main
                     
                     
                     
