@@ -43,7 +43,7 @@ jobs:
                     cp ../historica/quartz.layout.ts ./
                     cp ../historica/wrangler.toml ./
                     npx  quartz build
-                    npx wrangler pages deploy
+                    npx wrangler pages deploy --config wrangler_user_doc.toml
                     
 
 

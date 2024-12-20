@@ -10,7 +10,8 @@
     "build": "tailwindcss -i src/style/src.css -o styles.css --minify &&tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
     "version": "node version-bump.mjs && git add manifest.json versions.json",
     "test": "jest",
-    "changelog": "$HOME/go/bin/git-chglog -o CHANGELOG.md"
+    "changelog": "$HOME/go/bin/git-chglog -o CHANGELOG.md",
+    "doc:code": "typedoc "
   },
   "keywords": [
     "timeline",
@@ -41,7 +42,12 @@
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
     "tslib": "2.4.0",
-    "typescript": "4.7.4"
+    "typedoc": "^0.27.5",
+    "typedoc-plugin-inline-sources": "^1.2.0",
+    "typedoc-theme-hierarchy": "^5.0.4",
+    "typedoc-umlclass": "^0.10.1",
+    "typescript": "4.7.4",
+    "wrangler": "^3.99.0"
   },
   "dependencies": {
     "@mdx-js/esbuild": "^3.0.1",

@@ -10,5 +10,6 @@
 	],
 	"readme": "none",
 	"skipErrorChecking": true,
-	"theme": "hierarchy"
+	"theme": "hierarchy",
+	"out": "./code_doc"
 }
