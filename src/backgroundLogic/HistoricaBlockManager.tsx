@@ -9,13 +9,17 @@ function extractBlockId(source: string): string {
 	const trimmed = source.trim()
 	if (trimmed === "") return "-1"
 
-	// Try JSON parse (legacy format: {"blockId": "abc123", ...})
+	// Plain blockId string (alphanumeric, hyphens, underscores)
+	if (/^[a-zA-Z0-9_-]+$/.test(trimmed)) return trimmed
+
+	// Legacy JSON format: {"blockId": "abc123", ...}
 	try {
 		const parsed = JSON.parse(trimmed)
-		if (parsed.blockId && parsed.blockId.trim() !== "-1") return parsed.blockId.trim()
+		if (typeof parsed === "object" && parsed !== null && parsed.blockId && parsed.blockId.trim() !== "-1") {
+			return parsed.blockId.trim()
+		}
 	} catch {
-		// Not JSON — treat the whole string as a blockId
-		if (/^[a-zA-Z0-9_-]+$/.test(trimmed)) return trimmed
+		// Not valid JSON — ignore
 	}
 	return "-1"
 }

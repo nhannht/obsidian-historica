@@ -1,4 +1,4 @@
-import {useRef, useState, useEffect} from "react";
+import {useRef, useState, useEffect, useMemo} from "react";
 import {useStore} from "zustand";
 import type {StoreApi} from "zustand";
 import HistoricaPlugin from "@/main";
@@ -30,6 +30,8 @@ export function TimelineBlock(props: {
 	const isLoading = useStore(store, s => s.isLoading);
 	const error = useStore(store, s => s.error);
 	const showHidden = useStore(store, s => s.showHidden);
+	const isDirty = useStore(store, s => s.isDirty);
+	const isSaving = useStore(store, s => s.isSaving);
 
 	const manualSave = useStore(store, s => s.manualSave);
 	const addUnit = useStore(store, s => s.addUnit);
@@ -50,6 +52,7 @@ export function TimelineBlock(props: {
 	const [isShowHeaderEditor, setIsShowHeaderEditor] = useState(false);
 	const [isShowFooterEditor, setIsShowFooterEditor] = useState(false);
 	const [isShowFilePicker, setIsShowFilePicker] = useState(false);
+	const [isToolbarCollapsed, setIsToolbarCollapsed] = useState(false);
 
 	useEffect(() => {
 		store.getState().load();
@@ -67,6 +70,23 @@ export function TimelineBlock(props: {
 	}
 
 	const hiddenCount = units.filter(u => u.isHidden).length;
+	const visibleCount = units.length - hiddenCount;
+	const allExpanded = units.length > 0 && units.every(u => u.isExpanded);
+	const markdownFiles = useMemo(() => GetAllMarkdownFileInVault(plugin), [plugin]);
+
+	const saveStatus = isSaving
+		? "Saving..."
+		: isDirty
+			? "Unsaved"
+			: settings.blockId === "-1"
+				? "Not saved yet"
+				: "Saved";
+
+	const saveStatusColor = isSaving
+		? "text-[color:--text-muted]"
+		: isDirty
+			? "text-[color:--text-accent]"
+			: "text-[color:--text-muted] opacity-60";
 
 	const handleConvertToPngAndSave = async () => {
 		if (timelineRef.current) {
@@ -96,6 +116,104 @@ export function TimelineBlock(props: {
 			}
 		}
 	};
+
+	const handleToggleExpand = () => {
+		expandAll(!allExpanded);
+	};
+
+	const toolbarBtnClass = "px-2 py-0.5 rounded text-[color:--text-muted] hover:text-[color:--text-normal] hover:bg-[--background-modifier-hover] cursor-pointer";
+
+	const toolbar = () => (
+		<div className="border-b border-[--background-modifier-border] px-3 py-1.5 text-xs">
+			{/* Status bar */}
+			<div className="flex items-center justify-between mb-1">
+				<div className="flex items-center gap-2">
+					<span
+						className="font-semibold text-[color:--text-normal] cursor-pointer hover:text-[color:--text-accent]"
+						onClick={() => setIsToolbarCollapsed(!isToolbarCollapsed)}
+						title={isToolbarCollapsed ? "Show toolbar" : "Hide toolbar"}
+					>Historica</span>
+					<span className="text-[color:--text-muted]">{visibleCount} entries{hiddenCount > 0 ? ` (${hiddenCount} hidden)` : ""}</span>
+				</div>
+				<span className={saveStatusColor}>{saveStatus}</span>
+			</div>
+			{/* Action bar */}
+			{!isToolbarCollapsed && (
+				<div className="flex items-center gap-1 flex-wrap">
+					<button className={toolbarBtnClass} onClick={handleToggleExpand}
+					>{allExpanded ? "Fold all" : "Expand all"}</button>
+
+					<ContextMenu>
+						<ContextMenuTrigger>
+							<button className={toolbarBtnClass}>Sort</button>
+						</ContextMenuTrigger>
+						<ContextMenuContent>
+							<ContextMenuItem onClick={() => sort("asc")}>Ascending</ContextMenuItem>
+							<ContextMenuItem onClick={() => sort("desc")}>Descending</ContextMenuItem>
+						</ContextMenuContent>
+					</ContextMenu>
+
+					<ContextMenu>
+						<ContextMenuTrigger>
+							<button className={toolbarBtnClass}>Parse</button>
+						</ContextMenuTrigger>
+						<ContextMenuContent>
+							{plugin.app.workspace.getActiveFile() && (
+								<ContextMenuItem onClick={() => {
+									const f = plugin.app.workspace.getActiveFile();
+									if (f) parseFromFile(f.path);
+								}}>Parse this file</ContextMenuItem>
+							)}
+							<ContextMenuSub>
+								<ContextMenuSubTrigger>Parse from file...</ContextMenuSubTrigger>
+								<ContextMenuSubContent>
+									<Command>
+										<CommandInput placeholder="search file path"/>
+										<CommandList>
+											<CommandEmpty>No file selected</CommandEmpty>
+											<CommandGroup>
+												{markdownFiles.map(f => (
+													<CommandItem
+														key={f.path}
+														value={f.path}
+														onSelect={async (value) => parseFromFile(value)}
+													>
+														{f.path}
+													</CommandItem>
+												))}
+											</CommandGroup>
+										</CommandList>
+									</Command>
+								</ContextMenuSubContent>
+							</ContextMenuSub>
+						</ContextMenuContent>
+					</ContextMenu>
+
+					<ContextMenu>
+						<ContextMenuTrigger>
+							<button className={toolbarBtnClass}>Export</button>
+						</ContextMenuTrigger>
+						<ContextMenuContent>
+							<ContextMenuItem onClick={handleConvertToPngAndSave}>PNG (save file)</ContextMenuItem>
+							<ContextMenuItem onClick={handleConvertToPngAndCopy}>PNG (clipboard)</ContextMenuItem>
+							<ContextMenuItem onClick={() => ExportAsJSONToClipboard({units, settings})}>JSON (clipboard)</ContextMenuItem>
+							<ContextMenuItem onClick={() => ExportAsMarkdownToClipboard({units, settings}, plugin)}>Markdown (clipboard)</ContextMenuItem>
+						</ContextMenuContent>
+					</ContextMenu>
+
+					<button
+						className={`px-2 py-0.5 rounded cursor-pointer ${isDirty ? "text-[color:--text-accent] hover:bg-[--background-modifier-hover]" : "text-[color:--text-muted] hover:text-[color:--text-normal] hover:bg-[--background-modifier-hover]"}`}
+						onClick={() => manualSave()}
+					>Save</button>
+
+					{hiddenCount > 0 && (
+						<button className={toolbarBtnClass} onClick={toggleShowHidden}
+						>{showHidden ? "Hide hidden" : `Show hidden (${hiddenCount})`}</button>
+					)}
+				</div>
+			)}
+		</div>
+	);
 
 	const timelineContent = () => {
 		if (units.length > 0) {
@@ -163,7 +281,7 @@ export function TimelineBlock(props: {
 							<CommandList>
 								<CommandEmpty>No files found</CommandEmpty>
 								<CommandGroup>
-									{GetAllMarkdownFileInVault(plugin).map(f => (
+									{markdownFiles.map(f => (
 										<CommandItem
 											key={f.path}
 											value={f.path}
@@ -192,6 +310,7 @@ export function TimelineBlock(props: {
 
 	return (
 		<div className="twp">
+			{toolbar()}
 			<ContextMenu>
 				<ContextMenuTrigger>
 					<div className="min-h-full p-4 overflow-y-auto resize-y" style={{maxHeight: "70vh"}}>
@@ -229,7 +348,7 @@ export function TimelineBlock(props: {
 								<CommandList>
 									<CommandEmpty>No file selected</CommandEmpty>
 									<CommandGroup>
-										{GetAllMarkdownFileInVault(plugin).map(f => (
+										{markdownFiles.map(f => (
 											<CommandItem
 												key={f.path}
 												value={f.path}

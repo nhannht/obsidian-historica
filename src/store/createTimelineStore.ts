@@ -13,6 +13,8 @@ export interface TimelineState {
 	isLoading: boolean;
 	error: string | null;
 	showHidden: boolean;
+	isDirty: boolean;
+	isSaving: boolean;
 }
 
 export interface TimelineActions {
@@ -49,6 +51,8 @@ export function createTimelineStore(
 		isLoading: true,
 		error: null,
 		showHidden: false,
+		isDirty: false,
+		isSaving: false,
 
 		async load() {
 			try {
@@ -78,12 +82,18 @@ export function createTimelineStore(
 		},
 
 		async manualSave() {
-			const {settings, units} = get();
-			const updated = await dataManager.ensureBlockId(settings, ctx);
-			const data: HistoricaFileData = {settings: updated, units};
-			await dataManager.save(data);
-			set({settings: updated});
-			new Notice(`Timeline saved to historica-data/${updated.blockId}.json`, 10000);
+			set({isSaving: true});
+			try {
+				const {settings, units} = get();
+				const updated = await dataManager.ensureBlockId(settings, ctx);
+				const data: HistoricaFileData = {settings: updated, units};
+				await dataManager.save(data);
+				set({settings: updated, isDirty: false, isSaving: false});
+				new Notice(`Timeline saved to historica-data/${updated.blockId}.json`, 10000);
+			} catch (e) {
+				set({isSaving: false});
+				throw e;
+			}
 		},
 
 		addUnit(index: number) {
@@ -197,11 +207,16 @@ export function createTimelineStore(
 	const unsubscribe = store.subscribe((state, prev) => {
 		if (!loaded) return;
 		if (state.units !== prev.units || state.settings !== prev.settings) {
+			store.setState({isDirty: true});
 			if (state.settings.blockId !== "-1" && state.units.length > 0) {
 				if (saveTimeout) clearTimeout(saveTimeout);
 				saveTimeout = setTimeout(() => {
-					const data: HistoricaFileData = {settings: state.settings, units: state.units};
-					dataManager.save(data).catch(console.error);
+					const current = store.getState();
+					store.setState({isSaving: true});
+					const data: HistoricaFileData = {settings: current.settings, units: current.units};
+					dataManager.save(data)
+						.then(() => store.setState({isDirty: false, isSaving: false}))
+						.catch((e) => { console.error(e); store.setState({isSaving: false}); });
 				}, 500);
 			}
 		}
