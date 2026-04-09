@@ -32,6 +32,7 @@ export function SinglePlotUnit(props: {
 	index: number,
 	handleMove: ((index: number, direction: string) => void),
 	handleExpandSingle: ((id: string, isExpanded: boolean) => void),
+	handleHideUnit: ((id: string, isHidden: boolean) => void),
 	isSingleFile?: boolean,
 
 }) {
@@ -67,32 +68,58 @@ export function SinglePlotUnit(props: {
 	}
 
 
+	const truncatedSentence = props.u.sentence.length > 80
+		? props.u.sentence.slice(0, 80) + "..."
+		: props.u.sentence
+
+	const isHidden = props.u.isHidden ?? false
+
 	if (mode === "normal") {
 		return (
-			<div key={props.u.id} className="relative pl-10 py-3 group">
+			<div key={props.u.id} className={`relative pl-10 py-2 group ${isHidden ? "opacity-40" : ""}`}>
 				{/* Timeline line */}
 				<div className="absolute left-3 top-0 bottom-0 w-px bg-[--background-modifier-border-hover] group-last:h-4"/>
 				{/* Timeline dot */}
-				<div className="absolute left-[7px] top-4 w-3 h-3 rounded-full border-2 border-[--interactive-accent] bg-[--background-primary]"/>
+				<div className={`absolute left-[7px] top-3 w-3 h-3 rounded-full border-2 ${isHidden ? "border-[--text-muted] bg-[--background-modifier-hover]" : "border-[--interactive-accent] bg-[--background-primary]"}`}/>
 
-				{/* Date chip */}
-				<div className="mb-1">
-					<span
-						className="inline-block px-2 py-0.5 text-xs font-semibold rounded bg-[--background-primary-alt] text-[color:--text-accent] border border-[--background-modifier-border]"
-					>{FormatDate(props.u.time)}</span>
-				</div>
+				{/* Compact: single line with date chip + title + preview */}
+				{!props.u.isExpanded && (
+					<div
+						className="flex items-center gap-2 cursor-pointer hover:bg-[--background-modifier-hover] rounded px-1 py-0.5"
+						onClick={() => props.handleExpandSingle(props.u.id, true)}
+					>
+						<span className="shrink-0 px-1.5 py-0.5 text-[10px] font-semibold rounded bg-[--background-primary-alt] text-[color:--text-accent] border border-[--background-modifier-border]"
+						>{FormatDate(props.u.time)}</span>
+						<span className="font-medium text-sm text-[color:--text-normal]">{props.u.parsedResultText}</span>
+						<span className="text-xs text-[color:--text-muted] truncate">{truncatedSentence}</span>
+					</div>
+				)}
 
-				{/* Title — the matched date expression */}
-				<div
-					className="font-medium text-base text-[color:--text-normal] cursor-pointer hover:text-[color:--text-accent]"
-					onClick={async () => {
-						await JumpToSource(props.u.nodePos, props.u.filePath, props.u.sentence, props.plugin)
-					}}
-					title="Click to jump to source"
-				>{props.u.parsedResultText}</div>
+				{/* Expanded: full detail */}
+				{props.u.isExpanded && <>
+					{/* Date chip */}
+					<div className="mb-1 flex items-center gap-2">
+						<span
+							className="inline-block px-2 py-0.5 text-xs font-semibold rounded bg-[--background-primary-alt] text-[color:--text-accent] border border-[--background-modifier-border]"
+						>{FormatDate(props.u.time)}</span>
+						<span
+							className="text-xs text-[color:--text-muted] cursor-pointer hover:text-[color:--text-accent]"
+							onClick={() => props.handleExpandSingle(props.u.id, false)}
+						>collapse</span>
+					</div>
 
-				{/* Sentence content */}
-				<ContextMenu>
+					{/* Title */}
+					<div
+						className="font-medium text-base text-[color:--text-normal] cursor-pointer hover:text-[color:--text-accent]"
+						onClick={async () => {
+							await JumpToSource(props.u.nodePos, props.u.filePath, props.u.sentence, props.plugin)
+						}}
+						title="Click to jump to source"
+					>{props.u.parsedResultText}</div>
+				</>}
+
+				{/* Sentence content — only when expanded */}
+				{props.u.isExpanded && <ContextMenu>
 					<ContextMenuTrigger>
 						<Content unit={props.u} plugin={props.plugin} handleExpandSingle={props.handleExpandSingle}/>
 					</ContextMenuTrigger>
@@ -100,6 +127,7 @@ export function SinglePlotUnit(props: {
 						<ContextMenuItem onClick={() => { props.handleAddPlotUnit(props.index); handleModeChange("edit") }}>Add</ContextMenuItem>
 						<ContextMenuItem onClick={() => props.handleRemovePlotUnit(props.u.id)}>Remove</ContextMenuItem>
 						<ContextMenuItem onClick={() => handleModeChange("edit")}>Edit</ContextMenuItem>
+						<ContextMenuItem onClick={() => props.handleHideUnit(props.u.id, !isHidden)}>{isHidden ? "Show" : "Hide"}</ContextMenuItem>
 						<ContextMenuItem onClick={() => props.handleExpandSingle(props.u.id, !props.u.isExpanded)}>Fold/Unfold</ContextMenuItem>
 						<ContextMenuItem onClick={async () => await JumpToSource(props.u.nodePos, props.u.filePath, props.u.sentence, props.plugin)}>Jump to source</ContextMenuItem>
 						<ContextMenuItem onClick={() => handleMove(props.index, "up")}>Move up</ContextMenuItem>
@@ -152,10 +180,10 @@ export function SinglePlotUnit(props: {
 							</ContextMenuSubContent>
 						</ContextMenuSub>
 					</ContextMenuContent>
-				</ContextMenu>
+				</ContextMenu>}
 
-				{/* Source file badge — hidden for single-file timelines */}
-				{!props.isSingleFile && <div className="mt-1">
+				{/* Source file badge — hidden for single-file or compact */}
+				{props.u.isExpanded && !props.isSingleFile && <div className="mt-1">
 					<Badge
 						onClick={async () => await JumpToSource(props.u.nodePos, props.u.filePath, props.u.sentence, props.plugin)}
 						className="text-xs hover:cursor-pointer hover:text-[--text-accent-hover] opacity-60 hover:opacity-100"

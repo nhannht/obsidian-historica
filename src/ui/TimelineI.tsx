@@ -15,11 +15,16 @@ export function TimelineI(props: {
 	handleEditPlotUnit: (id: string, updatedUnit: PlotUnitNg) => void,
 	handleAddPlotUnit: (index: number) => void,
 	handleMove: (index: number, direction: string) => void,
-	handleExpandSingle: (id: string, isExpanded: boolean) => void
+	handleExpandSingle: (id: string, isExpanded: boolean) => void,
+	handleHideUnit: (id: string, isHidden: boolean) => void,
+	showHidden: boolean,
 
 }) {
 
 	const isSingleFile = new Set(props.units.map(u => u.filePath)).size <= 1
+	const visibleUnits = props.showHidden
+		? props.units
+		: props.units.filter(u => !u.isHidden)
 
 	return <div ref={props.timelineRef}>
 		{props.settings.header
@@ -27,13 +32,14 @@ export function TimelineI(props: {
 			&& props.isDisplayHeader
 			&& <div className={"ql-editor"} dangerouslySetInnerHTML={{__html:sanitizeHtml(props.settings.header)}}
 			/>}
-		{props.units.length > 0 && props.units.map((u, index) => {
+		{visibleUnits.length > 0 && visibleUnits.map((u, index) => {
 			return (
 				<SinglePlotUnit plugin={props.plugin} handleRemovePlotUnit={props.handleRemovePlotUnit}
 								handleEditPlotUnit={props.handleEditPlotUnit}
 								handleAddPlotUnit={props.handleAddPlotUnit} u={u} index={index}
 								handleMove={props.handleMove}
 								handleExpandSingle={props.handleExpandSingle}
+								handleHideUnit={props.handleHideUnit}
 								isSingleFile={isSingleFile}
 				/>
 			)

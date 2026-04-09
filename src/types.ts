@@ -34,6 +34,7 @@ export type PlotUnitNg = {
 	time:TimeData,
 	attachments: Attachment[],
 	isExpanded: boolean,
+	isHidden?: boolean,
 
 }
 

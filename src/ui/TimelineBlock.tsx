@@ -29,6 +29,7 @@ export function TimelineBlock(props: {
 	const settings = useStore(store, s => s.settings);
 	const isLoading = useStore(store, s => s.isLoading);
 	const error = useStore(store, s => s.error);
+	const showHidden = useStore(store, s => s.showHidden);
 
 	const manualSave = useStore(store, s => s.manualSave);
 	const addUnit = useStore(store, s => s.addUnit);
@@ -38,6 +39,8 @@ export function TimelineBlock(props: {
 	const sort = useStore(store, s => s.sort);
 	const expandUnit = useStore(store, s => s.expandUnit);
 	const expandAll = useStore(store, s => s.expandAll);
+	const hideUnit = useStore(store, s => s.hideUnit);
+	const toggleShowHidden = useStore(store, s => s.toggleShowHidden);
 	const removeAll = useStore(store, s => s.removeAll);
 	const editHeaderOrFooter = useStore(store, s => s.editHeaderOrFooter);
 	const parseFromFile = useStore(store, s => s.parseFromFile);
@@ -61,6 +64,8 @@ export function TimelineBlock(props: {
 	if (error) {
 		return <div className="twp p-4 text-red-500">Error: {error}</div>;
 	}
+
+	const hiddenCount = units.filter(u => u.isHidden).length;
 
 	const handleConvertToPngAndSave = async () => {
 		if (timelineRef.current) {
@@ -114,6 +119,8 @@ export function TimelineBlock(props: {
 						handleAddPlotUnit={addUnit}
 						handleMove={moveUnit}
 						handleExpandSingle={expandUnit}
+						handleHideUnit={hideUnit}
+						showHidden={showHidden}
 						isDisplayFooter={!isShowFooterEditor}
 						isDisplayHeader={!isShowHeaderEditor}
 					/>
@@ -140,7 +147,7 @@ export function TimelineBlock(props: {
 		<div className="twp">
 			<ContextMenu>
 				<ContextMenuTrigger>
-					<div className="min-h-full p-4">
+					<div className="min-h-full p-4 overflow-y-auto resize-y" style={{maxHeight: "70vh"}}>
 						{timelineContent()}
 					</div>
 				</ContextMenuTrigger>
@@ -163,6 +170,9 @@ export function TimelineBlock(props: {
 					</ContextMenuSub>
 					<ContextMenuItem onClick={() => expandAll(true)}>Expand All</ContextMenuItem>
 					<ContextMenuItem onClick={() => expandAll(false)}>Fold All</ContextMenuItem>
+					<ContextMenuItem onClick={toggleShowHidden}>
+						{showHidden ? "Hide hidden entries" : `Show hidden entries${hiddenCount > 0 ? ` (${hiddenCount})` : ""}`}
+					</ContextMenuItem>
 					<ContextMenuItem onClick={removeAll}>Remove All</ContextMenuItem>
 					<ContextMenuSub>
 						<ContextMenuSubTrigger>Parse timeline from file</ContextMenuSubTrigger>

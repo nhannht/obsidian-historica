@@ -69,7 +69,7 @@ export default class MarkdownProcesser {
 				},
 				id: GenerateRandomId(),
 				attachments: [],
-				isExpanded: true
+				isExpanded: false
 			})
 		}
 		return units

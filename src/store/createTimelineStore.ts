@@ -12,6 +12,7 @@ export interface TimelineState {
 	settings: HistoricaSettingNg;
 	isLoading: boolean;
 	error: string | null;
+	showHidden: boolean;
 }
 
 export interface TimelineActions {
@@ -24,6 +25,8 @@ export interface TimelineActions {
 	sort(order: "asc" | "desc"): void;
 	expandUnit(id: string, isExpanded: boolean): void;
 	expandAll(willExpand: boolean): void;
+	hideUnit(id: string, isHidden: boolean): void;
+	toggleShowHidden(): void;
 	removeAll(): void;
 	updateSettings(partial: Partial<HistoricaSettingNg>): void;
 	editHeaderOrFooter(content: string, type: string): void;
@@ -45,6 +48,7 @@ export function createTimelineStore(
 		settings: structuredClone(initialSettings),
 		isLoading: true,
 		error: null,
+		showHidden: false,
 
 		async load() {
 			try {
@@ -135,6 +139,14 @@ export function createTimelineStore(
 
 		expandAll(willExpand: boolean) {
 			set({units: get().units.map(u => ({...u, isExpanded: willExpand}))});
+		},
+
+		hideUnit(id: string, isHidden: boolean) {
+			set({units: get().units.map(u => u.id === id ? {...u, isHidden} : u)});
+		},
+
+		toggleShowHidden() {
+			set({showHidden: !get().showHidden});
 		},
 
 		removeAll() {
