@@ -1,4 +1,5 @@
-import {MarkdownPostProcessorContext, MarkdownView, moment, Notice, TFile, TFolder} from "obsidian";
+import {MarkdownPostProcessorContext, MarkdownView, Notice, TFile, TFolder} from "obsidian";
+import {moment} from "./moment-fix";
 import {Node, Point} from "unist";
 import {ParsedResult} from "chrono-node";
 import HistoricaPlugin from "@/main";

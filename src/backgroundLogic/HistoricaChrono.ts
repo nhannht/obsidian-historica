@@ -1,7 +1,7 @@
 import * as chrono from "chrono-node";
 import {Chrono} from "chrono-node";
 import {parseInt} from "lodash";
-import {moment} from "obsidian";
+import {moment} from "../moment-fix";
 
 const BCEpattern: RegExp[] = [
 	/\b(\d{4})\s+B\.?C\.?E?\.?\b/i,

@@ -2,8 +2,8 @@
 import {useEffect, useState} from "react"
 import {Input} from "@/src/ui/shadcn/Input"
 import {PlotUnitNg, QuillFormat, QuillModules, TimeData} from "../../global";
-import {moment} from "obsidian";
-import ReactQuill from "react-quill";
+import {moment} from "../../moment-fix";
+import ReactQuill from "react-quill-new";
 import {RadioGroup,RadioGroupItem} from "@/src/ui/shadcn/RadioGroup"
 import {Label} from "@/src/ui/shadcn/Label"
 

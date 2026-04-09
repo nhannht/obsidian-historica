@@ -1,4 +1,5 @@
-import {MarkdownPostProcessorContext, moment, Notice, TFile, TFolder} from "obsidian";
+import {MarkdownPostProcessorContext, Notice, TFile, TFolder} from "obsidian";
+import {moment} from "../moment-fix";
 import HistoricaPlugin from "@/main";
 import {
 	ExportAsJSONToClipboard, ExportAsMarkdownToClipboard,

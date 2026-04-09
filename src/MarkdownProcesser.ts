@@ -1,5 +1,6 @@
 import HistoricaPlugin from "@/main";
-import {moment, TFile} from "obsidian";
+import {TFile} from "obsidian";
+import {moment} from "./moment-fix";
 import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse";
 import {Node} from "unist"

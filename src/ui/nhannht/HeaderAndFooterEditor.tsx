@@ -1,6 +1,6 @@
 import HistoricaPlugin from "../../../main";
 import { useState} from "react";
-import ReactQuill from "react-quill";
+import ReactQuill from "react-quill-new";
 import {QuillFormat, QuillModules} from "../../global";
 
 
