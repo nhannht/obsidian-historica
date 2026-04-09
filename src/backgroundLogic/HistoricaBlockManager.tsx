@@ -1,53 +1,49 @@
 import HistoricaPlugin from "../../main";
 import {createRoot} from "react-dom/client";
 import {StrictMode} from "react";
-import {DefaultSettings, HistoricaSettingNg, HistoricaSupportLanguages} from "@/src/global";
-import {HistoricaMotherReactComponent} from "@/src/backgroundLogic/HistoricaMotherReactComponent";
+import {DefaultSettings, HistoricaSettingNg} from "@/src/types";
+import {createTimelineStore} from "@/src/store/createTimelineStore";
+import {TimelineBlock} from "@/src/ui/TimelineBlock";
 
-function fixSettingProblem(settings: HistoricaSettingNg) {
-	if ([1,2,3,"default","1","2","3"].indexOf(settings.style) === -1 || !settings.style) settings.style = DefaultSettings.style
-	if (HistoricaSupportLanguages.indexOf(settings.language) === -1 || !settings.language) settings.language = DefaultSettings.language
-	if (!settings.pin_time) settings.pin_time = DefaultSettings.pin_time
-	if (!settings.blockId || settings.blockId.toLowerCase().trim() === "-1") settings.blockId = DefaultSettings.blockId
-	if (!settings.header) settings.header = DefaultSettings.header
-	if (!settings.footer) settings.footer = DefaultSettings.footer
-
-	return settings
+function normalizeSettings(settings: Partial<HistoricaSettingNg>): HistoricaSettingNg {
+	return {
+		style: ["default", "1"].includes(settings.style as string) ? (settings.style as HistoricaSettingNg["style"]) : DefaultSettings.style,
+		pin_time: settings.pin_time ?? DefaultSettings.pin_time,
+		blockId: settings.blockId && settings.blockId.trim() !== "-1" ? settings.blockId : DefaultSettings.blockId,
+		header: settings.header ?? DefaultSettings.header,
+		footer: settings.footer ?? DefaultSettings.footer,
+	}
 }
-
-
 
 export default class HistoricaBlockManager {
 	constructor(public thisPlugin: HistoricaPlugin) {
 	}
 
 	async registerHistoricaBlockNg() {
-
 		this.thisPlugin.registerMarkdownCodeBlockProcessor("historica", async (source, el, ctx) => {
-			// console.log(TOML.parse(source))
-			// setting will be ensure always correct via 3 phase, from config manager, from the block, and if the config still undefined, it will be populated with the default config constant again via validate
-			let  settings: HistoricaSettingNg  = source.trim() === "" ? DefaultSettings : JSON.parse(source) as unknown as HistoricaSettingNg
-			settings = fixSettingProblem(settings)
-			// console.log(settings)
+			try {
+				const parsed = source.trim() === "" ? {} : JSON.parse(source)
+				const settings = normalizeSettings(parsed)
 
-			// console.log(settings)
-			// console.log(settings.query)
-			let root = el.createEl("div", {
-				cls: "root"
-			})
-			let reactRoot = createRoot(root)
+				const store = createTimelineStore(this.thisPlugin, settings, ctx)
 
-			reactRoot.render(
-				<StrictMode>
-					<HistoricaMotherReactComponent
-						src={source}
-						ctx={ctx}
-						plugin={this.thisPlugin}
-						setting={settings}
-					/>
-				</StrictMode>
-			)
+				const root = el.createEl("div", {cls: "root"})
+				const reactRoot = createRoot(root)
+
+				reactRoot.render(
+					<StrictMode>
+						<TimelineBlock
+							store={store}
+							plugin={this.thisPlugin}
+						/>
+					</StrictMode>
+				)
+			} catch (e) {
+				el.createEl("div", {
+					cls: "historica-error",
+					text: `Failed to load timeline: ${(e as Error).message}. Use an empty block or valid JSON.`
+				})
+			}
 		})
 	}
-
 }
