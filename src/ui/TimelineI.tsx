@@ -19,6 +19,8 @@ export function TimelineI(props: {
 
 }) {
 
+	const isSingleFile = new Set(props.units.map(u => u.filePath)).size <= 1
+
 	return <div ref={props.timelineRef}>
 		{props.settings.header
 			&& props.settings.header.trim() !== ""
@@ -32,7 +34,7 @@ export function TimelineI(props: {
 								handleAddPlotUnit={props.handleAddPlotUnit} u={u} index={index}
 								handleMove={props.handleMove}
 								handleExpandSingle={props.handleExpandSingle}
-
+								isSingleFile={isSingleFile}
 				/>
 			)
 		})}

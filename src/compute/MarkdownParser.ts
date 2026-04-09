@@ -15,6 +15,15 @@ function stripMarkdownLinks(text: string): string {
 	return text.replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
 }
 
+const DURATION_PATTERN = /^(?:just\s+)?(?:\d+|a|an|one|two|three|four|five|six|seven|eight|nine|ten|several|few|many)\s+(?:second|minute|hour|day|week|month|year|decade|centur|millennium)s?\b/i
+
+function isDurationExpression(text: string, resolvedDate: Date): boolean {
+	if (!DURATION_PATTERN.test(text.trim())) return false
+	// If the resolved date is near the current year, the anchor didn't work — filter it out
+	const now = new Date()
+	return Math.abs(resolvedDate.getFullYear() - now.getFullYear()) <= 2
+}
+
 export default class MarkdownProcesser {
 	RemarkProcessor: Processor;
 	private sentenceSegmenter = new Intl.Segmenter('en', {granularity: 'sentence'})
@@ -33,26 +42,35 @@ export default class MarkdownProcesser {
 
 	async GetPlotUnits(sens: SentenceWithOffset[]): Promise<PlotUnitNg[]> {
 		const units: PlotUnitNg[] = []
+		const seenSentences = new Set<string>()
+
 		for (const s of sens) {
-			for (const r of s.parsedResults) {
-				units.push({
-					nodePos: s.node.node.position ? s.node.node.position : {
-						start: {line: 1, column: 1, offset: 0},
-						end: {line: 1, column: 1, offset: 0}
-					},
-					filePath: s.node.file.path,
-					fileParent: s.node.file.parent ? s.node.file.parent.path : "",
-					parsedResultText: r.text,
-					sentence: s.text,
-					time: {
-						value: r.date().getTime().toString(),
-						style: "unix"
-					},
-					id: GenerateRandomId(),
-					attachments: [],
-					isExpanded: true
-				})
-			}
+			// Dedup: one entry per sentence (use the first/earliest date match)
+			if (seenSentences.has(s.text)) continue
+			seenSentences.add(s.text)
+
+			// Pick the best result: prefer the one with the most specific date
+			const validResults = s.parsedResults.filter(r => !isDurationExpression(r.text, r.date()))
+			const best = validResults[0]
+			if (!best) continue
+
+			units.push({
+				nodePos: s.node.node.position ? s.node.node.position : {
+					start: {line: 1, column: 1, offset: 0},
+					end: {line: 1, column: 1, offset: 0}
+				},
+				filePath: s.node.file.path,
+				fileParent: s.node.file.parent ? s.node.file.parent.path : "",
+				parsedResultText: best.text,
+				sentence: s.text,
+				time: {
+					value: best.date().getTime().toString(),
+					style: "unix"
+				},
+				id: GenerateRandomId(),
+				attachments: [],
+				isExpanded: true
+			})
 		}
 		return units
 	}
