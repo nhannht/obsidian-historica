@@ -7,7 +7,6 @@ import {Node} from "unist"
 import {Processor, unified} from "unified";
 import {HistoricaSettingNg, NodeAndTFile, PlotUnitNg, SentenceWithOffset} from "@/src/types";
 import {GenerateRandomId} from "@/src/utils";
-import {SentenceTokenizer} from "natural/lib/natural/tokenizers"
 import {ParsedResult} from "chrono-node";
 
 function stripMarkdownLinks(text: string): string {
@@ -16,7 +15,7 @@ function stripMarkdownLinks(text: string): string {
 
 export default class MarkdownProcesser {
 	RemarkProcessor: Processor;
-	private sentenceTokenizer = new SentenceTokenizer(['i.e', 'e.g'])
+	private sentenceSegmenter = new Intl.Segmenter('en', {granularity: 'sentence'})
 
 	constructor(
 		public currentPlugin: HistoricaPlugin,
@@ -26,8 +25,8 @@ export default class MarkdownProcesser {
 		this.RemarkProcessor = unified().use(remarkGfm).use(remarkParse)
 	}
 
-	private sentencesTokenize(text: string) {
-		return this.sentenceTokenizer.tokenize(text)
+	private sentencesTokenize(text: string): string[] {
+		return Array.from(this.sentenceSegmenter.segment(text), s => s.segment.trim()).filter(s => s.length > 0)
 	}
 
 	async GetPlotUnits(sens: SentenceWithOffset[]): Promise<PlotUnitNg[]> {
@@ -61,6 +60,10 @@ export default class MarkdownProcesser {
 		const sentencesWithOffsets: SentenceWithOffset[] = []
 		const fileText = await this.currentPlugin.app.vault.read(file)
 
+		// Two-pass parsing: first collect anchor dates, then use them as referenceDate
+		// for sentences that lack explicit years
+		const refDate = pin_time ? moment.unix(this.settings.pin_time).toDate() : undefined
+
 		for (const n of nodes) {
 			if (n.file.path !== file.path) continue
 
@@ -68,21 +71,60 @@ export default class MarkdownProcesser {
 			const cleanText = stripMarkdownLinks(paragraphText)
 			const sentences = this.sentencesTokenize(cleanText)
 
+			// Pass 1: parse all sentences, collect anchor dates (results with explicit years)
+			type SentenceParse = { sentence: string; results: ParsedResult[] }
+			const parsed: SentenceParse[] = []
+			const anchors: Date[] = []
+
 			for (const sentence of sentences) {
 				try {
-					const parsedResult: ParsedResult[] = pin_time
-						? customChrono.parse(sentence, moment.unix(this.settings.pin_time).toDate())
+					const results: ParsedResult[] = refDate
+						? customChrono.parse(sentence, refDate)
 						: customChrono.parse(sentence)
-
-					if (parsedResult.length !== 0) {
-						sentencesWithOffsets.push({
-							node: n,
-							text: sentence,
-							parsedResults: parsedResult
-						})
+					parsed.push({sentence, results})
+					// Collect dates from results that have an explicit year as anchors
+					for (const r of results) {
+						if (r.start.isCertain("year")) {
+							anchors.push(r.start.date())
+						}
 					}
 				} catch {
-					// Skip sentences that fail to parse
+					parsed.push({sentence, results: []})
+				}
+			}
+
+			// Pass 2: re-parse sentences with no results using the nearest prior anchor
+			let lastAnchor: Date | undefined = undefined
+			for (const p of parsed) {
+				// Update the rolling anchor from Pass 1 results
+				for (const r of p.results) {
+					if (r.start.isCertain("year")) {
+						lastAnchor = r.start.date()
+					}
+				}
+
+				let finalResults = p.results
+				// If no results and we have an anchor, retry with referenceDate
+				// Use Jan 1 of the anchor year + forwardDate to avoid month ambiguity
+				if (finalResults.length === 0 && lastAnchor) {
+					try {
+						const anchorYear = lastAnchor.getFullYear()
+						const anchorYearStart = new Date(anchorYear < 0 ? 0 : anchorYear, 0, 1)
+						if (anchorYear < 0) anchorYearStart.setFullYear(anchorYear)
+						// forwardDate only for AD — chrono's forward-date refiner pushes toward present, wrong for BC
+						const opts = anchorYear < 0 ? {} : {forwardDate: true}
+						finalResults = customChrono.parse(p.sentence, anchorYearStart, opts)
+					} catch {
+						// Keep empty results
+					}
+				}
+
+				if (finalResults.length !== 0) {
+					sentencesWithOffsets.push({
+						node: n,
+						text: p.sentence,
+						parsedResults: finalResults
+					})
 				}
 			}
 		}

@@ -28,7 +28,8 @@
 			"DOM",
 			"ES5",
 			"ES6",
-			"ES7"
+			"ES7",
+			"ES2022"
 		],
 		"types": [
 			"node"
@@ -40,5 +41,9 @@
 	"include": [
       "**/*.ts",
       "node_modules/ts-jest/globals.d.ts"
+    ],
+	"exclude": [
+      "__tests__",
+      "node_modules"
     ]
 }

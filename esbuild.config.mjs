@@ -39,8 +39,30 @@ const context = await esbuild.context({
 	logLevel: "info",
 	sourcemap: prod ? false : "inline",
 	treeShaking: true,
+	minify: prod,
+	define: {
+		"process.env.NODE_ENV": '"production"',
+	},
 	outfile: "main.js",
 	plugins: [
+		// Replace lodash-es barrel import with individual modules (~615 KB → ~30 KB)
+		{
+			name: 'lodash-es-tree-shake',
+			setup(build) {
+				build.onResolve({filter: /^lodash-es$/}, () => ({
+					path: 'lodash-es',
+					namespace: 'lodash-es-shim',
+				}))
+				build.onLoad({filter: /.*/, namespace: 'lodash-es-shim'}, () => ({
+					contents: `
+						export { default as cloneDeep } from 'lodash-es/cloneDeep';
+						export { default as isEqual } from 'lodash-es/isEqual';
+						export { default as merge } from 'lodash-es/merge';
+					`,
+					resolveDir: '.',
+				}))
+			},
+		},
 		svgr(),
 		mdx({
 

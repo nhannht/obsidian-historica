@@ -14,7 +14,7 @@ import {
 	ContextMenuTrigger,
 } from "@/src/ui/shadcn/ContextMenu";
 import {Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList,} from "@/src/ui/shadcn/Command"
-import {Check} from "lucide-react";
+import {Check} from "@/src/ui/icons";
 import {cn} from "@/lib/utils";
 import {Badge} from "@/src/ui/shadcn/Badge"
 import {

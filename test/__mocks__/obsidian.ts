@@ -1,4 +1,6 @@
-export {};
+import _moment from "moment"
+
+export const moment = _moment
 
 export class MenuItem {
     public title: string | DocumentFragment = '';
