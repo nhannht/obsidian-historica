@@ -49,6 +49,7 @@ export function TimelineBlock(props: {
 	const timelineRef = useRef<HTMLDivElement | null>(null);
 	const [isShowHeaderEditor, setIsShowHeaderEditor] = useState(false);
 	const [isShowFooterEditor, setIsShowFooterEditor] = useState(false);
+	const [isShowFilePicker, setIsShowFilePicker] = useState(false);
 
 	useEffect(() => {
 		store.getState().load();
@@ -136,9 +137,55 @@ export function TimelineBlock(props: {
 				</div>
 			);
 		}
+		const currentFile = plugin.app.workspace.getActiveFile();
 		return (
-			<div className="p-4 text-center">
-				<p>This timeline is empty. Right-click to add a plot unit or parse from a file.</p>
+			<div className="p-6 flex flex-col items-center gap-3">
+				<p className="text-sm text-[color:--text-muted] mb-2">No timeline entries yet</p>
+				{currentFile && (
+					<button
+						className="w-64 px-4 py-2 rounded text-sm font-medium bg-[--interactive-accent] text-[--text-on-accent] hover:opacity-90 cursor-pointer"
+						onClick={() => parseFromFile(currentFile.path)}
+					>
+						Parse this file
+					</button>
+				)}
+				{!isShowFilePicker ? (
+					<button
+						className="w-64 px-4 py-2 rounded text-sm font-medium border border-[--background-modifier-border] bg-[--background-primary] text-[color:--text-normal] hover:bg-[--background-modifier-hover] cursor-pointer"
+						onClick={() => setIsShowFilePicker(true)}
+					>
+						Parse from another file...
+					</button>
+				) : (
+					<div className="w-80">
+						<Command>
+							<CommandInput placeholder="Search files..." autoFocus />
+							<CommandList>
+								<CommandEmpty>No files found</CommandEmpty>
+								<CommandGroup>
+									{GetAllMarkdownFileInVault(plugin).map(f => (
+										<CommandItem
+											key={f.path}
+											value={f.path}
+											onSelect={async (value) => {
+												setIsShowFilePicker(false);
+												await parseFromFile(value);
+											}}
+										>
+											{f.path}
+										</CommandItem>
+									))}
+								</CommandGroup>
+							</CommandList>
+						</Command>
+					</div>
+				)}
+				<button
+					className="w-64 px-4 py-2 rounded text-sm font-medium border border-[--background-modifier-border] bg-[--background-primary] text-[color:--text-normal] hover:bg-[--background-modifier-hover] cursor-pointer"
+					onClick={() => addUnit(0)}
+				>
+					Add entry manually
+				</button>
 			</div>
 		);
 	};

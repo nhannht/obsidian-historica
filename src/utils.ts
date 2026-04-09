@@ -82,14 +82,10 @@ export async function UpdateBlockSetting(settings: HistoricaSettingNg,
 		linesFromFile.forEach((e: string, i: number) => {
 			if (e === "") linesFromFile.splice(i, 1)
 		})
-		// trim setting
-		const newSetting = {
-			blockId:settings.blockId
-		}
-
+		// Write just the blockId as plain text
 		linesFromFile.splice(elInfo.lineStart + 1,
 			elInfo.lineEnd - elInfo.lineStart - 1,
-			JSON.stringify(newSetting, null,2), "\n")
+			settings.blockId, "\n")
 		const newSettingsString = linesFromFile.join("")
 		const file = plugin.app.vault.getAbstractFileByPath(sourcePath)
 		if (file) {

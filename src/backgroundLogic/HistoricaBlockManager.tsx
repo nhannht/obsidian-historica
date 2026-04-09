@@ -5,14 +5,19 @@ import {DefaultSettings, HistoricaSettingNg} from "@/src/types";
 import {createTimelineStore} from "@/src/store/createTimelineStore";
 import {TimelineBlock} from "@/src/ui/TimelineBlock";
 
-function normalizeSettings(settings: Partial<HistoricaSettingNg>): HistoricaSettingNg {
-	return {
-		style: ["default", "1"].includes(settings.style as string) ? (settings.style as HistoricaSettingNg["style"]) : DefaultSettings.style,
-		pin_time: settings.pin_time ?? DefaultSettings.pin_time,
-		blockId: settings.blockId && settings.blockId.trim() !== "-1" ? settings.blockId : DefaultSettings.blockId,
-		header: settings.header ?? DefaultSettings.header,
-		footer: settings.footer ?? DefaultSettings.footer,
+function extractBlockId(source: string): string {
+	const trimmed = source.trim()
+	if (trimmed === "") return "-1"
+
+	// Try JSON parse (legacy format: {"blockId": "abc123", ...})
+	try {
+		const parsed = JSON.parse(trimmed)
+		if (parsed.blockId && parsed.blockId.trim() !== "-1") return parsed.blockId.trim()
+	} catch {
+		// Not JSON — treat the whole string as a blockId
+		if (/^[a-zA-Z0-9_-]+$/.test(trimmed)) return trimmed
 	}
+	return "-1"
 }
 
 export default class HistoricaBlockManager {
@@ -22,8 +27,8 @@ export default class HistoricaBlockManager {
 	async registerHistoricaBlockNg() {
 		this.thisPlugin.registerMarkdownCodeBlockProcessor("historica", async (source, el, ctx) => {
 			try {
-				const parsed = source.trim() === "" ? {} : JSON.parse(source)
-				const settings = normalizeSettings(parsed)
+				const blockId = extractBlockId(source)
+				const settings: HistoricaSettingNg = {...DefaultSettings, blockId}
 
 				const store = createTimelineStore(this.thisPlugin, settings, ctx)
 
@@ -41,7 +46,7 @@ export default class HistoricaBlockManager {
 			} catch (e) {
 				el.createEl("div", {
 					cls: "historica-error",
-					text: `Failed to load timeline: ${(e as Error).message}. Use an empty block or valid JSON.`
+					text: `Failed to load timeline: ${(e as Error).message}. Use an empty block or a block ID.`
 				})
 			}
 		})
