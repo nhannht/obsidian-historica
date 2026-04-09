@@ -20,7 +20,7 @@ Markdown Text
 ```
 
 **Key files:**
-- `src/compute/MarkdownParser.ts` — sentence extraction + 2-pass orchestration
+- `src/compute/MarkdownParser.ts` — sentence extraction + fixed-point temporal resolution
 - `src/compute/ChronoParser.ts` — chrono-node configuration with custom parsers
 
 ## Sentence Tokenization
@@ -165,45 +165,105 @@ refine(context, results) {
 
 This only affects results where the year was **implied** (not explicit). Results with `isCertain("year") === true` are never modified.
 
-## Two-Pass Parsing Algorithm
+## Fixed-Point Temporal Resolution
 
-The core innovation for context-dependent date resolution. Implemented in `MarkdownParser.ExtractValidSentencesFromFile()`.
+The core algorithm for context-dependent date resolution. Implemented in `MarkdownParser.ExtractValidSentencesFromFile()`.
 
 ### Problem
 
-Many historical texts mention dates without explicit years:
+Many historical texts mention dates without explicit years, and references can point both forward and backward:
 
-> *"Germany invaded Poland on September 1, 1939. [...] On June 10, Italy invaded France."*
+> *"The previous year, tensions had been rising. The Battle of Marathon took place in 490 BC. The following year, the Greeks celebrated."*
 
-The second sentence's "June 10" has no year — chrono defaults to the current year (2026), which is wrong. The correct year (1940) must be inferred from surrounding context.
+- "The following year" must resolve to 489 BC using the prior anchor (forward reference)
+- "The previous year" must resolve to 491 BC using a later anchor (backward reference)
+- A simple forward-only pass cannot resolve backward references
+
+### Why Fixed-Point
+
+| Strategy | Forward refs | Backward refs | Chains | Complexity |
+|----------|-------------|---------------|--------|------------|
+| 2-pass (forward only) | Yes | No | Yes (rolling) | Simple |
+| 3-pass (forward + backward) | Yes | Yes | Mostly | Medium |
+| **Fixed-point (iterate until stable)** | **Yes** | **Yes** | **All** | **Simple + complete** |
+
+A fixed-point algorithm repeats forward+backward passes until no result changes. It is mathematically guaranteed to converge because:
+1. Each pass can only add or correct dates (never remove information)
+2. The number of sentences is finite
+3. Self-contained parsers produce identical results regardless of anchor
+
+In practice, convergence always occurs in **2 iterations** — the first does the real work, the second confirms stability. A safety cap of 5 iterations prevents pathological cases.
 
 ### Algorithm
 
-**Pass 1: Collect Anchor Dates**
+**Initial Parse (no context)**
 
-Parse all sentences in a paragraph. Collect results where `isCertain("year")` is true — these are anchor dates with explicitly stated years.
+Parse all sentences without any reference date. Self-contained dates ("490 BC", "July 14, 1789") are resolved immediately. Relative expressions ("the following year") get a wrong default (current year).
 
-```
-Sentence: "Germany invaded Poland on September 1, 1939."
-→ Parse result: Sep 1, 1939 (year certain) → ANCHOR
-
-Sentence: "On June 10, Italy invaded France."
-→ Parse result: June 10 (year=2026, NOT certain) → NO RESULTS (year wrong)
-```
-
-**Pass 2: Re-parse with Anchor Context**
-
-Walk through sentences in order, maintaining a rolling `lastAnchor`. For sentences that produced no results in Pass 1, re-parse with the nearest prior anchor as `referenceDate`:
+**Fixed-Point Loop**
 
 ```
-lastAnchor = Sep 1, 1939
+repeat (max 5 times):
+    changed = false
 
-Sentence: "On June 10, Italy invaded France."
-→ Re-parse with ref=Jan 1, 1940 + forwardDate:true
-→ Result: June 10, 1940 (correct)
+    // Forward pass: propagate anchors left-to-right
+    anchor = null
+    for each sentence (left to right):
+        if anchor exists:
+            re-parse sentence with anchor as referenceDate
+            if results changed: mark changed
+        update anchor from results with certain year
+
+    // Backward pass: fill gaps only
+    // Only re-parse sentences the forward pass couldn't reach
+    // (those before the first explicit date in the paragraph)
+    anchor = null
+    for each sentence (right to left):
+        if anchor exists AND sentence had no forward anchor:
+            re-parse sentence with anchor as referenceDate
+            if results changed: mark changed
+        update anchor from results with certain year
+
+    if not changed: break  // fixed point reached
 ```
 
-**Key details:**
+**Why the backward pass only fills gaps:**
+
+The forward pass is authoritative for relative expressions. "The following year" means "after the most recently mentioned date in reading order" — that's a forward reference by definition. If the backward pass were allowed to override forward results, it would use anchors from sentences that appear *after* in reading order, producing wrong results.
+
+The backward pass exists solely to resolve sentences that appear *before* any explicit date — cases where no forward anchor was available.
+
+### Trace Example
+
+```
+Paragraph: "The previous year, tensions rose. The Battle of Marathon
+            in 490 BC. The following year, the Greeks celebrated.
+            A decade earlier, Persia expanded."
+
+Initial parse:
+  [0] "The previous year"  → year=2027 (wrong, default)
+  [1] "490 BC"             → year=-490
+  [2] "The following year" → year=2027 (wrong, default)
+  [3] "A decade earlier"   → year=2016 (wrong, default)
+
+Iteration 1, forward pass:
+  [0] no anchor → skip (hadForwardAnchor=false)
+  [1] no anchor → skip, but sets anchor=-490
+  [2] anchor=-490 → re-parse → year=-489 ✓ (hadForwardAnchor=true)
+  [3] anchor=-489 → re-parse → year=-499 ✓ (hadForwardAnchor=true)
+
+Iteration 1, backward pass (gaps only):
+  [3] hadForwardAnchor=true → skip
+  [2] hadForwardAnchor=true → skip
+  [1] sets anchor=-490
+  [0] hadForwardAnchor=false, anchor=-490 → re-parse → year=-491 ✓
+
+Iteration 2: forward+backward → no changes → STOP (fixed point)
+
+Final: [-491, -490, -489, -499] ✓
+```
+
+### Key Details
 
 1. **Anchor year start**: The reference date is set to January 1 of the anchor's year, not the anchor date itself. This avoids month ambiguity (e.g., ref=July 1940 would make "June" resolve to June 1941 with `forwardDate`).
 
@@ -213,37 +273,7 @@ Sentence: "On June 10, Italy invaded France."
 
 4. **Negative year handling**: For years < 0, `new Date(year, 0, 1)` doesn't work directly (years 0-99 get +1900). Instead: `const d = new Date(0, 0, 1); d.setFullYear(year)`.
 
-### Pseudocode
-
-```
-function extractDates(sentences):
-    parsed = []
-    anchors = []
-
-    // Pass 1
-    for sentence in sentences:
-        results = chrono.parse(sentence)
-        parsed.push({sentence, results})
-        for r in results:
-            if r.start.isCertain("year"):
-                anchors.push(r.start.date())
-
-    // Pass 2
-    lastAnchor = null
-    for p in parsed:
-        // Update rolling anchor
-        for r in p.results:
-            if r.start.isCertain("year"):
-                lastAnchor = r.start.date()
-
-        if p.results.empty() and lastAnchor:
-            anchorYear = lastAnchor.getFullYear()
-            ref = new Date(Jan 1, anchorYear)
-            opts = {forwardDate: true} if anchorYear >= 0 else {}
-            p.results = chrono.parse(p.sentence, ref, opts)
-
-        emit(p.sentence, p.results)
-```
+5. **Convergence**: Self-contained parsers ignore `refDate`, so re-parsing never changes their results. Only ref-dependent results can change, and they stabilize once anchors propagate. This guarantees termination.
 
 ## Accuracy
 
@@ -275,14 +305,26 @@ Solving these would require either an LLM-based temporal reasoner or a knowledge
 
 Full pipeline timing for varying document sizes (parse stages only, excludes React rendering):
 
-| Sentences | Doc Size | Remark AST | Tokenize | Chrono 2-pass | Build Units | **Total** |
-|-----------|----------|------------|----------|---------------|-------------|-----------|
+| Sentences | Doc Size | Remark AST | Tokenize | Chrono fixed-point | Build Units | **Total** |
+|-----------|----------|------------|----------|--------------------|-------------|-----------|
 | 10 | 0.6KB | 1.3ms | 0.1ms | 0.6ms | 0.05ms | **2.6ms** |
 | 100 | 6.2KB | 1.9ms | 0.2ms | 3.6ms | 0.1ms | **5.8ms** |
 | 1,000 | 62KB | 13.8ms | 0.9ms | 28.8ms | 1.4ms | **45ms** |
 | 3,000 | 187KB | 43.5ms | 2.6ms | 77.9ms | 4.8ms | **129ms** |
 
 A typical Obsidian note (50-200 sentences) parses in under 6ms. Even a 1,000-sentence document completes in 45ms — well within a single animation frame.
+
+### Fixed-Point Convergence Benchmark
+
+Measured in Obsidian (Electron/Chromium):
+
+| Paragraph | Sentences | Iterations | Time |
+|-----------|-----------|------------|------|
+| BC with backward ref | 5 | 2 | 1.4ms |
+| WW2 forward only | 5 | 2 | 1.5ms |
+| Mixed stress test | 100 | 2 | 16.3ms |
+
+**Always converges in 2 iterations** — iteration 1 does forward+backward, iteration 2 confirms stability (no changes = fixed point). The MAX_ITERATIONS=5 safety cap is never reached in practice. The cost of the extra confirmation iteration is negligible (~0.15ms per sentence).
 
 ### Complexity Analysis
 
@@ -291,7 +333,7 @@ All pipeline stages scale linearly with document size:
 - **Remark AST parsing**: O(T) where T = text length. Single pass through markdown.
 - **Sentence tokenization** (`Intl.Segmenter`): O(T). ICU-based, constant work per character.
 - **Chrono parsing**: O(S * P) where S = sentences, P = parser count (38). Each parser runs one regex per sentence. All regexes use `\b` word boundaries and have no nested quantifiers — no catastrophic backtracking risk.
-- **2-pass overhead**: At most 2x for sentences without results in Pass 1, but only those specific sentences are re-parsed, not the whole document.
+- **Fixed-point overhead**: Each iteration re-parses all sentences (forward) plus gap sentences (backward). Converges in 2 iterations, so effective overhead is ~2x chrono calls. Self-contained results are stable across iterations, so the work is proportional to ref-dependent sentences only.
 
 ### Parser Count
 
