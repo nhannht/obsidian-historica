@@ -7,6 +7,7 @@ import {foldGutter, syntaxHighlighting, defaultHighlightStyle, bracketMatching, 
 import {closeBrackets} from '@codemirror/autocomplete';
 import HistoricaBlockManager from "@/src/backgroundLogic/HistoricaBlockManager";
 import HistoricaChrono from "@/src/compute/ChronoParser";
+import {registerHmdPostProcessor} from "@/src/data/HmdPostProcessor";
 
 
 const JSON_VIEW_TYPE = "historica-json-view";
@@ -86,6 +87,7 @@ export default class HistoricaPlugin extends Plugin {
 		this.darkModeAdapt()
 		this.registerListener()
 		this.registerView(JSON_VIEW_TYPE, (leaf) => new JsonFileView(leaf));
+		registerHmdPostProcessor(this);
 		await this.blockManager.registerHistoricaBlockNg()
 	}
 

@@ -7,6 +7,7 @@ import {
 	HistoricaSettingNg,
 	TimeData
 } from "./types";
+import {HISTORICA_DATA_DIR} from "./data/TimelineDataManager";
 
 
 export function FormatDate(t:TimeData): string {
@@ -159,7 +160,7 @@ export function SelectRandomElement(r: any[]): any {
 
 export function GetAllHistoricaDataFile(plugin: HistoricaPlugin) {
 	return plugin.app.vault.getFiles().filter(f =>
-		f.path.startsWith("historica-data") && f.extension === "json"
+		f.path.startsWith(HISTORICA_DATA_DIR) && f.extension === "json"
 	)
 }
 

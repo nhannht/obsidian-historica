@@ -420,8 +420,7 @@ export function TimelineBlock(props: {
 							const dataPath = dataFilePath(settings.blockId);
 							const file = plugin.app.vault.getAbstractFileByPath(dataPath);
 							if (file instanceof TFile) {
-								const leaf = plugin.app.workspace.getLeaf("tab");
-								await leaf.setViewState({type: "historica-json-view", state: {file: dataPath}});
+								await plugin.app.workspace.openLinkText(dataPath, "", true);
 							} else {
 								new Notice("Data file not found — save the timeline first");
 							}
