@@ -229,3 +229,26 @@ export async function ExportAsPlainTextToClipboard(data: TimelineDocument) {
 	}
 	await copyToClipboard(lines.join("\n").trim(), "Plain text")
 }
+
+export async function exportTimelineAsPng(element: HTMLElement, mode: "save" | "clipboard") {
+	const {toPng} = await import("html-to-image");
+	const imageData = await toPng(element);
+	if (mode === "save") {
+		const link = document.createElement("a");
+		link.href = imageData;
+		link.download = "historica-timeline.png";
+		document.body.appendChild(link);
+		link.click();
+		document.body.removeChild(link);
+		new Notice("Image saved", 10000);
+	} else {
+		const response = await fetch(imageData);
+		const blob = await response.blob();
+		try {
+			await navigator.clipboard.write([new ClipboardItem({[blob.type]: blob})]);
+			new Notice("Image copied to clipboard", 10000);
+		} catch (err) {
+			console.error("Failed to copy image to clipboard:", err);
+		}
+	}
+}
