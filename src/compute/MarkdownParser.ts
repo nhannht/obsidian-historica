@@ -1,6 +1,6 @@
 import HistoricaPlugin from "@/main";
 import {TFile} from "obsidian";
-import {moment} from "../moment-fix";
+
 import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse";
 import {Node} from "unist"
@@ -75,12 +75,10 @@ export default class MarkdownProcesser {
 		return units
 	}
 
-	async ExtractValidSentencesFromFile(file: TFile, nodes: NodeAndTFile[], pin_time?: number) {
+	async ExtractValidSentencesFromFile(file: TFile, nodes: NodeAndTFile[]) {
 		const customChrono = await this.currentPlugin.historicaChrono.setupCustomChrono()
 		const sentencesWithOffsets: SentenceWithOffset[] = []
 		const fileText = await this.currentPlugin.app.vault.read(file)
-
-		const refDate = pin_time ? moment.unix(pin_time).toDate() : undefined
 
 		for (const n of nodes) {
 			if (n.file.path !== file.path) continue
@@ -94,9 +92,7 @@ export default class MarkdownProcesser {
 			// Initial parse (no context)
 			for (const sentence of sentences) {
 				try {
-					const results: ParsedResult[] = refDate
-						? customChrono.parse(sentence, refDate)
-						: customChrono.parse(sentence)
+					const results: ParsedResult[] = customChrono.parse(sentence)
 					parsed.push({sentence, results, hadForwardAnchor: false})
 				} catch {
 					parsed.push({sentence, results: [], hadForwardAnchor: false})

@@ -5,7 +5,7 @@ import HistoricaPlugin from "@/main";
 import type {TimelineStore} from "@/src/store/createTimelineStore";
 import {toPng} from "html-to-image";
 import {TimelineI} from "@/src/ui/TimelineI";
-import {ExportAsJSONToClipboard, ExportAsMarkdownToClipboard, GetAllMarkdownFileInVault, GetAllHistoricaDataFile} from "@/src/utils";
+import {ExportAsJSONToClipboard, ExportAsMarkdownToClipboard, ExportAsPlainTextToClipboard, GetAllMarkdownFileInVault, GetAllHistoricaDataFile} from "@/src/utils";
 import {Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList} from "@/src/ui/shadcn/Command";
 import {
 	ContextMenu,
@@ -17,7 +17,8 @@ import {
 	ContextMenuTrigger
 } from "@/src/ui/shadcn/ContextMenu";
 import HeaderAndFooterEditor from "@/src/ui/HeaderAndFooterEditor";
-import {Notice} from "obsidian";
+import {Notice, TFile} from "obsidian";
+import {dataFilePath} from "@/src/data/TimelineDataManager";
 
 export function TimelineBlock(props: {
 	store: StoreApi<TimelineStore>;
@@ -32,6 +33,7 @@ export function TimelineBlock(props: {
 	const showHidden = useStore(store, s => s.showHidden);
 	const isDirty = useStore(store, s => s.isDirty);
 	const isSaving = useStore(store, s => s.isSaving);
+	const autoSave = useStore(store, s => s.settings.autoSave ?? true);
 
 	const manualSave = useStore(store, s => s.manualSave);
 	const addUnit = useStore(store, s => s.addUnit);
@@ -47,12 +49,15 @@ export function TimelineBlock(props: {
 	const editHeaderOrFooter = useStore(store, s => s.editHeaderOrFooter);
 	const parseFromFile = useStore(store, s => s.parseFromFile);
 	const importFromTimeline = useStore(store, s => s.importFromTimeline);
+	const toggleAutoSave = useStore(store, s => s.toggleAutoSave);
 
 	const timelineRef = useRef<HTMLDivElement | null>(null);
 	const [isShowHeaderEditor, setIsShowHeaderEditor] = useState(false);
 	const [isShowFooterEditor, setIsShowFooterEditor] = useState(false);
 	const [isShowFilePicker, setIsShowFilePicker] = useState(false);
 	const [isToolbarCollapsed, setIsToolbarCollapsed] = useState(false);
+
+	const markdownFiles = useMemo(() => GetAllMarkdownFileInVault(plugin), [plugin]);
 
 	useEffect(() => {
 		store.getState().load();
@@ -61,6 +66,10 @@ export function TimelineBlock(props: {
 		};
 	}, []);
 
+	const hiddenCount = units.filter(u => u.isHidden).length;
+	const visibleCount = units.length - hiddenCount;
+	const allExpanded = units.length > 0 && units.every(u => u.isExpanded);
+
 	if (isLoading) {
 		return <div className="twp p-4">Loading timeline...</div>;
 	}
@@ -68,11 +77,6 @@ export function TimelineBlock(props: {
 	if (error) {
 		return <div className="twp p-4 text-red-500">Error: {error}</div>;
 	}
-
-	const hiddenCount = units.filter(u => u.isHidden).length;
-	const visibleCount = units.length - hiddenCount;
-	const allExpanded = units.length > 0 && units.every(u => u.isExpanded);
-	const markdownFiles = useMemo(() => GetAllMarkdownFileInVault(plugin), [plugin]);
 
 	const saveStatus = isSaving
 		? "Saving..."
@@ -196,6 +200,7 @@ export function TimelineBlock(props: {
 						<ContextMenuContent>
 							<ContextMenuItem onClick={handleConvertToPngAndSave}>PNG (save file)</ContextMenuItem>
 							<ContextMenuItem onClick={handleConvertToPngAndCopy}>PNG (clipboard)</ContextMenuItem>
+							<ContextMenuItem onClick={() => ExportAsPlainTextToClipboard({units, settings})}>Plain text (clipboard)</ContextMenuItem>
 							<ContextMenuItem onClick={() => ExportAsJSONToClipboard({units, settings})}>JSON (clipboard)</ContextMenuItem>
 							<ContextMenuItem onClick={() => ExportAsMarkdownToClipboard({units, settings}, plugin)}>Markdown (clipboard)</ContextMenuItem>
 						</ContextMenuContent>
@@ -205,6 +210,13 @@ export function TimelineBlock(props: {
 						className={`px-2 py-0.5 rounded cursor-pointer ${isDirty ? "text-[color:--text-accent] hover:bg-[--background-modifier-hover]" : "text-[color:--text-muted] hover:text-[color:--text-normal] hover:bg-[--background-modifier-hover]"}`}
 						onClick={() => manualSave()}
 					>Save</button>
+
+					<label className="flex items-center gap-1 px-2 py-0.5 cursor-pointer text-[color:--text-muted] hover:text-[color:--text-normal]"
+						title="Automatically save changes">
+						<input type="checkbox" checked={autoSave} onChange={toggleAutoSave}
+							className="cursor-pointer" />
+						Auto-save
+					</label>
 
 					{hiddenCount > 0 && (
 						<button className={toolbarBtnClass} onClick={toggleShowHidden}
@@ -403,6 +415,18 @@ export function TimelineBlock(props: {
 						</ContextMenuSubContent>
 					</ContextMenuSub>
 					<ContextMenuItem onClick={() => addUnit(0)}>Add at beginning</ContextMenuItem>
+					{settings.blockId !== "-1" && (
+						<ContextMenuItem onClick={async () => {
+							const dataPath = dataFilePath(settings.blockId);
+							const file = plugin.app.vault.getAbstractFileByPath(dataPath);
+							if (file instanceof TFile) {
+								const leaf = plugin.app.workspace.getLeaf("tab");
+								await leaf.setViewState({type: "historica-json-view", state: {file: dataPath}});
+							} else {
+								new Notice("Data file not found — save the timeline first");
+							}
+						}}>Reveal data file</ContextMenuItem>
+					)}
 				</ContextMenuContent>
 			</ContextMenu>
 		</div>

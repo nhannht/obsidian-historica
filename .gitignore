@@ -245,3 +245,7 @@ dist
 /target
 /docs/
 /code_doc/
+
+# Test vault build artifacts
+historica-test-vault/.obsidian/plugins/historica/main.js
+historica-test-vault/.obsidian/plugins/historica/styles.css

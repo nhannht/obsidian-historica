@@ -13,5 +13,5 @@ On June 6, 1944, Allied forces landed on the beaches of Normandy in the largest 
 Germany surrendered unconditionally on May 8, 1945. Japan surrendered on September 2, 1945, following the atomic bombings of Hiroshima and Nagasaki.
 
 ```historica
-1996794398
+1709171134
 ```

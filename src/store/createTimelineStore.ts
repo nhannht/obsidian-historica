@@ -4,10 +4,10 @@ import {moment} from "../moment-fix";
 import HistoricaPlugin from "@/main";
 import {HistoricaFileData, HistoricaSettingNg, PlotUnitNg} from "@/src/types";
 import {GenerateRandomId} from "@/src/utils";
-import TimelineDataManager from "@/src/data/TimelineDataManager";
+import TimelineDataManager, {dataFilePath} from "@/src/data/TimelineDataManager";
 import MarkdownProcesser from "@/src/compute/MarkdownParser";
 
-export interface TimelineState {
+interface TimelineState {
 	units: PlotUnitNg[];
 	settings: HistoricaSettingNg;
 	isLoading: boolean;
@@ -17,12 +17,12 @@ export interface TimelineState {
 	isSaving: boolean;
 }
 
-export interface TimelineActions {
+interface TimelineActions {
 	load(): Promise<void>;
 	manualSave(): Promise<void>;
-	addUnit(index: number): void;
+	addUnit(index: number): Promise<void>;
 	removeUnit(id: string): void;
-	editUnit(id: string, updated: PlotUnitNg): void;
+	editUnit(id: string, updatedUnit: PlotUnitNg): void;
 	moveUnit(index: number, direction: string): void;
 	sort(order: "asc" | "desc"): void;
 	expandUnit(id: string, isExpanded: boolean): void;
@@ -34,6 +34,7 @@ export interface TimelineActions {
 	editHeaderOrFooter(content: string, type: string): void;
 	parseFromFile(path: string): Promise<void>;
 	importFromTimeline(path: string): Promise<void>;
+	toggleAutoSave(): void;
 }
 
 export type TimelineStore = TimelineState & TimelineActions;
@@ -45,9 +46,21 @@ export function createTimelineStore(
 ) {
 	const dataManager = new TimelineDataManager(plugin);
 
+	const ensureBlockId = async () => {
+		const {settings} = store.getState();
+		const updated = await dataManager.ensureBlockId(settings, ctx);
+		if (updated !== settings) store.setState({settings: updated});
+		return updated;
+	};
+
+	const buildSaveData = (): HistoricaFileData => {
+		const {settings, units} = store.getState();
+		return {settings, units};
+	};
+
 	const store = createStore<TimelineStore>((set, get) => ({
 		units: [],
-		settings: structuredClone(initialSettings),
+		settings: {...structuredClone(initialSettings), autoSave: initialSettings.autoSave ?? true},
 		isLoading: true,
 		error: null,
 		showHidden: false,
@@ -60,22 +73,15 @@ export function createTimelineStore(
 				if (settings.blockId !== "-1") {
 					const data = await dataManager.load(settings.blockId);
 					if (data) {
-						set({units: data.units, settings: data.settings, isLoading: false});
+						set({
+							units: data.units,
+							settings: {...data.settings, autoSave: data.settings.autoSave ?? true},
+							isLoading: false,
+						});
 						return;
 					}
 				}
-
-				// No saved data — parse current file
-				const currentFile = plugin.app.workspace.getActiveFile();
-				if (currentFile instanceof TFile) {
-					const parser = new MarkdownProcesser(plugin, settings);
-					const nodes = await parser.ParseFilesAndGetNodeData(currentFile);
-					const sentences = await parser.ExtractValidSentencesFromFile(currentFile, nodes);
-					const units = await parser.GetPlotUnits(sentences);
-					set({units, isLoading: false});
-				} else {
-					set({isLoading: false});
-				}
+				set({isLoading: false});
 			} catch (e) {
 				set({error: (e as Error).message, isLoading: false});
 			}
@@ -84,19 +90,19 @@ export function createTimelineStore(
 		async manualSave() {
 			set({isSaving: true});
 			try {
-				const {settings, units} = get();
-				const updated = await dataManager.ensureBlockId(settings, ctx);
-				const data: HistoricaFileData = {settings: updated, units};
-				await dataManager.save(data);
-				set({settings: updated, isDirty: false, isSaving: false});
-				new Notice(`Timeline saved to historica-data/${updated.blockId}.json`, 10000);
+				await ensureBlockId();
+				await dataManager.save(buildSaveData());
+				const {settings} = get();
+				set({isDirty: false, isSaving: false});
+				new Notice(`Timeline saved to ${dataFilePath(settings.blockId)}`, 10000);
 			} catch (e) {
 				set({isSaving: false});
 				throw e;
 			}
 		},
 
-		addUnit(index: number) {
+		async addUnit(index: number) {
+			await ensureBlockId();
 			const {units} = get();
 			const newUnit: PlotUnitNg = {
 				attachments: [],
@@ -174,11 +180,12 @@ export function createTimelineStore(
 		},
 
 		async parseFromFile(path: string) {
-			const {units, settings} = get();
+			const {units} = get();
 			const file = plugin.app.vault.getAbstractFileByPath(path);
 			if (!(file instanceof TFile)) return;
 
-			const parser = new MarkdownProcesser(plugin, settings);
+			const updated = await ensureBlockId();
+			const parser = new MarkdownProcesser(plugin, updated);
 			const nodes = await parser.ParseFilesAndGetNodeData(file);
 			const sentences = await parser.ExtractValidSentencesFromFile(file, nodes);
 			const parsed = await parser.GetPlotUnits(sentences);
@@ -193,14 +200,25 @@ export function createTimelineStore(
 
 		async importFromTimeline(path: string) {
 			const {units} = get();
+			await ensureBlockId();
 			const data = await dataManager.importFromFile(path);
 			if (data) {
 				set({units: [...units, ...data.units]});
 			}
 		},
+
+		toggleAutoSave() {
+			const {settings} = get();
+			const newAutoSave = !settings.autoSave;
+			set({settings: {...settings, autoSave: newAutoSave}});
+			if (settings.blockId !== "-1") {
+				dataManager.save(buildSaveData())
+					.catch((e) => console.error("Failed to persist autoSave preference:", e));
+			}
+		},
 	}));
 
-	// Auto-save with debounce: persist to vault on meaningful state changes
+	// Auto-save with debounce
 	let saveTimeout: ReturnType<typeof setTimeout> | null = null;
 	let loaded = false;
 
@@ -208,13 +226,11 @@ export function createTimelineStore(
 		if (!loaded) return;
 		if (state.units !== prev.units || state.settings !== prev.settings) {
 			store.setState({isDirty: true});
-			if (state.settings.blockId !== "-1" && state.units.length > 0) {
+			if (state.settings.autoSave && state.settings.blockId !== "-1" && state.units.length > 0) {
 				if (saveTimeout) clearTimeout(saveTimeout);
 				saveTimeout = setTimeout(() => {
-					const current = store.getState();
 					store.setState({isSaving: true});
-					const data: HistoricaFileData = {settings: current.settings, units: current.units};
-					dataManager.save(data)
+					dataManager.save(buildSaveData())
 						.then(() => store.setState({isDirty: false, isSaving: false}))
 						.catch((e) => { console.error(e); store.setState({isSaving: false}); });
 				}, 500);
@@ -222,18 +238,49 @@ export function createTimelineStore(
 		}
 	});
 
-	// Expose cleanup and loaded flag on the store for external use
 	const originalLoad = store.getState().load;
+	let fileWatcherRef: ((...data: unknown[]) => unknown) | null = null;
+
 	store.setState({
 		load: async () => {
 			await originalLoad();
 			loaded = true;
+
+			// Watch the data file for external edits (e.g. user opened via "Reveal data file")
+			const {settings} = store.getState();
+			if (settings.blockId !== "-1") {
+				const dataPath = dataFilePath(settings.blockId);
+				let reloadTimeout: ReturnType<typeof setTimeout> | null = null;
+				fileWatcherRef = (file: unknown) => {
+					if (!(file instanceof TFile) || file.path !== dataPath) return;
+					if (store.getState().isSaving) return;
+					if (reloadTimeout) clearTimeout(reloadTimeout);
+					reloadTimeout = setTimeout(() => {
+						dataManager.load(settings.blockId).then((data) => {
+							if (data) {
+								loaded = false;
+								store.setState({
+									units: data.units,
+									settings: {...data.settings, autoSave: data.settings.autoSave ?? true},
+									isDirty: false,
+								});
+								loaded = true;
+							}
+						}).catch((e) => console.error("Failed to reload from external edit:", e));
+					}, 300);
+				};
+				plugin.app.vault.on("modify", fileWatcherRef);
+			}
 		}
 	} as any);
 
 	(store as any).destroy = () => {
 		if (saveTimeout) clearTimeout(saveTimeout);
 		unsubscribe();
+		if (fileWatcherRef) {
+			plugin.app.vault.off("modify", fileWatcherRef);
+			fileWatcherRef = null;
+		}
 	};
 
 	return store;

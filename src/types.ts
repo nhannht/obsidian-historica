@@ -4,11 +4,10 @@ import {ParsedResult} from "chrono-node";
 
 
 export type HistoricaSettingNg = {
-	style: "default" | "1",
-	pin_time: number, //unix timestamp
 	blockId: string,
 	header: string,
-	footer: string
+	footer: string,
+	autoSave?: boolean,
 }
 
 export type HistoricaFileData = {
@@ -57,8 +56,6 @@ export interface SentenceWithOffset {
 
 // this default setting will be using for global settings. Or if some settings is missing in the block
 export const DefaultSettings: HistoricaSettingNg = {
-	style: "default",
-	pin_time: 0,
 	blockId: "-1",
 	footer: "",
 	header: ""

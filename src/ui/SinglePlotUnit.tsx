@@ -90,7 +90,13 @@ export function SinglePlotUnit(props: {
 					>
 						<span className="shrink-0 px-1.5 py-0.5 text-[10px] font-semibold rounded bg-[--background-primary-alt] text-[color:--text-accent] border border-[--background-modifier-border]"
 						>{FormatDate(props.u.time)}</span>
-						<span className="font-medium text-sm text-[color:--text-normal]">{props.u.parsedResultText}</span>
+						<span className="font-medium text-sm text-[color:--text-normal] hover:text-[color:--text-accent]"
+							title="Click to jump to source"
+							onClick={async (e) => {
+								e.stopPropagation();
+								await JumpToSource(props.u.nodePos, props.u.filePath, props.u.sentence, props.plugin)
+							}}
+						>{props.u.parsedResultText}</span>
 						<span className="text-xs text-[color:--text-muted] truncate">{truncatedSentence}</span>
 					</div>
 				)}
@@ -124,7 +130,7 @@ export function SinglePlotUnit(props: {
 						<Content unit={props.u} plugin={props.plugin} handleExpandSingle={props.handleExpandSingle}/>
 					</ContextMenuTrigger>
 					<ContextMenuContent>
-						<ContextMenuItem onClick={() => { props.handleAddPlotUnit(props.index); handleModeChange("edit") }}>Add</ContextMenuItem>
+						<ContextMenuItem onClick={() => { props.handleAddPlotUnit(props.index); handleModeChange("edit") }}>Add entry</ContextMenuItem>
 						<ContextMenuItem onClick={() => props.handleRemovePlotUnit(props.u.id)}>Remove</ContextMenuItem>
 						<ContextMenuItem onClick={() => handleModeChange("edit")}>Edit</ContextMenuItem>
 						<ContextMenuItem onClick={() => props.handleHideUnit(props.u.id, !isHidden)}>{isHidden ? "Show" : "Hide"}</ContextMenuItem>
@@ -160,7 +166,7 @@ export function SinglePlotUnit(props: {
 							</ContextMenuSubContent>
 						</ContextMenuSub>
 						<ContextMenuSub>
-							<ContextMenuSubTrigger>Choose file source</ContextMenuSubTrigger>
+							<ContextMenuSubTrigger>Change source file</ContextMenuSubTrigger>
 							<ContextMenuSubContent>
 								<Command className="w-80">
 									<CommandInput placeholder="Search for source file"/>

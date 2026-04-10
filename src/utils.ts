@@ -163,64 +163,68 @@ export function GetAllHistoricaDataFile(plugin: HistoricaPlugin) {
 	)
 }
 
-export async  function ExportAsJSONToClipboard (data:HistoricaFileData){
-	const json = JSON.stringify(data)
-	if (json) {
-		await navigator.clipboard.writeText(json)
-		new Notice("JSON is copy to your clipboard")
-	}
-	else new Notice("Sorry the data in this timeline was corrupted to be exported")
 
+async function copyToClipboard(text: string, label: string) {
+	try {
+		await navigator.clipboard.writeText(text)
+		new Notice(`${label} copied to clipboard`)
+	} catch (error) {
+		new Notice(`Export failed: ${error}`)
+	}
+}
+export async function ExportAsJSONToClipboard(data: HistoricaFileData) {
+	const json = JSON.stringify(data)
+	if (json) await copyToClipboard(json, "JSON")
+	else new Notice("Sorry the data in this timeline was corrupted to be exported")
 }
 
-export async function ExportAsMarkdownToClipboard(data:HistoricaFileData,plugin:HistoricaPlugin){
-	let markdown:string[] = []
+export async function ExportAsMarkdownToClipboard(data: HistoricaFileData, plugin: HistoricaPlugin) {
+	let markdown: string[] = []
 	markdown.push("---")
-	const settings:HistoricaSettingNg = data.settings
+	const settings: HistoricaSettingNg = data.settings
 	const blockId = settings.blockId
 	markdown.push(`blockId: ${blockId}`)
 	markdown.push("---")
 
 	const units = data.units
 
-	if (settings.header.trim() !== ""){
+	if (settings.header.trim() !== "") {
 		markdown.push(`${settings.header}`)
 	}
 	markdown.push("---")
 
-	units.map(u=>{
-		markdown.push("### " + u.parsedResultText  )
-
+	units.map(u => {
+		markdown.push("### " + u.parsedResultText)
 		markdown.push(`${u.sentence}  `)
 		markdown.push(`Source: [[${u.filePath}]]`)
-
 		markdown.push(`Time: ${FormatDate(u.time)}`)
 
 		u.attachments.length > 0 && markdown.push(`Attachments:`)
-		u.attachments.length > 0 && u.attachments.map(a=>{
-			const file =  plugin.app.vault.getAbstractFileByPath(a.path)
+		u.attachments.length > 0 && u.attachments.map(a => {
+			const file = plugin.app.vault.getAbstractFileByPath(a.path)
 			if (file instanceof TFile) {
-				if (["png","jpg","jpeg","svg"].includes(file.extension)){
+				if (["png", "jpg", "jpeg", "svg"].includes(file.extension)) {
 					markdown.push(`- ![${file.name}](${a.path})`)
 				} else {
 					markdown.push(`- [${file.name}](${a.path})`)
 				}
 			}
-
 		})
 		markdown.push("---")
-
 	})
 
 	if (settings.footer.trim() !== "") markdown.push(`${settings.footer}`)
 	markdown.push("---")
 
-	try  {
-		const result = markdown.join("\n\n")
-        await navigator.clipboard.writeText(result)
-        new Notice("Markdown is copy to your clipboard")
-    } catch (error){
-		new Notice(`We have error, please report it ${error}`)
-	}
+	await copyToClipboard(markdown.join("\n\n"), "Markdown")
+}
 
+export async function ExportAsPlainTextToClipboard(data: HistoricaFileData) {
+	const lines: string[] = []
+	for (const u of data.units) {
+		lines.push(`${FormatDate(u.time)}  ${u.parsedResultText}`)
+		lines.push(u.sentence)
+		lines.push("")
+	}
+	await copyToClipboard(lines.join("\n").trim(), "Plain text")
 }

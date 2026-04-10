@@ -3,12 +3,17 @@ import HistoricaPlugin from "@/main";
 import {HistoricaFileData, HistoricaSettingNg} from "@/src/types";
 import {GenerateRandomId, UpdateBlockSetting} from "@/src/utils";
 
+
+export function dataFilePath(blockId: string): string {
+	return `historica-data/${blockId}.json`;
+}
+
 export default class TimelineDataManager {
 	constructor(private plugin: HistoricaPlugin) {}
 
 	async load(blockId: string): Promise<HistoricaFileData | null> {
 		if (blockId === "-1") return null;
-		const filePath = `historica-data/${blockId}.json`;
+		const filePath = dataFilePath(blockId);
 		const file = this.plugin.app.vault.getAbstractFileByPath(filePath);
 		if (!(file instanceof TFile)) return null;
 
@@ -26,7 +31,7 @@ export default class TimelineDataManager {
 		const blockId = data.settings.blockId;
 		if (blockId === "-1") return;
 
-		const filePath = `historica-data/${blockId}.json`;
+		const filePath = dataFilePath(blockId);
 		const json = JSON.stringify(data, null, 2);
 
 		try {
