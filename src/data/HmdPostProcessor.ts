@@ -1,6 +1,7 @@
 import {MarkdownPostProcessorContext} from "obsidian";
 import HistoricaPlugin from "@/main";
 import {HISTORICA_DATA_DIR} from "./TimelineDataManager";
+import {formatHmdDate} from "./HmdDateFormat";
 
 // Cache split lines per document text to avoid O(sections x lines) re-splitting
 let cachedText = "";
@@ -52,7 +53,7 @@ export function registerHmdPostProcessor(plugin: HistoricaPlugin) {
 
 			const badge = document.createElement("div");
 			badge.className = "historica-hmd-date-badge";
-			badge.textContent = formatDate(dateValue, dateStyle);
+			badge.textContent = formatHmdDate(dateValue, dateStyle);
 			card.appendChild(badge);
 
 			const titleEl = document.createElement("div");
@@ -105,20 +106,3 @@ export function registerHmdPostProcessor(plugin: HistoricaPlugin) {
 	});
 }
 
-function formatDate(value: string, style: string): string {
-	if (style === "free" || !value) return value || "Unknown date";
-
-	if (/^-?\d+$/.test(value)) {
-		const ms = parseInt(value, 10);
-		const date = new Date(ms);
-		if (!isNaN(date.getTime())) {
-			return date.toLocaleDateString("en-US", {
-				year: "numeric",
-				month: "long",
-				day: "numeric",
-			});
-		}
-	}
-
-	return value;
-}

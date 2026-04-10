@@ -185,3 +185,22 @@
 	text-decoration: underline;
 }
 
+/* HMD Live Preview — Editor decorations */
+
+.historica-hmd-editor-widget {
+	display: inline-block;
+	vertical-align: baseline;
+}
+
+.historica-hmd-dim {
+	opacity: 0.3;
+}
+
+.historica-hmd-separator {
+	height: 2px;
+	background: var(--interactive-accent);
+	opacity: 0.3;
+	border-radius: 1px;
+	margin: 8px 0;
+}
+

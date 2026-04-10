@@ -239,48 +239,17 @@ export function createTimelineStore(
 	});
 
 	const originalLoad = store.getState().load;
-	let fileWatcherRef: ((...data: unknown[]) => unknown) | null = null;
 
 	store.setState({
 		load: async () => {
 			await originalLoad();
 			loaded = true;
-
-			// Watch the data file for external edits (e.g. user opened via "Reveal data file")
-			const {settings} = store.getState();
-			if (settings.blockId !== "-1") {
-				const dataPath = dataFilePath(settings.blockId);
-				let reloadTimeout: ReturnType<typeof setTimeout> | null = null;
-				fileWatcherRef = (file: unknown) => {
-					if (!(file instanceof TFile) || file.path !== dataPath) return;
-					if (store.getState().isSaving) return;
-					if (reloadTimeout) clearTimeout(reloadTimeout);
-					reloadTimeout = setTimeout(() => {
-						dataManager.load(settings.blockId).then((data) => {
-							if (data) {
-								loaded = false;
-								store.setState({
-									units: data.units,
-									settings: {...data.settings, autoSave: data.settings.autoSave ?? true},
-									isDirty: false,
-								});
-								loaded = true;
-							}
-						}).catch((e) => console.error("Failed to reload from external edit:", e));
-					}, 300);
-				};
-				plugin.app.vault.on("modify", fileWatcherRef);
-			}
 		}
 	} as any);
 
 	(store as any).destroy = () => {
 		if (saveTimeout) clearTimeout(saveTimeout);
 		unsubscribe();
-		if (fileWatcherRef) {
-			plugin.app.vault.off("modify", fileWatcherRef);
-			fileWatcherRef = null;
-		}
 	};
 
 	return store;
