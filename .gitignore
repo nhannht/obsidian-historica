@@ -243,7 +243,8 @@ dist
 # Added by cargo
 
 /target
-/docs/
+/docs/*
+!/docs/hmd-spec.md
 /code_doc/
 
 # Test vault build artifacts
