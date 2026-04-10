@@ -21,9 +21,10 @@ const ADpattern: RegExp[] = [
 ]
 
 export default class HistoricaChrono {
-	private _customChrono!: Chrono;
+	private _customChrono: Chrono | undefined;
 
 	async setupCustomChrono(): Promise<Chrono> {
+		if (this._customChrono) return this._customChrono;
 		this._customChrono = chrono.en.casual.clone()
 
 		// Remove UnlikelyFormatFilter — it rejects bare year matches like "1939".

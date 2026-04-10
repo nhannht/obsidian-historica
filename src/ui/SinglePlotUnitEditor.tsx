@@ -1,7 +1,7 @@
 
 import {useEffect, useState} from "react"
 import {Input} from "@/src/ui/shadcn/Input"
-import {PlotUnitNg, TimeData} from "@/src/types";
+import {TimelineEntry, TimeData} from "@/src/types";
 
 const QuillFormat = [
 	'header', 'bold', 'italic', 'underline', 'strike', 'blockquote',
@@ -26,11 +26,11 @@ import {Label} from "@/src/ui/shadcn/Label"
 
 
 export default function SinglePlotUnitNgEditor(props: {
-	u: PlotUnitNg,
-	handleEditPlotUnit: (id: string, u: PlotUnitNg) => void,
-	handleModeChange: (mode: string) => void
+	u: TimelineEntry,
+	handleEditPlotUnit: (id: string, u: TimelineEntry) => void,
+	handleModeChange: (mode: "normal" | "edit") => void
 }) {
-	const [plotUnit, setPlotUnit] = useState<PlotUnitNg>(structuredClone(props.u))
+	const [plotUnit, setPlotUnit] = useState<TimelineEntry>(structuredClone(props.u))
 
 	// useEffect(() => {
 	// 	console.log(plotUnit)

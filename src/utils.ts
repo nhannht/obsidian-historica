@@ -3,8 +3,8 @@ import {moment} from "./moment-fix";
 import {Point} from "unist";
 import HistoricaPlugin from "@/main";
 import {
-	HistoricaFileData,
-	HistoricaSettingNg,
+	TimelineDocument,
+	HistoricaSettings,
 	TimeData
 } from "./types";
 import {HISTORICA_DATA_DIR} from "./data/TimelineDataManager";
@@ -71,7 +71,7 @@ export function GenerateRandomId() {
 }
 
 
-export async function UpdateBlockSetting(settings: HistoricaSettingNg,
+export async function UpdateBlockSetting(settings: HistoricaSettings,
 										 blockCtx: MarkdownPostProcessorContext,
 										 plugin: HistoricaPlugin
 ) {
@@ -173,16 +173,16 @@ async function copyToClipboard(text: string, label: string) {
 		new Notice(`Export failed: ${error}`)
 	}
 }
-export async function ExportAsJSONToClipboard(data: HistoricaFileData) {
+export async function ExportAsJSONToClipboard(data: TimelineDocument) {
 	const json = JSON.stringify(data)
 	if (json) await copyToClipboard(json, "JSON")
 	else new Notice("Sorry the data in this timeline was corrupted to be exported")
 }
 
-export async function ExportAsMarkdownToClipboard(data: HistoricaFileData, plugin: HistoricaPlugin) {
+export async function ExportAsMarkdownToClipboard(data: TimelineDocument, plugin: HistoricaPlugin) {
 	let markdown: string[] = []
 	markdown.push("---")
-	const settings: HistoricaSettingNg = data.settings
+	const settings: HistoricaSettings = data.settings
 	const blockId = settings.blockId
 	markdown.push(`blockId: ${blockId}`)
 	markdown.push("---")
@@ -220,7 +220,7 @@ export async function ExportAsMarkdownToClipboard(data: HistoricaFileData, plugi
 	await copyToClipboard(markdown.join("\n\n"), "Markdown")
 }
 
-export async function ExportAsPlainTextToClipboard(data: HistoricaFileData) {
+export async function ExportAsPlainTextToClipboard(data: TimelineDocument) {
 	const lines: string[] = []
 	for (const u of data.units) {
 		lines.push(`${FormatDate(u.time)}  ${u.parsedResultText}`)

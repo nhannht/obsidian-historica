@@ -1,6 +1,6 @@
 import {MarkdownPostProcessorContext, Notice, TFile, TFolder} from "obsidian";
 import HistoricaPlugin from "@/main";
-import {HistoricaFileData, HistoricaSettingNg} from "@/src/types";
+import {TimelineDocument, HistoricaSettings} from "@/src/types";
 import {GenerateRandomId, UpdateBlockSetting} from "@/src/utils";
 import {parseHmd, serializeHmd, HmdParseResult} from "./HmdParser";
 
@@ -17,7 +17,7 @@ function jsonDataFilePath(blockId: string): string {
 export default class TimelineDataManager {
 	constructor(private plugin: HistoricaPlugin) {}
 
-	async load(blockId: string): Promise<HistoricaFileData | null> {
+	async load(blockId: string): Promise<TimelineDocument | null> {
 		if (blockId === "-1") return null;
 
 		// Try HMD (.md) first
@@ -39,7 +39,7 @@ export default class TimelineDataManager {
 		if (jsonFile instanceof TFile) {
 			try {
 				const content = await this.plugin.app.vault.read(jsonFile);
-				const data: HistoricaFileData = JSON.parse(content);
+				const data: TimelineDocument = JSON.parse(content);
 				if (data && data.settings && data.units) {
 					// Migrate: write HMD, delete JSON
 					const hmd = serializeHmd(data as HmdParseResult);
@@ -56,7 +56,7 @@ export default class TimelineDataManager {
 		return null;
 	}
 
-	async save(data: HistoricaFileData): Promise<void> {
+	async save(data: TimelineDocument): Promise<void> {
 		const blockId = data.settings.blockId;
 		if (blockId === "-1") return;
 
@@ -84,9 +84,9 @@ export default class TimelineDataManager {
 	}
 
 	async ensureBlockId(
-		settings: HistoricaSettingNg,
+		settings: HistoricaSettings,
 		ctx: MarkdownPostProcessorContext
-	): Promise<HistoricaSettingNg> {
+	): Promise<HistoricaSettings> {
 		if (settings.blockId !== "-1") return settings;
 
 		const blockId = GenerateRandomId();
@@ -96,7 +96,7 @@ export default class TimelineDataManager {
 		return updated;
 	}
 
-	async importFromFile(path: string): Promise<HistoricaFileData | null> {
+	async importFromFile(path: string): Promise<TimelineDocument | null> {
 		const file = this.plugin.app.vault.getAbstractFileByPath(path);
 		if (!(file instanceof TFile)) {
 			new Notice(`File ${path} does not exist or is not a file`, 10000);
@@ -105,7 +105,7 @@ export default class TimelineDataManager {
 
 		try {
 			const content = await this.plugin.app.vault.read(file);
-			let data: HistoricaFileData;
+			let data: TimelineDocument;
 
 			if (path.endsWith(".md")) {
 				data = parseHmd(content);

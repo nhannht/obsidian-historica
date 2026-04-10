@@ -22,7 +22,7 @@ const QuillModules = {
 
 export default function HeaderAndFooterEditor(props: {
 	plugin: HistoricaPlugin,
-	handleEdit: (s: string, type: string) => void,
+	handleEdit: (s: string, type: "header" | "footer") => void,
 	content?: string | undefined,
 	type: "header" | "footer",
 	setIsShow: (b:boolean)=>void

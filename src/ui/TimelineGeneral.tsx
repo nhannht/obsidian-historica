@@ -1,11 +1,11 @@
-import {PlotUnitNg} from "@/src/types";
+import {TimelineEntry} from "@/src/types";
 import {JumpToSource} from "@/src/utils";
 import HistoricaPlugin from "@/main";
 import { useState} from "react";
 import {TFile} from "obsidian";
 import ImageFromPath from "@/src/ui/ImageFromPath";
 import ShortendableParagraph from "@/src/ui/ShortendableParagraph";
-import {cn} from "@/lib/utils";
+import {cn} from "@/src/lib/utils";
 
 export function AttachmentPlot(props: {
 	path: string,
@@ -28,7 +28,7 @@ export function AttachmentPlot(props: {
 }
 
 export function Content(props: {
-	unit: PlotUnitNg,
+	unit: TimelineEntry,
 	plugin: HistoricaPlugin,
 	handleExpandSingle: ((id: string, isExpanded: boolean) => void)
 

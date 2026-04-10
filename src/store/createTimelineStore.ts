@@ -1,20 +1,21 @@
-import {createStore} from "zustand/vanilla";
+import {createStore, type StoreApi} from "zustand/vanilla";
 import {MarkdownPostProcessorContext, Notice, TFile} from "obsidian";
 import {moment} from "../moment-fix";
 import HistoricaPlugin from "@/main";
-import {HistoricaFileData, HistoricaSettingNg, PlotUnitNg} from "@/src/types";
+import {TimelineDocument, HistoricaSettings, TimelineEntry} from "@/src/types";
 import {GenerateRandomId} from "@/src/utils";
 import TimelineDataManager, {dataFilePath} from "@/src/data/TimelineDataManager";
-import MarkdownProcesser from "@/src/compute/MarkdownParser";
+import MarkdownProcessor from "@/src/compute/MarkdownParser";
 
 interface TimelineState {
-	units: PlotUnitNg[];
-	settings: HistoricaSettingNg;
+	units: TimelineEntry[];
+	settings: HistoricaSettings;
 	isLoading: boolean;
 	error: string | null;
 	showHidden: boolean;
 	isDirty: boolean;
 	isSaving: boolean;
+	loaded: boolean;
 }
 
 interface TimelineActions {
@@ -22,16 +23,16 @@ interface TimelineActions {
 	manualSave(): Promise<void>;
 	addUnit(index: number): Promise<void>;
 	removeUnit(id: string): void;
-	editUnit(id: string, updatedUnit: PlotUnitNg): void;
-	moveUnit(index: number, direction: string): void;
+	editUnit(id: string, updatedUnit: TimelineEntry): void;
+	moveUnit(index: number, direction: "up" | "down"): void;
 	sort(order: "asc" | "desc"): void;
 	expandUnit(id: string, isExpanded: boolean): void;
 	expandAll(willExpand: boolean): void;
 	hideUnit(id: string, isHidden: boolean): void;
 	toggleShowHidden(): void;
 	removeAll(): void;
-	updateSettings(partial: Partial<HistoricaSettingNg>): void;
-	editHeaderOrFooter(content: string, type: string): void;
+	updateSettings(partial: Partial<HistoricaSettings>): void;
+	editHeaderOrFooter(content: string, type: "header" | "footer"): void;
 	parseFromFile(path: string): Promise<void>;
 	importFromTimeline(path: string): Promise<void>;
 	toggleAutoSave(): void;
@@ -39,11 +40,16 @@ interface TimelineActions {
 
 export type TimelineStore = TimelineState & TimelineActions;
 
+export interface TimelineStoreHandle {
+	store: StoreApi<TimelineStore>;
+	destroy: () => void;
+}
+
 export function createTimelineStore(
 	plugin: HistoricaPlugin,
-	initialSettings: HistoricaSettingNg,
+	initialSettings: HistoricaSettings,
 	ctx: MarkdownPostProcessorContext,
-) {
+): TimelineStoreHandle {
 	const dataManager = new TimelineDataManager(plugin);
 
 	const ensureBlockId = async () => {
@@ -53,7 +59,7 @@ export function createTimelineStore(
 		return updated;
 	};
 
-	const buildSaveData = (): HistoricaFileData => {
+	const buildSaveData = (): TimelineDocument => {
 		const {settings, units} = store.getState();
 		return {settings, units};
 	};
@@ -66,6 +72,7 @@ export function createTimelineStore(
 		showHidden: false,
 		isDirty: false,
 		isSaving: false,
+		loaded: false,
 
 		async load() {
 			try {
@@ -77,13 +84,14 @@ export function createTimelineStore(
 							units: data.units,
 							settings: {...data.settings, autoSave: data.settings.autoSave ?? true},
 							isLoading: false,
+							loaded: true,
 						});
 						return;
 					}
 				}
-				set({isLoading: false});
+				set({isLoading: false, loaded: true});
 			} catch (e) {
-				set({error: (e as Error).message, isLoading: false});
+				set({error: (e as Error).message, isLoading: false, loaded: true});
 			}
 		},
 
@@ -104,7 +112,7 @@ export function createTimelineStore(
 		async addUnit(index: number) {
 			await ensureBlockId();
 			const {units} = get();
-			const newUnit: PlotUnitNg = {
+			const newUnit: TimelineEntry = {
 				attachments: [],
 				parsedResultText: "title",
 				time: {value: moment().unix().toString(), style: "unix"},
@@ -123,11 +131,11 @@ export function createTimelineStore(
 			set({units: get().units.filter(u => u.id !== id)});
 		},
 
-		editUnit(id: string, updated: PlotUnitNg) {
+		editUnit(id: string, updated: TimelineEntry) {
 			set({units: get().units.map(u => u.id === id ? updated : u)});
 		},
 
-		moveUnit(index: number, direction: string) {
+		moveUnit(index: number, direction: "up" | "down") {
 			const units = [...get().units];
 			if (direction === "up" && index > 0) {
 				[units[index], units[index - 1]] = [units[index - 1], units[index]];
@@ -169,11 +177,11 @@ export function createTimelineStore(
 			set({units: []});
 		},
 
-		updateSettings(partial: Partial<HistoricaSettingNg>) {
+		updateSettings(partial: Partial<HistoricaSettings>) {
 			set({settings: {...get().settings, ...partial}});
 		},
 
-		editHeaderOrFooter(content: string, type: string) {
+		editHeaderOrFooter(content: string, type: "header" | "footer") {
 			const {settings} = get();
 			if (type === "header") set({settings: {...settings, header: content}});
 			else set({settings: {...settings, footer: content}});
@@ -185,7 +193,7 @@ export function createTimelineStore(
 			if (!(file instanceof TFile)) return;
 
 			const updated = await ensureBlockId();
-			const parser = new MarkdownProcesser(plugin, updated);
+			const parser = new MarkdownProcessor(plugin, updated);
 			const nodes = await parser.ParseFilesAndGetNodeData(file);
 			const sentences = await parser.ExtractValidSentencesFromFile(file, nodes);
 			const parsed = await parser.GetPlotUnits(sentences);
@@ -220,10 +228,10 @@ export function createTimelineStore(
 
 	// Auto-save with debounce
 	let saveTimeout: ReturnType<typeof setTimeout> | null = null;
-	let loaded = false;
 
 	const unsubscribe = store.subscribe((state, prev) => {
-		if (!loaded) return;
+		if (!state.loaded) return;
+		if (!prev.loaded) return; // skip the initial load → don't auto-save data just loaded from disk
 		if (state.units !== prev.units || state.settings !== prev.settings) {
 			store.setState({isDirty: true});
 			if (state.settings.autoSave && state.settings.blockId !== "-1" && state.units.length > 0) {
@@ -238,19 +246,10 @@ export function createTimelineStore(
 		}
 	});
 
-	const originalLoad = store.getState().load;
-
-	store.setState({
-		load: async () => {
-			await originalLoad();
-			loaded = true;
-		}
-	} as any);
-
-	(store as any).destroy = () => {
+	const destroy = () => {
 		if (saveTimeout) clearTimeout(saveTimeout);
 		unsubscribe();
 	};
 
-	return store;
+	return {store, destroy};
 }

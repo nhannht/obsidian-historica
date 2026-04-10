@@ -1,4 +1,4 @@
-import {Attachment, HistoricaFileData, HistoricaSettingNg, PlotUnitNg, TimeData} from "../types";
+import {Attachment, TimelineDocument, HistoricaSettings, TimelineEntry, TimeData} from "../types";
 
 function generateId(): string {
 	const combined = Date.now().toString() + Math.floor(Math.random() * 1000000).toString();
@@ -11,10 +11,10 @@ function generateId(): string {
 }
 
 /**
- * Extra round-trip data that doesn't map to HistoricaFileData fields.
+ * Extra round-trip data that doesn't map to TimelineDocument fields.
  * Attached to the parse result so the serializer can reproduce them.
  */
-export type HmdParseResult = HistoricaFileData & {
+export type HmdParseResult = TimelineDocument & {
 	_extraFrontmatter?: [string, string][];
 	_extraComments?: Map<string, string[]>;
 };
@@ -72,7 +72,7 @@ export function parseHmd(content: string): HmdParseResult {
 	let currentExtraComments: string[] = [];
 	let bodyLines: string[] = [];
 
-	const units: PlotUnitNg[] = [];
+	const units: TimelineEntry[] = [];
 	const extraComments = new Map<string, string[]>();
 
 	let blockId = "";
@@ -87,7 +87,7 @@ export function parseHmd(content: string): HmdParseResult {
 		const body = trimBody(bodyLines);
 		const id = currentId || generateId();
 
-		const unit: PlotUnitNg = {
+		const unit: TimelineEntry = {
 			id,
 			parsedResultText: currentTitle,
 			sentence: body,
@@ -237,7 +237,7 @@ export function parseHmd(content: string): HmdParseResult {
 		flushEntry();
 	}
 
-	const settings: HistoricaSettingNg = {blockId, autoSave, header, footer};
+	const settings: HistoricaSettings = {blockId, autoSave, header, footer};
 
 	return {
 		settings,

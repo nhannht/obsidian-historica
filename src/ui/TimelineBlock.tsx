@@ -19,6 +19,7 @@ import {
 import HeaderAndFooterEditor from "@/src/ui/HeaderAndFooterEditor";
 import {Notice, TFile} from "obsidian";
 import {dataFilePath} from "@/src/data/TimelineDataManager";
+import {TimelineProvider} from "@/src/ui/TimelineContext";
 
 export function TimelineBlock(props: {
 	store: StoreApi<TimelineStore>;
@@ -37,13 +38,8 @@ export function TimelineBlock(props: {
 
 	const manualSave = useStore(store, s => s.manualSave);
 	const addUnit = useStore(store, s => s.addUnit);
-	const removeUnit = useStore(store, s => s.removeUnit);
-	const editUnit = useStore(store, s => s.editUnit);
-	const moveUnit = useStore(store, s => s.moveUnit);
 	const sort = useStore(store, s => s.sort);
-	const expandUnit = useStore(store, s => s.expandUnit);
 	const expandAll = useStore(store, s => s.expandAll);
-	const hideUnit = useStore(store, s => s.hideUnit);
 	const toggleShowHidden = useStore(store, s => s.toggleShowHidden);
 	const removeAll = useStore(store, s => s.removeAll);
 	const editHeaderOrFooter = useStore(store, s => s.editHeaderOrFooter);
@@ -61,14 +57,13 @@ export function TimelineBlock(props: {
 
 	useEffect(() => {
 		store.getState().load();
-		return () => {
-			if ((store as any).destroy) (store as any).destroy();
-		};
 	}, []);
 
 	const hiddenCount = units.filter(u => u.isHidden).length;
 	const visibleCount = units.length - hiddenCount;
 	const allExpanded = units.length > 0 && units.every(u => u.isExpanded);
+
+	const contextValue = useMemo(() => ({store, plugin}), [store, plugin]);
 
 	if (isLoading) {
 		return <div className="twp p-4">Loading timeline...</div>;
@@ -241,17 +236,7 @@ export function TimelineBlock(props: {
 						/>
 					)}
 					<TimelineI
-						settings={settings}
-						units={units}
 						timelineRef={timelineRef}
-						plugin={plugin}
-						handleRemovePlotUnit={removeUnit}
-						handleEditPlotUnit={editUnit}
-						handleAddPlotUnit={addUnit}
-						handleMove={moveUnit}
-						handleExpandSingle={expandUnit}
-						handleHideUnit={hideUnit}
-						showHidden={showHidden}
 						isDisplayFooter={!isShowFooterEditor}
 						isDisplayHeader={!isShowHeaderEditor}
 					/>
@@ -321,113 +306,115 @@ export function TimelineBlock(props: {
 	};
 
 	return (
-		<div className="twp">
-			{toolbar()}
-			<ContextMenu>
-				<ContextMenuTrigger>
-					<div className="min-h-full p-4 overflow-y-auto resize-y" style={{maxHeight: "70vh"}}>
-						{timelineContent()}
-					</div>
-				</ContextMenuTrigger>
+		<TimelineProvider value={contextValue}>
+			<div className="twp">
+				{toolbar()}
+				<ContextMenu>
+					<ContextMenuTrigger>
+						<div className="min-h-full p-4 overflow-y-auto resize-y" style={{maxHeight: "70vh"}}>
+							{timelineContent()}
+						</div>
+					</ContextMenuTrigger>
 
-				<ContextMenuContent>
-					<ContextMenuItem onClick={() => manualSave()}>Save</ContextMenuItem>
-					<ContextMenuSub>
-						<ContextMenuSubTrigger>Edit decorations</ContextMenuSubTrigger>
-						<ContextMenuSubContent>
-							<ContextMenuItem onClick={() => setIsShowHeaderEditor(true)}>Header</ContextMenuItem>
-							<ContextMenuItem onClick={() => setIsShowFooterEditor(true)}>Footer</ContextMenuItem>
-						</ContextMenuSubContent>
-					</ContextMenuSub>
-					<ContextMenuSub>
-						<ContextMenuSubTrigger>Sort</ContextMenuSubTrigger>
-						<ContextMenuSubContent>
-							<ContextMenuItem onClick={() => sort("asc")}>Ascending</ContextMenuItem>
-							<ContextMenuItem onClick={() => sort("desc")}>Descending</ContextMenuItem>
-						</ContextMenuSubContent>
-					</ContextMenuSub>
-					<ContextMenuItem onClick={() => expandAll(true)}>Expand All</ContextMenuItem>
-					<ContextMenuItem onClick={() => expandAll(false)}>Fold All</ContextMenuItem>
-					<ContextMenuItem onClick={toggleShowHidden}>
-						{showHidden ? "Hide hidden entries" : `Show hidden entries${hiddenCount > 0 ? ` (${hiddenCount})` : ""}`}
-					</ContextMenuItem>
-					<ContextMenuItem onClick={removeAll}>Remove All</ContextMenuItem>
-					<ContextMenuSub>
-						<ContextMenuSubTrigger>Parse timeline from file</ContextMenuSubTrigger>
-						<ContextMenuSubContent>
-							<Command>
-								<CommandInput placeholder="search file path"/>
-								<CommandList>
-									<CommandEmpty>No file selected</CommandEmpty>
-									<CommandGroup>
-										{markdownFiles.map(f => (
-											<CommandItem
-												key={f.path}
-												value={f.path}
-												onSelect={async (value) => parseFromFile(value)}
-											>
-												{f.path}
-											</CommandItem>
-										))}
-									</CommandGroup>
-								</CommandList>
-							</Command>
-						</ContextMenuSubContent>
-					</ContextMenuSub>
-					<ContextMenuSub>
-						<ContextMenuSubTrigger>Export</ContextMenuSubTrigger>
-						<ContextMenuSubContent>
-							<ContextMenuSub>
-								<ContextMenuSubTrigger>Image (PNG)</ContextMenuSubTrigger>
-								<ContextMenuSubContent>
-									<ContextMenuItem onClick={handleConvertToPngAndSave}>Save as file</ContextMenuItem>
-									<ContextMenuItem onClick={handleConvertToPngAndCopy}>Copy to clipboard</ContextMenuItem>
-								</ContextMenuSubContent>
-							</ContextMenuSub>
-							<ContextMenuItem onClick={() => ExportAsJSONToClipboard({units, settings})}>
-								JSON to clipboard
-							</ContextMenuItem>
-							<ContextMenuItem onClick={() => ExportAsMarkdownToClipboard({units, settings}, plugin)}>
-								Markdown to clipboard
-							</ContextMenuItem>
-						</ContextMenuSubContent>
-					</ContextMenuSub>
-					<ContextMenuSub>
-						<ContextMenuSubTrigger>Import from timeline</ContextMenuSubTrigger>
-						<ContextMenuSubContent>
-							<Command>
-								<CommandInput placeholder="pick file to import"/>
-								<CommandList>
-									<CommandEmpty>No file selected</CommandEmpty>
-									<CommandGroup>
-										{GetAllHistoricaDataFile(plugin).map(f => (
-											<CommandItem
-												key={f.path}
-												value={f.path}
-												onSelect={async (value) => importFromTimeline(value)}
-											>
-												{f.path}
-											</CommandItem>
-										))}
-									</CommandGroup>
-								</CommandList>
-							</Command>
-						</ContextMenuSubContent>
-					</ContextMenuSub>
-					<ContextMenuItem onClick={() => addUnit(0)}>Add at beginning</ContextMenuItem>
-					{settings.blockId !== "-1" && (
-						<ContextMenuItem onClick={async () => {
-							const dataPath = dataFilePath(settings.blockId);
-							const file = plugin.app.vault.getAbstractFileByPath(dataPath);
-							if (file instanceof TFile) {
-								await plugin.app.workspace.openLinkText(dataPath, "", true);
-							} else {
-								new Notice("Data file not found — save the timeline first");
-							}
-						}}>Reveal data file</ContextMenuItem>
-					)}
-				</ContextMenuContent>
-			</ContextMenu>
-		</div>
+					<ContextMenuContent>
+						<ContextMenuItem onClick={() => manualSave()}>Save</ContextMenuItem>
+						<ContextMenuSub>
+							<ContextMenuSubTrigger>Edit decorations</ContextMenuSubTrigger>
+							<ContextMenuSubContent>
+								<ContextMenuItem onClick={() => setIsShowHeaderEditor(true)}>Header</ContextMenuItem>
+								<ContextMenuItem onClick={() => setIsShowFooterEditor(true)}>Footer</ContextMenuItem>
+							</ContextMenuSubContent>
+						</ContextMenuSub>
+						<ContextMenuSub>
+							<ContextMenuSubTrigger>Sort</ContextMenuSubTrigger>
+							<ContextMenuSubContent>
+								<ContextMenuItem onClick={() => sort("asc")}>Ascending</ContextMenuItem>
+								<ContextMenuItem onClick={() => sort("desc")}>Descending</ContextMenuItem>
+							</ContextMenuSubContent>
+						</ContextMenuSub>
+						<ContextMenuItem onClick={() => expandAll(true)}>Expand All</ContextMenuItem>
+						<ContextMenuItem onClick={() => expandAll(false)}>Fold All</ContextMenuItem>
+						<ContextMenuItem onClick={toggleShowHidden}>
+							{showHidden ? "Hide hidden entries" : `Show hidden entries${hiddenCount > 0 ? ` (${hiddenCount})` : ""}`}
+						</ContextMenuItem>
+						<ContextMenuItem onClick={removeAll}>Remove All</ContextMenuItem>
+						<ContextMenuSub>
+							<ContextMenuSubTrigger>Parse timeline from file</ContextMenuSubTrigger>
+							<ContextMenuSubContent>
+								<Command>
+									<CommandInput placeholder="search file path"/>
+									<CommandList>
+										<CommandEmpty>No file selected</CommandEmpty>
+										<CommandGroup>
+											{markdownFiles.map(f => (
+												<CommandItem
+													key={f.path}
+													value={f.path}
+													onSelect={async (value) => parseFromFile(value)}
+												>
+													{f.path}
+												</CommandItem>
+											))}
+										</CommandGroup>
+									</CommandList>
+								</Command>
+							</ContextMenuSubContent>
+						</ContextMenuSub>
+						<ContextMenuSub>
+							<ContextMenuSubTrigger>Export</ContextMenuSubTrigger>
+							<ContextMenuSubContent>
+								<ContextMenuSub>
+									<ContextMenuSubTrigger>Image (PNG)</ContextMenuSubTrigger>
+									<ContextMenuSubContent>
+										<ContextMenuItem onClick={handleConvertToPngAndSave}>Save as file</ContextMenuItem>
+										<ContextMenuItem onClick={handleConvertToPngAndCopy}>Copy to clipboard</ContextMenuItem>
+									</ContextMenuSubContent>
+								</ContextMenuSub>
+								<ContextMenuItem onClick={() => ExportAsJSONToClipboard({units, settings})}>
+									JSON to clipboard
+								</ContextMenuItem>
+								<ContextMenuItem onClick={() => ExportAsMarkdownToClipboard({units, settings}, plugin)}>
+									Markdown to clipboard
+								</ContextMenuItem>
+							</ContextMenuSubContent>
+						</ContextMenuSub>
+						<ContextMenuSub>
+							<ContextMenuSubTrigger>Import from timeline</ContextMenuSubTrigger>
+							<ContextMenuSubContent>
+								<Command>
+									<CommandInput placeholder="pick file to import"/>
+									<CommandList>
+										<CommandEmpty>No file selected</CommandEmpty>
+										<CommandGroup>
+											{GetAllHistoricaDataFile(plugin).map(f => (
+												<CommandItem
+													key={f.path}
+													value={f.path}
+													onSelect={async (value) => importFromTimeline(value)}
+												>
+													{f.path}
+												</CommandItem>
+											))}
+										</CommandGroup>
+									</CommandList>
+								</Command>
+							</ContextMenuSubContent>
+						</ContextMenuSub>
+						<ContextMenuItem onClick={() => addUnit(0)}>Add at beginning</ContextMenuItem>
+						{settings.blockId !== "-1" && (
+							<ContextMenuItem onClick={async () => {
+								const dataPath = dataFilePath(settings.blockId);
+								const file = plugin.app.vault.getAbstractFileByPath(dataPath);
+								if (file instanceof TFile) {
+									await plugin.app.workspace.openLinkText(dataPath, "", true);
+								} else {
+									new Notice("Data file not found — save the timeline first");
+								}
+							}}>Reveal data file</ContextMenuItem>
+						)}
+					</ContextMenuContent>
+				</ContextMenu>
+			</div>
+		</TimelineProvider>
 	);
 }

@@ -3,9 +3,9 @@ import {TFile} from "obsidian";
 
 import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse";
-import {Node} from "unist"
+import {Node, Parent} from "unist"
 import {Processor, unified} from "unified";
-import {HistoricaSettingNg, NodeAndTFile, PlotUnitNg, SentenceWithOffset} from "@/src/types";
+import {HistoricaSettings, NodeAndTFile, TimelineEntry, SentenceWithOffset} from "@/src/types";
 import {GenerateRandomId} from "@/src/utils";
 import {Chrono, ParsedResult} from "chrono-node";
 
@@ -24,24 +24,23 @@ function isDurationExpression(text: string, resolvedDate: Date): boolean {
 	return Math.abs(resolvedDate.getFullYear() - now.getFullYear()) <= 2
 }
 
-export default class MarkdownProcesser {
+export default class MarkdownProcessor {
 	RemarkProcessor: Processor;
 	private sentenceSegmenter = new Intl.Segmenter('en', {granularity: 'sentence'})
 
 	constructor(
 		public currentPlugin: HistoricaPlugin,
-		_settings: HistoricaSettingNg
+		_settings: HistoricaSettings
 	) {
-		//@ts-ignore
-		this.RemarkProcessor = unified().use(remarkGfm).use(remarkParse)
+		this.RemarkProcessor = unified().use(remarkGfm).use(remarkParse) as unknown as Processor
 	}
 
 	private sentencesTokenize(text: string): string[] {
 		return Array.from(this.sentenceSegmenter.segment(text), s => s.segment.trim()).filter(s => s.length > 0)
 	}
 
-	async GetPlotUnits(sens: SentenceWithOffset[]): Promise<PlotUnitNg[]> {
-		const units: PlotUnitNg[] = []
+	async GetPlotUnits(sens: SentenceWithOffset[]): Promise<TimelineEntry[]> {
+		const units: TimelineEntry[] = []
 		const seenSentences = new Set<string>()
 
 		for (const s of sens) {
@@ -78,7 +77,7 @@ export default class MarkdownProcesser {
 	async ExtractValidSentencesFromFile(file: TFile, nodes: NodeAndTFile[]) {
 		const customChrono = await this.currentPlugin.historicaChrono.setupCustomChrono()
 		const sentencesWithOffsets: SentenceWithOffset[] = []
-		const fileText = await this.currentPlugin.app.vault.read(file)
+		const fileText = await this.currentPlugin.app.vault.cachedRead(file)
 
 		for (const n of nodes) {
 			if (n.file.path !== file.path) continue
@@ -182,8 +181,7 @@ export default class MarkdownProcesser {
 			nodes.push({node, file})
 		}
 		if ("children" in node) {
-			//@ts-ignore
-			node.children.forEach((childNode: Node) => {
+			(node as Parent).children.forEach((childNode: Node) => {
 				this.recursiveGetNodeDataFromSingleFile(childNode, file, nodes)
 			})
 		}

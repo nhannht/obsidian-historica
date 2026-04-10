@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {ReadImage} from "@/src/utils";
 import HistoricaPlugin from "@/main";
 import {arrayBufferToBase64} from "obsidian";
-import {cn} from "@/lib/utils";
+import {cn} from "@/src/lib/utils";
 
 
 export default function ImageFromPath(props: {

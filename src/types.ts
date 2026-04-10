@@ -3,16 +3,16 @@ import {Node, Point} from "unist";
 import {ParsedResult} from "chrono-node";
 
 
-export type HistoricaSettingNg = {
+export type HistoricaSettings = {
 	blockId: string,
 	header: string,
 	footer: string,
 	autoSave?: boolean,
 }
 
-export type HistoricaFileData = {
-	settings:HistoricaSettingNg,
-	units:PlotUnitNg[]
+export type TimelineDocument = {
+	settings:HistoricaSettings,
+	units:TimelineEntry[]
 }
 
 export type Attachment = {
@@ -20,7 +20,7 @@ export type Attachment = {
 	path:string,
 }
 
-export type PlotUnitNg = {
+export type TimelineEntry = {
 	id:string,
 	nodePos?: {
 		start:Point,
@@ -55,7 +55,7 @@ export interface SentenceWithOffset {
 }
 
 // this default setting will be using for global settings. Or if some settings is missing in the block
-export const DefaultSettings: HistoricaSettingNg = {
+export const DefaultSettings: HistoricaSettings = {
 	blockId: "-1",
 	footer: "",
 	header: ""

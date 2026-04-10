@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { Check, ChevronsUpDown, Trash2, ChevronDown, ChevronUp } from "@/src/ui/icons"
-import { cn } from "@/lib/utils"
+import { cn } from "@/src/lib/utils"
 import { Button } from "@/src/ui/shadcn/Button"
 import {
 	Command,

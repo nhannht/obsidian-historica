@@ -1,10 +1,11 @@
 import HistoricaPlugin from "../../main";
 import {createRoot} from "react-dom/client";
 import {StrictMode} from "react";
-import {DefaultSettings, HistoricaSettingNg} from "@/src/types";
+import {DefaultSettings, HistoricaSettings} from "@/src/types";
 import {createTimelineStore} from "@/src/store/createTimelineStore";
 import {TimelineBlock} from "@/src/ui/TimelineBlock";
 
+import {MarkdownRenderChild} from "obsidian";
 function extractBlockId(source: string): string {
 	const trimmed = source.trim()
 	if (trimmed === "") return "-1"
@@ -32,9 +33,9 @@ export default class HistoricaBlockManager {
 		this.thisPlugin.registerMarkdownCodeBlockProcessor("historica", async (source, el, ctx) => {
 			try {
 				const blockId = extractBlockId(source)
-				const settings: HistoricaSettingNg = {...DefaultSettings, blockId}
+				const settings: HistoricaSettings = {...DefaultSettings, blockId}
 
-				const store = createTimelineStore(this.thisPlugin, settings, ctx)
+				const {store, destroy} = createTimelineStore(this.thisPlugin, settings, ctx)
 
 				const root = el.createEl("div", {cls: "root"})
 				const reactRoot = createRoot(root)
@@ -47,6 +48,13 @@ export default class HistoricaBlockManager {
 						/>
 					</StrictMode>
 				)
+
+				const child = new MarkdownRenderChild(root)
+				child.onunload = () => {
+					reactRoot.unmount()
+					destroy()
+				}
+				ctx.addChild(child)
 			} catch (e) {
 				el.createEl("div", {
 					cls: "historica-error",

@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/src/ui/shadcn/Card"
-import {cn} from "@/lib/utils";
+import {cn} from "@/src/lib/utils";
 import {sanitizeHtml} from "@/src/utils";
 
 export default function ShortendableParagraph(props: {
