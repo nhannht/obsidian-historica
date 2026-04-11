@@ -1,6 +1,6 @@
 import {useMemo, useState} from "react";
 import {useTimeline, useTimelineStore} from "@/src/ui/TimelineContext";
-import {ExportAsJSONToClipboard, ExportAsMarkdownToClipboard, ExportAsPlainTextToClipboard, exportTimelineAsPng, GetAllMarkdownFileInVault} from "@/src/utils";
+import {ExportAsJSONToClipboard, ExportAsMarkdownToClipboard, ExportAsPlainTextToClipboard, exportTimelineAsPng, getAllMarkdownFileInVault} from "@/src/utils";
 import {
 	ContextMenu,
 	ContextMenuContent,
@@ -10,7 +10,7 @@ import {
 	ContextMenuSubTrigger,
 	ContextMenuTrigger
 } from "@/src/ui/shadcn/ContextMenu";
-import {Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList} from "@/src/ui/shadcn/Command";
+import {FilePicker} from "@/src/ui/FilePicker";
 
 const btnClass = "px-2 py-0.5 rounded text-[color:--text-muted] hover:text-[color:--text-normal] hover:bg-[--background-modifier-hover] cursor-pointer";
 
@@ -32,7 +32,7 @@ export function TimelineToolbar(props: {
 	const parseFromFile = useTimelineStore(s => s.parseFromFile);
 
 	const [isCollapsed, setIsCollapsed] = useState(false);
-	const markdownFiles = useMemo(() => GetAllMarkdownFileInVault(plugin), [plugin]);
+	const markdownFiles = useMemo(() => getAllMarkdownFileInVault(plugin), [plugin]);
 
 	const hiddenCount = units.filter(u => u.isHidden).length;
 	const visibleCount = units.length - hiddenCount;
@@ -96,18 +96,12 @@ export function TimelineToolbar(props: {
 							<ContextMenuSub>
 								<ContextMenuSubTrigger>Parse from file...</ContextMenuSubTrigger>
 								<ContextMenuSubContent>
-									<Command>
-										<CommandInput placeholder="search file path"/>
-										<CommandList>
-											<CommandEmpty>No file selected</CommandEmpty>
-											<CommandGroup>
-												{markdownFiles.map(f => (
-													<CommandItem key={f.path} value={f.path}
-														onSelect={async (value) => parseFromFile(value)}>{f.path}</CommandItem>
-												))}
-											</CommandGroup>
-										</CommandList>
-									</Command>
+									<FilePicker
+										files={markdownFiles}
+										placeholder="search file path"
+										emptyText="No file selected"
+										onSelect={(value) => parseFromFile(value)}
+									/>
 								</ContextMenuSubContent>
 							</ContextMenuSub>
 						</ContextMenuContent>

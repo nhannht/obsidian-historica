@@ -4,13 +4,7 @@ import * as React from "react"
 import { Check, ChevronsUpDown, Trash2, ChevronDown, ChevronUp } from "@/src/ui/icons"
 import { cn } from "@/src/lib/utils"
 import { Button } from "@/src/ui/shadcn/Button"
-import {
-	Command,
-	CommandEmpty,
-	CommandGroup,
-	CommandInput,
-	CommandItem,
-} from "@/src/ui/shadcn/Command"
+import {FilePicker} from "@/src/ui/FilePicker";
 import {
 	Popover,
 	PopoverContent,
@@ -21,7 +15,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/src/ui/shadcn/Card"
 import {Attachment} from "@/src/types";
 import {GetAllFileInVault} from "@/src/utils";
 import HistoricaPlugin from "@/main";
-import {CommandList} from "cmdk";
 import ImageFromPath from "@/src/ui/ImageFromPath";
 
 
@@ -37,7 +30,7 @@ export default function AttachmentEditor(props:{
 
 	// const addAttachment = () => {
 	// 	const newAttachment: Attachment = {
-	// 		id: GenerateRandomId(),
+	// 		id: generateRandomId(),
 	// 		path: "",
 	// 	}
 	// 	props.setAttachments(props.plotUnitId,[...props.attachments, newAttachment])
@@ -119,30 +112,19 @@ export default function AttachmentEditor(props:{
 										</Button>
 									</PopoverTrigger>
 									<PopoverContent className="max-w-96 p-0 max-h-60 overflow-y-auto">
-										<Command>
-											<CommandInput placeholder="Search path..." />
-											<CommandEmpty>No path found.</CommandEmpty>
-											<CommandGroup>
-												<CommandList>
-													{GetAllFileInVault(props.plugin).map((file,i) => (
-														<CommandItem
-															key={i}
-															onSelect={() => updateAttachment(attachment.id, { path:file.path })}
-														>
-															<Check
-																className={cn(
-																	"mr-2 h-4 w-4",
-																	attachment.path === file.path ? "opacity-100" : "opacity-0"
-																)}
-															/>
-															{["png","jpeg","jpg"].includes(file.extension) ? <ImageFromPath path={file.path} plugin={props.plugin}/> : <div className={"rounded-full p-4"}>{file.extension.toUpperCase()}</div>}
-															{file.path}
-														</CommandItem>
-													))}
-
-												</CommandList>
-											</CommandGroup>
-										</Command>
+										<FilePicker
+											files={GetAllFileInVault(props.plugin)}
+											placeholder="Search path..."
+											emptyText="No path found."
+											onSelect={(value) => updateAttachment(attachment.id, {path: value})}
+											renderItem={(file) => (
+												<>
+													<Check className={cn("mr-2 h-4 w-4", attachment.path === file.path ? "opacity-100" : "opacity-0")} />
+													{["png", "jpeg", "jpg"].includes(file.extension) ? <ImageFromPath path={file.path} plugin={props.plugin}/> : <div className={"rounded-full p-4"}>{file.extension.toUpperCase()}</div>}
+													{file.path}
+												</>
+											)}
+										/>
 									</PopoverContent>
 								</Popover>
 							</div>

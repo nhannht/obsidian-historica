@@ -6,7 +6,7 @@ import remarkParse from "remark-parse";
 import {Node, Parent} from "unist"
 import {Processor, unified} from "unified";
 import {HistoricaSettings, NodeAndTFile, TimelineEntry, SentenceWithOffset} from "@/src/types";
-import {GenerateRandomId} from "@/src/utils";
+import {generateRandomId} from "@/src/utils";
 import {Chrono, ParsedResult} from "chrono-node";
 
 type SentenceParse = { sentence: string; results: ParsedResult[]; hadForwardAnchor: boolean }
@@ -29,7 +29,7 @@ export default class MarkdownProcessor {
 	private sentenceSegmenter = new Intl.Segmenter('en', {granularity: 'sentence'})
 
 	constructor(
-		public currentPlugin: HistoricaPlugin,
+		public plugin: HistoricaPlugin,
 		_settings: HistoricaSettings
 	) {
 		this.RemarkProcessor = unified().use(remarkGfm).use(remarkParse) as unknown as Processor
@@ -39,11 +39,11 @@ export default class MarkdownProcessor {
 		return Array.from(this.sentenceSegmenter.segment(text), s => s.segment.trim()).filter(s => s.length > 0)
 	}
 
-	async GetPlotUnits(sens: SentenceWithOffset[]): Promise<TimelineEntry[]> {
+	async getPlotUnits(sentences: SentenceWithOffset[]): Promise<TimelineEntry[]> {
 		const units: TimelineEntry[] = []
 		const seenSentences = new Set<string>()
 
-		for (const s of sens) {
+		for (const s of sentences) {
 			// Dedup: one entry per sentence (use the first/earliest date match)
 			if (seenSentences.has(s.text)) continue
 			seenSentences.add(s.text)
@@ -66,7 +66,7 @@ export default class MarkdownProcessor {
 					value: best.date().getTime().toString(),
 					style: "unix"
 				},
-				id: GenerateRandomId(),
+				id: generateRandomId(),
 				attachments: [],
 				isExpanded: false
 			})
@@ -74,10 +74,10 @@ export default class MarkdownProcessor {
 		return units
 	}
 
-	async ExtractValidSentencesFromFile(file: TFile, nodes: NodeAndTFile[]) {
-		const customChrono = await this.currentPlugin.historicaChrono.setupCustomChrono()
+	async extractValidSentencesFromFile(file: TFile, nodes: NodeAndTFile[]) {
+		const customChrono = await this.plugin.historicaChrono.setupCustomChrono()
 		const sentencesWithOffsets: SentenceWithOffset[] = []
-		const fileText = await this.currentPlugin.app.vault.cachedRead(file)
+		const fileText = await this.plugin.app.vault.cachedRead(file)
 
 		for (const n of nodes) {
 			if (n.file.path !== file.path) continue
@@ -187,9 +187,9 @@ export default class MarkdownProcessor {
 		}
 	}
 
-	async ParseFilesAndGetNodeData(file: TFile) {
+	async parseFilesAndGetNodeData(file: TFile) {
 		const nodes: NodeAndTFile[] = []
-		const fileContent = await this.currentPlugin.app.vault.cachedRead(file)
+		const fileContent = await this.plugin.app.vault.cachedRead(file)
 		const parseTree: Node = this.RemarkProcessor.parse(fileContent)
 		await this.recursiveGetNodeDataFromSingleFile(parseTree, file, nodes)
 		return nodes

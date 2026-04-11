@@ -1,7 +1,7 @@
 import {MarkdownPostProcessorContext, Notice, TFile, TFolder} from "obsidian";
 import HistoricaPlugin from "@/main";
 import {TimelineDocument, HistoricaSettings} from "@/src/types";
-import {GenerateRandomId, UpdateBlockSetting} from "@/src/utils";
+import {generateRandomId, UpdateBlockSetting} from "@/src/utils";
 import {parseHmd, serializeHmd, HmdParseResult} from "./HmdParser";
 
 export const HISTORICA_DATA_DIR = "historica-data";
@@ -89,7 +89,7 @@ export default class TimelineDataManager {
 	): Promise<HistoricaSettings> {
 		if (settings.blockId !== "-1") return settings;
 
-		const blockId = GenerateRandomId();
+		const blockId = generateRandomId();
 		const updated = {...settings, blockId};
 		await UpdateBlockSetting(updated, ctx, this.plugin);
 		new Notice(`Timeline saved with ID ${blockId}`, 5000);

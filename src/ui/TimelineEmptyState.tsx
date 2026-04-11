@@ -1,7 +1,7 @@
 import {useMemo, useState} from "react";
 import {useTimeline, useTimelineStore} from "@/src/ui/TimelineContext";
-import {GetAllMarkdownFileInVault} from "@/src/utils";
-import {Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList} from "@/src/ui/shadcn/Command";
+import {getAllMarkdownFileInVault} from "@/src/utils";
+import {FilePicker} from "@/src/ui/FilePicker";
 
 export function TimelineEmptyState() {
 	const {plugin} = useTimeline();
@@ -9,7 +9,7 @@ export function TimelineEmptyState() {
 	const addUnit = useTimelineStore(s => s.addUnit);
 
 	const [isShowFilePicker, setIsShowFilePicker] = useState(false);
-	const markdownFiles = useMemo(() => GetAllMarkdownFileInVault(plugin), [plugin]);
+	const markdownFiles = useMemo(() => getAllMarkdownFileInVault(plugin), [plugin]);
 	const currentFile = plugin.app.workspace.getActiveFile();
 
 	const btnBase = "w-64 px-4 py-2 rounded text-sm font-medium cursor-pointer";
@@ -31,23 +31,17 @@ export function TimelineEmptyState() {
 					Parse from another file...
 				</button>
 			) : (
-				<div className="w-80">
-					<Command>
-						<CommandInput placeholder="Search files..." autoFocus />
-						<CommandList>
-							<CommandEmpty>No files found</CommandEmpty>
-							<CommandGroup>
-								{markdownFiles.map(f => (
-									<CommandItem key={f.path} value={f.path}
-										onSelect={async (value) => {
-											setIsShowFilePicker(false);
-											await parseFromFile(value);
-										}}>{f.path}</CommandItem>
-								))}
-							</CommandGroup>
-						</CommandList>
-					</Command>
-				</div>
+				<FilePicker
+					className="w-80"
+					files={markdownFiles}
+					placeholder="Search files..."
+					emptyText="No files found"
+					autoFocus
+					onSelect={async (value) => {
+						setIsShowFilePicker(false);
+						await parseFromFile(value);
+					}}
+				/>
 			)}
 
 			<button className={btnSecondary} onClick={() => addUnit(0)}>

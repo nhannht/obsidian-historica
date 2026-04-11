@@ -1,7 +1,7 @@
 import {Attachment, TimelineEntry} from "@/src/types";
 import {useTimeline, useTimelineStore} from "@/src/ui/TimelineContext";
-import {FormatDate, GenerateRandomId, GetAllFileInVault, JumpToSource} from "@/src/utils";
-import {useState} from "react";
+import {formatDate, generateRandomId, GetAllFileInVault, JumpToSource} from "@/src/utils";
+import {useMemo, useState} from "react";
 import {AttachmentPlot, Content} from "@/src/ui/TimelineGeneral";
 import SinglePlotUnitNgEditor from "@/src/ui/SinglePlotUnitEditor";
 import {
@@ -13,7 +13,7 @@ import {
 	ContextMenuSubTrigger,
 	ContextMenuTrigger,
 } from "@/src/ui/shadcn/ContextMenu";
-import {Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList,} from "@/src/ui/shadcn/Command"
+import {FilePicker} from "@/src/ui/FilePicker";
 import {Check} from "@/src/ui/icons";
 import {cn} from "@/src/lib/utils";
 import {Badge} from "@/src/ui/shadcn/Badge"
@@ -24,11 +24,12 @@ import {
 	TooltipTrigger,
 } from "@/src/ui/shadcn/Tooltip"
 export function SinglePlotUnit(props: {
-	u: TimelineEntry,
+	unit: TimelineEntry,
 	index: number,
 	isSingleFile?: boolean,
 }) {
 	const {plugin} = useTimeline();
+	const allFiles = useMemo(() => GetAllFileInVault(plugin), [plugin]);
 	const removeUnit = useTimelineStore(s => s.removeUnit);
 	const editUnit = useTimelineStore(s => s.editUnit);
 	const addUnit = useTimelineStore(s => s.addUnit);
@@ -48,69 +49,69 @@ export function SinglePlotUnit(props: {
 	}
 
 	function handleAddAttachment(id: string, filePath: string) {
-		let as: Attachment[] = props.u.attachments
-		let newAtt: Attachment = {
-			id: GenerateRandomId(),
+		const attachments: Attachment[] = props.unit.attachments
+		const newAtt: Attachment = {
+			id: generateRandomId(),
 			path: filePath
 		}
-		editUnit(id, {...props.u, attachments: [...as, newAtt]})
+		editUnit(id, {...props.unit, attachments: [...attachments, newAtt]})
 	}
 
 	function handleRemoveAttachment(uId: string, path: string) {
-		let as: Attachment[] = props.u.attachments
-		let newAtts = as.filter((a) => a.path !== path)
-		editUnit(uId, {...props.u, attachments: newAtts})
+		const attachments: Attachment[] = props.unit.attachments
+		const filtered = attachments.filter((a) => a.path !== path)
+		editUnit(uId, {...props.unit, attachments: filtered})
 
 	}
 
 	function handleChangePath(uId: string, newPath: string) {
-		editUnit(uId, {...props.u, filePath: newPath})
+		editUnit(uId, {...props.unit, filePath: newPath})
 	}
 
 
-	const truncatedSentence = props.u.sentence.length > 80
-		? props.u.sentence.slice(0, 80) + "..."
-		: props.u.sentence
+	const truncatedSentence = props.unit.sentence.length > 80
+		? props.unit.sentence.slice(0, 80) + "..."
+		: props.unit.sentence
 
-	const isHidden = props.u.isHidden ?? false
+	const isHidden = props.unit.isHidden ?? false
 
 	if (mode === "normal") {
 		return (
-			<div key={props.u.id} className={`relative pl-10 py-2 group ${isHidden ? "opacity-40" : ""}`}>
+			<div key={props.unit.id} className={`relative pl-10 py-2 group ${isHidden ? "opacity-40" : ""}`}>
 				{/* Timeline line */}
 				<div className="absolute left-3 top-0 bottom-0 w-px bg-[--background-modifier-border-hover] group-last:h-4"/>
 				{/* Timeline dot */}
 				<div className={`absolute left-[7px] top-3 w-3 h-3 rounded-full border-2 ${isHidden ? "border-[--text-muted] bg-[--background-modifier-hover]" : "border-[--interactive-accent] bg-[--background-primary]"}`}/>
 
 				{/* Compact: single line with date chip + title + preview */}
-				{!props.u.isExpanded && (
+				{!props.unit.isExpanded && (
 					<div
 						className="flex items-center gap-2 cursor-pointer hover:bg-[--background-modifier-hover] rounded px-1 py-0.5"
-						onClick={() => expandUnit(props.u.id, true)}
+						onClick={() => expandUnit(props.unit.id, true)}
 					>
 						<span className="shrink-0 px-1.5 py-0.5 text-[10px] font-semibold rounded bg-[--background-primary-alt] text-[color:--text-accent] border border-[--background-modifier-border]"
-						>{FormatDate(props.u.time)}</span>
+						>{formatDate(props.unit.time)}</span>
 						<span className="font-medium text-sm text-[color:--text-normal] hover:text-[color:--text-accent]"
 							title="Click to jump to source"
 							onClick={async (e) => {
 								e.stopPropagation();
-								await JumpToSource(props.u.nodePos, props.u.filePath, props.u.sentence, plugin)
+								await JumpToSource(props.unit.nodePos, props.unit.filePath, props.unit.sentence, plugin)
 							}}
-						>{props.u.parsedResultText}</span>
+						>{props.unit.parsedResultText}</span>
 						<span className="text-xs text-[color:--text-muted] truncate">{truncatedSentence}</span>
 					</div>
 				)}
 
 				{/* Expanded: full detail */}
-				{props.u.isExpanded && <>
+				{props.unit.isExpanded && <>
 					{/* Date chip */}
 					<div className="mb-1 flex items-center gap-2">
 						<span
 							className="inline-block px-2 py-0.5 text-xs font-semibold rounded bg-[--background-primary-alt] text-[color:--text-accent] border border-[--background-modifier-border]"
-						>{FormatDate(props.u.time)}</span>
+						>{formatDate(props.unit.time)}</span>
 						<span
 							className="text-xs text-[color:--text-muted] cursor-pointer hover:text-[color:--text-accent]"
-							onClick={() => expandUnit(props.u.id, false)}
+							onClick={() => expandUnit(props.unit.id, false)}
 						>collapse</span>
 					</div>
 
@@ -118,89 +119,85 @@ export function SinglePlotUnit(props: {
 					<div
 						className="font-medium text-base text-[color:--text-normal] cursor-pointer hover:text-[color:--text-accent]"
 						onClick={async () => {
-							await JumpToSource(props.u.nodePos, props.u.filePath, props.u.sentence, plugin)
+							await JumpToSource(props.unit.nodePos, props.unit.filePath, props.unit.sentence, plugin)
 						}}
 						title="Click to jump to source"
-					>{props.u.parsedResultText}</div>
+					>{props.unit.parsedResultText}</div>
 				</>}
 
 				{/* Sentence content — only when expanded */}
-				{props.u.isExpanded && <ContextMenu>
+				{props.unit.isExpanded && <ContextMenu>
 					<ContextMenuTrigger>
-						<Content unit={props.u} plugin={plugin} handleExpandSingle={expandUnit}/>
+						<Content unit={props.unit} plugin={plugin} handleExpandSingle={expandUnit}/>
 					</ContextMenuTrigger>
 					<ContextMenuContent>
 						<ContextMenuItem onClick={() => { addUnit(props.index); handleModeChange("edit") }}>Add entry</ContextMenuItem>
-						<ContextMenuItem onClick={() => removeUnit(props.u.id)}>Remove</ContextMenuItem>
+						<ContextMenuItem onClick={() => removeUnit(props.unit.id)}>Remove</ContextMenuItem>
 						<ContextMenuItem onClick={() => handleModeChange("edit")}>Edit</ContextMenuItem>
-						<ContextMenuItem onClick={() => hideUnit(props.u.id, !isHidden)}>{isHidden ? "Show" : "Hide"}</ContextMenuItem>
-						<ContextMenuItem onClick={() => expandUnit(props.u.id, !props.u.isExpanded)}>Fold/Unfold</ContextMenuItem>
-						<ContextMenuItem onClick={async () => await JumpToSource(props.u.nodePos, props.u.filePath, props.u.sentence, plugin)}>Jump to source</ContextMenuItem>
+						<ContextMenuItem onClick={() => hideUnit(props.unit.id, !isHidden)}>{isHidden ? "Show" : "Hide"}</ContextMenuItem>
+						<ContextMenuItem onClick={() => expandUnit(props.unit.id, !props.unit.isExpanded)}>Fold/Unfold</ContextMenuItem>
+						<ContextMenuItem onClick={async () => await JumpToSource(props.unit.nodePos, props.unit.filePath, props.unit.sentence, plugin)}>Jump to source</ContextMenuItem>
 						<ContextMenuItem onClick={() => handleMove(props.index, "up")}>Move up</ContextMenuItem>
 						<ContextMenuItem onClick={() => handleMove(props.index, "down")}>Move down</ContextMenuItem>
 						<ContextMenuSub>
 							<ContextMenuSubTrigger>Add attachment</ContextMenuSubTrigger>
 							<ContextMenuSubContent>
-								<Command className="w-80">
-									<CommandInput placeholder="Search attachments"/>
-									<CommandList>
-										<CommandEmpty>No attachments</CommandEmpty>
-										<CommandGroup title="" content="">
-											{GetAllFileInVault(plugin).map((f) => (
-												<CommandItem key={f.path} value={f.path}
-													onSelect={() => {
-														if (props.u.attachments.some(a => a.path === f.path)) handleRemoveAttachment(props.u.id, f.path)
-														else handleAddAttachment(props.u.id, f.path)
-													}}>
-													<Check className={cn("mr-2 h-4 w-4", props.u.attachments.some(a => a.path === f.path) ? "opacity-100" : "opacity-0")}/>
-													<TooltipProvider><Tooltip><TooltipTrigger asChild>
-														<div className="text-wrap w-full text-left">{f.path}</div>
-													</TooltipTrigger><TooltipContent>
-														<AttachmentPlot path={f.path} plugin={plugin}/>
-													</TooltipContent></Tooltip></TooltipProvider>
-												</CommandItem>
-											))}
-										</CommandGroup>
-									</CommandList>
-								</Command>
+								<FilePicker
+									className="w-80"
+									files={allFiles}
+									placeholder="Search attachments"
+									emptyText="No attachments"
+									onSelect={(value) => {
+										if (props.unit.attachments.some(a => a.path === value)) handleRemoveAttachment(props.unit.id, value)
+										else handleAddAttachment(props.unit.id, value)
+									}}
+									renderItem={(f) => (
+										<>
+											<Check className={cn("mr-2 h-4 w-4", props.unit.attachments.some(a => a.path === f.path) ? "opacity-100" : "opacity-0")}/>
+											<TooltipProvider><Tooltip><TooltipTrigger asChild>
+												<div className="text-wrap w-full text-left">{f.path}</div>
+											</TooltipTrigger><TooltipContent>
+												<AttachmentPlot path={f.path} plugin={plugin}/>
+											</TooltipContent></Tooltip></TooltipProvider>
+										</>
+									)}
+								/>
 							</ContextMenuSubContent>
 						</ContextMenuSub>
 						<ContextMenuSub>
 							<ContextMenuSubTrigger>Change source file</ContextMenuSubTrigger>
 							<ContextMenuSubContent>
-								<Command className="w-80">
-									<CommandInput placeholder="Search for source file"/>
-									<CommandList>
-										<CommandEmpty>No file</CommandEmpty>
-										<CommandGroup>
-											{GetAllFileInVault(plugin).map((f) => (
-												<CommandItem key={f.path} value={f.path}
-													onSelect={() => handleChangePath(props.u.id, f.path)}>
-													<Check className={cn("mr-2 h-4 w-4", props.u.filePath === f.path ? "opacity-100" : "opacity-0")}/>
-													<div className="text-wrap w-full text-left">{f.path}</div>
-												</CommandItem>
-											))}
-										</CommandGroup>
-									</CommandList>
-								</Command>
+								<FilePicker
+									className="w-80"
+									files={allFiles}
+									placeholder="Search for source file"
+									emptyText="No file"
+									onSelect={(value) => handleChangePath(props.unit.id, value)}
+									renderItem={(f) => (
+										<>
+											<Check className={cn("mr-2 h-4 w-4", props.unit.filePath === f.path ? "opacity-100" : "opacity-0")}/>
+											<div className="text-wrap w-full text-left">{f.path}</div>
+										</>
+									)}
+								/>
 							</ContextMenuSubContent>
 						</ContextMenuSub>
 					</ContextMenuContent>
 				</ContextMenu>}
 
 				{/* Source file badge — hidden for single-file or compact */}
-				{props.u.isExpanded && !props.isSingleFile && <div className="mt-1">
+				{props.unit.isExpanded && !props.isSingleFile && <div className="mt-1">
 					<Badge
-						onClick={async () => await JumpToSource(props.u.nodePos, props.u.filePath, props.u.sentence, plugin)}
+						onClick={async () => await JumpToSource(props.unit.nodePos, props.unit.filePath, props.unit.sentence, plugin)}
 						className="text-xs hover:cursor-pointer hover:text-[--text-accent-hover] opacity-60 hover:opacity-100"
-						variant="outline">{props.u.filePath}</Badge>
+						variant="outline">{props.unit.filePath}</Badge>
 				</div>}
 			</div>)
 	} else if (mode === "edit") {
-		return <SinglePlotUnitNgEditor key={props.u.id} handleModeChange={handleModeChange} u={props.u}
+		return <SinglePlotUnitNgEditor key={props.unit.id} handleModeChange={handleModeChange} unit={props.unit}
 									   handleEditPlotUnit={editUnit}/>
 	} else {
-		return <div key={props.u.id}></div>
+		return <div key={props.unit.id}></div>
 	}
 
 }

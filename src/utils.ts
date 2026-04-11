@@ -10,7 +10,7 @@ import {
 import {HISTORICA_DATA_DIR} from "./data/TimelineDataManager";
 
 
-export function FormatDate(t:TimeData): string {
+export function formatDate(t:TimeData): string {
 	if (t.style === "unix"){
 		const unixTime = parseInt(t.value)
 		const m =  moment.unix(unixTime / 1000)
@@ -57,7 +57,7 @@ export async function JumpToSource(paragraphPos: { start: Point, end: Point }|un
 	}
 }
 
-export function GenerateRandomId() {
+export function generateRandomId() {
 	const currentTime = moment().unix().toString();
 	const randomNum = Math.floor(Math.random() * 1000000).toString(); // Generate a random number
 	let hash = 0;
@@ -117,7 +117,7 @@ export function GetAllDirInVault(plugin: HistoricaPlugin) {
 	return plugin.app.vault.getAllFolders()
 }
 
-export function GetAllMarkdownFileInVault(plugin: HistoricaPlugin) {
+export function getAllMarkdownFileInVault(plugin: HistoricaPlugin) {
 	return plugin.app.vault.getMarkdownFiles()
 }
 
@@ -198,7 +198,7 @@ export async function ExportAsMarkdownToClipboard(data: TimelineDocument, plugin
 		markdown.push("### " + u.parsedResultText)
 		markdown.push(`${u.sentence}  `)
 		markdown.push(`Source: [[${u.filePath}]]`)
-		markdown.push(`Time: ${FormatDate(u.time)}`)
+		markdown.push(`Time: ${formatDate(u.time)}`)
 
 		u.attachments.length > 0 && markdown.push(`Attachments:`)
 		u.attachments.length > 0 && u.attachments.map(a => {
@@ -223,7 +223,7 @@ export async function ExportAsMarkdownToClipboard(data: TimelineDocument, plugin
 export async function ExportAsPlainTextToClipboard(data: TimelineDocument) {
 	const lines: string[] = []
 	for (const u of data.units) {
-		lines.push(`${FormatDate(u.time)}  ${u.parsedResultText}`)
+		lines.push(`${formatDate(u.time)}  ${u.parsedResultText}`)
 		lines.push(u.sentence)
 		lines.push("")
 	}

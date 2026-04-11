@@ -26,16 +26,16 @@ function extractBlockId(source: string): string {
 }
 
 export default class HistoricaBlockManager {
-	constructor(public thisPlugin: HistoricaPlugin) {
+	constructor(public plugin: HistoricaPlugin) {
 	}
 
 	async registerHistoricaBlockNg() {
-		this.thisPlugin.registerMarkdownCodeBlockProcessor("historica", async (source, el, ctx) => {
+		this.plugin.registerMarkdownCodeBlockProcessor("historica", async (source, el, ctx) => {
 			try {
 				const blockId = extractBlockId(source)
 				const settings: HistoricaSettings = {...DefaultSettings, blockId}
 
-				const {store, destroy} = createTimelineStore(this.thisPlugin, settings, ctx)
+				const {store, destroy} = createTimelineStore(this.plugin, settings, ctx)
 
 				const root = el.createEl("div", {cls: "root"})
 				const reactRoot = createRoot(root)
@@ -44,7 +44,7 @@ export default class HistoricaBlockManager {
 					<StrictMode>
 						<TimelineBlock
 							store={store}
-							plugin={this.thisPlugin}
+							plugin={this.plugin}
 						/>
 					</StrictMode>
 				)

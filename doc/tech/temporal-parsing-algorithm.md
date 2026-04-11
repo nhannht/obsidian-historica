@@ -167,7 +167,7 @@ This only affects results where the year was **implied** (not explicit). Results
 
 ## Fixed-Point Temporal Resolution
 
-The core algorithm for context-dependent date resolution. Implemented in `MarkdownParser.ExtractValidSentencesFromFile()`.
+The core algorithm for context-dependent date resolution. Implemented in `MarkdownParser.extractValidSentencesFromFile()`.
 
 ### Problem
 

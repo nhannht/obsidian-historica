@@ -1,7 +1,7 @@
 import {useMemo, type ReactNode} from "react";
 import {Notice, TFile} from "obsidian";
 import {useTimeline, useTimelineStore} from "@/src/ui/TimelineContext";
-import {ExportAsJSONToClipboard, ExportAsMarkdownToClipboard, exportTimelineAsPng, GetAllHistoricaDataFile, GetAllMarkdownFileInVault} from "@/src/utils";
+import {ExportAsJSONToClipboard, ExportAsMarkdownToClipboard, exportTimelineAsPng, GetAllHistoricaDataFile, getAllMarkdownFileInVault} from "@/src/utils";
 import {dataFilePath} from "@/src/data/TimelineDataManager";
 import {
 	ContextMenu,
@@ -12,7 +12,7 @@ import {
 	ContextMenuSubTrigger,
 	ContextMenuTrigger
 } from "@/src/ui/shadcn/ContextMenu";
-import {Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList} from "@/src/ui/shadcn/Command";
+import {FilePicker} from "@/src/ui/FilePicker";
 
 export function TimelineContextMenu(props: {
 	children: ReactNode;
@@ -33,7 +33,7 @@ export function TimelineContextMenu(props: {
 	const parseFromFile = useTimelineStore(s => s.parseFromFile);
 	const importFromTimeline = useTimelineStore(s => s.importFromTimeline);
 
-	const markdownFiles = useMemo(() => GetAllMarkdownFileInVault(plugin), [plugin]);
+	const markdownFiles = useMemo(() => getAllMarkdownFileInVault(plugin), [plugin]);
 	const hiddenCount = units.filter(u => u.isHidden).length;
 
 	const handleExportPng = (mode: "save" | "clipboard") => {
@@ -68,18 +68,12 @@ export function TimelineContextMenu(props: {
 				<ContextMenuSub>
 					<ContextMenuSubTrigger>Parse timeline from file</ContextMenuSubTrigger>
 					<ContextMenuSubContent>
-						<Command>
-							<CommandInput placeholder="search file path"/>
-							<CommandList>
-								<CommandEmpty>No file selected</CommandEmpty>
-								<CommandGroup>
-									{markdownFiles.map(f => (
-										<CommandItem key={f.path} value={f.path}
-											onSelect={async (value) => parseFromFile(value)}>{f.path}</CommandItem>
-									))}
-								</CommandGroup>
-							</CommandList>
-						</Command>
+						<FilePicker
+							files={markdownFiles}
+							placeholder="search file path"
+							emptyText="No file selected"
+							onSelect={(value) => parseFromFile(value)}
+						/>
 					</ContextMenuSubContent>
 				</ContextMenuSub>
 				<ContextMenuSub>
@@ -103,18 +97,12 @@ export function TimelineContextMenu(props: {
 				<ContextMenuSub>
 					<ContextMenuSubTrigger>Import from timeline</ContextMenuSubTrigger>
 					<ContextMenuSubContent>
-						<Command>
-							<CommandInput placeholder="pick file to import"/>
-							<CommandList>
-								<CommandEmpty>No file selected</CommandEmpty>
-								<CommandGroup>
-									{GetAllHistoricaDataFile(plugin).map(f => (
-										<CommandItem key={f.path} value={f.path}
-											onSelect={async (value) => importFromTimeline(value)}>{f.path}</CommandItem>
-									))}
-								</CommandGroup>
-							</CommandList>
-						</Command>
+						<FilePicker
+							files={GetAllHistoricaDataFile(plugin)}
+							placeholder="pick file to import"
+							emptyText="No file selected"
+							onSelect={(value) => importFromTimeline(value)}
+						/>
 					</ContextMenuSubContent>
 				</ContextMenuSub>
 				<ContextMenuItem onClick={() => addUnit(0)}>Add at beginning</ContextMenuItem>

@@ -12,7 +12,7 @@ Obsidian Historica is an Obsidian.md plugin that generates timelines from note c
 bun install               # Install dependencies
 bun run dev               # Dev mode (concurrent CSS watcher + esbuild watcher)
 bun run build             # Production build (minified CSS + tsc check + esbuild)
-bun test                  # Run Jest tests (jsdom environment)
+bun test                  # Run tests (Bun native runner, ~150ms)
 bun run doc:code          # Generate TypeDoc documentation
 ```
 

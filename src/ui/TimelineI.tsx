@@ -25,7 +25,7 @@ export function TimelineI(props: {
 			/>}
 		{visibleUnits.length > 0 && visibleUnits.map((u, index) => {
 			return (
-				<SinglePlotUnit u={u} index={index}
+				<SinglePlotUnit unit={u} index={index}
 								isSingleFile={isSingleFile}
 				/>
 			)

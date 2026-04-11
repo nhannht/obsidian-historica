@@ -3,7 +3,7 @@ import {MarkdownPostProcessorContext, Notice, TFile} from "obsidian";
 import {moment} from "../moment-fix";
 import HistoricaPlugin from "@/main";
 import {TimelineDocument, HistoricaSettings, TimelineEntry} from "@/src/types";
-import {GenerateRandomId} from "@/src/utils";
+import {generateRandomId} from "@/src/utils";
 import TimelineDataManager, {dataFilePath} from "@/src/data/TimelineDataManager";
 import MarkdownProcessor from "@/src/compute/MarkdownParser";
 
@@ -118,7 +118,7 @@ export function createTimelineStore(
 				time: {value: moment().unix().toString(), style: "unix"},
 				sentence: "main content",
 				filePath: "",
-				id: GenerateRandomId(),
+				id: generateRandomId(),
 				isExpanded: true,
 				nodePos: {start: {line: 1, column: 1}, end: {line: 1, column: 1}},
 			};
@@ -194,9 +194,9 @@ export function createTimelineStore(
 
 			const updated = await ensureBlockId();
 			const parser = new MarkdownProcessor(plugin, updated);
-			const nodes = await parser.ParseFilesAndGetNodeData(file);
-			const sentences = await parser.ExtractValidSentencesFromFile(file, nodes);
-			const parsed = await parser.GetPlotUnits(sentences);
+			const nodes = await parser.parseFilesAndGetNodeData(file);
+			const sentences = await parser.extractValidSentencesFromFile(file, nodes);
+			const parsed = await parser.getPlotUnits(sentences);
 
 			if (parsed.length === 0) {
 				new Notice("No dates found in this file", 10000);

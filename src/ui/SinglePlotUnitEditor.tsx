@@ -26,11 +26,11 @@ import {Label} from "@/src/ui/shadcn/Label"
 
 
 export default function SinglePlotUnitNgEditor(props: {
-	u: TimelineEntry,
-	handleEditPlotUnit: (id: string, u: TimelineEntry) => void,
+	unit: TimelineEntry,
+	handleEditPlotUnit: (id: string, unit: TimelineEntry) => void,
 	handleModeChange: (mode: "normal" | "edit") => void
 }) {
-	const [plotUnit, setPlotUnit] = useState<TimelineEntry>(structuredClone(props.u))
+	const [plotUnit, setPlotUnit] = useState<TimelineEntry>(structuredClone(props.unit))
 
 	// useEffect(() => {
 	// 	console.log(plotUnit)
@@ -47,11 +47,11 @@ export default function SinglePlotUnitNgEditor(props: {
 	//
 	// }
 	const [date, setDate] = useState(()=>{
-		if (props.u.time.style === "unix"){
+		if (props.unit.time.style === "unix"){
 			return {
-				year: moment.unix(Number(props.u.time.value) / 1000).year(),
-				month: moment.unix(Number(props.u.time.value) / 1000).month() + 1,
-				day: moment.unix(Number(props.u.time.value) / 1000).date(),
+				year: moment.unix(Number(props.unit.time.value) / 1000).year(),
+				month: moment.unix(Number(props.unit.time.value) / 1000).month() + 1,
+				day: moment.unix(Number(props.unit.time.value) / 1000).date(),
 			}
 
 		} else {
@@ -65,7 +65,7 @@ export default function SinglePlotUnitNgEditor(props: {
 	} )
 
 	const [freeForm,setFreeForm] = useState(()=>{
-		if (props.u.time.style === "free") return props.u.time.value
+		if (props.unit.time.style === "free") return props.unit.time.value
 		else return ""
 	})
 
@@ -84,7 +84,7 @@ export default function SinglePlotUnitNgEditor(props: {
 			setPlotUnit({...plotUnit,time:newTime})
 		}
 		// console.log(date)
-		// console.log(props.u.parsedResultUnixTime)
+		// console.log(props.unit.parsedResultUnixTime)
 
 	}, [date,freeForm])
 
