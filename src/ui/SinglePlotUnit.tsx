@@ -1,7 +1,7 @@
 import {Attachment, TimelineEntry} from "@/src/types";
 import {useTimeline, useTimelineStore} from "@/src/ui/TimelineContext";
 import {generateRandomId, GetAllFileInVault, JumpToSource} from "@/src/utils";
-import {useMemo} from "react";
+import {useMemo, useState} from "react";
 import {AttachmentPlot, Content} from "@/src/ui/TimelineGeneral";
 import {
 	ContextMenu,
@@ -36,6 +36,8 @@ export function SinglePlotUnit(props: {
 	const expandUnit = useTimelineStore(s => s.expandUnit);
 	const hideUnit = useTimelineStore(s => s.hideUnit);
 
+	const [annotation, setAnnotation] = useState(props.unit.annotation ?? "");
+
 	function handleMove(i: number, d: "up" | "down") {
 		moveUnit(i, d)
 	}
@@ -53,6 +55,13 @@ export function SinglePlotUnit(props: {
 		const attachments: Attachment[] = props.unit.attachments
 		const filtered = attachments.filter((a) => a.path !== path)
 		editUnit(uId, {...props.unit, attachments: filtered})
+	}
+
+	function handleAnnotationBlur() {
+		const trimmed = annotation.trim();
+		if (trimmed !== (props.unit.annotation ?? "").trim()) {
+			editUnit(props.unit.id, {...props.unit, annotation: trimmed || undefined})
+		}
 	}
 
 	const truncatedSentence = props.unit.sentence.length > 80
@@ -144,6 +153,23 @@ export function SinglePlotUnit(props: {
 					</ContextMenuSub>
 				</ContextMenuContent>
 			</ContextMenu>}
+
+			{/* Inline annotation — only when expanded */}
+			{props.unit.isExpanded && (
+				<textarea
+					className="mt-1 w-full text-xs px-2 py-1 rounded bg-transparent border border-transparent hover:border-[--background-modifier-border] focus:border-[--interactive-accent] focus:outline-none text-[color:--text-muted] focus:text-[color:--text-normal] resize-none placeholder:text-[color:--text-faint] transition-colors"
+					rows={1}
+					placeholder="Add a note..."
+					value={annotation}
+					onChange={e => setAnnotation(e.target.value)}
+					onBlur={handleAnnotationBlur}
+					onInput={e => {
+						const el = e.currentTarget;
+						el.style.height = "auto";
+						el.style.height = el.scrollHeight + "px";
+					}}
+				/>
+			)}
 
 			{/* Source file badge — hidden for single-file or compact */}
 			{props.unit.isExpanded && !props.isSingleFile && <div className="mt-1">

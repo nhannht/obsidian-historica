@@ -17,8 +17,6 @@ import {FilePicker} from "@/src/ui/FilePicker";
 export function TimelineContextMenu(props: {
 	children: ReactNode;
 	timelineRef: React.RefObject<HTMLDivElement | null>;
-	onShowHeaderEditor: () => void;
-	onShowFooterEditor: () => void;
 }) {
 	const {plugin} = useTimeline();
 	const units = useTimelineStore(s => s.units);
@@ -45,13 +43,6 @@ export function TimelineContextMenu(props: {
 			<ContextMenuTrigger>{props.children}</ContextMenuTrigger>
 			<ContextMenuContent>
 				<ContextMenuItem onClick={() => manualSave()}>Save</ContextMenuItem>
-				<ContextMenuSub>
-					<ContextMenuSubTrigger>Edit decorations</ContextMenuSubTrigger>
-					<ContextMenuSubContent>
-						<ContextMenuItem onClick={props.onShowHeaderEditor}>Header</ContextMenuItem>
-						<ContextMenuItem onClick={props.onShowFooterEditor}>Footer</ContextMenuItem>
-					</ContextMenuSubContent>
-				</ContextMenuSub>
 				<ContextMenuSub>
 					<ContextMenuSubTrigger>Sort</ContextMenuSubTrigger>
 					<ContextMenuSubContent>
@@ -105,7 +96,7 @@ export function TimelineContextMenu(props: {
 						/>
 					</ContextMenuSubContent>
 				</ContextMenuSub>
-					{settings.blockId !== "-1" && (
+				{settings.blockId !== "-1" && (
 					<ContextMenuItem onClick={async () => {
 						const dataPath = dataFilePath(settings.blockId);
 						const file = plugin.app.vault.getAbstractFileByPath(dataPath);

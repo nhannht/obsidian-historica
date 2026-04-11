@@ -34,7 +34,7 @@ export type TimelineEntry = {
 	attachments: Attachment[],
 	isExpanded: boolean,
 	isHidden?: boolean,
-
+	annotation?: string,
 }
 
 export type TimeData =  {

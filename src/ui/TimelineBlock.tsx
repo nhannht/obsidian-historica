@@ -1,4 +1,4 @@
-import {useRef, useState, useEffect, useMemo} from "react";
+import {useRef, useEffect, useMemo} from "react";
 import {useStore} from "zustand";
 import type {StoreApi} from "zustand";
 import HistoricaPlugin from "@/main";
@@ -7,7 +7,6 @@ import {TimelineI} from "@/src/ui/TimelineI";
 import {TimelineToolbar} from "@/src/ui/TimelineToolbar";
 import {TimelineContextMenu} from "@/src/ui/TimelineContextMenu";
 import {TimelineEmptyState} from "@/src/ui/TimelineEmptyState";
-import HeaderAndFooterEditor from "@/src/ui/HeaderAndFooterEditor";
 import {TimelineProvider} from "@/src/ui/TimelineContext";
 
 export function TimelineBlock(props: {
@@ -17,15 +16,11 @@ export function TimelineBlock(props: {
 	const {store, plugin} = props;
 
 	const units = useStore(store, s => s.units);
-	const settings = useStore(store, s => s.settings);
 	const isLoading = useStore(store, s => s.isLoading);
 	const isParsing = useStore(store, s => s.isParsing);
 	const error = useStore(store, s => s.error);
-	const editHeaderOrFooter = useStore(store, s => s.editHeaderOrFooter);
 
 	const timelineRef = useRef<HTMLDivElement | null>(null);
-	const [isShowHeaderEditor, setIsShowHeaderEditor] = useState(false);
-	const [isShowFooterEditor, setIsShowFooterEditor] = useState(false);
 
 	useEffect(() => {
 		store.getState().load();
@@ -45,11 +40,7 @@ export function TimelineBlock(props: {
 		<TimelineProvider value={contextValue}>
 			<div className="twp">
 				<TimelineToolbar timelineRef={timelineRef} />
-				<TimelineContextMenu
-					timelineRef={timelineRef}
-					onShowHeaderEditor={() => setIsShowHeaderEditor(true)}
-					onShowFooterEditor={() => setIsShowFooterEditor(true)}
-				>
+				<TimelineContextMenu timelineRef={timelineRef}>
 					<div className="relative min-h-full p-4 overflow-y-auto resize-y" style={{maxHeight: "70vh"}}>
 						{isParsing && (
 							<div className="absolute inset-0 z-10 flex items-center justify-center bg-[var(--background-primary)]/80">
@@ -64,29 +55,7 @@ export function TimelineBlock(props: {
 						)}
 						{units.length > 0 ? (
 							<div className="p-4">
-								{isShowHeaderEditor && (
-									<HeaderAndFooterEditor
-										setIsShow={setIsShowHeaderEditor}
-										plugin={plugin}
-										handleEdit={editHeaderOrFooter}
-										content={settings.header}
-										type="header"
-									/>
-								)}
-								<TimelineI
-									timelineRef={timelineRef}
-									isDisplayFooter={!isShowFooterEditor}
-									isDisplayHeader={!isShowHeaderEditor}
-								/>
-								{isShowFooterEditor && (
-									<HeaderAndFooterEditor
-										setIsShow={setIsShowFooterEditor}
-										plugin={plugin}
-										handleEdit={editHeaderOrFooter}
-										content={settings.footer}
-										type="footer"
-									/>
-								)}
+								<TimelineI timelineRef={timelineRef} isDisplayHeader={true} isDisplayFooter={true}/>
 							</div>
 						) : (
 							<TimelineEmptyState />
