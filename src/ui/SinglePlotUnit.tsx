@@ -195,7 +195,7 @@ export function SinglePlotUnit(props: {
 			</div>)
 	} else if (mode === "edit") {
 		return <SinglePlotUnitNgEditor key={props.unit.id} handleModeChange={handleModeChange} unit={props.unit}
-									   handleEditPlotUnit={editUnit}/>
+									   handleEditUnit={editUnit}/>
 	} else {
 		return <div key={props.unit.id}></div>
 	}

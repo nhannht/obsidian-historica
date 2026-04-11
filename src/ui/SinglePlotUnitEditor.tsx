@@ -27,7 +27,7 @@ import {Label} from "@/src/ui/shadcn/Label"
 
 export default function SinglePlotUnitNgEditor(props: {
 	unit: TimelineEntry,
-	handleEditPlotUnit: (id: string, unit: TimelineEntry) => void,
+	handleEditUnit: (id: string, unit: TimelineEntry) => void,
 	handleModeChange: (mode: "normal" | "edit") => void
 }) {
 	const [plotUnit, setPlotUnit] = useState<TimelineEntry>(structuredClone(props.unit))
@@ -99,7 +99,7 @@ export default function SinglePlotUnitNgEditor(props: {
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
-		props.handleEditPlotUnit(plotUnit.id, plotUnit)
+		props.handleEditUnit(plotUnit.id, plotUnit)
 		props.handleModeChange("normal")
 		// Here you would typically send the data to your backend or perform other actions
 	}
