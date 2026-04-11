@@ -62,10 +62,13 @@ export function TimelineToolbar(props: {
 			<div className="flex items-center justify-between mb-1">
 				<div className="flex items-center gap-2">
 					<span
-						className="font-semibold text-[color:--text-normal] cursor-pointer hover:text-[color:--text-accent]"
+						className="font-semibold text-[color:--text-normal] cursor-pointer hover:text-[color:--text-accent] flex items-center gap-1"
 						onClick={() => setIsCollapsed(!isCollapsed)}
 						title={isCollapsed ? "Show toolbar" : "Hide toolbar"}
-					>Historica</span>
+					>
+						<svg className="w-3 h-3 transition-transform" style={{transform: isCollapsed ? "rotate(-90deg)" : "rotate(0deg)"}} viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2"><path d="M2 4L6 8L10 4"/></svg>
+						Historica
+					</span>
 					<span className="text-[color:--text-muted]">{visibleCount} entries{hiddenCount > 0 ? ` (${hiddenCount} hidden)` : ""}</span>
 				</div>
 				<span className={saveStatusColor}>{saveStatus}</span>
@@ -86,7 +89,16 @@ export function TimelineToolbar(props: {
 					</ContextMenu>
 
 					<ContextMenu>
-						<ContextMenuTrigger><button className={btnClass} disabled={isParsing}>{isParsing ? "Parsing..." : "Parse"}</button></ContextMenuTrigger>
+						<ContextMenuTrigger>
+							<button
+								className={btnClass}
+								disabled={isParsing}
+								onClick={() => {
+									const f = plugin.app.workspace.getActiveFile();
+									if (f) parseFromFile(f.path);
+								}}
+							>{isParsing ? "Parsing..." : "Parse"}</button>
+						</ContextMenuTrigger>
 						<ContextMenuContent>
 							{plugin.app.workspace.getActiveFile() && (
 								<ContextMenuItem onClick={() => {
@@ -124,11 +136,11 @@ export function TimelineToolbar(props: {
 						onClick={() => manualSave()}
 					>Save</button>
 
-					<label className="flex items-center gap-1 px-2 py-0.5 cursor-pointer text-[color:--text-muted] hover:text-[color:--text-normal]"
-						title="Automatically save changes">
-						<input type="checkbox" checked={autoSave} onChange={toggleAutoSave} className="cursor-pointer" />
-						Auto-save
-					</label>
+					<button
+						className={`px-2 py-0.5 rounded cursor-pointer border ${autoSave ? "border-[--interactive-accent] text-[color:--text-accent]" : "border-[--background-modifier-border] text-[color:--text-muted] hover:text-[color:--text-normal]"}`}
+						onClick={toggleAutoSave}
+						title="Toggle auto-save"
+					>Auto-save</button>
 
 					{hiddenCount > 0 && (
 						<button className={btnClass} onClick={toggleShowHidden}>

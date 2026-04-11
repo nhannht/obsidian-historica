@@ -79,12 +79,13 @@ function setupAutoSave(
 export function createTimelineStore(
 	plugin: HistoricaPlugin,
 	initialSettings: HistoricaSettings,
-	ctx: MarkdownPostProcessorContext,
+	ctx?: MarkdownPostProcessorContext,
 ): TimelineStoreHandle {
 	const dataManager = new TimelineDataManager(plugin);
 
 	const ensureBlockId = async () => {
 		const {settings} = store.getState();
+		if (!ctx) return settings;  // sidebar: blockId already known, skip fence write
 		const updated = await dataManager.ensureBlockId(settings, ctx);
 		if (updated !== settings) store.setState({settings: updated});
 		return updated;
@@ -251,7 +252,7 @@ export function createTimelineStore(
 				await dataManager.save(buildSaveData());
 				set({isDirty: false});
 
-				if (isNewBlock) {
+				if (isNewBlock && ctx) {
 					await UpdateBlockSetting(finalSettings, ctx, plugin);
 					new Notice(`Timeline saved with ID ${finalSettings.blockId}`, 5000);
 				}

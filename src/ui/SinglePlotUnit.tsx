@@ -1,6 +1,6 @@
 import {Attachment, TimelineEntry} from "@/src/types";
 import {useTimeline, useTimelineStore} from "@/src/ui/TimelineContext";
-import {formatDate, generateRandomId, GetAllFileInVault, JumpToSource} from "@/src/utils";
+import {generateRandomId, GetAllFileInVault, JumpToSource} from "@/src/utils";
 import {useMemo, useState} from "react";
 import {AttachmentPlot, Content} from "@/src/ui/TimelineGeneral";
 import SinglePlotUnitNgEditor from "@/src/ui/SinglePlotUnitEditor";
@@ -23,6 +23,7 @@ import {
 	TooltipProvider,
 	TooltipTrigger,
 } from "@/src/ui/shadcn/Tooltip"
+
 export function SinglePlotUnit(props: {
 	unit: TimelineEntry,
 	index: number,
@@ -38,7 +39,6 @@ export function SinglePlotUnit(props: {
 	const hideUnit = useTimelineStore(s => s.hideUnit);
 
 	const [mode, setMode] = useState<"normal" | "edit">("normal")
-
 
 	function handleModeChange(mode: "normal" | "edit") {
 		setMode(mode)
@@ -61,13 +61,11 @@ export function SinglePlotUnit(props: {
 		const attachments: Attachment[] = props.unit.attachments
 		const filtered = attachments.filter((a) => a.path !== path)
 		editUnit(uId, {...props.unit, attachments: filtered})
-
 	}
 
 	function handleChangePath(uId: string, newPath: string) {
 		editUnit(uId, {...props.unit, filePath: newPath})
 	}
-
 
 	const truncatedSentence = props.unit.sentence.length > 80
 		? props.unit.sentence.slice(0, 80) + "..."
@@ -83,47 +81,43 @@ export function SinglePlotUnit(props: {
 				{/* Timeline dot */}
 				<div className={`absolute left-[7px] top-3 w-3 h-3 rounded-full border-2 ${isHidden ? "border-[--text-muted] bg-[--background-modifier-hover]" : "border-[--interactive-accent] bg-[--background-primary]"}`}/>
 
-				{/* Compact: single line with date chip + title + preview */}
+				{/* Compact: chip + sentence preview */}
 				{!props.unit.isExpanded && (
 					<div
 						className="flex items-center gap-2 cursor-pointer hover:bg-[--background-modifier-hover] rounded px-1 py-0.5"
 						onClick={() => expandUnit(props.unit.id, true)}
 					>
 						<span className="shrink-0 px-1.5 py-0.5 text-[10px] font-semibold rounded bg-[--background-primary-alt] text-[color:--text-accent] border border-[--background-modifier-border]"
-						>{formatDate(props.unit.time)}</span>
-						<span className="font-medium text-sm text-[color:--text-normal] hover:text-[color:--text-accent]"
-							title="Click to jump to source"
-							onClick={async (e) => {
-								e.stopPropagation();
-								await JumpToSource(props.unit.nodePos, props.unit.filePath, props.unit.sentence, plugin)
-							}}
 						>{props.unit.parsedResultText}</span>
 						<span className="text-xs text-[color:--text-muted] truncate">{truncatedSentence}</span>
 					</div>
 				)}
 
-				{/* Expanded: full detail */}
-				{props.unit.isExpanded && <>
-					{/* Date chip */}
+				{/* Expanded: chip + chevron collapse + jump-to-source icon */}
+				{props.unit.isExpanded && (
 					<div className="mb-1 flex items-center gap-2">
 						<span
 							className="inline-block px-2 py-0.5 text-xs font-semibold rounded bg-[--background-primary-alt] text-[color:--text-accent] border border-[--background-modifier-border]"
-						>{formatDate(props.unit.time)}</span>
+						>{props.unit.parsedResultText}</span>
 						<span
-							className="text-xs text-[color:--text-muted] cursor-pointer hover:text-[color:--text-accent]"
+							className="text-xs text-[color:--text-muted] cursor-pointer hover:text-[color:--text-accent] flex items-center"
 							onClick={() => expandUnit(props.unit.id, false)}
-						>collapse</span>
+							title="Collapse"
+						>
+							<svg className="w-3 h-3" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2"><path d="M2 8L6 4L10 8"/></svg>
+						</span>
+						<span
+							className="text-xs text-[color:--text-muted] cursor-pointer hover:text-[color:--text-accent] flex items-center"
+							onClick={async (e) => {
+								e.stopPropagation();
+								await JumpToSource(props.unit.nodePos, props.unit.filePath, props.unit.sentence, plugin)
+							}}
+							title="Jump to source"
+						>
+							<svg className="w-3 h-3" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M5 2H2v8h8V7"/><path d="M7 1h4v4"/><line x1="11" y1="1" x2="6" y2="6"/></svg>
+						</span>
 					</div>
-
-					{/* Title */}
-					<div
-						className="font-medium text-base text-[color:--text-normal] cursor-pointer hover:text-[color:--text-accent]"
-						onClick={async () => {
-							await JumpToSource(props.unit.nodePos, props.unit.filePath, props.unit.sentence, plugin)
-						}}
-						title="Click to jump to source"
-					>{props.unit.parsedResultText}</div>
-				</>}
+				)}
 
 				{/* Sentence content — only when expanded */}
 				{props.unit.isExpanded && <ContextMenu>
@@ -135,7 +129,6 @@ export function SinglePlotUnit(props: {
 						<ContextMenuItem onClick={() => removeUnit(props.unit.id)}>Remove</ContextMenuItem>
 						<ContextMenuItem onClick={() => handleModeChange("edit")}>Edit</ContextMenuItem>
 						<ContextMenuItem onClick={() => hideUnit(props.unit.id, !isHidden)}>{isHidden ? "Show" : "Hide"}</ContextMenuItem>
-						<ContextMenuItem onClick={() => expandUnit(props.unit.id, !props.unit.isExpanded)}>Fold/Unfold</ContextMenuItem>
 						<ContextMenuItem onClick={async () => await JumpToSource(props.unit.nodePos, props.unit.filePath, props.unit.sentence, plugin)}>Jump to source</ContextMenuItem>
 						<ContextMenuItem onClick={() => handleMove(props.index, "up")}>Move up</ContextMenuItem>
 						<ContextMenuItem onClick={() => handleMove(props.index, "down")}>Move down</ContextMenuItem>
@@ -199,5 +192,4 @@ export function SinglePlotUnit(props: {
 	} else {
 		return <div key={props.unit.id}></div>
 	}
-
 }

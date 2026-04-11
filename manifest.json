@@ -3,7 +3,7 @@
 	"name": "historica",
 	"version": "0.3.6",
 	"minAppVersion": "0.2.4",
-	"description": "Intelligently generates timeline from your content ... like a bro!",
+	"description": "Your writing already contains a timeline. Historica finds it — NLP-powered date extraction from any note.",
 	"author": "Nhan Nguyen",
 	"authorUrl": "https://github.com/nhannht",
 	"isDesktopOnly": true

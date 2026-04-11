@@ -6,16 +6,21 @@ import {createTimelineStore} from "@/src/store/createTimelineStore";
 import {TimelineBlock} from "@/src/ui/TimelineBlock";
 
 import {MarkdownRenderChild} from "obsidian";
-function extractBlockId(source: string): string {
-	const trimmed = source.trim()
-	if (trimmed === "") return "-1"
+export function extractBlockId(source: string): string {
+	// Strip comment lines (lines starting with #) to allow self-documenting comments in the code fence
+	const stripped = source.split('\n')
+		.filter(line => !line.trim().startsWith('#'))
+		.join('\n')
+		.trim()
+
+	if (stripped === "") return "-1"
 
 	// Plain blockId string (alphanumeric, hyphens, underscores)
-	if (/^[a-zA-Z0-9_-]+$/.test(trimmed)) return trimmed
+	if (/^[a-zA-Z0-9_-]+$/.test(stripped)) return stripped
 
 	// Legacy JSON format: {"blockId": "abc123", ...}
 	try {
-		const parsed = JSON.parse(trimmed)
+		const parsed = JSON.parse(stripped)
 		if (typeof parsed === "object" && parsed !== null && parsed.blockId && parsed.blockId.trim() !== "-1") {
 			return parsed.blockId.trim()
 		}

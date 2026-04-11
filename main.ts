@@ -5,6 +5,7 @@ import {registerHmdPostProcessor} from "@/src/data/HmdPostProcessor";
 import {hmdEditorExtension} from "@/src/data/HmdEditorExtension";
 import {findOrphanedDataFiles} from "@/src/utils";
 import {OrphanCleanupModal} from "@/src/ui/OrphanCleanupModal";
+import {HISTORICA_SIDEBAR_VIEW_TYPE, HistoricaSidebarView} from "@/src/ui/HistoricaSidebarView";
 
 export default class HistoricaPlugin extends Plugin {
 	historicaChrono = new HistoricaChrono()
@@ -31,6 +32,21 @@ export default class HistoricaPlugin extends Plugin {
 		this.registerEditorExtension(hmdEditorExtension(this));
 		await this.blockManager.registerHistoricaBlockNg()
 
+		this.registerView(
+			HISTORICA_SIDEBAR_VIEW_TYPE,
+			(leaf) => new HistoricaSidebarView(leaf, this)
+		);
+
+		this.addRibbonIcon("calendar-clock", "Open Historica Timeline Sidebar", () => {
+			this.activateSidebar();
+		});
+
+		this.addCommand({
+			id: "open-historica-sidebar",
+			name: "Open Timeline Sidebar",
+			callback: () => this.activateSidebar(),
+		});
+
 		this.addCommand({
 			id: "clean-orphaned-data-files",
 			name: "Clean up orphaned timeline data files",
@@ -43,6 +59,18 @@ export default class HistoricaPlugin extends Plugin {
 				new OrphanCleanupModal(this.app, orphans).open();
 			}
 		});
+	}
+
+	async activateSidebar(): Promise<void> {
+		const existing = this.app.workspace.getLeavesOfType(HISTORICA_SIDEBAR_VIEW_TYPE);
+		if (existing.length > 0) {
+			// Toggle: already open → close it
+			existing[0].detach();
+			return;
+		}
+		const leaf = this.app.workspace.getRightLeaf(false);
+		await leaf?.setViewState({type: HISTORICA_SIDEBAR_VIEW_TYPE, active: true});
+		if (leaf) this.app.workspace.revealLeaf(leaf);
 	}
 
 	override async onunload() {
