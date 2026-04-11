@@ -71,6 +71,29 @@ export function generateRandomId() {
 }
 
 
+// Deterministic entry ID: hash of sentence text + occurrence index.
+// Same sentence appearing N times gets indices 0, 1, 2... so annotations
+// survive re-parses as long as the sentence text is unchanged.
+export function sentenceHash(sentence: string): string {
+	let hash = 0;
+	for (let i = 0; i < sentence.length; i++) {
+		const char = sentence.charCodeAt(i);
+		hash = ((hash << 5) - hash) + char;
+		hash |= 0;
+	}
+	return Math.abs(hash).toString();
+}
+
+export function deterministicEntryId(sentence: string, occurrenceIndex: number): string {
+	return `${sentenceHash(sentence)}:${occurrenceIndex}`;
+}
+
+// Returns true if an ID was generated deterministically (contains ":").
+export function isDeterministicId(id: string): boolean {
+	return id.includes(":");
+}
+
+
 export async function UpdateBlockSetting(settings: HistoricaSettings,
 										 blockCtx: MarkdownPostProcessorContext,
 										 plugin: HistoricaPlugin

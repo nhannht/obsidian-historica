@@ -1,7 +1,7 @@
 import {MarkdownPostProcessorContext, Notice, TFile, TFolder} from "obsidian";
 import HistoricaPlugin from "@/main";
 import {TimelineDocument, HistoricaSettings} from "@/src/types";
-import {generateRandomId, UpdateBlockSetting} from "@/src/utils";
+import {generateRandomId, UpdateBlockSetting, deterministicEntryId, isDeterministicId} from "@/src/utils";
 import {parseHmd, serializeHmd, HmdParseResult} from "./HmdParser";
 
 export const HISTORICA_DATA_DIR = "historica-data";
@@ -27,7 +27,9 @@ export default class TimelineDataManager {
 			try {
 				const content = await this.plugin.app.vault.read(mdFile);
 				const data = parseHmd(content);
-				if (data && data.settings && data.units) return data;
+				if (data && data.settings && data.units) {
+					return await this.migrateIds(data, mdFile);
+				}
 			} catch {
 				// Fall through to JSON fallback
 			}
@@ -46,6 +48,10 @@ export default class TimelineDataManager {
 					await this.plugin.app.vault.create(mdPath, hmd);
 					await this.plugin.app.vault.delete(jsonFile);
 					new Notice(`Migrated timeline ${blockId} from JSON to HMD`, 5000);
+					const newFile = this.plugin.app.vault.getAbstractFileByPath(mdPath);
+					if (newFile instanceof TFile) {
+						return await this.migrateIds(data, newFile);
+					}
 					return data;
 				}
 			} catch {
@@ -54,6 +60,27 @@ export default class TimelineDataManager {
 		}
 
 		return null;
+	}
+
+	// Migrate random IDs → deterministic IDs in place.
+	// Groups entries by sentence text, assigns occurrence indices, rewrites IDs.
+	// Saves back to the file if any IDs changed.
+	private async migrateIds(data: TimelineDocument, file: TFile): Promise<TimelineDocument> {
+		const needsMigration = data.units.some(u => !isDeterministicId(u.id));
+		if (!needsMigration) return data;
+
+		const occurrenceCount = new Map<string, number>();
+		const migrated = data.units.map(u => {
+			if (isDeterministicId(u.id)) return u;
+			const idx = occurrenceCount.get(u.sentence) ?? 0;
+			occurrenceCount.set(u.sentence, idx + 1);
+			return {...u, id: deterministicEntryId(u.sentence, idx)};
+		});
+
+		const migratedData = {...data, units: migrated};
+		const hmd = serializeHmd(migratedData as HmdParseResult);
+		await this.plugin.app.vault.modify(file, hmd);
+		return migratedData;
 	}
 
 	async save(data: TimelineDocument): Promise<void> {

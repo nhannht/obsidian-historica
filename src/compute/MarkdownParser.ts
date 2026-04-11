@@ -6,7 +6,7 @@ import remarkParse from "remark-parse";
 import {Node, Parent} from "unist"
 import {Processor, unified} from "unified";
 import {HistoricaSettings, NodeAndTFile, TimelineEntry, SentenceWithOffset} from "@/src/types";
-import {generateRandomId} from "@/src/utils";
+import {deterministicEntryId} from "@/src/utils";
 import {Chrono, ParsedResult} from "chrono-node";
 
 type SentenceParse = { sentence: string; results: ParsedResult[]; hadForwardAnchor: boolean }
@@ -43,17 +43,16 @@ export default class MarkdownProcessor {
 
 	async getPlotUnits(sentences: SentenceWithOffset[]): Promise<TimelineEntry[]> {
 		const units: TimelineEntry[] = []
-		const seenSentences = new Set<string>()
+		const occurrenceCount = new Map<string, number>()
 
 		for (const s of sentences) {
-			// Dedup: one entry per sentence (use the first/earliest date match)
-			if (seenSentences.has(s.text)) continue
-			seenSentences.add(s.text)
-
-			// Pick the best result: prefer the one with the most specific date
 			const validResults = s.parsedResults.filter(r => !isDurationExpression(r.text, r.date()))
 			const best = validResults[0]
 			if (!best) continue
+
+			// Track occurrence index per sentence text for deterministic IDs
+			const idx = occurrenceCount.get(s.text) ?? 0
+			occurrenceCount.set(s.text, idx + 1)
 
 			units.push({
 				nodePos: s.node.node.position ? s.node.node.position : {
@@ -68,7 +67,7 @@ export default class MarkdownProcessor {
 					value: best.date().getTime().toString(),
 					style: "unix"
 				},
-				id: generateRandomId(),
+				id: deterministicEntryId(s.text, idx),
 				attachments: [],
 				isExpanded: false
 			})
