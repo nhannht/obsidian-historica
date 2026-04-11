@@ -6,7 +6,6 @@ import {FilePicker} from "@/src/ui/FilePicker";
 export function TimelineEmptyState() {
 	const {plugin} = useTimeline();
 	const parseFromFile = useTimelineStore(s => s.parseFromFile);
-	const addUnit = useTimelineStore(s => s.addUnit);
 	const isParsing = useTimelineStore(s => s.isParsing);
 
 	const [isShowFilePicker, setIsShowFilePicker] = useState(false);
@@ -45,10 +44,6 @@ export function TimelineEmptyState() {
 					}}
 				/>
 			)}
-
-			<button className={btnSecondary} onClick={() => addUnit(0)}>
-				Add entry manually
-			</button>
 		</div>
 	);
 }

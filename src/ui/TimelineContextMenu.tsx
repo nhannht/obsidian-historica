@@ -25,7 +25,6 @@ export function TimelineContextMenu(props: {
 	const settings = useTimelineStore(s => s.settings);
 	const showHidden = useTimelineStore(s => s.showHidden);
 	const manualSave = useTimelineStore(s => s.manualSave);
-	const addUnit = useTimelineStore(s => s.addUnit);
 	const sort = useTimelineStore(s => s.sort);
 	const expandAll = useTimelineStore(s => s.expandAll);
 	const toggleShowHidden = useTimelineStore(s => s.toggleShowHidden);
@@ -106,8 +105,7 @@ export function TimelineContextMenu(props: {
 						/>
 					</ContextMenuSubContent>
 				</ContextMenuSub>
-				<ContextMenuItem onClick={() => addUnit(0)}>Add at beginning</ContextMenuItem>
-				{settings.blockId !== "-1" && (
+					{settings.blockId !== "-1" && (
 					<ContextMenuItem onClick={async () => {
 						const dataPath = dataFilePath(settings.blockId);
 						const file = plugin.app.vault.getAbstractFileByPath(dataPath);
