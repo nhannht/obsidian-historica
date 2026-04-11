@@ -19,6 +19,7 @@ export function TimelineBlock(props: {
 	const units = useStore(store, s => s.units);
 	const settings = useStore(store, s => s.settings);
 	const isLoading = useStore(store, s => s.isLoading);
+	const isParsing = useStore(store, s => s.isParsing);
 	const error = useStore(store, s => s.error);
 	const editHeaderOrFooter = useStore(store, s => s.editHeaderOrFooter);
 
@@ -49,7 +50,18 @@ export function TimelineBlock(props: {
 					onShowHeaderEditor={() => setIsShowHeaderEditor(true)}
 					onShowFooterEditor={() => setIsShowFooterEditor(true)}
 				>
-					<div className="min-h-full p-4 overflow-y-auto resize-y" style={{maxHeight: "70vh"}}>
+					<div className="relative min-h-full p-4 overflow-y-auto resize-y" style={{maxHeight: "70vh"}}>
+						{isParsing && (
+							<div className="absolute inset-0 z-10 flex items-center justify-center bg-[var(--background-primary)]/80">
+								<div className="flex items-center gap-2 text-[var(--text-muted)]">
+									<svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
+										<circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+										<path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+									</svg>
+									Parsing...
+								</div>
+							</div>
+						)}
 						{units.length > 0 ? (
 							<div className="p-4">
 								{isShowHeaderEditor && (

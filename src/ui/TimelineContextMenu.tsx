@@ -32,6 +32,7 @@ export function TimelineContextMenu(props: {
 	const removeAll = useTimelineStore(s => s.removeAll);
 	const parseFromFile = useTimelineStore(s => s.parseFromFile);
 	const importFromTimeline = useTimelineStore(s => s.importFromTimeline);
+	const isParsing = useTimelineStore(s => s.isParsing);
 
 	const markdownFiles = useMemo(() => getAllMarkdownFileInVault(plugin), [plugin]);
 	const hiddenCount = units.filter(u => u.isHidden).length;
@@ -66,7 +67,7 @@ export function TimelineContextMenu(props: {
 				</ContextMenuItem>
 				<ContextMenuItem onClick={removeAll}>Remove All</ContextMenuItem>
 				<ContextMenuSub>
-					<ContextMenuSubTrigger>Parse timeline from file</ContextMenuSubTrigger>
+					<ContextMenuSubTrigger disabled={isParsing}>{isParsing ? "Parsing..." : "Parse timeline from file"}</ContextMenuSubTrigger>
 					<ContextMenuSubContent>
 						<FilePicker
 							files={markdownFiles}

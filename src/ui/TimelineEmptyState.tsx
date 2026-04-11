@@ -7,6 +7,7 @@ export function TimelineEmptyState() {
 	const {plugin} = useTimeline();
 	const parseFromFile = useTimelineStore(s => s.parseFromFile);
 	const addUnit = useTimelineStore(s => s.addUnit);
+	const isParsing = useTimelineStore(s => s.isParsing);
 
 	const [isShowFilePicker, setIsShowFilePicker] = useState(false);
 	const markdownFiles = useMemo(() => getAllMarkdownFileInVault(plugin), [plugin]);
@@ -21,13 +22,13 @@ export function TimelineEmptyState() {
 			<p className="text-sm text-[color:--text-muted] mb-2">No timeline entries yet</p>
 
 			{currentFile && (
-				<button className={btnPrimary} onClick={() => parseFromFile(currentFile.path)}>
-					Parse this file
+				<button className={btnPrimary} disabled={isParsing} onClick={() => parseFromFile(currentFile.path)}>
+					{isParsing ? "Parsing..." : "Parse this file"}
 				</button>
 			)}
 
 			{!isShowFilePicker ? (
-				<button className={btnSecondary} onClick={() => setIsShowFilePicker(true)}>
+				<button className={btnSecondary} disabled={isParsing} onClick={() => setIsShowFilePicker(true)}>
 					Parse from another file...
 				</button>
 			) : (

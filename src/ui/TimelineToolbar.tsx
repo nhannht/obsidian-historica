@@ -30,6 +30,7 @@ export function TimelineToolbar(props: {
 	const toggleShowHidden = useTimelineStore(s => s.toggleShowHidden);
 	const toggleAutoSave = useTimelineStore(s => s.toggleAutoSave);
 	const parseFromFile = useTimelineStore(s => s.parseFromFile);
+	const isParsing = useTimelineStore(s => s.isParsing);
 
 	const [isCollapsed, setIsCollapsed] = useState(false);
 	const markdownFiles = useMemo(() => getAllMarkdownFileInVault(plugin), [plugin]);
@@ -85,7 +86,7 @@ export function TimelineToolbar(props: {
 					</ContextMenu>
 
 					<ContextMenu>
-						<ContextMenuTrigger><button className={btnClass}>Parse</button></ContextMenuTrigger>
+						<ContextMenuTrigger><button className={btnClass} disabled={isParsing}>{isParsing ? "Parsing..." : "Parse"}</button></ContextMenuTrigger>
 						<ContextMenuContent>
 							{plugin.app.workspace.getActiveFile() && (
 								<ContextMenuItem onClick={() => {

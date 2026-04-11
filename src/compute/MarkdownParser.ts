@@ -11,6 +11,8 @@ import {Chrono, ParsedResult} from "chrono-node";
 
 type SentenceParse = { sentence: string; results: ParsedResult[]; hadForwardAnchor: boolean }
 
+const yieldThread = () => new Promise<void>(r => setTimeout(r, 0))
+
 function stripMarkdownLinks(text: string): string {
 	return text.replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
 }
@@ -79,8 +81,10 @@ export default class MarkdownProcessor {
 		const sentencesWithOffsets: SentenceWithOffset[] = []
 		const fileText = await this.plugin.app.vault.cachedRead(file)
 
-		for (const n of nodes) {
+		for (let ni = 0; ni < nodes.length; ni++) {
+			const n = nodes[ni]
 			if (n.file.path !== file.path) continue
+			if (ni % 5 === 0) await yieldThread()
 
 			const paragraphText = fileText.slice(n.node.position?.start.offset, n.node.position?.end.offset)
 			const cleanText = stripMarkdownLinks(paragraphText)

@@ -96,19 +96,15 @@ export async function UpdateBlockSetting(settings: HistoricaSettings,
 		}
 	}
 
-	// scroll back to the location of this block
-	const currentFile = plugin.app.workspace.getActiveFile()
-	if (currentFile instanceof TFile ) {
-		const leaf = plugin.app.workspace.getLeaf(false)
-		await leaf.openFile(currentFile)
-		await leaf.setViewState({
-			type: "markdown",
-		})
-		let view = leaf.view as MarkdownView
-		view.editor.setCursor({
-			line: elInfo?.lineStart ? elInfo.lineEnd : 0,
-			ch: 0,
-		})
+	// Move cursor before the code block so Live Preview renders the preview
+	// (cursor inside a code block shows raw source instead)
+	const leaf = plugin.app.workspace.getMostRecentLeaf()
+	if (leaf && elInfo) {
+		const view = leaf.view as MarkdownView
+		if (view?.editor) {
+			const targetLine = elInfo.lineStart > 0 ? elInfo.lineStart - 1 : 0
+			view.editor.setCursor({line: targetLine, ch: 0})
+		}
 	}
 
 }
@@ -162,6 +158,41 @@ export function GetAllHistoricaDataFile(plugin: HistoricaPlugin) {
 	return plugin.app.vault.getFiles().filter(f =>
 		f.path.startsWith(HISTORICA_DATA_DIR) && f.extension === "json"
 	)
+}
+
+function extractBlockIdFromSource(source: string): string {
+	const trimmed = source.trim()
+	if (trimmed === "") return "-1"
+	if (/^[a-zA-Z0-9_-]+$/.test(trimmed)) return trimmed
+	try {
+		const parsed = JSON.parse(trimmed)
+		if (typeof parsed === "object" && parsed !== null && parsed.blockId && parsed.blockId.trim() !== "-1") {
+			return parsed.blockId.trim()
+		}
+	} catch { /* not JSON */ }
+	return "-1"
+}
+
+export async function findOrphanedDataFiles(plugin: HistoricaPlugin): Promise<TFile[]> {
+	const dataFiles = plugin.app.vault.getFiles().filter(f =>
+		f.path.startsWith(HISTORICA_DATA_DIR + "/") && (f.extension === "md" || f.extension === "json")
+	)
+	if (dataFiles.length === 0) return []
+
+	const activeBlockIds = new Set<string>()
+	const codeBlockRe = /```historica\n([\s\S]*?)```/g
+
+	for (const mdFile of plugin.app.vault.getMarkdownFiles()) {
+		const content = await plugin.app.vault.cachedRead(mdFile)
+		let match: RegExpExecArray | null
+		codeBlockRe.lastIndex = 0
+		while ((match = codeBlockRe.exec(content)) !== null) {
+			const blockId = extractBlockIdFromSource(match[1])
+			if (blockId !== "-1") activeBlockIds.add(blockId)
+		}
+	}
+
+	return dataFiles.filter(f => !activeBlockIds.has(f.basename))
 }
 
 

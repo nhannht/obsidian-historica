@@ -3,7 +3,7 @@ import {MarkdownPostProcessorContext, Notice, TFile} from "obsidian";
 import {moment} from "../moment-fix";
 import HistoricaPlugin from "@/main";
 import {TimelineDocument, HistoricaSettings, TimelineEntry} from "@/src/types";
-import {generateRandomId} from "@/src/utils";
+import {generateRandomId, UpdateBlockSetting} from "@/src/utils";
 import TimelineDataManager, {dataFilePath} from "@/src/data/TimelineDataManager";
 import MarkdownProcessor from "@/src/compute/MarkdownParser";
 
@@ -11,6 +11,7 @@ interface TimelineState {
 	units: TimelineEntry[];
 	settings: HistoricaSettings;
 	isLoading: boolean;
+	isParsing: boolean;
 	error: string | null;
 	showHidden: boolean;
 	isDirty: boolean;
@@ -98,6 +99,7 @@ export function createTimelineStore(
 		units: [],
 		settings: {...structuredClone(initialSettings), autoSave: initialSettings.autoSave ?? true},
 		isLoading: true,
+		isParsing: false,
 		error: null,
 		showHidden: false,
 		isDirty: false,
@@ -222,18 +224,40 @@ export function createTimelineStore(
 			const file = plugin.app.vault.getAbstractFileByPath(path);
 			if (!(file instanceof TFile)) return;
 
-			const updated = await ensureBlockId();
-			const parser = new MarkdownProcessor(plugin, updated);
-			const nodes = await parser.parseFilesAndGetNodeData(file);
-			const sentences = await parser.extractValidSentencesFromFile(file, nodes);
-			const parsed = await parser.getPlotUnits(sentences);
+			set({isParsing: true});
+			try {
+				const {settings} = get();
+				const parser = new MarkdownProcessor(plugin, settings);
+				const nodes = await parser.parseFilesAndGetNodeData(file);
+				const sentences = await parser.extractValidSentencesFromFile(file, nodes);
+				const parsed = await parser.getPlotUnits(sentences);
 
-			if (parsed.length === 0) {
-				new Notice("No dates found in this file", 10000);
-			} else {
-				new Notice(`Parsed ${parsed.length} units from file`, 10000);
+				if (parsed.length === 0) {
+					new Notice("No dates found in this file", 10000);
+				} else {
+					new Notice(`Parsed ${parsed.length} units from file`, 10000);
+				}
+
+				// Assign blockId in memory first (before writing to markdown)
+				const isNewBlock = settings.blockId === "-1";
+				const finalSettings = isNewBlock
+					? {...settings, blockId: generateRandomId()}
+					: settings;
+				set({units: [...parsed, ...units], settings: finalSettings});
+
+				// Save data BEFORE writing blockId to markdown.
+				// Writing blockId triggers Obsidian to re-render the block (new store + load()).
+				// Data must be on disk before that happens, otherwise load() finds nothing.
+				await dataManager.save(buildSaveData());
+				set({isDirty: false});
+
+				if (isNewBlock) {
+					await UpdateBlockSetting(finalSettings, ctx, plugin);
+					new Notice(`Timeline saved with ID ${finalSettings.blockId}`, 5000);
+				}
+			} finally {
+				set({isParsing: false});
 			}
-			set({units: [...parsed, ...units]});
 		},
 
 		async importFromTimeline(path: string) {
