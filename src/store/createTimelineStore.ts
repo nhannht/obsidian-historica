@@ -221,7 +221,6 @@ export function createTimelineStore(
 		},
 
 		async parseFromFile(path: string) {
-			const {units} = get();
 			const file = plugin.app.vault.getAbstractFileByPath(path);
 			if (!(file instanceof TFile)) return;
 
@@ -235,17 +234,18 @@ export function createTimelineStore(
 
 				if (parsed.length === 0) {
 					new Notice("No dates found in this file", 10000);
-				} else {
-					new Notice(`Parsed ${parsed.length} units from file`, 10000);
+					return;
 				}
 
-				// Merge user-owned fields (annotation, isHidden, attachments) from existing
-				// entries into fresh parse results, matched by deterministic ID.
-				// This ensures re-parse never destroys user annotations.
+				new Notice(`Parsed ${parsed.length} units from file`, 10000);
+
+				// Re-fetch units after async parse so we don't merge against a stale snapshot.
+				const {units} = get();
 				const existingById = new Map(units.map(u => [u.id, u]));
 				const merged = parsed.map(entry => {
 					const old = existingById.get(entry.id);
 					if (!old) return entry;
+					// Preserve user-owned fields; parser-owned fields come from fresh parse.
 					return {
 						...entry,
 						annotation: old.annotation,
