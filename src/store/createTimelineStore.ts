@@ -45,6 +45,36 @@ export interface TimelineStoreHandle {
 	destroy: () => void;
 }
 
+function setupAutoSave(
+	store: StoreApi<TimelineStore>,
+	buildSaveData: () => TimelineDocument,
+	dataManager: TimelineDataManager,
+): () => void {
+	let saveTimeout: ReturnType<typeof setTimeout> | null = null;
+
+	const unsubscribe = store.subscribe((state, prev) => {
+		if (!state.loaded) return;
+		if (!prev.loaded) return; // skip the initial load → don't auto-save data just loaded from disk
+		if (state.units !== prev.units || state.settings !== prev.settings) {
+			store.setState({isDirty: true});
+			if (state.settings.autoSave && state.settings.blockId !== "-1" && state.units.length > 0) {
+				if (saveTimeout) clearTimeout(saveTimeout);
+				saveTimeout = setTimeout(() => {
+					store.setState({isSaving: true});
+					dataManager.save(buildSaveData())
+						.then(() => store.setState({isDirty: false, isSaving: false}))
+						.catch((e) => { console.error(e); store.setState({isSaving: false}); });
+				}, 500);
+			}
+		}
+	});
+
+	return () => {
+		if (saveTimeout) clearTimeout(saveTimeout);
+		unsubscribe();
+	};
+}
+
 export function createTimelineStore(
 	plugin: HistoricaPlugin,
 	initialSettings: HistoricaSettings,
@@ -226,30 +256,7 @@ export function createTimelineStore(
 		},
 	}));
 
-	// Auto-save with debounce
-	let saveTimeout: ReturnType<typeof setTimeout> | null = null;
-
-	const unsubscribe = store.subscribe((state, prev) => {
-		if (!state.loaded) return;
-		if (!prev.loaded) return; // skip the initial load → don't auto-save data just loaded from disk
-		if (state.units !== prev.units || state.settings !== prev.settings) {
-			store.setState({isDirty: true});
-			if (state.settings.autoSave && state.settings.blockId !== "-1" && state.units.length > 0) {
-				if (saveTimeout) clearTimeout(saveTimeout);
-				saveTimeout = setTimeout(() => {
-					store.setState({isSaving: true});
-					dataManager.save(buildSaveData())
-						.then(() => store.setState({isDirty: false, isSaving: false}))
-						.catch((e) => { console.error(e); store.setState({isSaving: false}); });
-				}, 500);
-			}
-		}
-	});
-
-	const destroy = () => {
-		if (saveTimeout) clearTimeout(saveTimeout);
-		unsubscribe();
-	};
+	const destroy = setupAutoSave(store, buildSaveData, dataManager);
 
 	return {store, destroy};
 }
