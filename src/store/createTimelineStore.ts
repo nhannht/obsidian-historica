@@ -239,12 +239,27 @@ export function createTimelineStore(
 					new Notice(`Parsed ${parsed.length} units from file`, 10000);
 				}
 
+				// Merge user-owned fields (annotation, isHidden, attachments) from existing
+				// entries into fresh parse results, matched by deterministic ID.
+				// This ensures re-parse never destroys user annotations.
+				const existingById = new Map(units.map(u => [u.id, u]));
+				const merged = parsed.map(entry => {
+					const old = existingById.get(entry.id);
+					if (!old) return entry;
+					return {
+						...entry,
+						annotation: old.annotation,
+						isHidden: old.isHidden,
+						attachments: old.attachments,
+					};
+				});
+
 				// Assign blockId in memory first (before writing to markdown)
 				const isNewBlock = settings.blockId === "-1";
 				const finalSettings = isNewBlock
 					? {...settings, blockId: generateRandomId()}
 					: settings;
-				set({units: [...parsed, ...units], settings: finalSettings});
+				set({units: merged, settings: finalSettings});
 
 				// Save data BEFORE writing blockId to markdown.
 				// Writing blockId triggers Obsidian to re-render the block (new store + load()).
