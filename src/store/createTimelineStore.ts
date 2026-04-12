@@ -34,7 +34,7 @@ interface TimelineActions {
 	removeAll(): void;
 	updateSettings(partial: Partial<HistoricaSettings>): void;
 	editHeaderOrFooter(content: string, type: "header" | "footer"): void;
-	parseFromFile(path: string): Promise<void>;
+	parseFromFile(path: string, autoTriggered?: boolean): Promise<void>;
 	importFromTimeline(path: string): Promise<void>;
 	toggleAutoSave(): void;
 }
@@ -220,7 +220,7 @@ export function createTimelineStore(
 			else set({settings: {...settings, footer: content}});
 		},
 
-		async parseFromFile(path: string) {
+		async parseFromFile(path: string, autoTriggered = false) {
 			const file = plugin.app.vault.getAbstractFileByPath(path);
 			if (!(file instanceof TFile)) return;
 
@@ -233,11 +233,9 @@ export function createTimelineStore(
 				const parsed = await parser.getPlotUnits(sentences);
 
 				if (parsed.length === 0) {
-					new Notice("No dates found in this file", 10000);
+					if (!autoTriggered) new Notice("No dates found in this file", 5000);
 					return;
 				}
-
-				new Notice(`Parsed ${parsed.length} units from file`, 10000);
 
 				// Re-fetch units after async parse so we don't merge against a stale snapshot.
 				const {units} = get();
@@ -253,6 +251,17 @@ export function createTimelineStore(
 						attachments: old.attachments,
 					};
 				});
+
+				if (autoTriggered) {
+					// Only notify when the entry count changes — re-parse with same content is silent.
+					if (merged.length !== units.length) {
+						const delta = merged.length - units.length;
+						const sign = delta > 0 ? "+" : "";
+						new Notice(`Timeline updated: ${merged.length} entries (${sign}${delta})`, 3000);
+					}
+				} else {
+					new Notice(`Parsed ${parsed.length} entries from file`, 5000);
+				}
 
 				// Assign blockId in memory first (before writing to markdown)
 				const isNewBlock = settings.blockId === "-1";

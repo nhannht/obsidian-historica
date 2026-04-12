@@ -104,7 +104,7 @@ export default class HistoricaPlugin extends Plugin {
 		const {store, destroy} = createTimelineStore(this, settings);
 		try {
 			await store.getState().load();
-			await store.getState().parseFromFile(file.path);
+			await store.getState().parseFromFile(file.path, true);
 		} finally {
 			destroy();
 		}
