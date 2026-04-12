@@ -307,6 +307,111 @@ export async function exportTimelineAsPng(element: HTMLElement, mode: "save" | "
 	}
 }
 
+
+function escapeHtml(s: string): string {
+	return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+export async function exportTimelineAsHtml(data: TimelineDocument, plugin: HistoricaPlugin): Promise<void> {
+	const { units, settings } = data;
+
+	const sorted = [...units]
+		.filter(u => !u.isHidden)
+		.sort((a, b) => {
+			if (a.time.style === "unix" && b.time.style === "unix") {
+				return parseInt(a.time.value) - parseInt(b.time.value);
+			}
+			return 0;
+		});
+
+	const entriesHtml = sorted.map(u => {
+		const annotation = u.annotation
+			? `<div class="annotation">${escapeHtml(u.annotation)}</div>`
+			: "";
+		const source = u.filePath
+			? `<div class="source">${escapeHtml(u.filePath)}</div>`
+			: "";
+		return `<div class="entry">
+  <div class="dot"></div>
+  <div class="content">
+    <span class="date-chip">${escapeHtml(formatDate(u.time))}</span>
+    <p class="sentence">${escapeHtml(u.sentence)}</p>
+    ${annotation}${source}
+  </div>
+</div>`;
+	}).join("\n");
+
+	const headerHtml = settings.header?.trim()
+		? `<div class="block header">${settings.header}</div>`
+		: "";
+	const footerHtml = settings.footer?.trim()
+		? `<div class="block footer">${settings.footer}</div>`
+		: "";
+
+	const exportDate = new Date().toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+
+	const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Timeline</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f8f8f8;color:#1a1a1a;min-height:100vh;padding:2.5rem 1rem}
+.container{max-width:680px;margin:0 auto}
+.page-title{font-size:1.6rem;font-weight:700;margin-bottom:.25rem;color:#111}
+.page-subtitle{font-size:.8rem;color:#888;margin-bottom:2rem}
+.block{margin:1.5rem 0;padding:1rem 1.25rem;background:#fff;border:1px solid #e5e7eb;border-radius:8px;font-size:.9rem;line-height:1.6}
+.timeline{position:relative;padding-left:2rem}
+.timeline::before{content:'';position:absolute;left:.5rem;top:.5rem;bottom:.5rem;width:1px;background:#d1d5db}
+.entry{position:relative;padding:.5rem 0 1.5rem 1.25rem}
+.dot{position:absolute;left:-.4rem;top:.65rem;width:.75rem;height:.75rem;border-radius:50%;background:#f8f8f8;border:2px solid #7c3aed}
+.date-chip{display:inline-block;padding:.15rem .5rem;font-size:.68rem;font-weight:600;border-radius:4px;background:rgba(124,58,237,.08);color:#6d28d9;border:1px solid rgba(124,58,237,.2);margin-bottom:.35rem}
+.sentence{font-size:.9rem;line-height:1.65;color:#1f2937;margin-bottom:.25rem}
+.annotation{font-size:.8rem;color:#6b7280;font-style:italic;margin-top:.25rem;padding-left:.5rem;border-left:2px solid #e5e7eb}
+.source{font-size:.7rem;color:#9ca3af;margin-top:.3rem}
+@media(prefers-color-scheme:dark){
+body{background:#111827;color:#e5e7eb}
+.page-title{color:#f9fafb}
+.page-subtitle{color:#6b7280}
+.block{background:#1f2937;border-color:#374151}
+.timeline::before{background:#374151}
+.dot{background:#111827;border-color:#8b5cf6}
+.date-chip{background:rgba(139,92,246,.15);color:#a78bfa;border-color:rgba(139,92,246,.3)}
+.sentence{color:#d1d5db}
+.annotation{color:#9ca3af;border-left-color:#374151}
+.source{color:#6b7280}
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1 class="page-title">Timeline</h1>
+<p class="page-subtitle">Exported ${escapeHtml(exportDate)} · ${sorted.length} ${sorted.length === 1 ? "entry" : "entries"}</p>
+${headerHtml}
+<div class="timeline">
+${entriesHtml}
+</div>
+${footerHtml}
+</div>
+</body>
+</html>`;
+
+	const filename = `historica-export-${settings.blockId}.html`;
+	try {
+		const existing = plugin.app.vault.getAbstractFileByPath(filename);
+		if (existing instanceof TFile) {
+			await plugin.app.vault.modify(existing, html);
+		} else {
+			await plugin.app.vault.create(filename, html);
+		}
+		new Notice(`Exported to ${filename}`, 10000);
+	} catch (e) {
+		new Notice(`HTML export failed: ${(e as Error).message}`, 5000);
+	}
+}
+
 export function notePathToTitle(notePath: string): string {
 	if (!notePath) return "";
 	const base = notePath.split("/").pop() ?? "";

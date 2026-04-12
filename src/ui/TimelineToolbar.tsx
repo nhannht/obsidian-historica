@@ -1,6 +1,6 @@
 import {useMemo, useState} from "react";
 import {useTimeline, useTimelineStore} from "@/src/ui/TimelineContext";
-import {ExportAsJSONToClipboard, ExportAsMarkdownToClipboard, ExportAsPlainTextToClipboard, exportTimelineAsPng, getAllMarkdownFileInVault} from "@/src/utils";
+import {ExportAsJSONToClipboard, ExportAsMarkdownToClipboard, ExportAsPlainTextToClipboard, exportTimelineAsPng, exportTimelineAsHtml, getAllMarkdownFileInVault} from "@/src/utils";
 import {
 	ContextMenu,
 	ContextMenuContent,
@@ -128,6 +128,7 @@ export function TimelineToolbar(props: {
 							<ContextMenuItem onClick={() => ExportAsPlainTextToClipboard({units, settings})}>Plain text (clipboard)</ContextMenuItem>
 							<ContextMenuItem onClick={() => ExportAsJSONToClipboard({units, settings})}>JSON (clipboard)</ContextMenuItem>
 							<ContextMenuItem onClick={() => ExportAsMarkdownToClipboard({units, settings}, plugin)}>Markdown (clipboard)</ContextMenuItem>
+							<ContextMenuItem onClick={() => exportTimelineAsHtml({units, settings}, plugin)}>HTML (save file)</ContextMenuItem>
 						</ContextMenuContent>
 					</ContextMenu>
 
