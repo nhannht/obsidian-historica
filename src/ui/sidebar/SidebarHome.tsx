@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import type HistoricaPlugin from "@/main";
 import { useVaultEntries } from "@/src/ui/global/useVaultEntries";
 import { OnThisDay } from "@/src/ui/global/OnThisDay";
+import { GapPrompts } from "@/src/ui/sidebar/GapPrompts";
 
 interface SidebarHomeProps {
 	plugin: HistoricaPlugin;
@@ -60,6 +61,9 @@ export function SidebarHome({ plugin, message }: SidebarHomeProps) {
 					</div>
 				</div>
 			)}
+
+			{/* Timeline gaps */}
+			<GapPrompts entries={entries} loading={loading} />
 
 			{loading && (
 				<div className="flex-1 flex items-center justify-center text-xs text-[var(--text-muted)]">
