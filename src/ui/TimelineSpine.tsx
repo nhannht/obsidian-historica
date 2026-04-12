@@ -56,7 +56,6 @@ function SortableEntryRow({
 		transform: CSS.Transform.toString(transform),
 		transition,
 		opacity: isDragging ? 0.4 : 1,
-		position: "relative",
 	}
 
 	return (
@@ -80,25 +79,21 @@ export function TimelineSpine({
 }) {
 	const reorderUnit = useTimelineStore(s => s.reorderUnit)
 
-	const entryIndexMap = useMemo(() => {
-		const map = new Map<string, number>()
+	const { entryIndexMap, sortedEntryIds } = useMemo(() => {
+		const entryIndexMap = new Map<string, number>()
 		let idx = 0
 		for (const row of engine.rows) {
-			if (row.type === "entry") map.set(row.entry.id, idx++)
+			if (row.type === "entry") entryIndexMap.set(row.entry.id, idx++)
 		}
-		return map
+		return { entryIndexMap, sortedEntryIds: Array.from(entryIndexMap.keys()) }
 	}, [engine.rows])
-
-	const sortedEntryIds = useMemo(
-		() => Array.from(entryIndexMap.keys()),
-		[entryIndexMap],
-	)
 
 	function handleDragEnd(event: DragEndEvent) {
 		const { active, over } = event
 		if (!over || active.id === over.id) return
-		const fromIndex = entryIndexMap.get(active.id as string)
-		const toIndex = entryIndexMap.get(over.id as string)
+		if (typeof active.id !== "string" || typeof over.id !== "string") return
+		const fromIndex = entryIndexMap.get(active.id)
+		const toIndex = entryIndexMap.get(over.id)
 		if (fromIndex !== undefined && toIndex !== undefined) {
 			reorderUnit(fromIndex, toIndex)
 		}

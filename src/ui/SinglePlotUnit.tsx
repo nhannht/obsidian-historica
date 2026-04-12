@@ -73,7 +73,6 @@ export const SinglePlotUnit = React.memo(function SinglePlotUnit(props: {
 			{/* Timeline dot */}
 			<div className={`absolute left-[7px] top-3 w-3 h-3 rounded-full border-2 ${isHidden ? "border-[--text-muted] bg-[--background-modifier-hover]" : "border-[--interactive-accent] bg-[--background-primary]"}`}/>
 
-			{/* Drag handle */}
 			{props.dragHandleProps && (
 				<div
 					className="absolute left-[-2px] top-2.5 cursor-grab active:cursor-grabbing opacity-0 group-hover:opacity-40 hover:!opacity-80 touch-none"
