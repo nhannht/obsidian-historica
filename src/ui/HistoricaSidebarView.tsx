@@ -4,6 +4,7 @@ import {StrictMode} from "react";
 import HistoricaPlugin from "@/main";
 import {createTimelineStore} from "@/src/store/createTimelineStore";
 import {BlockInfo, SidebarShell} from "@/src/ui/SidebarShell";
+import {SidebarHome} from "@/src/ui/sidebar/SidebarHome";
 import {extractBlockId} from "@/src/backgroundLogic/HistoricaBlockManager";
 import {DefaultSettings, HistoricaSettings} from "@/src/types";
 
@@ -99,7 +100,7 @@ export class HistoricaSidebarView extends ItemView {
 		const file = this.app.workspace.getActiveFile();
 		if (!file) {
 			this.currentBlockId = null;
-			this.renderPlaceholder("No active note");
+			this.renderHome("No active note");
 			return;
 		}
 
@@ -112,7 +113,7 @@ export class HistoricaSidebarView extends ItemView {
 		if (validBlocks.length === 0) {
 			this.currentBlockId = null;
 			const hasBlock = allBlocks.length > 0;
-			this.renderPlaceholder(
+			this.renderHome(
 				hasBlock
 					? "Timeline not yet saved\u2014parse the file first"
 					: "No historica block in this note"
@@ -145,11 +146,13 @@ export class HistoricaSidebarView extends ItemView {
 		);
 	}
 
-	private renderPlaceholder(message: string): void {
+	private renderHome(message: string): void {
 		this.contentEl.empty();
-		this.contentEl.createEl("div", {
-			text: message,
-			cls: "historica-sidebar-placeholder",
-		});
+		this.reactRoot = createRoot(this.contentEl);
+		this.reactRoot.render(
+			<StrictMode>
+				<SidebarHome plugin={this.plugin} message={message} />
+			</StrictMode>
+		);
 	}
 }
