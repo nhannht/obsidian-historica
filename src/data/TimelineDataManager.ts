@@ -6,12 +6,12 @@ import {parseHmd, serializeHmd, HmdParseResult} from "./HmdParser";
 
 export const HISTORICA_DATA_DIR = "historica-data";
 
-export function dataFilePath(blockId: string): string {
-	return `${HISTORICA_DATA_DIR}/${blockId}.md`;
+export function dataFilePath(blockId: string, dataDir = HISTORICA_DATA_DIR): string {
+	return `${dataDir}/${blockId}.md`;
 }
 
-function jsonDataFilePath(blockId: string): string {
-	return `${HISTORICA_DATA_DIR}/${blockId}.json`;
+function jsonDataFilePath(blockId: string, dataDir = HISTORICA_DATA_DIR): string {
+	return `${dataDir}/${blockId}.json`;
 }
 
 export default class TimelineDataManager {
@@ -21,7 +21,7 @@ export default class TimelineDataManager {
 		if (blockId === "-1") return null;
 
 		// Try HMD (.md) first
-		const mdPath = dataFilePath(blockId);
+		const mdPath = dataFilePath(blockId, this.plugin.dataDir);
 		const mdFile = this.plugin.app.vault.getAbstractFileByPath(mdPath);
 		if (mdFile instanceof TFile) {
 			try {
@@ -36,7 +36,7 @@ export default class TimelineDataManager {
 		}
 
 		// Fallback: migrate legacy JSON → HMD
-		const jsonPath = jsonDataFilePath(blockId);
+		const jsonPath = jsonDataFilePath(blockId, this.plugin.dataDir);
 		const jsonFile = this.plugin.app.vault.getAbstractFileByPath(jsonPath);
 		if (jsonFile instanceof TFile) {
 			try {
@@ -87,7 +87,7 @@ export default class TimelineDataManager {
 		const blockId = data.settings.blockId;
 		if (blockId === "-1") return;
 
-		const filePath = dataFilePath(blockId);
+		const filePath = dataFilePath(blockId, this.plugin.dataDir);
 		const hmd = serializeHmd(data as HmdParseResult);
 
 		try {
@@ -161,9 +161,9 @@ export default class TimelineDataManager {
 	}
 
 	private async ensureDataDir(): Promise<void> {
-		const dir = this.plugin.app.vault.getAbstractFileByPath(HISTORICA_DATA_DIR);
+		const dir = this.plugin.app.vault.getAbstractFileByPath(this.plugin.dataDir);
 		if (!dir || !(dir instanceof TFolder)) {
-			await this.plugin.app.vault.createFolder(HISTORICA_DATA_DIR);
+			await this.plugin.app.vault.createFolder(this.plugin.dataDir);
 		}
 	}
 }

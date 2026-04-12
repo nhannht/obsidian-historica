@@ -10,6 +10,18 @@ export type HistoricaSettings = {
 	autoSave?: boolean,
 }
 
+export type HistoricaPluginSettings = {
+	autoParseOnSave: boolean;
+	dateDisplayFormat: string;
+	dataDir: string;
+};
+
+export const DEFAULT_PLUGIN_SETTINGS: HistoricaPluginSettings = {
+	autoParseOnSave: true,
+	dateDisplayFormat: "MMM D, YYYY",
+	dataDir: "historica-data",
+};
+
 export type TimelineDocument = {
 	settings:HistoricaSettings,
 	units:TimelineEntry[]

@@ -36,7 +36,7 @@ export function useVaultEntries(plugin: HistoricaPlugin) {
 
 			const blockEntries = await Promise.all(
 				Object.entries(index).map(async ([blockId, meta]) => {
-					const filePath = dataFilePath(blockId);
+					const filePath = dataFilePath(blockId, plugin.dataDir);
 					const file = plugin.app.vault.getAbstractFileByPath(filePath);
 					if (!(file instanceof TFile)) return [];
 					try {

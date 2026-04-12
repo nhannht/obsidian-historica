@@ -1,6 +1,5 @@
 import { TFile, TFolder } from "obsidian";
 import type HistoricaPlugin from "@/main";
-import { HISTORICA_DATA_DIR } from "./TimelineDataManager";
 import { parseHmd } from "./HmdParser";
 import { notePathToTitle } from "@/src/utils";
 
@@ -13,16 +12,22 @@ export type VaultIndexEntry = {
 
 export type VaultIndex = Record<string, VaultIndexEntry>;
 
-const INDEX_PATH = `${HISTORICA_DATA_DIR}/_index.json`;
-
 export class VaultIndexManager {
 	private index: VaultIndex = {};
 	private persistTimer: ReturnType<typeof setTimeout> | null = null;
 
 	constructor(private plugin: HistoricaPlugin) {}
 
+	private get dataDir(): string {
+		return this.plugin.dataDir;
+	}
+
+	private get indexPath(): string {
+		return `${this.dataDir}/_index.json`;
+	}
+
 	async buildFull(): Promise<void> {
-		const dir = this.plugin.app.vault.getAbstractFileByPath(HISTORICA_DATA_DIR);
+		const dir = this.plugin.app.vault.getAbstractFileByPath(this.dataDir);
 		if (!dir || !(dir instanceof TFolder)) {
 			this.index = {};
 			return;
@@ -81,25 +86,25 @@ export class VaultIndexManager {
 
 	private async persist(): Promise<void> {
 		const content = JSON.stringify(this.index, null, 2);
-		const existing = this.plugin.app.vault.getAbstractFileByPath(INDEX_PATH);
+		const existing = this.plugin.app.vault.getAbstractFileByPath(this.indexPath);
 		if (existing instanceof TFile) {
 			await this.plugin.app.vault.modify(existing, content);
 		} else {
 			await this.ensureDataDir();
 			try {
-				await this.plugin.app.vault.create(INDEX_PATH, content);
+				await this.plugin.app.vault.create(this.indexPath, content);
 			} catch {
 				// race: another write created the file between our existence check and create
-				const file = this.plugin.app.vault.getAbstractFileByPath(INDEX_PATH);
+				const file = this.plugin.app.vault.getAbstractFileByPath(this.indexPath);
 				if (file instanceof TFile) await this.plugin.app.vault.modify(file, content);
 			}
 		}
 	}
 
 	private async ensureDataDir(): Promise<void> {
-		const dir = this.plugin.app.vault.getAbstractFileByPath(HISTORICA_DATA_DIR);
+		const dir = this.plugin.app.vault.getAbstractFileByPath(this.dataDir);
 		if (!dir || !(dir instanceof TFolder)) {
-			await this.plugin.app.vault.createFolder(HISTORICA_DATA_DIR);
+			await this.plugin.app.vault.createFolder(this.dataDir);
 		}
 	}
 }

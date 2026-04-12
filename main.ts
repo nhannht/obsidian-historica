@@ -7,16 +7,30 @@ import {findOrphanedDataFiles} from "@/src/utils";
 import {OrphanCleanupModal} from "@/src/ui/OrphanCleanupModal";
 import {HISTORICA_SIDEBAR_VIEW_TYPE, HistoricaSidebarView} from "@/src/ui/HistoricaSidebarView";
 import {HISTORICA_GLOBAL_VIEW_TYPE, GlobalTimelineView} from "@/src/ui/GlobalTimelineView";
+import {HistoricaSettingsTab} from "@/src/ui/HistoricaSettingsTab";
 import {extractBlockId} from "@/src/backgroundLogic/HistoricaBlockManager";
 import {createTimelineStore} from "@/src/store/createTimelineStore";
-import {DefaultSettings, HistoricaSettings} from "@/src/types";
+import {DefaultSettings, HistoricaSettings, HistoricaPluginSettings, DEFAULT_PLUGIN_SETTINGS} from "@/src/types";
 import {VaultIndexManager} from "@/src/data/VaultIndexManager";
 
 export default class HistoricaPlugin extends Plugin {
 	historicaChrono = new HistoricaChrono()
 	blockManager = new HistoricaBlockManager(this)
 	vaultIndex = new VaultIndexManager(this)
+	pluginSettings: HistoricaPluginSettings = { ...DEFAULT_PLUGIN_SETTINGS }
 	private parseTimers = new Map<string, ReturnType<typeof setTimeout>>()
+
+	get dataDir(): string {
+		return this.pluginSettings.dataDir;
+	}
+
+	async loadPluginSettings(): Promise<void> {
+		this.pluginSettings = Object.assign({}, DEFAULT_PLUGIN_SETTINGS, await this.loadData());
+	}
+
+	async savePluginSettings(): Promise<void> {
+		await this.saveData(this.pluginSettings);
+	}
 
 	darkModeAdapt = () => {
 		if (document.body.hasClass("theme-dark")) {
@@ -32,6 +46,7 @@ export default class HistoricaPlugin extends Plugin {
 		}))
 
 		this.registerEvent(this.app.vault.on("modify", (file) => {
+			if (!this.pluginSettings.autoParseOnSave) return;
 			if (!(file instanceof TFile) || file.extension !== "md") return;
 
 			const existing = this.parseTimers.get(file.path);
@@ -47,9 +62,11 @@ export default class HistoricaPlugin extends Plugin {
 	}
 
 	override async onload() {
+		await this.loadPluginSettings()
 		this.darkModeAdapt()
 		this.vaultIndex.buildFull().catch(console.error)
 		this.registerListener()
+		this.addSettingTab(new HistoricaSettingsTab(this.app, this))
 		registerHmdPostProcessor(this);
 		this.registerEditorExtension(hmdEditorExtension(this));
 		await this.blockManager.registerHistoricaBlockNg()
