@@ -48,9 +48,47 @@
               "icon": "lucide-file",
               "title": "multi-block-qa"
             }
+          },
+          {
+            "id": "0a2a854071f532aa",
+            "type": "leaf",
+            "state": {
+              "type": "historica-global-timeline",
+              "state": {},
+              "icon": "lucide-ghost",
+              "title": "historica-global-timeline"
+            }
+          },
+          {
+            "id": "4b74814fdcdccc76",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "parse-spinner-test.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "parse-spinner-test"
+            }
+          },
+          {
+            "id": "8beafb2fa896eee1",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "parse-spinner-test.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "parse-spinner-test"
+            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 5
       }
     ],
     "direction": "vertical"
@@ -169,17 +207,17 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "multi-block-qa.md",
+                "file": "parse-spinner-test.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of multi-block-qa"
+              "title": "Outline of parse-spinner-test"
             }
           },
           {
-            "id": "b6a63a06b1d351f4",
+            "id": "0f9cfcd325bb4d86",
             "type": "leaf",
             "state": {
               "type": "historica-sidebar",
@@ -193,7 +231,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 503.5
+    "width": 496.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -204,19 +242,24 @@
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
-      "historica:Open Historica Timeline Sidebar": false
+      "historica:Open Historica Timeline Sidebar": false,
+      "historica:Open Historica Global Timeline": false
     }
   },
-  "active": "d422584861cdaf9c",
+  "active": "8beafb2fa896eee1",
   "lastOpenFiles": [
+    "qa-test-empty.md",
+    "sidebar-home-test.md",
+    "parse-spinner-test.md",
+    "parse-fix-test.md",
+    "multi-block-qa.md",
+    "historica-data/_index.json",
     "historica-data/1940084510.md",
     "historica-data/1421975308.md",
     "historica-data/1537351100.md",
     "spine-qa-test.md",
-    "multi-block-qa.md",
     "historica-data/428030018.md",
     "blockid-comment-test.md",
-    "parse-fix-test.md",
     "test-empty-state.md",
     "final-ux-test.md",
     "empty-state-check.md",
@@ -232,9 +275,6 @@
     "historica-data/1511263081.md",
     "historica-data/187492634.md",
     "historica-data/43149852.md",
-    "parse-spinner-test.md",
-    "historica-data/69900150.md",
-    "historica-data/450559285.md",
     "historica_document/historica-data/95053333.json",
     "historica-data/1992306556.json",
     "historica-data/test-hmd.md.tmp.22442.1775828722615",
