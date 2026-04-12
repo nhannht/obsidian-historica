@@ -228,7 +228,11 @@ export function createTimelineStore(
 			try {
 				const {settings} = get();
 				const parser = new MarkdownProcessor(plugin, settings);
-				const nodes = await parser.parseFilesAndGetNodeData(file);
+				// Use section-scoped parse when the block has a known ID.
+				// Falls back to full-file automatically when no heading exists above the block.
+				const nodes = settings.blockId !== "-1"
+					? await parser.parseFilesAndGetNodeDataForSection(file, settings.blockId)
+					: await parser.parseFilesAndGetNodeData(file);
 				const sentences = await parser.extractValidSentencesFromFile(file, nodes);
 				const parsed = await parser.getPlotUnits(sentences);
 

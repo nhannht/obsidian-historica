@@ -197,4 +197,72 @@ export default class MarkdownProcessor {
 		await this.recursiveGetNodeDataFromSingleFile(parseTree, file, nodes)
 		return nodes
 	}
+
+
+	/**
+	 * Like parseFilesAndGetNodeData, but scoped to the heading section containing
+	 * the historica block with the given blockId.
+	 *
+	 * Algorithm:
+	 *   1. Parse the file AST (flat list of block-level nodes under root)
+	 *   2. Find the `code` node whose value includes blockId
+	 *   3. Walk backwards to find the nearest heading → determines sectionDepth
+	 *   4. Walk forward to find the next heading at same or higher level → section end
+	 *   5. Collect all paragraph nodes within that range (via recursiveGetNodeDataFromSingleFile)
+	 *
+	 * Falls back to full-file parse when:
+	 *   - blockId not found in the file (shouldn't happen, but safe)
+	 *   - No heading exists above the block (block is at document root)
+	 */
+	async parseFilesAndGetNodeDataForSection(file: TFile, blockId: string): Promise<NodeAndTFile[]> {
+		const nodes: NodeAndTFile[] = []
+		const fileContent = await this.plugin.app.vault.cachedRead(file)
+		const parseTree = this.RemarkProcessor.parse(fileContent) as Parent
+		const children = parseTree.children as Node[]
+
+		// Find the fenced code block node whose value contains blockId
+		let blockIdx = -1
+		for (let i = 0; i < children.length; i++) {
+			const child = children[i] as any
+			if (child.type === 'code' && typeof child.value === 'string' && child.value.includes(blockId)) {
+				blockIdx = i
+				break
+			}
+		}
+
+		// blockId not found → full-file fallback
+		if (blockIdx === -1) return this.parseFilesAndGetNodeData(file)
+
+		// Walk backwards from blockIdx to find the nearest heading
+		let sectionStartIdx = -1
+		let sectionDepth = 0
+		for (let i = blockIdx - 1; i >= 0; i--) {
+			const child = children[i] as any
+			if (child.type === 'heading') {
+				sectionStartIdx = i
+				sectionDepth = child.depth as number
+				break
+			}
+		}
+
+		// No heading above the block → block is at document root → full-file fallback
+		if (sectionStartIdx === -1) return this.parseFilesAndGetNodeData(file)
+
+		// Walk forward from sectionStartIdx to find the boundary: next heading at same or higher level
+		let sectionEndIdx = children.length
+		for (let i = sectionStartIdx + 1; i < children.length; i++) {
+			const child = children[i] as any
+			if (child.type === 'heading' && (child.depth as number) <= sectionDepth) {
+				sectionEndIdx = i
+				break
+			}
+		}
+
+		// Collect all paragraph nodes within [sectionStartIdx+1, sectionEndIdx)
+		for (let i = sectionStartIdx + 1; i < sectionEndIdx; i++) {
+			await this.recursiveGetNodeDataFromSingleFile(children[i], file, nodes)
+		}
+
+		return nodes
+	}
 }
