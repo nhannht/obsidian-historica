@@ -24,7 +24,7 @@ export function TimelineBlock(props: {
 
 	useEffect(() => {
 		store.getState().load();
-	}, []);
+	}, [store]);
 
 	const contextValue = useMemo(() => ({store, plugin}), [store, plugin]);
 

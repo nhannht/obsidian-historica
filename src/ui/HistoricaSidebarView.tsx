@@ -1,4 +1,4 @@
-import {ItemView, WorkspaceLeaf} from "obsidian";
+import {ItemView, TFile, WorkspaceLeaf} from "obsidian";
 import {createRoot, Root} from "react-dom/client";
 import {StrictMode} from "react";
 import HistoricaPlugin from "@/main";
@@ -44,7 +44,7 @@ export class HistoricaSidebarView extends ItemView {
 		// e.g. first parse writes a blockId. Routine saves are handled by Zustand.
 		this.registerEvent(
 			this.app.vault.on("modify", async (file) => {
-				if (file !== this.app.workspace.getActiveFile()) return;
+				if (!(file instanceof TFile) || file !== this.app.workspace.getActiveFile()) return;
 				const content = await this.app.vault.read(file);
 				const blocks = this.findBlocks(content);
 				const ids = JSON.stringify(blocks.map(b => b.blockId));
@@ -84,26 +84,9 @@ export class HistoricaSidebarView extends ItemView {
 		return blocks;
 	}
 
-	private selectBlock(blockId: string, allBlocks: BlockInfo[]): void {
-		this.destroyStore?.();
-		this.destroyStore = null;
+	private selectBlock(blockId: string): void {
 		this.currentBlockId = blockId;
-
-		const settings: HistoricaSettings = { ...DefaultSettings, blockId };
-		const { store, destroy } = createTimelineStore(this.plugin, settings);
-		this.destroyStore = destroy;
-
-		this.reactRoot?.render(
-			<StrictMode>
-				<SidebarShell
-					blocks={allBlocks}
-					selectedId={blockId}
-					onSelect={(id) => this.selectBlock(id, allBlocks)}
-					store={store}
-					plugin={this.plugin}
-				/>
-			</StrictMode>
-		);
+		this.refresh();
 	}
 
 	async refresh(): Promise<void> {
@@ -111,11 +94,11 @@ export class HistoricaSidebarView extends ItemView {
 		this.destroyStore?.();
 		this.reactRoot = null;
 		this.destroyStore = null;
-		this.currentBlockId = null;
 		this.currentBlockIds = "";
 
 		const file = this.app.workspace.getActiveFile();
 		if (!file) {
+			this.currentBlockId = null;
 			this.renderPlaceholder("No active note");
 			return;
 		}
@@ -127,6 +110,7 @@ export class HistoricaSidebarView extends ItemView {
 		this.currentBlockIds = JSON.stringify(allBlocks.map(b => b.blockId));
 
 		if (validBlocks.length === 0) {
+			this.currentBlockId = null;
 			const hasBlock = allBlocks.length > 0;
 			this.renderPlaceholder(
 				hasBlock
@@ -153,7 +137,7 @@ export class HistoricaSidebarView extends ItemView {
 				<SidebarShell
 					blocks={validBlocks}
 					selectedId={targetId}
-					onSelect={(id) => this.selectBlock(id, validBlocks)}
+					onSelect={(id) => this.selectBlock(id)}
 					store={store}
 					plugin={this.plugin}
 				/>

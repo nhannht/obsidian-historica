@@ -1,4 +1,4 @@
-import React, { useMemo } from "react"
+import { useMemo } from "react"
 import { TimelineEngine } from "@/src/store/useTimelineEngine"
 import { SinglePlotUnit } from "@/src/ui/SinglePlotUnit"
 

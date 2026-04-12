@@ -1,7 +1,7 @@
 import {Attachment, TimelineEntry} from "@/src/types";
 import {useTimeline, useTimelineStore} from "@/src/ui/TimelineContext";
 import {generateRandomId, GetAllFileInVault, JumpToSource} from "@/src/utils";
-import {useMemo, useState} from "react";
+import React, {useMemo, useState} from "react";
 import {AttachmentPlot, Content} from "@/src/ui/TimelineGeneral";
 import {
 	ContextMenu,
