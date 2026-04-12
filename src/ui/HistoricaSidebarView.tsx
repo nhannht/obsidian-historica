@@ -13,6 +13,7 @@ export class HistoricaSidebarView extends ItemView {
 	private plugin: HistoricaPlugin;
 	private reactRoot: Root | null = null;
 	private destroyStore: (() => void) | null = null;
+	private currentBlockId: string | null = null;
 
 	constructor(leaf: WorkspaceLeaf, plugin: HistoricaPlugin) {
 		super(leaf);
@@ -34,8 +35,21 @@ export class HistoricaSidebarView extends ItemView {
 	override async onOpen(): Promise<void> {
 		this.registerEvent(
 			this.app.workspace.on("active-leaf-change", (leaf) => {
-				if (leaf === this.leaf) return; // ignore focus into sidebar itself
+				if (leaf === this.leaf) return;
 				this.refresh();
+			})
+		);
+		// Only full-refresh when the blockId in the active file changes —
+		// e.g. first parse writes blockId. Routine saves are handled by the
+		// Zustand store subscription and don't need a React tree teardown.
+		this.registerEvent(
+			this.app.vault.on("modify", async (file) => {
+				if (file !== this.app.workspace.getActiveFile()) return;
+				const content = await this.app.vault.read(file);
+				const match = content.match(/```historica\n([\s\S]*?)```/);
+				if (!match) return;
+				const newBlockId = extractBlockId(match[1]);
+				if (newBlockId !== this.currentBlockId) this.refresh();
 			})
 		);
 		await this.refresh();
@@ -44,6 +58,7 @@ export class HistoricaSidebarView extends ItemView {
 	override async onClose(): Promise<void> {
 		this.reactRoot?.unmount();
 		this.destroyStore?.();
+		this.currentBlockId = null;
 	}
 
 	async refresh(): Promise<void> {
@@ -51,6 +66,7 @@ export class HistoricaSidebarView extends ItemView {
 		this.destroyStore?.();
 		this.reactRoot = null;
 		this.destroyStore = null;
+		this.currentBlockId = null;
 
 		const file = this.app.workspace.getActiveFile();
 		if (!file) {
@@ -70,6 +86,8 @@ export class HistoricaSidebarView extends ItemView {
 			this.renderPlaceholder("Timeline not yet saved\u2014open the note and parse the file first");
 			return;
 		}
+
+		this.currentBlockId = blockId;
 
 		const settings: HistoricaSettings = {...DefaultSettings, blockId};
 		const {store, destroy} = createTimelineStore(this.plugin, settings);
