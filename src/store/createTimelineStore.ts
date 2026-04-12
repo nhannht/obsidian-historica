@@ -1,4 +1,5 @@
 import {createStore, type StoreApi} from "zustand/vanilla";
+import {temporal} from "zundo";
 import {MarkdownPostProcessorContext, Notice, TFile} from "obsidian";
 import {moment} from "../moment-fix";
 import HistoricaPlugin from "@/main";
@@ -17,6 +18,7 @@ interface TimelineState {
 	isDirty: boolean;
 	isSaving: boolean;
 	loaded: boolean;
+	lastAction: "undo" | "redo" | null;
 }
 
 interface TimelineActions {
@@ -37,6 +39,8 @@ interface TimelineActions {
 	parseFromFile(path: string, autoTriggered?: boolean): Promise<void>;
 	importFromTimeline(path: string): Promise<void>;
 	toggleAutoSave(): void;
+	undo(): void;
+	redo(): void;
 }
 
 export type TimelineStore = TimelineState & TimelineActions;
@@ -56,6 +60,7 @@ function setupAutoSave(
 	const unsubscribe = store.subscribe((state, prev) => {
 		if (!state.loaded) return;
 		if (!prev.loaded) return; // skip the initial load → don't auto-save data just loaded from disk
+		if (state.lastAction === "undo" || state.lastAction === "redo") return; // undo/redo ≠ save intent
 		if (state.units !== prev.units || state.settings !== prev.settings) {
 			store.setState({isDirty: true});
 			if (state.settings.autoSave && state.settings.blockId !== "-1" && state.units.length > 0) {
@@ -96,7 +101,7 @@ export function createTimelineStore(
 		return {settings, units};
 	};
 
-	const store = createStore<TimelineStore>((set, get) => ({
+	const store = createStore<TimelineStore>()(temporal((set, get) => ({
 		units: [],
 		settings: {...structuredClone(initialSettings), autoSave: initialSettings.autoSave ?? true},
 		isLoading: true,
@@ -106,6 +111,7 @@ export function createTimelineStore(
 		isDirty: false,
 		isSaving: false,
 		loaded: false,
+		lastAction: null,
 
 		async load() {
 			try {
@@ -307,6 +313,27 @@ export function createTimelineStore(
 					.catch((e) => console.error("Failed to persist autoSave preference:", e));
 			}
 		},
+
+		undo() {
+			const { pastStates } = store.temporal.getState();
+			if (pastStates.length === 0) return;
+			set({lastAction: "undo"});
+			store.temporal.getState().undo();
+			set({lastAction: null});
+			new Notice(`Undone (${pastStates.length - 1} left)`, 1500);
+		},
+
+		redo() {
+			const { futureStates } = store.temporal.getState();
+			if (futureStates.length === 0) return;
+			set({lastAction: "redo"});
+			store.temporal.getState().redo();
+			set({lastAction: null});
+			new Notice(`Redone (${futureStates.length - 1} left)`, 1500);
+		},
+	}), {
+		partialize: (state) => ({ units: state.units }),
+		limit: 50,
 	}));
 
 	const destroy = setupAutoSave(store, buildSaveData, dataManager);

@@ -27,9 +27,27 @@ export function TimelineBlock(props: {
 		!plugin.vaultIndex.getIndex()[settings.blockId];
 
 	const timelineRef = useRef<HTMLDivElement | null>(null);
+	const containerRef = useRef<HTMLDivElement | null>(null);
 
 	useEffect(() => {
 		store.getState().load();
+	}, [store]);
+
+	useEffect(() => {
+		const el = containerRef.current;
+		if (!el) return;
+		const onKey = (e: KeyboardEvent) => {
+			if (!e.ctrlKey && !e.metaKey) return;
+			if (e.key === "z" && !e.shiftKey) {
+				e.preventDefault();
+				store.getState().undo();
+			} else if ((e.key === "z" && e.shiftKey) || e.key === "y") {
+				e.preventDefault();
+				store.getState().redo();
+			}
+		};
+		el.addEventListener("keydown", onKey);
+		return () => el.removeEventListener("keydown", onKey);
 	}, [store]);
 
 	const contextValue = useMemo(() => ({store, plugin}), [store, plugin]);
@@ -44,7 +62,7 @@ export function TimelineBlock(props: {
 
 	return (
 		<TimelineProvider value={contextValue}>
-			<div className="twp">
+			<div className="twp" ref={containerRef} tabIndex={-1} style={{outline: "none"}}>
 				{isUnsaved && (
 					<div className="flex items-center gap-1.5 px-3 py-1 text-xs text-[var(--text-warning)] bg-[var(--background-modifier-warning)] border-b border-[var(--background-modifier-border)]">
 						<span>⚠</span>
