@@ -23,7 +23,7 @@ import {
 	TooltipTrigger,
 } from "@/src/ui/shadcn/Tooltip"
 
-export function SinglePlotUnit(props: {
+export const SinglePlotUnit = React.memo(function SinglePlotUnit(props: {
 	unit: TimelineEntry,
 	index: number,
 	isSingleFile?: boolean,
@@ -179,4 +179,4 @@ export function SinglePlotUnit(props: {
 					variant="outline">{props.unit.filePath}</Badge>
 			</div>}
 		</div>)
-}
+})
