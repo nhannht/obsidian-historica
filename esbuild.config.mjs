@@ -39,6 +39,8 @@ const context = await esbuild.context({
 	sourcemap: prod ? false : "inline",
 	treeShaking: true,
 	minify: prod,
+	// Preserve class names so constructor.name checks (e.g. UnlikelyFormatFilter) work under minification
+	keepNames: prod,
 	define: {
 		"process.env.NODE_ENV": '"production"',
 	},

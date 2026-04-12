@@ -1,2 +1,4 @@
 [test]
 preload = ["./test/bun-preload.ts"]
+# Exclude vendor submodule tests — they use jest and run separately
+exclude = ["vendor/**"]

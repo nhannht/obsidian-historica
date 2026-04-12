@@ -233,15 +233,7 @@ const JA_ERA_BASE: Record<string, number> = {
 	'令和': 2018, // 令和1年 = 2019
 }
 
-/**
- * Parses YYYY年MM月DD日 — handled by JPStandardParser already, but included for completeness.
- * Parses YYYY年MM月 (year + month, no day).
- * Pattern: e.g. "1917年10月" or "2024年3月"
- */
 export const cjkYearMonthParser = {
-	/**
-	 * Parses YYYY年MM月 (year + month only). Full dates are excluded by the negative lookahead.
-	 */
 	pattern: () => /(\d{3,4})年(\d{1,2})月(?!\d{1,2}日)/,
 	extract: (_context: any, match: RegExpMatchArray) => ({
 		year: parseInt(match[1]),
@@ -250,10 +242,6 @@ export const cjkYearMonthParser = {
 	}),
 }
 
-/**
- * Parses YYYY年 (year only, no following month).
- * Pattern: e.g. "1945年" or "2023年"
- */
 export const cjkYearOnlyParser = {
 	pattern: () => /(?<![0-9])(\d{3,4})年(?!\d{1,2}月)/,
 	extract: (_context: any, match: RegExpMatchArray) => ({
@@ -300,26 +288,48 @@ export const jaKigenzenParser = {
 	},
 }
 
-/**
- * Parses century expressions: N世紀 → midpoint year of that century.
- * e.g. "20世紀" → year: 1950, "紀元前6世紀" → year: -550
- * BC century: "紀元前N世紀" → midpoint negative year.
- */
-export const jaCenturyParser = {
-	pattern: () => /(紀元前)?(\d{1,2})世紀/,
-	extract: (_context: any, match: RegExpMatchArray) => {
-		const isBC = !!match[1]
-		const century = parseInt(match[2])
-		// Midpoint of century: century 20 → 1901-2000 → midpoint 1950
-		const midpoint = (century - 1) * 100 + 50
-		const year = isBC ? -midpoint : midpoint
-		return {year, month: 1, day: 1}
-	},
+export const jaCenturyParser = makeBCCenturyParser("紀元前", "世紀")
+
+// ─── Shared locale helpers ────────────────────────────────────────────────────
+
+// Removes UnlikelyFormatFilter and pushes locale-specific parsers/refiners onto a cloned Chrono.
+// UnlikelyFormatFilter rejects bare year matches — our parsers validate year ranges themselves.
+function buildLocale(base: Chrono, setup: (c: Chrono) => void): Chrono {
+	const result = base.clone()
+	result.refiners = result.refiners.filter(
+		(r: any) => r.constructor.name !== "UnlikelyFormatFilter"
+	)
+	setup(result)
+	return result
 }
 
-// === Chinese (ZH) custom parsers ===
+// Factory for "MonthName YYYY" parsers (DE, FR, etc.) — avoids copy-pasting the same extract shape.
+function makeMonthYearParser(monthMap: Record<string, number>) {
+	const names = Object.keys(monthMap).join("|")
+	const re = new RegExp(`(${names})\\s+(\\d{4})`, "i")
+	return {
+		pattern: () => re,
+		extract: (_context: any, match: RegExpMatchArray) => ({
+			year: parseInt(match[2]),
+			month: monthMap[match[1].toLowerCase()],
+			day: 1,
+		}),
+	}
+}
 
-
+// Factory for BC-aware century parsers — JA (紀元前/世紀) and ZH (公元前/世纪) share this shape.
+function makeBCCenturyParser(bcPrefix: string, centurySuffix: string) {
+	const re = new RegExp(`(${bcPrefix})?(\\d{1,2})${centurySuffix}`)
+	return {
+		pattern: () => re,
+		extract: (_context: any, match: RegExpMatchArray) => {
+			const century = parseInt(match[2])
+			// Midpoint of century N: N=20 → 1901–2000 → midpoint 1950
+			const midpoint = (century - 1) * 100 + 50
+			return { year: match[1] ? -midpoint : midpoint, month: 1, day: 1 }
+		},
+	}
+}
 
 // ─── German (DE) custom parsers ──────────────────────────────────────────────
 
@@ -328,23 +338,8 @@ const DE_MONTH_MAP: Record<string, number> = {
 	juli: 7, august: 8, september: 9, oktober: 10, november: 11, dezember: 12,
 }
 
-/**
- * Matches "MonthName Year" patterns in German, e.g. "Oktober 1999", "Januar 1943".
- * chrono-node/de does not handle these natively.
- */
-const deMonthYearParser = {
-	pattern: () => /(Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)\s+(\d{4})/i,
-	extract: (_context: any, match: RegExpMatchArray) => ({
-		year: parseInt(match[2]),
-		month: DE_MONTH_MAP[match[1].toLowerCase()],
-		day: 1,
-	}),
-}
+const deMonthYearParser = makeMonthYearParser(DE_MONTH_MAP)
 
-/**
- * Matches bare 4-digit years in German text, e.g. "1939", "1944".
- * chrono-node/de does not handle bare years natively.
- */
 const bareYearParser = {
 	pattern: () => /(?<![0-9])(\d{4})(?![0-9])/,
 	extract: (_context: any, match: RegExpMatchArray) => {
@@ -361,38 +356,11 @@ const FR_MONTH_MAP: Record<string, number> = {
 	juillet: 7, août: 8, septembre: 9, octobre: 10, novembre: 11, décembre: 12,
 }
 
-/**
- * Matches "MonthName Year" patterns in French, e.g. "décembre 2001", "janvier 1943".
- * chrono-node/fr does not handle these natively.
- */
-const frMonthYearParser = {
-	pattern: () => /(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)\s+(\d{4})/i,
-	extract: (_context: any, match: RegExpMatchArray) => ({
-		year: parseInt(match[2]),
-		month: FR_MONTH_MAP[match[1].toLowerCase()],
-		day: 1,
-	}),
-}
+const frMonthYearParser = makeMonthYearParser(FR_MONTH_MAP)
 
-/**
- * Matches bare 4-digit years in French text, e.g. "1939", "2001".
- * chrono-node/fr does not handle bare years natively.
- */
+// ─── Chinese (ZH) custom parsers ─────────────────────────────────────────────
 
-
-
-
-const zhCenturyParser = {
-	pattern: () => /(公元前)?(\d{1,2})世[纪紀]/,
-	extract: (_context: any, match: RegExpMatchArray) => {
-		const isBC = !!match[1]
-		const century = parseInt(match[2])
-		// Midpoint of century: century 20 → 1901-2000 → midpoint 1950
-		const midpoint = (century - 1) * 100 + 50
-		const year = isBC ? -midpoint : midpoint
-		return {year, month: 1, day: 1}
-	},
-}
+const zhCenturyParser = makeBCCenturyParser("公元前", "世[纪紀]")
 
 
 
@@ -426,177 +394,74 @@ export default class HistoricaChrono {
 	private _zhCustomChrono: Chrono | undefined;
 	private _deCustomChrono: Chrono | undefined;
 	private _frCustomChrono: Chrono | undefined;
-	private _nlCustomChrono: Chrono | undefined
-	private _viCustomChrono: Chrono | undefined
+	private _nlCustomChrono: Chrono | undefined;
+	private _viCustomChrono: Chrono | undefined;
 
 	setupCustomChrono(): Chrono {
 		if (this._customChrono) return this._customChrono;
-		const result = chrono.en.casual.clone()
-
-		// Remove UnlikelyFormatFilter — it rejects bare year matches like "1939".
-		// Our custom parsers already validate year ranges (1000-2099) to avoid false positives.
-		result.refiners = result.refiners.filter(
-			(r: any) => r.constructor.name !== "UnlikelyFormatFilter"
-		)
-
-		// === Relative temporal expression parsers (SUTime/HeidelTime-style) ===
-		result.parsers.push(previousFollowingYearParser)
-		result.parsers.push(nYearsLaterEarlierParser)
-		result.parsers.push(nYearsAfterBeforeParser)
-
-		// === BC-context propagation parsers ===
-		result.parsers.push(restOfYearParser)
-		result.parsers.push(seasonWithModifierParser)
-		result.parsers.push(bareSeasonParser)
-		result.parsers.push(bcMonthParser)
-
-		// === Standard date format parsers ===
-		result.parsers.push(standaloneYearParser)
-		result.parsers.push(prepositionYearParser)
-		result.parsers.push(yyyyMmDdParser)
-		result.parsers.push(mmDdYyyyParser)
-		result.parsers.push(ddMonYyyyParser)
-		result.parsers.push(monDdYyyyParser)
-		result.parsers.push(yyyyMmParser)
-		result.parsers.push(mmYyyyParser)
-		result.parsers.push(monYyyyParser)
-		result.parsers.push(seasonYearParser)
-		result.parsers.push(seasonWithPrepositionParser)
-		result.parsers.push(earlyLateYearParser)
-		result.parsers.push(bcRangeParser)
-
-		// BCE patterns
-		for (const pattern of BCEpattern) {
-			result.parsers.push({
-				pattern: () => pattern,
-				extract: (_context: any, match: any) => ({year: -parseInt(match[1])})
-			})
-		}
-		// AD patterns
-		for (const pattern of ADpattern) {
-			result.parsers.push({
-				pattern: () => pattern,
-				extract: (_context: any, match: any) => ({year: parseInt(match[1])})
-			})
-		}
-
-		result.refiners.push(bcMonthRefiner)
-
-		this._customChrono = result
+		this._customChrono = buildLocale(chrono.en.casual, c => {
+			c.parsers.push(
+				previousFollowingYearParser, nYearsLaterEarlierParser, nYearsAfterBeforeParser,
+				restOfYearParser, seasonWithModifierParser, bareSeasonParser, bcMonthParser,
+				standaloneYearParser, prepositionYearParser, yyyyMmDdParser, mmDdYyyyParser,
+				ddMonYyyyParser, monDdYyyyParser, yyyyMmParser, mmYyyyParser, monYyyyParser,
+				seasonYearParser, seasonWithPrepositionParser, earlyLateYearParser, bcRangeParser,
+			)
+			for (const p of BCEpattern) c.parsers.push({ pattern: () => p, extract: (_: any, m: any) => ({year: -parseInt(m[1])}) })
+			for (const p of ADpattern)  c.parsers.push({ pattern: () => p, extract: (_: any, m: any) => ({year:  parseInt(m[1])}) })
+			c.refiners.push(bcMonthRefiner)
+		})
 		return this._customChrono
 	}
 
 	setupCustomChronoJa(): Chrono {
 		if (this._jaCustomChrono) return this._jaCustomChrono;
-		const result = chrono.ja.casual.clone()
-
-		// Remove UnlikelyFormatFilter so bare year/era matches are not rejected
-		result.refiners = result.refiners.filter(
-			(r: any) => r.constructor.name !== "UnlikelyFormatFilter"
-		)
-
-		// Order matters: more-specific parsers first to avoid partial matches
-		// 1. Imperial era (most specific — contains era name + year + optional month/day)
-		result.parsers.unshift(jaKigenzenParser, jaEraYearParser)
-		// 2. Century (BC and AD)
-		result.parsers.push(jaCenturyParser)
-		// 3. YYYY年MM月 (year+month, no day) — before year-only to avoid premature match
-		result.parsers.push(cjkYearMonthParser)
-		// 4. YYYY年 (year only, no following month)
-		result.parsers.push(cjkYearOnlyParser)
-
-		this._jaCustomChrono = result
+		this._jaCustomChrono = buildLocale(chrono.ja.casual, c => {
+			// More-specific parsers first: era > century > year+month > year-only
+			c.parsers.unshift(jaKigenzenParser, jaEraYearParser)
+			c.parsers.push(jaCenturyParser, cjkYearMonthParser, cjkYearOnlyParser)
+		})
 		return this._jaCustomChrono
 	}
 
 	setupCustomChronoZh(): Chrono {
 		if (this._zhCustomChrono) return this._zhCustomChrono;
-		const result = chrono.zh.hans.casual.clone()
-
-		// Remove UnlikelyFormatFilter so bare year matches are not rejected
-		result.refiners = result.refiners.filter(
-			(r: any) => r.constructor.name !== "UnlikelyFormatFilter"
-		)
-
-		// Order matters: more-specific parsers first to avoid partial matches
-		// 1. Century (BC and AD) — 公元前N世纪 / N世纪 / N世紀
-		result.parsers.push(zhCenturyParser)
-		// 2. YYYY年MM月 (year+month, no day) — before year-only to avoid premature match
-		result.parsers.push(cjkYearMonthParser)
-		// 3. YYYY年 (year only, no following month)
-		result.parsers.push(cjkYearOnlyParser)
-
-		this._zhCustomChrono = result
+		this._zhCustomChrono = buildLocale(chrono.zh.hans.casual, c => {
+			// century before year+month so "N世纪" doesn't match inside a longer year string
+			c.parsers.push(zhCenturyParser, cjkYearMonthParser, cjkYearOnlyParser)
+		})
 		return this._zhCustomChrono
 	}
 
 	setupCustomChronoDe(): Chrono {
 		if (this._deCustomChrono) return this._deCustomChrono;
-		const result = chrono.de.casual.clone()
-
-		// Remove UnlikelyFormatFilter so bare year and month-year matches are not rejected
-		result.refiners = result.refiners.filter(
-			(r: any) => r.constructor.name !== "UnlikelyFormatFilter"
-		)
-
-		// 1. "MonthName Year" — e.g. "Oktober 1999"
-		result.parsers.push(deMonthYearParser)
-		// 2. Bare 4-digit year — e.g. "1939"
-		result.parsers.push(bareYearParser)
-
-		this._deCustomChrono = result
+		this._deCustomChrono = buildLocale(chrono.de.casual, c => {
+			c.parsers.push(deMonthYearParser, bareYearParser)
+		})
 		return this._deCustomChrono
 	}
 
 	setupCustomChronoFr(): Chrono {
 		if (this._frCustomChrono) return this._frCustomChrono;
-		const result = chrono.fr.casual.clone()
-
-		// Remove UnlikelyFormatFilter so bare year and month-year matches are not rejected
-		result.refiners = result.refiners.filter(
-			(r: any) => r.constructor.name !== "UnlikelyFormatFilter"
-		)
-
-		// 1. "MonthName Year" — e.g. "décembre 2001"
-		result.parsers.push(frMonthYearParser)
-		// 2. Bare 4-digit year — e.g. "1939"
-		result.parsers.push(bareYearParser)
-
-		this._frCustomChrono = result
+		this._frCustomChrono = buildLocale(chrono.fr.casual, c => {
+			c.parsers.push(frMonthYearParser, bareYearParser)
+		})
 		return this._frCustomChrono
 	}
 
 	setupCustomChronoNl(): Chrono {
 		if (this._nlCustomChrono) return this._nlCustomChrono;
-		const result = chrono.nl.casual.clone()
-
-		// Remove UnlikelyFormatFilter so bare year matches are not rejected
-		result.refiners = result.refiners.filter(
-			(r: any) => r.constructor.name !== "UnlikelyFormatFilter"
-		)
-
-		// 1. Century — "20e eeuw", "21ste eeuw", etc.
-		result.parsers.push(nlCenturyParser)
-		// 2. Bare 4-digit year — "1939"
-		result.parsers.push(bareYearParser)
-
-		this._nlCustomChrono = result
+		this._nlCustomChrono = buildLocale(chrono.nl.casual, c => {
+			c.parsers.push(nlCenturyParser, bareYearParser)
+		})
 		return this._nlCustomChrono
 	}
 
 	setupCustomChronoVi(): Chrono {
 		if (this._viCustomChrono) return this._viCustomChrono;
-		const result = chrono.vi.casual.clone()
-
-		// Remove UnlikelyFormatFilter so bare year matches are not rejected
-		result.refiners = result.refiners.filter(
-			(r: any) => r.constructor.name !== "UnlikelyFormatFilter"
-		)
-
-		// Bare 4-digit year — e.g. "1975"
-		result.parsers.push(bareYearParser)
-
-		this._viCustomChrono = result
+		this._viCustomChrono = buildLocale(chrono.vi.casual, c => {
+			c.parsers.push(bareYearParser)
+		})
 		return this._viCustomChrono
 	}
 
@@ -614,17 +479,12 @@ export default class HistoricaChrono {
 	}
 }
 
-/**
- * Shared singleton for Japanese locale custom chrono.
- * Tests and plugin code can use `jaCustomChrono` directly to get the configured Chrono instance.
- */
+// Singleton used by tests to get pre-configured Chrono instances without constructing HistoricaChrono.
+// Plugin runtime uses HistoricaChrono directly via main.ts (lazy, per-call).
 const _chronoInstance = new HistoricaChrono()
 export const jaCustomChrono: Chrono = _chronoInstance.setupCustomChronoJa()
-
 export const zhCustomChrono: Chrono = _chronoInstance.setupCustomChronoZh()
-
 export const deCustomChrono: Chrono = _chronoInstance.setupCustomChronoDe()
-
 export const frCustomChrono: Chrono = _chronoInstance.setupCustomChronoFr()
 export const nlCustomChrono: Chrono = _chronoInstance.setupCustomChronoNl()
 export const viCustomChrono: Chrono = _chronoInstance.setupCustomChronoVi()
