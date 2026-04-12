@@ -28,6 +28,7 @@ interface TimelineActions {
 	removeUnit(id: string): void;
 	editUnit(id: string, updatedUnit: TimelineEntry): void;
 	moveUnit(index: number, direction: "up" | "down"): void;
+	reorderUnit(fromIndex: number, toIndex: number): void;
 	sort(order: "asc" | "desc"): void;
 	expandUnit(id: string, isExpanded: boolean): void;
 	expandAll(willExpand: boolean): void;
@@ -182,6 +183,14 @@ export function createTimelineStore(
 				[units[index], units[index + 1]] = [units[index + 1], units[index]];
 			}
 			set({units});
+		},
+
+		reorderUnit(fromIndex: number, toIndex: number) {
+			if (fromIndex === toIndex) return;
+			const units = [...get().units];
+			const [moved] = units.splice(fromIndex, 1);
+			units.splice(toIndex, 0, moved);
+			set({ units });
 		},
 
 		sort(order: "asc" | "desc") {

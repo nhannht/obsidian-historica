@@ -1,6 +1,19 @@
-import { useMemo } from "react"
+import React, { useMemo } from "react"
 import { TimelineEngine } from "@/src/store/useTimelineEngine"
 import { SinglePlotUnit } from "@/src/ui/SinglePlotUnit"
+import { useTimelineStore } from "@/src/ui/TimelineContext"
+import {
+	DndContext,
+	closestCenter,
+	type DragEndEvent,
+} from "@dnd-kit/core"
+import {
+	SortableContext,
+	useSortable,
+	verticalListSortingStrategy,
+} from "@dnd-kit/sortable"
+import { CSS } from "@dnd-kit/utilities"
+import type { TimelineEntry } from "@/src/types"
 
 function DecadeMarker({ decade }: { decade: number }) {
 	return (
@@ -27,6 +40,37 @@ function GapSpacer({ years, pixelHeight }: { years: number; pixelHeight: number 
 	)
 }
 
+function SortableEntryRow({
+	entry,
+	index,
+	isSingleFile,
+}: {
+	entry: TimelineEntry
+	index: number
+	isSingleFile: boolean
+}) {
+	const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
+		useSortable({ id: entry.id })
+
+	const style: React.CSSProperties = {
+		transform: CSS.Transform.toString(transform),
+		transition,
+		opacity: isDragging ? 0.4 : 1,
+		position: "relative",
+	}
+
+	return (
+		<div ref={setNodeRef} style={style}>
+			<SinglePlotUnit
+				unit={entry}
+				index={index}
+				isSingleFile={isSingleFile}
+				dragHandleProps={{ ...attributes, ...listeners }}
+			/>
+		</div>
+	)
+}
+
 export function TimelineSpine({
 	engine,
 	isSingleFile,
@@ -34,6 +78,8 @@ export function TimelineSpine({
 	engine: TimelineEngine
 	isSingleFile: boolean
 }) {
+	const reorderUnit = useTimelineStore(s => s.reorderUnit)
+
 	const entryIndexMap = useMemo(() => {
 		const map = new Map<string, number>()
 		let idx = 0
@@ -43,22 +89,44 @@ export function TimelineSpine({
 		return map
 	}, [engine.rows])
 
+	const sortedEntryIds = useMemo(
+		() => Array.from(entryIndexMap.keys()),
+		[entryIndexMap],
+	)
+
+	function handleDragEnd(event: DragEndEvent) {
+		const { active, over } = event
+		if (!over || active.id === over.id) return
+		const fromIndex = entryIndexMap.get(active.id as string)
+		const toIndex = entryIndexMap.get(over.id as string)
+		if (fromIndex !== undefined && toIndex !== undefined) {
+			reorderUnit(fromIndex, toIndex)
+		}
+	}
+
 	return (
-		<div>
-			{engine.rows.map((row, i) => {
-				if (row.type === "decade")
-					return <DecadeMarker key={`d-${row.decade}-${i}`} decade={row.decade}/>
-				if (row.type === "gap")
-					return <GapSpacer key={`g-${i}`} years={row.years} pixelHeight={row.pixelHeight}/>
-				return (
-					<SinglePlotUnit
-						key={row.entry.id}
-						unit={row.entry}
-						index={entryIndexMap.get(row.entry.id) ?? 0}
-						isSingleFile={isSingleFile}
-					/>
-				)
-			})}
-		</div>
+		<DndContext
+			collisionDetection={closestCenter}
+			onDragEnd={handleDragEnd}
+		>
+			<SortableContext items={sortedEntryIds} strategy={verticalListSortingStrategy}>
+				<div>
+					{engine.rows.map((row, i) => {
+						if (row.type === "decade")
+							return <DecadeMarker key={`d-${row.decade}-${i}`} decade={row.decade}/>
+						if (row.type === "gap")
+							return <GapSpacer key={`g-${i}`} years={row.years} pixelHeight={row.pixelHeight}/>
+						return (
+							<SortableEntryRow
+								key={row.entry.id}
+								entry={row.entry}
+								index={entryIndexMap.get(row.entry.id) ?? 0}
+								isSingleFile={isSingleFile}
+							/>
+						)
+					})}
+				</div>
+			</SortableContext>
+		</DndContext>
 	)
 }

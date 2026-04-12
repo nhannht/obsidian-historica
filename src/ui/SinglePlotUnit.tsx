@@ -13,7 +13,7 @@ import {
 	ContextMenuTrigger,
 } from "@/src/ui/shadcn/ContextMenu";
 import {FilePicker} from "@/src/ui/FilePicker";
-import {Check} from "@/src/ui/icons";
+import {Check, GripVertical} from "@/src/ui/icons";
 import {cn} from "@/src/lib/utils";
 import {Badge} from "@/src/ui/shadcn/Badge"
 import {
@@ -27,20 +27,16 @@ export const SinglePlotUnit = React.memo(function SinglePlotUnit(props: {
 	unit: TimelineEntry,
 	index: number,
 	isSingleFile?: boolean,
+	dragHandleProps?: React.HTMLAttributes<HTMLElement>,
 }) {
 	const {plugin} = useTimeline();
 	const allFiles = useMemo(() => GetAllFileInVault(plugin), [plugin]);
 	const removeUnit = useTimelineStore(s => s.removeUnit);
 	const editUnit = useTimelineStore(s => s.editUnit);
-	const moveUnit = useTimelineStore(s => s.moveUnit);
 	const expandUnit = useTimelineStore(s => s.expandUnit);
 	const hideUnit = useTimelineStore(s => s.hideUnit);
 
 	const [annotation, setAnnotation] = useState(props.unit.annotation ?? "");
-
-	function handleMove(i: number, d: "up" | "down") {
-		moveUnit(i, d)
-	}
 
 	function handleAddAttachment(id: string, filePath: string) {
 		const attachments: Attachment[] = props.unit.attachments
@@ -76,6 +72,16 @@ export const SinglePlotUnit = React.memo(function SinglePlotUnit(props: {
 			<div className="absolute left-3 top-0 bottom-0 w-px bg-[--background-modifier-border-hover] group-last:h-4"/>
 			{/* Timeline dot */}
 			<div className={`absolute left-[7px] top-3 w-3 h-3 rounded-full border-2 ${isHidden ? "border-[--text-muted] bg-[--background-modifier-hover]" : "border-[--interactive-accent] bg-[--background-primary]"}`}/>
+
+			{/* Drag handle */}
+			{props.dragHandleProps && (
+				<div
+					className="absolute left-[-2px] top-2.5 cursor-grab active:cursor-grabbing opacity-0 group-hover:opacity-40 hover:!opacity-80 touch-none"
+					{...props.dragHandleProps}
+				>
+					<GripVertical width={12} height={12} className="text-[color:--text-muted]"/>
+				</div>
+			)}
 
 			{/* Compact: chip + sentence preview */}
 			{!props.unit.isExpanded && (
@@ -124,8 +130,6 @@ export const SinglePlotUnit = React.memo(function SinglePlotUnit(props: {
 					<ContextMenuItem onClick={() => removeUnit(props.unit.id)}>Remove</ContextMenuItem>
 					<ContextMenuItem onClick={() => hideUnit(props.unit.id, !isHidden)}>{isHidden ? "Show" : "Hide"}</ContextMenuItem>
 					<ContextMenuItem onClick={async () => await JumpToSource(props.unit.nodePos, props.unit.filePath, props.unit.sentence, plugin)}>Jump to source</ContextMenuItem>
-					<ContextMenuItem onClick={() => handleMove(props.index, "up")}>Move up</ContextMenuItem>
-					<ContextMenuItem onClick={() => handleMove(props.index, "down")}>Move down</ContextMenuItem>
 					<ContextMenuSub>
 						<ContextMenuSubTrigger>Add attachment</ContextMenuSubTrigger>
 						<ContextMenuSubContent>

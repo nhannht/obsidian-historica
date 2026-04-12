@@ -56,6 +56,13 @@ export const Trash2 = (props: IconProps) => (
 	</Icon>
 )
 
+export const GripVertical = (props: IconProps) => (
+	<Icon {...props}>
+		<circle cx="9" cy="5" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="9" cy="19" r="1"/>
+		<circle cx="15" cy="5" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="19" r="1"/>
+	</Icon>
+)
+
 export const X = (props: IconProps) => (
 	<Icon {...props}><path d="M18 6 6 18"/><path d="m6 6 12 12"/></Icon>
 )
