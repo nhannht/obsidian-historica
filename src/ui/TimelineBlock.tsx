@@ -16,9 +16,15 @@ export function TimelineBlock(props: {
 	const {store, plugin} = props;
 
 	const units = useStore(store, s => s.units);
+	const settings = useStore(store, s => s.settings);
 	const isLoading = useStore(store, s => s.isLoading);
 	const isParsing = useStore(store, s => s.isParsing);
 	const error = useStore(store, s => s.error);
+
+	const isUnsaved =
+		settings.blockId !== "-1" &&
+		units.length > 0 &&
+		!plugin.vaultIndex.getIndex()[settings.blockId];
 
 	const timelineRef = useRef<HTMLDivElement | null>(null);
 
@@ -39,6 +45,12 @@ export function TimelineBlock(props: {
 	return (
 		<TimelineProvider value={contextValue}>
 			<div className="twp">
+				{isUnsaved && (
+					<div className="flex items-center gap-1.5 px-3 py-1 text-xs text-[var(--text-warning)] bg-[var(--background-modifier-warning)] border-b border-[var(--background-modifier-border)]">
+						<span>⚠</span>
+						<span>Not yet saved — entries won't appear in Global Timeline until saved</span>
+					</div>
+				)}
 				<TimelineToolbar timelineRef={timelineRef} />
 				<TimelineContextMenu timelineRef={timelineRef}>
 					<div className="relative min-h-full p-4 overflow-y-auto resize-y" style={{maxHeight: "70vh"}}>

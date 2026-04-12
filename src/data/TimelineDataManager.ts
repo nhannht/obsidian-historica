@@ -108,6 +108,10 @@ export default class TimelineDataManager {
 				if (file instanceof TFile) await this.plugin.app.vault.modify(file, hmd);
 			}
 		}
+
+		// Update vault index — fire and forget, never block the save path
+		const notePath = data.units[0]?.filePath ?? "";
+		this.plugin.vaultIndex.updateEntry(blockId, notePath, data.units.length);
 	}
 
 	async ensureBlockId(

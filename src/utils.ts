@@ -306,3 +306,16 @@ export async function exportTimelineAsPng(element: HTMLElement, mode: "save" | "
 		}
 	}
 }
+
+export function notePathToTitle(notePath: string): string {
+	if (!notePath) return "";
+	const base = notePath.split("/").pop() ?? "";
+	return base.endsWith(".md") ? base.slice(0, -3) : base;
+}
+
+export function getNoteTags(plugin: HistoricaPlugin, notePath: string): string[] {
+	const cache = plugin.app.metadataCache.getCache(notePath);
+	const front: string[] = cache?.frontmatter?.tags ?? [];
+	const inline = (cache?.tags ?? []).map((t: { tag: string }) => t.tag);
+	return [...front, ...inline];
+}

@@ -6,13 +6,16 @@ import {hmdEditorExtension} from "@/src/data/HmdEditorExtension";
 import {findOrphanedDataFiles} from "@/src/utils";
 import {OrphanCleanupModal} from "@/src/ui/OrphanCleanupModal";
 import {HISTORICA_SIDEBAR_VIEW_TYPE, HistoricaSidebarView} from "@/src/ui/HistoricaSidebarView";
+import {HISTORICA_GLOBAL_VIEW_TYPE, GlobalTimelineView} from "@/src/ui/GlobalTimelineView";
 import {extractBlockId} from "@/src/backgroundLogic/HistoricaBlockManager";
 import {createTimelineStore} from "@/src/store/createTimelineStore";
 import {DefaultSettings, HistoricaSettings} from "@/src/types";
+import {VaultIndexManager} from "@/src/data/VaultIndexManager";
 
 export default class HistoricaPlugin extends Plugin {
 	historicaChrono = new HistoricaChrono()
 	blockManager = new HistoricaBlockManager(this)
+	vaultIndex = new VaultIndexManager(this)
 	private parseTimers = new Map<string, ReturnType<typeof setTimeout>>()
 
 	darkModeAdapt = () => {
@@ -45,6 +48,7 @@ export default class HistoricaPlugin extends Plugin {
 
 	override async onload() {
 		this.darkModeAdapt()
+		this.vaultIndex.buildFull().catch(console.error)
 		this.registerListener()
 		registerHmdPostProcessor(this);
 		this.registerEditorExtension(hmdEditorExtension(this));
@@ -55,14 +59,29 @@ export default class HistoricaPlugin extends Plugin {
 			(leaf) => new HistoricaSidebarView(leaf, this)
 		);
 
+		this.registerView(
+			HISTORICA_GLOBAL_VIEW_TYPE,
+			(leaf) => new GlobalTimelineView(leaf, this)
+		);
+
 		this.addRibbonIcon("calendar-clock", "Open Historica Timeline Sidebar", () => {
 			this.activateSidebar();
+		});
+
+		this.addRibbonIcon("globe", "Open Historica Global Timeline", () => {
+			this.activateGlobalTimeline();
 		});
 
 		this.addCommand({
 			id: "open-historica-sidebar",
 			name: "Open Timeline Sidebar",
 			callback: () => this.activateSidebar(),
+		});
+
+		this.addCommand({
+			id: "open-historica-global-timeline",
+			name: "Open Global Timeline",
+			callback: () => this.activateGlobalTimeline(),
 		});
 
 		this.addCommand({
@@ -89,6 +108,18 @@ export default class HistoricaPlugin extends Plugin {
 		const leaf = this.app.workspace.getRightLeaf(false);
 		await leaf?.setViewState({type: HISTORICA_SIDEBAR_VIEW_TYPE, active: true});
 		if (leaf) this.app.workspace.revealLeaf(leaf);
+	}
+
+	async activateGlobalTimeline(): Promise<void> {
+		const existing = this.app.workspace.getLeavesOfType(HISTORICA_GLOBAL_VIEW_TYPE);
+		if (existing.length > 0) {
+			// Already open — reveal and focus it
+			this.app.workspace.revealLeaf(existing[0]);
+			return;
+		}
+		const leaf = this.app.workspace.getLeaf("tab");
+		await leaf.setViewState({type: HISTORICA_GLOBAL_VIEW_TYPE, active: true});
+		this.app.workspace.revealLeaf(leaf);
 	}
 
 
