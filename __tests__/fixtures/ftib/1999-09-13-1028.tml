@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-09-13-1028</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-09-13" /></DCT>
+<TEXT>
+MARSEILLE._ Les <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="NOUN" pred="RETROUVAILLE">retrouvailles</EVENT> de l'OM avec la Ligue des Champions, <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="DATE" value="1999-09-14" valueFromFunction="TF17">demain</TIMEX3> contre Sturm Graz, <TIMEX3 tid="t3" type="DURATION" value="P6Y">six ans</TIMEX3> <SIGNAL sid="s1">après</SIGNAL> sa <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="NOUN" pred="VICTOIRE">victoire</EVENT> dans cette <EVENT class="OCCURRENCE" eid="e3" eiid="ei3" pos="NOUN" pred="COMPÉTITION">compétition</EVENT>, s'<EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="VERB" pred="ANNONCER" tense="PRESENT">annoncent</EVENT> au plus mal au vu de la déliquescence de l'équipe phocéenne, très <EVENT class="STATE" eid="e72" eiid="ei72" pos="ADJECTIVE" pred="FAIBLE">faible</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t4" type="DATE" value="1999-09-11" valueFromFunction="tf3">samedi</TIMEX3> à Montpellier <SIGNAL sid="s15">en</SIGNAL> <EVENT class="OCCURRENCE" eid="e73" eiid="ei73" pos="NOUN" pred="CHAMPIONNAT">championnat</EVENT> (1-3).
+Avec cette <EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="NOUN" pred="DÉFAITE">défaite</EVENT>, les Marseillais ont <EVENT class="OCCURRENCE" eid="e6" eiid="ei6" pos="VERB" pred="TROQUER" tense="PAST" vform="PASTPART">troqué</EVENT> le statut de seule équipe <EVENT class="STATE" eid="e89" eiid="ei89" pos="ADJECTIVE" pred="INVAINCU">invaincue</EVENT> pour celui d'une des rares formations à n'avoir <EVENT aspect="PERFECTIVE" class="OCCURRENCE" eid="e8" eiid="ei8" pos="VERB" pred="REMPORTER" vform="PASTPART">remporté</EVENT> qu'une <EVENT class="OCCURRENCE" eid="e9" eiid="ei9" pos="NOUN" pred="VICTOIRE">victoire</EVENT> <SIGNAL sid="s2">depuis</SIGNAL> le début de la <EVENT class="OCCURRENCE" eid="e11" eiid="ei11" pos="NOUN" pred="SAISON">saison</EVENT>.
+Le mécontentement du public, <EVENT class="STATE" eid="e88" eiid="ei88" pos="ADJECTIVE" pred="LATENT">latent</EVENT> <SIGNAL sid="s14">depuis</SIGNAL> <TIMEX3 anchorTimeID="t4" tid="t5" type="DURATION" value="P1D">la deuxième journée</TIMEX3>, s'<EVENT class="STATE" eid="e13" eiid="ei13" pos="VERB" pred="ÉTALER" tense="PRESENT">étale</EVENT> au grand jour. Les supporters de l'OM ont, pour la première fois, <EVENT class="I_ACTION" eid="e74" eiid="ei74" pos="VERB" pred="DEMANDER" tense="PAST" vform="PASTPART">demandé</EVENT> la <EVENT class="OCCURRENCE" eid="e15" eiid="ei15" pos="NOUN" pred="DÉMISSION">démission</EVENT> de l'entraîneur Rolland Courbis, au stade de la Mosson.
+« On va <EVENT aspect="PROSPECTIVE" class="STATE" eid="e17" eiid="ei17" pos="VERB" pred="VIVRE" vform="INFINITIVE">vivre</EVENT> la même <EVENT class="OCCURRENCE" eid="e18" eiid="ei18" pos="NOUN" pred="SAISON">saison</EVENT> que le Paris SG <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t7" type="DATE" value="1998" valueFromFunction="TF13">l'an dernier</TIMEX3>. Courbis <EVENT class="MODAL" eid="e19" eiid="ei19" pos="VERB" pred="DEVOIR" tense="PRESENT">doit</EVENT> <EVENT class="OCCURRENCE" eid="e20" eiid="ei20" modality="OBLIGATION" pos="VERB" pred="PARTIR" vform="INFINITIVE">partir</EVENT> », s'<EVENT class="REPORTING" eid="e21" eiid="ei21" pos="VERB" pred="INSURGER" tense="IMPERFECT">insurgeait</EVENT> l'un d'eux aux abords du stade de La Mosson, <SIGNAL sid="s12">avant de</SIGNAL> s'en <EVENT class="OCCURRENCE" eid="e22" eiid="ei22" pos="VERB" pred="PRENDRE" vform="INFINITIVE">prendre</EVENT> aux joueurs et au président Yves Marchand. Le bus des joueurs, pour <EVENT class="OCCURRENCE" eid="e23" eiid="ei23" pos="VERB" pred="QUITTER" vform="INFINITIVE">quitter</EVENT> le stade, a <EVENT class="MODAL" eid="e24" eiid="ei24" pos="VERB" pred="DEVOIR" tense="PAST" vform="PASTPART">dû</EVENT> <EVENT class="I_STATE" eid="e25" eiid="ei25" modality="OBLIGATION" pos="VERB" pred="ATTENDRE" vform="INFINITIVE">attendre</EVENT> que les forces de l'ordre <EVENT class="OCCURRENCE" eid="e27" eiid="ei27" pos="VERB" pred="ÉLOIGNER" tense="PRESENT">éloignent</EVENT> les supporters mécontents.
+Les choix de Courbis.
+« Cela fait partie du travail d'un entraîneur de se <EVENT class="I_ACTION" eid="e32" eiid="ei32" pos="VERB" pred="PRÉPARER" vform="INFINITIVE">préparer</EVENT> à <EVENT class="OCCURRENCE" eid="e33" eiid="ei33" pos="VERB" pred="PARTIR" vform="INFINITIVE">partir</EVENT>. Mais le problème n'est pas individuel. Sur onze titulaires, je n'en ai <EVENT class="PERCEPTION" eid="e35" eiid="ei35" pos="VERB" pred="VOIR" tense="PAST" vform="PASTPART">vu</EVENT> que trois <TIMEX3 tid="t8" type="DATE" value="1999-09-11">samedi</TIMEX3> dans un état de forme <EVENT class="STATE" eid="e75" eiid="ei75" pos="ADJECTIVE" pred="ACCEPTABLE">acceptable</EVENT> », se <EVENT class="REPORTING" eid="e36" eiid="ei36" pos="VERB" pred="DÉFENDRE" tense="PRESENT">défend</EVENT> Courbis.
+<SIGNAL sid="s4">Après</SIGNAL> la <EVENT class="OCCURRENCE" eid="e37" eiid="ei37" pos="NOUN" pred="RENCONTRE">rencontre</EVENT>, les <EVENT class="OCCURRENCE" eid="e38" eiid="ei38" pos="NOUN" pred="CHOIX">choix</EVENT> tactiques du technicien olympien <EVENT class="STATE" eid="e90" eiid="ei90" pos="VERB" pred="FAIRE" tense="IMPERFECT">faisaient</EVENT> l'objet de nombreux <EVENT class="OCCURRENCE" eid="e76" eiid="ei76" pos="NOUN" pred="COMMENTAIRE">commentaires</EVENT>.
+<SIGNAL sid="s5">Alors que</SIGNAL> Dugarry avait <EVENT aspect="PERFECTIVE" class="OCCURRENCE" eid="e40" eiid="ei40" pos="VERB" pred="OUVRIR" tense="PAST" vform="PASTPART">ouvert</EVENT> le score <SIGNAL sid="s13">à</SIGNAL> <TIMEX3 anchorTimeID="t8" temporalFunction="false" tid="t14" type="TIME" value="1999-09-11TXX:XX">la première minute</TIMEX3> et que l'OM <EVENT class="STATE" eid="e41" eiid="ei41" pos="VERB" pred="SEMBLER" tense="IMPERFECT">semblait</EVENT> en place avec Pires dans une position plus axiale qui lui convient mieux, Courbis <EVENT class="OCCURRENCE" eid="e44" eiid="ei44" pos="VERB" pred="SORTIR" tense="PRESENT">sort</EVENT> l'ancien Bordelais <SIGNAL sid="s16">à</SIGNAL> la <EVENT class="OCCURRENCE" eid="e91" eiid="ei91" pos="NOUN" pred="MI-TEMPS">mi-temps</EVENT> et <EVENT class="CAUSE" eid="e92" eiid="ei92" pos="VERB" pred="FAIRE" tense="PRESENT">fait</EVENT> <EVENT class="OCCURRENCE" eid="e46" eiid="ei46" pos="VERB" pred="MONTER" vform="INFINITIVE">monter</EVENT> Perez, qui ne <EVENT class="STATE" eid="e47" eiid="ei47" polarity="NEG" pos="VERB" pred="SEMBLER" tense="IMPERFECT">semblait</EVENT> pas dans un jour de grande maîtrise technique, au milieu. Gallas, <EVENT class="STATE" eid="e93" eiid="ei93" pos="ADJECTIVE" pred="IMPRESSIONANT">impressionnant</EVENT> en charnière centrale <SIGNAL sid="s17">en</SIGNAL> première <EVENT class="OCCURRENCE" eid="e94" eiid="ei94" pos="NOUN" pred="PÉRIODE">période</EVENT>, a <EVENT class="OCCURRENCE" eid="e48" eiid="ei48" pos="VERB" pred="GLISSER" tense="PAST" vform="PASTPART">glissé</EVENT> arrière-droit <SIGNAL sid="s18">en</SIGNAL> <EVENT class="OCCURRENCE" eid="e95" eiid="ei95" pos="NOUN" pred="SECOND">seconde</EVENT>, <EVENT class="OCCURRENCE" eid="e78" eiid="ei78" pos="VERB" pred="REMPLACER" vform="PASTPART">remplacé</EVENT> dans l'axe par Issa. Pires <EVENT class="OCCURRENCE" eid="e49" eiid="ei49" pos="VERB" pred="RETROUVER" tense="IMPERFECT">retrouvait</EVENT> une position latérale au milieu. Et l'équipe s'est <EVENT class="OCCURRENCE" eid="e51" eiid="ei51" pos="VERB" pred="ÉCROULER" tense="PAST" vform="PASTPART">écroulée</EVENT>, <EVENT class="OCCURRENCE" eid="e52" eiid="ei52" pos="VERB" pred="ENCAISSER" vform="PRESPART">encaissant</EVENT> trois <EVENT cardinality="3" class="OCCURRENCE" eid="e79" eiid="ei79" pos="NOUN" pred="BUT">buts</EVENT> <SIGNAL sid="s7">en</SIGNAL> <TIMEX3 tid="t10" type="DURATION" value="PT20M">vingt minutes</TIMEX3>.
+« C'est Courbis qui a <EVENT class="OCCURRENCE" eid="e53" eiid="ei53" pos="VERB" pred="PERDRE" tense="PAST" vform="PASTPART">perdu</EVENT> le <EVENT class="OCCURRENCE" eid="e54" eiid="ei54" pos="NOUN" pred="MATCH">match</EVENT> », <EVENT class="REPORTING" eid="e55" eiid="ei55" pos="VERB" pred="SOUPIRER" tense="IMPERFECT">soupirait</EVENT> un agent <SIGNAL sid="s8">alors qu'</SIGNAL>un membre de l'équipe technique montpelliéraine se <EVENT class="I_STATE" eid="e56" eiid="ei56" pos="VERB" pred="FÉLICITER" tense="IMPERFECT">félicitait</EVENT> des <EVENT class="OCCURRENCE" eid="e57" eiid="ei57" pos="NOUN" pred="CHOIX">choix</EVENT> de Courbis.
+Rolland Courbis s'est <EVENT class="OCCURRENCE" eid="e58" eiid="ei58" pos="VERB" pred="DÉFENDRE" tense="PAST" vform="PASTPART">défendu</EVENT> en <EVENT class="REPORTING" eid="e59" eiid="ei59" pos="VERB" pred="ASSURER" vform="GERUNDIVE">assurant</EVENT> que la première <EVENT class="OCCURRENCE" eid="e81" eiid="ei81" pos="NOUN" pred="MI-TEMPS">mi-temps</EVENT> de son équipe avait été « trop <EVENT aspect="PERFECTIVE" class="STATE" eid="e82" eiid="ei82" pos="ADJECTIVE" pred="LABORIEUX" tense="PAST">laborieuse</EVENT> pour <EVENT class="I_STATE" eid="e60" eiid="ei60" pos="VERB" pred="ESPÉRER" vform="INFINITIVE">espérer</EVENT> <EVENT class="OCCURRENCE" eid="e61" eiid="ei61" pos="VERB" pred="GAGNER" vform="INFINITIVE">gagner</EVENT> ». L'OM <EVENT class="OCCURRENCE" eid="e62" eiid="ei62" pos="VERB" pred="MENER" tense="IMPERFECT">menait</EVENT> pourtant 1-0 <SIGNAL sid="s10">à</SIGNAL> la <EVENT class="OCCURRENCE" eid="e63" eiid="ei63" pos="NOUN" pred="PAUSE">pause</EVENT> et les Héraultais ne s'étaient <EVENT class="OCCURRENCE" eid="e64" eiid="ei64" pos="VERB" pred="PROCURER" tense="PAST" vform="PASTPART">procuré</EVENT> qu'une <EVENT class="OCCURRENCE" eid="e83" eiid="ei83" pos="NOUN" pred="OCCASION">occasion</EVENT>.
+Mais Courbis se <EVENT class="I_STATE" eid="e65" eiid="ei65" pos="VERB" pred="SAVOIR" tense="PRESENT">sait</EVENT> <TIMEX3 anchorTimeID="t1" tid="t11" type="DATE" value="1999-09-13">désormais</TIMEX3> <EVENT class="OCCURRENCE" eid="e66" eiid="ei66" pos="VERB" pred="MENACER" vform="PASTPART">menacé</EVENT>: « Notre début de <EVENT class="OCCURRENCE" eid="e84" eiid="ei84" pos="NOUN" pred="SAISON">saison</EVENT> est mauvais. Il <EVENT class="MODAL" eid="e68" eiid="ei68" pos="VERB" pred="FALLOIR" tense="PRESENT">faut</EVENT> <TIMEX3 tid="t12" type="TIME" value="PRESENT_REF">maintenant</TIMEX3> <EVENT class="I_ACTION" eid="e69" eiid="ei69" modality="NECESSITY" pos="VERB" pred="ALIGNER" vform="INFINITIVE">aligner</EVENT> une série de <EVENT class="OCCURRENCE" eid="e85" eiid="ei85" pos="NOUN" pred="VICTOIRE">victoires</EVENT> ». Le <EVENT class="STATE" eid="e87" eiid="ei87" pos="NOUN" pred="CONSTAT">constat</EVENT> était le même <SIGNAL sid="s19">après</SIGNAL> le <EVENT class="OCCURRENCE" eid="e86" eiid="ei86" pos="NOUN" pred="NUL">nul</EVENT> <EVENT class="OCCURRENCE" eid="e71" eiid="ei71" pos="VERB" pred="CONCÉDER" vform="PASTPART">concédé</EVENT> à domicile face à Bastia (1-1) <SIGNAL sid="s11">lors de</SIGNAL> <TIMEX3 temporalFunction="false" tid="t16" type="DURATION" value="P1D">la quatrième journée</TIMEX3>.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t14" timeID="t7" />
+<TLINK lid="l2" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" timeID="t14" />
+<TLINK lid="l3" origin="USER" relType="IDENTITY" relatedToTime="t8" timeID="t4" />
+<TLINK lid="l4" origin="USER" relType="BEFORE" relatedToTime="t11" timeID="t8" />
+<TLINK lid="l5" origin="USER" relType="IS_INCLUDED" relatedToTime="t11" timeID="t1" />
+<TLINK lid="l6" origin="USER" relType="BEFORE" relatedToTime="t2" timeID="t1" />
+<TLINK eventInstanceID="ei1" lid="l7" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei2" lid="l11" origin="USER" relType="DURING" relatedToEventInstance="ei3" />
+<TLINK eventInstanceID="ei4" lid="l12" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei72" lid="l14" origin="USER" relType="DURING" relatedToEventInstance="ei73" signalID="s15" />
+<TLINK eventInstanceID="ei5" lid="l16" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei6" />
+<TLINK eventInstanceID="ei89" lid="l17" origin="USER" relType="BEFORE" relatedToEventInstance="ei5" />
+<TLINK eventInstanceID="ei72" lid="l18" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" />
+<TLINK eventInstanceID="ei5" lid="l19" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" />
+<TLINK eventInstanceID="ei8" lid="l20" origin="USER" relType="IDENTITY" relatedToEventInstance="ei9" />
+<TLINK eventInstanceID="ei11" lid="l22" origin="USER" relType="INCLUDES" relatedToTime="t4" />
+<TLINK eventInstanceID="ei88" lid="l23" origin="USER" relType="BEGUN_BY" relatedToTime="t5" signalID="s14" />
+<TLINK lid="l25" origin="USER" relType="IS_INCLUDED" relatedToEventInstance="ei11" timeID="t5" />
+<TLINK eventInstanceID="ei13" lid="l26" origin="USER" relType="IS_INCLUDED" relatedToTime="t1" />
+<TLINK eventInstanceID="ei21" lid="l29" origin="USER" relType="INCLUDES" relatedToEventInstance="ei74" />
+<TLINK eventInstanceID="ei17" lid="l33" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei18" />
+<TLINK eventInstanceID="ei21" lid="l34" origin="USER" relType="BEFORE" relatedToEventInstance="ei22" signalID="s12" />
+<TLINK eventInstanceID="ei23" lid="l35" origin="USER" relType="AFTER" relatedToEventInstance="ei27" />
+<TLINK eventInstanceID="ei1" lid="l40" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei36" lid="l41" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei32" lid="l43" origin="USER" relType="BEFORE" relatedToEventInstance="ei33" />
+<TLINK eventInstanceID="ei5" lid="l46" origin="USER" relType="ENDS" relatedToEventInstance="ei37" />
+<TLINK eventInstanceID="ei90" lid="l47" origin="USER" relType="AFTER" relatedToEventInstance="ei37" signalID="s4" />
+<TLINK eventInstanceID="ei38" lid="l48" origin="USER" relType="DURING" relatedToEventInstance="ei37" />
+<TLINK eventInstanceID="ei90" lid="l49" origin="USER" relType="BEFORE" relatedToEventInstance="ei76" />
+<TLINK eventInstanceID="ei40" lid="l50" origin="USER" relType="IS_INCLUDED" relatedToTime="t14" signalID="s13" />
+<TLINK eventInstanceID="ei37" lid="l51" origin="USER" relType="INCLUDES" relatedToTime="t14" />
+<TLINK eventInstanceID="ei41" lid="l52" origin="USER" relType="DURING" relatedToEventInstance="ei37" />
+<TLINK eventInstanceID="ei91" lid="l53" origin="USER" relType="DURING" relatedToEventInstance="ei37" />
+<TLINK eventInstanceID="ei41" lid="l54" origin="USER" relType="BEFORE" relatedToEventInstance="ei91" />
+<TLINK eventInstanceID="ei44" lid="l55" origin="USER" relType="DURING" relatedToEventInstance="ei91" signalID="s16" />
+<TLINK eventInstanceID="ei92" lid="l56" origin="USER" relType="DURING" relatedToEventInstance="ei91" />
+<TLINK eventInstanceID="ei92" lid="l57" origin="USER" relType="IDENTITY" relatedToEventInstance="ei46" />
+<TLINK eventInstanceID="ei92" lid="l58" origin="USER" relType="DURING" relatedToEventInstance="ei47" />
+<TLINK eventInstanceID="ei47" lid="l59" origin="USER" relType="DURING" relatedToEventInstance="ei37" />
+<TLINK eventInstanceID="ei94" lid="l60" origin="USER" relType="ENDED_BY" relatedToEventInstance="ei91" />
+<TLINK eventInstanceID="ei93" lid="l61" origin="USER" relType="DURING" relatedToEventInstance="ei94" signalID="s17" />
+<TLINK eventInstanceID="ei95" lid="l62" origin="USER" relType="AFTER" relatedToEventInstance="ei91" />
+<TLINK eventInstanceID="ei48" lid="l63" origin="USER" relType="DURING" relatedToEventInstance="ei95" signalID="s18" />
+<TLINK eventInstanceID="ei95" lid="l64" origin="USER" relType="DURING" relatedToEventInstance="ei37" />
+<TLINK eventInstanceID="ei94" lid="l65" origin="USER" relType="DURING" relatedToEventInstance="ei37" />
+<TLINK eventInstanceID="ei49" lid="l67" origin="USER" relType="DURING" relatedToEventInstance="ei95" />
+<TLINK eventInstanceID="ei78" lid="l68" origin="USER" relType="DURING" relatedToEventInstance="ei95" />
+<TLINK lid="l69" origin="USER" relType="DURING" relatedToEventInstance="ei95" timeID="t10" />
+<TLINK eventInstanceID="ei52" lid="l70" origin="USER" relType="IDENTITY" relatedToEventInstance="ei79" />
+<TLINK eventInstanceID="ei52" lid="l71" origin="USER" relType="DURING" relatedToEventInstance="ei51" />
+<TLINK eventInstanceID="ei52" lid="l72" origin="USER" relType="IS_INCLUDED" relatedToTime="t10" signalID="s7" />
+<TLINK eventInstanceID="ei24" lid="l73" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" />
+<TLINK eventInstanceID="ei74" lid="l74" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" />
+<TLINK eventInstanceID="ei74" lid="l75" origin="USER" relType="AFTER" relatedToEventInstance="ei37" />
+<TLINK eventInstanceID="ei24" lid="l76" origin="USER" relType="AFTER" relatedToEventInstance="ei37" />
+<TLINK eventInstanceID="ei35" lid="l77" origin="USER" relType="IS_INCLUDED" relatedToTime="t8" />
+<TLINK eventInstanceID="ei20" lid="l78" origin="USER" relType="IDENTITY" relatedToEventInstance="ei15" />
+<TLINK eventInstanceID="ei55" lid="l79" origin="USER" relType="AFTER" relatedToEventInstance="ei37" />
+<TLINK eventInstanceID="ei56" lid="l80" origin="USER" relType="AFTER" relatedToEventInstance="ei37" />
+<TLINK eventInstanceID="ei53" lid="l81" origin="USER" relType="DURING" relatedToEventInstance="ei54" />
+<TLINK eventInstanceID="ei56" lid="l83" origin="USER" relType="AFTER" relatedToEventInstance="ei57" />
+<TLINK eventInstanceID="ei57" lid="l84" origin="USER" relType="DURING" relatedToEventInstance="ei37" />
+<TLINK eventInstanceID="ei55" lid="l85" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei56" signalID="s8" />
+<TLINK eventInstanceID="ei58" lid="l86" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei59" lid="l87" origin="USER" relType="IDENTITY" relatedToEventInstance="ei58" />
+<TLINK eventInstanceID="ei36" lid="l88" origin="USER" relType="AFTER" relatedToEventInstance="ei74" />
+<TLINK eventInstanceID="ei58" lid="l89" origin="USER" relType="AFTER" relatedToEventInstance="ei55" />
+<TLINK eventInstanceID="ei81" lid="l90" origin="USER" relType="IDENTITY" relatedToEventInstance="ei94" />
+<TLINK eventInstanceID="ei82" lid="l91" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei81" />
+<TLINK eventInstanceID="ei63" lid="l98" origin="USER" relType="IDENTITY" relatedToEventInstance="ei91" />
+<TLINK eventInstanceID="ei62" lid="l99" origin="USER" relType="DURING" relatedToEventInstance="ei63" signalID="s10" />
+<TLINK eventInstanceID="ei64" lid="l101" origin="USER" relType="BEFORE" relatedToEventInstance="ei63" />
+<TLINK eventInstanceID="ei64" lid="l102" origin="USER" relType="IDENTITY" relatedToEventInstance="ei83" />
+<TLINK eventInstanceID="ei65" lid="l103" origin="USER" relType="IS_INCLUDED" relatedToTime="t11" />
+<TLINK eventInstanceID="ei84" lid="l105" origin="USER" relType="IDENTITY" relatedToEventInstance="ei11" />
+<TLINK eventInstanceID="ei69" lid="l106" origin="USER" relType="IDENTITY" relatedToEventInstance="ei85" />
+<TLINK eventInstanceID="ei68" lid="l109" origin="USER" relType="IS_INCLUDED" relatedToTime="t12" />
+<TLINK lid="l110" origin="USER" relType="IS_INCLUDED" relatedToEventInstance="ei11" timeID="t16" />
+<TLINK eventInstanceID="ei71" lid="l111" origin="USER" relType="IDENTITY" relatedToEventInstance="ei86" />
+<TLINK eventInstanceID="ei71" lid="l112" origin="USER" relType="IS_INCLUDED" relatedToTime="t16" signalID="s11" />
+<TLINK eventInstanceID="ei87" lid="l113" origin="USER" relType="AFTER" relatedToEventInstance="ei71" signalID="s19" />
+<TLINK eventInstanceID="ei54" lid="l115" origin="USER" relType="IDENTITY" relatedToEventInstance="ei37" />
+<TLINK eventInstanceID="ei38" lid="l116" origin="USER" relType="IDENTITY" relatedToEventInstance="ei57" />
+<TLINK eventInstanceID="ei8" lid="l117" origin="USER" relType="DURING" relatedToEventInstance="ei11" signalID="s2" />
+<TLINK lid="l118" origin="USER" relType="BEFORE" relatedToTime="t16" timeID="t5" />
+<TLINK eventInstanceID="ei88" lid="l119" origin="USER" relType="BEFORE" relatedToEventInstance="ei13" />
+<TLINK eventInstanceID="ei44" lid="l120" origin="USER" relType="BEFORE" relatedToEventInstance="ei92" />
+<TLINK eventInstanceID="ei94" lid="l121" origin="USER" relType="BEFORE" relatedToEventInstance="ei95" />
+<TLINK eventInstanceID="ei48" lid="l122" origin="USER" relType="BEFORE" relatedToEventInstance="ei78" />
+<TLINK eventInstanceID="ei66" lid="l126" origin="USER" relType="IS_INCLUDED" relatedToTime="t11" />
+<TLINK eventInstanceID="ei40" lid="l127" origin="USER" relType="BEFORE" relatedToEventInstance="ei44" signalID="s5" />
+<TLINK lid="l128" origin="USER" relType="INCLUDES" relatedToTime="t1" timeID="t12" />
+<TLINK lid="l129" origin="USER" relType="ENDED_BY" relatedToTime="t2" timeID="t3" />
+<TLINK eventInstanceID="ei2" lid="l130" origin="USER" relType="BEGINS" relatedToTime="t3" />
+<TLINK eventInstanceID="ei25" lid="l131" origin="USER" relType="BEFORE" relatedToEventInstance="ei27" />
+<SLINK eventInstanceID="ei74" lid="l28" origin="USER" relType="MODAL" subordinatedEventInstance="ei15" />
+<SLINK eventInstanceID="ei21" lid="l30" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei17" />
+<SLINK eventInstanceID="ei21" lid="l31" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei19" />
+<SLINK eventInstanceID="ei19" lid="l32" origin="USER" relType="MODAL" subordinatedEventInstance="ei20" />
+<SLINK eventInstanceID="ei24" lid="l37" origin="USER" relType="MODAL" subordinatedEventInstance="ei25" />
+<SLINK eventInstanceID="ei36" lid="l42" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei32" />
+<SLINK eventInstanceID="ei36" lid="l44" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei35" />
+<SLINK eventInstanceID="ei35" lid="l45" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei75" />
+<SLINK eventInstanceID="ei55" lid="l82" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei53" />
+<SLINK eventInstanceID="ei65" lid="l104" origin="USER" relType="FACTIVE" subordinatedEventInstance="ei66" />
+<SLINK eventInstanceID="ei68" lid="l107" origin="USER" relType="MODAL" subordinatedEventInstance="ei69" />
+<SLINK eventInstanceID="ei82" lid="l123" origin="USER" relType="NEG_EVIDENTIAL" subordinatedEventInstance="ei60" />
+<SLINK eventInstanceID="ei60" lid="l124" origin="USER" relType="MODAL" subordinatedEventInstance="ei61" />
+<SLINK eventInstanceID="ei59" lid="l125" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei82" />
+</TimeML>

@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-05-27-0530e</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-05-27" /></DCT>
+<TEXT>
+L'Irak a <EVENT class="I_ACTION" eid="e1" eiid="ei1" pos="VERB" pred="DONNER_ACCORD" tense="PAST" vform="PASTPART">donné</EVENT> son accord au <EVENT class="OCCURRENCE" eid="e3" eiid="ei3" modality="PERMISSION" pos="NOUN" pred="RENOUVELLEMENT">renouvellement</EVENT> <SIGNAL sid="s4">pour</SIGNAL> une nouvelle période de <TIMEX3 functionInDocument="NONE" temporalFunction="false" tid="t6" type="DURATION" value="P6M">six mois</TIMEX3> du programme humanitaire «pétrole contre nourriture». Le Conseil de sécurité de l'ONU a <EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="VERB" pred="RECONDUIRE" tense="PAST" vform="PASTPART">reconduit</EVENT> à l'unanimité <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t3" type="DATE" value="1999-05-21" valueFromFunction="tf3">vendredi dernier</TIMEX3> les dispositions de la phase V <EVENT class="I_ACTION" eid="e7" eiid="ei7" pos="VERB" pred="AUTORISER" vform="PRESPART">autorisant</EVENT> Bagdad à <EVENT class="OCCURRENCE" eid="e8" eiid="ei8" modality="PERMISSION" pos="VERB" pred="EXPORTER" vform="INFINITIVE">exporter</EVENT> du brut à hauteur de 5,2 milliards de dollars <SIGNAL sid="s3">par</SIGNAL> <TIMEX3 functionInDocument="NONE" quant="EVERY" temporalFunction="false" tid="t4" type="SET" value="P6M">semestre</TIMEX3> pour <EVENT class="OCCURRENCE" eid="e9" eiid="ei9" pos="VERB" pred="ACHETER" vform="INFINITIVE">acheter</EVENT> des produits de première nécessité, sous strict contrôle de l'ONU.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t3" />
+<TLINK eventInstanceID="ei5" lid="l2" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" />
+<TLINK eventInstanceID="ei1" lid="l3" origin="USER" relType="IS_INCLUDED" relatedToTime="t1" />
+<TLINK eventInstanceID="ei3" lid="l4" origin="USER" relType="SIMULTANEOUS" relatedToTime="t6" signalID="s4" />
+<TLINK eventInstanceID="ei7" lid="l7" origin="USER" relType="DURING" relatedToEventInstance="ei5" />
+<TLINK eventInstanceID="ei8" lid="l8" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" signalID="s3" />
+<TLINK eventInstanceID="ei8" lid="l9" origin="USER" relType="BEFORE" relatedToEventInstance="ei9" />
+<SLINK eventInstanceID="ei1" lid="l5" origin="USER" relType="MODAL" subordinatedEventInstance="ei3" />
+<SLINK eventInstanceID="ei7" lid="l10" origin="USER" relType="MODAL" subordinatedEventInstance="ei8" />
+</TimeML>

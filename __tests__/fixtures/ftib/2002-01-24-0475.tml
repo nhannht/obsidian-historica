@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2002-01-24-0475</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2002-01-24" /></DCT>
+<TEXT>
+<EVENT class="OCCURRENCE" eid="e15" eiid="ei15" pos="VERB" pred="INTERROGER" vform="INFINITIVE">Interroger</EVENT> les victimes et les auteurs eux-mêmes pour mieux <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="VERB" pred="ÉVALUER" vform="INFINITIVE">évaluer</EVENT> la réalité de la délinquance <EVENT class="STATE" eid="e2" eiid="ei2" pos="VERB" pred="FIGURER" tense="PRESENT">figurent</EVENT> au rang des propositions que les députés Christophe Carèsche (PS) et Robert Pandraud (RPR) ont <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="VERB" pred="REMETTRE" tense="PAST" vform="PASTPART">remises</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="DATE" value="2002-01-23" valueFromFunction="TF17">hier</TIMEX3> au Premier ministre, en vue de la <EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="NOUN" pred="CRÉATION">création</EVENT> d'un «observatoire national de la délinquance. » Ces propositions <EVENT class="EVENT_CONTAINER" eid="e7" eiid="ei7" pos="VERB" pred="INTERVENIR" tense="PRESENT">interviennent</EVENT> <SIGNAL sid="s1">avant que</SIGNAL> le bilan <TIMEX3 tid="t3" type="DATE" value="2001">2001</TIMEX3> de la délinquance et de la criminalité soit <EVENT class="OCCURRENCE" eid="e8" eiid="ei8" mood="SUBJUNCTIVE" pos="VERB" pred="RENDRE" tense="PRESENT" vform="PASTPART">rendu</EVENT> <EVENT class="STATE" eid="e17" eiid="ei17" pos="ADJECTIVE" pred="PUBLIC">public</EVENT> <TIMEX3 tid="t4" type="TIME" value="2002-01-28TMO">lundi matin</TIMEX3> au ministère de l'Intérieur. Celui-ci <EVENT class="MODAL" eid="e9" eiid="ei9" mood="CONDITIONAL" pos="VERB" pred="DEVOIR" tense="PRESENT">devrait</EVENT> <EVENT class="STATE" eid="e10" eiid="ei10" modality="POSSIBILITY" pos="VERB" pred="MONTRER" vform="INFINITIVE">montrer</EVENT> une <EVENT class="OCCURRENCE" eid="e11" eiid="ei11" pos="NOUN" pred="HAUSSE">hausse</EVENT> de près de 7,70% avec, pour la première fois, la barre des 4 millions de <EVENT cardinality="4000000" class="OCCURRENCE" eid="e16" eiid="ei16" pos="NOUN" pred="FAIT">faits</EVENT> <EVENT class="OCCURRENCE" eid="e12" eiid="ei12" pos="VERB" pred="CONSTATER" vform="PASTPART">constatés</EVENT> <EVENT class="MODAL" eid="e13" eiid="ei13" mood="CONDITIONAL" pos="VERB" pred="DEVOIR" tense="PRESENT">devrait</EVENT> être <EVENT class="OCCURRENCE" eid="e14" eiid="ei14" modality="POSSIBILITY" pos="VERB" pred="DÉPASSER" vform="PASTPART">dépassée</EVENT>.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t2" timeID="t3" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t2" />
+<TLINK lid="l3" origin="USER" relType="BEFORE" relatedToTime="t4" timeID="t1" />
+<TLINK eventInstanceID="ei4" lid="l4" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei2" lid="l5" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei4" lid="l6" origin="USER" relType="BEFORE" relatedToEventInstance="ei5" />
+<TLINK eventInstanceID="ei8" lid="l7" origin="USER" relType="BEGINS" relatedToEventInstance="ei17" />
+<TLINK eventInstanceID="ei7" lid="l8" origin="USER" relType="BEFORE" relatedToEventInstance="ei8" signalID="s1" />
+<TLINK eventInstanceID="ei7" lid="l9" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei9" lid="l10" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei10" lid="l12" origin="USER" relType="AFTER" relatedToEventInstance="ei11" />
+<TLINK eventInstanceID="ei13" lid="l14" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei10" />
+<TLINK eventInstanceID="ei12" lid="l15" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" />
+<TLINK eventInstanceID="ei16" lid="l16" origin="USER" relType="BEFORE" relatedToEventInstance="ei12" />
+<TLINK eventInstanceID="ei8" lid="l18" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" />
+<TLINK eventInstanceID="ei15" lid="l19" origin="USER" relType="BEFORE" relatedToEventInstance="ei1" />
+<SLINK eventInstanceID="ei9" lid="l11" origin="USER" relType="MODAL" subordinatedEventInstance="ei10" />
+<SLINK eventInstanceID="ei13" lid="l13" origin="USER" relType="MODAL" subordinatedEventInstance="ei14" />
+<SLINK eventInstanceID="ei2" lid="l20" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei15" />
+</TimeML>

@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-06-08-0480b</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-06-08" /></DCT>
+<TEXT>
+<EVENT class="OCCURRENCE" eid="e18" eiid="ei18" pos="NOUN" pred="DÉMISSION">Démission</EVENT> du Premier ministre arménien.
+Le Premier ministre arménien, Armen Darbinian, a <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="VERB" pred="REMETTRE" tense="PAST" vform="PASTPART">remis</EVENT> sa <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="NOUN" pred="DÉMISSION">démission</EVENT> au président <SIGNAL sid="s1">à la suite des</SIGNAL> <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="NOUN" pred="ÉLECTION">élections</EVENT> législatives <SIGNAL sid="s4">du</SIGNAL> <TIMEX3 tid="t2" type="DATE" value="1999-05-30">30 mai</TIMEX3>. Le président, Robert Kotcharian, avait <EVENT aspect="PERFECTIVE" class="I_STATE" eid="e19" eiid="ei19" pos="VERB" pred="ESTIMER" tense="PAST" vform="PASTPART">estimé</EVENT> que le gouvernement <EVENT class="MODAL" eid="e6" eiid="ei6" pos="VERB" pred="DEVOIR" tense="IMPERFECT">devait</EVENT> être <EVENT class="OCCURRENCE" eid="e7" eiid="ei7" modality="OBLIGATION" pos="VERB" pred="DIRIGER" vform="PASTPART">dirigé</EVENT> par l'un des deux chefs de l'alliance qui a <EVENT class="OCCURRENCE" eid="e9" eiid="ei9" pos="VERB" pred="REMPORTER" tense="PAST" vform="PASTPART">remporté</EVENT> ce <EVENT class="OCCURRENCE" eid="e10" eiid="ei10" pos="NOUN" pred="SCRUTIN">scrutin</EVENT>, l'actuel ministre de la Défense, Vazguen Sarkissian, ou l'ancien dirigeant de l'époque soviétique, Karen Demirtchian. La coalition Unité, <EVENT class="STATE" eid="e20" eiid="ei20" pos="VERB" pred="DIRIGER" vform="PASTPART">dirigée</EVENT> par MM. Sarkissian et Demirtchian, a <EVENT class="OCCURRENCE" eid="e13" eiid="ei13" pos="VERB" pred="OBTENIR" tense="PAST" vform="PASTPART">obtenu</EVENT> une <EVENT class="STATE" eid="e21" eiid="ei21" pos="NOUN" pred="MAJORITÉ">majorité</EVENT> relative aux <EVENT class="OCCURRENCE" eid="e14" eiid="ei14" pos="NOUN" pred="ÉLECTION">élections</EVENT> législatives, <EVENT class="OCCURRENCE" eid="e15" eiid="ei15" pos="VERB" pred="REMPORTER" vform="PRESPART">remportant</EVENT> 41,67% des suffrages et 56 sièges sur un total de 131 au nouveau parlement.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t2" />
+<TLINK eventInstanceID="ei2" lid="l2" origin="USER" relType="IDENTITY" relatedToEventInstance="ei18" />
+<TLINK eventInstanceID="ei1" lid="l3" origin="USER" relType="IDENTITY" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei1" lid="l4" origin="USER" relType="AFTER" relatedToEventInstance="ei4" signalID="s1" />
+<TLINK eventInstanceID="ei4" lid="l5" origin="USER" relType="BEFORE" relatedToTime="t2" signalID="s4" />
+<TLINK eventInstanceID="ei19" lid="l6" origin="USER" relType="BEFORE" relatedToEventInstance="ei1" />
+<TLINK eventInstanceID="ei9" lid="l9" origin="USER" relType="ENDS" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei10" lid="l10" origin="USER" relType="IDENTITY" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei20" lid="l11" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei13" lid="l12" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei9" />
+<TLINK eventInstanceID="ei14" lid="l13" origin="USER" relType="IDENTITY" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei15" lid="l16" origin="USER" relType="IDENTITY" relatedToEventInstance="ei9" />
+<TLINK eventInstanceID="ei21" lid="l17" origin="USER" relType="BEGUN_BY" relatedToEventInstance="ei13" />
+<SLINK eventInstanceID="ei19" lid="l7" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei6" />
+<SLINK eventInstanceID="ei6" lid="l8" origin="USER" relType="MODAL" subordinatedEventInstance="ei7" />
+</TimeML>

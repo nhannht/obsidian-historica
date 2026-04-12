@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-07-28-0348a</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-07-28" /></DCT>
+<TEXT>
+<EVENT class="OCCURRENCE" eid="e14" eiid="ei14" pos="NOUN" pred="REPAS">Repas</EVENT> de famille gouvernemental.- Lionel Jospin <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="VERB" pred="RECEVOIR" tense="PRESENT">reçoit</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="TIME" value="1999-07-28TEV" valueFromFunction="tf5">ce soir</TIMEX3> les membres de son gouvernement et leurs conjoints à Matignon pour un <EVENT class="OCCURRENCE" eid="e3" eiid="ei3" pos="NOUN" pred="DÎNER">dîner</EVENT> qui <EVENT class="STATE" eid="e4" eiid="ei4" pos="VERB" pred="RESSEMBLER" tense="PRESENT">ressemble</EVENT> plus à une fête de fin d'année qu'à une rencontre de travail, <SIGNAL sid="s5">après</SIGNAL> <TIMEX3 functionInDocument="NONE" temporalFunction="false" tid="t6" type="DURATION" value="PXX">une période</TIMEX3> <EVENT class="OCCURRENCE" eid="e7" eiid="ei7" pos="VERB" pred="MARQUER" vform="PASTPART">marquée</EVENT> par des <EVENT class="OCCURRENCE" eid="e8" eiid="ei8" pos="NOUN" pred="TENSION">tensions</EVENT> parfois vives au sein de son équipe. Le dernier <EVENT class="OCCURRENCE" eid="e9" eiid="ei9" pos="NOUN" pred="CONSEIL">conseil</EVENT> des ministres <SIGNAL sid="s3">avant</SIGNAL> la <EVENT class="OCCURRENCE" eid="e10" eiid="ei10" pos="NOUN" pred="TRÊVE">trêve</EVENT> estivale est <EVENT class="STATE" eid="e11" eiid="ei11" pos="VERB" pred="PRÉVOIR" tense="PAST" vform="PASTPART">prévu</EVENT> <TIMEX3 tid="t3" type="DATE" value="1999-08-03">le 3 août</TIMEX3>. Un <TIMEX3 functionInDocument="NONE" temporalFunction="false" tid="t7" type="TIME" value="PAST_REF">précédent</TIMEX3> <EVENT class="OCCURRENCE" eid="e12" eiid="ei12" pos="NOUN" pred="DÎNER">dîner</EVENT> avait <EVENT aspect="PERFECTIVE" class="OCCURRENCE" eid="e13" eiid="ei13" pos="VERB" pred="RÉUNIR" tense="PAST" vform="PASTPART">réuni</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t4" type="DATE" value="1999-07-21" valueFromFunction="tf2">mercredi dernier</TIMEX3> autour de Lionel Jospin les chefs de parti de la majorité plurielle.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t4" />
+<TLINK lid="l2" origin="USER" relType="INCLUDES" relatedToTime="t2" timeID="t1" />
+<TLINK lid="l3" origin="USER" relType="BEFORE" relatedToTime="t3" timeID="t1" />
+<TLINK eventInstanceID="ei1" lid="l4" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei1" lid="l5" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei3" />
+<TLINK eventInstanceID="ei14" lid="l6" origin="USER" relType="IDENTITY" relatedToEventInstance="ei3" />
+<TLINK eventInstanceID="ei1" lid="l7" origin="USER" relType="ENDS" relatedToTime="t6" signalID="s5" />
+<TLINK eventInstanceID="ei11" lid="l10" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei9" lid="l11" origin="USER" relType="BEFORE" relatedToEventInstance="ei10" signalID="s3" />
+<TLINK eventInstanceID="ei9" lid="l13" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" />
+<TLINK eventInstanceID="ei13" lid="l14" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" />
+<TLINK eventInstanceID="ei12" lid="l15" origin="USER" relType="IS_INCLUDED" relatedToTime="t7" />
+<TLINK eventInstanceID="ei13" lid="l16" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei12" />
+<TLINK eventInstanceID="ei11" lid="l18" origin="USER" relType="BEFORE" relatedToEventInstance="ei9" />
+<TLINK eventInstanceID="ei8" lid="l19" origin="USER" relType="DURING" relatedToTime="t6" />
+</TimeML>

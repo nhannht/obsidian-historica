@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2002-04-30-0498c</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2002-04-30" /></DCT>
+<TEXT>
+Besancenot à Marseille.
+Olivier Besancenot <EVENT class="STATE" eid="e6" eiid="ei6" pos="VERB" pred="ETRE" tense="FUTURE">sera</EVENT> à Marseille <TIMEX3 tid="t2" type="DATE" value="2002-05-02">jeudi 2 mai</TIMEX3> afin d'y <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="VERB" pred="MANIFESTER" vform="INFINITIVE">manifester</EVENT> contre la <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="NOUN" pred="VENUE">venue</EVENT> de Jean-Marie Le Pen. L'ancien candidat de la Ligue communiste révolutionnaire (LCR) à la <EVENT class="OCCURRENCE" eid="e3" eiid="ei3" pos="NOUN" pred="PRÉSIDENTIELLE">présidentielle</EVENT> <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="VERB" pred="MANIFESTER" tense="FUTURE">manifestera</EVENT> aussi <TIMEX3 tid="t3" type="DATE" value="2002-05-01">le mercredi 1er mai</TIMEX3> à la tête du cortège de la LCR <EVENT class="STATE" eid="e8" eiid="ei8" pos="ADJECTIVE" pred="PRESENT">présent</EVENT> dans la grande <EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="NOUN" pred="MANIFESTATION">manifestation</EVENT> parisienne anti-Le Pen, au côté d'Alain Krivine, porte-parole de la LCR.
+</TEXT>
+<TLINK eventInstanceID="ei6" lid="l1" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei1" lid="l2" origin="USER" relType="DURING" relatedToEventInstance="ei6" />
+<TLINK eventInstanceID="ei2" lid="l3" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei3" lid="l4" origin="USER" relType="AFTER" relatedToTime="t2" />
+<TLINK eventInstanceID="ei4" lid="l5" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" />
+<TLINK lid="l6" origin="USER" relType="BEFORE" relatedToTime="t2" timeID="t3" />
+<TLINK lid="l7" origin="USER" relType="BEFORE" relatedToTime="t3" timeID="t1" />
+<TLINK eventInstanceID="ei8" lid="l8" origin="USER" relType="DURING" relatedToEventInstance="ei5" />
+<TLINK eventInstanceID="ei5" lid="l9" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" />
+<TLINK eventInstanceID="ei4" lid="l10" origin="USER" relType="DURING" relatedToEventInstance="ei5" />
+</TimeML>

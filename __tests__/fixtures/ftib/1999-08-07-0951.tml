@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-08-07-0951</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-08-07" /></DCT>
+<TEXT>
+<EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="NOUN" pred="DISTRIBUTION">DISTRIBUTION</EVENT> DE LUNETTES.
+Une <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="NOUN" pred="DISTRIBUTION">distribution</EVENT> de lunettes spéciales pour <EVENT class="PERCEPTION" eid="e2" eiid="ei2" pos="VERB" pred="REGARDER" vform="INFINITIVE">regarder</EVENT> l'<EVENT class="OCCURRENCE" eid="e3" eiid="ei3" pos="NOUN" pred="ÉCLIPSE">éclipse</EVENT> <EVENT class="EVENT_CONTAINER" eid="e4" eiid="ei4" pos="VERB" pred="AVOIR" tense="FUTURE">aura</EVENT> lieu pour les administrés <TIMEX3 tid="t2" type="DATE" value="1999-08-10">mardi 10 août</TIMEX3>, en mairie <SIGNAL sid="s1">de</SIGNAL> <TIMEX3 tid="t3" type="TIME" value="1999-08-10T10:00">10 h</TIMEX3> <SIGNAL sid="s2">à</SIGNAL> <TIMEX3 tid="t4" type="TIME" value="1999-08-10T12:00">12 h</TIMEX3>.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t2" timeID="t1" />
+<TLINK lid="l2" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" timeID="t3" />
+<TLINK lid="l3" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" timeID="t4" />
+<TLINK eventInstanceID="ei1" lid="l4" origin="USER" relType="IDENTITY" relatedToEventInstance="ei5" />
+<TLINK eventInstanceID="ei4" lid="l7" origin="USER" relType="IDENTITY" relatedToEventInstance="ei1" />
+<TLINK eventInstanceID="ei4" lid="l8" origin="USER" relType="BEGUN_BY" relatedToTime="t3" signalID="s1" />
+<TLINK eventInstanceID="ei4" lid="l9" origin="USER" relType="ENDED_BY" relatedToTime="t4" signalID="s2" />
+<TLINK eventInstanceID="ei1" lid="l10" origin="USER" relType="BEFORE" relatedToEventInstance="ei2" />
+<TLINK lid="l13" origin="USER" relType="AFTER" relatedToTime="t3" timeID="t4" />
+<SLINK eventInstanceID="ei2" lid="l11" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei3" />
+</TimeML>

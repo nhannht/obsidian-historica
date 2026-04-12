@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-05-20-1029</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-05-20" /></DCT>
+<TEXT>
+<EVENT class="OCCURRENCE" eid="e24" eiid="ei24" pos="NOUN" pred="EXPLOIT">Exploit</EVENT> des Knicks à Atlanta.
+WASHINGTON. _ Les Utah Jazz, <EVENT class="STATE" eid="e25" eiid="ei25" pos="NOUN" pred="DAUPHIN">dauphins</EVENT> des Chicago Bulls <SIGNAL sid="s1">depuis</SIGNAL> <TIMEX3 tid="t2" type="DURATION" value="P2Y">deux ans</TIMEX3> et <EVENT class="STATE" eid="e27" eiid="ei27" pos="ADJECTIVE" pred="FAVORI">favoris</EVENT> pour la <EVENT class="STATE" eid="e1" eiid="ei1" modality="POSSIBILITY" polarity="POS" pos="NOUN" pred="SUCCESSION">succession</EVENT> <EVENT class="OCCURRENCE" eid="e23" eiid="ei23" pos="VERB" pred="OUVERT" vform="PASTPART">ouverte</EVENT> par la <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="NOUN" pred="RETRAITE">retraite</EVENT> de Michael Jordan, ont <EVENT class="ASPECTUAL" eid="e3" eiid="ei3" pos="VERB" pred="OUVRIR" tense="PAST" vform="PASTPART">ouvert</EVENT> par une <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="NOUN" pred="VICTOIRE">victoire</EVENT> à domicile sur Portland leur <EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="NOUN" pred="DEMI-FINALE">demi-finale</EVENT> de la conférence ouest <TIMEX3 temporalFunction="true" tid="t3" type="TIME" value="1999-05-18TEV">mardi soir</TIMEX3> à Salt Lake City.
+Les Jazz, <SIGNAL sid="s2">après</SIGNAL> avoir <EVENT aspect="PERFECTIVE" class="OCCURRENCE" eid="e7" eiid="ei7" pos="VERB" pred="FRÔLER" vform="PASTPART">frôlé</EVENT> l'<EVENT class="OCCURRENCE" eid="e8" eiid="ei8" pos="NOUN" pred="ÉLIMINATION">élimination</EVENT> <SIGNAL sid="s3">au</SIGNAL> premier <EVENT class="OCCURRENCE" eid="e9" eiid="ei9" pos="NOUN" pred="TOUR">tour</EVENT>, se sont <EVENT class="OCCURRENCE" eid="e18" eiid="ei18" pos="VERB" pred="IMPOSER" tense="PAST" vform="PASTPART">imposés</EVENT> 93 à 83 avec 25 points et 12 rebonds de Karl Malone, <SIGNAL sid="s5">avant de</SIGNAL> <EVENT class="OCCURRENCE" eid="e11" eiid="ei11" pos="VERB" pred="RECEVOIR" vform="INFINITIVE">recevoir</EVENT> les Portland Trail Blazers une seconde fois, <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t4" type="TIME" value="1999-05-20TEV" valueFromFunction="tf5">ce soir</TIMEX3>, dans la série au meilleur des sept <EVENT cardinality="7" class="OCCURRENCE" eid="e12" eiid="ei12" pos="NOUN" pred="MATCH">matches</EVENT>.
+De leur côté, les New York Knicks, <EVENT class="STATE" eid="e28" eiid="ei28" pos="NOUN" pred="TOMBEUR">tombeurs</EVENT> <SIGNAL sid="s4">au</SIGNAL> premier <EVENT class="OCCURRENCE" eid="e13" eiid="ei13" pos="NOUN" pred="TOUR">tour</EVENT> de Miami, numéro un à l'est, sont <EVENT class="OCCURRENCE" eid="e14" eiid="ei14" pos="VERB" pred="ALLER" tense="PAST" vform="PASTPART">allés</EVENT> s'<EVENT class="OCCURRENCE" eid="e15" eiid="ei15" pos="VERB" pred="IMPOSER" vform="INFINITIVE">imposer</EVENT> 100 à 92 à Atlanta, grâce à 34 points d'Allen Houston et 31 de Latrell Sprewell. Ils <EVENT class="STATE" eid="e16" eiid="ei16" pos="VERB" pred="FAIRE" tense="PRESENT">font</EVENT> <TIMEX3 tid="t5" type="TIME" value="PRESENT_REF">maintenant</TIMEX3> figure de favoris pour une place en <EVENT class="OCCURRENCE" eid="e22" eiid="ei22" pos="NOUN" pred="FINALE">finale</EVENT> de <EVENT class="OCCURRENCE" eid="e26" eiid="ei26" pos="NOUN" pred="CONFERENCE">conférence</EVENT> Est.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t3" />
+<TLINK lid="l2" origin="USER" relType="INCLUDES" relatedToTime="t4" timeID="t1" />
+<TLINK eventInstanceID="ei25" lid="l3" origin="USER" relType="SIMULTANEOUS" relatedToTime="t2" signalID="s1" />
+<TLINK lid="l4" origin="USER" relType="ENDED_BY" relatedToTime="t1" timeID="t2" />
+<TLINK eventInstanceID="ei2" lid="l6" origin="USER" relType="BEGINS" relatedToEventInstance="ei23" />
+<TLINK eventInstanceID="ei2" lid="l8" origin="USER" relType="BEFORE" relatedToEventInstance="ei27" />
+<TLINK eventInstanceID="ei4" lid="l10" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei3" />
+<TLINK eventInstanceID="ei3" lid="l11" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" />
+<TLINK eventInstanceID="ei7" lid="l12" origin="USER" relType="DURING" relatedToEventInstance="ei9" signalID="s3" />
+<TLINK eventInstanceID="ei18" lid="l14" origin="USER" relType="AFTER" relatedToEventInstance="ei7" signalID="s2" />
+<TLINK eventInstanceID="ei18" lid="l15" origin="USER" relType="BEFORE" relatedToEventInstance="ei11" signalID="s5" />
+<TLINK eventInstanceID="ei11" lid="l16" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" />
+<TLINK eventInstanceID="ei11" lid="l17" origin="USER" relType="DURING" relatedToEventInstance="ei12" />
+<TLINK eventInstanceID="ei28" lid="l18" origin="USER" relType="DURING" relatedToEventInstance="ei13" signalID="s4" />
+<TLINK eventInstanceID="ei14" lid="l19" origin="USER" relType="BEFORE" relatedToEventInstance="ei15" />
+<TLINK eventInstanceID="ei13" lid="l20" origin="USER" relType="IDENTITY" relatedToEventInstance="ei9" />
+<TLINK eventInstanceID="ei16" lid="l23" origin="USER" relType="IS_INCLUDED" relatedToTime="t5" />
+<TLINK lid="l24" origin="USER" relType="INCLUDES" relatedToTime="t1" timeID="t5" />
+<TLINK eventInstanceID="ei22" lid="l25" origin="USER" relType="ENDS" relatedToEventInstance="ei26" />
+<TLINK eventInstanceID="ei22" lid="l26" origin="USER" relType="AFTER" relatedToTime="t1" />
+<TLINK eventInstanceID="ei2" lid="l29" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei27" lid="l30" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei27" lid="l31" origin="USER" relType="DURING" relatedToEventInstance="ei1" />
+<TLINK eventInstanceID="ei9" lid="l32" origin="USER" relType="BEFORE" relatedToEventInstance="ei5" />
+<TLINK eventInstanceID="ei28" lid="l33" origin="USER" relType="BEFORE" relatedToEventInstance="ei14" />
+<TLINK eventInstanceID="ei14" lid="l34" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei16" lid="l35" origin="USER" relType="BEFORE" relatedToEventInstance="ei22" />
+<SLINK eventInstanceID="ei7" lid="l13" origin="USER" relType="COUNTER_FACTIVE" subordinatedEventInstance="ei8" />
+<ALINK eventInstanceID="ei23" lid="l5" origin="USER" relType="INITIATES" relatedToEventInstance="ei1" />
+<ALINK eventInstanceID="ei3" lid="l9" origin="USER" relType="INITIATES" relatedToEventInstance="ei5" />
+</TimeML>

@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2002-05-23-0139</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2002-05-23" /></DCT>
+<TEXT>
+Le premier des 28 Groupements d'Intervention Régionaux <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="VERB" pred="COMPOSER" vform="PASTPART">composé</EVENT> de policiers, gendarmes, douaniers et agents du fisc pour lutter contre les réseaux de délinquance, sera <EVENT class="STATE" eid="e4" eiid="ei4" pos="ADJECTIVE" pred="INSTALLER" tense="FUTURE">installé</EVENT> à Strasbourg <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="DATE" value="2002-05-24" valueFromFunction="TF17">demain</TIMEX3>. Sarkozy était <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t3" type="DATE" value="2002-05-22" valueFromFunction="TF17">hier</TIMEX3> <EVENT class="STATE" eid="e13" eiid="ei13" pos="VERB" tense="IMPERFECT" pred="DANS_LA_CAPITALE_ALSACIENNE">dans la capitale alsacienne</EVENT> où <TIMEX3 anchorTimeID="t3" temporalFunction="true" tid="t4" type="TIME" value="2002-05-22TMO">le matin même</TIMEX3> une <EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="NOUN" pred="OPÉRATION">opération</EVENT> contre un réseau de recel et trafic de Hi-Fi et vidéo a <EVENT class="I_ACTION" eid="e8" eiid="ei8" pos="VERB" pred="PERMETTRE" tense="PAST" vform="PASTPART">permis</EVENT> d'<EVENT class="OCCURRENCE" eid="e9" eiid="ei9" pos="VERB" pred="INTERPELLER" vform="INFINITIVE">interpeller</EVENT> dix personnes, de <EVENT class="OCCURRENCE" eid="e10" eiid="ei10" pos="VERB" pred="SAISIR" vform="INFINITIVE">saisir</EVENT> des armes et 15.000 €. Le nouveau ministre de l'intérieur se <EVENT class="OCCURRENCE" eid="e11" eiid="ei11" pos="VERB" pred="RENDRE" tense="PRESENT">rend</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t5" type="DATE" value="2002-05-23" valueFromFunction="tf1">aujourd'hui</TIMEX3> au centre de Sangatte où <EVENT class="OCCURRENCE" eid="e12" eiid="ei12" pos="VERB" pred="TRANSITER" tense="PRESENT">transitent</EVENT> des milliers d'immigrés sans papier.
++Photo AFP
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="INCLUDES" relatedToTime="t4" timeID="t3" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t3" />
+<TLINK lid="l3" origin="USER" relType="IDENTITY" relatedToTime="t5" timeID="t1" />
+<TLINK lid="l4" origin="USER" relType="BEFORE" relatedToTime="t2" timeID="t5" />
+<TLINK eventInstanceID="ei4" lid="l5" origin="USER" relType="BEGUN_BY" relatedToTime="t2" />
+<TLINK eventInstanceID="ei13" lid="l6" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" />
+<TLINK eventInstanceID="ei5" lid="l7" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" />
+<TLINK eventInstanceID="ei8" lid="l8" origin="USER" relType="DURING" relatedToEventInstance="ei5" />
+<TLINK eventInstanceID="ei11" lid="l11" origin="USER" relType="IS_INCLUDED" relatedToTime="t5" />
+<TLINK eventInstanceID="ei12" lid="l12" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei2" lid="l13" origin="USER" relType="BEFORE" relatedToEventInstance="ei4" />
+<SLINK eventInstanceID="ei8" lid="l9" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei9" />
+<SLINK eventInstanceID="ei8" lid="l10" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei10" />
+</TimeML>

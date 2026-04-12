@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-07-09-0441</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-07-09" /></DCT>
+<TEXT>
+Michel Barnier, ancien ministre des Affaires européennes et organisateur des <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="NOUN" pred="JEU">Jeux</EVENT> olympiques d'Albertville, et l'ancien directeur de cabinet de Jacques Delors, Pascal Lamy, sont les deux candidats que <EVENT class="STATE" eid="e3" eiid="ei3" pos="VERB" pred="PRÉSENTER" tense="PRESENT">présente</EVENT> la France pour les deux sièges dont elle <EVENT class="STATE" eid="e5" eiid="ei5" pos="VERB" pred="DISPOSER" tense="PRESENT">dispose</EVENT> à la Commission européenne.
+L'<EVENT class="REPORTING" eid="e7" eiid="ei7" pos="NOUN" pred="ANNONCE">annonce</EVENT> en a été <EVENT class="OCCURRENCE" eid="e8" eiid="ei8" pos="VERB" pred="FAIRE" tense="PAST" vform="PASTPART">faite</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="DATE" value="1999-07-08" valueFromFunction="tf17">hier</TIMEX3> par Jacques Chirac et Lionel Jospin, dans un communiqué commun. Selon la tradition, Michel Barnier est sénateur RPR de Savoie et Pascal Lamy socialiste, <TIMEX3 functionInDocument="NONE" temporalFunction="false" tid="t13" type="TIME" value="PRESENT_REF">actuel</TIMEX3> directeur général du Crédit Lyonnais. Le premier <EVENT class="OCCURRENCE" eid="e9" eiid="ei9" pos="VERB" pred="SUCCÉDER" tense="FUTURE">succédera</EVENT> à Thibault de Silguy, le père de l'euro qui <EVENT class="MODAL" eid="e10" eiid="ei10" mood="CONDITIONAL" pos="VERB" pred="DEVOIR" tense="PRESENT">devrait</EVENT> être <EVENT class="OCCURRENCE" eid="e11" eiid="ei11" modality="POSSIBILITY" pos="VERB" pred="APPELER" vform="PASTPART">appelé</EVENT> à d'autres fonctions. Le second <EVENT class="OCCURRENCE" eid="e12" eiid="ei12" pos="VERB" pred="REMPLACER" tense="PRESENT">remplace</EVENT> Edith Cresson par qui le <EVENT class="OCCURRENCE" eid="e13" eiid="ei13" pos="NOUN" pred="SCANDALE">scandale</EVENT> est <EVENT class="EVENT_CONTAINER" eid="e14" eiid="ei14" pos="VERB" pred="ARRIVER" tense="PAST" vform="PASTPART">arrivé</EVENT>...
+La liste des vingt nouveaux commissaires est <TIMEX3 tid="t3" type="DATE" value="1999-07-09">désormais</TIMEX3> <EVENT class="STATE" eid="e59" eiid="ei59" pos="ADJECTIVE" pred="COMPLÈTE">complète</EVENT> et Romano Prodi <EVENT class="MODAL" eid="e15" eiid="ei15" mood="CONDITIONAL" pos="VERB" pred="DEVOIR" tense="PRESENT">devrait</EVENT> <EVENT class="MODAL" eid="e16" eiid="ei16" modality="POSSIBILITY" pos="VERB" pred="POUVOIR" vform="INFINITIVE">pouvoir</EVENT> en <EVENT class="OCCURRENCE" eid="e17" eiid="ei17" modality="POSSIBILITY" pos="VERB" pred="FAIRE" vform="INFINITIVE">faire</EVENT> l'<EVENT class="REPORTING" eid="e18" eiid="ei18" pos="NOUN" pred="ANNONCE">annonce</EVENT> officielle <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t4" type="DATE" value="1999-07-09" valueFromFunction="tf1">aujourd'hui vendredi</TIMEX3>. Une première <EVENT class="OCCURRENCE" eid="e19" eiid="ei19" pos="NOUN" pred="RÉUNION">réunion</EVENT> est <EVENT class="STATE" eid="e20" eiid="ei20" pos="ADJECTIVE" pred="PRÉVOIR" tense="PRESENT">prévue</EVENT> <TIMEX3 tid="t6" type="DATE" value="1999-07-16">le 16 juillet</TIMEX3> en Belgique, pour <EVENT class="REPORTING" eid="e21" eiid="ei21" pos="VERB" pred="CONFIRMER" vform="INFINITIVE">confirmer</EVENT> la répartition des portefeuilles. La Commission Prodi ne sera toutefois pas <EVENT class="STATE" eid="e60" eiid="ei60" polarity="NEG" pos="ADJECTIVE" pred="OPÉRATIONNEL" tense="FUTURE">opérationnelle</EVENT> <SIGNAL sid="s3">avant</SIGNAL> son <EVENT class="OCCURRENCE" eid="e24" eiid="ei24" pos="NOUN" pred="INVESTITURE">investiture</EVENT> par le Parlement européen <EVENT class="I_STATE" eid="e26" eiid="ei26" polarity="POS" pos="VERB" pred="PRÉVOIR" vform="PASTPART">prévue</EVENT> <TIMEX3 tid="t7" type="DATE" value="1999-09-15">le 15 septembre</TIMEX3>. <TIMEX3 tid="t8" type="TIME" value="PAST_REF">Auparavant</TIMEX3>, chacun des candidats-commissaires aura été «<EVENT aspect="PERFECTIVE" class="OCCURRENCE" eid="e61" eiid="ei61" pos="VERB" pred="AUDITIONNER" tense="FUTURE" vform="PASTPART">auditionné</EVENT>» <SIGNAL sid="s5">à partir du</SIGNAL> <TIMEX3 tid="t9" type="DATE" value="1999-08-30">30 août</TIMEX3>.
+Le cas allemand.
+Une incertitude <EVENT class="STATE" eid="e27" eiid="ei27" pos="VERB" pred="DEMEURER" tense="PRESENT">demeure</EVENT> encore sur les noms des deux commissaires allemands, puisque le chancelier Schröder <EVENT class="I_STATE" eid="e28" eiid="ei28" pos="VERB" pred="SOUHAITER" tense="PRESENT">souhaite</EVENT> la <EVENT class="OCCURRENCE" eid="e29" eiid="ei29" pos="NOUN" pred="NOMINATION">nomination</EVENT> de Günter Verheugen pour le SPD et Michaele Schreyer pour les Verts, malgré les réserves de Romano Prodi qui <EVENT class="STATE" eid="e31" eiid="ei31" modality="POSSIBILITY" mood="CONDITIONAL" pos="VERB" pred="SOUHAITER" tense="PRESENT">souhaiterait</EVENT> un représentant de l'opposition chrétienne-démocrate CDU qui a <EVENT class="OCCURRENCE" eid="e33" eiid="ei33" pos="VERB" pred="REMPORTER" tense="PAST" vform="PASTPART">remporté</EVENT> les <EVENT class="OCCURRENCE" eid="e34" eiid="ei34" pos="NOUN" pred="ÉLECTION">élections</EVENT> <SIGNAL sid="s6">du</SIGNAL> <TIMEX3 tid="t10" type="DATE" value="1999-06-13">13 juin</TIMEX3>.
+Ailleurs, les jeux sont pratiquement <EVENT class="STATE" eid="e36" eiid="ei36" pos="ADJECTIVE" pred="FAIRE" tense="PRESENT">faits</EVENT>. En Grande-Bretagne, il s'agit de Neil Kinnock, commissaire <EVENT class="STATE" eid="e62" eiid="ei62" pos="ADJECTIVE" pred="SORTIR">sortant</EVENT> aux transports, et de Chris Patten, ancien gouverneur de Hongkong. Pour l'Espagne, Loyola de Palacio, ancienne ministre de l'agriculture du gouvernement Aznar et Pedro Solbes, ancien ministre socialiste des finances.
+Pour l'Italie, Romano Prodi bien sûr et Mario Monti, commissaire <EVENT class="STATE" eid="e63" eiid="ei63" pos="ADJECTIVE" pred="SORTIR">sortant</EVENT> au marché intérieur. Pour l'Autriche, Franz Fischler, commissaire à l'agriculture <EVENT class="MODAL" eid="e38" eiid="ei38" mood="CONDITIONAL" pos="VERB" pred="POUVOIR" tense="PRESENT">pourrait</EVENT> <EVENT class="STATE" eid="e39" eiid="ei39" modality="POSSIBILITY" pos="VERB" pred="CONSERVER" vform="INFINITIVE">conserver</EVENT> son poste. Pour la Belgique, Philippe Busquin, président du parti socialiste francophone.
+Cinq femmes seulement.
+Pour le Luxembourg, la députée chrétienne-sociale Viviane Reeding. Pour la Finlande, le commissaire <EVENT class="STATE" eid="e64" eiid="ei64" pos="ADJECTIVE" pred="SORTIR">sortant</EVENT> au budget, Erkki Liikanen. Pour la Suède, l'ancien ministre de la culture et des affaires sociales Margaret Wallstroem. Pour le Portugal, le dirigeant socialiste Antonio Vitorino. Pour la Grèce, la députée socialiste Anna Diamantropoulo.
+Pour l'Irlande, le procureur général David Byrne, proche du Premier ministre. Pour les Pays-Bas, le libéral Fritz Bolkestein. Enfin pour le Danemark, le ministre de la coopération Poul Nielson.
+Soit au total, quatre commissaires <EVENT class="STATE" eid="e66" eiid="ei66" pos="ADJECTIVE" pred="SORTIR">sortants</EVENT> et seulement cinq femmes sur vingt sièges. Le rapport droite-gauche s'<EVENT class="STATE" eid="e48" eiid="ei48" modality="POSSIBILITY" mood="CONDITIONAL" pos="VERB" pred="ÉTABLIR" tense="PRESENT">établirait</EVENT> environ à huit contre douze.
+Un journal finlandais a déjà <EVENT class="OCCURRENCE" eid="e49" eiid="ei49" pos="VERB" pred="PUBLIER" tense="PAST" vform="PASTPART">publié</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t11" type="DATE" value="1999-W27">cette semaine</TIMEX3> la liste des nouveaux commissaires avec leurs affectations. Plus sérieusement, on <EVENT class="REPORTING" eid="e51" eiid="ei51" pos="VERB" pred="INDIQUER" tense="IMPERFECT">indiquait</EVENT> à Bruxelles que Romano Prodi <EVENT class="MODAL" eid="e52" eiid="ei52" mood="CONDITIONAL" pos="VERB" pred="POUVOIR" tense="PRESENT">pourrait</EVENT> être <EVENT class="STATE" eid="e53" eiid="ei53" modality="POSSIBILITY" pos="ADJECTIVE" pred="ENTOURER">entouré</EVENT> de deux vice-présidents, l'anglais Neil Kinnock qui serait <EVENT class="STATE" eid="e54" eiid="ei54" modality="POSSIBILITY" mood="CONDITIONAL" pos="VERB" pred="CHARGER" vform="PASTPART">chargé</EVENT> de la <EVENT class="OCCURRENCE" eid="e55" eiid="ei55" pos="NOUN" pred="RÉFORME">réforme</EVENT> des institutions, et Viviane Reeding, la Luxembourgeoise, qui serait <EVENT class="STATE" eid="e57" eiid="ei57" modality="POSSIBILITY" mood="CONDITIONAL" pos="VERB" pred="CHARGER" vform="PASTPART">chargée</EVENT> des délicates relations avec le Parlement européen.
+Philippe JARRASSÉ
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t2" timeID="t10" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t4" timeID="t2" />
+<TLINK lid="l3" origin="USER" relType="IDENTITY" relatedToTime="t1" timeID="t4" />
+<TLINK lid="l4" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" timeID="t4" />
+<TLINK lid="l5" origin="USER" relType="BEFORE" relatedToTime="t6" timeID="t1" />
+<TLINK lid="l6" origin="USER" relType="BEFORE" relatedToTime="t9" timeID="t6" />
+<TLINK lid="l7" origin="USER" relType="IS_INCLUDED" relatedToTime="t11" timeID="t1" />
+<TLINK lid="l8" origin="USER" relType="BEFORE" relatedToTime="t7" timeID="t9" />
+<TLINK lid="l9" origin="USER" relType="BEGINS" relatedToTime="t8" signalID="s5" timeID="t9" />
+<TLINK lid="l10" origin="USER" relType="ENDS" relatedToTime="t8" timeID="t7" />
+<TLINK lid="l11" origin="USER" relType="IS_INCLUDED" relatedToTime="t13" timeID="t1" />
+<TLINK eventInstanceID="ei8" lid="l16" origin="USER" relType="IDENTITY" relatedToEventInstance="ei7" />
+<TLINK eventInstanceID="ei9" lid="l18" origin="USER" relType="AFTER" relatedToTime="t1" />
+<TLINK eventInstanceID="ei10" lid="l20" origin="USER" relType="IAFTER" relatedToEventInstance="ei9" />
+<TLINK eventInstanceID="ei12" lid="l21" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei9" />
+<TLINK eventInstanceID="ei13" lid="l22" origin="USER" relType="BEFORE" relatedToTime="t2" />
+<TLINK eventInstanceID="ei14" lid="l23" origin="USER" relType="IDENTITY" relatedToEventInstance="ei13" />
+<TLINK eventInstanceID="ei59" lid="l24" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" />
+<TLINK eventInstanceID="ei17" lid="l27" origin="USER" relType="IDENTITY" relatedToEventInstance="ei18" />
+<TLINK eventInstanceID="ei15" lid="l28" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" />
+<TLINK eventInstanceID="ei21" lid="l34" origin="USER" relType="DURING" relatedToEventInstance="ei19" />
+<TLINK eventInstanceID="ei60" lid="l37" origin="USER" relType="BEFORE" relatedToEventInstance="ei24" signalID="s3" />
+<TLINK eventInstanceID="ei61" lid="l38" origin="USER" relType="DURING" relatedToTime="t8" />
+<TLINK eventInstanceID="ei3" lid="l40" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei27" lid="l41" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei5" lid="l42" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei19" lid="l43" origin="USER" relType="IS_INCLUDED" relatedToTime="t6" />
+<TLINK eventInstanceID="ei24" lid="l44" origin="USER" relType="IS_INCLUDED" relatedToTime="t7" />
+<TLINK eventInstanceID="ei28" lid="l45" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei31" lid="l47" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei34" lid="l48" origin="USER" relType="IS_INCLUDED" relatedToTime="t10" signalID="s6" />
+<TLINK eventInstanceID="ei33" lid="l49" origin="USER" relType="ENDS" relatedToEventInstance="ei34" />
+<TLINK eventInstanceID="ei36" lid="l50" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei62" lid="l51" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei63" lid="l52" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei38" lid="l54" origin="USER" relType="AFTER" relatedToEventInstance="ei19" />
+<TLINK eventInstanceID="ei64" lid="l55" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei66" lid="l56" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei48" lid="l57" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei49" lid="l58" origin="USER" relType="IS_INCLUDED" relatedToTime="t11" />
+<TLINK eventInstanceID="ei51" lid="l59" origin="USER" relType="IS_INCLUDED" relatedToTime="t11" />
+<TLINK eventInstanceID="ei2" lid="l66" origin="USER" relType="BEFORE" relatedToTime="t10" />
+<TLINK eventInstanceID="ei8" lid="l67" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei15" lid="l68" origin="USER" relType="DURING" relatedToEventInstance="ei59" />
+<TLINK eventInstanceID="ei20" lid="l69" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei49" lid="l72" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei61" lid="l73" origin="USER" relType="BEFORE" relatedToEventInstance="ei24" />
+<TLINK eventInstanceID="ei57" lid="l75" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei53" />
+<TLINK eventInstanceID="ei54" lid="l76" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei53" />
+<SLINK eventInstanceID="ei7" lid="l15" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei3" />
+<SLINK eventInstanceID="ei10" lid="l19" origin="USER" relType="MODAL" subordinatedEventInstance="ei11" />
+<SLINK eventInstanceID="ei15" lid="l25" origin="USER" relType="MODAL" subordinatedEventInstance="ei16" />
+<SLINK eventInstanceID="ei16" lid="l26" origin="USER" relType="MODAL" subordinatedEventInstance="ei17" />
+<SLINK eventInstanceID="ei28" lid="l46" origin="USER" relType="MODAL" subordinatedEventInstance="ei29" />
+<SLINK eventInstanceID="ei38" lid="l53" origin="USER" relType="MODAL" subordinatedEventInstance="ei39" />
+<SLINK eventInstanceID="ei52" lid="l60" origin="USER" relType="MODAL" subordinatedEventInstance="ei53" />
+<SLINK eventInstanceID="ei51" lid="l61" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei52" />
+<SLINK eventInstanceID="ei20" lid="l70" origin="USER" relType="MODAL" subordinatedEventInstance="ei19" />
+<SLINK eventInstanceID="ei26" lid="l74" origin="USER" relType="MODAL" subordinatedEventInstance="ei24" />
+<SLINK eventInstanceID="ei54" lid="l77" origin="USER" relType="MODAL" subordinatedEventInstance="ei55" />
+</TimeML>

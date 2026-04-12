@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-05-26-1342</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-05-26" /></DCT>
+<TEXT>
+<EVENT class="OCCURRENCE" eid="e21" eiid="ei21" pos="NOUN" pred="OPÉRATION">Opération</EVENT> « village propre ».
+A l'initiative de la municipalité, une <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="NOUN" pred="OPÉRATION">opération</EVENT> nettoyage sera <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="ADJECTIVE" pred="MENER" tense="FUTURE">menée</EVENT> dans la commune <TIMEX3 tid="t2" type="DATE" value="1999-05-29">samedi 29 mai</TIMEX3>. Les membres des associations de pêche ou de chasse, directement <EVENT class="STATE" eid="e6" eiid="ei6" pos="VERB" pred="CONCERNER" vform="PASTPART">concernées</EVENT> par la qualité de l'environnement, <EVENT class="MODAL" eid="e8" eiid="ei8" mood="CONDITIONAL" pos="VERB" pred="DEVOIR" tense="PRESENT">devraient</EVENT> se <EVENT class="STATE" eid="e9" eiid="ei9" modality="OBLIGATION" pos="VERB" pred="SENTIR" vform="INFINITIVE">sentir</EVENT> les plus <EVENT class="STATE" eid="e19" eiid="ei19" pos="ADJECTIVE" pred="MOTVER">motivés</EVENT> pour <EVENT class="OCCURRENCE" eid="e10" eiid="ei10" pos="VERB" pred="PARTICIPER" vform="INFINITIVE">participer</EVENT> à ce <EVENT class="OCCURRENCE" eid="e11" eiid="ei11" pos="NOUN" pred="GESTE">geste</EVENT> actif et symbolique. Les pompiers, les membres du comité de fleurissement seront sans doute <EVENT class="STATE" eid="e12" eiid="ei12" pos="PREPOSITION" pred="DE_LA_FÊTE">de la fête</EVENT>, et bien sûr toutes celles et ceux qui <EVENT class="I_STATE" eid="e13" eiid="ei13" pos="VERB" pred="VOULOIR" tense="FUTURE">voudront</EVENT> <EVENT class="OCCURRENCE" eid="e14" eiid="ei14" pos="VERB" pred="CONTRIBUER" vform="INFINITIVE">contribuer</EVENT> à l'entretien du cadre naturel dont <EVENT class="MODAL" eid="e16" eiid="ei16" pos="VERB" pred="POUVOIR" tense="PRESENT">peut</EVENT> encore se <EVENT class="OCCURRENCE" eid="e17" eiid="ei17" modality="POSSIBILITY" pos="VERB" pred="PRÉVALOIR" vform="INFINITIVE">prévaloir</EVENT> la cité mainoue. <EVENT class="OCCURRENCE" eid="e20" eiid="ei20" pos="NOUN" pred="RENDEZ-VOUS">Rendez-vous</EVENT> est <EVENT class="I_STATE" eid="e18" eiid="ei18" polarity="POS" pos="ADJECTIVE" pred="FIXER" tense="PAST">fixé</EVENT> à tous <TIMEX3 tid="t3" type="DATE" value="1999-05-29">samedi</TIMEX3> à <TIMEX3 tid="t4" type="TIME" value="1999-05-29T08:00">8 h</TIMEX3> dans la cour de l'hôtel de ville.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t2" timeID="t1" />
+<TLINK lid="l2" origin="USER" relType="INCLUDES" relatedToTime="t3" timeID="t2" />
+<TLINK eventInstanceID="ei2" lid="l3" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei4" lid="l4" origin="USER" relType="IDENTITY" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei8" lid="l6" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei9" lid="l8" origin="USER" relType="IDENTITY" relatedToEventInstance="ei19" />
+<TLINK eventInstanceID="ei10" lid="l9" origin="USER" relType="IDENTITY" relatedToEventInstance="ei11" />
+<TLINK eventInstanceID="ei12" lid="l11" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei13" lid="l12" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei6" lid="l16" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei16" lid="l17" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei21" lid="l20" origin="USER" relType="IDENTITY" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei11" lid="l22" origin="USER" relType="IDENTITY" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei18" lid="l23" origin="USER" relType="IS_INCLUDED" relatedToTime="t1" />
+<TLINK eventInstanceID="ei20" lid="l25" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" />
+<SLINK eventInstanceID="ei8" lid="l7" origin="USER" relType="MODAL" subordinatedEventInstance="ei9" />
+<SLINK eventInstanceID="ei19" lid="l10" origin="USER" relType="MODAL" subordinatedEventInstance="ei10" />
+<SLINK eventInstanceID="ei13" lid="l13" origin="USER" relType="MODAL" subordinatedEventInstance="ei14" />
+<SLINK eventInstanceID="ei16" lid="l15" origin="USER" relType="MODAL" subordinatedEventInstance="ei17" />
+<SLINK eventInstanceID="ei18" lid="l24" origin="USER" relType="MODAL" subordinatedEventInstance="ei20" />
+</TimeML>

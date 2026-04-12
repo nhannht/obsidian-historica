@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2003-01-21-0219</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2003-01-21" /></DCT>
+<TEXT>
+Rugby : <EVENT class="OCCURRENCE" eid="e15" eiid="ei15" pos="NOUN" pred="VICTOIRE">victoire</EVENT> à l'extérieur.
+Comme <EVENT class="I_STATE" eid="e1" eiid="ei1" pos="VERB" pred="PRÉVOIR" vform="PASTPART">prévu</EVENT>, le <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="NOUN" pred="DÉPLACEMENT">déplacement</EVENT> des rugbymen à Genlis n'a pas été une <EVENT class="OCCURRENCE" eid="e3" eiid="ei3" polarity="NEG" pos="NOUN" pred="PROMENADE">promenade</EVENT> de santé pour les moins de 17 ans qui ont <EVENT class="MODAL" eid="e4" eiid="ei4" pos="VERB" pred="DEVOIR" tense="PAST" vform="PASTPART">dû</EVENT> <EVENT class="OCCURRENCE" eid="e5" eiid="ei5" modality="NECESSITY" pos="VERB" pred="PUISER" vform="INFINITIVE">puiser</EVENT> dans leurs réserves physiques et mentales pour <EVENT class="OCCURRENCE" eid="e7" eiid="ei7" pos="VERB" pred="VENIR" vform="INFINITIVE">venir</EVENT> à bout d'une solide équipe bourguignonne.
+<SIGNAL sid="s1">Après</SIGNAL> deux <EVENT class="OCCURRENCE" eid="e8" eiid="ei8" pos="NOUN" pred="ESSAI">essais</EVENT> <EVENT class="I_ACTION" eid="e9" eiid="ei9" pos="VERB" pred="REFUSER" vform="PASTPART">refusés</EVENT>, les avants, dans un <EVENT class="OCCURRENCE" eid="e14" eiid="ei14" pos="NOUN" pred="RUSH">rush</EVENT> décisif, ont <EVENT class="OCCURRENCE" eid="e10" eiid="ei10" pos="VERB" pred="INSCRIRE" tense="PAST" vform="PASTPART">inscrit</EVENT> l'<EVENT class="OCCURRENCE" eid="e11" eiid="ei11" pos="NOUN" pred="ESSAI">essai</EVENT> libérateur <EVENT class="I_ACTION" eid="e12" eiid="ei12" pos="VERB" pred="ASSURER" vform="PRESPART">assurant</EVENT> la <EVENT class="OCCURRENCE" eid="e13" eiid="ei13" pos="NOUN" pred="VICTOIRE">victoire</EVENT> 8 à 3.
+</TEXT>
+<TLINK eventInstanceID="ei2" lid="l1" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei1" lid="l2" origin="USER" relType="BEFORE" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei4" lid="l3" origin="USER" relType="DURING" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei4" lid="l5" origin="USER" relType="BEFORE" relatedToEventInstance="ei7" />
+<TLINK eventInstanceID="ei10" lid="l8" origin="USER" relType="DURING" relatedToEventInstance="ei14" />
+<TLINK eventInstanceID="ei10" lid="l9" origin="USER" relType="IDENTITY" relatedToEventInstance="ei11" />
+<TLINK eventInstanceID="ei10" lid="l11" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei12" />
+<TLINK eventInstanceID="ei15" lid="l12" origin="USER" relType="IDENTITY" relatedToEventInstance="ei13" />
+<TLINK eventInstanceID="ei9" lid="l13" origin="USER" relType="DURING" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei7" lid="l15" origin="USER" relType="ENDS" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei14" lid="l16" origin="USER" relType="AFTER" relatedToEventInstance="ei9" />
+<TLINK eventInstanceID="ei14" lid="l17" origin="USER" relType="DURING" relatedToEventInstance="ei2" />
+<SLINK eventInstanceID="ei4" lid="l4" origin="USER" relType="MODAL" subordinatedEventInstance="ei5" />
+<SLINK eventInstanceID="ei9" lid="l7" origin="USER" relType="NEGATIVE" subordinatedEventInstance="ei8" />
+<SLINK eventInstanceID="ei12" lid="l10" origin="USER" relType="FACTIVE" subordinatedEventInstance="ei13" />
+</TimeML>

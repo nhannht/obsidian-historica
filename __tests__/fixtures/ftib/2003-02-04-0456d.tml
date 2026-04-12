@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2003-02-04-0456d</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2003-02-04" /></DCT>
+<TEXT>
+Un mufti de la République en Algérie. - La fonction de Mufti de la République, chargé officiellement des fatwas (décrets religieux) a été <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="VERB" pred="CRÉER" tense="PAST" vform="PASTPART">créée</EVENT> par le gouvernement algérien, a-t-on <EVENT class="REPORTING" eid="e3" eiid="ei3" pos="VERB" pred="AVOIR" tense="PAST" vform="PASTPART">annoncé</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="DATE" value="2003-02-03" valueFromFunction="TF17">hier</TIMEX3> à Alger. Le titulaire de cette nouvelle fonction en Algérie, <EVENT class="MODAL" eid="e4" eiid="ei4" pos="VERB" pred="DEVOIR" tense="FUTURE">devra</EVENT> <EVENT class="STATE" eid="e5" eiid="ei5" modality="OBLIGATION" pos="VERB" pred="PRÉSIDER" vform="INFINITIVE">présider</EVENT> le Dar el-ifta (l'organisme de la fatwa), également <TIMEX3 functionInDocument="NONE" temporalFunction="true" tid="t4" type="TIME" value="PAST_REF">nouvellement</TIMEX3> <EVENT class="OCCURRENCE" eid="e6" eiid="ei6" pos="VERB" pred="CRÉER" vform="PASTPART">créé</EVENT>.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t2" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t4" />
+<TLINK eventInstanceID="ei3" lid="l4" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei1" lid="l5" origin="USER" relType="BEFORE" relatedToTime="t2" />
+<TLINK eventInstanceID="ei6" lid="l6" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" />
+<TLINK eventInstanceID="ei4" lid="l10" origin="USER" relType="AFTER" relatedToEventInstance="ei1" />
+<SLINK eventInstanceID="ei3" lid="l3" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei1" />
+<SLINK eventInstanceID="ei4" lid="l7" origin="USER" relType="MODAL" subordinatedEventInstance="ei5" />
+</TimeML>

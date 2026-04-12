@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-09-04-0945</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-09-04" /></DCT>
+<TEXT>
+YOGA.
+La <EVENT class="OCCURRENCE" eid="e1" eiid="ei2" pred="REPRISE" pos="NOUN">reprise</EVENT> des <EVENT class="OCCURRENCE" eid="e2" eiid="ei3" pred="SéANCE" pos="NOUN">séances</EVENT> de yoga est <EVENT class="I_STATE" eid="e3" eiid="ei1" pos="ADJECTIVE" pred="FIXER" vform="PASTPART">fixée</EVENT> <SIGNAL sid="s3">au</SIGNAL> <TIMEX3 tid="t2" type="DATE" value="1999-09-16">jeudi 16 septembre</TIMEX3>, <SIGNAL sid="s1">à</SIGNAL> <TIMEX3 tid="t3" type="TIME" value="1999-09-16T18:00">18 h</TIMEX3> et <SIGNAL sid="s2">à</SIGNAL> <TIMEX3 tid="t4" type="TIME" value="1999-09-16T19:30">19 h 30</TIMEX3>, à la salle des fêtes.
+</TEXT>
+<TLINK lid="l5" origin="USER" relType="BEFORE" relatedToTime="t2" timeID="t1" />
+<TLINK lid="l6" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" timeID="t3" />
+<TLINK lid="l7" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" timeID="t4" />
+<TLINK lid="l8" origin="USER" relType="AFTER" relatedToTime="t3" timeID="t4" />
+<TLINK eventInstanceID="ei1" lid="l10" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" signalID="s1" />
+<TLINK eventInstanceID="ei3" lid="l11" origin="USER" relType="IS_INCLUDED" relatedToTime="t1" />
+<SLINK eventInstanceID="ei3" lid="l3" origin="USER" relType="MODAL" subordinatedEventInstance="ei1" />
+<ALINK eventInstanceID="ei2" lid="l12" origin="USER" relType="REINITIATES" relatedToEventInstance="ei3" />
+</TimeML>

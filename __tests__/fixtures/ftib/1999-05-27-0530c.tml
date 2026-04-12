@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-05-27-0530c</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-05-27" /></DCT>
+<TEXT>
+La reine Elizabeth a <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="VERB" pred="PRESIDER" tense="PAST" vform="PASTPART">présidé</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="DATE" value="1999-05-26" valueFromFunction="tf17">hier</TIMEX3> la <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="NOUN" pred="CEREMONIE">cérémonie</EVENT> officielle d'ouverture du nouveau Parlement du Pays de Galles, <EVENT class="OCCURRENCE" eid="e10" eiid="ei10" pos="VERB" pred="ELIRE" vform="PASTPART">élu</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t3" type="DATE" value="1999-05-06" valueFromFunction="tf7">le 6 mai dernier</TIMEX3>. Devant les 60 membres du Parlement, la souveraine a <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="VERB" pred="SALUER" tense="PAST" vform="PASTPART">salué</EVENT> ce «moment important dans la longue histoire de notre nation», et <EVENT class="I_STATE" eid="e6" eiid="ei6" pos="VERB" pred="SOUHAITER" tense="PAST" vform="PASTPART">souhaité</EVENT> que cette institution <EVENT class="OCCURRENCE" eid="e8" eiid="ei8" mood="SUBJUNCTIVE" pos="VERB" pred="DEVENIR" tense="PRESENT">devienne</EVENT> «un pont vers le futur». Le Parlement <EVENT class="STATE" eid="e9" eiid="ei9" pos="VERB" pred="DISPOSER" tense="PRESENT">dispose</EVENT> de pouvoirs importants en matière d'attribution de l'enveloppe budgétaire.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t2" timeID="t3" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t2" />
+<TLINK eventInstanceID="ei10" lid="l3" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" />
+<TLINK eventInstanceID="ei1" lid="l4" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei1" lid="l5" origin="USER" relType="IS_INCLUDED" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei4" lid="l6" origin="USER" relType="DURING" relatedToEventInstance="ei1" />
+<TLINK eventInstanceID="ei6" lid="l7" origin="USER" relType="DURING" relatedToEventInstance="ei1" />
+<TLINK eventInstanceID="ei9" lid="l9" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<SLINK eventInstanceID="ei6" lid="l8" origin="USER" relType="MODAL" subordinatedEventInstance="ei8" />
+</TimeML>

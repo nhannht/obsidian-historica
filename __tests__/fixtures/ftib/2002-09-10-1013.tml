@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2002-09-10-1013</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2002-09-10" /></DCT>
+<TEXT>
+CLUB DU TROISIEME AGE.
+La première <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="NOUN" pred="RÉUNION">réunion</EVENT> du club du troisième âge, pour cette <EVENT class="OCCURRENCE" eid="e8" eiid="ei8" pos="NOUN" pred="SAISON">saison</EVENT> <TIMEX3 tid="t2" type="DATE" value="2002">2002</TIMEX3>/<TIMEX3 tid="t3" type="DATE" value="2003">2003</TIMEX3>, <EVENT class="EVENT_CONTAINER" eid="e3" eiid="ei3" pos="VERB" pred="AVOIR_LIEU" tense="FUTURE">aura</EVENT> lieu <TIMEX3 tid="t4" type="DATE" value="2002-09-12">le jeudi 12 septembre</TIMEX3>, <SIGNAL sid="s1">à partir de</SIGNAL> <TIMEX3 tid="t5" type="TIME" value="2002-09-12T14:00">14 h</TIMEX3>, à la salle des fêtes du village.
+Les <EVENT class="OCCURRENCE" eid="e5" eiid="ei9" pred="RéUNION" pos="NOUN">réunions</EVENT> suivantes sont <EVENT class="STATE" eid="e6" eiid="ei6" pos="ADJECTIVE" pred="PROGRAMMER" tense="PRESENT">programmées</EVENT> ; elles <EVENT class="EVENT_CONTAINER" eid="e7" eiid="ei10" pos="VERB" tense="FUTURE" pred="AVOIR_LIEU">auront</EVENT> lieu en principe <TIMEX3 freq="P2W" quant="EVERY" temporalFunction="false" tid="t10" type="SET" value="XXXX-WXX-4">les deuxième et quatrième jeudis</TIMEX3> <SIGNAL sid="s2">de</SIGNAL> <TIMEX3 quant="EVERY" temporalFunction="false" tid="t11" type="DATE" value="P1M">chaque mois</TIMEX3>.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="INCLUDES" relatedToTime="t1" timeID="t2" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t4" timeID="t1" />
+<TLINK lid="l3" origin="USER" relType="INCLUDES" relatedToTime="t5" timeID="t4" />
+<TLINK lid="l4" origin="USER" relType="BEFORE" relatedToTime="t3" timeID="t2" />
+<TLINK eventInstanceID="ei8" lid="l5" origin="USER" relType="OVERLAP_AFTER" relatedToTime="t2" />
+<TLINK eventInstanceID="ei8" lid="l6" origin="USER" relType="OVERLAP_BEFORE" relatedToTime="t3" />
+<TLINK eventInstanceID="ei3" lid="l9" origin="USER" relType="IDENTITY" relatedToEventInstance="ei1" />
+<TLINK eventInstanceID="ei3" lid="l10" origin="USER" relType="BEGUN_BY" relatedToTime="t5" signalID="s1" />
+<TLINK eventInstanceID="ei6" lid="l11" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei10" lid="l13" origin="USER" relType="IDENTITY" relatedToEventInstance="ei9" />
+<TLINK eventInstanceID="ei10" lid="l14" origin="USER" relType="IS_INCLUDED" relatedToTime="t10" />
+<TLINK lid="l17" origin="USER" relType="AFTER" relatedToTime="t4" timeID="t10" />
+<TLINK eventInstanceID="ei3" lid="l19" origin="USER" relType="BEGINS" relatedToEventInstance="ei8" />
+<TLINK eventInstanceID="ei6" lid="l20" origin="USER" relType="BEFORE" relatedToEventInstance="ei3" />
+<TLINK lid="l21" origin="USER" relType="IS_INCLUDED" relatedToTime="t11" timeID="t10" />
+</TimeML>

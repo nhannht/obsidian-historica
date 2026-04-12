@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2003-02-24-0122</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2003-02-24" /></DCT>
+<TEXT>
+Les <EVENT class="OCCURRENCE" eid="e1" eiid="ei9" pos="NOUN" pred="éLECTION">élections</EVENT> au sein du futur Conseil français du culte musulman (CFCM) <EVENT class="EVENT_CONTAINER" eid="e3" eiid="ei8" pred="AVOIR_LIEU" tense="FUTURE" pos="VERB">auront</EVENT> lieu <TIMEX3 temporalFunction="true" tid="t3" type="DATE" value="2003-04-06">les 6</TIMEX3> <SIGNAL sid="s1">et</SIGNAL> <TIMEX3 temporalFunction="true" tid="t4" type="DATE" value="2003-04-13">13 avril prochains</TIMEX3> pour <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="VERB" pred="DéSIGNER" vform="INFINITIVE">désigner</EVENT> leurs instances dirigeantes. Instance <EVENT class="STATE" eid="e5" eiid="ei5" pos="VERB" vform="PRESPART" pred="REPRéSENTER">représentant</EVENT> les cinq millions de Français de culte musulman, le CFCM a <EVENT class="OCCURRENCE" eid="e6" eiid="ei6" pos="VERB" tense="PAST" vform="PASTPART" pred="VOIR">vu</EVENT> le jour <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t6" type="DATE" value="2002-12-20" valueFromFunction="TF7">le 20 décembre dernier</TIMEX3> sous la houlette de Nicolas Sarkozy <SIGNAL sid="s2">au terme de</SIGNAL> <TIMEX3 anchorTimeID="t6" functionInDocument="NONE" temporalFunction="true" tid="t8" type="DURATION" value="P3Y">trois ans</TIMEX3> de <EVENT class="OCCURRENCE" eid="e7" eiid="ei7" pos="NOUN" pred="TRACTATION">tractations</EVENT> parfois difficiles.
+<EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="NOUN" pred="éLECTION"/>
+<EVENT class="EVENT_CONTAINER" eid="e3" eiid="ei3" pred="AVOIR_LIEU" pos="VERB"/>
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t6" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t3" timeID="t1" />
+<TLINK lid="l3" origin="USER" relType="BEFORE" relatedToTime="t4" timeID="t3" />
+<TLINK eventInstanceID="ei3" lid="l4" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" />
+<TLINK eventInstanceID="ei8" lid="l5" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" />
+<TLINK eventInstanceID="ei1" lid="l6" origin="USER" relType="IDENTITY" relatedToEventInstance="ei3" />
+<TLINK eventInstanceID="ei9" lid="l7" origin="USER" relType="IDENTITY" relatedToEventInstance="ei8" />
+<TLINK eventInstanceID="ei1" lid="l8" origin="USER" relType="BEFORE" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei9" lid="l9" origin="USER" relType="BEFORE" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei6" lid="l10" origin="USER" relType="IS_INCLUDED" relatedToTime="t6" />
+<TLINK eventInstanceID="ei7" lid="l12" origin="USER" relType="SIMULTANEOUS" relatedToTime="t8" />
+<TLINK eventInstanceID="ei5" lid="l14" origin="USER" relType="BEGUN_BY" relatedToEventInstance="ei4" />
+<TLINK lid="l20" origin="USER" relType="ENDED_BY" relatedToEventInstance="ei6" signalID="s2" timeID="t8" />
+</TimeML>

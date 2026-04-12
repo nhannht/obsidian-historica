@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-05-27-0530b</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-05-27" /></DCT>
+<TEXT>
+<EVENT class="OCCURRENCE" eid="e9" eiid="ei9" pos="NOUN" pred="PROCÈS">Procès</EVENT> Nivel à Essen: la défense a <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="VERB" pred="MARQUER" tense="PAST" vform="PASTPART">marqué</EVENT> des points, <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="DATE" value="1999-05-26" valueFromFunction="tf17">hier</TIMEX3>, en <EVENT class="OCCURRENCE" eid="e3" eiid="ei3" pos="VERB" pred="UTILISER" vform="GERUNDIVE">utilisant</EVENT> un témoignage confus devant la Cour d'assises d'Essen (ouest) qui <EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="VERB" pred="JUGER" tense="PRESENT">juge</EVENT> quatre hooligans pour le <EVENT class="OCCURRENCE" eid="e6" eiid="ei6" pos="NOUN" pred="LYNCHAGE">lynchage</EVENT> du gendarme français Daniel Nivel, <TIMEX3 temporalFunction="true" tid="t3" type="DATE" value="1998-06-21">le 21 juin</TIMEX3> à Lens (nord de la France). A la barre, Peter Walke, électricien allemand de 37 ans, s'est <EVENT class="OCCURRENCE" eid="e10" eiid="ei10" pos="VERB" pred="EMMÊLER" tense="PAST" vform="PASTPART">emmêlé</EVENT> dans sa <EVENT class="OCCURRENCE" eid="e7" eiid="ei7" pos="NOUN" pred="DÉPOSITION">déposition</EVENT>, en totale contradiction avec celle qu'il <EVENT class="STATE" eid="e8" eiid="ei8" pos="VERB" pred="AVOIR" tense="IMPERFECT">avait</EVENT> devant des policiers allemands.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t2" timeID="t3" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t2" />
+<TLINK eventInstanceID="ei9" lid="l3" origin="USER" relType="INCLUDES" relatedToTime="t2" />
+<TLINK eventInstanceID="ei2" lid="l4" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei2" lid="l5" origin="USER" relType="DURING" relatedToEventInstance="ei9" />
+<TLINK eventInstanceID="ei3" lid="l6" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei5" lid="l7" origin="USER" relType="DURING" relatedToEventInstance="ei9" />
+<TLINK eventInstanceID="ei6" lid="l8" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" />
+<TLINK eventInstanceID="ei10" lid="l9" origin="USER" relType="BEFORE" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei7" lid="l10" origin="USER" relType="DURING" relatedToEventInstance="ei10" />
+<TLINK eventInstanceID="ei8" lid="l11" origin="USER" relType="BEFORE" relatedToEventInstance="ei7" />
+</TimeML>

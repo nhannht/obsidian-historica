@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2003-01-21-0468</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2003-01-21" /></DCT>
+<TEXT>
+Rien ne <EVENT class="I_STATE" eid="e1" eiid="ei1" polarity="NEG" pos="VERB" pred="JUSTIFIER" tense="PRESENT">justifie</EVENT> <TIMEX3 temporalFunction="true" tid="t2" type="TIME" value="PRESENT_REF">aujourd'hui</TIMEX3> une <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="NOUN" pred="ACTION">action</EVENT> militaire, selon Dominique de Villepin.
+Le ministre français des Affaires étrangères Dominique de Villepin a <EVENT class="REPORTING" eid="e4" eiid="ei4" pos="VERB" pred="ESTIMER" tense="PAST" vform="PASTPART">estimé</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t3" type="DATE" value="2003-01-20" valueFromFunction="TF17">hier</TIMEX3> que rien que ne <EVENT class="I_STATE" eid="e5" eiid="ei5" polarity="NEG" pos="VERB" pred="JUSTIFIER" tense="IMPERFECT">justifiait</EVENT> <TIMEX3 temporalFunction="false" tid="t4" type="TIME" value="PRESENT_REF">aujourd'hui</TIMEX3> une <EVENT class="OCCURRENCE" eid="e6" eiid="ei6" pos="NOUN" pred="ACTION">action</EVENT> militaire contre l'Irak. « Rien ne <EVENT class="I_STATE" eid="e7" eiid="ei7" polarity="NEG" pos="VERB" pred="JUSTIFIER" tense="PRESENT">justifie</EVENT> de <EVENT class="ASPECTUAL" eid="e8" eiid="ei8" pos="VERB" pred="ROMPRE" vform="INFINITIVE">rompre</EVENT> le fil des <EVENT class="OCCURRENCE" eid="e9" eiid="ei9" pos="NOUN" pred="INSPECTION">inspections</EVENT> pour <EVENT class="OCCURRENCE" eid="e10" eiid="ei10" pos="VERB" pred="ENTRER" vform="INFINITIVE">entrer</EVENT> dans le temps de la guerre et de l'incertitude », a <EVENT class="REPORTING" eid="e12" eiid="ei12" pos="VERB" pred="AFFIRMER" tense="PAST" vform="PASTPART">affirmé</EVENT> le ministre français.
+M. de Villepin a également <EVENT class="REPORTING" eid="e13" eiid="ei13" pos="VERB" pred="SOULIGNER" tense="PAST" vform="PASTPART">souligné</EVENT>, en s'<EVENT class="OCCURRENCE" eid="e14" eiid="ei14" pos="VERB" pred="EXPRIMER" vform="GERUNDIVE">exprimant</EVENT> en anglais, que « <SIGNAL sid="s2">si</SIGNAL> la <EVENT class="OCCURRENCE" eid="e15" eiid="ei15" pos="NOUN" pred="GUERRE">guerre</EVENT> est le seul moyen pour <EVENT class="ASPECTUAL" eid="e16" eiid="ei16" pos="VERB" pred="SORTIR" vform="INFINITIVE">sortir</EVENT> de cette <EVENT class="OCCURRENCE" eid="e17" eiid="ei17" pos="NOUN" pred="CRISE">crise</EVENT>, <SIGNAL sid="s5">alor</SIGNAL>s nous sommes dans une <EVENT class="STATE" eid="e30" eiid="ei30" pos="NOUN" pred="IMPASSE">impasse</EVENT> ».
+La <EVENT class="OCCURRENCE" eid="e19" eiid="ei19" pos="NOUN" pred="CRISE">crise</EVENT> en Irak « est un <EVENT class="OCCURRENCE" eid="e20" eiid="ei20" pos="NOUN" pred="TEST">test</EVENT> » et « les enjeux sont énormes », a-t-il <EVENT class="REPORTING" eid="e29" eiid="ei29" pos="VERB" pred="DÉCLARER" tense="PAST" vform="PASTPART">déclaré</EVENT> <SIGNAL sid="s3">lors d'</SIGNAL>une <EVENT class="OCCURRENCE" eid="e22" eiid="ei22" pos="NOUN" pred="CONFÉRENCE">conférence</EVENT> de presse <SIGNAL sid="s4">à l'issue d'</SIGNAL>une <EVENT class="OCCURRENCE" eid="e24" eiid="ei24" pos="NOUN" pred="RÉUNION">réunion</EVENT> du Conseil de sécurité de l'Onu sur la <EVENT class="OCCURRENCE" eid="e26" eiid="ei26" pos="NOUN" pred="LUTTE">lutte</EVENT> antiterroriste. La France <EVENT class="STATE" eid="e27" eiid="ei27" pos="VERB" pred="PRÉSIDER" tense="PRESENT">préside</EVENT> <TIMEX3 tid="t5" type="TIME" value="PRESENT_REF">actuellement</TIMEX3> le Conseil de sécurité.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="IDENTITY" relatedToTime="t4" timeID="t2" />
+<TLINK lid="l2" origin="USER" relType="IDENTITY" relatedToTime="t5" timeID="t4" />
+<TLINK lid="l5" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t3" />
+<TLINK lid="l6" origin="USER" relType="IS_INCLUDED" relatedToTime="t5" timeID="t1" />
+<TLINK eventInstanceID="ei4" lid="l7" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" />
+<TLINK eventInstanceID="ei1" lid="l11" origin="USER" relType="IDENTITY" relatedToEventInstance="ei5" />
+<TLINK eventInstanceID="ei2" lid="l12" origin="USER" relType="IDENTITY" relatedToEventInstance="ei6" />
+<TLINK eventInstanceID="ei10" lid="l17" origin="USER" relType="AFTER" relatedToEventInstance="ei8" />
+<TLINK eventInstanceID="ei14" lid="l20" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei13" />
+<TLINK eventInstanceID="ei19" lid="l28" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei19" lid="l29" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei20" />
+<TLINK eventInstanceID="ei29" lid="l31" origin="USER" relType="DURING" relatedToEventInstance="ei22" signalID="s3" />
+<TLINK eventInstanceID="ei22" lid="l32" origin="USER" relType="IAFTER" relatedToEventInstance="ei24" signalID="s4" />
+<TLINK eventInstanceID="ei27" lid="l33" origin="USER" relType="IS_INCLUDED" relatedToTime="t5" />
+<TLINK eventInstanceID="ei2" lid="l35" origin="USER" relType="IDENTITY" relatedToEventInstance="ei6" />
+<TLINK eventInstanceID="ei5" lid="l36" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" />
+<TLINK eventInstanceID="ei12" lid="l37" origin="USER" relType="IAFTER" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei13" lid="l38" origin="USER" relType="IAFTER" relatedToEventInstance="ei12" />
+<TLINK eventInstanceID="ei15" lid="l40" origin="USER" relType="BEFORE" relatedToEventInstance="ei16" />
+<SLINK eventInstanceID="ei4" lid="l8" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei5" />
+<SLINK eventInstanceID="ei5" lid="l9" origin="USER" relType="MODAL" subordinatedEventInstance="ei6" />
+<SLINK eventInstanceID="ei1" lid="l13" origin="USER" relType="MODAL" subordinatedEventInstance="ei2" />
+<SLINK eventInstanceID="ei7" lid="l14" origin="USER" relType="MODAL" subordinatedEventInstance="ei8" />
+<SLINK eventInstanceID="ei12" lid="l18" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei7" />
+<SLINK eventInstanceID="ei13" lid="l21" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei15" />
+<SLINK eventInstanceID="ei29" lid="l30" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei19" />
+<SLINK eventInstanceID="ei15" lid="l39" origin="USER" relType="CONDITIONAL" signalID="s2" subordinatedEventInstance="ei30" />
+<ALINK eventInstanceID="ei8" lid="l16" origin="USER" relType="TERMINATES" relatedToEventInstance="ei9" />
+<ALINK eventInstanceID="ei16" lid="l23" origin="USER" relType="TERMINATES" relatedToEventInstance="ei17" />
+</TimeML>

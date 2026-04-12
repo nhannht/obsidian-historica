@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2003-02-22-0872</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2003-02-22" /></DCT>
+<TEXT>
+Un mort dans un <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="NOUN" pred="DÉPASSEMENT">dépassement</EVENT>.
+BAR-LE-DUC. _ <TIMEX3 mod="APPROX" tid="t2" type="TIME" value="2003-02-20T00:40">Vers 0 h 40</TIMEX3>, <TIMEX3 mod="APPROX" tid="t3" type="DATE" value="2003-02-20">jeudi</TIMEX3>, deux voitures de même modèle se <EVENT class="STATE" eid="e3" eiid="ei3" pos="VERB" pred="SUIVRE" tense="IMPERFECT">suivaient</EVENT> sur la RD 184, la route qui relie Laneuville-au-Rupt (Meuse) à la RD 964 (la route Commercy-Void). <SIGNAL sid="s4">Au moment de</SIGNAL> l'<EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="NOUN" pred="ACCIDENT">accident</EVENT>, les deux conducteurs, Florian Désoteux, 26 ans, <EVENT class="STATE" eid="e6" eiid="ei6" pos="VERB" pred="DEMEURER" vform="PRESPART">demeurant</EVENT> à Commercy, et Anthony Wagner, 27 ans, <EVENT class="STATE" eid="e7" eiid="ei7" pos="VERB" pred="DEMEURER" vform="PRESPART">demeurant</EVENT> à Laxou, <EVENT class="I_ACTION" eid="e8" eiid="ei8" pos="VERB" pred="CHERCHER" tense="IMPERFECT">cherchaient</EVENT> à se <EVENT class="OCCURRENCE" eid="e9" eiid="ei9" pos="VERB" pred="DÉPASSER" vform="INFINITIVE">dépasser</EVENT>.
+Pour une raison qui <EVENT class="ASPECTUAL" eid="e10" eiid="ei10" pos="VERB" pred="RESTER" tense="PRESENT">reste</EVENT> à <EVENT class="OCCURRENCE" eid="e11" eiid="ei11" pos="VERB" pred="DÉTERMINER" vform="INFINITIVE">déterminer</EVENT>, dans une courbe de la route, les deux véhicules se sont <EVENT class="OCCURRENCE" eid="e12" eiid="ei12" pos="VERB" pred="PERCUTER" tense="PAST" vform="PASTPART">percutés</EVENT>. Dans le <EVENT class="OCCURRENCE" eid="e13" eiid="ei13" pos="NOUN" pred="CHOC">choc</EVENT>, un des passagers de Florian Désoteux, Philippe Céric, 30 ans, <EVENT class="STATE" eid="e14" eiid="ei14" pos="VERB" pred="DEMEURER" vform="PRESPART">demeurant</EVENT> à Laneuville-au-Rupt, a été <EVENT class="OCCURRENCE" eid="e15" eiid="ei15" pos="VERB" pred="ÉJECTER" tense="PAST" vform="PASTPART">éjecté</EVENT> du véhicule et a été <EVENT class="OCCURRENCE" eid="e16" eiid="ei16" pos="VERB" pred="RETROUVER" tense="PAST" vform="PASTPART">retrouvé</EVENT> <EVENT class="STATE" eid="e18" eiid="ei18" pos="ADJECTIVE" pred="MORT">mort</EVENT> par les sauveteurs.
+Les deux conducteurs, Florian Désoteux et Anthony Wagner, légèrement <EVENT class="STATE" eid="e19" eiid="ei19" pos="ADJECTIVE" pred="BLESSER">blessés</EVENT>, ont été <EVENT class="OCCURRENCE" eid="e17" eiid="ei17" pos="VERB" pred="TRANSPORTER" tense="PAST" vform="PASTPART">transportés</EVENT> à l'hôpital Jeanne-d'Arc de Toul.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t2" />
+<TLINK eventInstanceID="ei3" lid="l2" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei6" lid="l3" origin="USER" relType="INCLUDES" relatedToTime="t2" />
+<TLINK eventInstanceID="ei7" lid="l4" origin="USER" relType="INCLUDES" relatedToTime="t2" />
+<TLINK eventInstanceID="ei14" lid="l5" origin="USER" relType="INCLUDES" relatedToTime="t2" />
+<TLINK eventInstanceID="ei8" lid="l6" origin="USER" relType="DURING" relatedToEventInstance="ei3" />
+<TLINK eventInstanceID="ei5" lid="l8" origin="USER" relType="DURING" relatedToEventInstance="ei8" signalID="s4" />
+<TLINK eventInstanceID="ei10" lid="l9" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei5" lid="l11" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei12" />
+<TLINK eventInstanceID="ei13" lid="l12" origin="USER" relType="IDENTITY" relatedToEventInstance="ei12" />
+<TLINK eventInstanceID="ei15" lid="l13" origin="USER" relType="IAFTER" relatedToEventInstance="ei13" />
+<TLINK eventInstanceID="ei16" lid="l14" origin="USER" relType="AFTER" relatedToEventInstance="ei15" />
+<TLINK eventInstanceID="ei17" lid="l16" origin="USER" relType="AFTER" relatedToEventInstance="ei16" />
+<TLINK eventInstanceID="ei19" lid="l17" origin="USER" relType="INCLUDES" relatedToEventInstance="ei17" />
+<TLINK eventInstanceID="ei19" lid="l18" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei13" />
+<TLINK eventInstanceID="ei3" lid="l20" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei9" lid="l21" origin="USER" relType="IDENTITY" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei16" lid="l22" origin="USER" relType="DURING" relatedToEventInstance="ei18" />
+<TLINK eventInstanceID="ei18" lid="l23" origin="USER" relType="AFTER" relatedToEventInstance="ei15" />
+<TLINK eventInstanceID="ei14" lid="l24" origin="USER" relType="ENDED_BY" relatedToEventInstance="ei18" />
+<SLINK eventInstanceID="ei8" lid="l7" origin="USER" relType="MODAL" subordinatedEventInstance="ei9" />
+</TimeML>

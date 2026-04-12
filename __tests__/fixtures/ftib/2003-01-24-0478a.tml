@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2003-01-24-0478a</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2003-01-24" /></DCT>
+<TEXT>
+Trois personnes ont été <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="VERB" pred="TUER" tense="PAST" vform="PASTPART">tués</EVENT> <SIGNAL sid="s4">dans</SIGNAL> une <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="NOUN" pred="ATTAQUE">attaque</EVENT> palestinienne au sud d'Hébron en Cisjordanie. Selon les services de secours, des tireurs ont <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="VERB" pred="OUVRIR" tense="PAST" vform="PASTPART">ouvert</EVENT> le feu sur un véhicule israélien près d'une colonie des hauteurs de Hébron, <EVENT class="OCCURRENCE" eid="e6" eiid="ei6" pos="VERB" pred="TUER" vform="PRESPART">tuant</EVENT> ses trois occupants.
+L'armée israélienne a <EVENT class="OCCURRENCE" eid="e7" eiid="ei7" pos="VERB" pred="ARRÊTER" tense="PAST" vform="PASTPART">arrêté</EVENT> un tireur embusqué palestinien <EVENT class="STATE" eid="e27" eiid="ei27" pos="ADJECTIVE" pred="DÉGUISER">déguisé</EVENT> en femme qui avait <EVENT aspect="PERFECTIVE" class="OCCURRENCE" eid="e8" eiid="ei8" pos="VERB" pred="OUVRIR" tense="PAST" vform="PASTPART">ouvert</EVENT> le feu sur des soldats près de la colonie juive de Dougit, sans <EVENT class="OCCURRENCE" eid="e28" eiid="ei28" polarity="NEG" pos="VERB" pred="FAIRE" vform="INFINITIVE">faire</EVENT> de blessé.
+Les Brigades des martyrs d'Al-Aqsa, groupe armé lié au mouvement Fatah de Yasser Arafat, ont <EVENT class="REPORTING" eid="e29" eiid="ei29" pos="VERB" tense="PAST" pred="INDIQUER" vform="PASTPART">indiqué</EVENT> qu'elles <EVENT class="I_STATE" eid="e11" eiid="ei11" pos="VERB" pred="ENTENDRE" tense="IMPERFECT">entendaient</EVENT> <EVENT class="ASPECTUAL" eid="e12" eiid="ei12" pos="VERB" pred="POURSUIVRE" vform="INFINITIVE">poursuivre</EVENT> les <EVENT class="OCCURRENCE" eid="e13" eiid="ei13" pos="NOUN" pred="ATTENTAT">attentats-suicides</EVENT> contre Israël.
+Une <EVENT class="OCCURRENCE" eid="e14" eiid="ei14" pos="NOUN" pred="RÉUNION">réunion</EVENT> interpalestinienne <EVENT class="MODAL" eid="e15" eiid="ei15" pos="VERB" pred="DEVOIR" tense="PRESENT">doit</EVENT> s'<EVENT class="ASPECTUAL" eid="e16" eiid="ei16" modality="NECESSITY" pos="VERB" pred="OUVRIR" vform="INFINITIVE">ouvrir</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="DATE" value="2003-01-24" valueFromFunction="tf1">aujourd'hui</TIMEX3> au Caire. Selon le président Moubarak, le but de cette <EVENT class="OCCURRENCE" eid="e17" eiid="ei17" pos="NOUN" pred="RÉUNION">réunion</EVENT> est « d'<EVENT class="OCCURRENCE" eid="e18" eiid="ei18" pos="VERB" pred="ÉLABORER" vform="INFINITIVE">élaborer</EVENT> une plate-forme palestinienne unifiée qui <EVENT class="MODAL" eid="e19" eiid="ei19" mood="CONDITIONAL" pos="VERB" pred="POUVOIR" tense="PRESENT">pourrait</EVENT> <EVENT class="OCCURRENCE" eid="e20" eiid="ei20" modality="POSSIBILITY" pos="VERB" pred="SERVIR" vform="INFINITIVE">servir</EVENT> à <EVENT class="ASPECTUAL" eid="e21" eiid="ei21" pos="VERB" pred="LANCER" vform="INFINITIVE">lancer</EVENT> des <EVENT class="OCCURRENCE" eid="e22" eiid="ei22" pos="NOUN" pred="NÉGOCIATION">négociations</EVENT> <EVENT class="ASPECTUAL" eid="e23" eiid="ei23" pos="VERB" pred="ABOUTIR" vform="PRESPART">aboutissant</EVENT> à un <EVENT class="OCCURRENCE" eid="e24" eiid="ei24" pos="NOUN" pred="ACCORD">accord</EVENT> » israélo-palestinien sur un <EVENT class="ASPECTUAL" eid="e25" eiid="ei25" pos="NOUN" pred="ARRÊT">arrêt</EVENT> de la <EVENT class="OCCURRENCE" eid="e26" eiid="ei26" pos="NOUN" pred="VIOLENCE">violence</EVENT>.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="IDENTITY" relatedToTime="t1" timeID="t2" />
+<TLINK eventInstanceID="ei1" lid="l2" origin="USER" relType="DURING" relatedToEventInstance="ei2" signalID="s4" />
+<TLINK eventInstanceID="ei1" lid="l3" origin="USER" relType="IDENTITY" relatedToEventInstance="ei6" />
+<TLINK eventInstanceID="ei4" lid="l4" origin="USER" relType="IBEFORE" relatedToEventInstance="ei6" />
+<TLINK eventInstanceID="ei7" lid="l5" origin="USER" relType="AFTER" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei28" lid="l8" origin="USER" relType="AFTER" relatedToEventInstance="ei8" />
+<TLINK eventInstanceID="ei15" lid="l15" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei17" lid="l16" origin="USER" relType="IDENTITY" relatedToEventInstance="ei14" />
+<TLINK eventInstanceID="ei18" lid="l17" origin="USER" relType="AFTER" relatedToEventInstance="ei17" />
+<TLINK eventInstanceID="ei19" lid="l18" origin="USER" relType="AFTER" relatedToEventInstance="ei18" />
+<TLINK eventInstanceID="ei21" lid="l20" origin="USER" relType="AFTER" relatedToEventInstance="ei20" />
+<TLINK eventInstanceID="ei24" lid="l23" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei23" />
+<TLINK eventInstanceID="ei25" lid="l24" origin="USER" relType="AFTER" relatedToEventInstance="ei24" />
+<TLINK eventInstanceID="ei2" lid="l26" origin="USER" relType="BEFORE" relatedToTime="t2" />
+<TLINK eventInstanceID="ei8" lid="l27" origin="USER" relType="DURING" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei2" lid="l29" origin="USER" relType="BEFORE" relatedToTime="t2" />
+<TLINK eventInstanceID="ei27" lid="l30" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei2" lid="l31" origin="USER" relType="DURING" relatedToEventInstance="ei27" />
+<TLINK eventInstanceID="ei29" lid="l32" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<SLINK eventInstanceID="ei29" lid="l9" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei11" />
+<SLINK eventInstanceID="ei11" lid="l10" origin="USER" relType="MODAL" subordinatedEventInstance="ei12" />
+<SLINK eventInstanceID="ei15" lid="l13" origin="USER" relType="MODAL" subordinatedEventInstance="ei16" />
+<SLINK eventInstanceID="ei19" lid="l19" origin="USER" relType="MODAL" subordinatedEventInstance="ei20" />
+<ALINK eventInstanceID="ei12" lid="l11" origin="USER" relType="CONTINUES" relatedToEventInstance="ei13" />
+<ALINK eventInstanceID="ei16" lid="l14" origin="USER" relType="INITIATES" relatedToEventInstance="ei14" />
+<ALINK eventInstanceID="ei21" lid="l21" origin="USER" relType="INITIATES" relatedToEventInstance="ei22" />
+<ALINK eventInstanceID="ei23" lid="l22" origin="USER" relType="CULMINATES" relatedToEventInstance="ei22" />
+<ALINK eventInstanceID="ei25" lid="l25" origin="USER" relType="TERMINATES" relatedToEventInstance="ei26" />
+</TimeML>

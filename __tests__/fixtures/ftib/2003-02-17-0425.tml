@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2003-02-17-0425</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2003-02-17" /></DCT>
+<TEXT>
+Six membres du Hamas <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="VERB" pred="TUER" vform="PASTPART">tués</EVENT> à Gaza.
+Une violente <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="NOUN" pred="EXPLOSION">explosion</EVENT> <EVENT class="EVENT_CONTAINER" eid="e16" eiid="ei16" pos="VERB" pred="SURVENIR" vform="PASTPART">survenue</EVENT> dans la maison d'un membre des Brigades Ezzedine al-Qassam, dans la bande de Gaza, a <EVENT class="OCCURRENCE" eid="e3" eiid="ei3" pos="VERB" pred="FAIRE" tense="PAST" vform="PASTPART">fait</EVENT> six morts. <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="TIME" value="2003-02-16TEV" valueFromFunction="tf5">Hier soir</TIMEX3>, la nature de l'<EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="NOUN" pred="EXPLOSION">explosion</EVENT> n'était pas <EVENT class="STATE" eid="e6" eiid="ei6" polarity="NEG" pos="VERB" pred="CONNAÎTRE" tense="IMPERFECT" vform="PASTPART">connue</EVENT>, mais des proches des victimes l'<EVENT class="OCCURRENCE" eid="e7" eiid="ei7" pos="VERB" pred="ATTRIBUER" tense="IMPERFECT">attribuaient</EVENT> à Israël.Par ailleurs, trois Palestiniens ont été <EVENT class="OCCURRENCE" eid="e8" eiid="ei8" pos="VERB" pred="TUER" tense="PAST" vform="PASTPART">tués</EVENT> à Naplouse, en Cisjordanie, où l'armée israélienne a <EVENT class="OCCURRENCE" eid="e9" eiid="ei9" pos="VERB" pred="ARRÊTER" tense="PAST" vform="PASTPART">arrêté</EVENT> un membre du comité exécutif de l'Organisation de libération de la Palestine. Enfin, un groupe armé lié au mouvement Fatah de Yasser Arafat a <EVENT class="I_ACTION" eid="e12" eiid="ei12" pos="VERB" pred="MENACER" tense="PAST" vform="PASTPART">menacé</EVENT> de s'<EVENT class="I_ACTION" eid="e13" eiid="ei13" pos="VERB" pred="OPPOSER" vform="INFINITIVE">opposer</EVENT> par la force à la <EVENT class="OCCURRENCE" eid="e14" eiid="ei14" pos="NOUN" pred="NOMINATION">nomination</EVENT> d'un Premier ministre palestinien sous la <EVENT class="OCCURRENCE" eid="e15" eiid="ei15" pos="NOUN" pred="PRESSION">pression</EVENT> des Américains et d'Israël.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t2" />
+<TLINK eventInstanceID="ei16" lid="l2" origin="USER" relType="IDENTITY" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei1" lid="l4" origin="USER" relType="IDENTITY" relatedToEventInstance="ei3" />
+<TLINK eventInstanceID="ei3" lid="l6" origin="USER" relType="DURING" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei5" lid="l7" origin="USER" relType="IDENTITY" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei16" lid="l8" origin="USER" relType="BEFORE" relatedToTime="t2" />
+<TLINK eventInstanceID="ei6" lid="l9" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei7" lid="l10" origin="USER" relType="DURING" relatedToEventInstance="ei6" />
+<TLINK eventInstanceID="ei8" lid="l11" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei8" lid="l12" origin="USER" relType="BEFORE" relatedToEventInstance="ei9" />
+<TLINK eventInstanceID="ei14" lid="l15" origin="USER" relType="DURING" relatedToEventInstance="ei15" />
+<TLINK eventInstanceID="ei12" lid="l16" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<SLINK eventInstanceID="ei12" lid="l13" origin="USER" relType="MODAL" subordinatedEventInstance="ei13" />
+<SLINK eventInstanceID="ei13" lid="l14" origin="USER" relType="MODAL" subordinatedEventInstance="ei14" />
+</TimeML>

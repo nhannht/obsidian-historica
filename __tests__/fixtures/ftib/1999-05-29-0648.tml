@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-05-29-0648</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-05-29" /></DCT>
+<TEXT>
+<EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="VERB" pred="TOMBER" vform="PASTPART">Tombée</EVENT> du 4e étage.
+<TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="DATE" value="1999-05-28" valueFromFunction="tf17">Hier</TIMEX3>, <SIGNAL sid="s1">vers</SIGNAL> <TIMEX3 mod="APPROX" tid="t3" type="TIME" value="1999-05-28T12:00">midi</TIMEX3>, une femme d'une trentaine d'années est <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="VERB" pred="TOMBER" tense="PAST" vform="PASTPART">tombée</EVENT> du 4e étage du bâtiment Les Etourneaux, place de Londres à Vandœuvre.
+Grièvement <EVENT class="STATE" eid="e5" eiid="ei5" pos="ADJECTIVE" pred="BLESSER">blessée</EVENT>, elle a été <EVENT class="OCCURRENCE" eid="e3" eiid="ei3" pos="VERB" pred="TRANSPORTER" tense="PAST" vform="PASTPART">transportée</EVENT>, <SIGNAL sid="s2">après</SIGNAL> <EVENT class="OCCURRENCE" eid="e6" eiid="ei6" pos="NOUN" pred="CONDITIONNEMENT">conditionnement</EVENT>, au centre hospitalier.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" timeID="t3" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t2" />
+<TLINK eventInstanceID="ei4" lid="l3" origin="USER" relType="IDENTITY" relatedToEventInstance="ei1" />
+<TLINK eventInstanceID="ei1" lid="l4" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" signalID="s1" />
+<TLINK eventInstanceID="ei3" lid="l6" origin="USER" relType="AFTER" relatedToEventInstance="ei1" />
+<TLINK eventInstanceID="ei5" lid="l7" origin="USER" relType="IAFTER" relatedToEventInstance="ei1" />
+<TLINK eventInstanceID="ei3" lid="l8" origin="USER" relType="DURING" relatedToEventInstance="ei5" />
+<TLINK eventInstanceID="ei6" lid="l9" origin="USER" relType="DURING" relatedToEventInstance="ei5" />
+<TLINK eventInstanceID="ei3" lid="l10" origin="USER" relType="AFTER" relatedToEventInstance="ei6" signalID="s2" />
+</TimeML>

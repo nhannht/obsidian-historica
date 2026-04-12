@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-08-07-0376d</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-08-07" /></DCT>
+<TEXT>
+Bill Clinton a <EVENT class="REPORTING" eid="e1" eiid="ei8" pos="VERB" pred="ANNONCER" tense="PAST" vform="PASTPART">annoncé</EVENT> qu'il <EVENT class="OCCURRENCE" eid="e2" eiid="ei9" pos="VERB" pred="METTRE" tense="FUTURE">mettra</EVENT> son veto à une <EVENT class="OCCURRENCE" eid="e3" eiid="ei6" pos="NOUN" pred="RÉDUCTION">réduction</EVENT> d'impôts de 792 milliards de dollars <SIGNAL sid="s2">sur</SIGNAL> <TIMEX3 tid="t2" type="DURATION" value="P10Y">dix ans</TIMEX3> <EVENT class="I_ACTION" eid="e4" eiid="ei7" pos="VERB" pred="ADOPTER" vform="PASTPART">adoptée</EVENT> par le Congrès à majorité républicaine. Le texte <EVENT class="I_STATE" eid="e6" eiid="ei5" pos="VERB" pred="PRÉVOIR" tense="PRESENT">prévoit</EVENT> des <EVENT class="OCCURRENCE" eid="e7" eiid="ei4" pos="NOUN" pred="RÉDUCTION">réductions</EVENT> d'impôts pour un montant de 791,9 milliards de dollars <SIGNAL sid="s3">sur</SIGNAL> <TIMEX3 tid="t3" type="DURATION" value="P10Y">10 ans</TIMEX3>, pour <EVENT class="OCCURRENCE" eid="e8" eiid="ei3" modality="POSSIBILITY" pos="VERB" pred="REDISTRIBUER" vform="INFINITIVE">redistribuer</EVENT> aux Américains une partie des excédents budgétaires, qui <EVENT class="MODAL" eid="e10" eiid="ei2" pos="VERB" pred="POUVOIR" tense="PRESENT">pourraient</EVENT> <EVENT class="OCCURRENCE" eid="e11" eiid="ei1" pos="VERB" pred="ATTEINDRE" vform="INFINITIVE">atteindre</EVENT> 3.000 milliards <SIGNAL sid="s4">d'</SIGNAL><TIMEX3 functionInDocument="NONE" temporalFunction="true" tid="t5" type="TIME" value="PRESENT_REF">ici</TIMEX3> <SIGNAL sid="s5">à</SIGNAL> <TIMEX3 beginPoint="t5" tid="t4" type="DURATION" value="P10Y">dix ans</TIMEX3>.
+</TEXT>
+<TLINK eventInstanceID="ei8" lid="l10003" relType="BEFORE" relatedToTime="t1" origin="USER" />
+<TLINK eventInstanceID="ei7" lid="l10004" relType="BEFORE" relatedToEventInstance="ei8" origin="USER" />
+<TLINK eventInstanceID="ei4" lid="l10005" relType="IDENTITY" relatedToEventInstance="ei6" origin="USER" />
+<TLINK eventInstanceID="ei5" lid="l10006" relType="INCLUDES" relatedToTime="t1" origin="USER" />
+<TLINK eventInstanceID="ei6" lid="l10007" relType="SIMULTANEOUS" relatedToTime="t2" signalID="s2" origin="USER" />
+<TLINK eventInstanceID="ei4" lid="l10008" relType="SIMULTANEOUS" relatedToTime="t3" signalID="s3" origin="USER" />
+<TLINK lid="l10009" relType="BEFORE" relatedToEventInstance="ei2" timeID="t1" origin="USER" />
+<TLINK lid="l10010" relType="IDENTITY" relatedToTime="t1" timeID="t5" origin="USER" />
+<TLINK eventInstanceID="ei1" lid="l10011" relType="IS_INCLUDED" relatedToTime="t4" origin="USER" />
+<TLINK lid="l10012" relType="BEGINS" relatedToTime="t4" timeID="t5" origin="USER" />
+<TLINK eventInstanceID="ei4" lid="l10013" relType="BEFORE" relatedToEventInstance="ei3" origin="USER" />
+<SLINK eventInstanceID="ei5" lid="l9999" relType="MODAL" subordinatedEventInstance="ei4" origin="USER" />
+<SLINK eventInstanceID="ei2" lid="l10000" relType="MODAL" subordinatedEventInstance="ei1" origin="USER" />
+<SLINK eventInstanceID="ei8" lid="l10001" relType="EVIDENTIAL" subordinatedEventInstance="ei9" origin="USER" />
+<SLINK eventInstanceID="ei9" lid="l10002" relType="COUNTER_FACTIVE" subordinatedEventInstance="ei4" origin="USER" />
+</TimeML>

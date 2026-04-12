@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2003-02-04-0456e</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2003-02-04" /></DCT>
+<TEXT>
+Terroriste <EVENT class="OCCURRENCE" eid="e10" eiid="ei10" pos="VERB" pred="ARRETER" vform="PASTPART">arrêté</EVENT> à Jakarta. - Une bombe a <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="VERB" pred="EXPLOSER" tense="PAST" vform="PASTPART">explosé</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="DATE" value="2003-02-03" valueFromFunction="TF17">hier</TIMEX3> dans l'enceinte du quartier général de la police à Jakarta, sans <EVENT class="OCCURRENCE" eid="e11" eiid="ei11" polarity="NEG" pos="VERB" pred="FAIRE" vform="INFINITIVE">faire</EVENT> de victime, mais cet <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="NOUN" pred="ATTENTAT">attentat</EVENT> a <EVENT class="OCCURRENCE" eid="e3" eiid="ei3" pos="VERB" pred="RAVIVER" tense="PAST" vform="PASTPART">ravivé</EVENT> les <EVENT class="I_STATE" eid="e12" eiid="ei12" pos="NOUN" pred="CRAINTE">craintes</EVENT> de nouvelles <EVENT class="OCCURRENCE" eid="e13" eiid="ei13" pos="NOUN" pred="ATTAQUE">attaques</EVENT> terroristes dans l'archipel.
+La police a d'autre part <EVENT class="REPORTING" eid="e4" eiid="ei4" pos="VERB" pred="ANNONCER" tense="PAST" vform="PASTPART">annoncé</EVENT> l'<EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="NOUN" pred="ARRESTATION">arrestation</EVENT> du chef pour Singapour de la Jamaah Islamiyah (JI), un réseau terroriste régional, qui aurait <EVENT class="STATE" eid="e6" eiid="ei6" modality="POSSIBILITY" mood="CONDITIONAL" pos="VERB" pred="AVOIR" tense="PAST" vform="PASTPART">eu</EVENT> pour plan de <EVENT class="OCCURRENCE" eid="e7" eiid="ei7" pos="VERB" pred="DÉTOURNER" vform="INFINITIVE">détourner</EVENT> des avions pour les <EVENT class="CAUSE" eid="e8" eiid="ei8" pos="VERB" pred="FAIRE" vform="INFINITIVE">faire</EVENT> s'<EVENT class="OCCURRENCE" eid="e9" eiid="ei9" pos="VERB" pred="ÉCRASER" vform="INFINITIVE">écraser</EVENT> sur Singapour et Bangkok.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t2" />
+<TLINK eventInstanceID="ei2" lid="l4" origin="USER" relType="DURING" relatedToEventInstance="ei1" />
+<TLINK eventInstanceID="ei2" lid="l5" origin="USER" relType="BEFORE" relatedToEventInstance="ei3" />
+<TLINK eventInstanceID="ei3" lid="l6" origin="USER" relType="IDENTITY" relatedToEventInstance="ei12" />
+<TLINK eventInstanceID="ei1" lid="l9" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei4" lid="l10" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei5" lid="l12" origin="USER" relType="IDENTITY" relatedToEventInstance="ei10" />
+<TLINK eventInstanceID="ei8" lid="l13" origin="USER" relType="IBEFORE" relatedToEventInstance="ei9" />
+<TLINK eventInstanceID="ei7" lid="l14" origin="USER" relType="BEFORE" relatedToEventInstance="ei8" />
+<TLINK eventInstanceID="ei6" lid="l16" origin="USER" relType="BEFORE" relatedToEventInstance="ei5" />
+<TLINK eventInstanceID="ei1" lid="l19" origin="USER" relType="BEFORE" relatedToEventInstance="ei4" />
+<SLINK eventInstanceID="ei12" lid="l7" origin="USER" relType="MODAL" subordinatedEventInstance="ei13" />
+<SLINK eventInstanceID="ei1" lid="l8" origin="USER" relType="NEGATIVE" subordinatedEventInstance="ei11" />
+<SLINK eventInstanceID="ei4" lid="l11" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei5" />
+<SLINK eventInstanceID="ei6" lid="l17" origin="USER" relType="MODAL" subordinatedEventInstance="ei7" />
+</TimeML>

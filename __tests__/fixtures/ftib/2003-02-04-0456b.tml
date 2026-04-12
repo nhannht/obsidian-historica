@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2003-02-04-0456b</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2003-02-04" /></DCT>
+<TEXT>
+Schroeder <EVENT class="STATE" eid="e8" eiid="ei8" pos="ADJECTIVE" pred="PRÊT">prêt</EVENT> à « Ù<EVENT class="OCCURRENCE" eid="e10" eiid="ei10" pos="VERB" pred="COOPÉRER" vform="INFINITIVE">coopérer</EVENT> » avec les conservateurs. - Le chancelier social-démocrate allemand Gerhard Schroeder s'est <EVENT class="REPORTING" eid="e1" eiid="ei1" pos="VERB" pred="DIRE" tense="PAST" vform="PASTPART">dit</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="DATE" value="2003-02-03" valueFromFunction="TF17">hier</TIMEX3> <EVENT class="STATE" eid="e9" eiid="ei9" pos="ADJECTIVE" pred="PRÊT">prêt</EVENT> à « <EVENT class="I_ACTION" eid="e2" eiid="ei2" pos="VERB" pred="COOPÉRER" vform="INFINITIVE">coopérer</EVENT> » avec l'opposition conservatrice sur les <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="NOUN" pred="RÉFORME">réformes</EVENT> de structure dans les domaines économique et social, <SIGNAL sid="s1">à la suite de</SIGNAL> la <EVENT class="OCCURRENCE" eid="e6" eiid="ei6" pos="NOUN" pred="DÉFAITE">défaite</EVENT> cinglante de son parti <SIGNAL sid="s2">aux</SIGNAL> <EVENT class="OCCURRENCE" eid="e7" eiid="ei7" pos="NOUN" pred="ÉLECTION">élections</EVENT> régionales <SIGNAL sid="s3">de</SIGNAL> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t3" type="DATE" value="2003-02-02" valueFromFunction="tf3">dimanche</TIMEX3>.
+</TEXT>
+<TLINK eventInstanceID="ei1" lid="l1" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei8" lid="l3" origin="USER" relType="IDENTITY" relatedToEventInstance="ei9" />
+<TLINK eventInstanceID="ei10" lid="l4" origin="USER" relType="IDENTITY" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei2" lid="l7" origin="USER" relType="DURING" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei1" lid="l8" origin="USER" relType="AFTER" relatedToEventInstance="ei6" signalID="s1" />
+<TLINK lid="l9" origin="USER" relType="BEFORE" relatedToTime="t2" timeID="t3" />
+<TLINK lid="l10" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t2" />
+<TLINK eventInstanceID="ei7" lid="l11" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" signalID="s3" />
+<TLINK eventInstanceID="ei6" lid="l12" origin="USER" relType="ENDS" relatedToEventInstance="ei7" signalID="s2" />
+<SLINK eventInstanceID="ei1" lid="l2" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei9" />
+<SLINK eventInstanceID="ei9" lid="l5" origin="USER" relType="MODAL" subordinatedEventInstance="ei2" />
+<SLINK eventInstanceID="ei8" lid="l6" origin="USER" relType="MODAL" subordinatedEventInstance="ei10" />
+</TimeML>

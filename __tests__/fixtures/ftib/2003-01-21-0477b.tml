@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2003-01-21-0477b</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2003-01-21" /></DCT>
+<TEXT>
+<EVENT class="OCCURRENCE" eid="e14" eiid="ei14" pos="NOUN" pred="CIRCONSCISION">Circoncision</EVENT> radicale.
+Un Egyptien avait <EVENT aspect="PERFECTIVE" class="I_ACTION" eid="e1" eiid="ei1" pos="VERB" pred="DÉCIDER" tense="PAST" vform="PASTPART">décidé</EVENT> de <EVENT class="CAUSE" eid="e2" eiid="ei2" pos="VERB" pred="FAIRE" vform="INFINITIVE">faire</EVENT> <EVENT class="OCCURRENCE" eid="e3" eiid="ei3" pos="VERB" pred="CIRCONCIRE" vform="INFINITIVE">circoncire</EVENT> son fils dans un hôpital plutôt que chez un praticien traditionnel, pour ne <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" polarity="NEG" pos="VERB" pred="COURIR" vform="INFINITIVE">courir</EVENT> aucun risque. Le médecin de l'hôpital de la localité d'Abou Tacht, à environ 500 km au sud du Caire, a <EVENT class="OCCURRENCE" eid="e6" eiid="ei6" pos="VERB" pred="COUPER" tense="PAST" vform="PASTPART">coupé</EVENT> une partie du pénis du petit garçon, <SIGNAL sid="s1">puis</SIGNAL> le reste en <EVENT class="I_ACTION" eid="e8" eiid="ei8" pos="VERB" pred="TENTER" vform="GERUNDIVE">tentant</EVENT> de <EVENT class="OCCURRENCE" eid="e9" eiid="ei9" pos="VERB" pred="SUTURER" vform="INFINITIVE">suturer</EVENT> la plaie pour <EVENT class="I_ACTION" eid="e10" eiid="ei10" pos="VERB" pred="ENRAYER" vform="INFINITIVE">enrayer</EVENT> l'<EVENT class="OCCURRENCE" eid="e11" eiid="ei11" pos="NOUN" pred="HÉMORRAGIE">hémorragie</EVENT> qui s'était <EVENT aspect="PERFECTIVE" class="EVENT_CONTAINER" eid="e12" eiid="ei12" pos="VERB" pred="DÉCLARER" tense="PAST" vform="PASTPART">déclarée</EVENT>. Le médecin-boucher a été <EVENT class="OCCURRENCE" eid="e13" eiid="ei13" pos="VERB" pred="DÉFÉRER" tense="PAST" vform="PASTPART">déféré</EVENT> au parquet pour <EVENT class="OCCURRENCE" eid="e15" eiid="ei15" pos="NOUN" pred="INTERROGATOIRE">interrogatoire</EVENT>.
+</TEXT>
+<TLINK eventInstanceID="ei3" lid="l2" origin="USER" relType="AFTER" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei3" lid="l3" origin="USER" relType="IDENTITY" relatedToEventInstance="ei14" />
+<TLINK eventInstanceID="ei4" lid="l4" origin="USER" relType="AFTER" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei6" lid="l5" origin="USER" relType="DURING" relatedToEventInstance="ei3" />
+<TLINK eventInstanceID="ei8" lid="l6" origin="USER" relType="AFTER" relatedToEventInstance="ei6" signalID="s1" />
+<TLINK eventInstanceID="ei8" lid="l7" origin="USER" relType="DURING" relatedToEventInstance="ei3" />
+<TLINK eventInstanceID="ei10" lid="l9" origin="USER" relType="AFTER" relatedToEventInstance="ei8" />
+<TLINK eventInstanceID="ei3" lid="l12" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei12" lid="l15" origin="USER" relType="IAFTER" relatedToEventInstance="ei6" />
+<TLINK eventInstanceID="ei11" lid="l16" origin="USER" relType="IDENTITY" relatedToEventInstance="ei12" />
+<TLINK eventInstanceID="ei8" lid="l17" origin="USER" relType="DURING" relatedToEventInstance="ei11" />
+<TLINK eventInstanceID="ei15" lid="l18" origin="USER" relType="AFTER" relatedToEventInstance="ei13" />
+<TLINK eventInstanceID="ei13" lid="l19" origin="USER" relType="AFTER" relatedToEventInstance="ei3" />
+<SLINK eventInstanceID="ei1" lid="l1" origin="USER" relType="MODAL" subordinatedEventInstance="ei2" />
+<SLINK eventInstanceID="ei8" lid="l8" origin="USER" relType="MODAL" subordinatedEventInstance="ei9" />
+<ALINK eventInstanceID="ei10" lid="l22" origin="USER" relType="TERMINATES" relatedToEventInstance="ei11" />
+</TimeML>

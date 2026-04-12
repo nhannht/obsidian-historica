@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2003-01-31-1112</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2003-01-31" /></DCT>
+<TEXT>
+Fernande Garnier n'est plus.
+<TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="DATE" value="2003-01-30">Jeudi</TIMEX3>, se sont <EVENT class="EVENT_CONTAINER" eid="e18" eiid="ei18" pos="VERB" pred="DÉROULER" tense="PAST" vform="PASTPART">déroulées</EVENT>, en l'église de Molay, les <EVENT class="OCCURRENCE" eid="e19" eiid="ei19" pos="NOUN" pred="OBSÈQUES">obsèques</EVENT> de Fernande Garnier <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="VERB" pred="NAÎTRE" vform="PASTPART">née</EVENT> Dautriche, <EVENT class="OCCURRENCE" eid="e20" eiid="ei20" pos="VERB" pred="DÉCÉDER" vform="PASTPART">décédée</EVENT> subitement à son domicile.
+Agée de 90 ans, Fernande avait <EVENT aspect="PERFECTIVE" class="OCCURRENCE" eid="e3" eiid="ei3" pos="VERB" pred="VOIR" tense="PAST" vform="PASTPART">vu</EVENT> le jour à Cintrey <TIMEX3 tid="t4" type="DATE" value="1913-01-21">le 21 janvier 1913</TIMEX3>. Elle n'a jamais <EVENT class="OCCURRENCE" eid="e5" eiid="ei5" polarity="NEG" pos="VERB" pred="QUITTER" vform="PASTPART">quitté</EVENT> son village puisqu'elle y <EVENT class="OCCURRENCE" eid="e6" eiid="ei6" pos="VERB" pred="ÉPOUSER" tense="PAST">épousa</EVENT>, <TIMEX3 tid="t5" type="DATE" value="1933-09-23">le 23 septembre 1933</TIMEX3>, Georges Garnier également de Cintrey, où ils ont <EVENT class="OCCURRENCE" eid="e7" eiid="ei7" pos="VERB" pred="EXERCER" tense="PAST" vform="PASTPART">exercé</EVENT> le métier d'agriculteurs.
+De cette <EVENT class="OCCURRENCE" eid="e8" eiid="ei8" pos="NOUN" pred="UNION">union</EVENT>, est <EVENT class="OCCURRENCE" eid="e9" eiid="ei9" pos="VERB" pred="NAÎTRE" tense="PAST" vform="PASTPART">née</EVENT> une fille, Simone, qui leur a <EVENT class="OCCURRENCE" eid="e10" eiid="ei10" pos="VERB" pred="DONNER" tense="PAST" vform="PASTPART">donné</EVENT> trois petits-enfants et un arrière-petit-fils, Florian, qu'elle <EVENT class="OCCURRENCE" eid="e11" eiid="ei11" pos="VERB" pred="CHÉRIR" tense="IMPERFECT">chérissait</EVENT>.
+<TIMEX3 quant="EVERY" tid="t6" type="SET" value="P1D">Chaque jour</TIMEX3>, Fernande <EVENT class="OCCURRENCE" eid="e12" eiid="ei12" pos="VERB" pred="FAIRE" tense="IMPERFECT">faisait</EVENT> sa <EVENT class="OCCURRENCE" eid="e13" eiid="ei13" pos="NOUN" pred="PROMENADE">promenade</EVENT> et <EVENT class="I_STATE" eid="e14" eiid="ei14" pos="VERB" pred="AIMER" tense="IMPERFECT">aimait</EVENT> <EVENT class="OCCURRENCE" eid="e15" eiid="ei15" pos="VERB" pred="PARLER" vform="INFINITIVE">parler</EVENT> de choses et d'autres avec chacun. Elle va beaucoup <EVENT aspect="PROSPECTIVE" class="STATE" eid="e17" eiid="ei17" pos="VERB" pred="MANQUER" vform="INFINITIVE">manquer</EVENT> au village.
+Nos sincéres condoléances.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t5" timeID="t4" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t2" timeID="t5" />
+<TLINK lid="l3" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t2" />
+<TLINK eventInstanceID="ei18" lid="l4" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei18" lid="l5" origin="USER" relType="IDENTITY" relatedToEventInstance="ei19" />
+<TLINK eventInstanceID="ei3" lid="l7" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" />
+<TLINK eventInstanceID="ei3" lid="l8" origin="USER" relType="BEGINS" relatedToEventInstance="ei5" />
+<TLINK eventInstanceID="ei6" lid="l9" origin="USER" relType="IS_INCLUDED" relatedToTime="t5" />
+<TLINK eventInstanceID="ei20" lid="l11" origin="USER" relType="BEFORE" relatedToEventInstance="ei18" />
+<TLINK eventInstanceID="ei6" lid="l12" origin="USER" relType="BEGINS" relatedToEventInstance="ei8" />
+<TLINK eventInstanceID="ei9" lid="l13" origin="USER" relType="DURING" relatedToEventInstance="ei8" />
+<TLINK eventInstanceID="ei10" lid="l14" origin="USER" relType="AFTER" relatedToEventInstance="ei9" />
+<TLINK eventInstanceID="ei11" lid="l15" origin="USER" relType="ENDED_BY" relatedToEventInstance="ei20" />
+<TLINK eventInstanceID="ei11" lid="l16" origin="USER" relType="BEGUN_BY" relatedToEventInstance="ei10" />
+<TLINK eventInstanceID="ei12" lid="l17" origin="USER" relType="IS_INCLUDED" relatedToTime="t6" />
+<TLINK eventInstanceID="ei12" lid="l18" origin="USER" relType="IDENTITY" relatedToEventInstance="ei13" />
+<TLINK lid="l22" origin="USER" relType="ENDED_BY" relatedToEventInstance="ei20" timeID="t6" />
+<TLINK eventInstanceID="ei7" lid="l24" origin="USER" relType="AFTER" relatedToEventInstance="ei6" />
+<TLINK eventInstanceID="ei14" lid="l25" origin="USER" relType="ENDED_BY" relatedToEventInstance="ei20" />
+<TLINK eventInstanceID="ei17" lid="l26" origin="USER" relType="AFTER" relatedToEventInstance="ei20" />
+<SLINK eventInstanceID="ei14" lid="l20" origin="USER" relType="MODAL" subordinatedEventInstance="ei15" />
+</TimeML>

@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-05-20-0108</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-05-20" /></DCT>
+<TEXT>
+<EVENT class="OCCURRENCE" eid="e8" eiid="ei8" pos="NOUN" pred="SUICIDE">Suicide</EVENT> par arme à feu.
+Un homme, <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="VERB" pred="BLESSER" vform="PASTPART">blessé</EVENT> par une arme à feu, a été <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="VERB" pred="SECOURIR" tense="PAST" vform="PASTPART">secouru</EVENT> par les pompiers de Grandvillars et <EVENT class="OCCURRENCE" eid="e3" eiid="ei3" pos="VERB" pred="TRANSPORTER" tense="PAST" vform="PASTPART">transporté</EVENT> au centre hospitalier de Belfort dans un état grave, <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="DATE" value="1999-05-18">mardi</TIMEX3> <SIGNAL sid="s1">vers</SIGNAL> <TIMEX3 tid="t3" type="TIME" value="1999-05-18T21:45">21 h 45</TIMEX3>. Il y est <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="VERB" pred="DÉCÉDER" tense="PAST" vform="PASTPART">décédé</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t4" type="TIME" value="1999-05-19TMO" valueFromFunction="TF17">hier matin</TIMEX3>. L'<EVENT class="OCCURRENCE" eid="e9" eiid="ei9" pos="NOUN" pred="ENQUÊTE">enquête</EVENT> de gendarmerie a <EVENT class="OCCURRENCE" eid="e6" eiid="ei6" pos="VERB" pred="CONCLURE" tense="PAST" vform="PASTPART">conclu</EVENT> au suicide.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" timeID="t3" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t4" timeID="t2" />
+<TLINK lid="l3" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t4" />
+<TLINK eventInstanceID="ei4" lid="l5" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" />
+<TLINK eventInstanceID="ei9" lid="l7" origin="USER" relType="BEFORE" relatedToEventInstance="ei6" />
+<TLINK eventInstanceID="ei3" lid="l8" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" signalID="s1" />
+<TLINK eventInstanceID="ei2" lid="l9" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei3" />
+<TLINK eventInstanceID="ei2" lid="l10" origin="USER" relType="AFTER" relatedToEventInstance="ei1" />
+<TLINK eventInstanceID="ei9" lid="l13" origin="USER" relType="AFTER" relatedToEventInstance="ei4" />
+</TimeML>

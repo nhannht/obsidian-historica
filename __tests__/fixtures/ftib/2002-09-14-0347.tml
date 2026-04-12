@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2002-09-14-0347</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2002-09-14" /></DCT>
+<TEXT>
+A Mitrovica, où le 1er régiment de Tirailleurs d'Epinal <EVENT class="ASPECTUAL" eid="e1" eiid="ei1" pos="VERB" pred="ACHEVER" tense="FUTURE">achèvera</EVENT> <TIMEX3 mod="START" tid="t2" type="DATE" value="2002-10">début octobre</TIMEX3> son quatrième <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="NOUN" pred="MANDAT">mandat</EVENT> sous l'égide de la KFOR, la violence n'est <TIMEX3 tid="t3" type="TIME" value="PRESENT_REF">désormais</TIMEX3> plus <EVENT class="STATE" eid="e60" eiid="ei60" pos="ADJECTIVE" pred="DE_MISE">de mise</EVENT>. Mais les <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="NOUN" pred="TENSION">tensions</EVENT> <EVENT class="STATE" eid="e5" eiid="ei5" pos="VERB" pred="DEMEURER" tense="PRESENT">demeurent</EVENT> pourtant entre les Albanais, largement majoritaires, et les Serbes, <EVENT class="STATE" eid="e61" eiid="ei61" pos="VERB" pred="REGROUPER" vform="PASTPART">regroupés</EVENT> pour la plupart au nord de cette ville de 70.000 habitants. <SIGNAL sid="s1">Depuis</SIGNAL> <TIMEX3 tid="t4" type="DATE" value="1999">1999</TIMEX3>, le régiment <EVENT class="STATE" eid="e6" eiid="ei6" pos="VERB" pred="TOTALISER" tense="PRESENT">totalise</EVENT> déjà <TIMEX3 tid="t5" type="DURATION" value="P18M">dix-huit mois</TIMEX3> de <EVENT class="STATE" eid="e62" eiid="ei62" pos="NOUN" pred="PRÉSENCE">présence</EVENT> au Kosovo, toujours à « Mitro ». Autant dire que les 600 hommes et femmes (plus fort contingent jamais <EVENT class="OCCURRENCE" eid="e7" eiid="ei7" pos="VERB" pred="ENVOYER" vform="PASTPART">envoyé</EVENT> par le régiment) que <EVENT class="OCCURRENCE" eid="e8" eiid="ei8" pos="VERB" pred="COMMANDER" tense="PRESENT">commande</EVENT> le général Dran, se <EVENT class="STATE" eid="e9" eiid="ei9" pos="VERB" pred="TROUVER" tense="PRESENT">trouvent</EVENT> en terrain <EVENT class="STATE" eid="e10" eiid="ei10" pos="VERB" pred="CONNAÎTRE" vform="PASTPART">connu</EVENT>. Nombre d'entre eux en sont déjà à leur deuxième, voire troisième <EVENT class="OCCURRENCE" eid="e73" eiid="ei73" pos="NOUN" pred="MANDAT">mandat</EVENT>.
+Explosions.
+Ils <EVENT class="OCCURRENCE" eid="e74" eiid="ei74" pos="VERB" pred="AVOIR" tense="PRESENT">ont</EVENT> presque leurs habitudes dans cette ville grise, sale et délabrée, mélange déprimant de sinistres immeubles, ruines et maisons en <EVENT class="OCCURRENCE" eid="e70" eiid="ei70" pos="NOUN" pred="RECONSTRUCTION">reconstruction</EVENT>, pour la plupart <EVENT class="OCCURRENCE" eid="e71" eiid="ei71" pos="ADJECTIVE" pred="INACHEVÉ">inachevées</EVENT>. Les militaires se sont <EVENT class="OCCURRENCE" eid="e13" eiid="ei13" pos="VERB" pred="INSTALLER" tense="PAST" vform="PASTPART">installés</EVENT> dans quatorze sites dont l'ex-hôtel Adriatik qui, sous sa façade stalinienne décatie, <EVENT class="STATE" eid="e14" eiid="ei14" pos="VERB" pred="ABRITER" tense="PRESENT">abrite</EVENT> le quartier général. Mais <SIGNAL sid="s6">si</SIGNAL> les <EVENT class="OCCURRENCE" eid="e15" eiid="ei15" pos="NOUN" pred="INCIDENT">incidents</EVENT> sont de moins en moins nombreux, à part de temps à autre quelques <EVENT class="OCCURRENCE" eid="e16" eiid="ei16" pos="NOUN" pred="EXPLOSION">explosions</EVENT> <TIMEX3 temporalFunction="false" tid="t12" type="TIME" value="TNI">nocturnes</TIMEX3> de grenades, sans conséquences fâcheuses, la vigilance <EVENT class="STATE" eid="e17" eiid="ei17" pos="VERB" pred="RESTER" tense="PRESENT">reste</EVENT> de mise. <EVENT class="OCCURRENCE" eid="e18" eiid="ei18" pos="VERB" pred="VENIR" vform="PASTPART">Venu</EVENT> <EVENT class="OCCURRENCE" eid="e76" eiid="ei76" pos="VERB" pred="FAIRE" vform="INFINITIVE">faire</EVENT> ses <EVENT class="OCCURRENCE" eid="e20" eiid="ei20" pos="NOUN" pred="ADIEU">adieux</EVENT> aux troupes en poste dans les Balkans, <SIGNAL sid="s5">avant de</SIGNAL> <EVENT class="OCCURRENCE" eid="e21" eiid="ei21" pos="VERB" pred="QUITTER" vform="INFINITIVE">quitter</EVENT> ses fonctions <TIMEX3 tid="t6" type="DATE" value="2002-10-30">le 30 octobre</TIMEX3>, le général Kelche, chef d'état-major des armées, l'a <EVENT class="REPORTING" eid="e22" eiid="ei22" pos="VERB" pred="RAPPELER" tense="PAST" vform="PASTPART">rappelé</EVENT>, <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t7" type="TIME" value="2002-09-13TMO" valueFromFunction="tf5">hier matin</TIMEX3>, <SIGNAL sid="s3">au cours d'</SIGNAL>une <EVENT class="OCCURRENCE" eid="e23" eiid="ei23" pos="NOUN" pred="PRISE">prise</EVENT> d'armes sur les hauteurs de Mitrovica, en <EVENT class="OCCURRENCE" eid="e64" eiid="ei64" pos="NOUN" pred="PRÉSENCE">présence</EVENT> d'une section de Tirailleurs : « Je suis <EVENT class="I_STATE" eid="e72" eiid="ei72" polarity="POS" pos="ADJECTIVE" pred="FIER">fier</EVENT> des <EVENT class="OCCURRENCE" eid="e26" eiid="ei26" pos="NOUN" pred="PROGRÈS">progrès</EVENT> que nous avons <EVENT class="I_ACTION" eid="e27" eiid="ei27" pos="VERB" pred="RÉUSSIR" tense="PAST" vform="PASTPART">réussi</EVENT> à <EVENT class="OCCURRENCE" eid="e65" eiid="ei65" pos="VERB" pred="FAIRE" vform="INFINITIVE">faire</EVENT> <EVENT class="I_ACTION" eid="e29" eiid="ei29" pos="VERB" pred="RÉALISER" vform="INFINITIVE">réaliser</EVENT> ensemble à cette province dans l'objectif d'un <EVENT class="STATE" eid="e30" eiid="ei30" pos="NOUN" pred="APAISEMENT">apaisement</EVENT> et d'un <EVENT class="OCCURRENCE" eid="e31" eiid="ei31" pos="NOUN" pred="RETOUR">retour</EVENT> à l'Etat de droit. <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t8" type="TIME" value="PRESENT_REF" valueFromFunction="tf1">Aujourd'hui</TIMEX3>, la ville a <EVENT class="STATE" eid="e32" eiid="ei32" pos="VERB" pred="CHANGER" tense="PAST" vform="PASTPART">changé</EVENT> d'ambiance au prix d'un <EVENT class="OCCURRENCE" eid="e33" eiid="ei33" pos="NOUN" pred="ENGAGEMENT">engagement</EVENT> des soldats français et alliés ».
+« Profil bas ».
+Il a aussi <EVENT class="REPORTING" eid="e34" eiid="ei34" pos="VERB" pred="INDIQUER" tense="PAST" vform="PASTPART">indiqué</EVENT> que la KFOR allait <EVENT aspect="PROSPECTIVE" class="OCCURRENCE" eid="e36" eiid="ei36" pos="VERB" pred="RÉDUIRE" vform="INFINITIVE">réduire</EVENT> son dispositif, « prudemment pour <EVENT class="I_ACTION" eid="e37" eiid="ei37" pos="VERB" pred="ÉVITER" vform="INFINITIVE">éviter</EVENT> que les extrémistes <EVENT class="I_STATE" eid="e38" eiid="ei38" pos="VERB" pred="CROIRE" tense="PRESENT">croient</EVENT> que nous sommes en train de <EVENT aspect="PROGRESSIVE" class="OCCURRENCE" eid="e40" eiid="ei40" pos="VERB" pred="LÂCHER" vform="INFINITIVE">lâcher</EVENT> prise ». C'est le principe du « low profile » (profil bas), qui se caractérise par un <EVENT class="OCCURRENCE" eid="e44" eiid="ei44" pos="NOUN" pred="RETRAIT">retrait</EVENT> du matériel trop voyant : « Il n'y <EVENT class="STATE" eid="e46" eiid="ei46" polarity="NEG" pos="VERB" pred="AVOIR" tense="PRESENT">a</EVENT> <TIMEX3 tid="t9" type="TIME" value="PRESENT_REF">désormais</TIMEX3> plus aucun char AMX 10 dans les rues où l'on <EVENT class="PERCEPTION" eid="e47" eiid="ei47" pos="VERB" pred="VOIR" tense="PRESENT">voit</EVENT> un peu moins de rouleaux de barbelés et de sacs de sable. Mais la <EVENT class="OCCURRENCE" eid="e66" eiid="ei66" pos="NOUN" pred="PRÉSENCE">présence</EVENT> militaire <EVENT class="STATE" eid="e48" eiid="ei48" pos="VERB" pred="DEMEURER" tense="PRESENT">demeure</EVENT> toutefois très <EVENT class="OCCURRENCE" eid="e77" eiid="ei77" pos="ADJECTIVE" pred="VISIBLE">visible</EVENT>, en particulier autour des enclaves minoritaires dont il est <EVENT class="MODAL" eid="e78" eiid="ei78" pos="ADJECTIVE" pred="INDISPENSABLE" tense="PRESENT">indispensable</EVENT> d'<EVENT class="I_ACTION" eid="e49" eiid="ei49" modality="NECESSITY" pos="VERB" pred="ASSURER" vform="INFINITIVE">assurer</EVENT> la <EVENT class="OCCURRENCE" eid="e50" eiid="ei50" pos="NOUN" pred="PROTECTION">protection</EVENT>. Plus que jamais, la vigilance <EVENT class="STATE" eid="e51" eiid="ei51" pos="VERB" pred="RESTER" tense="PRESENT">reste</EVENT> donc de mise. C'est pourquoi, outre les <EVENT class="OCCURRENCE" eid="e68" eiid="ei68" pos="NOUN" pred="GARDE">gardes</EVENT> et <EVENT class="OCCURRENCE" eid="e69" eiid="ei69" pos="NOUN" pred="PATROUILLE">patrouilles</EVENT> qui sont le lot <TIMEX3 quant="EVERY" tid="t10" type="SET" value="P1D">quotidien</TIMEX3> des Tirailleurs, des <EVENT class="OCCURRENCE" eid="e52" eiid="ei52" pos="NOUN" pred="FOUILLE">fouilles</EVENT> inopinées sont <EVENT class="I_ACTION" eid="e53" eiid="ei53" polarity="POS" pos="VERB" pred="ORGANISER" tense="PRESENT" vform="PASTPART">organisées</EVENT> fréquemment. La dernière d'entre elles, <EVENT class="OCCURRENCE" eid="e67" eiid="ei67" pos="VERB" pred="MENER" vform="PASTPART">menée</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t11" type="TIME" value="2002-09-13TMO" valueFromFunction="tf17">hier matin</TIMEX3> avec les Américains dans les garages d'une cité, a ainsi <EVENT class="I_ACTION" eid="e55" eiid="ei55" pos="VERB" pred="PERMETTRE" tense="PAST" vform="PASTPART">permis</EVENT> de <EVENT class="OCCURRENCE" eid="e56" eiid="ei56" modality="POSSIBILITY" pos="VERB" pred="METTRE" vform="INFINITIVE">mettre</EVENT> la main sur une grenade et des kalachnikovs. Presque banal dans un pays où <EVENT class="OCCURRENCE" eid="e57" eiid="ei57" pos="VERB" pred="DÉTENIR" vform="INFINITIVE">détenir</EVENT> une arme <EVENT class="OCCURRENCE" eid="e75" eiid="ei75" pos="VERB" pred="FAIRE" tense="PRESENT">fait</EVENT> partie des mœurs.
+Didier PLANADEVALL
+</TEXT>
+<TLINK lid="l10012" origin="USER" relType="BEFORE" relatedToTime="t7" timeID="t4" />
+<TLINK lid="l10013" origin="USER" relType="IDENTITY" relatedToTime="t11" timeID="t7" />
+<TLINK lid="l10014" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t11" />
+<TLINK lid="l10015" origin="USER" relType="BEFORE" relatedToTime="t2" timeID="t1" />
+<TLINK lid="l10016" origin="USER" relType="BEFORE" relatedToTime="t6" timeID="t2" />
+<TLINK lid="l10017" origin="USER" relType="INCLUDES" relatedToTime="t1" timeID="t3" />
+<TLINK lid="l10018" origin="USER" relType="IDENTITY" relatedToTime="t3" timeID="t8" />
+<TLINK lid="l10019" origin="USER" relType="IDENTITY" relatedToTime="t3" timeID="t9" />
+<TLINK eventInstanceID="ei1" lid="l10020" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei60" lid="l10021" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" />
+<TLINK eventInstanceID="ei5" lid="l10022" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" />
+<TLINK eventInstanceID="ei62" lid="l10023" origin="USER" relType="SIMULTANEOUS" relatedToTime="t5" />
+<TLINK eventInstanceID="ei62" lid="l10024" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei73" lid="l10025" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei74" lid="l10026" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei16" lid="l10027" origin="USER" relType="IS_INCLUDED" relatedToTime="t12" />
+<TLINK eventInstanceID="ei16" lid="l10028" origin="USER" relType="DURING" relatedToEventInstance="ei15" />
+<TLINK eventInstanceID="ei17" lid="l10029" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei15" lid="l10030" origin="USER" relType="DURING" relatedToEventInstance="ei17" signalID="s6" />
+<TLINK eventInstanceID="ei76" lid="l10031" origin="USER" relType="IDENTITY" relatedToEventInstance="ei20" />
+<TLINK eventInstanceID="ei18" lid="l10032" origin="USER" relType="BEFORE" relatedToEventInstance="ei76" />
+<TLINK eventInstanceID="ei18" lid="l10033" origin="USER" relType="BEFORE" relatedToEventInstance="ei21" signalID="s5" />
+<TLINK eventInstanceID="ei18" lid="l10034" origin="USER" relType="BEFORE" relatedToEventInstance="ei22" />
+<TLINK eventInstanceID="ei22" lid="l10035" origin="USER" relType="DURING" relatedToEventInstance="ei23" signalID="s3" />
+<TLINK eventInstanceID="ei22" lid="l10036" origin="USER" relType="DURING" relatedToEventInstance="ei64" />
+<TLINK eventInstanceID="ei23" lid="l10037" origin="USER" relType="DURING" relatedToEventInstance="ei64" />
+<TLINK eventInstanceID="ei21" lid="l10038" origin="USER" relType="IS_INCLUDED" relatedToTime="t6" />
+<TLINK eventInstanceID="ei29" lid="l10039" origin="USER" relType="IDENTITY" relatedToEventInstance="ei26" />
+<TLINK eventInstanceID="ei65" lid="l10040" origin="USER" relType="IBEFORE" relatedToEventInstance="ei29" />
+<TLINK eventInstanceID="ei65" lid="l10041" origin="USER" relType="BEFORE" relatedToEventInstance="ei30" />
+<TLINK eventInstanceID="ei65" lid="l10042" origin="USER" relType="BEFORE" relatedToEventInstance="ei31" />
+<TLINK eventInstanceID="ei32" lid="l10043" origin="USER" relType="IS_INCLUDED" relatedToTime="t8" />
+<TLINK eventInstanceID="ei33" lid="l10044" origin="USER" relType="BEFORE" relatedToEventInstance="ei32" />
+<TLINK eventInstanceID="ei18" lid="l10045" origin="USER" relType="BEFORE" relatedToEventInstance="ei34" />
+<TLINK eventInstanceID="ei36" lid="l10046" origin="USER" relType="BEFORE" relatedToEventInstance="ei37" />
+<TLINK eventInstanceID="ei46" lid="l10047" origin="USER" relType="IS_INCLUDED" relatedToTime="t9" />
+<TLINK eventInstanceID="ei47" lid="l10048" origin="USER" relType="IS_INCLUDED" relatedToTime="t9" />
+<TLINK eventInstanceID="ei48" lid="l10049" origin="USER" relType="IS_INCLUDED" relatedToTime="t9" />
+<TLINK eventInstanceID="ei66" lid="l10050" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei48" />
+<TLINK eventInstanceID="ei78" lid="l10051" origin="USER" relType="IS_INCLUDED" relatedToTime="t9" />
+<TLINK eventInstanceID="ei51" lid="l10052" origin="USER" relType="IS_INCLUDED" relatedToTime="t9" />
+<TLINK eventInstanceID="ei68" lid="l10053" origin="USER" relType="SIMULTANEOUS" relatedToTime="t10" />
+<TLINK eventInstanceID="ei69" lid="l10054" origin="USER" relType="SIMULTANEOUS" relatedToTime="t10" />
+<TLINK lid="l10055" origin="USER" relType="INCLUDES" relatedToTime="t9" timeID="t10" />
+<TLINK eventInstanceID="ei53" lid="l10056" origin="USER" relType="IS_INCLUDED" relatedToTime="t9" />
+<TLINK eventInstanceID="ei67" lid="l10057" origin="USER" relType="IS_INCLUDED" relatedToTime="t11" />
+<TLINK eventInstanceID="ei55" lid="l10058" origin="USER" relType="DURING" relatedToEventInstance="ei67" />
+<TLINK eventInstanceID="ei62" lid="l10059" origin="USER" relType="BEGUN_BY" relatedToTime="t4" signalID="s1" />
+<TLINK eventInstanceID="ei47" lid="l10060" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei46" />
+<TLINK eventInstanceID="ei61" lid="l10061" origin="USER" relType="IS_INCLUDED" relatedToTime="t1" />
+<TLINK eventInstanceID="ei13" lid="l10062" origin="USER" relType="BEFORE" relatedToEventInstance="ei74" />
+<TLINK eventInstanceID="ei7" lid="l10063" origin="USER" relType="BEGINS" relatedToEventInstance="ei62" />
+<TLINK eventInstanceID="ei8" lid="l10064" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei62" />
+<TLINK eventInstanceID="ei9" lid="l10065" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei62" />
+<TLINK eventInstanceID="ei10" lid="l10066" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei18" lid="l10067" origin="USER" relType="IS_INCLUDED" relatedToTime="t11" />
+<TLINK eventInstanceID="ei44" lid="l10068" origin="USER" relType="DURING" relatedToEventInstance="ei36" />
+<TLINK eventInstanceID="ei30" lid="l10069" origin="USER" relType="BEFORE" relatedToEventInstance="ei31" />
+<TLINK eventInstanceID="ei70" lid="l10070" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei74" />
+<TLINK eventInstanceID="ei71" lid="l10071" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei74" />
+<TLINK eventInstanceID="ei13" lid="l10072" origin="USER" relType="BEGINS" relatedToEventInstance="ei14" />
+<SLINK eventInstanceID="ei22" lid="l10002" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei72" />
+<SLINK eventInstanceID="ei72" lid="l10003" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei27" />
+<SLINK eventInstanceID="ei27" lid="l10004" origin="USER" relType="MODAL" subordinatedEventInstance="ei65" />
+<SLINK eventInstanceID="ei34" lid="l10005" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei36" />
+<SLINK eventInstanceID="ei37" lid="l10006" origin="USER" relType="MODAL" subordinatedEventInstance="ei38" />
+<SLINK eventInstanceID="ei38" lid="l10007" origin="USER" relType="MODAL" subordinatedEventInstance="ei40" />
+<SLINK eventInstanceID="ei78" lid="l10008" origin="USER" relType="MODAL" subordinatedEventInstance="ei49" />
+<SLINK eventInstanceID="ei49" lid="l10009" origin="USER" relType="MODAL" subordinatedEventInstance="ei50" />
+<SLINK eventInstanceID="ei53" lid="l10010" origin="USER" relType="MODAL" subordinatedEventInstance="ei52" />
+<SLINK eventInstanceID="ei55" lid="l10011" origin="USER" relType="MODAL" subordinatedEventInstance="ei56" />
+<ALINK eventInstanceID="ei1" lid="l9999" origin="USER" relType="CULMINATES" relatedToEventInstance="ei2" />
+<ALINK eventInstanceID="ei5" lid="l10000" origin="USER" relType="CONTINUES" relatedToEventInstance="ei4" />
+<ALINK eventInstanceID="ei48" lid="l10001" origin="USER" relType="CONTINUES" relatedToEventInstance="ei77" />
+</TimeML>

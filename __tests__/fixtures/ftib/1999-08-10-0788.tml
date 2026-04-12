@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-08-10-0788</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-08-10" /></DCT>
+<TEXT>
+<EVENT class="OCCURRENCE" eid="e10" eiid="ei10" pos="NOUN" pred="RALLYE">RALLYE</EVENT> PROMENADE.
+Le comité des fêtes <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="VERB" pred="ORGANISER" tense="PRESENT">organise</EVENT> <TIMEX3 tid="t2" type="DATE" value="1999-08-29">dimanche 29 août</TIMEX3> un <EVENT class="OCCURRENCE" eid="e8" eiid="ei8" pos="NOUN" pred="RALLYE">rallye</EVENT> promenade auto en Argonne : <EVENT class="OCCURRENCE" eid="e9" eiid="ei9" pos="NOUN" pred="DÉPART">départ</EVENT> <SIGNAL sid="s1">à</SIGNAL> <TIMEX3 tid="t3" type="TIME" value="1999-08-29T09:00">9 h</TIMEX3> place de la Gare à Clermont, pique-nique tiré du sac.
+Pour tous renseignements et inscriptions, s'adresser au 03.29.88.43.12. ou au 03.29.87.42.10.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t2" timeID="t1" />
+<TLINK lid="l2" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" timeID="t3" />
+<TLINK eventInstanceID="ei2" lid="l3" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei8" lid="l4" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei9" lid="l5" origin="USER" relType="BEGINS" relatedToEventInstance="ei8" />
+<TLINK eventInstanceID="ei9" lid="l6" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" signalID="s1" />
+<TLINK eventInstanceID="ei10" lid="l7" origin="USER" relType="IDENTITY" relatedToEventInstance="ei8" />
+</TimeML>

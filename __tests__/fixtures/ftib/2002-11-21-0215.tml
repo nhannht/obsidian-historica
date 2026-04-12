@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2002-11-21-0215</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2002-11-21" /></DCT>
+<TEXT>
+<EVENT class="OCCURRENCE" eid="e6" eiid="ei6" pos="NOUN" pred="REUNION">Réunion</EVENT> du conseil municipal.
+Le conseil municipal de la commune de Sancey-le-Grand se <EVENT class="OCCURRENCE" eid="e3" eiid="ei3" pos="VERB" pred="RÉUNIR" tense="FUTURE">réunira</EVENT> en salle de mairie <TIMEX3 tid="t2" type="DATE" value="2002-11-22">vendredi 22 novembre</TIMEX3>, à <TIMEX3 tid="t3" type="TIME" value="2002-11-22T20:00">20 h</TIMEX3>, pour <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="VERB" pred="DÉLIBÉRER" vform="INFINITIVE">délibérer</EVENT> sur les sujets suivants à l'ordre du jour : budget supplémentaire <TIMEX3 tid="t4" type="DATE" value="2002">2002</TIMEX3>, bibliothèque, <EVENT class="OCCURRENCE" eid="e7" eiid="ei7" pos="NOUN" pred="VENTE">vente</EVENT> de bois, <EVENT class="OCCURRENCE" eid="e8" eiid="ei8" pos="NOUN" pred="REGLEMENT">règlement</EVENT> de l'affouage, convention de location de locaux, villages fleuris, affaires diverses.
+</TEXT>
+<TLINK lid="l2" origin="USER" relType="INCLUDES" relatedToTime="t1" timeID="t4" />
+<TLINK lid="l3" origin="USER" relType="BEFORE" relatedToTime="t2" timeID="t1" />
+<TLINK eventInstanceID="ei3" lid="l4" origin="USER" relType="BEFORE" relatedToTime="t2" />
+<TLINK eventInstanceID="ei3" lid="l5" origin="USER" relType="BEFORE" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei6" lid="l6" origin="USER" relType="IDENTITY" relatedToEventInstance="ei3" />
+</TimeML>

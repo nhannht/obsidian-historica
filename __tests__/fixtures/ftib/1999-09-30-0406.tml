@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-09-30-0406</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-09-30" /></DCT>
+<TEXT>
+GYMNASTIQUE : LA RENTREE REPORTEE.
+Les <EVENT class="OCCURRENCE" eid="e1" eiid="ei11" pos="NOUN" pred="COURS">cours</EVENT> de gymnastique volontaire <EVENT class="ASPECTUAL" eid="e2" eiid="ei10" pred="REPRENDRE" tense="FUTURE" pos="VERB">reprendront</EVENT> <TIMEX3 tid="t2" type="DATE" value="1999-10-07">le jeudi 7 octobre</TIMEX3>, <SIGNAL sid="s1">de</SIGNAL> <TIMEX3 tid="t3" type="TIME" value="1999-10-07T19:30">19 h 30</TIMEX3> <SIGNAL sid="s2">à</SIGNAL> <TIMEX3 tid="t4" type="TIME" value="1999-10-07T20:30">20 h 30</TIMEX3>, à la salle des fêtes d'Anemont et non <TIMEX3 tid="t5" type="DATE" value="1999-09-30">le jeudi 30 septembre</TIMEX3> comme <EVENT class="REPORTING" eid="e4" eiid="ei4" pos="VERB" pred="ANNONCER" vform="PASTPART">annoncé</EVENT>.
+<EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="NOUN" pred="COURS"/>
+<EVENT class="ASPECTUAL" eid="e2" eiid="ei2" pred="REPRENDRE" pos="VERB"/>
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="IDENTITY" relatedToTime="t1" timeID="t5" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t2" timeID="t5" />
+<TLINK lid="l3" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" timeID="t3" />
+<TLINK lid="l10" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" timeID="t4" />
+<TLINK lid="l11" origin="USER" relType="BEFORE" relatedToTime="t4" timeID="t3" />
+<TLINK eventInstanceID="ei4" lid="l31" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei1" lid="l32" origin="USER" relType="BEGUN_BY" relatedToTime="t3" />
+<TLINK eventInstanceID="ei1" lid="l33" origin="USER" relType="ENDED_BY" relatedToTime="t4" />
+<TLINK eventInstanceID="ei2" lid="l34" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<SLINK eventInstanceID="ei4" lid="l24" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei10" />
+<SLINK eventInstanceID="ei4" lid="l29" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei10" />
+<ALINK eventInstanceID="ei2" lid="l6" origin="USER" relType="REINITIATES" relatedToEventInstance="ei1" />
+<ALINK eventInstanceID="ei10" lid="l27" origin="USER" relType="REINITIATES" relatedToEventInstance="ei11" />
+</TimeML>

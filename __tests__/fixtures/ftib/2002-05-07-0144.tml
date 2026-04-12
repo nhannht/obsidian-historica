@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2002-05-07-0144</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2002-05-07" /></DCT>
+<TEXT>
+La «<EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="NOUN" pred="MISSION">mission</EVENT>» de Raffarin.
+Jacques Chirac a <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="VERB" pred="FAIRE" tense="PAST" vform="PASTPART">fait</EVENT> vite. <EVENT class="OCCURRENCE" eid="e3" eiid="ei3" pos="VERB" pred="RÉÉLIRE" vform="PASTPART">Réélu</EVENT> triomphalement <TIMEX3 tid="t2" type="DATE" value="2002-05-05">dimanche</TIMEX3> avec plus de 82% des voix, le chef de l'Etat a <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="VERB" pred="NOMMER" tense="PAST" vform="PASTPART">nommé</EVENT> <SIGNAL sid="s1">dès</SIGNAL> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t3" type="DATE" value="2002-05-06" valueFromFunction="tf17">hier</TIMEX3> à Matignon Jean-Pierre Raffarin. Celui-ci s'est <SIGNAL sid="s2">aussitôt</SIGNAL> <EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="VERB" pred="LANCER" tense="PAST" vform="PASTPART">lancé</EVENT> dans les <EVENT class="OCCURRENCE" eid="e6" eiid="ei6" pos="NOUN" pred="CONSULTATION">consultations</EVENT> pour la <EVENT class="OCCURRENCE" eid="e7" eiid="ei7" pos="NOUN" pred="CONSTITUTION">constitution</EVENT> de son gouvernement «de mission» dont la composition sera <EVENT class="CAUSE" eid="e10" eiid="ei10" pos="VERB" pred="RENDRE" tense="FUTURE" vform="PASTPART">rendue</EVENT> <EVENT class="STATE" eid="e11" eiid="ei11" pos="ADJECTIVE" pred="PUBLIQUE">publique</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t4" type="TIME" value="2002-05-07TDT" valueFromFunction="tf2">ce mardi «dans la journée»</TIMEX3>.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t3" timeID="t2" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t3" />
+<TLINK lid="l3" origin="USER" relType="INCLUDES" relatedToTime="t4" timeID="t1" />
+<TLINK eventInstanceID="ei3" lid="l4" origin="USER" relType="BEFORE" relatedToTime="t2" />
+<TLINK eventInstanceID="ei4" lid="l5" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" signalID="s1" />
+<TLINK eventInstanceID="ei5" lid="l6" origin="USER" relType="IAFTER" relatedToEventInstance="ei4" signalID="s2" />
+<TLINK eventInstanceID="ei6" lid="l9" origin="USER" relType="BEFORE" relatedToEventInstance="ei7" />
+<TLINK eventInstanceID="ei10" lid="l10" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" />
+<TLINK eventInstanceID="ei10" lid="l11" origin="USER" relType="BEGINS" relatedToEventInstance="ei11" />
+<TLINK lid="l15" origin="USER" relType="BEGINS" relatedToEventInstance="ei2" timeID="t2" />
+<TLINK lid="l16" origin="USER" relType="ENDS" relatedToEventInstance="ei2" timeID="t3" />
+<ALINK eventInstanceID="ei5" lid="l14" origin="USER" relType="INITIATES" relatedToEventInstance="ei6" />
+</TimeML>

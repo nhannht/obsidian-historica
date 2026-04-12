@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2003-02-07-0005</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2003-02-07" /></DCT>
+<TEXT>
+<SIGNAL sid="s1">A compter du</SIGNAL> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="DATE" value="2003-09-01" valueFromFunction="tf7">1er septembre prochain</TIMEX3>, les Commerciens n'<EVENT class="OCCURRENCE" eid="e2" eiid="ei2" polarity="NEG" pos="VERB" pred="" tense="FUTURE">appelleront</EVENT> plus la police mais la gendarmerie à la rescousse. La <EVENT class="OCCURRENCE" eid="e3" eiid="ei3" pos="NOUN" pred="DÉCISION">décision</EVENT> de Nicolas Sarkozy de <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="VERB" pred="FERMER" vform="INFINITIVE">fermer</EVENT> le commissariat de Commercy a été <EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="VERB" pred="RENDRE" tense="PAST" vform="PASTPART">rendue</EVENT> officiellement <EVENT class="STATE" eid="e11" eiid="ei11" pos="ADJECTIVE" pred="PUBLIC">publique</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t3" type="TIME" value="2003-02-06TAF" valueFromFunction="TF17">hier après-midi</TIMEX3> par le préfet Bernard Fitoussi. Un <EVENT class="OCCURRENCE" eid="e6" eiid="ei6" pos="NOUN" pred="CHOIX">choix</EVENT> qui <EVENT class="MODAL" eid="e7" eiid="ei7" mood="CONDITIONAL" pos="VERB" pred="DEVOIR" tense="PRESENT">devrait</EVENT> <EVENT class="I_ACTION" eid="e8" eiid="ei8" modality="POSSIBILITY" pos="VERB" pred="PERMETTRE" vform="INFINITIVE">permettre</EVENT> d'<EVENT class="OCCURRENCE" eid="e9" eiid="ei9" modality="POSSIBILITY" pos="VERB" pred="ATTEINDRE" vform="INFINITIVE">atteindre</EVENT> «un haut niveau de sécurité et d'efficacité» a-t-il <EVENT class="REPORTING" eid="e12" eiid="ei12" pos="VERB" pred="DÉCLARER" tense="PAST" vform="PASTPART">déclaré</EVENT>.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t3" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t2" timeID="t1" />
+<TLINK lid="l3" origin="USER" relType="BEGINS" relatedToEventInstance="ei2" signalID="s1" timeID="t2" />
+<TLINK eventInstanceID="ei5" lid="l6" origin="USER" relType="BEGINS" relatedToEventInstance="ei11" />
+<TLINK eventInstanceID="ei3" lid="l7" origin="USER" relType="BEFORE" relatedToEventInstance="ei5" />
+<TLINK eventInstanceID="ei5" lid="l8" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" />
+<TLINK eventInstanceID="ei7" lid="l9" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei12" lid="l13" origin="USER" relType="DURING" relatedToEventInstance="ei5" />
+<TLINK eventInstanceID="ei6" lid="l14" origin="USER" relType="IDENTITY" relatedToEventInstance="ei3" />
+<SLINK eventInstanceID="ei3" lid="l5" origin="USER" relType="MODAL" subordinatedEventInstance="ei4" />
+<SLINK eventInstanceID="ei7" lid="l10" origin="USER" relType="MODAL" subordinatedEventInstance="ei8" />
+<SLINK eventInstanceID="ei8" lid="l11" origin="USER" relType="MODAL" subordinatedEventInstance="ei9" />
+<SLINK eventInstanceID="ei12" lid="l12" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei7" />
+</TimeML>

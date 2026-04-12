@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-06-12-1010b</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-06-12" /></DCT>
+<TEXT>
+PONT-A-MOUSSON.- Les individus qui ont <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="VERB" pred="BRAQUER" tense="PAST" vform="PASTPART">braqué</EVENT> le chauffeur d'une société de surveillance de Vandœre, <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="TIME" value="1999-06-11TAF" valueFromFunction="tf5">hier après-midi</TIMEX3>, près de Pont-à-Mousson, ont <EVENT class="MODAL" eid="e3" eiid="ei3" pos="VERB" pred="DEVOIR" tense="PAST" vform="PASTPART">dû</EVENT> être fortement <EVENT class="STATE" eid="e4" eiid="ei4" modality="POSSIBILITY" pos="ADJECTIVE" pred="DÉCEVOIR" tense="PAST">déçus</EVENT> en <EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="VERB" pred="DÉCOUVRIR" vform="GERUNDIVE">découvrant</EVENT> leur butin. Les sept mallettes <EVENT class="OCCURRENCE" eid="e20" eiid="ei20" pos="VERB" pred="DÉROBER" vform="PASTPART">dérobées</EVENT> dans des circonstances particulièrement risquées sur une bretelle d'autoroute, ne <EVENT class="STATE" eid="e7" eiid="ei7" polarity="NEG" pos="VERB" pred="CONTENIR" tense="IMPERFECT">contenaient</EVENT> ni le plus petit billet de banque ni le moindre chèque. Même pas une pièce de monnaie. Les mallettes étaient <EVENT class="STATE" eid="e8" eiid="ei8" pos="ADJECTIVE" pred="REMPLIR" tense="IMPERFECT">remplies</EVENT> de disquettes informatiques sans aucune valeur marchande.
+Alain Parmentier, 53 ans, employé de la société Lorraine de surveillance Protec <EVENT class="OCCURRENCE" eid="e9" eiid="ei9" pos="VERB" pred="EFFECTUER" tense="IMPERFECT">effectuait</EVENT>, <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t4" type="DATE" value="1999-06-11" valueFromFunction="TF17">hier</TIMEX3>, une <EVENT class="OCCURRENCE" eid="e10" eiid="ei10" pos="NOUN" pred="MISSION">mission</EVENT> banale. Un <EVENT class="OCCURRENCE" eid="e21" eiid="ei21" pos="NOUN" pred="ALLER-RETOUR">aller-retour</EVENT> entre Vandœuvre et Pont-à-Mousson pour <EVENT class="OCCURRENCE" eid="e11" eiid="ei11" pos="VERB" pred="METTRE" vform="INFINITIVE">mettre</EVENT> en sécurité sept mallettes métallisées <EVENT class="STATE" eid="e12" eiid="ei12" pos="VERB" pred="CONTENIR" vform="PRESPART">contenant</EVENT> des disquettes informatiques <EVENT class="OCCURRENCE" eid="e13" eiid="ei13" polarity="POS" pos="VERB" pred="TRAITER" vform="PASTPART">traitées</EVENT> pour le compte des ASSEDIC du Nord-Est par la société CSIA de Pont-à-Mousson. Ces disquettes <EVENT class="STATE" eid="e15" eiid="ei15" pos="VERB" pred="CONTENIR" tense="PRESENT">contiennent</EVENT> des informations très confidentielles. Il <EVENT class="MODAL" eid="e17" eiid="ei17" pos="VERB" pred="FALLOIR" tense="PRESENT">faut</EVENT> les <EVENT class="OCCURRENCE" eid="e18" eiid="ei18" modality="NECESSITY" pos="VERB" pred="ARCHIVER" vform="INFINITIVE">archiver</EVENT>. Mais elles ne <EVENT class="STATE" eid="e19" eiid="ei19" polarity="NEG" pos="VERB" pred="PRÉSENTER" tense="PRESENT">présentent</EVENT> aucun intérêt pour les particuliers.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="INCLUDES" relatedToTime="t2" timeID="t4" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t4" />
+<TLINK eventInstanceID="ei2" lid="l3" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei5" lid="l6" origin="USER" relType="AFTER" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei3" lid="l7" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei5" />
+<TLINK eventInstanceID="ei20" lid="l8" origin="USER" relType="DURING" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei20" lid="l9" origin="USER" relType="DURING" relatedToEventInstance="ei7" />
+<TLINK eventInstanceID="ei20" lid="l10" origin="USER" relType="DURING" relatedToEventInstance="ei8" />
+<TLINK eventInstanceID="ei9" lid="l11" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" />
+<TLINK eventInstanceID="ei9" lid="l12" origin="USER" relType="IDENTITY" relatedToEventInstance="ei10" />
+<TLINK eventInstanceID="ei21" lid="l14" origin="USER" relType="DURING" relatedToEventInstance="ei10" />
+<TLINK eventInstanceID="ei21" lid="l15" origin="USER" relType="BEFORE" relatedToEventInstance="ei11" />
+<TLINK eventInstanceID="ei9" lid="l16" origin="USER" relType="DURING" relatedToEventInstance="ei12" />
+<TLINK eventInstanceID="ei13" lid="l17" origin="USER" relType="BEFORE" relatedToEventInstance="ei9" />
+<TLINK eventInstanceID="ei15" lid="l18" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei19" lid="l21" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei7" lid="l23" origin="USER" relType="IDENTITY" relatedToEventInstance="ei8" />
+<TLINK eventInstanceID="ei12" lid="l24" origin="USER" relType="IDENTITY" relatedToEventInstance="ei7" />
+<TLINK eventInstanceID="ei17" lid="l25" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<SLINK eventInstanceID="ei3" lid="l5" origin="USER" relType="MODAL" subordinatedEventInstance="ei4" />
+<SLINK eventInstanceID="ei17" lid="l20" origin="USER" relType="MODAL" subordinatedEventInstance="ei18" />
+</TimeML>

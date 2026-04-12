@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2003-02-23-0082</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2003-02-23" /></DCT>
+<TEXT>
+ADPA.
+<SIGNAL sid="s1">Après</SIGNAL> la <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="NOUN" pred="PRISE">prise</EVENT> de position de Damien Meslot, concernant l'<EVENT class="STATE" eid="e28" eiid="ei28" pos="NOUN" pred="ATTITUDE">attitude</EVENT> de Christian Proust sur le sujet de l'ADPA (notre édition d'<TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="DATE" value="2003-02-22" valueFromFunction="TF17">hier</TIMEX3>), Michel Zumkeller a <EVENT class="CAUSE" eid="e4" eiid="ei4" pos="VERB" pred="FAIRE" tense="PAST" vform="PASTPART">fait</EVENT> <EVENT class="I_STATE" eid="e5" eiid="ei5" pos="VERB" pred="SAVOIR" vform="INFINITIVE">savoir</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t3" type="DATE" value="2003-02-22" valueFromFunction="TF17">hier</TIMEX3> par le biais d'un <EVENT class="OCCURRENCE" eid="e29" eiid="ei29" pos="NOUN" pred="COMMUNIQUÉ">communiqué</EVENT> qu'il <EVENT class="OCCURRENCE" eid="e6" eiid="ei6" pos="VERB" pred="TRAVAILLER" tense="IMPERFECT">travaillait</EVENT> avec un groupe de députés de toutes sensibilités politiques et responsables, pour <EVENT class="OCCURRENCE" eid="e7" eiid="ei7" pos="VERB" pred="TROUVER" vform="INFINITIVE">trouver</EVENT> des <EVENT class="OCCURRENCE" eid="e8" eiid="ei8" pos="NOUN" pred="SOLUTION">solutions</EVENT> durables et équitables <SIGNAL sid="s2">au</SIGNAL> <EVENT class="OCCURRENCE" eid="e9" eiid="ei9" pos="NOUN" pred="PROBLÈME">problème</EVENT> financier <EVENT class="I_STATE" eid="e10" eiid="ei10" pos="VERB" pred="POSER" vform="PASTPART">posé</EVENT> par l'ADPA. « Le gouvernement Jospin a <EVENT class="OCCURRENCE" eid="e12" eiid="ei12" pos="VERB" pred="METTRE" tense="PAST" vform="PASTPART">mis</EVENT> en place l'ADPA mais sans <EVENT class="STATE" eid="e27" eiid="ei27" pos="VERB" pred="PRÉVOIR" vform="INFINITIVE">prévoir</EVENT> les sources de financement. C'est aussi pour cela qu'il a été <EVENT class="OCCURRENCE" eid="e13" eiid="ei30" pos="VERB" pred="SANCTIONNER" vform="PASTPART" tense="PAST">sanctionné</EVENT> <SIGNAL sid="s3">en</SIGNAL> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t4" type="DATE" value="2002-05">mai</TIMEX3> et <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t5" type="DATE" value="2002-06" valueFromFunction="TF10">juin derniers</TIMEX3>. <SIGNAL sid="s4">Alors que</SIGNAL> Christian Proust <EVENT class="OCCURRENCE" eid="e14" eiid="ei14" pos="VERB" pred="DILAPIDER" tense="PRESENT">dilapide</EVENT> l'argent du contribuable en <EVENT class="OCCURRENCE" eid="e15" eiid="ei15" pos="VERB" pred="ACHETER" vform="GERUNDIVE">achetant</EVENT> des pages de quotidiens pour <EVENT class="I_ACTION" eid="e16" eiid="ei16" pos="VERB" pred="MENER" vform="INFINITIVE">mener</EVENT> sa propre <EVENT class="OCCURRENCE" eid="e17" eiid="ei17" pos="NOUN" pred="CAMPAGNE">campagne</EVENT> électorale, je <EVENT class="OCCURRENCE" eid="e18" eiid="ei18" pos="VERB" pred="TRAVAILLER" tense="PRESENT">travaille</EVENT> sans relâche sur le dossier sensible de l'ADPA ». Michel Zumkeller a par ailleurs <EVENT class="REPORTING" eid="e19" eiid="ei19" pos="VERB" pred="INDIQUER" tense="PAST" vform="PASTPART">indiqué</EVENT> qu'il venait d'être <EVENT aspect="PERFECTIVE" class="STATE" eid="e21" eiid="ei21" pos="VERB" pred="NOMMER" tense="PRESENT" vform="PASTPART">nommé</EVENT> vice-président du groupe d'études <EVENT class="OCCURRENCE" eid="e22" eiid="ei22" pos="VERB" pred="CHARGER" vform="PASTPART">chargé</EVENT> de la dépendance afin d'<EVENT class="OCCURRENCE" eid="e24" eiid="ei24" pos="VERB" pred="APPORTER" vform="INFINITIVE">apporter</EVENT> une <EVENT class="REPORTING" eid="e25" eiid="ei25" pos="NOUN" pred="RÉPONSE">réponse</EVENT> réaliste et humaine en accord avec ses engagements.
+<EVENT class="OCCURRENCE" eid="e13" eiid="ei13" pos="VERB" pred="SANCTIONNER"/>
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t5" timeID="t4" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t3" timeID="t5" />
+<TLINK lid="l3" origin="USER" relType="IDENTITY" relatedToTime="t2" timeID="t3" />
+<TLINK lid="l4" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t2" />
+<TLINK eventInstanceID="ei28" lid="l5" origin="USER" relType="BEFORE" relatedToEventInstance="ei1" />
+<TLINK eventInstanceID="ei4" lid="l8" origin="USER" relType="AFTER" relatedToEventInstance="ei1" signalID="s1" />
+<TLINK eventInstanceID="ei4" lid="l9" origin="USER" relType="IDENTITY" relatedToEventInstance="ei5" />
+<TLINK eventInstanceID="ei4" lid="l10" origin="USER" relType="DURING" relatedToEventInstance="ei29" />
+<TLINK eventInstanceID="ei6" lid="l12" origin="USER" relType="BEFORE" relatedToEventInstance="ei7" />
+<TLINK eventInstanceID="ei10" lid="l15" origin="USER" relType="IDENTITY" relatedToEventInstance="ei9" />
+<TLINK eventInstanceID="ei27" lid="l18" origin="USER" relType="DURING" relatedToEventInstance="ei12" />
+<TLINK eventInstanceID="ei13" lid="l19" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" signalID="s3" />
+<TLINK eventInstanceID="ei30" lid="l20" origin="USER" relType="IS_INCLUDED" relatedToTime="t5" signalID="s3" />
+<TLINK eventInstanceID="ei16" lid="l21" origin="USER" relType="IDENTITY" relatedToEventInstance="ei17" />
+<TLINK eventInstanceID="ei15" lid="l22" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei14" />
+<TLINK eventInstanceID="ei15" lid="l23" origin="USER" relType="BEFORE" relatedToEventInstance="ei16" />
+<TLINK eventInstanceID="ei18" lid="l24" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei14" signalID="s4" />
+<TLINK eventInstanceID="ei14" lid="l25" origin="USER" relType="INCLUDES" relatedToEventInstance="ei29" />
+<TLINK eventInstanceID="ei19" lid="l27" origin="USER" relType="DURING" relatedToEventInstance="ei29" />
+<TLINK eventInstanceID="ei21" lid="l28" origin="USER" relType="DURING" relatedToEventInstance="ei22" />
+<TLINK eventInstanceID="ei21" lid="l29" origin="USER" relType="BEFORE" relatedToEventInstance="ei24" />
+<TLINK eventInstanceID="ei24" lid="l30" origin="USER" relType="IDENTITY" relatedToEventInstance="ei25" />
+<TLINK eventInstanceID="ei12" lid="l32" origin="USER" relType="BEFORE" relatedToEventInstance="ei13" />
+<TLINK eventInstanceID="ei10" lid="l33" origin="USER" relType="AFTER" relatedToEventInstance="ei12" />
+<TLINK eventInstanceID="ei1" lid="l34" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei4" lid="l35" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" />
+<TLINK eventInstanceID="ei29" lid="l36" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" />
+<TLINK eventInstanceID="ei22" lid="l37" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<SLINK eventInstanceID="ei5" lid="l11" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei6" />
+<SLINK eventInstanceID="ei7" lid="l13" origin="USER" relType="MODAL" subordinatedEventInstance="ei8" />
+<SLINK eventInstanceID="ei19" lid="l26" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei21" />
+</TimeML>

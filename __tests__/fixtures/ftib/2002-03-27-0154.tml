@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2002-03-27-0154</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2002-03-27" /></DCT>
+<TEXT>
+L'avantage du Premier ministre dans les <EVENT class="OCCURRENCE" eid="e6" eiid="ei2" pos="NOUN" pred="SONDAGE">sondages</EVENT> est si fragile qu'il <EVENT class="OCCURRENCE" eid="e2" eiid="ei6" pos="VERB" pred="RENDRE" tense="PRESENT">rend</EVENT> tout <EVENT class="OCCURRENCE" eid="e7" eiid="ei1" modality="POSSIBILITY" polarity="NEG" pos="NOUN" pred="PRONOSTIC">pronostic</EVENT> impossible. Lionel Jospin a cependant <EVENT class="OCCURRENCE" eid="e3" eiid="ei4" pos="VERB" pred="TRAITER" tense="PAST" vform="PASTPART">traité</EVENT> le sujet sensible de l'insécurité <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="TIME" value="2002-03-26TEV" valueFromFunction="tf5">hier soir</TIMEX3> <SIGNAL sid="s1">au</SIGNAL> <EVENT class="OCCURRENCE" eid="e4" eiid="ei5" pos="NOUN" pred="MEETING">meeting</EVENT> de Tours. Sans <EVENT class="OCCURRENCE" eid="e5" eiid="ei3" polarity="NEG" pos="NOUN" pred="DRAMATISATION">dramatisation</EVENT> excessive.
+de Nicole COLLET et Chantal DIDIER
+</TEXT>
+<TLINK lid="l10000" relType="AFTER" relatedToTime="t2" timeID="t1" origin="USER" />
+<TLINK eventInstanceID="ei2" lid="l10001" relType="BEFORE" relatedToTime="t2" origin="USER" />
+<TLINK eventInstanceID="ei6" lid="l10002" relType="INCLUDES" relatedToTime="t1" origin="USER" />
+<TLINK eventInstanceID="ei4" lid="l10003" relType="INCLUDES" relatedToTime="t2" origin="USER" />
+<TLINK eventInstanceID="ei4" lid="l10004" relType="DURING" relatedToEventInstance="ei5" signalID="s1" origin="USER" />
+<TLINK eventInstanceID="ei3" lid="l10005" relType="DURING" relatedToEventInstance="ei4" origin="USER" />
+<SLINK eventInstanceID="ei6" lid="l9999" relType="COUNTER_FACTIVE" subordinatedEventInstance="ei1" origin="USER" />
+</TimeML>

@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-05-22-0101</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-05-22" /></DCT>
+<TEXT>
+Les <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="NOUN" pred="FAIT">faits</EVENT> qui lui sont <EVENT class="I_STATE" eid="e2" eiid="ei2" pos="VERB" pred="REPROCHER" tense="PRESENT" vform="PASTPART">reprochés</EVENT> ont <EVENT class="EVENT_CONTAINER" eid="e3" eiid="ei3" pos="VERB" pred="AVOIR_LIEU" tense="PAST" vform="PASTPART">eu</EVENT> lieu <TIMEX3 tid="t2" type="DATE" value="1998-05-27">le 27 mai 1998</TIMEX3>, dans les bois à proximité du fort Dorsner.
+Bernard, de Giromagny, <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="VERB" pred="COMPARAÎTRE" tense="IMPERFECT">comparaissait</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t3" type="DATE" value="1999-05-21" valueFromFunction="TF17">hier</TIMEX3> devant le tribunal correctionnel de Belfort pour deux <EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="NOUN" pred="AFFAIRE">affaires</EVENT> d'exhibition sexuelle. Les <EVENT class="OCCURRENCE" eid="e6" eiid="ei6" pos="NOUN" pred="FAIT">faits</EVENT> qui lui sont <EVENT class="I_STATE" eid="e7" eiid="ei7" pos="ADJECTIVE" pred="REPROCHER" tense="PRESENT">reprochés</EVENT> <EVENT class="STATE" eid="e8" eiid="ei8" pos="VERB" pred="REMONTER" tense="PRESENT">remontent</EVENT> <SIGNAL sid="s6">au</SIGNAL> <TIMEX3 tid="t4" type="DATE" value="1998-05-27">27 mai 1998</TIMEX3> et se sont <EVENT class="EVENT_CONTAINER" eid="e9" eiid="ei9" pos="VERB" pred="DÉROULER" tense="PAST" vform="PASTPART">déroulés</EVENT> dans les bois proches du fort Dorsner à Giromagny.
+Bernard <EVENT class="REPORTING" eid="e10" eiid="ei10" pos="VERB" pred="AFFIRMER" tense="PRESENT">affirme</EVENT> qu'en se <EVENT class="OCCURRENCE" eid="e11" eiid="ei11" pos="VERB" pred="PROMENER" vform="GERUNDIVE">promenant</EVENT>, il a <EVENT class="OCCURRENCE" eid="e12" eiid="ei12" pos="VERB" pred="CHUTER" tense="PAST" vform="PASTPART">chuté</EVENT> et s'est <EVENT class="OCCURRENCE" eid="e13" eiid="ei13" pos="VERB" pred="RETROUVER" tense="PAST" vform="PASTPART">retrouvé</EVENT> à terre, la braguette <EVENT class="STATE" eid="e61" eiid="ei61" pos="ADJECTIVE" pred="OUVRIR">ouverte</EVENT>. D'après lui, c'est dans cette position que deux jeunes filles, Jessica et Sandrine, l'ont <EVENT class="OCCURRENCE" eid="e15" eiid="ei15" pos="VERB" pred="DÉCOUVRIR" tense="PAST" vform="PASTPART">découvert</EVENT>. Cette <EVENT class="REPORTING" eid="e16" eiid="ei16" pos="NOUN" pred="AFFIRMATION">affirmation</EVENT> est <EVENT class="I_STATE" eid="e17" eiid="ei17" pos="VERB" pred="CONTREDIRE" tense="PRESENT" vform="PASTPART">contredite</EVENT> par les <EVENT class="REPORTING" eid="e18" eiid="ei18" pos="NOUN" pred="DÉCLARATION">déclarations</EVENT> de l'une des deux mineures. La présidente du tribunal, Claire Fermaut, a <EVENT class="OCCURRENCE" eid="e19" eiid="ei19" pos="VERB" pred="LIRE" tense="PAST" vform="PASTPART">lu</EVENT> sa déposition : « L'homme était à terre, son short sur les genoux. Il nous a <EVENT class="I_ACTION" eid="e21" eiid="ei21" pos="VERB" pred="DEMANDER" tense="PAST" vform="PASTPART">demandé</EVENT> de l'<EVENT class="I_ACTION" eid="e22" eiid="ei22" pos="VERB" pred="AIDER" vform="INFINITIVE">aider</EVENT> à <EVENT class="OCCURRENCE" eid="e23" eiid="ei23" pos="VERB" pred="SOULEVER" vform="INFINITIVE">soulever</EVENT> son vélo ». Cette thèse est d'ailleurs <EVENT class="I_STATE" eid="e24" eiid="ei24" polarity="POS" pos="VERB" pred="CONFIRMER" tense="PRESENT" vform="PASTPART">confirmée</EVENT> par trois autres autres adolescentes, Jessica, Jennifer et Nadia, qui l'ont <EVENT class="OCCURRENCE" eid="e25" eiid="ei25" pos="VERB" pred="RENCONTRER" tense="PAST" vform="PASTPART">rencontré</EVENT> <TIMEX3 mod="APPROX" tid="t5" type="DURATION" value="PT1H">environ une heure</TIMEX3> <SIGNAL sid="s5">plus tard</SIGNAL>.
+« Il était derrière un arbre », <EVENT class="REPORTING" eid="e26" eiid="ei26" pos="VERB" pred="DIRE" tense="PRESENT">dit</EVENT>-elle dans sa déposition <EVENT class="OCCURRENCE" eid="e63" eiid="ei63" pos="VERB" pred="LIRE" vform="PASTPART">lue</EVENT> par le juge unique. « Il nous a <EVENT class="I_ACTION" eid="e28" eiid="ei28" pos="VERB" pred="DEMANDER" tense="PAST" vform="PASTPART">demandé</EVENT> de le <EVENT class="OCCURRENCE" eid="e29" eiid="ei29" pos="VERB" pred="SUIVRE" vform="INFINITIVE">suivre</EVENT>. Nous l'avons <EVENT class="OCCURRENCE" eid="e30" eiid="ei30" pos="VERB" pred="DÉCOUVRIR" tense="PAST" vform="PASTPART">découvert</EVENT> à terre, le short <EVENT class="STATE" eid="e64" eiid="ei64" pos="ADJECTIVE" pred="BAISSER">baissé</EVENT> ». <EVENT class="STATE" eid="e31" eiid="ei31" pos="VERB" pred="EFFRAYER" vform="PASTPART">Effrayées</EVENT> par cette <EVENT class="OCCURRENCE" eid="e32" eiid="ei32" pos="NOUN" pred="RENCONTRE">rencontre</EVENT>, les jeunes ont <EVENT class="REPORTING" eid="e33" eiid="ei33" pos="VERB" pred="RAPPORTER" tense="PAST" vform="PASTPART">rapporté</EVENT> les <EVENT class="OCCURRENCE" eid="e34" eiid="ei34" pos="NOUN" pred="FAIT">faits</EVENT>, <SIGNAL sid="s3">après</SIGNAL> quelques <EVENT class="STATE" eid="e35" eiid="ei35" pos="NOUN" pred="HÉSITATION">hésitations</EVENT>. Plaintes ont ensuite été <EVENT class="OCCURRENCE" eid="e36" eiid="ei36" pos="VERB" pred="DÉPOSER" tense="PAST" vform="PASTPART">déposées</EVENT> à la gendarmerie de Giromagny qui a <EVENT class="ASPECTUAL" eid="e37" eiid="ei37" pos="VERB" pred="OUVRIR" tense="PAST" vform="PASTPART">ouverte</EVENT> une <EVENT class="OCCURRENCE" eid="e38" eiid="ei38" pos="NOUN" pred="ENQUÊTE">enquête</EVENT>. Les gendarmes ont très vite <EVENT class="OCCURRENCE" eid="e39" eiid="ei39" pos="VERB" pred="IDENTIFIER" tense="PAST" vform="PASTPART">identifié</EVENT> l'auteur des <EVENT class="OCCURRENCE" eid="e40" eiid="ei40" pos="NOUN" pred="EXHIBITION">exhibitions</EVENT>. L'avocate de Bernard, Alexandra Michel, a <EVENT class="REPORTING" eid="e65" eiid="ei65" pos="VERB" pred="SOULIGNER" tense="PAST" vform="PASTPART">souligné</EVENT> que son client <EVENT class="I_STATE" eid="e66" eiid="ei66" pos="VERB" pred="AVOIR" tense="IMPERFECT">avait</EVENT> conscience du <EVENT class="STATE" eid="e67" eiid="ei67" pos="NOUN" pred="TROUBLE">trouble</EVENT> qu'il avait <EVENT aspect="PERFECTIVE" class="CAUSE" eid="e41" eiid="ei41" pos="VERB" pred="CAUSER" tense="PAST" vform="PASTPART">causé</EVENT> aux adolescentes. « Il a <EVENT class="OCCURRENCE" eid="e42" eiid="ei42" pos="VERB" pred="AVOIR" tense="PAST" vform="PASTPART">eu</EVENT> un <EVENT class="OCCURRENCE" eid="e43" eiid="ei43" pos="NOUN" pred="FANTASME">fantasme</EVENT> qu'il n'a pas <EVENT class="I_STATE" eid="e44" eiid="ei44" polarity="NEG" pos="VERB" pred="SAVOIR" tense="PAST" vform="PASTPART">su</EVENT> <EVENT class="OCCURRENCE" eid="e45" eiid="ei45" pos="VERB" pred="MAÎTRISER" vform="INFINITIVE">maîtriser</EVENT> », <EVENT class="REPORTING" eid="e46" eiid="ei46" pos="VERB" pred="SOULIGNER" tense="PRESENT">souligne</EVENT>-t-elle dans une <EVENT class="OCCURRENCE" eid="e47" eiid="ei47" pos="NOUN" pred="PLAIDOIRIE">plaidoirie</EVENT> qui constituait sa première <EVENT class="OCCURRENCE" eid="e49" eiid="ei49" pos="NOUN" pred="INTERVENTION">intervention</EVENT> devant le tribunal correctionnel de Belfort. « Mais il ne s'est <EVENT class="OCCURRENCE" eid="e50" eiid="ei50" polarity="NEG" pos="VERB" pred="LIVRER" tense="PAST" vform="PASTPART">livré</EVENT> à aucune <EVENT class="OCCURRENCE" eid="e51" eiid="ei51" polarity="NEG" pos="NOUN" pred="CARESSE">caresse</EVENT> intime. Il y a <EVENT class="OCCURRENCE" eid="e68" eiid="ei68" pos="NOUN" pred="FAUTE">faute</EVENT>, mais <EVENT class="OCCURRENCE" eid="e69" eiid="ei69" pos="NOUN" pred="FAUTE">faute</EVENT> légère ».
+<EVENT class="I_STATE" eid="e70" eiid="ei70" pos="VERB" pred="CONSIDÉRER" vform="PRESPART">Considérant</EVENT> que les <EVENT class="OCCURRENCE" eid="e52" eiid="ei52" pos="NOUN" pred="FAIT">faits</EVENT> étaient <EVENT class="STATE" eid="e53" eiid="ei53" pos="ADJECTIVE" pred="CONSTITUER" tense="PAST">constitués</EVENT>, le tribunal a <EVENT class="OCCURRENCE" eid="e54" eiid="ei54" pos="VERB" pred="CONDAMNER" tense="PAST" vform="PASTPART">condamné</EVENT> Bernard à 5.000 F d'amende. Il a, en outre, <EVENT class="OCCURRENCE" eid="e71" eiid="ei71" pos="VERB" pred="JUGER" tense="PAST" vform="PASTPART">jugé</EVENT> recevables les <EVENT class="OCCURRENCE" eid="e56" eiid="ei56" pos="NOUN" pred="CONSTITUTION">constitutions</EVENT> de partie civile de deux des cinq représentants légaux. Mais ils n'ont pas <EVENT class="I_ACTION" eid="e57" eiid="ei57" polarity="NEG" pos="VERB" pred="DEMANDER" tense="PAST" vform="PASTPART">demandé</EVENT> de dommages et intérêts, <EVENT class="I_STATE" eid="e59" eiid="ei59" pos="VERB" pred="SOUHAITER" vform="PRESPART">souhaitant</EVENT> que justice soit <EVENT class="OCCURRENCE" eid="e72" eiid="ei72" mood="SUBJUNCTIVE" pos="VERB" pred="FAIRE" tense="PRESENT" vform="PASTPART">faite</EVENT>. Satisfaction leur a été <EVENT class="OCCURRENCE" eid="e60" eiid="ei60" pos="VERB" pred="DONNER" tense="PAST" vform="PASTPART">donnée</EVENT>.
+Pascal CHEVILLOT
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="IDENTITY" relatedToTime="t2" timeID="t4" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t3" />
+<TLINK lid="l3" origin="USER" relType="BEFORE" relatedToTime="t3" timeID="t2" />
+<TLINK eventInstanceID="ei3" lid="l4" origin="USER" relType="IDENTITY" relatedToEventInstance="ei1" />
+<TLINK eventInstanceID="ei3" lid="l6" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" />
+<TLINK eventInstanceID="ei4" lid="l7" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" />
+<TLINK eventInstanceID="ei2" lid="l8" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei7" lid="l10" origin="USER" relType="IDENTITY" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei1" lid="l12" origin="USER" relType="IDENTITY" relatedToEventInstance="ei6" />
+<TLINK eventInstanceID="ei9" lid="l15" origin="USER" relType="IDENTITY" relatedToEventInstance="ei6" />
+<TLINK eventInstanceID="ei12" lid="l17" origin="USER" relType="DURING" relatedToEventInstance="ei11" />
+<TLINK eventInstanceID="ei12" lid="l18" origin="USER" relType="BEFORE" relatedToEventInstance="ei13" />
+<TLINK eventInstanceID="ei10" lid="l19" origin="USER" relType="DURING" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei16" lid="l22" origin="USER" relType="IDENTITY" relatedToEventInstance="ei10" />
+<TLINK eventInstanceID="ei18" lid="l24" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei17" />
+<TLINK eventInstanceID="ei18" lid="l26" origin="USER" relType="DURING" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei15" lid="l29" origin="USER" relType="BEFORE" relatedToEventInstance="ei21" />
+<TLINK eventInstanceID="ei25" lid="l34" origin="USER" relType="ENDS" relatedToTime="t5" signalID="s5" />
+<TLINK eventInstanceID="ei15" lid="l35" origin="USER" relType="BEGINS" relatedToTime="t5" />
+<TLINK eventInstanceID="ei63" lid="l36" origin="USER" relType="AFTER" relatedToEventInstance="ei26" />
+<TLINK eventInstanceID="ei63" lid="l37" origin="USER" relType="DURING" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei30" lid="l40" origin="USER" relType="AFTER" relatedToEventInstance="ei28" />
+<TLINK eventInstanceID="ei30" lid="l41" origin="USER" relType="DURING" relatedToEventInstance="ei64" />
+<TLINK eventInstanceID="ei30" lid="l42" origin="USER" relType="IDENTITY" relatedToEventInstance="ei15" />
+<TLINK eventInstanceID="ei31" lid="l43" origin="USER" relType="OVERLAP_AFTER" relatedToEventInstance="ei32" />
+<TLINK eventInstanceID="ei33" lid="l46" origin="USER" relType="AFTER" relatedToEventInstance="ei35" signalID="s3" />
+<TLINK eventInstanceID="ei25" lid="l48" origin="USER" relType="IDENTITY" relatedToEventInstance="ei32" />
+<TLINK eventInstanceID="ei36" lid="l49" origin="USER" relType="AFTER" relatedToEventInstance="ei33" />
+<TLINK eventInstanceID="ei37" lid="l50" origin="USER" relType="AFTER" relatedToEventInstance="ei36" />
+<TLINK eventInstanceID="ei39" lid="l52" origin="USER" relType="DURING" relatedToEventInstance="ei38" />
+<TLINK eventInstanceID="ei40" lid="l53" origin="USER" relType="DURING" relatedToEventInstance="ei32" />
+<TLINK eventInstanceID="ei41" lid="l57" origin="USER" relType="IBEFORE" relatedToEventInstance="ei67" />
+<TLINK eventInstanceID="ei46" lid="l63" origin="USER" relType="DURING" relatedToEventInstance="ei47" />
+<TLINK eventInstanceID="ei49" lid="l64" origin="USER" relType="IDENTITY" relatedToEventInstance="ei47" />
+<TLINK eventInstanceID="ei47" lid="l65" origin="USER" relType="DURING" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei69" lid="l68" origin="USER" relType="IDENTITY" relatedToEventInstance="ei68" />
+<TLINK eventInstanceID="ei54" lid="l69" origin="USER" relType="ENDS" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei70" lid="l70" origin="USER" relType="OVERLAP_BEFORE" relatedToEventInstance="ei54" />
+<TLINK eventInstanceID="ei53" lid="l73" origin="USER" relType="DURING" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei59" lid="l75" origin="USER" relType="DURING" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei6" lid="l79" origin="USER" relType="IDENTITY" relatedToEventInstance="ei5" />
+<TLINK eventInstanceID="ei9" lid="l80" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei13" lid="l81" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei61" />
+<TLINK eventInstanceID="ei13" lid="l82" origin="USER" relType="BEFORE" relatedToEventInstance="ei15" />
+<TLINK eventInstanceID="ei35" lid="l83" origin="USER" relType="DURING" relatedToEventInstance="ei31" />
+<TLINK eventInstanceID="ei40" lid="l84" origin="USER" relType="IDENTITY" relatedToEventInstance="ei6" />
+<TLINK eventInstanceID="ei19" lid="l85" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei17" />
+<TLINK eventInstanceID="ei53" lid="l87" origin="USER" relType="IDENTITY" relatedToEventInstance="ei52" />
+<TLINK eventInstanceID="ei52" lid="l88" origin="USER" relType="IDENTITY" relatedToEventInstance="ei6" />
+<TLINK eventInstanceID="ei50" lid="l89" origin="USER" relType="IDENTITY" relatedToEventInstance="ei51" />
+<TLINK eventInstanceID="ei42" lid="l90" origin="USER" relType="IDENTITY" relatedToEventInstance="ei43" />
+<TLINK eventInstanceID="ei44" lid="l91" origin="USER" relType="DURING" relatedToEventInstance="ei42" />
+<TLINK eventInstanceID="ei65" lid="l93" origin="USER" relType="AFTER" relatedToEventInstance="ei63" />
+<TLINK eventInstanceID="ei71" lid="l94" origin="USER" relType="DURING" relatedToEventInstance="ei54" />
+<TLINK eventInstanceID="ei71" lid="l95" origin="USER" relType="BEFORE" relatedToEventInstance="ei56" />
+<TLINK eventInstanceID="ei60" lid="l96" origin="USER" relType="IAFTER" relatedToEventInstance="ei54" />
+<TLINK eventInstanceID="ei57" lid="l97" origin="USER" relType="AFTER" relatedToEventInstance="ei71" />
+<SLINK eventInstanceID="ei2" lid="l5" origin="USER" relType="MODAL" subordinatedEventInstance="ei1" />
+<SLINK eventInstanceID="ei7" lid="l11" origin="USER" relType="MODAL" subordinatedEventInstance="ei6" />
+<SLINK eventInstanceID="ei10" lid="l16" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei11" />
+<SLINK eventInstanceID="ei17" lid="l23" origin="USER" relType="COUNTER_FACTIVE" subordinatedEventInstance="ei16" />
+<SLINK eventInstanceID="ei19" lid="l28" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei21" />
+<SLINK eventInstanceID="ei21" lid="l30" origin="USER" relType="MODAL" subordinatedEventInstance="ei22" />
+<SLINK eventInstanceID="ei22" lid="l31" origin="USER" relType="MODAL" subordinatedEventInstance="ei23" />
+<SLINK eventInstanceID="ei24" lid="l32" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei21" />
+<SLINK eventInstanceID="ei28" lid="l38" origin="USER" relType="MODAL" subordinatedEventInstance="ei29" />
+<SLINK eventInstanceID="ei63" lid="l39" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei28" />
+<SLINK eventInstanceID="ei33" lid="l45" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei34" />
+<SLINK eventInstanceID="ei65" lid="l55" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei66" />
+<SLINK eventInstanceID="ei66" lid="l56" origin="USER" relType="FACTIVE" subordinatedEventInstance="ei41" />
+<SLINK eventInstanceID="ei46" lid="l59" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei42" />
+<SLINK eventInstanceID="ei44" lid="l60" origin="USER" relType="COUNTER_FACTIVE" subordinatedEventInstance="ei45" />
+<SLINK eventInstanceID="ei46" lid="l66" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei50" />
+<SLINK eventInstanceID="ei46" lid="l67" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei68" />
+<SLINK eventInstanceID="ei59" lid="l76" origin="USER" relType="MODAL" subordinatedEventInstance="ei72" />
+<SLINK eventInstanceID="ei70" lid="l86" origin="USER" relType="FACTIVE" subordinatedEventInstance="ei53" />
+<ALINK eventInstanceID="ei37" lid="l51" origin="USER" relType="INITIATES" relatedToEventInstance="ei38" />
+</TimeML>

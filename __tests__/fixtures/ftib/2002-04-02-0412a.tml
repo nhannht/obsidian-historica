@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2002-04-02-0412a</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2002-04-02" /></DCT>
+<TEXT>
+-------
+<EVENT class="OCCURRENCE" eid="e19" eiid="ei19" pos="NOUN" pred="COUP">Coups</EVENT> de feu sur le TGV. - Trois rames de TGV ont <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="VERB" pred="ESSUYER" tense="PAST" vform="PASTPART">essuyé</EVENT> des <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="NOUN" pred="COUP">coups</EVENT> de feu sur la ligne Paris-Nantes près d'Angers <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="TIME" value="2002-03-31TAF">dimanche après-midi</TIMEX3>. Les premiers <EVENT class="OCCURRENCE" eid="e3" eiid="ei3" pos="NOUN" pred="TIR">tirs</EVENT> ont <EVENT class="EVENT_CONTAINER" eid="e4" eiid="ei4" pos="VERB" pred="AVOIR" tense="PAST" vform="PASTPART">eu</EVENT> lieu <SIGNAL sid="s1">vers</SIGNAL> <TIMEX3 tid="t3" type="TIME" value="2002-03-31T18:55">18 h 55</TIMEX3> <SIGNAL sid="s2">alors que</SIGNAL> le train Paris-Nantes se <EVENT class="STATE" eid="e5" eiid="ei5" pos="VERB" pred="TROUVER" tense="IMPERFECT">trouvait</EVENT> à 15 km au nord d'Angers (Maine-et-Loire), à la jonction des communes d'Ecouflant, Tiercé et Briollay, en rase campagne. En raison de cet <EVENT class="OCCURRENCE" eid="e8" eiid="ei8" pos="NOUN" pred="INCIDENT">incident</EVENT>, le TGV a été <EVENT class="OCCURRENCE" eid="e9" eiid="ei9" pos="VERB" pred="RETARDER" tense="PAST" vform="PASTPART">retardé</EVENT> <SIGNAL sid="s5">de</SIGNAL> <TIMEX3 tid="t4" type="DURATION" value="PT15M">quinze minutes</TIMEX3>. Les tirs <EVENT class="STATE" eid="e11" eiid="ei11" pos="VERB" pred="PROVENIR" tense="IMPERFECT">provenaient</EVENT> d'une carabine de gros calibre et ont <EVENT class="EVENT_CONTAINER" eid="e12" eiid="ei12" pos="VERB" pred="AVOIR" tense="PAST" vform="PASTPART">eu</EVENT> lieu de bas en haut, en raison de la hauteur surélevée de la voie. <SIGNAL sid="s4">A</SIGNAL> <TIMEX3 tid="t5" type="TIME" value="2002-03-31T20:00">20 h</TIMEX3>, deux nouvelles rames, un Nantes-Paris et un Nantes-Lille, ont alors été <EVENT class="OCCURRENCE" eid="e14" eiid="ei14" pos="VERB" pred="PRENDRE" tense="PAST" vform="PASTPART">prises</EVENT> elles aussi pour cibles, dans une autre zone <EVENT class="STATE" eid="e15" eiid="ei15" pos="VERB" pred="SITUER" vform="PASTPART">située</EVENT> à quelques centaines de mètres de la première. Par sécurité, le trafic a alors été <EVENT class="OCCURRENCE" eid="e17" eiid="ei17" pos="VERB" pred="DÉTOURNER" tense="PAST" vform="PASTPART">détourné</EVENT> via Saint-Pierre-des-Corps, près de Tours. <SIGNAL sid="s6">Jusqu'à</SIGNAL> tard dans <TIMEX3 anchorTimeID="t2" temporalFunction="true" tid="t8" type="TIME" value="2002-03-31TNI">la nuit</TIMEX3>, la police des chemins de fer et les gendarmes locaux ont <EVENT class="OCCURRENCE" eid="e18" eiid="ei18" pos="VERB" pred="SÉCURISER" tense="PAST" vform="PASTPART">sécurisé</EVENT> la zone.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t8" timeID="t2" />
+<TLINK lid="l2" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" timeID="t3" />
+<TLINK lid="l4" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t8" />
+<TLINK eventInstanceID="ei1" lid="l5" origin="USER" relType="IDENTITY" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei1" lid="l6" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei4" lid="l8" origin="USER" relType="IDENTITY" relatedToEventInstance="ei3" />
+<TLINK eventInstanceID="ei4" lid="l9" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" signalID="s1" />
+<TLINK eventInstanceID="ei3" lid="l10" origin="USER" relType="DURING" relatedToEventInstance="ei5" signalID="s2" />
+<TLINK eventInstanceID="ei8" lid="l12" origin="USER" relType="BEFORE" relatedToEventInstance="ei9" />
+<TLINK eventInstanceID="ei9" lid="l13" origin="USER" relType="SIMULTANEOUS" relatedToTime="t4" signalID="s5" />
+<TLINK eventInstanceID="ei11" lid="l14" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei3" />
+<TLINK eventInstanceID="ei12" lid="l15" origin="USER" relType="IDENTITY" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei14" lid="l16" origin="USER" relType="IS_INCLUDED" relatedToTime="t5" signalID="s4" />
+<TLINK eventInstanceID="ei15" lid="l17" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei17" lid="l18" origin="USER" relType="AFTER" relatedToEventInstance="ei14" />
+<TLINK eventInstanceID="ei18" lid="l19" origin="USER" relType="ENDED_BY" relatedToTime="t8" signalID="s6" />
+<TLINK eventInstanceID="ei19" lid="l20" origin="USER" relType="IDENTITY" relatedToEventInstance="ei2" />
+<TLINK lid="l22" origin="USER" relType="AFTER" relatedToTime="t3" timeID="t5" />
+<TLINK eventInstanceID="ei8" lid="l23" origin="USER" relType="IDENTITY" relatedToEventInstance="ei1" />
+</TimeML>

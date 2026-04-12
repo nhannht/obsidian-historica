@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2002-09-29-0965</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2002-09-29" /></DCT>
+<TEXT>
+Carnet blanc Williams et Stéphanie..
+Williams Murray, chef cuisinier sur une plate-forme pétrolière en Ecosse et Stéphanie Bahof, professeur de français et de langue étrangère à l'école de langues au Luxembourg, ont été <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="VERB" pred="UNIR" tense="PAST" vform="PASTPART">unis</EVENT> par les liens du mariage.
+La <EVENT class="OCCURRENCE" eid="e3" eiid="ei3" pos="NOUN" pred="CÉRÉMONIE">cérémonie</EVENT> a <EVENT class="EVENT_CONTAINER" eid="e4" eiid="ei4" pos="VERB" pred="AVOIR" tense="PAST" vform="PASTPART">eu</EVENT> lieu à Rotorua, en Nouvelle-Zélande, <TIMEX3 tid="t2" type="DATE" value="2002-08-28">le 28 août</TIMEX3>. Stéphanie est la fille de Jean-Luc, 1er adjoint de la commune et de Marylène, conseillère municipale.
+Nos <EVENT class="I_STATE" eid="e5" eiid="ei5" pos="NOUN" pred="VOEU">vœux</EVENT> de <EVENT class="STATE" eid="e6" eiid="ei6" pos="NOUN" pred="BONHEUR">bonheur</EVENT>.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t2" />
+<TLINK eventInstanceID="ei4" lid="l2" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei4" lid="l3" origin="USER" relType="IDENTITY" relatedToEventInstance="ei3" />
+<TLINK eventInstanceID="ei1" lid="l4" origin="USER" relType="DURING" relatedToEventInstance="ei3" />
+<TLINK eventInstanceID="ei1" lid="l5" origin="USER" relType="BEFORE" relatedToTime="t1" />
+</TimeML>

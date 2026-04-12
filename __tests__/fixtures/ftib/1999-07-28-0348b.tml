@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-07-28-0348b</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-07-28" /></DCT>
+<TEXT>
+Laurent Fabius pour un «<TIMEX3 functionInDocument="NONE" temporalFunction="false" tid="t2" type="DURATION" value="P5Y">quinquennat</TIMEX3> de cohérence».- Laurent Fabius se <EVENT class="REPORTING" eid="e1" eiid="ei9" pos="VERB" pred="DIRE" tense="PRESENT">dit</EVENT> <EVENT class="STATE" eid="e18" eiid="ei2" pos="ADJECTIVE" pred="FAVORABLE">favorable</EVENT> à un «<TIMEX3 functionInDocument="NONE" temporalFunction="false" tid="t3" type="DURATION" value="P5Y">quinquennat</TIMEX3> de cohérence» <EVENT class="OCCURRENCE" eid="e2" eiid="ei10" pos="VERB" pred="CONSISTER" vform="PRESPART">consistant</EVENT> à <EVENT class="OCCURRENCE" eid="e3" eiid="ei8" pos="VERB" pred="ALIGNER" vform="INFINITIVE">aligner</EVENT> la durée des mandats présidentiel et législatif afin d'<EVENT class="I_ACTION" eid="e5" eiid="ei7" pos="VERB" pred="ÉVITER" vform="INFINITIVE">éviter</EVENT> une <EVENT class="OCCURRENCE" eid="e6" eiid="ei5" pos="NOUN" pred="COHABITATION">cohabitation</EVENT>. Dans un point de vue <EVENT class="OCCURRENCE" eid="e7" eiid="ei4" pos="VERB" pred="PARAITRE" vform="PASTPART">paru</EVENT> dans «Le Monde», le président socialiste de l'Assemblée nationale <EVENT class="OCCURRENCE" eid="e9" eiid="ei3" pos="VERB" pred="JUGER" tense="PRESENT">juge</EVENT> que la cohabitation comporte «trois inconvénients»: elle «ne facilite pas le traitement des problèmes de long terme», «<EVENT class="OCCURRENCE" eid="e19" eiid="ei1" pos="VERB" pred="DILUER" tense="PRESENT">dilue</EVENT> la notion-même de responsabilité politique» et «<EVENT class="OCCURRENCE" eid="e20" eiid="ei6" pos="VERB" pred="FAIRE" tense="PRESENT">fait</EVENT> le lit des abstentionnistes et des votes marginaux».
+</TEXT>
+<TLINK eventInstanceID="ei9" lid="l10004" relType="INCLUDES" relatedToTime="t1" origin="USER" />
+<TLINK eventInstanceID="ei10" lid="l10005" relType="IDENTITY" relatedToEventInstance="ei8" origin="USER" />
+<TLINK eventInstanceID="ei8" lid="l10006" relType="BEFORE" relatedToEventInstance="ei7" origin="USER" />
+<TLINK eventInstanceID="ei4" lid="l10007" relType="BEFORE" relatedToTime="t1" origin="USER" />
+<TLINK eventInstanceID="ei3" lid="l10008" relType="IS_INCLUDED" relatedToEventInstance="ei4" origin="USER" />
+<TLINK lid="l10009" relType="IDENTITY" relatedToTime="t3" timeID="t2" origin="USER" />
+<TLINK eventInstanceID="ei10" lid="l10010" relType="SIMULTANEOUS" relatedToTime="t3" origin="USER" />
+<SLINK eventInstanceID="ei9" lid="l9999" relType="EVIDENTIAL" subordinatedEventInstance="ei2" origin="USER" />
+<SLINK eventInstanceID="ei7" lid="l10000" relType="MODAL" subordinatedEventInstance="ei5" origin="USER" />
+<SLINK eventInstanceID="ei2" lid="l10001" relType="MODAL" subordinatedEventInstance="ei10" origin="USER" />
+<SLINK eventInstanceID="ei3" lid="l10002" relType="MODAL" subordinatedEventInstance="ei1" origin="USER" />
+<SLINK eventInstanceID="ei3" lid="l10003" relType="MODAL" subordinatedEventInstance="ei6" origin="USER" />
+</TimeML>

@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2003-01-31-0477</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2003-01-31" /></DCT>
+<TEXT>
+Chaussures <EVENT class="STATE" eid="e33" eiid="ei33" pos="ADJECTIVE" pred="PIÉGER">piégées</EVENT>.
+Un juge de Boston (Massachusetts) <EVENT class="MODAL" eid="e1" eiid="ei1" pos="VERB" pred="DEVOIR" tense="IMPERFECT">devait</EVENT> <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" modality="OBLIGATION" pos="VERB" pred="DÉCIDER" vform="INFINITIVE">décider</EVENT>, <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="DATE" value="2003-01-30" valueFromFunction="TF17">hier</TIMEX3>, de la peine que <EVENT class="MODAL" eid="e3" eiid="ei3" pos="VERB" pred="DEVOIR" tense="FUTURE">devra</EVENT> <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" modality="OBLIGATION" pos="VERB" pred="PURGER" vform="INFINITIVE">purger</EVENT> le Britannique Richard Reid, <EVENT class="I_STATE" eid="e32" eiid="ei32" pos="ADJECTIVE" pred="ACCUSER">accusé</EVENT> d'avoir <EVENT aspect="PERFECTIVE" class="I_ACTION" eid="e5" eiid="ei5" pos="VERB" pred="TENTER" tense="PRESENT" vform="PASTPART">tenté</EVENT> de <EVENT class="CAUSE" eid="e6" eiid="ei6" pos="VERB" pred="FAIRE" vform="INFINITIVE">faire</EVENT> <EVENT class="OCCURRENCE" eid="e7" eiid="ei7" pos="VERB" pred="SAUTER" vform="INFINITIVE">sauter</EVENT> <SIGNAL sid="s1">en</SIGNAL> <TIMEX3 tid="t3" type="DATE" value="2001-12">décembre 2001</TIMEX3> un avion sur le <EVENT class="OCCURRENCE" eid="e8" eiid="ei8" pos="NOUN" pred="VOL">vol</EVENT> Paris-Miami avec des chaussures <EVENT class="STATE" eid="e9" eiid="ei9" pos="ADJECTIVE" pred="PIÉGER">piégées</EVENT>. Ce membre d'un rang peu élevé du réseau Al-Qaïda d'Oussama ben Laden avait <EVENT aspect="PERFECTIVE" class="OCCURRENCE" eid="e10" eiid="ei10" pos="VERB" pred="PLAIDER" tense="PAST" vform="PASTPART">plaidé</EVENT> coupable <TIMEX3 tid="t4" type="DATE" value="2002-10-22">le 22 octobre</TIMEX3> des huit chefs d'accusation <EVENT class="OCCURRENCE" eid="e11" eiid="ei11" pos="VERB" pred="PRONONCER" vform="PASTPART">prononcés</EVENT> contre lui, <EVENT class="I_ACTION" eid="e12" eiid="ei12" pos="VERB" pred="ÉVITER" vform="PRESPART">évitant</EVENT> ainsi de <EVENT class="OCCURRENCE" eid="e13" eiid="ei13" pos="VERB" pred="COMPARAÎTRE" vform="INFINITIVE">comparaître</EVENT> devant des jurés. Le droit américain <EVENT class="I_STATE" eid="e15" eiid="ei15" pos="VERB" pred="PRÉVOIR" tense="PRESENT">prévoit</EVENT> dans ce cas une <EVENT class="OCCURRENCE" eid="e16" eiid="ei16" pos="NOUN" pred="AUDIENCE">audience</EVENT> devant un juge, qui est <EVENT class="STATE" eid="e17" eiid="ei17" pos="ADJECTIVE" pred="CHARGER" tense="PRESENT">chargé</EVENT> <SIGNAL sid="s2">ultérieurement</SIGNAL> de <EVENT class="OCCURRENCE" eid="e18" eiid="ei18" pos="VERB" pred="DÉTERMINER" vform="INFINITIVE">déterminer</EVENT> seul la peine.
+L'<EVENT class="OCCURRENCE" eid="e19" eiid="ei19" pos="NOUN" pred="ACCUSATION">accusation</EVENT> a <EVENT class="OCCURRENCE" eid="e20" eiid="ei20" pos="VERB" pred="REQUÉRIR" tense="PAST" vform="PASTPART">requis</EVENT> la prison à perpétuité, <SIGNAL sid="s4">alors que</SIGNAL> les avocats de la défense ont <EVENT class="I_ACTION" eid="e22" eiid="ei22" pos="VERB" pred="DEMANDER" tense="PAST" vform="PASTPART">demandé</EVENT> au juge William Young de ne pas <EVENT class="I_ACTION" eid="e23" eiid="ei23" polarity="NEG" pos="VERB" pred="PRONONCER" vform="INFINITIVE">prononcer</EVENT> de peine supérieure à <TIMEX3 tid="t5" type="DURATION" value="P30Y">30 ans</TIMEX3> de <EVENT class="STATE" eid="e34" eiid="ei34" pos="NOUN" pred="RÉCLUSION">réclusion</EVENT>. Ils ont également <EVENT class="I_ACTION" eid="e24" eiid="ei24" pos="VERB" pred="DEMANDER" tense="PAST" vform="PASTPART">demandé</EVENT> au juge, dans une manœuvre de dernière minute, de <EVENT class="I_ACTION" eid="e25" eiid="ei25" pos="VERB" pred="REPOUSSER" vform="INFINITIVE">repousser</EVENT> sa <EVENT class="OCCURRENCE" eid="e26" eiid="ei26" pos="NOUN" pred="DÉCISION">décision</EVENT> <SIGNAL sid="s3">à</SIGNAL> <TIMEX3 temporalFunction="false" tid="t6" type="TIME" value="FUTURE_REF">une date ultérieure</TIMEX3>, <EVENT class="I_ACTION" eid="e27" eiid="ei27" pos="VERB" pred="ASSURER" vform="PRESPART">assurant</EVENT> qu'il <EVENT class="STATE" eid="e28" eiid="ei28" pos="VERB" pred="EXISTER" tense="IMPERFECT">existait</EVENT> des documents confidentiels, <EVENT class="STATE" eid="e29" eiid="ei29" pos="VERB" pred="DÉTENIR" vform="PASTPART">détenus</EVENT> par le gouvernement, susceptibles d'<EVENT class="OCCURRENCE" eid="e31" eiid="ei31" pos="VERB" pred="INNOCENTER" vform="INFINITIVE">innocenter</EVENT> leur client.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t2" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t2" timeID="t4" />
+<TLINK lid="l3" origin="USER" relType="BEFORE" relatedToTime="t4" timeID="t3" />
+<TLINK eventInstanceID="ei1" lid="l4" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei6" lid="l10" origin="USER" relType="IBEFORE" relatedToEventInstance="ei7" />
+<TLINK eventInstanceID="ei32" lid="l12" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei9" lid="l14" origin="USER" relType="INCLUDES" relatedToEventInstance="ei8" />
+<TLINK eventInstanceID="ei9" lid="l15" origin="USER" relType="IDENTITY" relatedToEventInstance="ei33" />
+<TLINK eventInstanceID="ei10" lid="l16" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" />
+<TLINK eventInstanceID="ei11" lid="l17" origin="USER" relType="BEFORE" relatedToEventInstance="ei10" />
+<TLINK eventInstanceID="ei10" lid="l18" origin="USER" relType="IBEFORE" relatedToEventInstance="ei12" />
+<TLINK eventInstanceID="ei15" lid="l20" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei16" lid="l24" origin="USER" relType="BEFORE" relatedToEventInstance="ei17" />
+<TLINK eventInstanceID="ei34" lid="l29" origin="USER" relType="SIMULTANEOUS" relatedToTime="t5" />
+<TLINK eventInstanceID="ei26" lid="l32" origin="USER" relType="IS_INCLUDED" relatedToTime="t6" signalID="s3" />
+<TLINK eventInstanceID="ei27" lid="l34" origin="USER" relType="DURING" relatedToEventInstance="ei24" />
+<TLINK eventInstanceID="ei5" lid="l40" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" />
+<TLINK eventInstanceID="ei5" lid="l41" origin="USER" relType="DURING" relatedToEventInstance="ei8" />
+<TLINK eventInstanceID="ei20" lid="l44" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei22" lid="l45" origin="USER" relType="BEFORE" relatedToEventInstance="ei20" signalID="s4" />
+<TLINK eventInstanceID="ei24" lid="l47" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei22" />
+<TLINK lid="l48" origin="USER" relType="AFTER" relatedToTime="t2" timeID="t6" />
+<TLINK eventInstanceID="ei29" lid="l49" origin="USER" relType="INCLUDES" relatedToTime="t2" />
+<TLINK eventInstanceID="ei3" lid="l52" origin="USER" relType="AFTER" relatedToTime="t2" />
+<SLINK eventInstanceID="ei1" lid="l5" origin="USER" relType="MODAL" subordinatedEventInstance="ei2" />
+<SLINK eventInstanceID="ei3" lid="l6" origin="USER" relType="MODAL" subordinatedEventInstance="ei4" />
+<SLINK eventInstanceID="ei32" lid="l8" origin="USER" relType="MODAL" subordinatedEventInstance="ei5" />
+<SLINK eventInstanceID="ei5" lid="l9" origin="USER" relType="MODAL" subordinatedEventInstance="ei6" />
+<SLINK eventInstanceID="ei12" lid="l19" origin="USER" relType="COUNTER_FACTIVE" subordinatedEventInstance="ei13" />
+<SLINK eventInstanceID="ei15" lid="l21" origin="USER" relType="FACTIVE" subordinatedEventInstance="ei16" />
+<SLINK eventInstanceID="ei17" lid="l23" origin="USER" relType="MODAL" subordinatedEventInstance="ei18" />
+<SLINK eventInstanceID="ei22" lid="l28" origin="USER" relType="MODAL" subordinatedEventInstance="ei23" />
+<SLINK eventInstanceID="ei24" lid="l30" origin="USER" relType="MODAL" subordinatedEventInstance="ei25" />
+<SLINK eventInstanceID="ei25" lid="l31" origin="USER" relType="MODAL" subordinatedEventInstance="ei26" />
+<SLINK eventInstanceID="ei27" lid="l35" origin="USER" relType="MODAL" subordinatedEventInstance="ei28" />
+<SLINK eventInstanceID="ei23" lid="l43" origin="USER" relType="MODAL" subordinatedEventInstance="ei34" />
+<SLINK eventInstanceID="ei27" lid="l50" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei29" />
+<SLINK eventInstanceID="ei2" lid="l51" origin="USER" relType="MODAL" subordinatedEventInstance="ei3" />
+</TimeML>

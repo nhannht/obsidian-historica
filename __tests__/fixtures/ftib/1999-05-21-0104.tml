@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-05-21-0104</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-05-21" /></DCT>
+<TEXT>
+<EVENT class="OCCURRENCE" eid="e12" eiid="ei12" pos="NOUN" pred="AGRESSION">Agression</EVENT> à Valdoie.
+Un chauffeur de bus de 38 ans a été <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="VERB" pred="PRENDRE" tense="PAST" vform="PASTPART">pris</EVENT> à partie et <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="VERB" pred="AGRESSER" tense="PAST" vform="PASTPART">agressé</EVENT> par deux individus, <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t3" type="DATE" value="1999-05-20" valueFromFunction="TF17">hier</TIMEX3> <SIGNAL sid="s1">vers</SIGNAL> <TIMEX3 functionInDocument="NONE" mod="APPROX" temporalFunction="false" tid="t4" type="TIME" value="1999-05-20T18:00">18 h</TIMEX3>, place de la Mairie à Valdoie. Deux gardiens de la paix, qui <EVENT class="I_ACTION" eid="e3" eiid="ei3" pos="VERB" pred="TENTER" tense="IMPERFECT">tentaient</EVENT> de s'<EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="VERB" pred="INTERPOSER" vform="INFINITIVE">interposer</EVENT>, ont été légèrement <EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="VERB" pred="BLESSER" tense="PAST" vform="PASTPART">blessés</EVENT> à leur tour. Les auteurs de l'<EVENT class="OCCURRENCE" eid="e7" eiid="ei7" pos="NOUN" pred="AGRESSION">agression</EVENT> ont été <EVENT class="OCCURRENCE" eid="e8" eiid="ei8" pos="VERB" pred="INTERPELLER" tense="PAST" vform="PASTPART">interpellés</EVENT> et <EVENT class="OCCURRENCE" eid="e9" eiid="ei9" pos="VERB" pred="CONDUIRE" tense="PAST" vform="PASTPART">conduits</EVENT> au commissariat de police pour y être <EVENT class="OCCURRENCE" eid="e10" eiid="ei10" pos="VERB" pred="ENTENDRE" vform="PASTPART">entendus</EVENT>. De leur côté, les pompiers de Valdoie ont <EVENT class="OCCURRENCE" eid="e11" eiid="ei11" pos="VERB" pred="CONDUIRE" tense="PAST" vform="PASTPART">conduit</EVENT> trois blessés légers à l'hôpital de Belfort.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="INCLUDES" relatedToTime="t4" timeID="t3" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t3" />
+<TLINK eventInstanceID="ei1" lid="l3" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" signalID="s1" />
+<TLINK eventInstanceID="ei12" lid="l4" origin="USER" relType="IDENTITY" relatedToEventInstance="ei7" />
+<TLINK eventInstanceID="ei7" lid="l5" origin="USER" relType="IDENTITY" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei9" lid="l8" origin="USER" relType="AFTER" relatedToEventInstance="ei8" />
+<TLINK eventInstanceID="ei10" lid="l9" origin="USER" relType="AFTER" relatedToEventInstance="ei9" />
+<TLINK eventInstanceID="ei2" lid="l10" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei1" />
+<TLINK eventInstanceID="ei3" lid="l11" origin="USER" relType="DURING" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei5" lid="l13" origin="USER" relType="AFTER" relatedToEventInstance="ei3" />
+<TLINK eventInstanceID="ei5" lid="l16" origin="USER" relType="BEFORE" relatedToEventInstance="ei11" />
+<TLINK eventInstanceID="ei8" lid="l17" origin="USER" relType="AFTER" relatedToEventInstance="ei5" />
+<SLINK eventInstanceID="ei3" lid="l14" origin="USER" relType="MODAL" subordinatedEventInstance="ei4" />
+</TimeML>

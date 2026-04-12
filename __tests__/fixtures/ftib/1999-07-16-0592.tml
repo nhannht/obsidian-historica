@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-07-16-0592</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-07-16" /></DCT>
+<TEXT>
+<EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="NOUN" pred="STAGE">STAGE</EVENT> GYM ENFANT.
+Un <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="NOUN" pred="STAGE">stage</EVENT> de gym enfant et expression artistique se <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="VERB" pred="DÉROULER" tense="FUTURE">déroulera</EVENT> au centre social de Beauregard <SIGNAL sid="s1">du</SIGNAL> <TIMEX3 tid="t2" type="DATE" value="1999-07-19">19</TIMEX3> <SIGNAL sid="s2">au</SIGNAL> <TIMEX3 tid="t3" type="DATE" value="1999-07-23">23 juillet</TIMEX3>, pour les enfants de 2 à 8 ans. Renseignements et inscriptions au tél 03.83.96.46.12.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t2" timeID="t1" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t3" timeID="t2" />
+<TLINK eventInstanceID="ei5" lid="l3" origin="USER" relType="IDENTITY" relatedToEventInstance="ei1" />
+<TLINK eventInstanceID="ei2" lid="l4" origin="USER" relType="IDENTITY" relatedToEventInstance="ei1" />
+<TLINK eventInstanceID="ei2" lid="l5" origin="USER" relType="BEGUN_BY" relatedToTime="t2" signalID="s1" />
+<TLINK eventInstanceID="ei2" lid="l6" origin="USER" relType="ENDED_BY" relatedToTime="t3" signalID="s2" />
+</TimeML>

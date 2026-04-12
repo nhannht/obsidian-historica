@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2003-01-15-0002</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2003-01-15" /></DCT>
+<TEXT>
+Le co-pilote nancéien Gilles Piccard <EVENT class="STATE" eid="e1" eiid="ei1" pos="VERB" pred="ASSOCIER" vform="PASTPART">associé</EVENT> à Jean-Pierre Fontenay, a <EVENT class="I_ACTION" eid="e2" eiid="ei2" pos="VERB" pred="RÉUSSIR" tense="PAST" vform="PASTPART">réussi</EVENT> une excellente <EVENT class="OCCURRENCE" eid="e3" eiid="ei3" pos="NOUN" pred="OPÉRATION">opération</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="DATE" value="2003-01-14" valueFromFunction="TF17">hier</TIMEX3> <SIGNAL sid="s1">lors de</SIGNAL> la douzième <EVENT class="OCCURRENCE" eid="e8" eiid="ei8" pos="NOUN" pred="ÉTAPE">étape</EVENT> en boucle Siwa-Siwa dans le désert égyptien. Au volant de leur Mitsubishi Pajero, Fontenay-Piccard sont <TIMEX3 temporalFunction="true" tid="t3" type="DATE" value="2003-01-15">désormais</TIMEX3> <EVENT class="STATE" eid="e6" eiid="ei6" pos="ADJECTIVE" pred="TROISIÈME">troisièmes</EVENT> et <EVENT class="MODAL" eid="e7" eiid="ei7" pos="VERB" pred="POUVOIR" tense="PRESENT">peuvent</EVENT> <EVENT class="OCCURRENCE" eid="e5" eiid="ei5" modality="POSSIBILITY" pos="VERB" pred="RÊVER" vform="INFINITIVE">rêver</EVENT> du podium <TIMEX3 tid="t4" type="DATE" value="2003-01-19">dimanche</TIMEX3> à Charm el-Cheikh
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="IDENTITY" relatedToTime="t3" timeID="t1" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t3" timeID="t2" />
+<TLINK lid="l3" origin="USER" relType="BEFORE" relatedToTime="t4" timeID="t1" />
+<TLINK eventInstanceID="ei2" lid="l4" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei2" lid="l6" origin="USER" relType="DURING" relatedToEventInstance="ei8" signalID="s1" />
+<TLINK eventInstanceID="ei6" lid="l8" origin="USER" relType="INCLUDES" relatedToTime="t3" />
+<TLINK eventInstanceID="ei7" lid="l9" origin="USER" relType="IAFTER" relatedToEventInstance="ei6" />
+<TLINK eventInstanceID="ei7" lid="l11" origin="USER" relType="BEFORE" relatedToTime="t4" />
+<TLINK eventInstanceID="ei1" lid="l12" origin="USER" relType="DURING" relatedToEventInstance="ei8" />
+<SLINK eventInstanceID="ei2" lid="l7" origin="USER" relType="MODAL" subordinatedEventInstance="ei3" />
+<SLINK eventInstanceID="ei7" lid="l10" origin="USER" relType="MODAL" subordinatedEventInstance="ei5" />
+</TimeML>

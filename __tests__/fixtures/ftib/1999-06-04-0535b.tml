@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-06-04-0535b</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-06-04" /></DCT>
+<TEXT>
+Carla Bruni <EVENT class="STATE" eid="e1" eiid="ei1" pos="VERB" pred="ROULER" tense="PRESENT">roule</EVENT> japonais.
+<SIGNAL sid="s1">Après</SIGNAL> Claudia Schiffer et son <EVENT class="STATE" eid="e6" eiid="ei6" pos="NOUN" pred="IDYLLE">idylle</EVENT> avec Citroën, Carla Bruni <EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="VERB" pred="PRÊTER" tense="PRESENT">prête</EVENT> son image à un grand constructeur automobile. Le célèbre mannequin <EVENT class="STATE" eid="e2" eiid="ei2" pos="VERB" pred="ROULER" tense="PRESENT">roule</EVENT> japonais : pour Suzuki, Carla Bruni <EVENT class="STATE" eid="e3" eiid="ei3" pos="VERB" pred="INCARNER" tense="PRESENT">incarne</EVENT> la «femme moderne et dynamique». Le top model <EVENT class="I_ACTION" eid="e4" eiid="ei4" pos="VERB" pred="DÉFENDRE" tense="PRESENT">défend</EVENT> les couleurs d'un 4x4 tous terrains <EVENT class="STATE" eid="e7" eiid="ei7" pos="VERB" pred="DESTINER" vform="PASTPART">destiné</EVENT> à une clientèle urbaine et essentiellement féminine.
+</TEXT>
+<TLINK eventInstanceID="ei1" lid="l1" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei1" lid="l2" origin="USER" relType="IDENTITY" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei6" lid="l3" origin="USER" relType="BEFORE" relatedToEventInstance="ei1" />
+<TLINK eventInstanceID="ei7" lid="l4" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei5" lid="l5" origin="USER" relType="AFTER" relatedToEventInstance="ei6" signalID="s1" />
+<TLINK eventInstanceID="ei5" lid="l6" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei3" />
+<TLINK eventInstanceID="ei5" lid="l7" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei4" />
+</TimeML>

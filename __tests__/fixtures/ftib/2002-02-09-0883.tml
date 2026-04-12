@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2002-02-09-0883</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2002-02-09" /></DCT>
+<TEXT>
+George W. Bush est <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="VERB" pred="ARRIVER" tense="PAST" vform="PASTPART">arrivé</EVENT>.
+Le président George W. Bush est <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="VERB" pred="ARRIVER" tense="PAST" vform="PASTPART">arrivé</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="DATE" value="2002-02-08" valueFromFunction="tf17">hier</TIMEX3> à Salt Lake City où il <EVENT class="MODAL" eid="e3" eiid="ei3" pos="VERB" pred="DEVOIR" tense="IMPERFECT">devait</EVENT> <EVENT class="ASPECTUAL" eid="e4" eiid="ei4" modality="OBLIGATION" pos="VERB" pred="OUVRIR" vform="INFINITIVE">ouvrir</EVENT> <SIGNAL sid="s12">dans</SIGNAL> <TIMEX3 tid="t3" type="TIME" value="2002-02-08TEV">la soirée</TIMEX3> les 19es <EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="NOUN" pred="JEU">Jeux</EVENT> Olympiques d'hiver.
+Le président américain, <EVENT class="STATE" eid="e66" eiid="ei66" pos="ADJECTIVE" pred="ACCOMPAGNER">accompagné</EVENT> de son épouse Laura, est <EVENT class="OCCURRENCE" eid="e6" eiid="ei6" pos="VERB" pred="ARRIVER" tense="PAST" vform="PASTPART">arrivé</EVENT> <TIMEX3 mod="APPROX" tid="t4" type="TIME" value="2002-02-08T12:30-07">vers 12 h 30 locales</TIMEX3> (<TIMEX3 tid="t5" type="TIME" value="2002-02-08T20:30+1">20 h 30 en France</TIMEX3>) dans la ville hôte des <EVENT class="OCCURRENCE" eid="e7" eiid="ei7" pos="NOUN" pred="JEU">Jeux</EVENT> d'hiver, qui <EVENT class="OCCURRENCE" eid="e8" eiid="ei8" pos="VERB" pred="OFFRIR" tense="FUTURE">offriront</EVENT> selon lui un oasis de « paix mondiale et de coopération » <SIGNAL sid="s13">en</SIGNAL> <TIMEX3 functionInDocument="NONE" temporalFunction="false" tid="t12" type="TIME" value="PRESENT_REF">temps de guerre contre le terrorisme,</TIMEX3> a <EVENT class="REPORTING" eid="e10" eiid="ei10" pos="VERB" pred="INDIQUER" tense="PAST" vform="PASTPART">indiqué</EVENT> le porte-parole de la Maison Blanche, Ari Fleischer.
+SONDAGE. Le <EVENT class="OCCURRENCE" eid="e11" eiid="ei11" pos="NOUN" pred="RENFORCEMENT">renforcement</EVENT> sans précédent de la sécurité a visiblement <EVENT class="OCCURRENCE" eid="e12" eiid="ei12" pos="VERB" pred="RASSURER" tense="PAST" vform="PASTPART">rassuré</EVENT> les habitants de l'Utah puisque 63 % d'entre eux <EVENT class="I_STATE" eid="e13" eiid="ei13" pos="VERB" pred="PENSER" tense="PRESENT">pensent</EVENT> qu'une <EVENT class="OCCURRENCE" eid="e14" eiid="ei14" modality="POSSIBILITY" pos="NOUN" pred="ATTAQUE">attaque</EVENT> terroriste est peu <EVENT class="MODAL" eid="e68" eiid="ei68" polarity="NEG" pos="ADJECTIVE" pred="PROBABLE" tense="PRESENT">probable</EVENT> <SIGNAL sid="s2">durant</SIGNAL> les <EVENT class="OCCURRENCE" eid="e15" eiid="ei15" pos="NOUN" pred="JEU">Jeux</EVENT> de Salt Lake City, selon un sondage <EVENT class="OCCURRENCE" eid="e17" eiid="ei17" pos="VERB" pred="PARAÎTRE" vform="PASTPART">paru</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t6" type="DATE" value="2002-02-08" valueFromFunction="tf17">hier</TIMEX3> dans le quotidien local Deseret News.
+Cette <EVENT class="OCCURRENCE" eid="e18" eiid="ei18" pos="NOUN" pred="ENQUÊTE">enquête</EVENT>, basée sur les <EVENT class="REPORTING" eid="e19" eiid="ei19" pos="NOUN" pred="RÉPONSE">réponses</EVENT> de 408 sondés, <EVENT class="OCCURRENCE" eid="e20" eiid="ei20" pos="VERB" pred="MONTRER" tense="PRESENT">montre</EVENT> une <EVENT class="OCCURRENCE" eid="e21" eiid="ei21" pos="NOUN" pred="AUGMENTATION">augmentation</EVENT> sensible par rapport à celle du <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t7" type="DATE" value="2001-09-26" valueFromFunction="tf7">26 septembre dernier</TIMEX3> <SIGNAL sid="s3">lorsque</SIGNAL> 59 % de la population <EVENT class="I_STATE" eid="e22" eiid="ei22" pos="VERB" pred="CRAINDRE" tense="IMPERFECT">craignaient</EVENT> une <EVENT class="MODAL" eid="e70" eiid="ei70" pos="ADJECTIVE" pred="POSSIBLE">possible</EVENT> <EVENT class="OCCURRENCE" eid="e23" eiid="ei23" modality="POSSIBILITY" pos="NOUN" pred="ACTION">action</EVENT> terroriste.
+Ce même sondage, qui possède une marge d'erreur de 6 %, <EVENT class="OCCURRENCE" eid="e26" eiid="ei26" pos="VERB" pred="RÉVÉLER" tense="PRESENT">révèle</EVENT> aussi que 87 % <EVENT class="I_STATE" eid="e27" eiid="ei27" polarity="POS" pos="VERB" pred="AVOIR" tense="PRESENT">ont</EVENT> confiance dans la sécurité en place pour <EVENT class="OCCURRENCE" eid="e28" eiid="ei28" pos="VERB" pred="GÉRER" vform="INFINITIVE">gérer</EVENT> un <EVENT class="MODAL" eid="e71" eiid="ei71" pos="ADJECTIVE" pred="ÉVENTUEL">éventuel</EVENT> <EVENT class="OCCURRENCE" eid="e29" eiid="ei29" modality="POSSIBILITY" pos="NOUN" pred="COMPLOT">complot</EVENT> terroriste, contre 72 % <SIGNAL sid="s4">en</SIGNAL> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t8" type="DATE" value="2001-09" valueFromFunction="tf10">septembre dernier</TIMEX3>.
+TOURISME. Les <EVENT class="OCCURRENCE" eid="e30" eiid="ei30" pos="NOUN" pred="ATTENTAT">attentats</EVENT> du <TIMEX3 tid="t9" type="DATE" value="2001-09-11">11 septembre</TIMEX3> ont <EVENT class="OCCURRENCE" eid="e31" eiid="ei31" pos="VERB" pred="METTRE" tense="PAST" vform="PASTPART">mis</EVENT> un <EVENT class="OCCURRENCE" eid="e32" eiid="ei32" pos="NOUN" pred="COUP">coup</EVENT> de frein au tourisme aux Etats-Unis. Mais les autorités <EVENT class="I_STATE" eid="e33" eiid="ei33" pos="VERB" pred="ESPÉRER" tense="PRESENT">espèrent</EVENT> que les <EVENT class="OCCURRENCE" eid="e34" eiid="ei34" pos="NOUN" pred="JEU">Jeux</EVENT> Olympiques d'hiver dans l'Utah <EVENT class="OCCURRENCE" eid="e35" eiid="ei35" pos="VERB" pred="MONTRER" tense="PRESENT">montrent</EVENT> une vitrine pour « <EVENT class="OCCURRENCE" eid="e36" eiid="ei36" pos="VERB" pred="REVITALISER" vform="INFINITIVE">revitaliser</EVENT> » l'activité touristique, notamment dans l'ouest, a <EVENT class="REPORTING" eid="e37" eiid="ei37" pos="VERB" pred="INDIQUER" tense="PAST" vform="PASTPART">indiqué</EVENT> <TIMEX3 tid="t10" type="DATE" value="2002-02-07">jeudi</TIMEX3> la secrétaire à l'Intérieur (Environnement), Gale Norton. Quelque 9 millions de personnes <EVENT class="OCCURRENCE" eid="e38" eiid="ei38" pos="VERB" pred="VISITER" tense="PRESENT">visitent</EVENT> <TIMEX3 quant="EVERY" tid="t11" type="SET" value="P1Y">chaque année</TIMEX3> les parcs nationaux dans l'Utah, parmi les plus connus aux Etats-Unis.
+POSTE. En raison de la sécurité maximum en place à Salt Lake City, la poste américaine ne <EVENT class="OCCURRENCE" eid="e39" eiid="ei39" polarity="NEG" pos="VERB" pred="RAMASSER" tense="FUTURE">ramassera</EVENT> plus le courrier qui ne sera pas <EVENT class="OCCURRENCE" eid="e40" eiid="ei40" polarity="NEG" pos="VERB" pred="DÉPOSER" tense="FUTURE" vform="PASTPART">déposé</EVENT> dans les énormes boîtes <EVENT class="STATE" eid="e41" eiid="ei41" pos="ADJECTIVE" pred="DISPOSER">disposées</EVENT> dans les rues. Le problème est que le nombre de ces boîtes a été <EVENT class="OCCURRENCE" eid="e43" eiid="ei43" pos="VERB" pred="RÉDUIRE" tense="PAST" vform="PASTPART">réduit</EVENT> dans le centre-ville, à la <EVENT class="I_ACTION" eid="e44" eiid="ei44" pos="NOUN" pred="DEMANDE">demande</EVENT> des services de sécurité olympiques. Que <EVENT class="OCCURRENCE" eid="e46" eiid="ei46" pos="VERB" pred="FAIRE" vform="INFINITIVE">faire</EVENT> donc <SIGNAL sid="s11">quand</SIGNAL> tout est <EVENT class="STATE" eid="e74" eiid="ei74" pos="ADJECTIVE" pred="PLEIN">plein</EVENT> ? « Allez en <EVENT class="OCCURRENCE" eid="e47" eiid="ei47" pos="VERB" pred="TROUVER" vform="INFINITIVE">trouver</EVENT> une autre », <EVENT class="I_ACTION" eid="e48" eiid="ei48" pos="VERB" pred="CONSEILLER" tense="PRESENT">conseille</EVENT> la Poste.
+FRAYEURS. En route pour Salt Lake City, le patineur de vitesse néerlandais Rintje Ritsma s'est <EVENT class="OCCURRENCE" eid="e49" eiid="ei49" pos="VERB" pred="FAIRE" tense="PAST" vform="PASTPART">fait</EVENT> des frayeurs <SIGNAL sid="s7">lors de</SIGNAL> l'<EVENT class="OCCURRENCE" eid="e73" eiid="ei73" pos="NOUN" pred="ESCALE">escale</EVENT> à Calgary (Canada). <EVENT class="STATE" eid="e50" eiid="ei50" pos="VERB" pred="INSTALLER" vform="PASTPART">Installé</EVENT> dans l'avion, il a <EVENT class="PERCEPTION" eid="e51" eiid="ei51" pos="VERB" pred="VOIR" tense="PAST" vform="PASTPART">vu</EVENT> par le hublot que ses bagages étaient <EVENT aspect="PERFECTIVE" class="STATE" eid="e52" eiid="ei52" pos="VERB" pred="RESTER" tense="PAST" vform="PASTPART">restés</EVENT> au sol. Le champion a <EVENT class="OCCURRENCE" eid="e53" eiid="ei53" pos="VERB" pred="PIQUER" tense="PAST" vform="PASTPART">piqué</EVENT> un <EVENT class="OCCURRENCE" eid="e54" eiid="ei54" pos="NOUN" pred="SPRINT">sprint</EVENT> vers les hôtesses et a <EVENT class="I_ACTION" eid="e55" eiid="ei55" pos="VERB" pred="RÉUSSIR" tense="PAST" vform="PASTPART">réussi</EVENT> à <EVENT class="CAUSE" eid="e56" eiid="ei56" pos="VERB" pred="FAIRE" vform="INFINITIVE">faire</EVENT> <EVENT class="OCCURRENCE" eid="e57" eiid="ei57" pos="VERB" pred="STOPPER" vform="INFINITIVE">stopper</EVENT> l'appareil. « Il me <EVENT class="STATE" eid="e58" eiid="ei58" pos="VERB" pred="MANQUER" tense="PRESENT">manque</EVENT> encore une valise, mais elle ne <EVENT class="STATE" eid="e59" eiid="ei59" polarity="POS" pos="VERB" pred="CONTENIR" tense="PRESENT">contient</EVENT> que quelques vêtements. ce n'est donc pas urgent », a <EVENT class="REPORTING" eid="e60" eiid="ei60" pos="VERB" pred="COMMENTER" tense="PAST" vform="PASTPART">commenté</EVENT> Ritsma, <SIGNAL sid="s9">à</SIGNAL> son <EVENT class="OCCURRENCE" eid="e61" eiid="ei61" pos="NOUN" pred="ARRIVÉE">arrivée</EVENT> dans l'Utah.
+STATS. Les Américains étant des fous de statistiques, rien d'étonnant qu'ils <EVENT class="REPORTING" eid="e63" eiid="ei63" pos="VERB" pred="ANNONCER" tense="PRESENT">annoncent</EVENT> au mètre près la longueur de papier toilette qui sera <EVENT class="STATE" eid="e64" eiid="ei64" pos="ADJECTIVE" pred="UTILISER" tense="FUTURE">utilisée</EVENT> au Village olympique <SIGNAL sid="s10">durant</SIGNAL> les <EVENT class="OCCURRENCE" eid="e65" eiid="ei65" pos="NOUN" pred="JEU">Jeux</EVENT>. Réponse : 1.761.138 m.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="INCLUDES" relatedToTime="t9" timeID="t8" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t7" timeID="t9" />
+<TLINK lid="l3" origin="USER" relType="BEFORE" relatedToTime="t10" timeID="t7" />
+<TLINK lid="l4" origin="USER" relType="BEFORE" relatedToTime="t6" timeID="t10" />
+<TLINK lid="l5" origin="USER" relType="INCLUDES" relatedToTime="t3" timeID="t6" />
+<TLINK lid="l6" origin="USER" relType="IDENTITY" relatedToTime="t6" timeID="t2" />
+<TLINK lid="l7" origin="USER" relType="INCLUDES" relatedToTime="t4" timeID="t2" />
+<TLINK lid="l8" origin="USER" relType="IDENTITY" relatedToTime="t4" timeID="t5" />
+<TLINK lid="l9" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t6" />
+<TLINK lid="l10" origin="USER" relType="INCLUDES" relatedToTime="t1" timeID="t12" />
+<TLINK lid="l11" origin="USER" relType="INCLUDES" relatedToTime="t1" timeID="t11" />
+<TLINK eventInstanceID="ei2" lid="l12" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei2" lid="l13" origin="USER" relType="IDENTITY" relatedToEventInstance="ei1" />
+<TLINK eventInstanceID="ei6" lid="l20" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" />
+<TLINK eventInstanceID="ei6" lid="l21" origin="USER" relType="DURING" relatedToEventInstance="ei66" />
+<TLINK eventInstanceID="ei7" lid="l22" origin="USER" relType="IDENTITY" relatedToEventInstance="ei5" />
+<TLINK eventInstanceID="ei10" lid="l23" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei8" lid="l24" origin="USER" relType="IS_INCLUDED" relatedToTime="t12" signalID="s13" />
+<TLINK eventInstanceID="ei11" lid="l26" origin="USER" relType="BEFORE" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei11" lid="l27" origin="USER" relType="BEFORE" relatedToEventInstance="ei12" />
+<TLINK eventInstanceID="ei13" lid="l28" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei17" lid="l33" origin="USER" relType="IS_INCLUDED" relatedToTime="t6" />
+<TLINK eventInstanceID="ei19" lid="l34" origin="USER" relType="DURING" relatedToEventInstance="ei18" />
+<TLINK eventInstanceID="ei20" lid="l35" origin="USER" relType="SIMULTANEOUS" relatedToTime="t1" />
+<TLINK eventInstanceID="ei18" lid="l37" origin="USER" relType="BEFORE" relatedToEventInstance="ei17" />
+<TLINK eventInstanceID="ei22" lid="l38" origin="USER" relType="IS_INCLUDED" relatedToTime="t7" signalID="s3" />
+<TLINK eventInstanceID="ei27" lid="l42" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei30" lid="l46" origin="USER" relType="IS_INCLUDED" relatedToTime="t9" />
+<TLINK eventInstanceID="ei31" lid="l47" origin="USER" relType="IDENTITY" relatedToEventInstance="ei32" />
+<TLINK eventInstanceID="ei31" lid="l48" origin="USER" relType="BEGUN_BY" relatedToEventInstance="ei30" />
+<TLINK eventInstanceID="ei34" lid="l51" origin="USER" relType="IDENTITY" relatedToEventInstance="ei7" />
+<TLINK eventInstanceID="ei35" lid="l52" origin="USER" relType="BEFORE" relatedToEventInstance="ei36" />
+<TLINK eventInstanceID="ei37" lid="l53" origin="USER" relType="IS_INCLUDED" relatedToTime="t10" />
+<TLINK eventInstanceID="ei38" lid="l55" origin="USER" relType="IS_INCLUDED" relatedToTime="t11" />
+<TLINK eventInstanceID="ei39" lid="l58" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei34" />
+<TLINK eventInstanceID="ei40" lid="l59" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei34" />
+<TLINK eventInstanceID="ei41" lid="l60" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei43" lid="l61" origin="USER" relType="BEFORE" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei43" lid="l62" origin="USER" relType="AFTER" relatedToEventInstance="ei44" />
+<TLINK eventInstanceID="ei48" lid="l66" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei49" lid="l68" origin="USER" relType="DURING" relatedToEventInstance="ei73" signalID="s7" />
+<TLINK eventInstanceID="ei51" lid="l71" origin="USER" relType="DURING" relatedToEventInstance="ei50" />
+<TLINK eventInstanceID="ei53" lid="l73" origin="USER" relType="AFTER" relatedToEventInstance="ei51" />
+<TLINK eventInstanceID="ei53" lid="l74" origin="USER" relType="IDENTITY" relatedToEventInstance="ei54" />
+<TLINK eventInstanceID="ei54" lid="l75" origin="USER" relType="BEFORE" relatedToEventInstance="ei55" />
+<TLINK eventInstanceID="ei56" lid="l77" origin="USER" relType="IBEFORE" relatedToEventInstance="ei57" />
+<TLINK eventInstanceID="ei60" lid="l82" origin="USER" relType="DURING" relatedToEventInstance="ei61" signalID="s9" />
+<TLINK eventInstanceID="ei63" lid="l83" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei64" lid="l85" origin="USER" relType="DURING" relatedToEventInstance="ei65" signalID="s10" />
+<TLINK eventInstanceID="ei3" lid="l88" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" signalID="s12" />
+<TLINK eventInstanceID="ei68" lid="l89" origin="USER" relType="DURING" relatedToEventInstance="ei15" />
+<TLINK eventInstanceID="ei50" lid="l90" origin="USER" relType="DURING" relatedToEventInstance="ei73" />
+<TLINK eventInstanceID="ei73" lid="l91" origin="USER" relType="BEFORE" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei51" lid="l92" origin="USER" relType="BEGINS" relatedToEventInstance="ei49" />
+<TLINK eventInstanceID="ei61" lid="l93" origin="USER" relType="AFTER" relatedToEventInstance="ei73" />
+<TLINK eventInstanceID="ei65" lid="l94" origin="USER" relType="IDENTITY" relatedToEventInstance="ei15" />
+<TLINK eventInstanceID="ei15" lid="l95" origin="USER" relType="IDENTITY" relatedToEventInstance="ei34" />
+<TLINK eventInstanceID="ei2" lid="l96" origin="USER" relType="IDENTITY" relatedToEventInstance="ei6" />
+<TLINK eventInstanceID="ei26" lid="l97" origin="USER" relType="IDENTITY" relatedToEventInstance="ei20" />
+<SLINK eventInstanceID="ei3" lid="l15" origin="USER" relType="MODAL" subordinatedEventInstance="ei4" />
+<SLINK eventInstanceID="ei10" lid="l25" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei8" />
+<SLINK eventInstanceID="ei68" lid="l29" origin="USER" relType="MODAL" signalID="s2" subordinatedEventInstance="ei14" />
+<SLINK eventInstanceID="ei13" lid="l32" origin="USER" relType="MODAL" subordinatedEventInstance="ei68" />
+<SLINK eventInstanceID="ei22" lid="l39" origin="USER" relType="MODAL" subordinatedEventInstance="ei70" />
+<SLINK eventInstanceID="ei70" lid="l40" origin="USER" relType="MODAL" subordinatedEventInstance="ei23" />
+<SLINK eventInstanceID="ei27" lid="l43" origin="USER" relType="MODAL" subordinatedEventInstance="ei28" />
+<SLINK eventInstanceID="ei28" lid="l44" origin="USER" relType="MODAL" subordinatedEventInstance="ei71" />
+<SLINK eventInstanceID="ei71" lid="l45" origin="USER" relType="MODAL" subordinatedEventInstance="ei29" />
+<SLINK eventInstanceID="ei33" lid="l50" origin="USER" relType="MODAL" subordinatedEventInstance="ei35" />
+<SLINK eventInstanceID="ei37" lid="l54" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei33" />
+<SLINK eventInstanceID="ei48" lid="l67" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei47" />
+<SLINK eventInstanceID="ei51" lid="l70" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei52" />
+<SLINK eventInstanceID="ei55" lid="l76" origin="USER" relType="FACTIVE" subordinatedEventInstance="ei56" />
+<SLINK eventInstanceID="ei60" lid="l80" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei58" />
+<SLINK eventInstanceID="ei60" lid="l81" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei59" />
+<SLINK eventInstanceID="ei63" lid="l84" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei64" />
+<SLINK eventInstanceID="ei20" lid="l87" origin="USER" relType="FACTIVE" subordinatedEventInstance="ei21" />
+<SLINK eventInstanceID="ei26" lid="l98" origin="USER" relType="FACTIVE" subordinatedEventInstance="ei27" />
+<ALINK eventInstanceID="ei4" lid="l19" origin="USER" relType="INITIATES" relatedToEventInstance="ei5" />
+</TimeML>

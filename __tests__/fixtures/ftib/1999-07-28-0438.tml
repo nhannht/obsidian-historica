@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-07-28-0438</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-07-28" /></DCT>
+<TEXT>
+Le CICV sur Arte <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="TIME" value="1999-07-28TEV" valueFromFunction="tf5">ce soir</TIMEX3>.
+Deux œuvres <EVENT class="OCCURRENCE" eid="e3" eiid="ei3" pos="VERB" pred="RÉALISER" vform="PASTPART">réalisées</EVENT> au CICV d'Hérimoncourt seront <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="VERB" pred="DIFFUSER" tense="FUTURE" vform="PASTPART">diffusées</EVENT> sur Arte dans le cadre de l'<EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="NOUN" pred="ÉMISSION">émission</EVENT> « Les nuits de la pleine lune » <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t5" type="TIME" value="1999-07-28TEV" valueFromFunction="tf5">ce soir</TIMEX3> <SIGNAL sid="s2">à</SIGNAL> <TIMEX3 tid="t6" type="TIME" value="1999-07-28T00:10">00 h 10</TIMEX3>.
+Il s'agit de « Corps flottants » de Robert Cahen et de « Poèmes à l'infect » de Jean-Michel Bruyère.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="IS_INCLUDED" relatedToTime="t1" timeID="t5" />
+<TLINK lid="l2" origin="USER" relType="IS_INCLUDED" relatedToTime="t1" timeID="t2" />
+<TLINK lid="l3" origin="USER" relType="IDENTITY" relatedToTime="t5" timeID="t2" />
+<TLINK lid="l4" origin="USER" relType="IS_INCLUDED" relatedToTime="t5" signalID="s2" timeID="t6" />
+<TLINK eventInstanceID="ei3" lid="l5" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei2" lid="l7" origin="USER" relType="BEGUN_BY" relatedToTime="t6" />
+<TLINK eventInstanceID="ei1" lid="l8" origin="USER" relType="DURING" relatedToEventInstance="ei2" />
+</TimeML>

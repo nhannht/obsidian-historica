@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2003-02-21-0942</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2003-02-21" /></DCT>
+<TEXT>
+Williams et McLaren <EVENT class="STATE" eid="e40" eiid="ei40" pos="ADJECTIVE" pred="PRÊT">prêts</EVENT> à <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="VERB" pred="SAISIR" vform="INFINITIVE">saisir</EVENT> le TAS.
+LONDRES. Les écuries de F1 Williams et McLaren, <EVENT class="STATE" eid="e2" eiid="ei2" pos="ADJECTIVE" pred="MÉCONTENTER">mécontentes</EVENT> des <EVENT class="OCCURRENCE" eid="e3" eiid="ei3" pos="NOUN" pred="MODIFICATION">modifications</EVENT> <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="VERB" pred="APPORTER" vform="PASTPART">apportées</EVENT> par la Fédération internationale dans les règlements du <EVENT class="OCCURRENCE" eid="e7" eiid="ei7" pos="NOUN" pred="CHAMPIONNAT">Championnat</EVENT> du monde <TIMEX3 tid="t2" type="DATE" value="2003">2003</TIMEX3>, ont <EVENT class="I_ACTION" eid="e8" eiid="ei8" pos="VERB" pred="MENACER" tense="PAST" vform="PASTPART">menacé</EVENT> de <EVENT class="OCCURRENCE" eid="e9" eiid="ei9" pos="VERB" pred="SAISIR" vform="INFINITIVE">saisir</EVENT> le Tribunal arbitral du sport (TAS) pour <EVENT class="OCCURRENCE" eid="e41" eiid="ei41" pos="NOUN" pred="RUPTURE">rupture</EVENT> de contrat. Les deux écuries britanniques <EVENT class="I_STATE" eid="e10" eiid="ei10" pos="VERB" pred="ESTIMER" tense="PRESENT">estiment</EVENT> que les <EVENT class="OCCURRENCE" eid="e11" eiid="ei11" pos="NOUN" pred="MODIFICATION">modifications</EVENT> <EVENT class="REPORTING" eid="e42" eiid="ei42" pos="VERB" pred="ANNOCER" vform="PASTPART">annoncées</EVENT> <TIMEX3 tid="t3" type="DATE" value="2003-02-19">mercredi</TIMEX3> par Max Mosley, le président de la FIA, vont « <EVENT class="OCCURRENCE" eid="e14" eiid="ei14" pos="VERB" pred="ABÊTIR" vform="INFINITIVE">abêtir</EVENT> » la F1, actuelle vitrine de la technologie automobile.
+Les deux écuries <EVENT class="I_STATE" eid="e15" eiid="ei15" pos="VERB" pred="ESTIMER" tense="PRESENT">estiment</EVENT> que ces <EVENT class="OCCURRENCE" eid="e16" eiid="ei16" pos="NOUN" pred="MODIFICATION">modifications</EVENT> n'ont été <EVENT class="I_ACTION" eid="e17" eiid="ei17" pos="VERB" pred="DÉCIDER" vform="PASTPART">décidées</EVENT> que pour <EVENT class="I_ACTION" eid="e18" eiid="ei18" pos="VERB" pred="ENRAYER" vform="INFINITIVE">enrayer</EVENT> la <EVENT class="OCCURRENCE" eid="e19" eiid="ei19" pos="NOUN" pred="CHUTE">chute</EVENT> de l'audience télévisée <EVENT class="STATE" eid="e21" eiid="ei21" pos="VERB" pred="DEVOIR" vform="PASTPART">due</EVENT> à l'outrageuse <EVENT class="STATE" eid="e22" eiid="ei22" pos="NOUN" pred="DOMINATION">domination</EVENT> des Ferrari la <EVENT class="OCCURRENCE" eid="e23" eiid="ei23" pos="NOUN" pred="SAISON">saison</EVENT> dernière (14 <EVENT cardinality="14" class="OCCURRENCE" eid="e24" eiid="ei24" pos="NOUN" pred="VICTOIRE">victoires</EVENT> en 17 Grands <EVENT cardinality="17" class="OCCURRENCE" eid="e45" eiid="ei45" pos="NOUN" pred="PRIX">Prix</EVENT>).
+Franck Williams et Ron Dennis <EVENT class="I_STATE" eid="e25" eiid="ei25" pos="VERB" pred="ESTIMER" tense="PRESENT">estiment</EVENT> aussi que certaines <EVENT class="OCCURRENCE" eid="e46" eiid="ei46" pos="NOUN" pred="PROPOSITION">propositions</EVENT> de la FIA <EVENT class="STATE" eid="e28" eiid="ei28" pos="VERB" pred="AVOIR" tense="FUTURE">auront</EVENT> des <EVENT class="OCCURRENCE" eid="e44" eiid="ei44" pos="NOUN" pred="INCIDENCE">incidences</EVENT> sur la sécurité des pilotes. La <EVENT class="OCCURRENCE" eid="e29" eiid="ei29" pos="NOUN" pred="RÉDUCTION">réduction</EVENT> des délais entre les <EVENT class="OCCURRENCE" eid="e31" eiid="ei31" pos="NOUN" pred="QUALIFICATION">qualifications</EVENT> et la <EVENT class="OCCURRENCE" eid="e32" eiid="ei32" pos="NOUN" pred="COURSE">course</EVENT> <EVENT class="I_ACTION" eid="e33" eiid="ei33" pos="VERB" pred="EMPÊCHER" tense="FUTURE">empêcheront</EVENT> les écuries de <EVENT class="OCCURRENCE" eid="e34" eiid="ei34" pos="VERB" pred="RÉALISER" vform="INFINITIVE">réaliser</EVENT> des <EVENT class="OCCURRENCE" eid="e35" eiid="ei35" pos="NOUN" pred="VÉRIFICATION">vérifications</EVENT> détaillées, et l'<EVENT class="ASPECTUAL" eid="e36" eiid="ei36" pos="NOUN" pred="ABANDON">abandon</EVENT> de la <EVENT class="OCCURRENCE" eid="e43" eiid="ei43" pos="NOUN" pred="TÉLÉMÉTRIE">télémétrie</EVENT> ne <EVENT class="I_ACTION" eid="e37" eiid="ei37" polarity="NEG" pos="VERB" pred="PERMETTRE" tense="FUTURE">permettra</EVENT> plus de <EVENT class="PERCEPTION" eid="e38" eiid="ei38" polarity="POS" pos="VERB" pred="DÉTECTER" vform="INFINITIVE">détecter</EVENT> les <EVENT class="OCCURRENCE" eid="e39" eiid="ei39" pos="NOUN" pred="PROBLÈME">problèmes</EVENT> en course.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="INCLUDES" relatedToTime="t3" timeID="t2" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t3" />
+<TLINK eventInstanceID="ei4" lid="l4" origin="USER" relType="IDENTITY" relatedToEventInstance="ei3" />
+<TLINK eventInstanceID="ei2" lid="l5" origin="USER" relType="AFTER" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei7" lid="l6" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei40" lid="l8" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei8" lid="l9" origin="USER" relType="DURING" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei41" lid="l11" origin="USER" relType="BEFORE" relatedToEventInstance="ei9" />
+<TLINK eventInstanceID="ei2" lid="l12" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei8" lid="l13" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei42" lid="l14" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" />
+<TLINK eventInstanceID="ei16" lid="l21" origin="USER" relType="IDENTITY" relatedToEventInstance="ei11" />
+<TLINK eventInstanceID="ei11" lid="l22" origin="USER" relType="IDENTITY" relatedToEventInstance="ei3" />
+<TLINK eventInstanceID="ei15" lid="l23" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei22" lid="l29" origin="USER" relType="BEFORE" relatedToEventInstance="ei19" />
+<TLINK eventInstanceID="ei45" lid="l30" origin="USER" relType="DURING" relatedToEventInstance="ei23" />
+<TLINK eventInstanceID="ei24" lid="l31" origin="USER" relType="DURING" relatedToEventInstance="ei45" />
+<TLINK eventInstanceID="ei22" lid="l32" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei23" />
+<TLINK eventInstanceID="ei25" lid="l34" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei28" lid="l35" origin="USER" relType="IDENTITY" relatedToEventInstance="ei44" />
+<TLINK eventInstanceID="ei28" lid="l36" origin="USER" relType="AFTER" relatedToEventInstance="ei46" />
+<TLINK eventInstanceID="ei29" lid="l37" origin="USER" relType="IBEFORE" relatedToEventInstance="ei33" />
+<TLINK eventInstanceID="ei34" lid="l39" origin="USER" relType="IDENTITY" relatedToEventInstance="ei35" />
+<TLINK lid="l47" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" timeID="t1" />
+<TLINK eventInstanceID="ei11" lid="l50" origin="USER" relType="BEFORE" relatedToEventInstance="ei14" />
+<TLINK eventInstanceID="ei10" lid="l51" origin="USER" relType="DURING" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei17" lid="l53" origin="USER" relType="BEFORE" relatedToEventInstance="ei18" />
+<TLINK eventInstanceID="ei36" lid="l58" origin="USER" relType="BEFORE" relatedToEventInstance="ei37" />
+<SLINK eventInstanceID="ei40" lid="l3" origin="USER" relType="MODAL" subordinatedEventInstance="ei1" />
+<SLINK eventInstanceID="ei8" lid="l7" origin="USER" relType="MODAL" subordinatedEventInstance="ei9" />
+<SLINK eventInstanceID="ei42" lid="l15" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei11" />
+<SLINK eventInstanceID="ei17" lid="l26" origin="USER" relType="MODAL" subordinatedEventInstance="ei16" />
+<SLINK eventInstanceID="ei18" lid="l28" origin="USER" relType="MODAL" subordinatedEventInstance="ei19" />
+<SLINK eventInstanceID="ei33" lid="l38" origin="USER" relType="MODAL" subordinatedEventInstance="ei34" />
+<SLINK eventInstanceID="ei37" lid="l42" origin="USER" relType="MODAL" subordinatedEventInstance="ei38" />
+<SLINK eventInstanceID="ei10" lid="l48" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei14" />
+<SLINK eventInstanceID="ei15" lid="l52" origin="USER" relType="MODAL" subordinatedEventInstance="ei18" />
+<SLINK eventInstanceID="ei25" lid="l54" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei28" />
+<SLINK eventInstanceID="ei25" lid="l55" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei33" />
+<SLINK eventInstanceID="ei25" lid="l56" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei37" />
+<SLINK eventInstanceID="ei38" lid="l57" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei39" />
+<ALINK eventInstanceID="ei36" lid="l40" origin="USER" relType="TERMINATES" relatedToEventInstance="ei43" />
+</TimeML>

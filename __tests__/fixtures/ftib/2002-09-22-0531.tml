@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2002-09-22-0531</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2002-09-22" /></DCT>
+<TEXT>
+Malentendu et excuses.
+Edmund Stoiber a ainsi <EVENT class="REPORTING" eid="e1" eiid="ei1" pos="VERB" pred="DÉCLARER" tense="PAST" vform="PASTPART">déclaré</EVENT> <TIMEX3 temporalFunction="true" tid="t2" type="DATE" value="2002-09-18">mercredi</TIMEX3> qu'il n'<EVENT class="I_ACTION" eid="e2" eiid="ei2" mood="CONDITIONAL" polarity="NEG" pos="VERB" pred="AUTORISER" tense="PRESENT">autoriserait</EVENT> pas, s'il était <EVENT class="STATE" eid="e3" eiid="ei3" pos="ADJECTIVE" pred="ÉLIRE" tense="IMPERFECT">élu</EVENT>, l'<EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="NOUN" pred="USAGE">usage</EVENT> des bases américaines en Allemagne pour une <EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="NOUN" pred="ATTAQUE">attaque</EVENT> unilatérale des Etats-Unis en Irak. Son conseiller de campagne s'est <EVENT class="I_ACTION" eid="e6" eiid="ei6" pos="VERB" pred="EMPRESSER" tense="PAST" vform="PASTPART">empressé</EVENT> d'<EVENT class="OCCURRENCE" eid="e7" eiid="ei7" pos="VERB" pred="ÉVOQUER" vform="INFINITIVE">évoquer</EVENT> un « <EVENT class="OCCURRENCE" eid="e8" eiid="ei8" pos="NOUN" pred="MALENTENDU">malentendu</EVENT> ».
+Quant à la ministre social-démocrate de la Justice, Herta Daeubler-Gmelin, elle a <EVENT class="CAUSE" eid="e9" eiid="ei9" pos="VERB" pred="PROVOQUER" tense="PAST" vform="PASTPART">provoqué</EVENT> une belle <EVENT class="OCCURRENCE" eid="e10" eiid="ei10" pos="NOUN" pred="POLÉMIQUE">polémique</EVENT> en <EVENT class="OCCURRENCE" eid="e66" eiid="ei66" pos="VERB" pred="COMPARER" vform="GERUNDIVE">comparant</EVENT>, selon un journal local, les méthodes du président américain George W. Bush à celles du dictateur nazi Adolf Hitler : le <EVENT class="OCCURRENCE" eid="e11" eiid="ei11" pos="NOUN" pred="RECOURS">recours</EVENT> à la <EVENT class="OCCURRENCE" eid="e12" eiid="ei12" pos="NOUN" pred="GUERRE">guerre</EVENT> face aux problèmes de politique intérieure. Elle a <EVENT class="ASPECTUAL" eid="e14" eiid="ei14" pos="VERB" pred="FINIR" tense="PAST" vform="PASTPART">fini</EVENT> par <EVENT class="I_ACTION" eid="e15" eiid="ei15" pos="VERB" pred="DÉMENTIR" vform="INFINITIVE">démentir</EVENT> avoir <EVENT aspect="PERFECTIVE" class="EVENT_CONTAINER" eid="e16" eiid="ei16" pos="VERB" pred="TENIR" tense="PRESENT" vform="INFINITIVE">tenu</EVENT> ces propos, <SIGNAL sid="s8">au bout de</SIGNAL> <TIMEX3 tid="t3" type="DURATION" value="P2D">deux jours</TIMEX3> et <SIGNAL sid="s2">après</SIGNAL> avoir <EVENT aspect="PERFECTIVE" class="CAUSE" eid="e17" eiid="ei17" pos="VERB" pred="PROVOQUER" tense="PRESENT" vform="INFINITIVE">provoqué</EVENT> l'ire publique de Washington. Et Gerhard Schröder s'est <EVENT class="OCCURRENCE" eid="e18" eiid="ei18" pos="VERB" pred="FENDRE" tense="PAST" vform="PASTPART">fendu</EVENT> d'une lettre à George W. Bush.
+Ce n'est pas un hasard <SIGNAL sid="s3">si</SIGNAL> ces <EVENT class="OCCURRENCE" eid="e19" eiid="ei19" pos="NOUN" pred="DÉRAPAGE">dérapages</EVENT> ont <EVENT class="OCCURRENCE" eid="e20" eiid="ei20" pos="VERB" pred="PORTER" tense="PAST" vform="PASTPART">porté</EVENT> sur l'Irak. C'est en <EVENT class="OCCURRENCE" eid="e21" eiid="ei21" pos="VERB" pred="JOUER" vform="GERUNDIVE">jouant</EVENT> de la peur de la <EVENT class="OCCURRENCE" eid="e22" eiid="ei22" pos="NOUN" pred="GUERRE">guerre</EVENT>, profonde dans un pays traumatisé par le bellicisme nazi et les <EVENT class="OCCURRENCE" eid="e23" eiid="ei23" pos="NOUN" pred="TENSION">tensions</EVENT> de la <EVENT class="OCCURRENCE" eid="e24" eiid="ei24" pos="NOUN" pred="GUERRE">Guerre</EVENT> froide, que le chancelier Schröder a <EVENT class="I_ACTION" eid="e25" eiid="ei25" pos="VERB" pred="RÉUSSIR" tense="PAST" vform="PASTPART">réussi</EVENT> à <EVENT class="OCCURRENCE" eid="e26" eiid="ei26" pos="VERB" pred="REDONNER" vform="INFINITIVE">redonner</EVENT> une chance à son camp .Il a <EVENT class="OCCURRENCE" eid="e27" eiid="ei27" pos="VERB" pred="EXCLURE" tense="PAST" vform="PASTPART">exclu</EVENT> d'emblée toute <EVENT class="OCCURRENCE" eid="e28" eiid="ei28" pos="NOUN" pred="PARTICIPATION">participation</EVENT> de son pays à une <EVENT class="OCCURRENCE" eid="e29" eiid="ei29" pos="NOUN" pred="ATTAQUE">attaque</EVENT> de l'Irak, avec ou sans mandat de l'ONU.
+Les <EVENT class="OCCURRENCE" eid="e30" eiid="ei30" pos="NOUN" pred="ÉLECTION">élections</EVENT> législatives d'<TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t4" type="DATE" value="2002-09-22" valueFromFunction="tf1">aujourd'hui</TIMEX3> en Allemagne <EVENT class="I_ACTION" eid="e31" eiid="ei31" pos="VERB" pred="PROMETTRE" tense="PRESENT">promettent</EVENT> de <EVENT class="STATE" eid="e32" eiid="ei32" pos="VERB" pred="FIGURER" vform="INFINITIVE">figurer</EVENT> parmi les plus <EVENT class="OCCURRENCE" eid="e33" eiid="ei33" pos="ADJECTIVE" pred="SERRER">serrées</EVENT> de <TIMEX3 functionInDocument="NONE" mod="AFTER" temporalFunction="false" tid="t7" type="DATE" value="1945">l'après-guerre</TIMEX3> : ni les sociaux-démocrates du chancelier Gerhard Schröder ni les conservateurs d'Edmund Stoiber ne <EVENT class="STATE" eid="e34" eiid="ei34" polarity="NEG" pos="VERB" pred="DISPOSER" tense="PRESENT">disposent</EVENT> d'une claire majorité, selon les sondages.
+<SIGNAL sid="s9">A l'issue d'</SIGNAL>une <EVENT class="OCCURRENCE" eid="e37" eiid="ei37" pos="NOUN" pred="CAMPAGNE">campagne</EVENT> riche en rebondissements, Gerhard Schröder <EVENT class="STATE" eid="e38" eiid="ei38" polarity="POS" pos="VERB" pred="RESTER" tense="PRESENT">reste</EVENT> de très loin le plus populaire des candidats, face à un rival très <EVENT class="OCCURRENCE" eid="e39" eiid="ei39" pos="VERB" pred="CRISPER" vform="PASTPART">crispé</EVENT> : la tête de liste de la démocratie-chrétienne (CDU/CSU), le chef du gouvernement régional de Bavière Edmund Stoiber, n'a pas <EVENT class="I_STATE" eid="e41" eiid="ei41" polarity="NEG" pos="VERB" pred="SAVOIR" tense="PAST" vform="PASTPART">su</EVENT> <EVENT class="OCCURRENCE" eid="e42" eiid="ei42" pos="VERB" pred="" vform="INFINITIVE">convaincre</EVENT> qu'il avait l'envergure d'un chancelier.
+Mais ce sont les députés du Bundestag que les 61,2 millions d'électeurs allemands vont <EVENT aspect="PROSPECTIVE" class="OCCURRENCE" eid="e45" eiid="ei45" pos="VERB" pred="CHOISIR" vform="INFINITIVE">choisir</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t5" type="DATE" value="2002-09-22" valueFromFunction="tf1">aujourd'hui</TIMEX3>. <TIMEX3 tid="t6" type="TIME" value="FUTURE_REF">Le futur</TIMEX3> chancelier sera <EVENT class="OCCURRENCE" eid="e46" eiid="ei46" pos="VERB" pred="ÉLIRE" tense="FUTURE" vform="PASTPART">élu</EVENT> par la nouvelle chambre. Et là, rien n'est encore <EVENT class="OCCURRENCE" eid="e47" eiid="ei47" polarity="NEG" pos="VERB" pred="JOUER" vform="PASTPART">joué</EVENT>.
+Les écarts sont trop faibles pour <EVENT class="I_ACTION" eid="e49" eiid="ei49" pos="VERB" pred="PERMETTRE" vform="INFINITIVE">permettre</EVENT> toute <EVENT class="OCCURRENCE" eid="e50" eiid="ei50" pos="NOUN" pred="PROJECTION">projection</EVENT>. En outre, la fine arithmétique électorale <EVENT class="OCCURRENCE" eid="e51" eiid="ei51" pos="VERB" pred="DÉPENDRE" tense="PRESENT">dépend</EVENT> du <EVENT class="OCCURRENCE" eid="e52" eiid="ei52" pos="NOUN" pred="RETOUR">retour</EVENT> ou non au Parlement des néocommunistes du PDS, héritiers du Parti communiste au pouvoir dans l'ex-RDA. <SIGNAL sid="s7">Si</SIGNAL> le PDS <EVENT class="OCCURRENCE" eid="e54" eiid="ei54" pos="VERB" pred="DISPARAÎTRE" tense="PRESENT">disparaît</EVENT> du paysage politique fédéral, ses sièges seraient <EVENT class="STATE" eid="e56" eiid="ei56" mood="CONDITIONAL" pos="VERB" pred="REDISTRIBUER" vform="PASTPART">redistribués</EVENT> à la proportionnelle aux partis <EVENT class="OCCURRENCE" eid="e57" eiid="ei57" pos="VERB" pred="REPRÉSENTER" vform="PASTPART">représentés</EVENT>, avec une prime au vainqueur. De quoi <EVENT class="OCCURRENCE" eid="e58" eiid="ei58" pos="VERB" pred="FAIRE" vform="INFINITIVE">faire</EVENT> <EVENT class="OCCURRENCE" eid="e59" eiid="ei59" pos="VERB" pred="PESER" vform="INFINITIVE">peser</EVENT> une vraie incertitude sur l'issue du <EVENT class="OCCURRENCE" eid="e61" eiid="ei61" pos="NOUN" pred="SCRUTIN">scrutin</EVENT> et <EVENT class="OCCURRENCE" eid="e62" eiid="ei62" pos="VERB" pred="METTRE" vform="INFINITIVE">mettre</EVENT> les nerfs à vif. Deux <EVENT class="OCCURRENCE" eid="e63" eiid="ei63" pos="NOUN" pred="GAFFE">gaffes</EVENT> récentes <EVENT class="OCCURRENCE" eid="e64" eiid="ei64" pos="VERB" pred="TÉMOIGNER" tense="PRESENT">témoignent</EVENT> de cette <EVENT class="OCCURRENCE" eid="e65" eiid="ei65" pos="NOUN" pred="TENSION">tension</EVENT>.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t2" timeID="t7" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t4" timeID="t2" />
+<TLINK lid="l3" origin="USER" relType="IDENTITY" relatedToTime="t5" timeID="t4" />
+<TLINK lid="l4" origin="USER" relType="IDENTITY" relatedToTime="t1" timeID="t5" />
+<TLINK eventInstanceID="ei1" lid="l5" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei5" lid="l9" origin="USER" relType="DURING" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei1" lid="l11" origin="USER" relType="BEFORE" relatedToEventInstance="ei6" />
+<TLINK eventInstanceID="ei9" lid="l13" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei9" lid="l14" origin="USER" relType="BEGINS" relatedToEventInstance="ei10" />
+<TLINK eventInstanceID="ei9" lid="l15" origin="USER" relType="IDENTITY" relatedToEventInstance="ei66" />
+<TLINK lid="l20" origin="USER" relType="ENDS" relatedToEventInstance="ei15" signalID="s8" timeID="t3" />
+<TLINK eventInstanceID="ei17" lid="l22" origin="USER" relType="AFTER" relatedToEventInstance="ei66" />
+<TLINK eventInstanceID="ei25" lid="l26" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei24" lid="l28" origin="USER" relType="AFTER" relatedToTime="t7" />
+<TLINK eventInstanceID="ei23" lid="l29" origin="USER" relType="DURING" relatedToEventInstance="ei24" />
+<TLINK eventInstanceID="ei21" lid="l30" origin="USER" relType="BEFORE" relatedToEventInstance="ei25" />
+<TLINK eventInstanceID="ei27" lid="l32" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei28" lid="l34" origin="USER" relType="DURING" relatedToEventInstance="ei29" />
+<TLINK eventInstanceID="ei29" lid="l35" origin="USER" relType="IDENTITY" relatedToEventInstance="ei5" />
+<TLINK eventInstanceID="ei30" lid="l36" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" />
+<TLINK eventInstanceID="ei31" lid="l37" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei34" lid="l40" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei38" lid="l41" origin="USER" relType="OVERLAP_AFTER" relatedToEventInstance="ei37" signalID="s9" />
+<TLINK eventInstanceID="ei37" lid="l42" origin="USER" relType="ENDED_BY" relatedToEventInstance="ei30" />
+<TLINK eventInstanceID="ei39" lid="l43" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei45" lid="l46" origin="USER" relType="IS_INCLUDED" relatedToTime="t5" />
+<TLINK eventInstanceID="ei46" lid="l48" origin="USER" relType="AFTER" relatedToEventInstance="ei45" />
+<TLINK eventInstanceID="ei30" lid="l49" origin="USER" relType="BEFORE" relatedToEventInstance="ei46" />
+<TLINK eventInstanceID="ei47" lid="l50" origin="USER" relType="IS_INCLUDED" relatedToTime="t1" />
+<TLINK eventInstanceID="ei49" lid="l51" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei51" lid="l53" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei30" lid="l55" origin="USER" relType="BEFORE" relatedToEventInstance="ei54" />
+<TLINK eventInstanceID="ei58" lid="l58" origin="USER" relType="IDENTITY" relatedToEventInstance="ei59" />
+<TLINK eventInstanceID="ei58" lid="l59" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei61" lid="l60" origin="USER" relType="IDENTITY" relatedToEventInstance="ei30" />
+<TLINK eventInstanceID="ei62" lid="l63" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei64" lid="l64" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei15" lid="l66" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei24" lid="l67" origin="USER" relType="BEFORE" relatedToTime="t2" />
+<TLINK eventInstanceID="ei9" lid="l69" origin="USER" relType="DURING" relatedToEventInstance="ei19" />
+<TLINK eventInstanceID="ei1" lid="l70" origin="USER" relType="DURING" relatedToEventInstance="ei19" />
+<TLINK eventInstanceID="ei19" lid="l71" origin="USER" relType="IDENTITY" relatedToEventInstance="ei63" />
+<TLINK lid="l72" origin="USER" relType="BEGINS" relatedToEventInstance="ei9" timeID="t3" />
+<TLINK eventInstanceID="ei15" lid="l73" origin="USER" relType="AFTER" relatedToEventInstance="ei17" signalID="s2" />
+<TLINK eventInstanceID="ei15" lid="l74" origin="USER" relType="BEFORE" relatedToEventInstance="ei18" />
+<TLINK eventInstanceID="ei25" lid="l75" origin="USER" relType="BEFORE" relatedToEventInstance="ei27" />
+<TLINK eventInstanceID="ei41" lid="l76" origin="USER" relType="DURING" relatedToEventInstance="ei37" />
+<TLINK eventInstanceID="ei56" lid="l77" origin="USER" relType="DURING" relatedToEventInstance="ei57" />
+<TLINK eventInstanceID="ei63" lid="l78" origin="USER" relType="DURING" relatedToEventInstance="ei65" />
+<TLINK lid="l80" origin="USER" relType="BEFORE" relatedToEventInstance="ei46" timeID="t1" />
+<TLINK eventInstanceID="ei19" lid="l81" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei20" />
+<SLINK eventInstanceID="ei1" lid="l6" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei2" />
+<SLINK eventInstanceID="ei3" lid="l7" origin="USER" relType="CONDITIONAL" subordinatedEventInstance="ei2" />
+<SLINK eventInstanceID="ei2" lid="l8" origin="USER" relType="MODAL" subordinatedEventInstance="ei4" />
+<SLINK eventInstanceID="ei7" lid="l12" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei8" />
+<SLINK eventInstanceID="ei15" lid="l18" origin="USER" relType="NEG_EVIDENTIAL" subordinatedEventInstance="ei16" />
+<SLINK eventInstanceID="ei25" lid="l31" origin="USER" relType="FACTIVE" subordinatedEventInstance="ei26" />
+<SLINK eventInstanceID="ei27" lid="l33" origin="USER" relType="NEG_EVIDENTIAL" subordinatedEventInstance="ei28" />
+<SLINK eventInstanceID="ei31" lid="l38" origin="USER" relType="MODAL" subordinatedEventInstance="ei32" />
+<SLINK eventInstanceID="ei41" lid="l45" origin="USER" relType="COUNTER_FACTIVE" subordinatedEventInstance="ei42" />
+<SLINK eventInstanceID="ei49" lid="l52" origin="USER" relType="MODAL" subordinatedEventInstance="ei50" />
+<SLINK eventInstanceID="ei54" lid="l56" origin="USER" relType="CONDITIONAL" signalID="s7" subordinatedEventInstance="ei56" />
+<SLINK eventInstanceID="ei64" lid="l62" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei65" />
+<SLINK eventInstanceID="ei6" lid="l68" origin="USER" relType="FACTIVE" subordinatedEventInstance="ei7" />
+</TimeML>

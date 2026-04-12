@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-06-12-0548c</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-06-12" /></DCT>
+<TEXT>
+Une nécropole <EVENT class="STATE" eid="e1" eiid="ei6" pred="CONTENIR" pos="VERB" vform="PRESPART">contenant</EVENT> 200 momies bien conservées et richement recouvertes d'or a été <EVENT class="OCCURRENCE" eid="e3" eiid="ei4" pos="VERB" pred="DÉCOUVRIR" tense="PAST">découverte</EVENT> dans l'oasis de Bahareya dans le désert occidental égyptien. La nécropole, qui <EVENT class="STATE" eid="e4" eiid="ei5" pos="VERB" pred="REMONTER" tense="PRESENT">remonte</EVENT> <SIGNAL sid="s1">à</SIGNAL> <TIMEX3 functionInDocument="NONE" temporalFunction="false" tid="t2" type="TIME" value="PAST_REF">l'époque greco-romaine</TIMEX3>, est <EVENT class="STATE" eid="e5" eiid="ei3" pos="VERB" pred="COMPOSER" tense="PRESENT" vform="PASTPART">composée</EVENT> de quatre tombes <EVENT class="STATE" eid="e6" eiid="ei2" pred="REGROUPER" pos="VERB" vform="PRESPART">regroupant</EVENT> chacune cinquante momies <EVENT class="OCCURRENCE" eid="e9" eiid="ei1" pred="RETROUVER" pos="VERB" vform="PASTPART">retrouvées</EVENT> en piles alignées les unes contre les autres.
+</TEXT>
+<TLINK lid="l9999" relType="BEFORE" relatedToTime="t1" timeID="t2" origin="USER" />
+<TLINK eventInstanceID="ei4" lid="l10000" relType="BEFORE" relatedToTime="t1" origin="USER" />
+<TLINK eventInstanceID="ei1" lid="l10001" relType="IDENTITY" relatedToEventInstance="ei4" origin="USER" />
+</TimeML>

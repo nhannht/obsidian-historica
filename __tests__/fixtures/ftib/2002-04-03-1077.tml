@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2002-04-03-1077</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2002-04-03" /></DCT>
+<TEXT>
+Déchetterie <EVENT class="STATE" eid="e2" eiid="ei2" pos="ADJECTIVE" pred="FERMER">fermée</EVENT>.
+La déchetterie, rue de la gare, sera <EVENT class="STATE" eid="e1" eiid="ei1" pos="VERB" pred="FERMER" tense="FUTURE" vform="PASTPART">fermée</EVENT> <SIGNAL sid="s3">du</SIGNAL> <TIMEX3 tid="t2" type="DATE" value="2002-04-03">mercredi 3 avril</TIMEX3> <SIGNAL sid="s4">au</SIGNAL> <TIMEX3 tid="t3" type="DATE" value="2002-04-06">samedi 6 avril</TIMEX3> inclus.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="IDENTITY" relatedToTime="t1" timeID="t2" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t3" timeID="t1" />
+<TLINK eventInstanceID="ei1" lid="l3" origin="USER" relType="BEGUN_BY" relatedToTime="t2" signalID="s3" />
+<TLINK eventInstanceID="ei1" lid="l4" origin="USER" relType="ENDED_BY" relatedToTime="t3" signalID="s4" />
+<TLINK eventInstanceID="ei2" lid="l6" origin="USER" relType="IDENTITY" relatedToEventInstance="ei1" />
+</TimeML>

@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-05-22-0991</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-05-22" /></DCT>
+<TEXT>
+PROCHAIN <EVENT class="OCCURRENCE" eid="e7" eiid="ei7" pos="NOUN" pred="MARIAGE">MARIAGE</EVENT>.
+Nous <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="VERB" pred="APPRENDRE" tense="PRESENT">apprenons</EVENT> le <TIMEX3 functionInDocument="NONE" temporalFunction="true" tid="t4" type="TIME" value="FUTURE_REF">prochain</TIMEX3> <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="NOUN" pred="MARIAGE">mariage</EVENT> de Yohann Thomas, cuisinier, <EVENT class="STATE" eid="e3" eiid="ei3" pos="VERB" pred="DEMEURER" vform="PRESPART">demeurant</EVENT> route de la Chalande au Tholy, avec Alice Doyen, serveuse <EVENT class="STATE" eid="e4" eiid="ei4" pos="VERB" pred="DEMEURER" vform="PRESPART">demeurant</EVENT> à Montigny-les-Metz. Les <EVENT class="I_ACTION" eid="e5" eiid="ei5" pos="NOUN" pred="CONSENTEMENT">consentements</EVENT> seront <EVENT class="OCCURRENCE" eid="e6" eiid="ei6" pos="VERB" pred="RECEVOIR" tense="FUTURE" vform="PASTPART">reçus</EVENT> en mairie <TIMEX3 tid="t2" type="DATE" value="1999-06-05">le samedi 5 juin</TIMEX3> <SIGNAL sid="s1">à</SIGNAL> <TIMEX3 tid="t3" type="TIME" value="1999-06-05T17:00">17 h</TIMEX3>.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t2" timeID="t1" />
+<TLINK lid="l2" origin="USER" relType="INCLUDES" relatedToTime="t3" timeID="t2" />
+<TLINK lid="l3" origin="USER" relType="BEFORE" relatedToEventInstance="ei7" timeID="t1" />
+<TLINK eventInstanceID="ei1" lid="l4" origin="USER" relType="IS_INCLUDED" relatedToTime="t1" />
+<TLINK eventInstanceID="ei2" lid="l5" origin="USER" relType="IDENTITY" relatedToEventInstance="ei7" />
+<TLINK eventInstanceID="ei2" lid="l6" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" />
+<TLINK lid="l7" origin="USER" relType="IDENTITY" relatedToTime="t2" timeID="t4" />
+<TLINK eventInstanceID="ei3" lid="l8" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei4" lid="l9" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei6" lid="l11" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" />
+<TLINK eventInstanceID="ei6" lid="l12" origin="USER" relType="IDENTITY" relatedToEventInstance="ei5" />
+<TLINK lid="l13" origin="USER" relType="BEFORE" relatedToTime="t4" timeID="t1" />
+<SLINK eventInstanceID="ei1" lid="l10" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei2" />
+</TimeML>

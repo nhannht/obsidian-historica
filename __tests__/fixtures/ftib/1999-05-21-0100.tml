@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-05-21-0100</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-05-21" /></DCT>
+<TEXT>
+Auto contre cyclo à Delle.
+Les pompiers ont <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="VERB" pred="SECOURIR" tense="PAST" vform="PASTPART">secouru</EVENT> David Dietlin, <EVENT class="STATE" eid="e5" eiid="ei5" pos="ADJECTIVE" pred="BLESSER">blessé</EVENT> légèrement, à la hauteur du 37, rue de la Libération, dans un <EVENT class="OCCURRENCE" eid="e3" eiid="ei3" pos="NOUN" pred="ACCIDENT">accident</EVENT> entre une auto et un deux roues. Il a été <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="VERB" pred="CONDUIRE" tense="PAST" vform="PASTPART">conduit</EVENT> au centre hospitalier de Belfort.
+</TEXT>
+<TLINK eventInstanceID="ei1" lid="l1" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei3" lid="l2" origin="USER" relType="BEFORE" relatedToEventInstance="ei1" />
+<TLINK eventInstanceID="ei1" lid="l3" origin="USER" relType="BEFORE" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei5" lid="l4" origin="USER" relType="DURING" relatedToEventInstance="ei3" />
+</TimeML>

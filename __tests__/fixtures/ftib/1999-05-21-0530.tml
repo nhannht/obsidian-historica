@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-05-21-0530</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-05-21" /></DCT>
+<TEXT>
+Vaclav Havel, le président tchèque qui <EVENT class="I_STATE" eid="e1" eiid="ei1" pos="VERB" pred="SOUFFRIR" tense="PRESENT">souffre</EVENT> <SIGNAL sid="s1">depuis</SIGNAL> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="DATE" value="1999-05-18" valueFromFunction="tf4">mardi</TIMEX3> d'une <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="NOUN" pred="AFFECTION">affection</EVENT> virale des voies respiratoires, a <EVENT class="MODAL" eid="e3" eiid="ei3" pos="VERB" pred="DEVOIR" tense="PAST" vform="PASTPART">dû</EVENT> être <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" modality="NECESSITY" pos="ADJECTIVE" pred="HOSPITALISER">hospitalisé</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t3" type="TIME" value="1999-05-20TEV" valueFromFunction="TF17">hier soir</TIMEX3>, <SIGNAL sid="s10">après</SIGNAL> une «<EVENT class="OCCURRENCE" eid="e59" eiid="ei59" pos="NOUN" pred="DÉTÉRIORATION">détérioration</EVENT> de l'état de santé», selon le porte-parole.
+Hans-Joachim Klein, le complice présumé du terroriste Carlos dans la <EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="NOUN" pred="PRISE">prise</EVENT> d'otages de l'OPEP <SIGNAL sid="s2">en</SIGNAL> <TIMEX3 tid="t4" type="DATE" value="1975">1975</TIMEX3> à Vienne, <EVENT class="MODAL" eid="e6" eiid="ei6" pos="VERB" pred="DEVOIR" tense="IMPERFECT">devait</EVENT> être d'<EVENT class="OCCURRENCE" eid="e7" eiid="ei7" modality="NECESSITY" pos="VERB" pred="EXTRADER" vform="INFINITIVE">extrader</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t5" type="TIME" value="1999-05-20TEV" valueFromFunction="TF17">hier soir</TIMEX3> vers l'Allemagne, a <EVENT class="REPORTING" eid="e8" eiid="ei8" pos="VERB" pred="ANNONCER" tense="PAST" vform="PASTPART">annoncé</EVENT> le Parquet de Francfort.
+Un haut dirigeant séparatiste kurde, Semdim Sakik, <EVENT class="OCCURRENCE" eid="e60" eiid="ei60" polarity="POS" pos="VERB" pred="RECONNAÎTRE" vform="PASTPART">reconnu</EVENT> coupable de la <EVENT class="OCCURRENCE" eid="e9" eiid="ei9" pos="NOUN" pred="MORT">mort</EVENT> de 283 personnes dans 191 <EVENT cardinality="191" class="OCCURRENCE" eid="e10" eiid="ei10" pos="NOUN" pred="ATTENTAT">attentats</EVENT> <EVENT class="OCCURRENCE" eid="e11" eiid="ei11" pos="VERB" pred="PERPÉTRER" vform="PASTPART">perpétrés</EVENT> par le PKK et <EVENT class="OCCURRENCE" eid="e12" eiid="ei12" pos="VERB" pred="ACCUSER" vform="PASTPART">accusé</EVENT> de séparatisme, a été <EVENT class="OCCURRENCE" eid="e13" eiid="ei13" pos="VERB" pred="CONDAMNER" tense="PAST" vform="PASTPART">condamné</EVENT> à mort <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t6" type="DATE" value="1999-05-20" valueFromFunction="TF17">hier</TIMEX3> par un tribunal turc. Cela <EVENT class="I_STATE" eid="e14" eiid="ei14" pos="VERB" pred="LAISSER" tense="PRESENT">laisse</EVENT> <EVENT class="OCCURRENCE" eid="e15" eiid="ei15" pos="VERB" pred="PRÉSAGER" vform="INFINITIVE">présager</EVENT> une <EVENT class="OCCURRENCE" eid="e16" eiid="ei16" pos="NOUN" pred="SENTENCE">sentence</EVENT> identique pour le leader kurde Abdullah Ocalan.
+Un ancien de la Gestapo, Alfons Goetzfrid, a été <EVENT class="OCCURRENCE" eid="e17" eiid="ei17" pos="VERB" pred="CONDAMNER" tense="PAST" vform="PASTPART">condamné</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t7" type="DATE" value="1999-05-20" valueFromFunction="TF17">hier</TIMEX3> à <TIMEX3 tid="t8" type="DURATION" value="P10Y">10 ans</TIMEX3> de <EVENT class="STATE" eid="e62" eiid="ei62" polarity="POS" pos="NOUN" pred="PRISON">prison</EVENT> pour complicité dans le <EVENT class="OCCURRENCE" eid="e18" eiid="ei18" pos="NOUN" pred="MEURTRE">meurtre</EVENT> de 17.000 juifs au camp d'extermination de Majdanek en Pologne où 400.000 personnes ont <EVENT class="OCCURRENCE" eid="e19" eiid="ei19" pos="VERB" pred="PÉRIR" tense="PAST" vform="PASTPART">péri</EVENT> <SIGNAL sid="s3">pendant</SIGNAL> la seconde <EVENT class="OCCURRENCE" eid="e20" eiid="ei20" pos="NOUN" pred="GUERRE">guerre</EVENT> mondiale. Il a <EVENT class="OCCURRENCE" eid="e21" eiid="ei21" pos="VERB" pred="CONCÉDER" tense="PAST" vform="PASTPART">concédé</EVENT> avoir <EVENT aspect="PERFECTIVE" class="I_ACTION" eid="e22" eiid="ei22" pos="VERB" pred="AIDER" vform="PASTPART">aidé</EVENT> à <EVENT class="OCCURRENCE" eid="e23" eiid="ei23" pos="VERB" pred="RECHARGER" vform="INFINITIVE">recharger</EVENT> des armes des bourreaux.
+Tony Blair, le Premier ministre britannique a <EVENT class="ASPECTUAL" eid="e24" eiid="ei24" pos="VERB" pred="ACHEVER" tense="PAST" vform="PASTPART">achevé</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t9" type="DATE" value="1999-05-20" valueFromFunction="TF17">hier</TIMEX3> <TIMEX3 tid="t10" type="DURATION" value="P2D">deux jours</TIMEX3> de <EVENT class="OCCURRENCE" eid="e63" eiid="ei63" pos="NOUN" pred="NÉGOTIATION">négociations</EVENT> avec les dirigeants d'Irlande du Nord, sans <EVENT class="I_ACTION" eid="e64" eiid="ei64" polarity="NEG" pos="VERB" pred="RÉUSSIR" vform="INFINITIVE">réussir</EVENT> à <EVENT class="I_ACTION" eid="e25" eiid="ei25" pos="VERB" pred="SURMONTER" vform="INFINITIVE">surmonter</EVENT> le <EVENT class="STATE" eid="e26" eiid="ei26" pos="NOUN" pred="BLOCAGE">blocage</EVENT> persistant sur la <EVENT class="OCCURRENCE" eid="e27" eiid="ei27" pos="NOUN" pred="FORMATION">formation</EVENT> de l'exécutif. Les Unionistes protestants ont même <EVENT class="I_ACTION" eid="e28" eiid="ei28" pos="VERB" pred="DÉCLINER" tense="PAST" vform="PASTPART">décliné</EVENT> sa dernière <EVENT class="OCCURRENCE" eid="e29" eiid="ei29" pos="NOUN" pred="INVITATION">invitation</EVENT>. L'UUP <EVENT class="ASPECTUAL" eid="e30" eiid="ei30" pos="VERB" pred="CONTINUER" tense="PRESENT">continue</EVENT> d'<EVENT class="OCCURRENCE" eid="e31" eiid="ei31" pos="VERB" pred="EXIGER" vform="INFINITIVE">exiger</EVENT> un <EVENT class="OCCURRENCE" eid="e32" eiid="ei32" pos="NOUN" pred="DÉSARMEMENT">désarmement</EVENT> de l'IRA <SIGNAL sid="s6">avant</SIGNAL> la <EVENT class="OCCURRENCE" eid="e33" eiid="ei33" pos="NOUN" pred="FORMATION">formation</EVENT> du gouvernement. M. Blair a <EVENT class="OCCURRENCE" eid="e35" eiid="ei35" pos="VERB" pred="DONNER" tense="PAST" vform="PASTPART">donné</EVENT> <SIGNAL sid="s11">jusqu'au</SIGNAL> <TIMEX3 tid="t11" type="DATE" value="1999-06-30">30 juin</TIMEX3> aux responsables catholiques et protestants pour <EVENT class="OCCURRENCE" eid="e37" eiid="ei37" pos="VERB" pred="DÉBLOQUER" vform="INFINITIVE">débloquer</EVENT> ce dossier. Quant au chef du Sinn Fein, il a <EVENT class="I_STATE" eid="e38" eiid="ei38" pos="VERB" pred="ESTIMER" tense="PAST" vform="PASTPART">estimé</EVENT> que sans <EVENT class="OCCURRENCE" eid="e69" eiid="ei69" polarity="NEG" pos="NOUN" pred="TRANSFERT">transfert</EVENT> des pouvoirs <SIGNAL sid="s12">d'</SIGNAL><TIMEX3 temporalFunction="true" tid="t16" type="DATE" value="1999-05-21">ici</TIMEX3> <TIMEX3 tid="t12" type="DATE" value="1999-06-30">le 30 juin</TIMEX3>, l'<EVENT class="OCCURRENCE" eid="e39" eiid="ei39" pos="NOUN" pred="ACCORD">accord</EVENT> du Vendredi Saint serait «<EVENT class="STATE" eid="e65" eiid="ei65" pos="ADJECTIVE" pred="CADUC">caduc</EVENT>».
+A Moscou, le nouveau Premier ministre russe Sergueï Stépachine, <EVENT class="OCCURRENCE" eid="e40" eiid="ei40" pos="VERB" pred="CONFIRMER" vform="PASTPART">confirmé</EVENT> par les députés de la Douma, a <EVENT class="REPORTING" eid="e66" eiid="ei66" pos="VERB" pred="ANNONCER" tense="PAST" vform="PASTPART">annoncé</EVENT> qu'il <EVENT class="STATE" eid="e41" eiid="ei41" mood="CONDITIONAL" pos="VERB" pred="GARDER" tense="PRESENT">garderait</EVENT> «l'ossature» du précédent gouvernement. Toutefois, il <EVENT class="MODAL" eid="e43" eiid="ei43" pos="VERB" pred="DEVOIR" tense="PRESENT">doit</EVENT> <EVENT class="OCCURRENCE" eid="e44" eiid="ei44" modality="OBLIGATION" pos="VERB" pred="TROUVER" vform="INFINITIVE">trouver</EVENT> l'homme qui <EVENT class="OCCURRENCE" eid="e45" eiid="ei45" pos="VERB" pred="PRENDRE" tense="FUTURE">prendra</EVENT> sous sa coupe l'économie et les finances du pays, dossier délicat qui a officiellement <EVENT class="CAUSE" eid="e48" eiid="ei48" pos="VERB" pred="CAUSER" tense="PAST" vform="PASTPART">causé</EVENT> la <EVENT class="OCCURRENCE" eid="e49" eiid="ei49" pos="NOUN" pred="PERTE">perte</EVENT> d'Evgueni Primakov.
+Aux Pays-Bas, l'hypothèse de <EVENT class="OCCURRENCE" eid="e68" eiid="ei68" pos="NOUN" pred="LÉGISLATIVE">législatives</EVENT> anticipées <SIGNAL sid="s15">à</SIGNAL> <TIMEX3 tid="t14" type="DATE" value="1999-FA">l'automne</TIMEX3> <EVENT class="STATE" eid="e50" eiid="ei50" pos="VERB" pred="SEMBLER" tense="IMPERFECT">semblait</EVENT> <EVENT class="STATE" eid="e51" eiid="ei51" pos="VERB" pred="TENIR" vform="INFINITIVE">tenir</EVENT> la corde <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t15" type="DATE" value="1999-05-20" valueFromFunction="TF17">hier</TIMEX3>, <SIGNAL sid="s13">au</SIGNAL> <TIMEX3 anchorTimeID="t15" temporalFunction="true" tid="t17" type="DATE" value="1999-05-20">lendemain</TIMEX3> <SIGNAL sid="s14">de</SIGNAL> la <EVENT class="OCCURRENCE" eid="e52" eiid="ei52" pos="NOUN" pred="DÉMISSION">démission</EVENT> du gouvernement du Premier ministre travailliste Wim Kok. Une ultime <EVENT class="I_ACTION" eid="e54" eiid="ei54" pos="NOUN" pred="TENTATIVE">tentative</EVENT> de <EVENT class="OCCURRENCE" eid="e67" eiid="ei67" pos="NOUN" pred="REPLÂTRAGE">replâtrage</EVENT> de la coalition sortante <EVENT class="OCCURRENCE" eid="e56" eiid="ei56" pos="VERB" pred="FORMER" vform="PASTPART">formée</EVENT> par les Travailliste (PvdA), les Libéraux du VVD (droite) et les Réformistes du D66 (centre-gauche) -démissionnaires-, serait <EVENT class="STATE" eid="e57" eiid="ei57" mood="CONDITIONAL" pos="ADJECTIVE" pred="VOUER" tense="PRESENT">vouée</EVENT> à l'<EVENT class="OCCURRENCE" eid="e58" eiid="ei58" pos="NOUN" pred="ÉCHEC">échec</EVENT>.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t14" timeID="t4" />
+<TLINK lid="l2" origin="USER" relType="IS_INCLUDED" relatedToTime="t6" timeID="t5" />
+<TLINK lid="l3" origin="USER" relType="AFTER" relatedToTime="t2" timeID="t14" />
+<TLINK lid="l4" origin="USER" relType="BEFORE" relatedToTime="t5" timeID="t2" />
+<TLINK lid="l5" origin="USER" relType="IDENTITY" relatedToTime="t7" timeID="t6" />
+<TLINK lid="l6" origin="USER" relType="IDENTITY" relatedToTime="t9" timeID="t7" />
+<TLINK lid="l7" origin="USER" relType="IDENTITY" relatedToTime="t5" timeID="t3" />
+<TLINK lid="l8" origin="USER" relType="IDENTITY" relatedToTime="t15" timeID="t9" />
+<TLINK lid="l9" origin="USER" relType="IDENTITY" relatedToTime="t17" timeID="t15" />
+<TLINK lid="l10" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t17" />
+<TLINK lid="l11" origin="USER" relType="IDENTITY" relatedToTime="t16" timeID="t1" />
+<TLINK lid="l12" origin="USER" relType="BEFORE" relatedToTime="t11" timeID="t16" />
+<TLINK lid="l13" origin="USER" relType="IDENTITY" relatedToTime="t12" timeID="t11" />
+<TLINK eventInstanceID="ei1" lid="l14" origin="USER" relType="BEGUN_BY" relatedToTime="t2" signalID="s1" />
+<TLINK eventInstanceID="ei3" lid="l16" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" />
+<TLINK eventInstanceID="ei3" lid="l18" origin="USER" relType="AFTER" relatedToEventInstance="ei59" signalID="s10" />
+<TLINK eventInstanceID="ei5" lid="l19" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" signalID="s2" />
+<TLINK eventInstanceID="ei6" lid="l22" origin="USER" relType="IS_INCLUDED" relatedToTime="t5" />
+<TLINK eventInstanceID="ei11" lid="l26" origin="USER" relType="IDENTITY" relatedToEventInstance="ei10" />
+<TLINK eventInstanceID="ei9" lid="l27" origin="USER" relType="DURING" relatedToEventInstance="ei10" />
+<TLINK eventInstanceID="ei13" lid="l30" origin="USER" relType="IS_INCLUDED" relatedToTime="t6" />
+<TLINK eventInstanceID="ei17" lid="l35" origin="USER" relType="IS_INCLUDED" relatedToTime="t7" />
+<TLINK eventInstanceID="ei62" lid="l36" origin="USER" relType="SIMULTANEOUS" relatedToTime="t8" />
+<TLINK eventInstanceID="ei19" lid="l38" origin="USER" relType="DURING" relatedToEventInstance="ei20" signalID="s3" />
+<TLINK eventInstanceID="ei18" lid="l39" origin="USER" relType="DURING" relatedToEventInstance="ei20" />
+<TLINK eventInstanceID="ei20" lid="l40" origin="USER" relType="BEFORE" relatedToTime="t4" />
+<TLINK eventInstanceID="ei21" lid="l41" origin="USER" relType="IS_INCLUDED" relatedToTime="t7" />
+<TLINK eventInstanceID="ei21" lid="l42" origin="USER" relType="BEFORE" relatedToEventInstance="ei17" />
+<TLINK eventInstanceID="ei24" lid="l48" origin="USER" relType="IS_INCLUDED" relatedToTime="t9" />
+<TLINK eventInstanceID="ei63" lid="l49" origin="USER" relType="SIMULTANEOUS" relatedToTime="t10" />
+<TLINK eventInstanceID="ei26" lid="l53" origin="USER" relType="INCLUDES" relatedToTime="t9" />
+<TLINK eventInstanceID="ei29" lid="l56" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei28" lid="l57" origin="USER" relType="AFTER" relatedToEventInstance="ei29" />
+<TLINK eventInstanceID="ei30" lid="l58" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei32" lid="l61" origin="USER" relType="BEFORE" relatedToEventInstance="ei33" signalID="s6" />
+<TLINK eventInstanceID="ei65" lid="l67" origin="USER" relType="ENDS" relatedToEventInstance="ei39" />
+<TLINK eventInstanceID="ei69" lid="l68" origin="USER" relType="BEGUN_BY" relatedToTime="t16" signalID="s12" />
+<TLINK eventInstanceID="ei69" lid="l69" origin="USER" relType="ENDED_BY" relatedToTime="t12" />
+<TLINK eventInstanceID="ei40" lid="l70" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei40" lid="l71" origin="USER" relType="BEFORE" relatedToEventInstance="ei66" />
+<TLINK eventInstanceID="ei43" lid="l73" origin="USER" relType="IS_INCLUDED" relatedToTime="t1" />
+<TLINK eventInstanceID="ei44" lid="l75" origin="USER" relType="BEFORE" relatedToEventInstance="ei45" />
+<TLINK eventInstanceID="ei48" lid="l76" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei48" lid="l77" origin="USER" relType="BEFORE" relatedToEventInstance="ei49" />
+<TLINK eventInstanceID="ei68" lid="l78" origin="USER" relType="IS_INCLUDED" relatedToTime="t14" signalID="s15" />
+<TLINK eventInstanceID="ei50" lid="l79" origin="USER" relType="IS_INCLUDED" relatedToTime="t15" />
+<TLINK eventInstanceID="ei50" lid="l80" origin="USER" relType="IDENTITY" relatedToEventInstance="ei51" />
+<TLINK eventInstanceID="ei52" lid="l81" origin="USER" relType="BEFORE" relatedToTime="t17" signalID="s13" />
+<TLINK eventInstanceID="ei52" lid="l82" origin="USER" relType="AFTER" relatedToTime="t2" />
+<TLINK eventInstanceID="ei54" lid="l85" origin="USER" relType="AFTER" relatedToEventInstance="ei56" />
+<TLINK eventInstanceID="ei57" lid="l87" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei59" lid="l91" origin="USER" relType="DURING" relatedToEventInstance="ei1" />
+<TLINK eventInstanceID="ei8" lid="l92" origin="USER" relType="BEFORE" relatedToTime="t5" />
+<TLINK eventInstanceID="ei60" lid="l94" origin="USER" relType="BEFORE" relatedToEventInstance="ei13" />
+<TLINK eventInstanceID="ei60" lid="l95" origin="USER" relType="AFTER" relatedToEventInstance="ei12" />
+<TLINK eventInstanceID="ei11" lid="l96" origin="USER" relType="BEFORE" relatedToEventInstance="ei60" />
+<TLINK eventInstanceID="ei14" lid="l97" origin="USER" relType="BEGUN_BY" relatedToEventInstance="ei13" />
+<TLINK eventInstanceID="ei17" lid="l100" origin="USER" relType="BEFORE" relatedToTime="t8" />
+<TLINK eventInstanceID="ei64" lid="l101" origin="USER" relType="DURING" relatedToEventInstance="ei63" />
+<TLINK eventInstanceID="ei29" lid="l103" origin="USER" relType="AFTER" relatedToEventInstance="ei63" />
+<TLINK eventInstanceID="ei30" lid="l104" origin="USER" relType="BEGUN_BY" relatedToEventInstance="ei24" />
+<TLINK eventInstanceID="ei35" lid="l105" origin="USER" relType="AFTER" relatedToEventInstance="ei63" />
+<TLINK eventInstanceID="ei35" lid="l106" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei35" lid="l107" origin="USER" relType="BEFORE" relatedToEventInstance="ei37" />
+<TLINK eventInstanceID="ei38" lid="l108" origin="USER" relType="AFTER" relatedToEventInstance="ei63" />
+<TLINK eventInstanceID="ei66" lid="l109" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei57" lid="l110" origin="USER" relType="OVERLAP_BEFORE" relatedToEventInstance="ei54" />
+<SLINK eventInstanceID="ei3" lid="l17" origin="USER" relType="MODAL" subordinatedEventInstance="ei4" />
+<SLINK eventInstanceID="ei6" lid="l21" origin="USER" relType="MODAL" subordinatedEventInstance="ei7" />
+<SLINK eventInstanceID="ei8" lid="l23" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei6" />
+<SLINK eventInstanceID="ei15" lid="l34" origin="USER" relType="MODAL" subordinatedEventInstance="ei16" />
+<SLINK eventInstanceID="ei17" lid="l37" origin="USER" relType="MODAL" subordinatedEventInstance="ei62" />
+<SLINK eventInstanceID="ei21" lid="l44" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei22" />
+<SLINK eventInstanceID="ei64" lid="l52" origin="USER" relType="MODAL" subordinatedEventInstance="ei25" />
+<SLINK eventInstanceID="ei26" lid="l54" origin="USER" relType="COUNTER_FACTIVE" subordinatedEventInstance="ei27" />
+<SLINK eventInstanceID="ei31" lid="l60" origin="USER" relType="MODAL" subordinatedEventInstance="ei32" />
+<SLINK eventInstanceID="ei38" lid="l65" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei69" />
+<SLINK eventInstanceID="ei69" lid="l66" origin="USER" relType="CONDITIONAL" subordinatedEventInstance="ei65" />
+<SLINK eventInstanceID="ei66" lid="l72" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei41" />
+<SLINK eventInstanceID="ei43" lid="l74" origin="USER" relType="MODAL" subordinatedEventInstance="ei44" />
+<SLINK eventInstanceID="ei54" lid="l84" origin="USER" relType="MODAL" subordinatedEventInstance="ei67" />
+<SLINK eventInstanceID="ei57" lid="l86" origin="USER" relType="MODAL" subordinatedEventInstance="ei58" />
+<SLINK eventInstanceID="ei1" lid="l90" origin="USER" relType="MODAL" subordinatedEventInstance="ei2" />
+<SLINK eventInstanceID="ei14" lid="l98" origin="USER" relType="MODAL" subordinatedEventInstance="ei15" />
+<SLINK eventInstanceID="ei22" lid="l99" origin="USER" relType="MODAL" subordinatedEventInstance="ei23" />
+<SLINK eventInstanceID="ei25" lid="l102" origin="USER" relType="MODAL" subordinatedEventInstance="ei26" />
+<ALINK eventInstanceID="ei24" lid="l50" origin="USER" relType="CULMINATES" relatedToEventInstance="ei63" />
+<ALINK eventInstanceID="ei30" lid="l59" origin="USER" relType="CONTINUES" relatedToEventInstance="ei31" />
+</TimeML>

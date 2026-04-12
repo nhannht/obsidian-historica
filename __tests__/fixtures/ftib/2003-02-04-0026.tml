@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2003-02-04-0026</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2003-02-04" /></DCT>
+<TEXT>
+<EVENT class="OCCURRENCE" eid="e12" eiid="ei12" pos="NOUN" pred="PREVENTION">Prévention</EVENT> routière.
+« Fiat-auto » en <EVENT class="STATE" eid="e10" eiid="ei10" pos="NOUN" pred="PARTENARIAT">partenariat</EVENT> avec la Prévention routière <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="VERB" pred="COORDONNER" tense="PRESENT">coordonne</EVENT> <SIGNAL sid="s1">jusqu'au</SIGNAL> <TIMEX3 beginPoint="t1" mod="ON_OR_BEFORE" tid="t2" type="DATE" value="2003-02-28">28 février</TIMEX3> les <EVENT class="OCCURRENCE" eid="e11" eiid="ei11" pos="NOUN" pred="SEMAINE">semaines</EVENT> de la sécurité. Les automobilistes qui le <EVENT class="I_STATE" eid="e3" eiid="ei3" pos="VERB" pred="DÉSIRER" tense="PRESENT">désirent</EVENT> <EVENT class="MODAL" eid="e4" eiid="ei4" pos="VERB" pred="POUVOIR" tense="PRESENT">peuvent</EVENT>, quelle que soit la marque de leur véhicule, faire <EVENT class="OCCURRENCE" eid="e6" eiid="ei6" modality="POSSIBILITY" pos="VERB" pred="CONTRÔLER" vform="INFINITIVE">contrôler</EVENT> gratuitement les pneumatiques, les plaquettes de freins, l'éclairage et la signalisation, les balais d'essuie-glace et les batteries chez le concessionnaire Fiat, 38-40, rue Jeanne-d'Arc à Bar-le-Duc.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t2" timeID="t1" />
+<TLINK eventInstanceID="ei2" lid="l2" origin="USER" relType="ENDED_BY" relatedToTime="t2" signalID="s1" />
+<TLINK eventInstanceID="ei10" lid="l3" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei2" lid="l4" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei11" />
+<TLINK eventInstanceID="ei3" lid="l5" origin="USER" relType="DURING" relatedToEventInstance="ei11" />
+<SLINK eventInstanceID="ei3" lid="l6" origin="USER" relType="MODAL" subordinatedEventInstance="ei4" />
+<SLINK eventInstanceID="ei4" lid="l7" origin="USER" relType="MODAL" subordinatedEventInstance="ei6" />
+</TimeML>

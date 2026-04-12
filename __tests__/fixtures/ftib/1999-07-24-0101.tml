@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-07-24-0101</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-07-24" /></DCT>
+<TEXT>
+BIBLIOTHEQUE <EVENT class="STATE" eid="e3" eiid="ei3" pos="ADJECTIVE" pred="FERMER">FERMÉE</EVENT>.
+La bibliothèque sera <EVENT class="STATE" eid="e1" eiid="ei1" pos="ADJECTIVE" pred="FERMER" tense="FUTURE">fermée</EVENT> <SIGNAL sid="s1">en</SIGNAL> <TIMEX3 tid="t2" type="DATE" value="1999-07">juillet</TIMEX3> et <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="VERB" pred="ROUVRIR" tense="FUTURE">rouvrira</EVENT> ses portes <SIGNAL sid="s2">en</SIGNAL> <TIMEX3 tid="t3" type="DATE" value="1999-08">août</TIMEX3>, uniquement <TIMEX3 quant="EVERY" tid="t4" type="SET" value="1999-WXX-3">le mercredi</TIMEX3>.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="IS_INCLUDED" relatedToTime="t1" timeID="t2" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t3" timeID="t2" />
+<TLINK lid="l3" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" timeID="t4" />
+<TLINK eventInstanceID="ei2" lid="l4" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" signalID="s2" />
+<TLINK eventInstanceID="ei3" lid="l5" origin="USER" relType="IDENTITY" relatedToEventInstance="ei1" />
+<TLINK eventInstanceID="ei1" lid="l6" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" signalID="s1" />
+</TimeML>

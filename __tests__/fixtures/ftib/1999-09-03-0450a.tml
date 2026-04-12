@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-09-03-0450a</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-09-03" /></DCT>
+<TEXT>
+Un sous-marin nucléaire russe <EVENT class="STATE" eid="e1" eiid="ei1" pos="VERB" pred="ÉCHAPPER" tense="PRESENT">échappe</EVENT> <SIGNAL sid="s1">depuis</SIGNAL> <TIMEX3 endPoint="t1" tid="t2" type="DURATION" value="PXD">plusieurs jours</TIMEX3> aux <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="NOUN" pred="RECHERCHE">recherches</EVENT> des forces de l'Otan dans l'Adriatique et aux abords de la Corse. Il s'agit du premier sous-marin russe à être <EVENT aspect="PERFECTIVE" class="OCCURRENCE" eid="e3" eiid="ei3" pos="VERB" pred="PASSER" vform="PASTPART">passé</EVENT> <SIGNAL sid="s4">depuis</SIGNAL> <TIMEX3 endPoint="t1" tid="t3" type="DURATION" value="PXY">des années</TIMEX3> par le détroit de Gibraltar pour <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="VERB" pred="OPÉRER" vform="INFINITIVE">opérer</EVENT> en mer Méditerranée et dans l'Adriatique. Il <EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="VERB" pred="EFFECTUER" tense="PRESENT">effectue</EVENT> une simple <EVENT class="OCCURRENCE" eid="e6" eiid="ei6" pos="NOUN" pred="MISSION">mission</EVENT> d'entraînement, mais l'Otan «qui <EVENT class="I_STATE" eid="e7" eiid="ei7" pos="VERB" pred="CONSIDÉRER" tense="PRESENT">considère</EVENT> comme une <EVENT class="OCCURRENCE" eid="e8" eiid="ei8" pos="NOUN" pred="PROVOCATION">provocation</EVENT> l'<EVENT class="OCCURRENCE" eid="e9" eiid="ei9" pos="NOUN" pred="APPARITION">apparition</EVENT> de sous-marins russes à proximité de ses bâtiments», a <EVENT class="OCCURRENCE" eid="e11" eiid="ei11" pos="VERB" pred="LANCER" tense="PAST" vform="PASTPART">lancé</EVENT> des avions, des navires spécialisés et des sous-marins à sa <EVENT class="OCCURRENCE" eid="e12" eiid="ei12" pos="NOUN" pred="RECHERCHE">recherche</EVENT>.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="ENDS" relatedToTime="t3" timeID="t1" />
+<TLINK lid="l2" origin="USER" relType="ENDS" relatedToTime="t2" timeID="t1" />
+<TLINK eventInstanceID="ei1" lid="l3" origin="USER" relType="SIMULTANEOUS" relatedToTime="t2" signalID="s1" />
+<TLINK eventInstanceID="ei3" lid="l5" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" signalID="s4" />
+<TLINK eventInstanceID="ei3" lid="l6" origin="USER" relType="BEFORE" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei5" lid="l8" origin="USER" relType="IDENTITY" relatedToEventInstance="ei6" />
+<TLINK eventInstanceID="ei7" lid="l10" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei8" lid="l12" origin="USER" relType="IDENTITY" relatedToEventInstance="ei9" />
+<TLINK eventInstanceID="ei11" lid="l13" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei11" lid="l14" origin="USER" relType="BEGINS" relatedToEventInstance="ei12" />
+<TLINK eventInstanceID="ei12" lid="l15" origin="USER" relType="IDENTITY" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei2" lid="l17" origin="USER" relType="BEGUN_BY" relatedToTime="t2" signalID="s1" />
+<TLINK eventInstanceID="ei5" lid="l18" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<SLINK eventInstanceID="ei7" lid="l11" origin="USER" relType="MODAL" subordinatedEventInstance="ei8" />
+</TimeML>

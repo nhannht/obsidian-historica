@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2002-04-02-0412b</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2002-04-02" /></DCT>
+<TEXT>
+Quatre mineurs <EVENT class="OCCURRENCE" eid="e35" eiid="ei35" pos="VERB" pred="ÉCROUER" vform="PASTPART">écroués</EVENT> pour avoir <EVENT aspect="PERFECTIVE" class="OCCURRENCE" eid="e1" eiid="ei1" pos="VERB" pred="TORTURER" vform="PASTPART">torturé</EVENT> un handicapé. - Quatre mineurs de Lisieux ont été <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="VERB" pred="ÉCROUER" tense="PAST" vform="PASTPART">écroués</EVENT> <TIMEX3 tid="t2" type="DATE" value="2002-03-30">samedi</TIMEX3> pour avoir <EVENT aspect="PERFECTIVE" class="OCCURRENCE" eid="e3" eiid="ei3" pos="VERB" pred="TORTURER" vform="PASTPART">torturé</EVENT> un handicapé mental <SIGNAL sid="s1">pendant</SIGNAL> <TIMEX3 mod="APPROX" tid="t3" type="DURATION" value="PT24H">près de 24 heures</TIMEX3> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t10" type="DATE" value="2002-03-24">il y a une semaine</TIMEX3> à Lisieux. Une cinquième personne, âgée de 24 ans et <EVENT class="I_STATE" eid="e4" eiid="ei4" pos="VERB" pred="SOUPÇONNER" vform="PASTPART">soupçonnée</EVENT> d'avoir <EVENT aspect="PERFECTIVE" class="OCCURRENCE" eid="e5" eiid="ei5" pos="VERB" pred="PARTICIPER" vform="PASTPART">participé</EVENT> à ces <EVENT class="OCCURRENCE" eid="e6" eiid="ei6" pos="NOUN" pred="TORTURE">tortures</EVENT>, était toujours <EVENT class="OCCURRENCE" eid="e7" eiid="ei7" pos="VERB" pred="RECHERCHER" tense="PAST" vform="PASTPART">recherchée</EVENT> par la police. Les cinq personnes incriminées sont toutes <EVENT class="STATE" eid="e8" eiid="ei8" pos="ADJECTIVE" pred="CONNAÎTRE" tense="PRESENT">connues</EVENT> des services de police. <TIMEX3 tid="t5" type="DATE" value="2002-03-24">Le 24 mars</TIMEX3>, <SIGNAL sid="s3">alors qu'</SIGNAL>elle avait <EVENT aspect="PERFECTIVE" class="OCCURRENCE" eid="e10" eiid="ei10" pos="VERB" pred="PASSER" tense="PAST" vform="PASTPART">passé</EVENT> <TIMEX3 tid="t6" type="TIME" value="2002-03-24TEV">la soirée</TIMEX3> et <TIMEX3 tid="t7" type="TIME" value="2002-03-24TNI">la nuit</TIMEX3> chez un ami, le majeur, la victime, handicapée mentale à 70 % et âgée de 32 ans, s'est <EVENT class="OCCURRENCE" eid="e36" eiid="ei36" pos="VERB" pred="EXTASIER" tense="PAST" vform="PASTPART">extasiée</EVENT> sur le tatouage d'un des deux mineurs <EVENT class="STATE" eid="e37" eiid="ei37" pos="ADJECTIVE" pred="PRÉSENT">présents</EVENT>. A trois, les jeunes ont alors <EVENT class="I_ACTION" eid="e12" eiid="ei12" pos="VERB" pred="DÉCIDER" tense="PAST" vform="PASTPART">décidé</EVENT> de <EVENT class="OCCURRENCE" eid="e13" eiid="ei13" pos="VERB" pred="TATOUER" vform="INFINITIVE">tatouer</EVENT> le handicapé à l'aide de fourchettes et d'un couteau à cran d'arrêt <EVENT class="OCCURRENCE" eid="e15" eiid="ei15" pos="VERB" pred="CHAUFFER" vform="PASTPART">chauffés</EVENT> à blanc sur une cuisinière. Ils lui ont <EVENT class="OCCURRENCE" eid="e16" eiid="ei16" pos="VERB" pred="APPLIQUER" tense="PAST" vform="PASTPART">appliqué</EVENT> le fer brûlant sur toute la surface du dos, le <EVENT class="OCCURRENCE" eid="e17" eiid="ei17" pos="VERB" pred="BRÛLER" vform="PRESPART">brûlant</EVENT> au deuxième degré. <SIGNAL sid="s11">Puis</SIGNAL> ils l'ont <EVENT class="OCCURRENCE" eid="e18" eiid="ei18" pos="VERB" pred="EMMENER" tense="PAST" vform="PASTPART">emmené</EVENT> dans un appartement avoisinant, où ils ont <EVENT class="OCCURRENCE" eid="e19" eiid="ei19" pos="VERB" pred="RETROUVER" tense="PAST" vform="PASTPART">retrouvé</EVENT> deux autres mineurs et ont <EVENT class="ASPECTUAL" eid="e20" eiid="ei20" polarity="POS" pos="VERB" pred="" tense="PAST" vform="PASTPART">renouvelé</EVENT> les <EVENT class="OCCURRENCE" eid="e21" eiid="ei21" pos="NOUN" pred="TORTURE">tortures</EVENT> avec les fourchettes et le couteau. Ils l'ont <SIGNAL sid="s10">ensuite</SIGNAL> <EVENT class="OCCURRENCE" eid="e22" eiid="ei22" pos="VERB" pred="LIVRER" tense="PAST" vform="PASTPART">livré</EVENT> à un pitbull qu'ils <EVENT class="OCCURRENCE" eid="e23" eiid="ei23" pos="VERB" pred="EXCITER" tense="IMPERFECT">excitaient</EVENT> et lui ont <EVENT class="CAUSE" eid="e24" eiid="ei24" pos="VERB" pred="FAIRE" tense="PAST" vform="PASTPART">fait</EVENT> <EVENT class="OCCURRENCE" eid="e25" eiid="ei25" pos="VERB" pred="INGURGITER" vform="INFINITIVE">ingurgiter</EVENT> leur urine <EVENT class="OCCURRENCE" eid="e38" eiid="ei38" pos="VERB" pred="MÉLANGER" vform="PASTPART">mélangée</EVENT> à du sirop de fraise. <SIGNAL sid="s5">En</SIGNAL> <TIMEX3 mod="END" tid="t8" type="TIME" value="2002-03-25TAF">fin d'après-midi</TIMEX3>, ils l'ont <EVENT class="OCCURRENCE" eid="e26" eiid="ei26" pos="VERB" pred="" tense="PAST" vform="PASTPART">jeté</EVENT> à plusieurs reprises, <SIGNAL sid="s9">après</SIGNAL> l'avoir <EVENT aspect="PERFECTIVE" class="OCCURRENCE" eid="e28" eiid="ei28" pos="VERB" pred="TABASSER" vform="PASTPART">tabassé</EVENT>, dans la Touques, une rivière qui traverse la ville, <SIGNAL sid="s7">alors que</SIGNAL> l'homme ne <EVENT class="I_STATE" eid="e30" eiid="ei30" polarity="NEG" pos="VERB" pred="SAVOIR" tense="PRESENT">sait</EVENT> pas <EVENT class="OCCURRENCE" eid="e31" eiid="ei31" pos="VERB" pred="NAGER" vform="INFINITIVE">nager</EVENT>. <EVENT class="OCCURRENCE" eid="e39" eiid="ei39" pos="VERB" pred="REVENIR" vform="PASTPART">Revenus</EVENT> dans le premier appartement, ils ont encore régulièrement <EVENT class="OCCURRENCE" eid="e32" eiid="ei32" pos="VERB" pred="FRAPPER" tense="PAST" vform="PASTPART">frappé</EVENT> le handicapé, qui a <EVENT class="ASPECTUAL" eid="e33" eiid="ei33" pos="VERB" pred="FINIR" tense="PAST" vform="PASTPART">fini</EVENT> par s'<EVENT class="OCCURRENCE" eid="e34" eiid="ei34" pos="VERB" pred="ÉCHAPPER" vform="INFINITIVE">échapper</EVENT> <TIMEX3 anchorTimeID="t8" tid="t9" type="TIME" value="2002-03-26TMO">le lendemain matin</TIMEX3>.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="IS_INCLUDED" relatedToTime="t5" timeID="t6" />
+<TLINK lid="l2" origin="USER" relType="AFTER" relatedToTime="t6" timeID="t7" />
+<TLINK lid="l3" origin="USER" relType="IDENTITY" relatedToTime="t5" timeID="t10" />
+<TLINK lid="l4" origin="USER" relType="BEFORE" relatedToTime="t8" timeID="t7" />
+<TLINK lid="l5" origin="USER" relType="BEFORE" relatedToTime="t9" timeID="t8" />
+<TLINK lid="l6" origin="USER" relType="BEFORE" relatedToTime="t2" timeID="t9" />
+<TLINK lid="l7" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t2" />
+<TLINK lid="l8" origin="USER" relType="BEGUN_BY" relatedToTime="t6" timeID="t3" />
+<TLINK lid="l9" origin="USER" relType="ENDED_BY" relatedToTime="t9" timeID="t3" />
+<TLINK eventInstanceID="ei35" lid="l10" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei1" lid="l11" origin="USER" relType="SIMULTANEOUS" relatedToTime="t3" signalID="s1" />
+<TLINK eventInstanceID="ei2" lid="l13" origin="USER" relType="IDENTITY" relatedToEventInstance="ei35" />
+<TLINK eventInstanceID="ei3" lid="l14" origin="USER" relType="IDENTITY" relatedToEventInstance="ei1" />
+<TLINK lid="l15" origin="USER" relType="IS_INCLUDED" relatedToTime="t10" timeID="t3" />
+<TLINK eventInstanceID="ei4" lid="l16" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei6" lid="l17" origin="USER" relType="IDENTITY" relatedToEventInstance="ei3" />
+<TLINK eventInstanceID="ei5" lid="l18" origin="USER" relType="DURING" relatedToEventInstance="ei6" />
+<TLINK eventInstanceID="ei7" lid="l19" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei8" lid="l20" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei36" lid="l22" origin="USER" relType="DURING" relatedToEventInstance="ei10" signalID="s3" />
+<TLINK eventInstanceID="ei15" lid="l27" origin="USER" relType="DURING" relatedToEventInstance="ei10" />
+<TLINK eventInstanceID="ei15" lid="l28" origin="USER" relType="BEFORE" relatedToEventInstance="ei13" />
+<TLINK eventInstanceID="ei36" lid="l29" origin="USER" relType="BEFORE" relatedToEventInstance="ei13" />
+<TLINK eventInstanceID="ei15" lid="l30" origin="USER" relType="AFTER" relatedToEventInstance="ei36" />
+<TLINK eventInstanceID="ei16" lid="l31" origin="USER" relType="AFTER" relatedToEventInstance="ei15" />
+<TLINK eventInstanceID="ei16" lid="l32" origin="USER" relType="DURING" relatedToEventInstance="ei13" />
+<TLINK eventInstanceID="ei18" lid="l34" origin="USER" relType="AFTER" relatedToEventInstance="ei13" signalID="s11" />
+<TLINK eventInstanceID="ei19" lid="l35" origin="USER" relType="AFTER" relatedToEventInstance="ei18" />
+<TLINK eventInstanceID="ei20" lid="l36" origin="USER" relType="AFTER" relatedToEventInstance="ei19" />
+<TLINK eventInstanceID="ei23" lid="l39" origin="USER" relType="IAFTER" relatedToEventInstance="ei22" />
+<TLINK eventInstanceID="ei24" lid="l40" origin="USER" relType="IDENTITY" relatedToEventInstance="ei25" />
+<TLINK eventInstanceID="ei38" lid="l43" origin="USER" relType="AFTER" relatedToEventInstance="ei23" />
+<TLINK eventInstanceID="ei26" lid="l44" origin="USER" relType="IS_INCLUDED" relatedToTime="t8" signalID="s5" />
+<TLINK eventInstanceID="ei26" lid="l45" origin="USER" relType="AFTER" relatedToEventInstance="ei28" signalID="s9" />
+<TLINK eventInstanceID="ei30" lid="l46" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei39" lid="l48" origin="USER" relType="AFTER" relatedToEventInstance="ei26" />
+<TLINK eventInstanceID="ei39" lid="l49" origin="USER" relType="AFTER" relatedToEventInstance="ei32" />
+<TLINK eventInstanceID="ei10" lid="l50" origin="USER" relType="IS_INCLUDED" relatedToTime="t6" />
+<TLINK eventInstanceID="ei10" lid="l51" origin="USER" relType="IS_INCLUDED" relatedToTime="t7" />
+<TLINK eventInstanceID="ei37" lid="l52" origin="USER" relType="DURING" relatedToEventInstance="ei10" />
+<TLINK eventInstanceID="ei12" lid="l53" origin="USER" relType="DURING" relatedToEventInstance="ei10" />
+<TLINK eventInstanceID="ei7" lid="l57" origin="USER" relType="AFTER" relatedToEventInstance="ei35" />
+<TLINK eventInstanceID="ei34" lid="l58" origin="USER" relType="IS_INCLUDED" relatedToTime="t9" />
+<TLINK eventInstanceID="ei22" lid="l60" origin="USER" relType="AFTER" relatedToEventInstance="ei20" signalID="s10" />
+<TLINK eventInstanceID="ei24" lid="l61" origin="USER" relType="AFTER" relatedToEventInstance="ei23" />
+<TLINK eventInstanceID="ei38" lid="l62" origin="USER" relType="BEFORE" relatedToEventInstance="ei24" />
+<TLINK eventInstanceID="ei16" lid="l63" origin="USER" relType="DURING" relatedToEventInstance="ei17" />
+<TLINK eventInstanceID="ei15" lid="l64" origin="USER" relType="BEFORE" relatedToEventInstance="ei17" />
+<SLINK eventInstanceID="ei12" lid="l24" origin="USER" relType="MODAL" subordinatedEventInstance="ei13" />
+<SLINK eventInstanceID="ei30" lid="l47" origin="USER" relType="MODAL" subordinatedEventInstance="ei31" />
+<SLINK eventInstanceID="ei4" lid="l59" origin="USER" relType="MODAL" subordinatedEventInstance="ei5" />
+<ALINK eventInstanceID="ei20" lid="l37" origin="USER" relType="REINITIATES" relatedToEventInstance="ei21" />
+</TimeML>

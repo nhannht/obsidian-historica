@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2002-05-11-0410</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2002-05-11" /></DCT>
+<TEXT>
+<EVENT class="OCCURRENCE" eid="e11" eiid="ei11" pos="NOUN" pred="SOIRÉE">Soirée</EVENT> théâtre.
+Dans le cadre du <EVENT class="OCCURRENCE" eid="e9" eiid="ei9" pos="NOUN" pred="FESTIVAL">festival</EVENT> de théâtre de l'Association « Aux actes citoyens » de Tomblaine et en collaboration avec le Can'art d'Art-sur-Meurthe, l'AFRL <EVENT class="I_ACTION" eid="e2" eiid="ei2" pos="VERB" pred="PROPOSER" tense="PRESENT">propose</EVENT> une <EVENT class="OCCURRENCE" eid="e10" eiid="ei10" pos="NOUN" pred="SOIRÉE">soirée</EVENT> théâtre <TIMEX3 tid="t4" type="DATE" value="2002-05-23">le jeudi 23 mai</TIMEX3>, à <TIMEX3 tid="t5" type="TIME" value="2002-05-23T20:30">20 h 30</TIMEX3>, à la salle polyvalente du village. A l'affiche, une comédie de Francis Veber, « Le dîner de cons » <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="VERB" pred="INTERPRÉTER" vform="PASTPART">interprétée</EVENT> par le théâtre de La Roële de Villers-lès-Nancy.
+Tous les coureurs du footing lenoncourtois disponibles, <EVENT class="STATE" eid="e6" eiid="ei6" pos="VERB" pred="AVOIR" tense="PRESENT">ont</EVENT> <EVENT class="OCCURRENCE" eid="e7" eiid="ei7" pos="NOUN" pred="RENDEZ-VOUS">rendez-vous</EVENT> <TIMEX3 tid="t6" type="TIME" value="2002-05-12TMO">dimanche matin</TIMEX3> à Val-et-Châtillon, pour <EVENT class="OCCURRENCE" eid="e8" eiid="ei8" pos="VERB" pred="DISPUTER" vform="INFINITIVE">disputer</EVENT> la <EVENT class="OCCURRENCE" eid="e12" eiid="ei12" pos="NOUN" pred="JOURNÉE">journée</EVENT> finale du trophée sport-loisirs.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t6" timeID="t1" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t4" timeID="t6" />
+<TLINK eventInstanceID="ei10" lid="l4" origin="USER" relType="DURING" relatedToEventInstance="ei9" />
+<TLINK eventInstanceID="ei11" lid="l5" origin="USER" relType="IDENTITY" relatedToEventInstance="ei10" />
+<TLINK eventInstanceID="ei2" lid="l6" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei10" lid="l7" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" />
+<TLINK eventInstanceID="ei4" lid="l8" origin="USER" relType="DURING" relatedToEventInstance="ei10" />
+<TLINK eventInstanceID="ei6" lid="l9" origin="USER" relType="IS_INCLUDED" relatedToTime="t6" />
+<TLINK eventInstanceID="ei6" lid="l10" origin="USER" relType="IDENTITY" relatedToEventInstance="ei7" />
+<TLINK eventInstanceID="ei7" lid="l11" origin="USER" relType="BEFORE" relatedToEventInstance="ei8" />
+<TLINK eventInstanceID="ei8" lid="l12" origin="USER" relType="DURING" relatedToEventInstance="ei12" />
+<SLINK eventInstanceID="ei2" lid="l3" origin="USER" relType="MODAL" subordinatedEventInstance="ei10" />
+</TimeML>

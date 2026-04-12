@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-05-18-0333</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-05-18" /></DCT>
+<TEXT>
+LE VILLAGE <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="VERB" pred="FAIRE" tense="FUTURE">FERA</EVENT> LA <EVENT class="OCCURRENCE" eid="e16" eiid="ei16" pos="NOUN" pred="FÊTE">F^ETE</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t3" type="DATE" value="1999-05-23" valueFromFunction="tf3">DIMANCHE</TIMEX3>.
+C'est <SIGNAL sid="s1">en</SIGNAL> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t4" type="DATE" value="1999-05-23">cette fête de Pentecôte</TIMEX3> que se <EVENT class="EVENT_CONTAINER" eid="e3" eiid="ei3" pos="VERB" pred="DÉROULER" tense="FUTURE">déroulera</EVENT> la <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="NOUN" pred="FÊTE">fête</EVENT> du village.
+<SIGNAL sid="s3">Dès</SIGNAL> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t5" type="DATE" value="1999-05-23" valueFromFunction="tf3">dimanche</TIMEX3>, petits et grands <EVENT class="MODAL" eid="e5" eiid="ei5" pos="VERB" pred="POUVOIR" tense="FUTURE">pourront</EVENT> <EVENT class="OCCURRENCE" eid="e6" eiid="ei6" modality="POSSIBILITY" pos="VERB" pred="VENIR" vform="INFINITIVE">venir</EVENT> s'<EVENT class="OCCURRENCE" eid="e7" eiid="ei7" pos="VERB" pred="EXERCER" vform="INFINITIVE">exercer</EVENT> au crève-ballons, à la loterie, au tir ou encore se <EVENT class="OCCURRENCE" eid="e10" eiid="ei10" pos="VERB" pred="RÉGALER" vform="INFINITIVE">régaler</EVENT> à la confiserie ou <EVENT class="OCCURRENCE" eid="e11" eiid="ei11" pos="VERB" pred="ESSAYER" vform="INFINITIVE">essayer</EVENT> le manège.
+<TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t6" type="TIME" value="1999-05-23TEV" valueFromFunction="tf3">Dimanche soir</TIMEX3>, <SIGNAL sid="s6">à partir de</SIGNAL> <TIMEX3 tid="t7" type="TIME" value="1999-05-23T22:00">22 h</TIMEX3>, le comité des fêtes vous <EVENT class="OCCURRENCE" eid="e13" eiid="ei13" pos="VERB" pred="INVITER" tense="PRESENT">invite</EVENT> également au <EVENT class="OCCURRENCE" eid="e14" eiid="ei14" pos="NOUN" pred="BAL">bal</EVENT> qui sera <EVENT class="OCCURRENCE" eid="e15" eiid="ei15" pos="VERB" pred="ANIMER" tense="FUTURE" vform="PASTPART">animé</EVENT> par Frédéric Bush.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t3" timeID="t1" />
+<TLINK lid="l2" origin="USER" relType="IDENTITY" relatedToTime="t4" timeID="t3" />
+<TLINK lid="l3" origin="USER" relType="IDENTITY" relatedToTime="t5" timeID="t4" />
+<TLINK lid="l4" origin="USER" relType="IS_INCLUDED" relatedToTime="t5" timeID="t6" />
+<TLINK lid="l5" origin="USER" relType="IS_INCLUDED" relatedToTime="t6" timeID="t7" />
+<TLINK lid="l6" origin="USER" relType="IDENTITY" relatedToTime="t5" timeID="t3" />
+<TLINK eventInstanceID="ei1" lid="l7" origin="USER" relType="IDENTITY" relatedToEventInstance="ei16" />
+<TLINK eventInstanceID="ei1" lid="l8" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" />
+<TLINK eventInstanceID="ei3" lid="l9" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" signalID="s1" />
+<TLINK eventInstanceID="ei3" lid="l10" origin="USER" relType="IDENTITY" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei5" lid="l11" origin="USER" relType="BEGUN_BY" relatedToTime="t5" signalID="s3" />
+<TLINK eventInstanceID="ei6" lid="l13" origin="USER" relType="BEFORE" relatedToEventInstance="ei7" />
+<TLINK eventInstanceID="ei6" lid="l14" origin="USER" relType="BEFORE" relatedToEventInstance="ei10" />
+<TLINK eventInstanceID="ei6" lid="l15" origin="USER" relType="BEFORE" relatedToEventInstance="ei11" />
+<TLINK eventInstanceID="ei14" lid="l16" origin="USER" relType="BEGUN_BY" relatedToTime="t7" />
+<TLINK eventInstanceID="ei15" lid="l17" origin="USER" relType="DURING" relatedToEventInstance="ei14" />
+<SLINK eventInstanceID="ei5" lid="l12" origin="USER" relType="MODAL" subordinatedEventInstance="ei6" />
+</TimeML>

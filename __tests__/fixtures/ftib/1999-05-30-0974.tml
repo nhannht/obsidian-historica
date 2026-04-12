@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-05-30-0974</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-05-30" /></DCT>
+<TEXT>
+Maceo Parker à Besançon <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="DATE" value="1999-06-01">mardi</TIMEX3>.
+BESANÇON._ <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="VERB" pred="NAÎTRE" vform="PASTPART">Né</EVENT> <SIGNAL sid="s1">en</SIGNAL> <TIMEX3 tid="t3" type="DATE" value="1943">1943</TIMEX3> à Kinston, en Caroline du Nord, Maceo Parker a <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="VERB" pred="GRANDIR" tense="PAST" vform="PASTPART">grandi</EVENT> dans une famille de musiciens. Ses parents <EVENT class="OCCURRENCE" eid="e3" eiid="ei3" pos="VERB" pred="CHANTER" tense="IMPERFECT">chantaient</EVENT> le gospel à l'église et c'est tout naturellement que le petit Maceo s'est <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="VERB" pred="METTRE" tense="PAST" vform="PASTPART">mis</EVENT> au saxophone tandis que ses deux frères « <EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="VERB" pred="TÂTER" tense="IMPERFECT">tâtaient</EVENT> » de la batterie et du trombone. <SIGNAL sid="s4">Au</SIGNAL> <TIMEX3 mod="START" tid="t4" type="DATE" value="196X">début des années 60</TIMEX3>, <SIGNAL sid="s5">au moment où</SIGNAL> il <EVENT class="OCCURRENCE" eid="e7" eiid="ei7" pos="VERB" pred="ATTEINDRE" tense="PRESENT">atteint</EVENT> sa pleine <EVENT class="STATE" eid="e8" eiid="ei8" pos="NOUN" pred="MATURITÉ">maturité</EVENT>, le jeune musicien <EVENT class="OCCURRENCE" eid="e19" eiid="ei19" pos="VERB" pred="RENCONTRER" tense="PRESENT">rencontre</EVENT> James Brown, le roi du funk et de la soul. Leur <EVENT class="STATE" eid="e9" eiid="ei9" pos="NOUN" pred="ASSOCIATION">association</EVENT> durera <TIMEX3 mod="MORE_THAN" tid="t5" type="DURATION" value="P20Y">plus de vingt ans</TIMEX3>. Maceo Parker a <EVENT class="OCCURRENCE" eid="e10" eiid="ei10" pos="VERB" pred="TRAVAILLER" tense="PAST" vform="PASTPART">travaillé</EVENT> également avec George Clinton, Bootsy Collins, <EVENT class="OCCURRENCE" eid="e20" eiid="ei20" pos="VERB" pred="COLLABORER" tense="PAST" vform="PASTPART">collaboré</EVENT> avec 10.000 Maniacs, DeLa Soul, Rod Stewart...
+<TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t6" type="TIME" value="PRESENT_REF" valueFromFunction="tf1">Aujourd'hui</TIMEX3>, ce grand saxophoniste américain <EVENT class="OCCURRENCE" eid="e11" eiid="ei11" pos="VERB" pred="POURSUIVRE" tense="PRESENT">poursuit</EVENT> une <EVENT class="OCCURRENCE" eid="e12" eiid="ei12" pos="NOUN" pred="CARRIÈRE">carrière</EVENT> solo et se <EVENT class="OCCURRENCE" eid="e13" eiid="ei13" pos="VERB" pred="PRODUIRE" tense="PRESENT">produit</EVENT> régulièrement avec son groupe sur scène, où son talent et son énergie inépuisable <EVENT class="OCCURRENCE" eid="e14" eiid="ei14" pos="VERB" pred="FAIRE" tense="PRESENT">font</EVENT> fureur. En <EVENT class="STATE" eid="e15" eiid="ei15" pos="VERB" pred="TÉMOIGNER" tense="PRESENT">témoigne</EVENT>, « Funkoverload », son dernier album, <EVENT class="OCCURRENCE" eid="e21" eiid="ei21" pos="VERB" pred="SORTIR" vform="PASTPART">sorti</EVENT> <SIGNAL sid="s2">en</SIGNAL> <TIMEX3 tid="t7" type="DATE" value="1998">1998</TIMEX3> où cet artiste génial <EVENT class="OCCURRENCE" eid="e16" eiid="ei16" pos="VERB" pred="RENDRE" tense="PRESENT">rend</EVENT> hommage à Stevie Wonder, Sly Stone ou Marvin Gaye, tout en <EVENT class="OCCURRENCE" eid="e17" eiid="ei17" pos="VERB" pred="AGRÉMENTER" vform="PRESPART">agrémentant</EVENT> son jazz-funk de clins d'oeils au hip-hop.
+En <EVENT class="OCCURRENCE" eid="e18" eiid="ei18" pos="NOUN" pred="CONCERT">concert</EVENT> <TIMEX3 tid="t8" type="DATE" value="1999-06-01">mardi 1er juin</TIMEX3> au grand Kursaal à Besançon.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t4" timeID="t3" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t7" timeID="t4" />
+<TLINK lid="l3" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t7" />
+<TLINK lid="l4" origin="USER" relType="BEFORE" relatedToTime="t2" timeID="t1" />
+<TLINK lid="l5" origin="USER" relType="IDENTITY" relatedToTime="t8" timeID="t2" />
+<TLINK eventInstanceID="ei1" lid="l6" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" signalID="s1" />
+<TLINK eventInstanceID="ei2" lid="l7" origin="USER" relType="AFTER" relatedToEventInstance="ei1" />
+<TLINK eventInstanceID="ei3" lid="l8" origin="USER" relType="DURING" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei4" lid="l9" origin="USER" relType="DURING" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei5" lid="l10" origin="USER" relType="DURING" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei7" lid="l12" origin="USER" relType="BEGINS" relatedToEventInstance="ei8" />
+<TLINK eventInstanceID="ei19" lid="l13" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" signalID="s4" />
+<TLINK eventInstanceID="ei19" lid="l14" origin="USER" relType="BEFORE" relatedToEventInstance="ei7" signalID="s5" />
+<TLINK eventInstanceID="ei9" lid="l15" origin="USER" relType="SIMULTANEOUS" relatedToTime="t5" />
+<TLINK eventInstanceID="ei9" lid="l16" origin="USER" relType="BEGUN_BY" relatedToEventInstance="ei19" />
+<TLINK eventInstanceID="ei10" lid="l17" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei20" lid="l18" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK lid="l19" origin="USER" relType="INCLUDES" relatedToTime="t1" timeID="t6" />
+<TLINK eventInstanceID="ei11" lid="l20" origin="USER" relType="IS_INCLUDED" relatedToTime="t6" />
+<TLINK eventInstanceID="ei11" lid="l21" origin="USER" relType="IDENTITY" relatedToEventInstance="ei12" />
+<TLINK eventInstanceID="ei13" lid="l22" origin="USER" relType="IS_INCLUDED" relatedToTime="t6" />
+<TLINK eventInstanceID="ei14" lid="l23" origin="USER" relType="DURING" relatedToEventInstance="ei13" />
+<TLINK eventInstanceID="ei15" lid="l24" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei21" lid="l25" origin="USER" relType="IS_INCLUDED" relatedToTime="t7" signalID="s2" />
+<TLINK eventInstanceID="ei17" lid="l28" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei16" />
+<TLINK eventInstanceID="ei18" lid="l29" origin="USER" relType="IS_INCLUDED" relatedToTime="t8" />
+<TLINK eventInstanceID="ei16" lid="l32" origin="USER" relType="DURING" relatedToEventInstance="ei21" />
+<TLINK eventInstanceID="ei20" lid="l33" origin="USER" relType="AFTER" relatedToEventInstance="ei1" />
+<TLINK eventInstanceID="ei10" lid="l34" origin="USER" relType="AFTER" relatedToEventInstance="ei1" />
+</TimeML>

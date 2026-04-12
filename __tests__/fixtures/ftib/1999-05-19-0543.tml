@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-05-19-0543</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-05-19" /></DCT>
+<TEXT>
+Printemps de l'environnement Les groupes <EVENT class="STATE" eid="e21" eiid="ei21" pos="ADJECTIVE" pred="PRÊT">prêts</EVENT> à <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="VERB" pred="ENTRER" vform="INFINITIVE">entrer</EVENT> en action..
+Trente-cinq volontaires ont <EVENT class="OCCURRENCE" eid="e3" eiid="ei3" pos="VERB" pred="PARTICIPER" tense="PAST" vform="PASTPART">participé</EVENT> au <EVENT class="OCCURRENCE" eid="e22" eiid="ei22" pos="NOUN" pred="PRINTEMPS">printemps</EVENT> de l'environnement sur le territoire de la commune de Deneuvre.
+Ils s'étaient <EVENT aspect="PERFECTIVE" class="OCCURRENCE" eid="e5" eiid="ei5" pos="VERB" pred="DONNER" tense="PAST" vform="PASTPART">donner</EVENT> <EVENT class="OCCURRENCE" eid="e23" eiid="ei23" pos="NOUN" pred="RENDEZ-VOUS">rendez-vous</EVENT> <SIGNAL sid="s2">à</SIGNAL> <TIMEX3 tid="t4" type="TIME" value="1999-05-19T14:00">14 h</TIMEX3>, devant la mairie. L'<EVENT class="OCCURRENCE" eid="e6" eiid="ei6" pos="NOUN" pred="OPÉRATION">opération</EVENT> avait été <EVENT aspect="PERFECTIVE" class="OCCURRENCE" eid="e7" eiid="ei7" pos="VERB" pred="PROGRAMMER" tense="PAST" vform="PASTPART">programmée</EVENT> par Claude Moret, conseiller municipal qui avait <EVENT aspect="PERFECTIVE" class="I_ACTION" eid="e8" eiid="ei8" pos="VERB" pred="PRÉVOIR" tense="PAST" vform="PASTPART">prévu</EVENT> de <EVENT class="OCCURRENCE" eid="e9" eiid="ei9" pos="VERB" pred="DIVISER" vform="INFINITIVE">diviser</EVENT> les volontaires en trois groupes qui <EVENT class="STATE" eid="e10" eiid="ei10" pos="VERB" pred="AVOIR" tense="IMPERFECT">avaient</EVENT> pour tâche de <EVENT class="OCCURRENCE" eid="e11" eiid="ei11" pos="VERB" pred="RAMASSER" vform="INFINITIVE">ramasser</EVENT> tous les détritus, sur des différents itinéraires.
+Toutes les associations de Deneuvre étaient <EVENT class="STATE" eid="e13" eiid="ei13" pos="VERB" pred="REPRÉSENTER" tense="IMPERFECT" vform="PASTPART">représentées</EVENT> pour ce grand <EVENT class="OCCURRENCE" eid="e14" eiid="ei14" pos="NOUN" pred="NETTOYAGE">nettoyage</EVENT>, environ 6 m3 de saletés ont été <EVENT class="OCCURRENCE" eid="e15" eiid="ei15" pos="VERB" pred="RAMASSER" tense="PAST" vform="PASTPART">ramassés</EVENT> sur l'ensenble du territoire, soit près de 20 kg par personne.
+Une <EVENT class="OCCURRENCE" eid="e16" eiid="ei16" pos="NOUN" pred="OPÉRATION">opération</EVENT> trés citoyenne qui sera <EVENT class="OCCURRENCE" eid="e17" eiid="ei17" pos="ADJECTIVE" pred="RENOUVELER" tense="FUTURE">renouvelée</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t5" type="DATE" value="2000" valueFromFunction="TF13">l'an prochain</TIMEX3>, sans doute <SIGNAL sid="s3">à</SIGNAL> la date <EVENT class="I_STATE" eid="e18" eiid="ei18" pos="VERB" pred="PRÉVOIR" vform="PASTPART">prévue</EVENT> initialement soit <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t6" type="DATE" value="2000-03-26" valueFromFunction="TF14">le premier dimanche du printemps</TIMEX3>, pour que le <EVENT class="OCCURRENCE" eid="e19" eiid="ei19" pos="NOUN" pred="RAMASSER">ramassage</EVENT> soit <EVENT class="STATE" eid="e20" eiid="ei20" mood="SUBJUNCTIVE" pos="ADJECTIVE" pred="EFFECTUER," tense="PRESENT">effectué</EVENT> dans des conditions plus faciles.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t5" timeID="t1" />
+<TLINK lid="l2" origin="USER" relType="IS_INCLUDED" relatedToTime="t5" timeID="t6" />
+<TLINK lid="l3" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t4" />
+<TLINK eventInstanceID="ei5" lid="l7" origin="USER" relType="IDENTITY" relatedToEventInstance="ei23" />
+<TLINK eventInstanceID="ei23" lid="l8" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" signalID="s2" />
+<TLINK eventInstanceID="ei5" lid="l9" origin="USER" relType="BEFORE" relatedToEventInstance="ei3" />
+<TLINK eventInstanceID="ei7" lid="l10" origin="USER" relType="BEFORE" relatedToEventInstance="ei5" />
+<TLINK eventInstanceID="ei6" lid="l12" origin="USER" relType="IDENTITY" relatedToEventInstance="ei22" />
+<TLINK eventInstanceID="ei8" lid="l13" origin="USER" relType="DURING" relatedToEventInstance="ei7" />
+<TLINK eventInstanceID="ei10" lid="l15" origin="USER" relType="DURING" relatedToEventInstance="ei6" />
+<TLINK eventInstanceID="ei11" lid="l16" origin="USER" relType="DURING" relatedToEventInstance="ei6" />
+<TLINK eventInstanceID="ei10" lid="l17" origin="USER" relType="OVERLAP_BEFORE" relatedToEventInstance="ei11" />
+<TLINK eventInstanceID="ei14" lid="l19" origin="USER" relType="IDENTITY" relatedToEventInstance="ei6" />
+<TLINK eventInstanceID="ei15" lid="l20" origin="USER" relType="DURING" relatedToEventInstance="ei6" />
+<TLINK eventInstanceID="ei21" lid="l21" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei17" lid="l25" origin="USER" relType="IS_INCLUDED" relatedToTime="t6" signalID="s3" />
+<TLINK eventInstanceID="ei18" lid="l26" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei20" lid="l27" origin="USER" relType="IDENTITY" relatedToEventInstance="ei19" />
+<TLINK eventInstanceID="ei3" lid="l31" origin="USER" relType="DURING" relatedToEventInstance="ei22" />
+<TLINK eventInstanceID="ei22" lid="l32" origin="USER" relType="BEGUN_BY" relatedToTime="t4" />
+<TLINK eventInstanceID="ei7" lid="l33" origin="USER" relType="BEFORE" relatedToEventInstance="ei6" />
+<TLINK eventInstanceID="ei13" lid="l34" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei14" />
+<TLINK eventInstanceID="ei20" lid="l35" origin="USER" relType="DURING" relatedToEventInstance="ei16" />
+<SLINK eventInstanceID="ei21" lid="l4" origin="USER" relType="MODAL" subordinatedEventInstance="ei2" />
+<SLINK eventInstanceID="ei8" lid="l14" origin="USER" relType="MODAL" subordinatedEventInstance="ei9" />
+<ALINK eventInstanceID="ei17" lid="l24" origin="USER" relType="REINITIATES" relatedToEventInstance="ei16" />
+</TimeML>

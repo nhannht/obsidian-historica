@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2002-04-21-0127</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2002-04-21" /></DCT>
+<TEXT>
+Le plus urgent c'est l'<EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="NOUN" pred="ENVOYER">envoie</EVENT> des secours pour <EVENT class="OCCURRENCE" eid="e3" eiid="ei3" pos="VERB" pred="FAIRE" vform="INFINITIVE">faire</EVENT> face «à une terrible <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="NOUN" pred="SITUATION">situation</EVENT> humanitaire», a <EVENT class="REPORTING" eid="e4" eiid="ei4" pos="VERB" pred="DÉCLARER" tense="PAST" vform="PASTPART">déclaré</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="DATE" value="2002-04-20" valueFromFunction="TF17">hier</TIMEX3> Kofi Annan, <SIGNAL sid="s1">après</SIGNAL> le <EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="NOUN" pred="VOTE">vote</EVENT> de la résolution 1405 de l'ONU. En <EVENT class="STATE" eid="e13" eiid="ei13" vform="GERUNDIVE" pos="VERB" pred="ATTENDRE">attendant</EVENT> la <EVENT class="OCCURRENCE" eid="e14" eiid="ei14" pos="NOUN" pred="COMMISSION">commission</EVENT> d'enquête que finalement Bush n'a pas <EVENT class="OCCURRENCE" eid="e9" eiid="ei9" polarity="NEG" pos="VERB" pred="BLOQUER" tense="PAST" vform="PASTPART">bloquée</EVENT>, le secrétaire d'Etat américain William Burn, <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t4" type="DATE" value="2002-04-20" valueFromFunction="TF17">hier</TIMEX3> <EVENT class="STATE" eid="e12" eiid="ei12" pos="PREPOSITION" pred="SUR_PLACE">sur place</EVENT>, <EVENT class="I_ACTION" eid="e10" eiid="ei10" pos="VERB" pred="RECONNAÎTRE" tense="IMPERFECT">reconnaissait</EVENT> déjà « une <EVENT class="OCCURRENCE" eid="e11" eiid="ei11" pos="NOUN" pred="TRAGÉDIE">tragédie</EVENT> humaine pour des milliers d'innocents ».
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="IDENTITY" relatedToTime="t4" timeID="t2" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t4" />
+<TLINK eventInstanceID="ei4" lid="l3" origin="USER" relType="AFTER" relatedToEventInstance="ei5" signalID="s1" />
+<TLINK eventInstanceID="ei1" lid="l4" origin="USER" relType="BEFORE" relatedToEventInstance="ei3" />
+<TLINK eventInstanceID="ei4" lid="l5" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei13" lid="l9" origin="USER" relType="ENDED_BY" relatedToEventInstance="ei14" />
+<TLINK eventInstanceID="ei12" lid="l12" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" />
+<TLINK eventInstanceID="ei10" lid="l13" origin="USER" relType="DURING" relatedToEventInstance="ei12" />
+<TLINK eventInstanceID="ei11" lid="l16" origin="USER" relType="BEFORE" relatedToTime="t2" />
+<TLINK eventInstanceID="ei10" lid="l17" origin="USER" relType="DURING" relatedToEventInstance="ei13" />
+<TLINK eventInstanceID="ei3" lid="l19" origin="USER" relType="DURING" relatedToEventInstance="ei2" />
+<SLINK eventInstanceID="ei4" lid="l6" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei1" />
+<SLINK eventInstanceID="ei14" lid="l10" origin="USER" relType="FACTIVE" subordinatedEventInstance="ei9" />
+<SLINK eventInstanceID="ei10" lid="l15" origin="USER" relType="FACTIVE" subordinatedEventInstance="ei11" />
+</TimeML>

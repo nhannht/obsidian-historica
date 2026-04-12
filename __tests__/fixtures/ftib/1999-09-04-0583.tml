@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-09-04-0583</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-09-04" /></DCT>
+<TEXT>
+FO <EVENT class="I_ACTION" eid="e1" eiid="ei1" pos="VERB" pred="BOYCOTTER" tense="PRESENT">boycotte</EVENT> la <EVENT class="OCCURRENCE" eid="e21" eiid="ei21" pos="NOUN" pred="PRÉ-RENTRÉE">pré-rentrée</EVENT>.
+<TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="TIME" value="1999-09-03T10:00" valueFromFunction="TF17">Hier à 10 h</TIMEX3>, une dizaine de délégués de la FNEC FP Force Ouvrière ont <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="VERB" pred="APPELER" tense="PAST" vform="PASTPART">appelé</EVENT> leurs collègues à <EVENT class="I_ACTION" eid="e3" eiid="ei3" pos="VERB" pred="BOYCOTTER" vform="INFINITIVE">boycotter</EVENT> <TIMEX3 anchorTimeID="t2" temporalFunction="true" tid="t3" type="DATE" value="1999-09-03">la deuxième journée</TIMEX3> de <EVENT class="OCCURRENCE" eid="e27" eiid="ei27" pos="NOUN" pred="PRÉ-RENTRÉE">pré-rentrée</EVENT>. « L'<EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="NOUN" pred="ALLONGEMENT">allongement</EVENT> de la <EVENT class="OCCURRENCE" eid="e23" eiid="ei23" pos="NOUN" pred="PRÉ-RENTRÉE">pré-rentrée</EVENT> n'a pas de véritables justifications », ont-ils <EVENT class="REPORTING" eid="e24" eiid="ei24" pos="VERB" pred="SOULIGNER" vform="PASTPART">souligné</EVENT>, « et ne <EVENT class="I_STATE" eid="e8" eiid="ei8" polarity="NEG" pos="VERB" pred="CONTRIBUER" tense="PRESENT">contribue</EVENT> en rien à l'<EVENT class="OCCURRENCE" eid="e9" eiid="ei9" pos="NOUN" pred="AMÉLIORATION">amélioration</EVENT> de l'encadrement pédagogique des élèves. Mais il s'<EVENT class="STATE" eid="e11" eiid="ei11" pos="VERB" pred="INSCRIRE" tense="PRESENT">inscrit</EVENT> dans le cadre (...) de l'<EVENT class="OCCURRENCE" eid="e12" eiid="ei12" pos="NOUN" pred="ATTEINTE">atteinte</EVENT> aux statuts des personnels ».
+En fin de <EVENT class="OCCURRENCE" eid="e25" eiid="ei25" mod="END" pos="NOUN" pred="RÉUNION">réunion</EVENT>, les différents délégués ont <EVENT class="I_ACTION" eid="e13" eiid="ei13" pos="VERB" pred="DÉCIDER" tense="PAST" vform="PASTPART">décidé</EVENT> de <EVENT class="OCCURRENCE" eid="e14" eiid="ei14" pos="VERB" pred="RÉUNIR" vform="INFINITIVE">réunir</EVENT> leurs collègues dans les établissements pour s'<EVENT class="I_ACTION" eid="e16" eiid="ei16" pos="VERB" pred="OPPOSER" vform="INFINITIVE">opposer</EVENT> à la <EVENT class="OCCURRENCE" eid="e17" eiid="ei17" pos="NOUN" pred="MISE">mise</EVENT> en place des chartes Allègre-Royal, « qui <EVENT class="I_ACTION" eid="e18" eiid="ei18" pos="VERB" pred="ORGANISER" tense="PRESENT">organisent</EVENT> la <EVENT class="OCCURRENCE" eid="e19" eiid="ei19" pos="NOUN" pred="DESTRUCTION">destruction</EVENT> du service public d'enseignement ».
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" timeID="t2" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t2" />
+<TLINK eventInstanceID="ei2" lid="l3" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei3" lid="l5" origin="USER" relType="DURING" relatedToEventInstance="ei27" />
+<TLINK eventInstanceID="ei27" lid="l7" origin="USER" relType="IDENTITY" relatedToEventInstance="ei23" />
+<TLINK eventInstanceID="ei23" lid="l8" origin="USER" relType="IDENTITY" relatedToEventInstance="ei21" />
+<TLINK eventInstanceID="ei3" lid="l9" origin="USER" relType="IDENTITY" relatedToEventInstance="ei1" />
+<TLINK eventInstanceID="ei24" lid="l10" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei8" lid="l12" origin="USER" relType="DURING" relatedToEventInstance="ei9" />
+<TLINK eventInstanceID="ei11" lid="l14" origin="USER" relType="DURING" relatedToEventInstance="ei12" />
+<TLINK eventInstanceID="ei3" lid="l15" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" />
+<TLINK eventInstanceID="ei27" lid="l16" origin="USER" relType="ENDED_BY" relatedToTime="t3" />
+<TLINK eventInstanceID="ei25" lid="l17" origin="USER" relType="INCLUDES" relatedToTime="t2" />
+<TLINK eventInstanceID="ei13" lid="l19" origin="USER" relType="ENDS" relatedToEventInstance="ei25" />
+<TLINK eventInstanceID="ei14" lid="l20" origin="USER" relType="BEFORE" relatedToEventInstance="ei16" />
+<TLINK eventInstanceID="ei18" lid="l22" origin="USER" relType="BEFORE" relatedToEventInstance="ei19" />
+<TLINK eventInstanceID="ei18" lid="l23" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<SLINK eventInstanceID="ei2" lid="l4" origin="USER" relType="MODAL" subordinatedEventInstance="ei3" />
+<SLINK eventInstanceID="ei24" lid="l11" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei8" />
+<SLINK eventInstanceID="ei24" lid="l13" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei11" />
+<SLINK eventInstanceID="ei13" lid="l18" origin="USER" relType="MODAL" subordinatedEventInstance="ei14" />
+<SLINK eventInstanceID="ei16" lid="l21" origin="USER" relType="MODAL" subordinatedEventInstance="ei17" />
+</TimeML>

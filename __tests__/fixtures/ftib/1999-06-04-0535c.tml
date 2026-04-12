@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-06-04-0535c</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-06-04" /></DCT>
+<TEXT>
+Cassis <EVENT class="OCCURRENCE" eid="e21" eiid="ei21" pos="VERB" pred="EXEMPTER" vform="PASTPART">exempté</EVENT> de quarantaine.
+Tony Blair est <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="VERB" pred="INTERVENIR" tense="PAST" vform="PASTPART">intervenu</EVENT> personnellement pour <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="VERB" pred="EXEMPTER" vform="INFINITIVE">exempter</EVENT> officiellement de quarantaine le chien d'un jeune Britannique de 15 ans, <EVENT class="STATE" eid="e22" eiid="ei22" pos="VERB" pred="ATTEINDRE" vform="PASTPART">atteint</EVENT> d'un cancer et en <EVENT class="STATE" eid="e23" eiid="ei23" pos="NOUN" pred="CONVALESCENCE">convalescence</EVENT> en France. <EVENT class="I_STATE" eid="e3" eiid="ei3" pos="VERB" pred="CRAINDRE" vform="PRESPART">Craignant</EVENT> de ne plus <EVENT class="PERCEPTION" eid="e4" eiid="ei4" pos="VERB" pred="REVOIR" vform="INFINITIVE">revoir</EVENT> son chien <SIGNAL sid="s1">à</SIGNAL> son <EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="NOUN" pred="RETOUR">retour</EVENT> en Angleterre, William a <EVENT class="OCCURRENCE" eid="e6" eiid="ei6" pos="VERB" pred="ÉCRIRE" tense="PAST" vform="PASTPART">écrit</EVENT> une lettre au Premier ministre britannique en lui <EVENT class="I_ACTION" eid="e7" eiid="ei7" vform="GERUNDIVE" pred="DEMANDER" pos="VERB">demandant</EVENT> <SIGNAL sid="s5">s'</SIGNAL>il lui était <EVENT class="MODAL" eid="e25" eiid="ei25" pred="POSSIBLE" pos="ADJECTIVE">possible</EVENT> «d'<EVENT class="OCCURRENCE" eid="e8" eiid="ei8" pos="VERB" pred="ACCÉLÉRER" vform="INFINITIVE">accélérer</EVENT> la <EVENT class="OCCURRENCE" eid="e9" eiid="ei9" pos="NOUN" pred="RÉFORME">réforme</EVENT>» de ce système ancestral <EVENT class="STATE" eid="e10" eiid="ei10" pos="ADJECTIVE" pred="DESTINER">destiné</EVENT> à <EVENT class="OCCURRENCE" eid="e11" eiid="ei11" pos="VERB" pred="PROTÉGER" vform="INFINITIVE">protéger</EVENT> les animaux insulaires de la rage, pour qu'il «<EVENT class="MODAL" eid="e13" eiid="ei13" mood="SUBJUNCTIVE" pos="VERB" pred="POUVOIR" tense="PRESENT">puisse</EVENT> <EVENT class="OCCURRENCE" eid="e14" eiid="ei14" modality="PERMISSION" pos="VERB" pred="RENTRER" vform="INFINITIVE">rentrer</EVENT> en Angleterre avec son chien... ». Dans une lettre <EVENT class="STATE" eid="e15" eiid="ei15" pos="VERB" pred="SIGNER" vform="PASTPART">signée</EVENT> de sa main, Tony Blair est «heureux d'<EVENT class="REPORTING" eid="e16" eiid="ei16" pos="VERB" pred="ANNONCER" vform="INFINITIVE">annoncer</EVENT> qu'en raison des circonstances exceptionnelles, Cassis est <EVENT class="STATE" eid="e17" eiid="ei17" pos="VERB" pred="EXEMPTER" tense="PRESENT" vform="PASTPART">exempté</EVENT> de quarantaine». Il <EVENT class="OCCURRENCE" eid="e18" eiid="ei18" pos="VERB" pred="RECEVOIR" tense="FUTURE">recevra</EVENT> en avant première, <SIGNAL sid="s4">après</SIGNAL> <EVENT class="OCCURRENCE" eid="e24" eiid="ei24" pos="NOUN" pred="VERIFICATION">vérifications</EVENT> du ministère de l'Agriculture, un passeport pour animaux domestiques, qui <EVENT class="MODAL" eid="e19" eiid="ei19" mood="CONDITIONAL" pos="VERB" pred="DEVOIR" tense="PRESENT">devrait</EVENT> normalement <EVENT class="OCCURRENCE" eid="e20" eiid="ei20" modality="POSSIBILITY" pos="VERB" pred="ENTRER" vform="INFINITIVE">entrer</EVENT> en vigueur <SIGNAL sid="s3">en</SIGNAL> <TIMEX3 tid="t3" type="DATE" value="2001-04">avril 2001</TIMEX3>.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t3" timeID="t1" />
+<TLINK eventInstanceID="ei1" lid="l2" origin="USER" relType="BEFORE" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei1" lid="l3" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei23" lid="l4" origin="USER" relType="DURING" relatedToEventInstance="ei22" />
+<TLINK eventInstanceID="ei22" lid="l5" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei6" lid="l8" origin="USER" relType="DURING" relatedToEventInstance="ei23" />
+<TLINK eventInstanceID="ei6" lid="l9" origin="USER" relType="DURING" relatedToEventInstance="ei3" />
+<TLINK eventInstanceID="ei5" lid="l10" origin="USER" relType="BEGINS" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei7" lid="l12" origin="USER" relType="DURING" relatedToEventInstance="ei6" />
+<TLINK eventInstanceID="ei8" lid="l15" origin="USER" relType="DURING" relatedToEventInstance="ei9" />
+<TLINK eventInstanceID="ei10" lid="l16" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei8" lid="l18" origin="USER" relType="BEFORE" relatedToEventInstance="ei13" />
+<TLINK eventInstanceID="ei15" lid="l20" origin="USER" relType="DURING" relatedToEventInstance="ei1" />
+<TLINK eventInstanceID="ei16" lid="l21" origin="USER" relType="DURING" relatedToEventInstance="ei1" />
+<TLINK eventInstanceID="ei21" lid="l22" origin="USER" relType="IDENTITY" relatedToEventInstance="ei17" />
+<TLINK eventInstanceID="ei17" lid="l23" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei18" lid="l25" origin="USER" relType="AFTER" relatedToEventInstance="ei24" signalID="s4" />
+<TLINK eventInstanceID="ei24" lid="l26" origin="USER" relType="AFTER" relatedToTime="t1" />
+<TLINK eventInstanceID="ei20" lid="l28" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" signalID="s3" />
+<TLINK eventInstanceID="ei19" lid="l29" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei3" lid="l32" origin="USER" relType="DURING" relatedToEventInstance="ei23" />
+<TLINK eventInstanceID="ei11" lid="l33" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<SLINK eventInstanceID="ei3" lid="l6" origin="USER" relType="MODAL" subordinatedEventInstance="ei4" />
+<SLINK eventInstanceID="ei7" lid="l13" origin="USER" relType="MODAL" subordinatedEventInstance="ei25" />
+<SLINK eventInstanceID="ei25" lid="l14" origin="USER" relType="MODAL" subordinatedEventInstance="ei8" />
+<SLINK eventInstanceID="ei13" lid="l19" origin="USER" relType="MODAL" subordinatedEventInstance="ei14" />
+<SLINK eventInstanceID="ei19" lid="l27" origin="USER" relType="MODAL" subordinatedEventInstance="ei20" />
+<SLINK eventInstanceID="ei16" lid="l31" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei17" />
+</TimeML>

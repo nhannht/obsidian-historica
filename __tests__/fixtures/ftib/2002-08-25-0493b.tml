@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2002-08-25-0493b</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2002-08-25" /></DCT>
+<TEXT>
+Ni alcool, ni tabac.
+Adelina Domingues, connue pour être la doyenne des Américains, s'est <EVENT class="OCCURRENCE" eid="e3" eiid="ei3" pos="VERB" pred="ETEINDRE" tense="PAST" vform="PASTPART">éteinte</EVENT> <TIMEX3 tid="t2" type="TIME" value="2002-08-21TAF">mercredi après-midi</TIMEX3> à l'âge de 114 ans. Elle était <EVENT class="STATE" eid="e4" eiid="ei5" pos="NOUN" pred="VEUVE">veuve</EVENT> <SIGNAL sid="s1">depuis</SIGNAL>... <TIMEX3 tid="t3" type="DATE" value="1950">1950</TIMEX3>. Elle <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="VERB" pred="LAISSER" tense="PRESENT">laisse</EVENT> derrière elle six petits-enfants et neuf arrière-petits-enfants. Les secrets de sa longévité ? Une alimentation était riche en légumes et en fruits frais ; ni alcool, ni tabac.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t2" timeID="t3" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t2" />
+<TLINK eventInstanceID="ei3" lid="l3" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei5" lid="l4" origin="USER" relType="BEGUN_BY" relatedToTime="t3" signalID="s1" />
+<TLINK eventInstanceID="ei3" lid="l5" origin="USER" relType="BEGINS" relatedToEventInstance="ei1" />
+</TimeML>

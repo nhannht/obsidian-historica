@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2002-04-30-0498d</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2002-04-30" /></DCT>
+<TEXT>
+Chirac à Toulouse.
+Jacques Chirac <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="VERB" pred="EFFECTUER" tense="FUTURE">effectuera</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="DATE" value="2002-04-30" valueFromFunction="tf1">aujourd'hui</TIMEX3> un <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="NOUN" pred="DÉPLACEMENT">déplacement</EVENT> de campagne à Toulouse au côté du député-maire UDF Philippe Douste-Blazy. Il <EVENT class="I_ACTION" eid="e3" eiid="ei3" pos="VERB" pred="TENIR" tense="FUTURE">tiendra</EVENT>, en compagnie du maire de Toulouse « une <EVENT class="OCCURRENCE" eid="e6" eiid="ei7" pos="NOUN" pred="RÉUNION">réunion</EVENT> dialogue avec des Toulousains », <SIGNAL sid="s1">à</SIGNAL> <TIMEX3 tid="t3" type="TIME" value="2002-04-30T16:00">16 h</TIMEX3> au Centre des Congrès Pierre Baudis.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="IDENTITY" relatedToTime="t1" timeID="t2" />
+<TLINK lid="l2" origin="USER" relType="INCLUDES" relatedToTime="t3" timeID="t2" />
+<TLINK eventInstanceID="ei1" lid="l3" origin="USER" relType="IDENTITY" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei1" lid="l4" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei7" lid="l5" origin="USER" relType="IDENTITY" relatedToEventInstance="ei3" />
+<TLINK eventInstanceID="ei3" lid="l6" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" signalID="s1" />
+</TimeML>

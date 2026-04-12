@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2002-10-31-1172</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2002-10-31" /></DCT>
+<TEXT>
+Equipementiers bien <EVENT class="STATE" eid="e1" eiid="ei1" pos="ADJECTIVE" pred="POSITIONNER">positionnés</EVENT>.
+A l'occasion de son <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="NOUN" pred="ASSEMBLÉE">assemblée</EVENT> générale, l'UIMM-88 <EVENT class="OCCURRENCE" eid="e3" eiid="ei3" pos="VERB" pred="RECEVOIR" tense="IMPERFECT">recevait</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="DATE" value="2002-10-30" valueFromFunction="tf17">hier</TIMEX3> Dominique de Calan, le délégué général-adjoint de l'Union des industries et métiers de la métallurgie. L'occasion pour le président Thierry Gagnez, le délégué régional Sylvain Bernardi et le délégué général des Vosges Pierre Ehret, de <EVENT class="OCCURRENCE" eid="e6" eiid="ei6" pos="VERB" pred="FAIRE" vform="INFINITIVE">faire</EVENT> le point avec celui qui n'est pas un inconnu dans les Vosges, puisqu'il fut <EVENT class="STATE" eid="e79" eiid="ei79" pos="NOUN" pred="DIRECTEUR">directeur</EVENT> général du groupe Boussac <SIGNAL sid="s1">de</SIGNAL> <TIMEX3 tid="t3" type="DATE" value="1982">1982</TIMEX3> <SIGNAL sid="s2">à</SIGNAL> <TIMEX3 tid="t4" type="DATE" value="1987">1987</TIMEX3>.
+<SIGNAL sid="s12">Depuis</SIGNAL>, le textile a <EVENT class="OCCURRENCE" eid="e7" eiid="ei7" pos="VERB" pred="PERDRE" tense="PAST" vform="PASTPART">perdu</EVENT> dans les Vosges sa place de premier employeur au profit de la métallurgie, qui <EVENT class="STATE" eid="e8" eiid="ei8" pos="VERB" pred="COMPTER" tense="IMPERFECT">comptait</EVENT> exactement 11.459 salariés <SIGNAL sid="s14">au</SIGNAL> <TIMEX3 tid="t5" type="DATE" value="2001-12-31">31 décembre 2001</TIMEX3>, 1,8 % de <EVENT class="STATE" eid="e80" eiid="ei80" pos="ADJECTIVE" pred="PLUS">plus</EVENT> qu'<TIMEX3 anchorTimeID="t5" endPoint="t5" tid="t6" type="DURATION" value="P1Y">un an</TIMEX3> <SIGNAL sid="s13">avant</SIGNAL>. Mais qui <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t7" type="DATE" value="2002" valueFromFunction="tf13">cette année</TIMEX3> <EVENT class="STATE" eid="e9" eiid="ei9" pos="VERB" pred="FAIRE" tense="PRESENT">fait</EVENT> grise mine. « Nous sommes également <EVENT class="STATE" eid="e11" eiid="ei11" pos="ADJECTIVE" pred="SOUMETTRE" tense="PRESENT">soumis</EVENT> à la conjoncture et, <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t8" type="TIME" value="PRESENT_REF" valueFromFunction="tf1">aujourd'hui</TIMEX3>, dans une <EVENT class="OCCURRENCE" eid="e72" eiid="ei72" pos="NOUN" pred="SITUATION">situation</EVENT> de ralentissement important », <EVENT class="REPORTING" eid="e83" eiid="ei83" pos="VERB" pred="ANALYSE" tense="PRESENT">analyse</EVENT> Thierry Gagnez. « La <EVENT class="OCCURRENCE" eid="e13" eiid="ei13" pos="NOUN" pred="REPRISE">reprise</EVENT> <SIGNAL sid="s3">de</SIGNAL> <TIMEX3 tid="t9" type="DATE" value="2002-09">septembre</TIMEX3> n'a pas <EVENT class="STATE" eid="e73" eiid="ei73" polarity="NEG" pos="VERB" pred="DURER" tense="PAST" vform="PASTPART">duré</EVENT> et la question est de <EVENT class="I_STATE" eid="e15" eiid="ei15" pos="VERB" pred="SAVOIR" vform="INFINITIVE">savoir</EVENT> <SIGNAL sid="s4">si</SIGNAL> nous <EVENT class="MODAL" eid="e16" eiid="ei16" pos="VERB" pred="POUVOIR" tense="PRESENT">pouvons</EVENT> <EVENT class="I_STATE" eid="e17" eiid="ei17" modality="POSSIBILITY" pos="VERB" pred="ESPÉRER" vform="INFINITIVE">espérer</EVENT> un <EVENT class="OCCURRENCE" eid="e18" eiid="ei18" pos="NOUN" pred="REBOND">rebond</EVENT> <SIGNAL sid="s5">en</SIGNAL> <TIMEX3 tid="t10" type="DATE" value="2003">2003</TIMEX3>... »
+Le président de l'UIMM n'est pas très <EVENT class="STATE" eid="e74" eiid="ei74" polarity="NEG" pos="ADJECTIVE" pred="OPTIMISTE" tense="PRESENT">optimiste</EVENT> : « A l'aune de ce qu'on <EVENT class="PERCEPTION" eid="e20" eiid="ei20" pos="VERB" pred="OBSERVER" tense="PRESENT">observe</EVENT> chez nos adhérents, nous ne sommes pas <EVENT class="STATE" eid="e75" eiid="ei75" polarity="NEG" pos="ADJECTIVE" pred="SÛR" tense="PRESENT">sûrs</EVENT> que les 2,5 % de croissance <EVENT class="I_STATE" eid="e22" eiid="ei22" pos="ADJECTIVE" pred="PRÉVOIR">prévus</EVENT> seront au rendez-vous... Mais il ne <EVENT class="MODAL" eid="e24" eiid="ei24" polarity="NEG" pos="VERB" pred="FALLOIR" tense="PRESENT">faut</EVENT> pas <EVENT class="OCCURRENCE" eid="e25" eiid="ei25" modality="NECESSITY" pos="VERB" pred="DÉSESPÉRER" vform="INFINITIVE">désespérer</EVENT>. Les entreprises <EVENT class="OCCURRENCE" eid="e27" eiid="ei27" modality="NECESSITY" pos="VERB" pred="PRENDRE" tense="FUTURE">prendront</EVENT> les <EVENT class="OCCURRENCE" eid="e28" eiid="ei28" pos="NOUN" pred="MESURE">mesures</EVENT> qu'il <EVENT class="MODAL" eid="e29" eiid="ei29" pos="VERB" pred="FALLOIR" tense="PRESENT">faut</EVENT> pour <EVENT class="OCCURRENCE" eid="e30" eiid="ei30" pos="VERB" pred="PRÉSERVER" vform="INFINITIVE">préserver</EVENT> <TIMEX3 tid="t11" type="TIME" value="FUTURE_REF">l'avenir</TIMEX3>. »
+Des <EVENT class="OCCURRENCE" eid="e31" eiid="ei31" pos="NOUN" pred="MESURE">mesures</EVENT> <EVENT class="STATE" eid="e32" eiid="ei32" pos="VERB" pred="TOUCHER" vform="PRESPART">touchant</EVENT> les emplois ? « C'est l'un des leviers que nous avons, mais que nous manions avec prudence et il n'est pas question de ça <TIMEX3 tid="t12" type="TIME" value="PRESENT_REF">pour le moment</TIMEX3>. Nous <EVENT class="OCCURRENCE" eid="e76" eiid="ei76" pos="VERB" pred="GÉRER" tense="FUTURE">gèrerons</EVENT> au mieux pour <EVENT class="I_ACTION" eid="e36" eiid="ei36" pos="VERB" pred="ASSURER" vform="INFINITIVE">assurer</EVENT> la <EVENT class="OCCURRENCE" eid="e82" eiid="ei82" pos="NOUN" pred="PÉRENNITÉ">pérennité</EVENT> des entreprises », <EVENT class="REPORTING" eid="e38" eiid="ei38" pos="VERB" pred="RÉPONDRE" tense="PRESENT">répond</EVENT> Thierry Gagnez, Pierre Ehret <EVENT class="REPORTING" eid="e40" eiid="ei40" pos="VERB" pred="SOULIGNER" vform="PRESPART">soulignant</EVENT> d'ailleurs que les équipementiers automobiles vosgiens se sont « bien <EVENT class="OCCURRENCE" eid="e77" eiid="ei77" pos="ADJECTIVE" pred="POSITIONNER">positionnés</EVENT> sur le marché mondial <SIGNAL sid="s7">à</SIGNAL> l'<EVENT class="OCCURRENCE" eid="e41" eiid="ei41" pos="NOUN" pred="ARRIVÉE">arrivée</EVENT> des nouveaux modèles. »
+Fiscalité : un mauvais signe.
+En fait, ce qui <EVENT class="STATE" eid="e42" eiid="ei42" pos="VERB" pred="INQUIÉTER" tense="PRESENT">inquiète</EVENT> surtout les patrons de la métallurgie est moins économique que politique. <EVENT class="REPORTING" eid="e43" eiid="ei43" pos="VERB" pred="RAPPELER" vform="PRESPART">Rappelant</EVENT> le double <EVENT class="OCCURRENCE" eid="e44" eiid="ei44" pos="NOUN" pred="MOUVEMENT">mouvement</EVENT> <TIMEX3 temporalFunction="false" tid="t14" type="TIME" value="PRESENT_REF">actuel</TIMEX3> - <EVENT class="OCCURRENCE" eid="e45" eiid="ei45" pos="NOUN" pred="DÉCENTRALISATION">décentralisation</EVENT> et <EVENT class="OCCURRENCE" eid="e46" eiid="ei46" pos="NOUN" pred="ÉLARGISSEMENT">élargissement</EVENT> de l'Europe -, Dominique de Calan <EVENT class="REPORTING" eid="e47" eiid="ei47" pos="VERB" pred="EXPLIQUER" tense="PRESENT">explique</EVENT> le danger : <SIGNAL sid="s8">si</SIGNAL> les entreprises n'<EVENT class="OCCURRENCE" eid="e49" eiid="ei49" polarity="NEG" pos="VERB" pred="INVESTISSEMENT" tense="IMPERFECT">investissent</EVENT> pas, elles <EVENT class="OCCURRENCE" eid="e50" eiid="ei50" pos="VERB" pred="DISPARAÎTRE" tense="FUTURE">disparaîtront</EVENT>. Du paysage français, puisque qu'elles n'<EVENT class="STATE" eid="e51" eiid="ei51" polarity="NEG" pos="VERB" pred="AVOIR" tense="FUTURE">auront</EVENT> aucun mal à <EVENT class="OCCURRENCE" eid="e52" eiid="ei52" pos="VERB" pred="ALLER" vform="INFINITIVE">aller</EVENT> s'<EVENT class="OCCURRENCE" eid="e53" eiid="ei53" pos="VERB" pred="INSTALLER" vform="INFINITIVE">installer</EVENT> ailleurs, « dans les pays qui <EVENT class="STATE" eid="e54" eiid="ei54" pos="VERB" pred="AVOIR" tense="PRESENT">ont</EVENT> une politique industrielle agressive d'aide à l'investissement, comme l'Italie, les ex-pays de l'Est, l'Irlande, l'Espagne... »
+Et de <EVENT class="I_ACTION" eid="e56" eiid="ei56" polarity="POS" pos="VERB" pred="METTRE" vform="INFINITIVE">mettre</EVENT> en cause la <TIMEX3 temporalFunction="false" tid="t15" type="TIME" value="FUTURE_REF">future</TIMEX3> « <EVENT class="OCCURRENCE" eid="e57" eiid="ei57" pos="NOUN" pred="RÉGIONALISATION">régionalisation</EVENT> » qui <EVENT class="MODAL" eid="e58" eiid="ei58" pos="VERB" pred="POUVOIR" tense="PRESENT">pourrait</EVENT> <EVENT class="OCCURRENCE" eid="e59" eiid="ei59" modality="POSSIBILITY" pos="VERB" pred="PESER" vform="INFINITIVE">peser</EVENT> sur la fiscalité des entreprises : <TIMEX3 tid="t13" type="TIME" value="PRESENT_REF">actuellement</TIMEX3>, la taxe professionnelle ne <EVENT class="MODAL" eid="e61" eiid="ei61" polarity="NEG" pos="VERB" pred="POUVOIR" tense="PRESENT">peut</EVENT> <EVENT class="OCCURRENCE" eid="e62" eiid="ei62" modality="POSSIBILITY" pos="VERB" pred="AUGMENTER" vform="INFINITIVE">augmenter</EVENT> plus que la moyenne des trois autres taxes. « Il est question de <EVENT class="OCCURRENCE" eid="e63" eiid="ei63" pos="VERB" pred="SUPPRIMER" vform="INFINITIVE">supprimer</EVENT> ce lien et nous <EVENT class="OCCURRENCE" eid="e64" eiid="ei64" pos="VERB" pred="PRENDRE" tense="PRESENT">prenons</EVENT> ça comme un très mauvais signe ! », <EVENT class="REPORTING" eid="e65" eiid="ei65" pos="VERB" pred="DIRE" tense="PRESENT">dit</EVENT> Thierry Gagnez. D'autant que les régions <EVENT class="STATE" eid="e67" eiid="ei67" pos="VERB" pred="AVOIR" tense="PRESENT">ont</EVENT> tendance à <EVENT class="OCCURRENCE" eid="e68" eiid="ei68" pos="VERB" pred="PRATIQUER" vform="INFINITIVE">pratiquer</EVENT> une <EVENT class="OCCURRENCE" eid="e69" eiid="ei69" pos="NOUN" pred="AFFECTION">affectation</EVENT> de leurs aides « plus électorale qu'économique », <EVENT class="REPORTING" eid="e71" eiid="ei71" pos="VERB" pred="AJOUTER" tense="PRESENT">ajoute</EVENT> Dominique de Calan, lui-même conseiller régional de Bretagne. En nombre de voix, les chefs d'entreprise ne sont évidement pas <EVENT class="STATE" eid="e78" eiid="ei78" polarity="NEG" pos="ADJECTIVE" pred="MAJORITAIRE">majoritaires</EVENT>.
+Catherine MICHELET-FRÉMIOT
+</TEXT>
+<TLINK lid="l10019" origin="USER" relType="BEFORE" relatedToTime="t4" timeID="t3" />
+<TLINK lid="l10020" origin="USER" relType="BEFORE" relatedToTime="t5" timeID="t4" />
+<TLINK lid="l10021" origin="USER" relType="BEFORE" relatedToTime="t7" timeID="t5" />
+<TLINK lid="l10022" origin="USER" relType="IS_INCLUDED" relatedToTime="t7" timeID="t9" />
+<TLINK lid="l10023" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t2" />
+<TLINK lid="l10024" origin="USER" relType="BEFORE" relatedToTime="t2" timeID="t9" />
+<TLINK lid="l10025" origin="USER" relType="BEFORE" relatedToTime="t10" timeID="t1" />
+<TLINK eventInstanceID="ei1" lid="l10026" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei3" lid="l10027" origin="USER" relType="DURING" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei3" lid="l10028" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei6" lid="l10029" origin="USER" relType="DURING" relatedToEventInstance="ei2" />
+<TLINK lid="l10030" origin="USER" relType="BEGINS" relatedToEventInstance="ei79" signalID="s1" timeID="t3" />
+<TLINK lid="l10031" origin="USER" relType="ENDS" relatedToEventInstance="ei79" signalID="s2" timeID="t4" />
+<TLINK eventInstanceID="ei7" lid="l10032" origin="USER" relType="AFTER" relatedToTime="t4" signalID="s12" />
+<TLINK eventInstanceID="ei8" lid="l10033" origin="USER" relType="IS_INCLUDED" relatedToTime="t5" signalID="s14" />
+<TLINK eventInstanceID="ei80" lid="l10034" origin="USER" relType="IS_INCLUDED" relatedToTime="t6" />
+<TLINK lid="l10035" origin="USER" relType="ENDED_BY" relatedToTime="t5" signalID="s13" timeID="t6" />
+<TLINK eventInstanceID="ei9" lid="l10036" origin="USER" relType="IS_INCLUDED" relatedToTime="t7" />
+<TLINK eventInstanceID="ei72" lid="l10037" origin="USER" relType="IS_INCLUDED" relatedToTime="t8" />
+<TLINK lid="l10038" origin="USER" relType="INCLUDES" relatedToTime="t1" timeID="t8" />
+<TLINK eventInstanceID="ei13" lid="l10039" origin="USER" relType="IS_INCLUDED" relatedToTime="t9" signalID="s3" />
+<TLINK eventInstanceID="ei18" lid="l10040" origin="USER" relType="IS_INCLUDED" relatedToTime="t10" signalID="s5" />
+<TLINK eventInstanceID="ei15" lid="l10041" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei20" lid="l10042" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei74" lid="l10043" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei22" lid="l10044" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei27" lid="l10045" origin="USER" relType="IDENTITY" relatedToEventInstance="ei28" />
+<TLINK eventInstanceID="ei27" lid="l10046" origin="USER" relType="BEFORE" relatedToEventInstance="ei30" />
+<TLINK eventInstanceID="ei27" lid="l10047" origin="USER" relType="AFTER" relatedToTime="t1" />
+<TLINK eventInstanceID="ei31" lid="l10048" origin="USER" relType="IDENTITY" relatedToEventInstance="ei28" />
+<TLINK eventInstanceID="ei32" lid="l10049" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei31" />
+<TLINK eventInstanceID="ei76" lid="l10050" origin="USER" relType="BEFORE" relatedToEventInstance="ei36" />
+<TLINK eventInstanceID="ei38" lid="l10051" origin="USER" relType="AFTER" relatedToEventInstance="ei83" />
+<TLINK eventInstanceID="ei40" lid="l10052" origin="USER" relType="AFTER" relatedToEventInstance="ei38" />
+<TLINK eventInstanceID="ei77" lid="l10053" origin="USER" relType="BEGUN_BY" relatedToEventInstance="ei41" signalID="s7" />
+<TLINK eventInstanceID="ei42" lid="l10054" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei44" lid="l10055" origin="USER" relType="IS_INCLUDED" relatedToTime="t14" />
+<TLINK eventInstanceID="ei45" lid="l10056" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei46" />
+<TLINK eventInstanceID="ei46" lid="l10057" origin="USER" relType="IDENTITY" relatedToEventInstance="ei44" />
+<TLINK eventInstanceID="ei45" lid="l10058" origin="USER" relType="IDENTITY" relatedToEventInstance="ei44" />
+<TLINK lid="l10059" origin="USER" relType="IDENTITY" relatedToTime="t14" timeID="t12" />
+<TLINK lid="l10060" origin="USER" relType="IDENTITY" relatedToTime="t12" timeID="t13" />
+<TLINK eventInstanceID="ei43" lid="l10061" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei47" />
+<TLINK eventInstanceID="ei50" lid="l10062" origin="USER" relType="AFTER" relatedToTime="t1" />
+<TLINK eventInstanceID="ei51" lid="l10063" origin="USER" relType="AFTER" relatedToEventInstance="ei50" />
+<TLINK eventInstanceID="ei52" lid="l10064" origin="USER" relType="IBEFORE" relatedToEventInstance="ei53" />
+<TLINK eventInstanceID="ei54" lid="l10065" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK lid="l10066" origin="USER" relType="IDENTITY" relatedToTime="t8" timeID="t14" />
+<TLINK eventInstanceID="ei53" lid="l10067" origin="USER" relType="DURING" relatedToEventInstance="ei54" />
+<TLINK eventInstanceID="ei57" lid="l10068" origin="USER" relType="IS_INCLUDED" relatedToTime="t15" />
+<TLINK lid="l10069" origin="USER" relType="IDENTITY" relatedToTime="t11" timeID="t15" />
+<TLINK lid="l10070" origin="USER" relType="AFTER" relatedToTime="t1" timeID="t11" />
+<TLINK eventInstanceID="ei61" lid="l10071" origin="USER" relType="IS_INCLUDED" relatedToTime="t13" />
+<TLINK eventInstanceID="ei67" lid="l10072" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei57" lid="l10073" origin="USER" relType="BEFORE" relatedToEventInstance="ei58" />
+<TLINK eventInstanceID="ei68" lid="l10074" origin="USER" relType="IDENTITY" relatedToEventInstance="ei69" />
+<TLINK eventInstanceID="ei71" lid="l10075" origin="USER" relType="AFTER" relatedToEventInstance="ei65" />
+<TLINK eventInstanceID="ei78" lid="l10076" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei80" lid="l10077" origin="USER" relType="AFTER" relatedToEventInstance="ei8" />
+<TLINK eventInstanceID="ei65" lid="l10078" origin="USER" relType="DURING" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei43" lid="l10079" origin="USER" relType="DURING" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei30" lid="l10080" origin="USER" relType="INCLUDES" relatedToTime="t11" />
+<TLINK eventInstanceID="ei83" lid="l10081" origin="USER" relType="DURING" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei76" lid="l10082" origin="USER" relType="AFTER" relatedToEventInstance="ei27" />
+<TLINK eventInstanceID="ei24" lid="l10083" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei75" lid="l10084" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei56" lid="l10085" origin="USER" relType="DURING" relatedToEventInstance="ei2" />
+<SLINK eventInstanceID="ei17" lid="l9999" origin="USER" relType="MODAL" subordinatedEventInstance="ei18" />
+<SLINK eventInstanceID="ei15" lid="l10000" origin="USER" relType="MODAL" signalID="s4" subordinatedEventInstance="ei16" />
+<SLINK eventInstanceID="ei16" lid="l10001" origin="USER" relType="MODAL" subordinatedEventInstance="ei17" />
+<SLINK eventInstanceID="ei24" lid="l10002" origin="USER" relType="MODAL" subordinatedEventInstance="ei25" />
+<SLINK eventInstanceID="ei29" lid="l10003" origin="USER" relType="MODAL" subordinatedEventInstance="ei27" />
+<SLINK eventInstanceID="ei36" lid="l10004" origin="USER" relType="MODAL" subordinatedEventInstance="ei82" />
+<SLINK eventInstanceID="ei83" lid="l10005" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei11" />
+<SLINK eventInstanceID="ei40" lid="l10006" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei77" />
+<SLINK eventInstanceID="ei38" lid="l10007" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei76" />
+<SLINK eventInstanceID="ei43" lid="l10008" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei44" />
+<SLINK eventInstanceID="ei49" lid="l10009" origin="USER" relType="CONDITIONAL" signalID="s8" subordinatedEventInstance="ei50" />
+<SLINK eventInstanceID="ei51" lid="l10010" origin="USER" relType="MODAL" subordinatedEventInstance="ei52" />
+<SLINK eventInstanceID="ei58" lid="l10011" origin="USER" relType="MODAL" subordinatedEventInstance="ei59" />
+<SLINK eventInstanceID="ei61" lid="l10012" origin="USER" relType="MODAL" subordinatedEventInstance="ei62" />
+<SLINK eventInstanceID="ei65" lid="l10013" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei63" />
+<SLINK eventInstanceID="ei65" lid="l10014" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei64" />
+<SLINK eventInstanceID="ei67" lid="l10015" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei68" />
+<SLINK eventInstanceID="ei71" lid="l10016" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei67" />
+<SLINK eventInstanceID="ei47" lid="l10017" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei49" />
+<SLINK eventInstanceID="ei56" lid="l10018" origin="USER" relType="MODAL" subordinatedEventInstance="ei57" />
+</TimeML>

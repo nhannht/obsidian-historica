@@ -1,0 +1,161 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2003-02-23-0086</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2003-02-23" /></DCT>
+<TEXT>
+La fumée a <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="VERB" pred="ATTIRER" tense="PAST" vform="PASTPART">attiré</EVENT> l'attention des voisins et des passants <TIMEX3 anchorTimeID="t1" mod="APPROX" temporalFunction="true" tid="t2" type="TIME" value="2003-02-22T15:30">vers 15 h 30, hier</TIMEX3>. Il a <EVENT class="MODAL" eid="e2" eiid="ei2" pos="VERB" pred="FALLOIR" tense="PAST" vform="PASTPART">fallu</EVENT> rapidement se <EVENT class="OCCURRENCE" eid="e3" eiid="ei3" modality="NECESSITY" pos="VERB" pred="RENDRE" vform="INFINITIVE">rendre</EVENT> à l'évidence : il ne s'agissait pas d'un feu de cheminée.
+A leur <EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="NOUN" pred="ARRIVÉE">arrivée</EVENT> devant le 10, rue Paul-Bert à Belfort, les sapeurs-pompiers se sont rapidement <EVENT class="OCCURRENCE" eid="e6" eiid="ei6" pos="VERB" pred="TROUVER" tense="PAST" vform="PASTPART">trouvés</EVENT> face à un <EVENT class="OCCURRENCE" eid="e7" eiid="ei7" pos="NOUN" pred="INCENDIE">incendie</EVENT> d'importance. Le feu avait <EVENT aspect="PERFECTIVE" class="OCCURRENCE" eid="e9" eiid="ei9" pos="VERB" pred="COUVER" tense="PAST" vform="PASTPART">couvé</EVENT> et une épaisse fumée s'était <EVENT aspect="PERFECTIVE" class="OCCURRENCE" eid="e10" eiid="ei10" pos="VERB" pred="CONCENTRER" tense="PAST" vform="PASTPART">concentrée</EVENT> sur les deux étages de l'entrepôt du Secours populaire. Il a <EVENT class="MODAL" eid="e12" eiid="ei12" pos="VERB" pred="FALLOIR" tense="PAST" vform="PASTPART">fallu</EVENT> que les sapeurs-pompiers <EVENT class="OCCURRENCE" eid="e13" eiid="ei13" modality="NECESSITY" mood="SUBJUNCTIVE" pos="VERB" pred="CASSER" tense="PRESENT">cassent</EVENT> les vitres, <EVENT class="OCCURRENCE" eid="e14" eiid="ei14" modality="NECESSITY" mood="SUBJUNCTIVE" pos="VERB" pred="DÉCOUPER" tense="PRESENT">découpent</EVENT> le rideau métallique de la porte d'entrée et <EVENT class="OCCURRENCE" eid="e15" eiid="ei15" modality="NECESSITY" mood="SUBJUNCTIVE" pos="VERB" pred="FAIRE" tense="PRESENT">fassent</EVENT> des ouvertures dans le toit pour <EVENT class="MODAL" eid="e17" eiid="ei17" pos="VERB" pred="POUVOIR" vform="INFINITIVE">pouvoir</EVENT> <EVENT class="OCCURRENCE" eid="e18" eiid="ei18" modality="POSSIBILITY" pos="VERB" pred="COMBATTRE" vform="INFINITIVE">combattre</EVENT> les flammes. Leur matériel respiratoire a été nécessaire pour <EVENT class="OCCURRENCE" eid="e19" eiid="ei19" pos="VERB" pred="ENTRER" vform="INFINITIVE">entrer</EVENT> dans la fournaise <EVENT class="OCCURRENCE" eid="e20" eiid="ei20" pos="VERB" pred="GÉNÉRER" vform="PASTPART">générée</EVENT> par l'<EVENT class="OCCURRENCE" eid="e21" eiid="ei21" pos="NOUN" pred="INCENDIE">incendie</EVENT> des meubles, mousses et infrastructures en bois du bâtiment.
+L'<EVENT class="OCCURRENCE" eid="e23" eiid="ei23" pos="NOUN" pred="OPÉRATION">opération</EVENT> a <EVENT class="OCCURRENCE" eid="e24" eiid="ei24" pos="VERB" pred="MOBILISER" tense="PAST" vform="PASTPART">mobilisé</EVENT> 25 hommes issus des centres de Belfort Nord et Sud, de Giromagny et du service départemental d'incendie et de secours. Deux fourgons et deux grandes échelles ont été <EVENT class="OCCURRENCE" eid="e26" eiid="ei26" pos="VERB" pred="METTRE" tense="PAST" vform="PASTPART">mises</EVENT> en action. L'<EVENT class="OCCURRENCE" eid="e27" eiid="ei27" pos="NOUN" pred="INTERVENTION">intervention</EVENT> a été <EVENT class="OCCURRENCE" eid="e28" eiid="ei28" pos="VERB" pred="DIRIGER" tense="PAST" vform="PASTPART">dirigée</EVENT> sur place, depuis le poste de commandement mobile.
+Le <EVENT class="OCCURRENCE" eid="e29" eiid="ei29" pos="NOUN" pred="SINISTRE">sinistre</EVENT> a <EVENT class="OCCURRENCE" eid="e30" eiid="ei30" pos="VERB" pred="DÉTRUIRE" tense="PAST" vform="PASTPART">détruit</EVENT> essentiellement, au niveau du rez-de-chaussée, les locaux et le matériel situé côté Paul-Bert. La toiture a été <EVENT class="OCCURRENCE" eid="e31" eiid="ei31" pos="VERB" pred="PRÉSERVER" tense="PAST" vform="PASTPART">préservée</EVENT>. Il n'y <EVENT class="STATE" eid="e123" eiid="ei123" pos="VERB" pred="AVOIR" tense="IMPERFECT">avait</EVENT> personne à l'intérieur <SIGNAL sid="s12">à</SIGNAL> <TIMEX3 anchorTimeID="t2" functionInDocument="NONE" mod="APPROX" temporalFunction="true" tid="t15" type="TIME" value="2003-02-22T15:30">ce moment là</TIMEX3>.
+Environ 100 m2, sur environ 300 m2 de locaux, ont été <EVENT class="OCCURRENCE" eid="e33" eiid="ei33" pos="VERB" pred="DÉTRUIRE" tense="PAST" vform="PASTPART">détruits</EVENT> par les flammes. Le reste a été <EVENT class="OCCURRENCE" eid="e34" eiid="ei34" pos="VERB" pred="ENDOMMAGER" tense="PAST" vform="PASTPART">endommagé</EVENT> par la chaleur et les fumées. L'origine de l'<EVENT class="OCCURRENCE" eid="e35" eiid="ei35" pos="NOUN" pred="INCENDIE">incendie</EVENT> était <EVENT class="STATE" eid="e124" eiid="ei124" pos="ADJECTIVE" pred="INCONNU">inconnue</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t4" type="TIME" value="2003-02-22TAF" valueFromFunction="tf5">hier après-midi</TIMEX3>.
+Il n'y avait personne non plus à l'intérieur du hangar que le Secours populaire <EVENT class="OCCURRENCE" eid="e38" eiid="ei38" pos="VERB" pred="UTILISER" tense="PRESENT">utilise</EVENT> <SIGNAL sid="s2">depuis</SIGNAL> <TIMEX3 tid="t5" type="DURATION" value="P25Y">un quart de siècle</TIMEX3> pour l'accueil ainsi que la vente et le stockage de ses objets, meubles et vêtements.
+Le bâtiment, qui <EVENT class="STATE" eid="e42" eiid="ei42" pos="VERB" pred="APPARTENIR" tense="PRESENT">appartient</EVENT> à la Ville de Belfort, venait de <EVENT aspect="PERFECTIVE" class="OCCURRENCE" eid="e43" eiid="ei43" pos="VERB" pred="FAIRE" tense="PAST" vform="INFINITIVE">faire</EVENT> l'objet de travaux de rénovation <EVENT class="REPORTING" eid="e44" eiid="ei44" pos="VERB" pred="CONFIRMER" tense="PRESENT">confirme</EVENT> André Kaufmann, adjoint au maire, sur place <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t6" type="DATE" value="2003-02-22" valueFromFunction="TF17">hier</TIMEX3> : « La toiture a été complétement <EVENT class="OCCURRENCE" eid="e45" eiid="ei45" pos="VERB" pred="REFAIRE" tense="PAST" vform="PASTPART">refaite</EVENT> <SIGNAL sid="s3">à</SIGNAL> <TIMEX3 anchorTimeID="t1" mod="END" temporalFunction="true" tid="t7" type="DATE" value="2002" valueFromFunction="TF13">la fin de l'année dernière</TIMEX3>, ainsi que la façade extérieure et les systèmes de sécurité », <EVENT class="REPORTING" eid="e46" eiid="ei46" pos="VERB" pred="SOULIGNER" tense="PRESENT">souligne</EVENT>-t-il, <EVENT class="REPORTING" eid="e47" eiid="ei47" pos="VERB" pred="ESTIMER" vform="PRESPART">estimant</EVENT> le coût de ces <EVENT class="OCCURRENCE" eid="e125" eiid="ei125" pos="NOUN" pred="TRAVAIL">travaux</EVENT> à environ 100.000 €.
+<EVENT class="STATE" eid="e49" eiid="ei49" pos="VERB" pred="FERMER" vform="PASTPART">Fermé</EVENT> <SIGNAL sid="s4">depuis</SIGNAL> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t8" type="DATE" value="2003-02-21" valueFromFunction="tf4">vendredi</TIMEX3>.
+Jean-Claude Viailly, responsable des ventes, <EVENT class="PERCEPTION" eid="e51" eiid="ei51" pos="VERB" pred="REGARDER" tense="IMPERFECT">regardait</EVENT> avec la larme à l'œil les pompiers <EVENT class="OCCURRENCE" eid="e52" eiid="ei52" pos="VERB" pred="DÉGAGER" vform="INFINITIVE">dégager</EVENT> les restes de son bureau et de sa brocante : « Nous sommes trois à être salariés ici. Je ne <EVENT class="I_STATE" eid="e56" eiid="ei56" polarity="NEG" pos="VERB" pred="SAVOIR" tense="PRESENT">sais</EVENT> pas ce qu'on va <EVENT aspect="PROSPECTIVE" class="OCCURRENCE" eid="e58" eiid="ei58" pos="VERB" pred="DEVENIR" vform="INFINITIVE">devenir</EVENT>. Nous avons <EVENT class="OCCURRENCE" eid="e59" eiid="ei59" pos="VERB" pred="OUVRIR" tense="PAST" vform="PASTPART">ouvert</EVENT> <TIMEX3 tid="t9" type="DATE" value="2003-02-21">vendredi</TIMEX3> <SIGNAL sid="s6">jusqu'à</SIGNAL> <TIMEX3 tid="t10" type="TIME" value="2003-02-21T17:00">17 h</TIMEX3>. Le bâtiment était <EVENT class="STATE" eid="e61" eiid="ei61" pos="ADJECTIVE" pred="FERMER" tense="IMPERFECT">fermé</EVENT> <SIGNAL sid="s13">depuis</SIGNAL>. A l'intérieur, c'était <EVENT class="STATE" eid="e126" eiid="ei126" pos="ADJECTIVE" pred="PLEIN">plein</EVENT> à environ 75 % pour l'espace brocante et il y <EVENT class="STATE" eid="e63" eiid="ei63" pos="VERB" pred="AVOIR" tense="IMPERFECT">avait</EVENT> environ trois tonnes de linge. Tout était en bas. Nous ne <EVENT class="OCCURRENCE" eid="e64" eiid="ei64" mood="SUBJUNCTIVE" polarity="NEG" pos="VERB" pred="METTERE" tense="PRESENT">mettions</EVENT> plus rien à l'étage car les planchers sont trop vieux », <EVENT class="REPORTING" eid="e65" eiid="ei65" pos="VERB" pred="DÉTAILLER" tense="PRESENT">détaille</EVENT>-t-il.
+<EVENT class="OCCURRENCE" eid="e66" eiid="ei66" pos="VERB" pred="AVERTIR" vform="PASTPART">Avertie</EVENT> par des voisines, Juliette Carpezat s'est <EVENT class="OCCURRENCE" eid="e67" eiid="ei67" pos="VERB" pred="PRÉCIPITER" tense="PAST" vform="PASTPART">précipitée</EVENT> en chaussons dans la rue <SIGNAL sid="s7">lorsqu'</SIGNAL>elle a <EVENT class="I_STATE" eid="e68" eiid="ei68" pos="VERB" pred="SAVOIR" tense="PAST" vform="PASTPART">su</EVENT> que le Secours populaire <EVENT class="OCCURRENCE" eid="e70" eiid="ei70" pos="VERB" pred="BRÛLER" tense="IMPERFECT">brûlait</EVENT> : « Je suis <EVENT class="OCCURRENCE" eid="e71" eiid="ei71" pos="VERB" pred="PASSER" tense="PAST" vform="PASTPART">passée</EVENT> <SIGNAL sid="s8">à</SIGNAL> <TIMEX3 tid="t11" type="TIME" value="2003-02-21T12:00">midi</TIMEX3> devant en <EVENT class="OCCURRENCE" eid="e72" eiid="ei72" pos="VERB" pred="RENTRER" vform="GERUNDIVE">rentrant</EVENT> de la pharmacie. Il n'y <EVENT class="STATE" eid="e127" eiid="ei127" polarity="NEG" pos="VERB" pred="AVOIRT" tense="IMPERFECT">avait</EVENT> rien d'anormal », <EVENT class="REPORTING" eid="e74" eiid="ei74" pos="VERB" pred="EXPLIQUER" tense="PRESENT">explique</EVENT> cette habitante du quartier, bénévole au « Secours pop » <SIGNAL sid="s9">depuis</SIGNAL> <TIMEX3 tid="t12" type="DURATION" value="P12Y">douze ans</TIMEX3>. Seul baume à son cœur, une partie des vêtements ne <EVENT class="OCCURRENCE" eid="e77" eiid="ei77" polarity="NEG" pos="VERB" pred="PARAÎTRE" tense="IMPERFECT">paraissait</EVENT> pas trop <EVENT class="STATE" eid="e78" eiid="ei78" polarity="POS" pos="VERB" pred="TOUCHER" vform="PASTPART">touchée</EVENT> : « Il va <EVENT aspect="PROSPECTIVE" class="MODAL" eid="e80" eiid="ei80" pos="VERB" pred="FALLLOIR" vform="INFINITIVE">falloir</EVENT> les <EVENT class="OCCURRENCE" eid="e81" eiid="ei81" modality="NECESSITY" pos="VERB" pred="METTRE" vform="INFINITIVE">mettre</EVENT> en lieu sûr. <SIGNAL sid="s10">Si</SIGNAL> on <EVENT class="STATE" eid="e82" eiid="ei82" pos="VERB" pred="LAISSER" tense="PRESENT">laisse</EVENT> cela en l'état, ils vont être <EVENT class="OCCURRENCE" eid="e84" eiid="ei84" pos="VERB" pred="PILLER" vform="PASTPART">pillés</EVENT> », <EVENT class="OCCURRENCE" eid="e85" eiid="ei85" pos="VERB" pred="SOUPIRER" tense="IMPERFECT">soupirait</EVENT>-elle <SIGNAL sid="s11">alors que</SIGNAL> les pompiers <EVENT class="ASPECTUAL" eid="e86" eiid="ei86" pos="VERB" pred="ENGAGER" tense="IMPERFECT">engageaient</EVENT> les premières <EVENT class="OCCURRENCE" eid="e87" eiid="ei87" pos="NOUN" pred="OPÉRATION">opérations</EVENT> de ventilation, d'étayage et de déblais.
+<EVENT class="OCCURRENCE" eid="e121" eiid="ei121" pos="NOUN" pred="TOURNOI">Tournoi</EVENT> de boules <EVENT class="I_ACTION" eid="e88" eiid="ei88" pos="VERB" pred="ANNULER" vform="PASTPART">annulé</EVENT>.
+L'<EVENT class="OCCURRENCE" eid="e89" eiid="ei89" pos="NOUN" pred="INTERVENTION">intervention</EVENT> des sapeurs-pompiers s'est <EVENT class="EVENT_CONTAINER" eid="e90" eiid="ei90" pos="VERB" pred="DÉROULER" tense="PAST" vform="PASTPART">déroulée</EVENT> sous les yeux d'un public nombreux. Et pour cause : la fumée a <EVENT class="OCCURRENCE" eid="e91" eiid="ei91" pos="VERB" pred="RECOUVRIR" tense="PAST" vform="PASTPART">recouvert</EVENT> le quartier, <EVENT class="CAUSE" eid="e92" eiid="ei92" pos="VERB" pred="FAIRE" vform="PRESPART">faisant</EVENT> <EVENT class="OCCURRENCE" eid="e93" eiid="ei93" pos="VERB" pred="SORTIR" vform="INFINITIVE">sortir</EVENT> les curieux, et le <EVENT class="OCCURRENCE" eid="e94" eiid="ei94" pos="NOUN" pred="SINISTRE">sinistre</EVENT> a <EVENT class="ASPECTUAL" eid="e95" eiid="ei95" pos="VERB" pred="INTERROMPRE" tense="PAST" vform="PASTPART">interrompu</EVENT> le <EVENT class="OCCURRENCE" eid="e96" eiid="ei96" pos="NOUN" pred="CONCOURS">concours</EVENT> de pétanque <EVENT class="STATE" eid="e97" eiid="ei97" pos="VERB" pred="ORGANISER" vform="PASTPART">organisée</EVENT> par l'association des Portugais de Belfort. Le boulodrome, en effet, est <EVENT class="STATE" eid="e99" eiid="ei99" pos="ADJECTIVE" pred="INSTALLER" tense="PAST">installé</EVENT> dans le même corps de bâtiment que le Secours populaire. Un grand mur sépare les deux parties.
+<SIGNAL sid="s14">A l'heure du</SIGNAL> <EVENT class="OCCURRENCE" eid="e128" eiid="ei128" pos="NOUN" pred="SINISTRE">sinistre</EVENT>, près une centaine de personnes se <EVENT class="STATE" eid="e104" eiid="ei104" pos="VERB" pred="TROUVER" tense="IMPERFECT">trouvait</EVENT> dans le boulodrome ou trente triplettes <EVENT class="ASPECTUAL" eid="e105" eiid="ei105" pos="VERB" pred="ANGAGER" tense="IMPERFECT">engageaient</EVENT> leur troisième <EVENT class="OCCURRENCE" eid="e106" eiid="ei106" pos="NOUN" pred="PARTIE">partie</EVENT>. Les consignes de sécurité ont <EVENT class="I_ACTION" eid="e108" eiid="ei108" pos="VERB" pred="AVOIR" tense="PAST" vform="PASTPART">eu</EVENT> raison de la <EVENT class="OCCURRENCE" eid="e109" eiid="ei109" pos="NOUN" pred="COMPÉTITION">compétition</EVENT> : elle a été <EVENT class="I_ACTION" eid="e110" eiid="ei110" pos="VERB" pred="ANNULER" tense="PAST" vform="PASTPART">annulée</EVENT>.
+<TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t13" type="TIME" value="2003-02-22TEV" valueFromFunction="tf5">Hier soir</TIMEX3>, les services techniques de la Ville <EVENT class="ASPECTUAL" eid="e112" eiid="ei112" pos="VERB" pred="ENGAGER" tense="IMPERFECT">engageaient</EVENT> des <EVENT class="OCCURRENCE" eid="e113" eiid="ei113" pos="NOUN" pred="TRAVAIL">travaux</EVENT> pour <EVENT class="OCCURRENCE" eid="e114" eiid="ei114" pos="VERB" pred="FERMER" vform="INFINITIVE">fermer</EVENT> le local tandis que les pompiers s'<EVENT class="OCCURRENCE" eid="e115" eiid="ei115" pos="VERB" pred="ORGANISER" tense="IMPERFECT">organisaient</EVENT> pour <EVENT class="OCCURRENCE" eid="e116" eiid="ei116" pos="VERB" pred="EFFECTUER" vform="INFINITIVE">effectuer</EVENT> des <EVENT class="OCCURRENCE" eid="e120" eiid="ei120" pos="NOUN" pred="RONDE">rondes</EVENT> <SIGNAL sid="s15">pendant</SIGNAL> <TIMEX3 tid="t14" type="TIME" value="2003-02-22TNI">la nuit</TIMEX3> afin de <EVENT class="OCCURRENCE" eid="e117" eiid="ei117" pos="VERB" pred="DÉCELER" vform="INFINITIVE">déceler</EVENT> toute <EVENT class="OCCURRENCE" eid="e118" eiid="ei118" pos="NOUN" pred="REPRISE">reprise</EVENT> de feu.
+Philippe PIOT
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t8" timeID="t7" />
+<TLINK lid="l2" origin="USER" relType="IDENTITY" relatedToTime="t9" timeID="t8" />
+<TLINK lid="l3" origin="USER" relType="INCLUDES" relatedToTime="t11" timeID="t9" />
+<TLINK lid="l4" origin="USER" relType="BEFORE" relatedToTime="t10" timeID="t11" />
+<TLINK lid="l5" origin="USER" relType="BEFORE" relatedToTime="t6" timeID="t9" />
+<TLINK lid="l6" origin="USER" relType="IS_INCLUDED" relatedToTime="t9" timeID="t10" />
+<TLINK lid="l7" origin="USER" relType="IS_INCLUDED" relatedToTime="t6" timeID="t4" />
+<TLINK lid="l8" origin="USER" relType="IS_INCLUDED" relatedToTime="t6" timeID="t13" />
+<TLINK lid="l9" origin="USER" relType="IS_INCLUDED" relatedToTime="t6" timeID="t14" />
+<TLINK lid="l10" origin="USER" relType="BEFORE" relatedToTime="t13" timeID="t4" />
+<TLINK lid="l11" origin="USER" relType="IS_INCLUDED" relatedToTime="t14" timeID="t13" />
+<TLINK lid="l13" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" timeID="t2" />
+<TLINK lid="l14" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t6" />
+<TLINK eventInstanceID="ei1" lid="l16" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei2" lid="l18" origin="USER" relType="AFTER" relatedToEventInstance="ei1" />
+<TLINK eventInstanceID="ei5" lid="l19" origin="USER" relType="DURING" relatedToEventInstance="ei7" />
+<TLINK eventInstanceID="ei6" lid="l20" origin="USER" relType="DURING" relatedToEventInstance="ei7" />
+<TLINK eventInstanceID="ei5" lid="l21" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei6" />
+<TLINK eventInstanceID="ei9" lid="l22" origin="USER" relType="BEFORE" relatedToEventInstance="ei5" />
+<TLINK eventInstanceID="ei9" lid="l23" origin="USER" relType="BEFORE" relatedToEventInstance="ei10" />
+<TLINK eventInstanceID="ei12" lid="l24" origin="USER" relType="AFTER" relatedToEventInstance="ei6" />
+<TLINK eventInstanceID="ei13" lid="l26" origin="USER" relType="BEFORE" relatedToEventInstance="ei14" />
+<TLINK eventInstanceID="ei14" lid="l27" origin="USER" relType="BEFORE" relatedToEventInstance="ei15" />
+<TLINK eventInstanceID="ei5" lid="l28" origin="USER" relType="AFTER" relatedToTime="t2" />
+<TLINK eventInstanceID="ei15" lid="l29" origin="USER" relType="BEFORE" relatedToEventInstance="ei17" />
+<TLINK eventInstanceID="ei21" lid="l31" origin="USER" relType="IDENTITY" relatedToEventInstance="ei7" />
+<TLINK eventInstanceID="ei19" lid="l32" origin="USER" relType="AFTER" relatedToEventInstance="ei14" />
+<TLINK eventInstanceID="ei20" lid="l33" origin="USER" relType="DURING" relatedToEventInstance="ei21" />
+<TLINK eventInstanceID="ei24" lid="l34" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei23" />
+<TLINK eventInstanceID="ei26" lid="l35" origin="USER" relType="DURING" relatedToEventInstance="ei23" />
+<TLINK eventInstanceID="ei28" lid="l36" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei27" />
+<TLINK eventInstanceID="ei27" lid="l37" origin="USER" relType="IDENTITY" relatedToEventInstance="ei23" />
+<TLINK eventInstanceID="ei29" lid="l38" origin="USER" relType="IDENTITY" relatedToEventInstance="ei21" />
+<TLINK eventInstanceID="ei30" lid="l39" origin="USER" relType="DURING" relatedToEventInstance="ei29" />
+<TLINK eventInstanceID="ei31" lid="l40" origin="USER" relType="DURING" relatedToEventInstance="ei29" />
+<TLINK eventInstanceID="ei123" lid="l41" origin="USER" relType="IS_INCLUDED" relatedToTime="t15" signalID="s12" />
+<TLINK eventInstanceID="ei33" lid="l42" origin="USER" relType="DURING" relatedToEventInstance="ei29" />
+<TLINK eventInstanceID="ei34" lid="l43" origin="USER" relType="DURING" relatedToEventInstance="ei29" />
+<TLINK eventInstanceID="ei35" lid="l44" origin="USER" relType="IDENTITY" relatedToEventInstance="ei29" />
+<TLINK eventInstanceID="ei124" lid="l45" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" />
+<TLINK eventInstanceID="ei5" lid="l46" origin="USER" relType="BEGINS" relatedToEventInstance="ei23" />
+<TLINK eventInstanceID="ei38" lid="l49" origin="USER" relType="SIMULTANEOUS" relatedToTime="t5" signalID="s2" />
+<TLINK lid="l50" origin="USER" relType="ENDED_BY" relatedToTime="t1" timeID="t5" />
+<TLINK eventInstanceID="ei42" lid="l51" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei43" lid="l53" origin="USER" relType="BEFORE" relatedToEventInstance="ei35" />
+<TLINK eventInstanceID="ei45" lid="l56" origin="USER" relType="IS_INCLUDED" relatedToTime="t7" signalID="s3" />
+<TLINK eventInstanceID="ei125" lid="l59" origin="USER" relType="IDENTITY" relatedToEventInstance="ei45" />
+<TLINK eventInstanceID="ei47" lid="l60" origin="USER" relType="AFTER" relatedToEventInstance="ei46" />
+<TLINK eventInstanceID="ei49" lid="l61" origin="USER" relType="BEGUN_BY" relatedToTime="t8" signalID="s4" />
+<TLINK eventInstanceID="ei59" lid="l64" origin="USER" relType="ENDED_BY" relatedToTime="t10" signalID="s6" />
+<TLINK eventInstanceID="ei61" lid="l65" origin="USER" relType="BEGUN_BY" relatedToTime="t10" signalID="s13" />
+<TLINK eventInstanceID="ei65" lid="l67" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei126" lid="l71" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei63" />
+<TLINK eventInstanceID="ei67" lid="l74" origin="USER" relType="IAFTER" relatedToEventInstance="ei68" signalID="s7" />
+<TLINK eventInstanceID="ei66" lid="l76" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei68" />
+<TLINK eventInstanceID="ei66" lid="l77" origin="USER" relType="DURING" relatedToEventInstance="ei70" />
+<TLINK eventInstanceID="ei67" lid="l79" origin="USER" relType="DURING" relatedToEventInstance="ei70" />
+<TLINK eventInstanceID="ei70" lid="l80" origin="USER" relType="DURING" relatedToEventInstance="ei35" />
+<TLINK eventInstanceID="ei71" lid="l81" origin="USER" relType="IS_INCLUDED" relatedToTime="t11" signalID="s8" />
+<TLINK eventInstanceID="ei71" lid="l82" origin="USER" relType="DURING" relatedToEventInstance="ei72" />
+<TLINK eventInstanceID="ei127" lid="l83" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei71" />
+<TLINK eventInstanceID="ei74" lid="l85" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei77" lid="l87" origin="USER" relType="IDENTITY" relatedToEventInstance="ei78" />
+<TLINK eventInstanceID="ei74" lid="l88" origin="USER" relType="DURING" relatedToEventInstance="ei77" />
+<TLINK eventInstanceID="ei85" lid="l93" origin="USER" relType="DURING" relatedToEventInstance="ei86" signalID="s11" />
+<TLINK eventInstanceID="ei86" lid="l95" origin="USER" relType="AFTER" relatedToEventInstance="ei35" />
+<TLINK eventInstanceID="ei89" lid="l97" origin="USER" relType="IDENTITY" relatedToEventInstance="ei27" />
+<TLINK eventInstanceID="ei90" lid="l98" origin="USER" relType="IDENTITY" relatedToEventInstance="ei89" />
+<TLINK eventInstanceID="ei92" lid="l101" origin="USER" relType="BEFORE" relatedToEventInstance="ei93" />
+<TLINK eventInstanceID="ei94" lid="l102" origin="USER" relType="IDENTITY" relatedToEventInstance="ei29" />
+<TLINK eventInstanceID="ei95" lid="l103" origin="USER" relType="DURING" relatedToEventInstance="ei94" />
+<TLINK eventInstanceID="ei97" lid="l105" origin="USER" relType="BEFORE" relatedToEventInstance="ei96" />
+<TLINK eventInstanceID="ei99" lid="l106" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei104" lid="l107" origin="USER" relType="DURING" relatedToEventInstance="ei128" signalID="s14" />
+<TLINK eventInstanceID="ei128" lid="l110" origin="USER" relType="IDENTITY" relatedToEventInstance="ei94" />
+<TLINK eventInstanceID="ei121" lid="l113" origin="USER" relType="IDENTITY" relatedToEventInstance="ei109" />
+<TLINK eventInstanceID="ei88" lid="l114" origin="USER" relType="IDENTITY" relatedToEventInstance="ei110" />
+<TLINK eventInstanceID="ei105" lid="l115" origin="USER" relType="DURING" relatedToEventInstance="ei109" />
+<TLINK eventInstanceID="ei108" lid="l116" origin="USER" relType="AFTER" relatedToEventInstance="ei105" />
+<TLINK eventInstanceID="ei112" lid="l117" origin="USER" relType="IS_INCLUDED" relatedToTime="t13" />
+<TLINK eventInstanceID="ei113" lid="l119" origin="USER" relType="BEFORE" relatedToEventInstance="ei114" />
+<TLINK eventInstanceID="ei112" lid="l120" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei115" />
+<TLINK eventInstanceID="ei115" lid="l121" origin="USER" relType="BEFORE" relatedToEventInstance="ei116" />
+<TLINK eventInstanceID="ei116" lid="l122" origin="USER" relType="IDENTITY" relatedToEventInstance="ei120" />
+<TLINK eventInstanceID="ei116" lid="l123" origin="USER" relType="IS_INCLUDED" relatedToTime="t14" signalID="s15" />
+<TLINK lid="l127" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" signalID="s12" timeID="t15" />
+<TLINK lid="l128" origin="USER" relType="ENDED_BY" relatedToTime="t1" timeID="t12" />
+<TLINK eventInstanceID="ei44" lid="l129" origin="USER" relType="IS_INCLUDED" relatedToTime="t6" />
+<TLINK eventInstanceID="ei44" lid="l130" origin="USER" relType="AFTER" relatedToEventInstance="ei35" />
+<TLINK eventInstanceID="ei46" lid="l132" origin="USER" relType="AFTER" relatedToEventInstance="ei44" />
+<TLINK eventInstanceID="ei74" lid="l133" origin="USER" relType="AFTER" relatedToEventInstance="ei7" />
+<TLINK eventInstanceID="ei77" lid="l134" origin="USER" relType="AFTER" relatedToEventInstance="ei7" />
+<TLINK eventInstanceID="ei65" lid="l135" origin="USER" relType="DURING" relatedToEventInstance="ei51" />
+<TLINK eventInstanceID="ei51" lid="l136" origin="USER" relType="AFTER" relatedToEventInstance="ei7" />
+<TLINK eventInstanceID="ei5" lid="l137" origin="USER" relType="AFTER" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei9" lid="l138" origin="USER" relType="DURING" relatedToEventInstance="ei7" />
+<TLINK eventInstanceID="ei10" lid="l139" origin="USER" relType="DURING" relatedToEventInstance="ei7" />
+<TLINK eventInstanceID="ei97" lid="l140" origin="USER" relType="BEFORE" relatedToEventInstance="ei95" />
+<TLINK eventInstanceID="ei96" lid="l141" origin="USER" relType="IDENTITY" relatedToEventInstance="ei121" />
+<TLINK eventInstanceID="ei105" lid="l142" origin="USER" relType="DURING" relatedToEventInstance="ei104" />
+<TLINK eventInstanceID="ei91" lid="l143" origin="USER" relType="DURING" relatedToEventInstance="ei7" />
+<TLINK eventInstanceID="ei92" lid="l144" origin="USER" relType="DURING" relatedToEventInstance="ei91" />
+<TLINK eventInstanceID="ei117" lid="l145" origin="USER" relType="DURING" relatedToEventInstance="ei116" />
+<TLINK eventInstanceID="ei68" lid="l147" origin="USER" relType="DURING" relatedToEventInstance="ei70" />
+<SLINK eventInstanceID="ei2" lid="l17" origin="USER" relType="MODAL" subordinatedEventInstance="ei3" />
+<SLINK eventInstanceID="ei12" lid="l25" origin="USER" relType="MODAL" subordinatedEventInstance="ei13" />
+<SLINK eventInstanceID="ei17" lid="l30" origin="USER" relType="MODAL" subordinatedEventInstance="ei18" />
+<SLINK eventInstanceID="ei44" lid="l54" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei43" />
+<SLINK eventInstanceID="ei46" lid="l57" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei45" />
+<SLINK eventInstanceID="ei51" lid="l62" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei52" />
+<SLINK eventInstanceID="ei56" lid="l63" origin="USER" relType="MODAL" subordinatedEventInstance="ei58" />
+<SLINK eventInstanceID="ei65" lid="l68" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei61" />
+<SLINK eventInstanceID="ei65" lid="l69" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei59" />
+<SLINK eventInstanceID="ei65" lid="l70" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei126" />
+<SLINK eventInstanceID="ei65" lid="l72" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei56" />
+<SLINK eventInstanceID="ei65" lid="l73" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei64" />
+<SLINK eventInstanceID="ei74" lid="l84" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei71" />
+<SLINK eventInstanceID="ei80" lid="l89" origin="USER" relType="MODAL" subordinatedEventInstance="ei81" />
+<SLINK eventInstanceID="ei82" lid="l90" origin="USER" relType="CONDITIONAL" signalID="s10" subordinatedEventInstance="ei84" />
+<SLINK eventInstanceID="ei85" lid="l91" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei82" />
+<SLINK eventInstanceID="ei85" lid="l92" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei80" />
+<SLINK eventInstanceID="ei88" lid="l96" origin="USER" relType="MODAL" subordinatedEventInstance="ei121" />
+<SLINK eventInstanceID="ei110" lid="l111" origin="USER" relType="MODAL" subordinatedEventInstance="ei109" />
+<SLINK eventInstanceID="ei117" lid="l125" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei118" />
+<SLINK eventInstanceID="ei68" lid="l148" origin="USER" relType="FACTIVE" subordinatedEventInstance="ei70" />
+<ALINK eventInstanceID="ei86" lid="l94" origin="USER" relType="INITIATES" relatedToEventInstance="ei87" />
+<ALINK eventInstanceID="ei95" lid="l104" origin="USER" relType="TERMINATES" relatedToEventInstance="ei96" />
+<ALINK eventInstanceID="ei105" lid="l108" origin="USER" relType="INITIATES" relatedToEventInstance="ei106" />
+<ALINK eventInstanceID="ei108" lid="l112" origin="USER" relType="TERMINATES" relatedToEventInstance="ei109" />
+<ALINK eventInstanceID="ei112" lid="l118" origin="USER" relType="INITIATES" relatedToEventInstance="ei113" />
+</TimeML>

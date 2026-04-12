@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2003-02-21-0862</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2003-02-21" /></DCT>
+<TEXT>
+Une Alsacienne de 6 ans se <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="VERB" pred="NOYER" tense="PRESENT">noie</EVENT>.
+STRASBOURG. _ Une fillette de 6 ans s'est <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="VERB" pred="NOYER" tense="PAST" vform="PASTPART">noyée</EVENT> <TIMEX3 tid="t4" type="TIME" value="2003-02-18TEV">mardi soir</TIMEX3> dans la piscine d'un centre de villégiature près d'Obernai. Pauline, en vacances avec sa famille au domaine Saint-Jacques, a été <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="VERB" pred="TRANSPORTER" tense="PAST" vform="PASTPART">transportée</EVENT> à l'hôpital de Hautepierre à Strasbourg, <SIGNAL sid="s1">après</SIGNAL> avoir <EVENT aspect="PERFECTIVE" class="OCCURRENCE" eid="e5" eiid="ei5" pos="VERB" pred="COULER" tense="PRESENT" vform="INFINITIVE">coulé</EVENT> dans le grand bassin de la piscine couverte du site. <EVENT class="OCCURRENCE" eid="e7" eiid="ei7" pos="VERB" pred="SECOURIR" vform="PASTPART">Secourue</EVENT> rapidement, son cœur est <EVENT class="OCCURRENCE" eid="e8" eiid="ei8" pos="VERB" pred="REPARTIR" tense="PAST" vform="PASTPART">reparti</EVENT>, mais elle n'avait pas <EVENT aspect="PERFECTIVE" class="OCCURRENCE" eid="e9" eiid="ei9" polarity="NEG" pos="VERB" pred="REPRENDRE" tense="PAST" vform="PASTPART">repris</EVENT> conscience <SIGNAL sid="s2">lors de</SIGNAL> son <EVENT class="OCCURRENCE" eid="e10" eiid="ei10" pos="NOUN" pred="ADMISSION">admission</EVENT> à l'hôpital, où elle est <EVENT class="OCCURRENCE" eid="e11" eiid="ei11" pos="VERB" pred="DÉCÉDER" tense="PAST" vform="PASTPART">décédée</EVENT>. Les gendarmes d'Obernai <EVENT class="OCCURRENCE" eid="e12" eiid="ei12" pos="VERB" pred="ENQUÊTER" tense="PRESENT">enquêtent</EVENT>.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t4" />
+<TLINK eventInstanceID="ei2" lid="l2" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" />
+<TLINK eventInstanceID="ei12" lid="l3" origin="USER" relType="AFTER" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei2" lid="l4" origin="USER" relType="IDENTITY" relatedToEventInstance="ei1" />
+<TLINK eventInstanceID="ei4" lid="l5" origin="USER" relType="AFTER" relatedToEventInstance="ei5" signalID="s1" />
+<TLINK eventInstanceID="ei8" lid="l8" origin="USER" relType="BEFORE" relatedToEventInstance="ei11" />
+<TLINK eventInstanceID="ei11" lid="l9" origin="USER" relType="DURING" relatedToEventInstance="ei10" />
+<TLINK eventInstanceID="ei9" lid="l10" origin="USER" relType="DURING" relatedToEventInstance="ei10" signalID="s2" />
+<TLINK eventInstanceID="ei5" lid="l11" origin="USER" relType="DURING" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei12" lid="l13" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei7" lid="l14" origin="USER" relType="AFTER" relatedToEventInstance="ei5" />
+<TLINK eventInstanceID="ei8" lid="l15" origin="USER" relType="DURING" relatedToEventInstance="ei7" />
+</TimeML>

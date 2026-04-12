@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-05-21-0102</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-05-21" /></DCT>
+<TEXT>
+<EVENT class="OCCURRENCE" eid="e6" eiid="ei6" pos="NOUN" pred="ACCIDENT">Accident</EVENT> rue de Danjoutin.
+Jean Burget, 87 ans, a été <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="VERB" pred="HEURTER" tense="PAST" vform="PASTPART">heurté</EVENT> par une voiture, <TIMEX3 mod="START" tid="t4" type="TIME" value="1999-05-20TAF">hier en début d'après-midi</TIMEX3>, rue de Danjoutin à Belfort, <SIGNAL sid="s2">alors qu'</SIGNAL>il <EVENT aspect="PROGRESSIVE" class="OCCURRENCE" eid="e2" eiid="ei2" pos="VERB" pred="TRAVERSER" tense="IMPERFECT">traversait</EVENT> la chaussée en <EVENT aspect="PROGRESSIVE" class="OCCURRENCE" eid="e3" eiid="ei3" pos="VERB" pred="MARCHER" vform="GERUNDIVE">marchant</EVENT> à côté de son vélo. <EVENT class="STATE" eid="e4" eiid="ei4" pos="ADJECTIVE" pred="BLESSER">Blessé</EVENT> à la jambe gauche et au thorax, il a été <EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="VERB" pred="TRANSPORTER" tense="PAST" vform="PASTPART">transporté</EVENT> au centre hospitalier de Belfort par les pompiers de la cité du Lion.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t4" />
+<TLINK eventInstanceID="ei1" lid="l3" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" />
+<TLINK eventInstanceID="ei4" lid="l4" origin="USER" relType="BEGUN_BY" relatedToEventInstance="ei1" />
+<TLINK eventInstanceID="ei1" lid="l5" origin="USER" relType="ENDS" relatedToEventInstance="ei2" signalID="s2" />
+<TLINK eventInstanceID="ei3" lid="l6" origin="USER" relType="IDENTITY" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei5" lid="l7" origin="USER" relType="DURING" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei6" lid="l9" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" />
+</TimeML>

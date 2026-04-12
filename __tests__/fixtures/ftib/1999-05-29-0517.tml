@@ -1,0 +1,163 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-05-29-0517</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-05-29" /></DCT>
+<TEXT>
+Scepicisme.
+L'OTAN a <EVENT pos="VERB" class="OCCURRENCE" eid="e1" eiid="ei1" pred="ACCUEILLIR" tense="PAST" vform="PASTPART">accueilli</EVENT> ces <EVENT pos="NOUN" class="OCCURRENCE" eid="e2" eiid="ei2" pred="DéCLARATION">déclarations</EVENT> avec «beaucoup de précaution», selon un responsable de l'Organisation du traité de l'Atlantique-nord.
+Washington a également <EVENT pos="VERB" class="OCCURRENCE" eid="e5" eiid="ei5" pred="RéAGIR" tense="PAST" vform="PASTPART">réagi</EVENT> avec prudence. «<SIGNAL sid="s1">Si</SIGNAL>, de fait, ils sont <EVENT pos="ADJECTIVE" class="STATE" eid="e120" eiid="ei120" pred="PRêT" tense="PRESENT">prêts</EVENT> à <EVENT pos="VERB" class="I_ACTION" eid="e6" eiid="ei6" pred="ACCEPTER" vform="INFINITIVE">accepter</EVENT> le cadre <EVENT pos="VERB" class="OCCURRENCE" eid="e7" eiid="ei7" pred="éTABLIR" vform="PASTPART">établi</EVENT> par le G8, nous <EVENT pos="VERB" class="MODAL" eid="e8" eiid="ei8" pred="DEVOIR" tense="FUTURE">devrons</EVENT> <EVENT pos="VERB" class="I_ACTION" eid="e9" eiid="ei9" modality="OBLIGATION" pred="VéRIFIER" vform="INFINITIVE">vérifier</EVENT> qu'une telle <EVENT pos="NOUN" class="OCCURRENCE" eid="e10" eiid="ei10" pred="ACCEPTATION">acceptation</EVENT> est suivie d'<EVENT pos="NOUN" class="OCCURRENCE" eid="e121" eiid="ei121" pred="ACTE">actes</EVENT>», a <EVENT pos="VERB" class="REPORTING" eid="e12" eiid="ei12" pred="DéCLARER" tense="PAST" vform="PASTPART">déclaré</EVENT> un responsable de la Maison Blanche. De leur côté, Paris et Bonn se sont <EVENT pos="VERB" class="REPORTING" eid="e14" eiid="ei14" pred="DéCLARER" tense="PAST" vform="PASTPART">déclarés</EVENT> «plutôt <EVENT pos="ADJECTIVE" class="STATE" eid="e112" eiid="ei112" pred="SCEPTIQUE">sceptiques</EVENT>». La France a <EVENT pos="VERB" class="REPORTING" eid="e15" eiid="ei15" pred="INDIQUER" tense="PAST" vform="PASTPART">indiqué</EVENT> <EVENT pos="VERB" class="OCCURRENCE" eid="e16" eiid="ei16" pred="ACCUEILLIR" vform="INFINITIVE">accueillir</EVENT> avec «prudence» les résultats des <EVENT pos="NOUN" class="OCCURRENCE" eid="e17" eiid="ei17" pred="DISCUSSION">discussions</EVENT> à Belgrade. «Notre <EVENT pos="NOUN" class="OCCURRENCE" eid="e18" eiid="ei18" pred="RéACTION">réaction</EVENT> <EVENT pos="VERB" class="MODAL" eid="e19" eiid="ei19" pred="DEVOIR" tense="PRESENT">doit</EVENT> être <EVENT pos="ADJECTIVE" class="STATE" eid="e113" eiid="ei113" modality="OBLIGATION" pred="PRUDENT">prudente</EVENT>. Il <EVENT pos="VERB" class="MODAL" eid="e20" eiid="ei20" pred="FALLOIR" tense="FUTURE">faudra</EVENT> <EVENT pos="VERB" class="ASPECTUAL" eid="e21" eiid="ei21" modality="NECESSITY" pred="PROCéDER" vform="INFINITIVE">procéder</EVENT> aux <EVENT pos="NOUN" class="OCCURRENCE" eid="e22" eiid="ei22" pred="VéRIFICATION">vérifications</EVENT> qui s'<EVENT pos="VERB" class="OCCURRENCE" eid="e23" eiid="ei23" pred="IMPOSER" tense="PRESENT">imposent</EVENT> <SIGNAL sid="s13">avant de</SIGNAL> <EVENT pos="VERB" class="OCCURRENCE" eid="e24" eiid="ei24" pred="FAIRE" vform="INFINITIVE">faire</EVENT> d'autres <EVENT pos="NOUN" class="OCCURRENCE" eid="e114" eiid="ei114" pred="COMMENTAIRE">commentaires</EVENT>», a <EVENT pos="VERB" class="REPORTING" eid="e25" eiid="ei25" pred="DIRE" tense="PAST" vform="PASTPART">dit</EVENT> la porte-parole de la présidence française Catherine Colonna, <SIGNAL sid="s10">lors du</SIGNAL> <EVENT pos="NOUN" class="OCCURRENCE" eid="e27" eiid="ei27" pred="SOMMET">sommet</EVENT> franco-allemand de Toulouse.
+Cet <EVENT pos="NOUN" class="OCCURRENCE" eid="e28" eiid="ei28" pred="ACCORD">accord</EVENT> pour un <EVENT pos="NOUN" class="OCCURRENCE" eid="e29" eiid="ei29" pred="RèGLEMENT">règlement</EVENT> du <EVENT pos="NOUN" class="OCCURRENCE" eid="e30" eiid="ei30" pred="CONFLIT">conflit</EVENT> au Kosovo avait été <EVENT pos="VERB" aspect="PERFECTIVE" class="OCCURRENCE" eid="e31" eiid="ei31" pred="éLABORER" tense="PAST" vform="PASTPART">élaboré</EVENT> par les ministres des Affaires étrangères des sept puissances industrialisées et de la Russie <TIMEX3 tid="t2" type="DATE" value="1999-05-06">le 6 mai</TIMEX3> à Bonn.
+L'envoyé spécial russe Viktor Tchernomyrdine qui s'est <EVENT pos="VERB" class="OCCURRENCE" eid="e33" eiid="ei33" pred="RENDRE" tense="PAST" vform="PASTPART">rendu</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t3" type="DATE" value="1999-05-28" valueFromFunction="tf17">hier</TIMEX3> à Belgrade, s'est <EVENT pos="VERB" class="REPORTING" eid="e115" eiid="ei115" pred="DéCLARER" tense="PAST" vform="PASTPART">déclaré</EVENT> «très <EVENT pos="ADJECTIVE" class="I_STATE" eid="e116" eiid="ei116" pred="SATISFAIRE">satisfait</EVENT>» de ses <EVENT pos="NOUN" class="OCCURRENCE" eid="e34" eiid="ei34" pred="DISCUSSION">discussions</EVENT> avec le président yougoslave.
+<SIGNAL sid="s14">Jusqu'à</SIGNAL> la mort.
+Les alliés ont <EVENT pos="VERB" class="OCCURRENCE" eid="e36" eiid="ei36" pred="ACCUEILLIR" tense="PAST" vform="PASTPART">accueilli</EVENT> favorablement la <EVENT pos="NOUN" class="OCCURRENCE" eid="e37" eiid="ei37" pred="DéCISION">décision</EVENT> du TPI d'<EVENT pos="VERB" class="OCCURRENCE" eid="e38" eiid="ei38" pred="INCULPER" vform="INFINITIVE">inculper</EVENT> le président serbe. Le secrétaire-général de l'ONU Kofi Annan a toutefois <EVENT pos="VERB" class="I_STATE" eid="e39" eiid="ei39" pred="ESTIMER" tense="PAST" vform="PASTPART">estimé</EVENT> que cette <EVENT pos="NOUN" class="OCCURRENCE" eid="e40" eiid="ei40" pred="INCULPATION">inculpation</EVENT> allait «<EVENT pos="VERB" aspect="PROSPECTIVE" class="OCCURRENCE" eid="e42" eiid="ei42" pred="COMPLIQUER" vform="INFINITIVE">compliquer</EVENT> la situation».
+A Belgrade, plusieurs partis d'opposition serbes ont également <EVENT pos="VERB" class="I_STATE" eid="e43" eiid="ei43" pred="ESTIMER" tense="PAST" vform="PASTPART">estimé</EVENT> que l'<EVENT pos="NOUN" class="OCCURRENCE" eid="e44" eiid="ei44" pred="INCULPATION">inculpation</EVENT> de Slobodan Milosevic <EVENT pos="VERB" class="MODAL" eid="e45" eiid="ei45" pred="RISQUER" tense="IMPERFECT">risquait</EVENT> de <EVENT pos="VERB" class="I_ACTION" eid="e46" eiid="ei46" modality="POSSIBILITY" pred="COMPROMETTRE" vform="INFINITIVE">compromettre</EVENT> les chances d'un <EVENT pos="VERB" class="OCCURRENCE" eid="e47" eiid="ei47" pred="RèGLEMENT">règlement</EVENT> rapide du <EVENT pos="NOUN" class="OCCURRENCE" eid="e48" eiid="ei48" pred="CONFLIT">conflit</EVENT> du Kosovo.
+L'<EVENT pos="NOUN" class="OCCURRENCE" eid="e49" eiid="ei49" pred="INCULPATION">inculpation</EVENT> du président yougoslave pour <EVENT pos="NOUN" class="OCCURRENCE" eid="e117" eiid="ei117" pred="CRIME">crimes</EVENT> contre l'humanité <EVENT pos="VERB" class="I_ACTION" eid="e50" eiid="ei50" pred="JUSTIFIER" tense="PRESENT">justifie</EVENT> l'<EVENT pos="NOUN" class="OCCURRENCE" eid="e51" eiid="ei51" pred="ACTION">action</EVENT> de l'OTAN, a <EVENT pos="VERB" class="REPORTING" eid="e52" eiid="ei52" pred="DéCLARER" tense="PAST" vform="PASTPART">déclaré</EVENT> de son côté le secrétaire d'Etat américain Madeleine Albright.
+Le secrétaire-général de l'OTAN, Javier Solana, a <EVENT pos="VERB" class="REPORTING" eid="e118" eiid="ei118" pred="ESTIMER" tense="PAST" vform="PASTPART">estimé</EVENT> que cette <EVENT pos="NOUN" class="OCCURRENCE" eid="e53" eiid="ei53" pred="INCULPATION">inculpation</EVENT> n'aurait pas «d'influence» sur le <EVENT pos="NOUN" class="OCCURRENCE" eid="e54" eiid="ei54" pred="PROCESSUS">processus</EVENT> diplomatique.
+Les diplomates <EVENT pos="VERB" class="MODAL" eid="e55" eiid="ei55" pred="DEVOIR" tense="PRESENT">doivent</EVENT> <TIMEX3 tid="t4" type="TIME" value="PRESENT_REF">maintenant</TIMEX3> «<EVENT pos="VERB" class="OCCURRENCE" eid="e56" eiid="ei56" modality="OBLIGATION" pred="TENIR" vform="INFINITIVE">tenir</EVENT> compte de l'agenda judiciaire» et n'<EVENT pos="VERB" class="OCCURRENCE" eid="e57" eiid="ei57" polarity="NEG" pred="OCTROYER" vform="INFINITIVE">octroyer</EVENT> au président yougoslave Slobodan Milosevic aucune forme d'immunité, a <EVENT pos="VERB" class="REPORTING" eid="e58" eiid="ei58" pred="DéCLARER" tense="PAST" vform="PASTPART">déclaré</EVENT> Louise Arbour, procureur du Tribunal pénal international pour l'ex-Yougoslavie (TPI). M. Milosevic «<EVENT pos="VERB" class="OCCURRENCE" eid="e59" eiid="ei59" pred="FAIRE" tense="IMPERFECT">faisait</EVENT> une <EVENT pos="NOUN" class="OCCURRENCE" eid="e60" eiid="ei60" pred="ERREUR">erreur</EVENT> sérieuse s'il <EVENT pos="VERB" class="OCCURRENCE" eid="e61" eiid="ei61" pred="COMPTER" tense="IMPERFECT">comptait</EVENT> sur une immunité de nature juridique», a <EVENT pos="VERB" class="REPORTING" eid="e62" eiid="ei62" pred="EXPLIQUER" tense="PAST" vform="PASTPART">expliqué</EVENT> Mme Arbour.
+Mais à Moscou, l'ambassadeur de Yougoslavie Borislav Milosevic a <EVENT pos="VERB" class="REPORTING" eid="e63" eiid="ei63" pred="AFFIRMER" tense="PAST" vform="PASTPART">affirmé</EVENT> que son frère Slobodan ne <EVENT pos="VERB" class="OCCURRENCE" eid="e119" eiid="ei119" mood="CONDITIONAL" pred="CéDER" tense="PRESENT">cèderait</EVENT> pas aux <EVENT pos="NOUN" class="OCCURRENCE" eid="e64" eiid="ei64" pred="PREsSION">pressions</EVENT> de l'OTAN et <EVENT pos="VERB" class="OCCURRENCE" eid="e65" eiid="ei65" mood="CONDITIONAL" pred="TENIR" tense="PRESENT">tiendrait</EVENT> «jusqu'au bout».
+«Il <EVENT pos="VERB" class="MODAL" eid="e66" eiid="ei66" pred="POUVOIR" tense="PRESENT">peut</EVENT> <EVENT pos="VERB" class="OCCURRENCE" eid="e67" eiid="ei67" modality="POSSIBILITY" pred="TENIR" vform="INFINITIVE">tenir</EVENT> jusqu'au bout, <SIGNAL sid="s6">jusqu'à</SIGNAL> sa <EVENT pos="NOUN" class="OCCURRENCE" eid="e68" eiid="ei68" pred="MORT">mort</EVENT>, car il est conscient qu'il se <EVENT pos="VERB" class="OCCURRENCE" eid="e69" eiid="ei69" pred="BATTRE" tense="PRESENT">bat</EVENT> pour les intérêts de son pays, <EVENT pos="VERB" class="OCCURRENCE" eid="e70" eiid="ei70" pred="PROTéGER" tense="PRESENT">protège</EVENT> son territoire des séparatistes et son peuple des terroristes», a <EVENT pos="VERB" class="REPORTING" eid="e71" eiid="ei71" pred="AFFIRMER" tense="PAST" vform="PASTPART">affirmé</EVENT> l'ambassadeur.
+<EVENT pos="NOUN" class="OCCURRENCE" eid="e122" eiid="ei122" pred="PARACHUTAGE">Parachutages</EVENT> d'aide humanitaire.
+Sur le terrain, l'OTAN a <EVENT pos="VERB" class="OCCURRENCE" eid="e72" eiid="ei72" pred="INTENSIFIER" tense="PAST" vform="PASTPART">intensifié</EVENT> ses <EVENT pos="NOUN" class="OCCURRENCE" eid="e73" eiid="ei73" pred="FRAPPE">frappes</EVENT>. Avec le <EVENT pos="NOUN" class="OCCURRENCE" eid="e74" eiid="ei74" pred="RENFORCEMENT">renforcement</EVENT> de sa flotte aérienne et de bonnes conditions météorologiques, l'Alliance a <EVENT pos="VERB" class="OCCURRENCE" eid="e76" eiid="ei76" pred="OPéRER" tense="PAST" vform="PASTPART">opéré</EVENT> 790 <EVENT pos="NOUN" cardinality="790" class="OCCURRENCE" eid="e77" eiid="ei77" pred="SORTIE">sorties</EVENT> <TIMEX3 anchorTimeID="t1" endPoint="t1" tid="t5" type="DURATION" value="PT24H">ces dernières 24 heures</TIMEX3>, qui ont <EVENT pos="VERB" class="OCCURRENCE" eid="e78" eiid="ei78" pred="TOUCHER" tense="PAST" vform="PASTPART">touché</EVENT> de nombreuses cibles dans toute la Serbie, notamment des transformateurs et de relais de transmission électriques de Belgrade.
+En outre, «les avions de l'OTAN ont <EVENT pos="VERB" class="OCCURRENCE" eid="e79" eiid="ei79" pred="FRAPPER" tense="PAST" vform="PASTPART">frappé</EVENT> fort les forces serbes au Kosovo», selon un communiqué de l'Alliance.
+Des <EVENT pos="NOUN" class="OCCURRENCE" eid="e81" eiid="ei81" pred="PARACHUTAGE">parachutages</EVENT> d'aide humanitaire au Kosovo vont être <EVENT pos="VERB" aspect="PROSPECTIVE" class="OCCURRENCE" eid="e83" eiid="ei83" pred="EFFECTUER" tense="PRESENT" vform="INFINITIVE">effectués</EVENT> par des moyens civils, grâce au <EVENT pos="NOUN" class="OCCURRENCE" eid="e84" eiid="ei84" pred="SOUTIEN">soutien</EVENT> de la France, des Etats-Unis et de la Grande-Bretagne, a <EVENT pos="VERB" class="REPORTING" eid="e85" eiid="ei85" pred="ANNONCER" tense="PAST" vform="PASTPART">annoncé</EVENT> le ministère français des Affaires étrangères.
+«Afin de <EVENT pos="VERB" class="OCCURRENCE" eid="e87" eiid="ei87" pred="VENIR" vform="INFINITIVE">venir</EVENT> en aide aux populations déplacées à l'intérieur du Kosovo, dont la situation se révèle dramatique, la France, les Etats-Unis et le Royaume-Uni ont <EVENT pos="VERB" class="I_ACTION" eid="e89" eiid="ei89" pred="DéCIDER" tense="PAST" vform="PASTPART">décidé</EVENT> de <EVENT pos="VERB" class="OCCURRENCE" eid="e90" eiid="ei90" pred="CONTRIBUER" vform="INFINITIVE">contribuer</EVENT> au <EVENT pos="VERB" class="OCCURRENCE" eid="e91" eiid="ei91" pred="PARACHUTAGE">parachutage</EVENT> par l'ONG International Rescue Committee (IRC) d'aide humanitaire sur le territoire même de la province», a <EVENT pos="VERB" class="REPORTING" eid="e92" eiid="ei92" pred="INDIQUER" tense="PAST" vform="PASTPART">indiqué</EVENT> le ministère.
+Belgrade <EVENT pos="VERB" class="REPORTING" eid="e93" eiid="ei93" pred="AFFIRMER" tense="IMPERFECT">affirmait</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t6" type="DATE" value="1999-05-28" valueFromFunction="tf17">hier</TIMEX3>, <EVENT pos="VERB" class="I_ACTION" eid="e94" eiid="ei94" pred="ACCEPTER" vform="INFINITIVE">accepter</EVENT> «les principes généraux du G8» pour un <EVENT pos="NOUN" class="OCCURRENCE" eid="e95" eiid="ei95" pred="RèGLEMENT">règlement</EVENT> du <EVENT pos="VERB" class="OCCURRENCE" eid="e96" eiid="ei96" pred="CONFLIT">conflit</EVENT> au Kosovo, une <EVENT pos="NOUN" class="REPORTING" eid="e97" eiid="ei97" pred="ANNONCE">annonce</EVENT> <EVENT pos="VERB" class="OCCURRENCE" eid="e123" eiid="ei123" pred="ACCUEILLIR" vform="PASTPART">accueillie</EVENT> avec prudence voire scepticisme au sein des pays de l'OTAN. <SIGNAL sid="s15">Parallèlement à </SIGNAL>ses <EVENT pos="NOUN" class="OCCURRENCE" eid="e98" eiid="ei98" pred="EFFORT">efforts</EVENT> diplomatiques, l'OTAN <EVENT pos="VERB" class="ASPECTUAL" eid="e99" eiid="ei99" pred="POURSUIVRE" tense="PRESENT">poursuit</EVENT> avec intensité ses <EVENT pos="NOUN" class="OCCURRENCE" eid="e100" eiid="ei100" pred="BOMBARDEMENT">bombardements</EVENT> sur la Yougoslavie.
+La Yougoslavie «<EVENT pos="VERB" class="I_ACTION" eid="e101" eiid="ei101" pred="ACCEPTER" tense="PRESENT">accepte</EVENT> les principes généraux du G8» (les sept pays les plus industrialisés et la Russie) et Belgrade «est <EVENT pos="ADJECTIVE" class="I_STATE" eid="e124" eiid="ei124" pred="D&apos;ACCORD" tense="PRESENT">d'accord</EVENT> pour que le Conseil de sécurité des Nations unies <EVENT pos="VERB" class="I_ACTION" eid="e103" eiid="ei103" pred="ADOPTER" tense="PRESENT">adopte</EVENT> une <EVENT pos="NOUN" class="OCCURRENCE" eid="e104" eiid="ei104" pred="RéSOLUTION">résolution</EVENT> en conformité avec la Charte de l'ONU», a <EVENT pos="VERB" class="REPORTING" eid="e106" eiid="ei106" pred="INDIQUER" tense="PAST" vform="PASTPART">indiqué</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t7" type="TIME" value="1999-05-28TEV" valueFromFunction="tf5">hier soir</TIMEX3> un communiqué de la présidence yougoslave <EVENT pos="VERB" class="OCCURRENCE" eid="e108" eiid="ei108" pred="DIFFUSER" vform="PASTPART">diffusé</EVENT> <SIGNAL sid="s12">à l'issue des</SIGNAL> <EVENT pos="NOUN" class="OCCURRENCE" eid="e110" eiid="ei110" pred="ENTRETIEN">entretiens</EVENT> du président Slobodan Milosevic avec l'émissaire russe Viktor Tchernomyrdine.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t6" timeID="t2" />
+<TLINK lid="l2" origin="USER" relType="IS_INCLUDED" relatedToTime="t6" timeID="t7" />
+<TLINK lid="l3" origin="USER" relType="IDENTITY" relatedToTime="t3" timeID="t6" />
+<TLINK lid="l4" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t3" />
+<TLINK eventInstanceID="ei1" lid="l5" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei2" lid="l6" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei5" lid="l7" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei12" lid="l8" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei10" lid="l15" origin="USER" relType="IDENTITY" relatedToEventInstance="ei6" />
+<TLINK eventInstanceID="ei14" lid="l20" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei15" lid="l22" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei18" lid="l28" origin="USER" relType="AFTER" relatedToEventInstance="ei25" />
+<TLINK eventInstanceID="ei21" lid="l31" origin="USER" relType="IDENTITY" relatedToEventInstance="ei22" />
+<TLINK eventInstanceID="ei21" lid="l33" origin="USER" relType="BEFORE" relatedToEventInstance="ei24" signalID="s13" />
+<TLINK eventInstanceID="ei24" lid="l34" origin="USER" relType="IDENTITY" relatedToEventInstance="ei114" />
+<TLINK eventInstanceID="ei25" lid="l35" origin="USER" relType="DURING" relatedToEventInstance="ei27" signalID="s10" />
+<TLINK eventInstanceID="ei27" lid="l36" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei31" lid="l37" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei31" lid="l38" origin="USER" relType="IDENTITY" relatedToEventInstance="ei28" />
+<TLINK eventInstanceID="ei28" lid="l39" origin="USER" relType="BEFORE" relatedToEventInstance="ei29" />
+<TLINK eventInstanceID="ei29" lid="l40" origin="USER" relType="ENDS" relatedToEventInstance="ei30" />
+<TLINK eventInstanceID="ei115" lid="l42" origin="USER" relType="AFTER" relatedToEventInstance="ei33" />
+<TLINK eventInstanceID="ei36" lid="l45" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei37" lid="l46" origin="USER" relType="BEFORE" relatedToEventInstance="ei36" />
+<TLINK eventInstanceID="ei38" lid="l48" origin="USER" relType="IDENTITY" relatedToEventInstance="ei40" />
+<TLINK eventInstanceID="ei39" lid="l49" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei40" lid="l51" origin="USER" relType="BEFORE" relatedToEventInstance="ei42" />
+<TLINK eventInstanceID="ei43" lid="l52" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei44" lid="l55" origin="USER" relType="BEFORE" relatedToEventInstance="ei45" />
+<TLINK eventInstanceID="ei47" lid="l56" origin="USER" relType="ENDS" relatedToEventInstance="ei48" />
+<TLINK eventInstanceID="ei47" lid="l57" origin="USER" relType="IDENTITY" relatedToEventInstance="ei29" />
+<TLINK eventInstanceID="ei48" lid="l58" origin="USER" relType="IDENTITY" relatedToEventInstance="ei30" />
+<TLINK eventInstanceID="ei117" lid="l59" origin="USER" relType="BEFORE" relatedToEventInstance="ei49" />
+<TLINK eventInstanceID="ei49" lid="l60" origin="USER" relType="IDENTITY" relatedToEventInstance="ei40" />
+<TLINK eventInstanceID="ei49" lid="l61" origin="USER" relType="IDENTITY" relatedToEventInstance="ei44" />
+<TLINK eventInstanceID="ei44" lid="l62" origin="USER" relType="IDENTITY" relatedToEventInstance="ei40" />
+<TLINK eventInstanceID="ei52" lid="l63" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei49" lid="l65" origin="USER" relType="BEFORE" relatedToEventInstance="ei50" />
+<TLINK eventInstanceID="ei53" lid="l68" origin="USER" relType="DURING" relatedToEventInstance="ei54" />
+<TLINK eventInstanceID="ei118" lid="l69" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK lid="l70" origin="USER" relType="INCLUDES" relatedToTime="t1" timeID="t4" />
+<TLINK eventInstanceID="ei58" lid="l71" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei55" lid="l75" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" />
+<TLINK eventInstanceID="ei59" lid="l77" origin="USER" relType="IDENTITY" relatedToEventInstance="ei60" />
+<TLINK eventInstanceID="ei62" lid="l79" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei64" lid="l82" origin="USER" relType="BEFORE" relatedToEventInstance="ei119" />
+<TLINK eventInstanceID="ei63" lid="l83" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei67" lid="l88" origin="USER" relType="ENDED_BY" relatedToEventInstance="ei68" signalID="s6" />
+<TLINK eventInstanceID="ei71" lid="l89" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei68" lid="l90" origin="USER" relType="AFTER" relatedToTime="t1" />
+<TLINK eventInstanceID="ei72" lid="l91" origin="USER" relType="DURING" relatedToEventInstance="ei73" />
+<TLINK eventInstanceID="ei72" lid="l93" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK lid="l94" origin="USER" relType="ENDED_BY" relatedToTime="t1" timeID="t5" />
+<TLINK eventInstanceID="ei74" lid="l95" origin="USER" relType="BEFORE" relatedToTime="t5" />
+<TLINK eventInstanceID="ei76" lid="l96" origin="USER" relType="IDENTITY" relatedToEventInstance="ei77" />
+<TLINK eventInstanceID="ei76" lid="l97" origin="USER" relType="IS_INCLUDED" relatedToTime="t5" />
+<TLINK eventInstanceID="ei78" lid="l98" origin="USER" relType="DURING" relatedToEventInstance="ei77" />
+<TLINK eventInstanceID="ei79" lid="l99" origin="USER" relType="IS_INCLUDED" relatedToTime="t5" />
+<TLINK eventInstanceID="ei85" lid="l100" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei83" lid="l102" origin="USER" relType="IDENTITY" relatedToEventInstance="ei81" />
+<TLINK eventInstanceID="ei81" lid="l103" origin="USER" relType="IDENTITY" relatedToEventInstance="ei122" />
+<TLINK eventInstanceID="ei83" lid="l104" origin="USER" relType="DURING" relatedToEventInstance="ei84" />
+<TLINK eventInstanceID="ei92" lid="l105" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei90" lid="l108" origin="USER" relType="DURING" relatedToEventInstance="ei91" />
+<TLINK eventInstanceID="ei89" lid="l109" origin="USER" relType="BEFORE" relatedToEventInstance="ei87" />
+<TLINK eventInstanceID="ei95" lid="l113" origin="USER" relType="ENDS" relatedToEventInstance="ei96" />
+<TLINK eventInstanceID="ei96" lid="l114" origin="USER" relType="IDENTITY" relatedToEventInstance="ei30" />
+<TLINK eventInstanceID="ei95" lid="l115" origin="USER" relType="IDENTITY" relatedToEventInstance="ei29" />
+<TLINK eventInstanceID="ei93" lid="l116" origin="USER" relType="IDENTITY" relatedToEventInstance="ei97" />
+<TLINK eventInstanceID="ei97" lid="l117" origin="USER" relType="BEFORE" relatedToEventInstance="ei123" />
+<TLINK eventInstanceID="ei98" lid="l118" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei99" lid="l119" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei98" signalID="s15" />
+<TLINK eventInstanceID="ei99" lid="l120" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei106" lid="l122" origin="USER" relType="IS_INCLUDED" relatedToTime="t7" />
+<TLINK eventInstanceID="ei103" lid="l126" origin="USER" relType="IDENTITY" relatedToEventInstance="ei104" />
+<TLINK eventInstanceID="ei108" lid="l127" origin="USER" relType="AFTER" relatedToEventInstance="ei110" signalID="s12" />
+<TLINK eventInstanceID="ei106" lid="l128" origin="USER" relType="DURING" relatedToEventInstance="ei108" />
+<TLINK eventInstanceID="ei81" lid="l130" origin="USER" relType="IDENTITY" relatedToEventInstance="ei122" />
+<TLINK eventInstanceID="ei33" lid="l133" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" />
+<TLINK eventInstanceID="ei93" lid="l134" origin="USER" relType="IS_INCLUDED" relatedToTime="t6" />
+<TLINK eventInstanceID="ei94" lid="l135" origin="USER" relType="BEFORE" relatedToEventInstance="ei95" />
+<TLINK eventInstanceID="ei34" lid="l136" origin="USER" relType="BEFORE" relatedToEventInstance="ei116" />
+<TLINK eventInstanceID="ei113" lid="l137" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei18" />
+<TLINK eventInstanceID="ei7" lid="l138" origin="USER" relType="BEFORE" relatedToEventInstance="ei120" />
+<TLINK eventInstanceID="ei122" lid="l139" origin="USER" relType="IDENTITY" relatedToEventInstance="ei91" />
+<TLINK eventInstanceID="ei17" lid="l141" origin="USER" relType="BEFORE" relatedToEventInstance="ei15" />
+<TLINK eventInstanceID="ei117" lid="l142" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei51" lid="l144" origin="USER" relType="BEFORE" relatedToEventInstance="ei50" />
+<TLINK eventInstanceID="ei53" lid="l145" origin="USER" relType="IDENTITY" relatedToEventInstance="ei49" />
+<TLINK eventInstanceID="ei57" lid="l146" origin="USER" relType="DURING" relatedToEventInstance="ei56" />
+<SLINK eventInstanceID="ei12" lid="l9" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei8" />
+<SLINK eventInstanceID="ei120" lid="l10" origin="USER" relType="CONDITIONAL" signalID="s1" subordinatedEventInstance="ei8" />
+<SLINK eventInstanceID="ei8" lid="l14" origin="USER" relType="MODAL" subordinatedEventInstance="ei9" />
+<SLINK eventInstanceID="ei120" lid="l18" origin="USER" relType="MODAL" subordinatedEventInstance="ei6" />
+<SLINK eventInstanceID="ei14" lid="l21" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei112" />
+<SLINK eventInstanceID="ei15" lid="l23" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei16" />
+<SLINK eventInstanceID="ei25" lid="l26" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei19" />
+<SLINK eventInstanceID="ei19" lid="l27" origin="USER" relType="MODAL" subordinatedEventInstance="ei113" />
+<SLINK eventInstanceID="ei25" lid="l29" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei20" />
+<SLINK eventInstanceID="ei20" lid="l30" origin="USER" relType="MODAL" subordinatedEventInstance="ei21" />
+<SLINK eventInstanceID="ei23" lid="l32" origin="USER" relType="MODAL" subordinatedEventInstance="ei22" />
+<SLINK eventInstanceID="ei115" lid="l43" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei116" />
+<SLINK eventInstanceID="ei37" lid="l47" origin="USER" relType="MODAL" subordinatedEventInstance="ei38" />
+<SLINK eventInstanceID="ei39" lid="l50" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei42" />
+<SLINK eventInstanceID="ei43" lid="l53" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei45" />
+<SLINK eventInstanceID="ei45" lid="l54" origin="USER" relType="MODAL" subordinatedEventInstance="ei46" />
+<SLINK eventInstanceID="ei52" lid="l64" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei50" />
+<SLINK eventInstanceID="ei118" lid="l67" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei54" />
+<SLINK eventInstanceID="ei58" lid="l72" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei55" />
+<SLINK eventInstanceID="ei55" lid="l73" origin="USER" relType="MODAL" subordinatedEventInstance="ei56" />
+<SLINK eventInstanceID="ei61" lid="l76" origin="USER" relType="CONDITIONAL" subordinatedEventInstance="ei59" />
+<SLINK eventInstanceID="ei62" lid="l78" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei59" />
+<SLINK eventInstanceID="ei63" lid="l80" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei119" />
+<SLINK eventInstanceID="ei63" lid="l81" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei65" />
+<SLINK eventInstanceID="ei71" lid="l84" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei66" />
+<SLINK eventInstanceID="ei71" lid="l85" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei69" />
+<SLINK eventInstanceID="ei71" lid="l86" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei70" />
+<SLINK eventInstanceID="ei66" lid="l87" origin="USER" relType="MODAL" subordinatedEventInstance="ei67" />
+<SLINK eventInstanceID="ei85" lid="l101" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei83" />
+<SLINK eventInstanceID="ei92" lid="l106" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei89" />
+<SLINK eventInstanceID="ei89" lid="l107" origin="USER" relType="MODAL" subordinatedEventInstance="ei90" />
+<SLINK eventInstanceID="ei93" lid="l111" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei94" />
+<SLINK eventInstanceID="ei106" lid="l123" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei101" />
+<SLINK eventInstanceID="ei106" lid="l124" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei124" />
+<SLINK eventInstanceID="ei124" lid="l125" origin="USER" relType="FACTIVE" subordinatedEventInstance="ei103" />
+<SLINK eventInstanceID="ei46" lid="l132" origin="USER" relType="MODAL" subordinatedEventInstance="ei47" />
+<ALINK eventInstanceID="ei99" lid="l121" origin="USER" relType="CONTINUES" relatedToEventInstance="ei100" />
+</TimeML>

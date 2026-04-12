@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2003-02-23-0415</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2003-02-23" /></DCT>
+<TEXT>
+Trois Américains <EVENT class="STATE" eid="e1" eiid="ei1" pos="VERB" pred="DÉTENIR" vform="PASTPART">détenus</EVENT> par la guérilla colombienne.
+La guérilla marxiste des FARC a <EVENT class="I_ACTION" eid="e2" eiid="ei2" pos="VERB" pred="RECONNAÎTRE" tense="PAST" vform="PASTPART">reconnu</EVENT> avoir <EVENT aspect="PERFECTIVE" class="OCCURRENCE" eid="e3" eiid="ei3" pos="VERB" pred="ABATTRE" tense="PRESENT" vform="INFINITIVE">abattu</EVENT> un avion américain <TIMEX3 tid="t2" type="DATE" value="2003-02-13">le 13 février</TIMEX3> dans le sud de la Colombie et <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="VERB" pred="RETENIR" tense="PAST" vform="INFINITIVE">retenir</EVENT> en otages les trois Américains survivants, <EVENT class="OCCURRENCE" eid="e25" eiid="ei25" pos="VERB" pred="QUALIFIER" vform="PASTPART">qualifiés</EVENT> d'« officiers de la CIA ». Pour « <EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="VERB" pred="GARANTIR" vform="INFINITIVE">garantir</EVENT> leur <EVENT class="OCCURRENCE" eid="e26" eiid="ei26" pos="NOUN" pred="VIE">vie</EVENT> » les rebelles <EVENT class="I_ACTION" eid="e7" eiid="ei7" pos="VERB" pred="EXIGER" tense="PRESENT">exigent</EVENT> le <EVENT class="OCCURRENCE" eid="e8" eiid="ei8" pos="NOUN" pred="RETRAIT">retrait</EVENT> de l'armée <EVENT class="OCCURRENCE" eid="e9" eiid="ei9" pos="VERB" pred="LANCER" vform="PASTPART">lancée</EVENT> à leur <EVENT class="OCCURRENCE" eid="e10" eiid="ei10" pos="NOUN" pred="RECHERCHE">recherche</EVENT>. Les autorités colombiennes ont <EVENT class="REPORTING" eid="e11" eiid="ei11" pos="VERB" pred="RÉPONDRE" tense="PAST" vform="PASTPART">répondu</EVENT> qu'elles ne <EVENT class="OCCURRENCE" eid="e12" eiid="ei12" mood="CONDITIONAL" polarity="NEG" pos="VERB" pred="CÉDER" tense="PRESENT">céderaient</EVENT> pas <SIGNAL sid="s2">à</SIGNAL> la <EVENT class="OCCURRENCE" eid="e13" eiid="ei13" pos="NOUN" pred="MENACE">menace</EVENT>. Plus de 2.000 soldats, <EVENT class="STATE" eid="e24" eiid="ei24" pos="VERB" vform="PASTPART" pred="APPUYER">appuyés</EVENT> par des hélicoptères, avions et matériel d'écoute américain, <EVENT class="OCCURRENCE" eid="e14" eiid="ei14" pos="VERB" pred="PARTICIPER" tense="PRESENT">participent</EVENT> à cette <EVENT class="OCCURRENCE" eid="e15" eiid="ei15" pos="NOUN" pred="CHASSE">chasse</EVENT> à l'homme.
+Par ailleurs, <SIGNAL sid="s4">au moment où</SIGNAL> sa mère <EVENT class="OCCURRENCE" eid="e16" eiid="ei16" pos="VERB" pred="ENTAMER" tense="PRESENT">entame</EVENT> <TIMEX3 beginPoint="t1" temporalFunction="false" tid="t5" type="DURATION" value="P1Y">sa deuxième année</TIMEX3> aux mains des rebelles, la fille d'Ingrid Betancourt a <EVENT class="I_ACTION" eid="e17" eiid="ei17" pos="VERB" pred="EXHORTER" tense="PAST" vform="PASTPART">exhorté</EVENT> les FARC à la <EVENT class="OCCURRENCE" eid="e18" eiid="ei18" pos="VERB" pred="RELÂCHER" vform="INFINITIVE">relâcher</EVENT>. La jeune fille, âgée de 17 ans, <EVENT class="MODAL" eid="e19" eiid="ei19" pos="VERB" pred="DEVOIR" tense="PRESENT">doit</EVENT> <EVENT class="OCCURRENCE" eid="e20" eiid="ei20" modality="OBLIGATION" pos="VERB" pred="RENCONTRER" vform="INFINITIVE">rencontrer</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t3" type="DATE" value="2003-02-23" valueFromFunction="tf1">aujourd'hui</TIMEX3> à Paris le président Chirac. Elle a <EVENT class="REPORTING" eid="e21" eiid="ei21" pos="VERB" pred="SOULIGNER" tense="PAST" vform="PASTPART">souligné</EVENT> que sa mère « <EVENT class="OCCURRENCE" eid="e22" eiid="ei22" pos="VERB" pred="DÉFENDRE" tense="PRESENT">défend</EVENT> des valeurs universelles qui viennent de la France ».
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="IDENTITY" relatedToTime="t1" timeID="t3" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t3" timeID="t2" />
+<TLINK eventInstanceID="ei1" lid="l3" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei2" lid="l4" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei3" lid="l6" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei4" lid="l8" origin="USER" relType="IAFTER" relatedToEventInstance="ei3" />
+<TLINK eventInstanceID="ei7" lid="l9" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei8" lid="l12" origin="USER" relType="BEFORE" relatedToEventInstance="ei5" />
+<TLINK eventInstanceID="ei9" lid="l13" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei9" lid="l14" origin="USER" relType="AFTER" relatedToEventInstance="ei3" />
+<TLINK eventInstanceID="ei9" lid="l15" origin="USER" relType="BEGINS" relatedToEventInstance="ei10" />
+<TLINK eventInstanceID="ei11" lid="l16" origin="USER" relType="AFTER" relatedToEventInstance="ei7" />
+<TLINK eventInstanceID="ei13" lid="l18" origin="USER" relType="IDENTITY" relatedToEventInstance="ei7" />
+<TLINK eventInstanceID="ei15" lid="l20" origin="USER" relType="IDENTITY" relatedToEventInstance="ei10" />
+<TLINK eventInstanceID="ei14" lid="l21" origin="USER" relType="DURING" relatedToEventInstance="ei15" />
+<TLINK eventInstanceID="ei24" lid="l22" origin="USER" relType="DURING" relatedToEventInstance="ei14" />
+<TLINK eventInstanceID="ei16" lid="l23" origin="USER" relType="BEGINS" relatedToTime="t5" />
+<TLINK eventInstanceID="ei17" lid="l24" origin="USER" relType="DURING" relatedToEventInstance="ei16" signalID="s4" />
+<TLINK eventInstanceID="ei16" lid="l26" origin="USER" relType="IS_INCLUDED" relatedToTime="t1" />
+<TLINK eventInstanceID="ei19" lid="l27" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" />
+<TLINK eventInstanceID="ei21" lid="l29" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei22" lid="l31" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<SLINK eventInstanceID="ei2" lid="l5" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei3" />
+<SLINK eventInstanceID="ei2" lid="l7" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei4" />
+<SLINK eventInstanceID="ei7" lid="l10" origin="USER" relType="MODAL" subordinatedEventInstance="ei8" />
+<SLINK eventInstanceID="ei5" lid="l11" origin="USER" relType="MODAL" subordinatedEventInstance="ei26" />
+<SLINK eventInstanceID="ei11" lid="l17" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei12" />
+<SLINK eventInstanceID="ei12" lid="l19" origin="USER" relType="MODAL" signalID="s2" subordinatedEventInstance="ei13" />
+<SLINK eventInstanceID="ei17" lid="l25" origin="USER" relType="MODAL" subordinatedEventInstance="ei18" />
+<SLINK eventInstanceID="ei19" lid="l28" origin="USER" relType="MODAL" subordinatedEventInstance="ei20" />
+<SLINK eventInstanceID="ei21" lid="l30" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei22" />
+</TimeML>

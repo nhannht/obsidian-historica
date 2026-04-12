@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2003-02-24-0413</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2003-02-24" /></DCT>
+<TEXT>
+Likoud-travaillistes : <EVENT class="OCCURRENCE" eid="e69" eiid="ei69" pos="NOUN" pred="NEGOCIATION">négociations</EVENT> rompues.
+Sur le plan politique israélien, le chef du Parti travailliste, Amram Mitzna, a <EVENT class="REPORTING" eid="e1" eiid="ei1" pos="VERB" pred="ANNONCER" tense="PAST" vform="PASTPART">annoncé</EVENT> la <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="NOUN" pred="RUPTURE">rupture</EVENT> de ses <EVENT class="OCCURRENCE" eid="e3" eiid="ei3" pos="NOUN" pred="CONTACT">contacts</EVENT> avec le Premier ministre de droite Ariel Sharon en vue de la <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="NOUN" pred="FORMATION">formation</EVENT> d'un gouvernement d'union nationale, <SIGNAL sid="s1">à la suite de</SIGNAL> l'<EVENT class="OCCURRENCE" eid="e6" eiid="ei6" pos="NOUN" pred="ACCORD">accord</EVENT> de coalition <EVENT class="OCCURRENCE" eid="e7" eiid="ei7" pos="VERB" pred="CONCLURE" vform="PASTPART">conclu</EVENT> entre le Likoud de Sharon et le Parti national religieux, porte-voix des colons juifs.
+Mitzna a <EVENT class="I_ACTION" eid="e8" eiid="ei8" pos="VERB" pred="ACCUSER" tense="PAST" vform="PASTPART">accusé</EVENT> Sharon d'avoir <EVENT aspect="PERFECTIVE" class="CAUSE" eid="e9" eiid="ei9" pos="VERB" pred="FAIRE" tense="PRESENT" vform="PASTPART">fait</EVENT> <EVENT class="OCCURRENCE" eid="e10" eiid="ei10" pos="VERB" pred="ÉCHOUER" vform="INFINITIVE">échouer</EVENT> la <EVENT class="OCCURRENCE" eid="e11" eiid="ei11" pos="NOUN" pred="NÉGOCIATION">négociation</EVENT> : « <SIGNAL sid="s12">S'</SIGNAL>il avait <EVENT aspect="PERFECTIVE" class="I_STATE" eid="e12" eiid="ei12" pos="VERB" pred="VOULOIR" tense="IMPERFECT" vform="PASTPART">voulu</EVENT> réellement <EVENT class="OCCURRENCE" eid="e13" eiid="ei13" pos="VERB" pred="ALLER" vform="INFINITIVE">aller</EVENT> dans la voie de la paix, il aurait <EVENT class="I_STATE" eid="e14" eiid="ei14" mood="CONDITIONAL" pos="VERB" pred="PRÉFÉRER" tense="PAST" vform="PASTPART">préféré</EVENT> les travaillistes aux colons », a-t-il <EVENT class="REPORTING" eid="e70" eiid="ei70" pos="VERB" pred="DIRE" tense="PAST" vform="PASTPART">dit</EVENT>. D'autres responsables travaillistes ont <EVENT class="OCCURRENCE" eid="e16" eiid="ei16" pos="VERB" pred="EXCLURE" tense="PAST" vform="PASTPART">exclu</EVENT> que leur formation <EVENT class="OCCURRENCE" eid="e18" eiid="ei18" mood="SUBJUNCTIVE" pos="VERB" pred="PARTICIPER" tense="PRESENT">participe</EVENT> à un gouvernement d'union nationale.
+L'<EVENT class="OCCURRENCE" eid="e20" eiid="ei20" pos="NOUN" pred="ACCORD">accord</EVENT> <EVENT class="OCCURRENCE" eid="e78" eiid="ei78" pos="VERB" pred="CONCLURE" vform="PASTPART">conclu</EVENT> avec le Likoud et le PNR <EVENT class="I_STATE" eid="e21" eiid="ei21" pos="VERB" pred="PRÉVOIR" tense="PRESENT">prévoit</EVENT> notamment que « les colonies [israéliennes dans les territoires palestiniens] seront <EVENT class="OCCURRENCE" eid="e22" eiid="ei22" pos="ADJECTIVE" pred="AGRANDIR" tense="FUTURE">agrandies</EVENT> pour <EVENT class="CAUSE" eid="e23" eiid="ei23" pos="VERB" pred="RÉPONDRE" vform="INFINITIVE">répondre</EVENT> à la <EVENT class="OCCURRENCE" eid="e79" eiid="ei79" pos="NOUN" pred="CROISSANCE">croissance</EVENT> naturelle de leur population ».
+Or, comme condition à leur <EVENT class="OCCURRENCE" eid="e25" eiid="ei25" pos="NOUN" pred="PARTICIPATION">participation</EVENT> à un gouvernement d'union nationale, les travaillistes ont <EVENT class="I_ACTION" eid="e27" eiid="ei27" pos="VERB" pred="EXIGER" tense="PAST" vform="PASTPART">exigé</EVENT> que les colonies de la bande de Gaza soient <EVENT class="OCCURRENCE" eid="e28" eiid="ei28" mood="SUBJUNCTIVE" pos="VERB" pred="DÉMANTELER" vform="PASTPART">démantelées</EVENT> et que les fonds publics <EVENT class="OCCURRENCE" eid="e71" eiid="ei71" pos="VERB" pred="VERSER" vform="PASTPART">versés</EVENT> pour les colonies soient <EVENT class="OCCURRENCE" eid="e29" eiid="ei29" mood="SUBJUNCTIVE" pos="ADJECTIVE" pred="TRANSFÉRER">transférés</EVENT> à des projets d'infrastructures en territoire israélien.
+Neuf Palestiniens et un soldat israélien ont été <EVENT class="OCCURRENCE" eid="e30" eiid="ei30" pos="VERB" pred="TUER" tense="PAST" vform="PASTPART">tués</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="DATE" value="2003-02-23" valueFromFunction="TF17">hier</TIMEX3> dans les territoires occupés <SIGNAL sid="s6">alors que</SIGNAL> l'armée israélienne <EVENT class="OCCURRENCE" eid="e31" eiid="ei31" pos="VERB" pred="MENER" tense="IMPERFECT">menait</EVENT> une <EVENT class="OCCURRENCE" eid="e32" eiid="ei32" pos="NOUN" pred="INCURSION">incursion</EVENT> dans la localité de Beit Hanoun dans le nord de la bande de Gaza.
+Cette <EVENT class="OCCURRENCE" eid="e33" eiid="ei33" pos="NOUN" pred="OPÉRATION">opération</EVENT> prolongée n'a pas <EVENT class="I_ACTION" eid="e34" eiid="ei34" polarity="NEG" pos="VERB" pred="EMPÊCHER" tense="PAST" vform="PASTPART">empêché</EVENT> un <EVENT class="OCCURRENCE" eid="e35" eiid="ei35" pos="NOUN" pred="TIR">tir</EVENT> de roquette artisanale de type Qassam, sur la ville de Sdérot, au sud d'Israël, qui n'a <EVENT class="OCCURRENCE" eid="e37" eiid="ei81" pos="VERB" pred="FAIRE" tense="PAST" vform="PASTPART">fait</EVENT> ni <EVENT class="STATE" eid="e76" eiid="ei76" polarity="NEG" pos="NOUN" pred="VICTIME">victime</EVENT> ni de <EVENT class="STATE" eid="e77" eiid="ei77" polarity="NEG" pos="NOUN" pred="DEGAT">dégâts</EVENT>. Ces <EVENT class="OCCURRENCE" eid="e38" eiid="ei38" pos="NOUN" pred="TIR">tirs</EVENT>, qui <EVENT class="OCCURRENCE" eid="e39" eiid="ei39" pos="VERB" pred="PARTIR" tense="PRESENT">partent</EVENT> du nord de la bande de Gaza, sont <EVENT class="OCCURRENCE" eid="e40" eiid="ei40" pos="VERB" pred="REVENDIQUER" tense="PRESENT" vform="PASTPART">revendiqués</EVENT> en règle générale par la branche armée du mouvement islamiste Hamas.
+A Jérusalem, <SIGNAL sid="s7">lors de</SIGNAL> la <EVENT class="OCCURRENCE" eid="e42" eiid="ei42" pos="NOUN" pred="RÉUNION">réunion</EVENT> du gouvernement israélien, le ministre de la Défense Shaoul Mofaz a <EVENT class="REPORTING" eid="e45" eiid="ei45" pos="VERB" pred="DÉCLARER" tense="PAST" vform="PASTPART">déclaré</EVENT> « avoir <EVENT aspect="PERFECTIVE" class="OCCURRENCE" eid="e72" eiid="ei72" pos="VERB" pred="DONNER" vform="PASTPART">donné</EVENT> l'ordre à l'armée de tout <EVENT class="OCCURRENCE" eid="e47" eiid="ei47" pos="VERB" pred="FAIRE" vform="INFINITIVE">faire</EVENT> pour <EVENT class="I_ACTION" eid="e48" eiid="ei48" pos="VERB" pred="EMPÊCHER" vform="INFINITIVE">empêcher</EVENT> des <EVENT class="OCCURRENCE" eid="e49" eiid="ei49" pos="NOUN" pred="TIR">tirs</EVENT> de Qassam ».
+Les <EVENT class="OCCURRENCE" eid="e50" eiid="ei50" pos="NOUN" pred="OPÉRATION">opérations</EVENT> de l'armée <EVENT class="I_ACTION" eid="e51" eiid="ei51" pos="VERB" pred="VISER" tense="PRESENT">visent</EVENT> particulièrement le Hamas, qui s'<EVENT class="I_ACTION" eid="e52" eiid="ei52" pos="VERB" pred="OPPOSER" tense="PRESENT">oppose</EVENT> à l'<EVENT class="OCCURRENCE" eid="e53" eiid="ei53" pos="NOUN" pred="APPEL">appel</EVENT> à une <EVENT class="OCCURRENCE" eid="e54" eiid="ei54" pos="NOUN" pred="TRÊVE">trêve</EVENT> de l'<EVENT class="OCCURRENCE" eid="e73" eiid="ei73" mod="START" pos="NOUN" pred="INTIFADA">Intifada</EVENT> <SIGNAL sid="s10">pendant</SIGNAL> <TIMEX3 beginPoint="t4" tid="t3" type="DURATION" value="P1Y">un an</TIMEX3>, <EVENT class="OCCURRENCE" eid="e74" eiid="ei74" pos="VERB" pred="LANCER" vform="PASTPART">lancé</EVENT> <TIMEX3 temporalFunction="true" tid="t4" type="DATE" value="2003-02-21">vendredi</TIMEX3> par Mahmoud Abbas, bras droit de Yasser Arafat.
+<TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t5" type="TIME" value="2003-02-23TEV" valueFromFunction="TF5">Hier soir</TIMEX3>, un conseiller du leader palestinien a <EVENT class="REPORTING" eid="e55" eiid="ei55" pos="VERB" pred="INDIQUER" tense="PAST" vform="PASTPART">indiqué</EVENT> que l'Autorité palestinienne allait <EVENT aspect="PROSPECTIVE" class="I_ACTION" eid="e57" eiid="ei57" pos="VERB" pred="DEMANDER" tense="IMPERFECT" vform="INFINITIVE">demander</EVENT> une <EVENT class="OCCURRENCE" eid="e58" eiid="ei58" pos="NOUN" pred="RÉUNION">réunion</EVENT> urgente du Conseil de sécurité de l'ONU pour « <EVENT class="I_ACTION" eid="e60" eiid="ei60" pos="VERB" pred="DÉNONCER" vform="INFINITIVE">dénoncer</EVENT> les <EVENT class="OCCURRENCE" eid="e61" eiid="ei61" pos="NOUN" pred="MASSACRE">massacres</EVENT> <EVENT class="OCCURRENCE" eid="e62" eiid="ei62" pos="VERB" pred="COMMETTRE" vform="PASTPART">commis</EVENT> par les Israéliens et <EVENT class="I_ACTION" eid="e63" eiid="ei63" pos="VERB" pred="IMPOSER" vform="INFINITIVE">imposer</EVENT> des <EVENT class="OCCURRENCE" eid="e80" eiid="ei80" pos="NOUN" pred="SANCTION">sanctions</EVENT> à Israël ».
+<SIGNAL sid="s11">Depuis</SIGNAL> le début de l'<EVENT class="OCCURRENCE" eid="e75" eiid="ei75" pos="NOUN" pred="INTIFADA">Intifada</EVENT>, <TIMEX3 mod="END" temporalFunction="false" tid="t6" type="DATE" value="2000-09">fin septembre 2000</TIMEX3>, les <EVENT class="OCCURRENCE" eid="e66" eiid="ei66" pos="NOUN" pred="VIOLENCE">violences</EVENT> israélo-palestiniennes ont <EVENT class="CAUSE" eid="e67" eiid="ei67" pos="VERB" pred="FAIRE" tense="PAST" vform="PASTPART">fait</EVENT> 2.994 morts, dont 2.243 Palestiniens et 695 Israéliens.
+<EVENT class="OCCURRENCE" eid="e37" eiid="ei37" pos="VERB" pred="FAIRE"/>
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t4" timeID="t6" />
+<TLINK lid="l3" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" timeID="t5" />
+<TLINK lid="l4" origin="USER" relType="BEFORE" relatedToTime="t2" timeID="t4" />
+<TLINK lid="l5" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t2" />
+<TLINK eventInstanceID="ei1" lid="l6" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei2" lid="l9" origin="USER" relType="BEFORE" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei4" lid="l10" origin="USER" relType="AFTER" relatedToEventInstance="ei7" signalID="s1" />
+<TLINK eventInstanceID="ei7" lid="l11" origin="USER" relType="IDENTITY" relatedToEventInstance="ei6" />
+<TLINK eventInstanceID="ei8" lid="l12" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei9" lid="l14" origin="USER" relType="BEFORE" relatedToEventInstance="ei10" />
+<TLINK eventInstanceID="ei70" lid="l16" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei16" lid="l20" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei78" lid="l22" origin="USER" relType="IDENTITY" relatedToEventInstance="ei20" />
+<TLINK eventInstanceID="ei78" lid="l23" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei23" lid="l26" origin="USER" relType="IDENTITY" relatedToEventInstance="ei22" />
+<TLINK eventInstanceID="ei79" lid="l27" origin="USER" relType="BEFORE" relatedToEventInstance="ei23" />
+<TLINK eventInstanceID="ei27" lid="l28" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei71" lid="l29" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei29" lid="l30" origin="USER" relType="AFTER" relatedToEventInstance="ei71" />
+<TLINK eventInstanceID="ei30" lid="l34" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei30" lid="l35" origin="USER" relType="DURING" relatedToEventInstance="ei31" signalID="s6" />
+<TLINK eventInstanceID="ei31" lid="l36" origin="USER" relType="IDENTITY" relatedToEventInstance="ei32" />
+<TLINK eventInstanceID="ei33" lid="l37" origin="USER" relType="IDENTITY" relatedToEventInstance="ei32" />
+<TLINK eventInstanceID="ei35" lid="l40" origin="USER" relType="BEFORE" relatedToEventInstance="ei37" />
+<TLINK eventInstanceID="ei35" lid="l44" origin="USER" relType="DURING" relatedToEventInstance="ei38" />
+<TLINK eventInstanceID="ei39" lid="l45" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei42" lid="l47" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei45" lid="l48" origin="USER" relType="DURING" relatedToEventInstance="ei42" signalID="s7" />
+<TLINK eventInstanceID="ei47" lid="l51" origin="USER" relType="BEFORE" relatedToEventInstance="ei48" />
+<TLINK eventInstanceID="ei51" lid="l53" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei51" lid="l54" origin="USER" relType="DURING" relatedToEventInstance="ei50" />
+<TLINK eventInstanceID="ei52" lid="l56" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei54" lid="l58" origin="USER" relType="DURING" relatedToEventInstance="ei73" />
+<TLINK eventInstanceID="ei54" lid="l59" origin="USER" relType="SIMULTANEOUS" relatedToTime="t3" signalID="s10" />
+<TLINK eventInstanceID="ei74" lid="l60" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" />
+<TLINK eventInstanceID="ei53" lid="l61" origin="USER" relType="IDENTITY" relatedToEventInstance="ei74" />
+<TLINK eventInstanceID="ei55" lid="l62" origin="USER" relType="IS_INCLUDED" relatedToTime="t5" />
+<TLINK eventInstanceID="ei60" lid="l65" origin="USER" relType="DURING" relatedToEventInstance="ei58" />
+<TLINK eventInstanceID="ei62" lid="l67" origin="USER" relType="IDENTITY" relatedToEventInstance="ei61" />
+<TLINK eventInstanceID="ei63" lid="l69" origin="USER" relType="DURING" relatedToEventInstance="ei58" />
+<TLINK eventInstanceID="ei75" lid="l70" origin="USER" relType="IDENTITY" relatedToEventInstance="ei73" />
+<TLINK eventInstanceID="ei75" lid="l71" origin="USER" relType="BEGUN_BY" relatedToTime="t6" />
+<TLINK eventInstanceID="ei75" lid="l72" origin="USER" relType="BEGINS" relatedToEventInstance="ei67" signalID="s11" />
+<TLINK eventInstanceID="ei67" lid="l75" origin="USER" relType="DURING" relatedToEventInstance="ei66" />
+<TLINK eventInstanceID="ei34" lid="l77" origin="USER" relType="DURING" relatedToEventInstance="ei33" />
+<TLINK eventInstanceID="ei20" lid="l78" origin="USER" relType="BEGINS" relatedToEventInstance="ei21" />
+<TLINK eventInstanceID="ei39" lid="l81" origin="USER" relType="BEFORE" relatedToEventInstance="ei40" />
+<TLINK eventInstanceID="ei1" lid="l82" origin="USER" relType="BEFORE" relatedToEventInstance="ei8" />
+<TLINK eventInstanceID="ei8" lid="l83" origin="USER" relType="BEFORE" relatedToEventInstance="ei70" />
+<SLINK eventInstanceID="ei1" lid="l7" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei2" />
+<SLINK eventInstanceID="ei8" lid="l13" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei9" />
+<SLINK eventInstanceID="ei10" lid="l15" origin="USER" relType="COUNTER_FACTIVE" subordinatedEventInstance="ei11" />
+<SLINK eventInstanceID="ei12" lid="l17" origin="USER" relType="MODAL" subordinatedEventInstance="ei13" />
+<SLINK eventInstanceID="ei12" lid="l18" origin="USER" relType="CONDITIONAL" signalID="s12" subordinatedEventInstance="ei14" />
+<SLINK eventInstanceID="ei70" lid="l19" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei12" />
+<SLINK eventInstanceID="ei16" lid="l21" origin="USER" relType="MODAL" subordinatedEventInstance="ei18" />
+<SLINK eventInstanceID="ei21" lid="l25" origin="USER" relType="MODAL" subordinatedEventInstance="ei22" />
+<SLINK eventInstanceID="ei27" lid="l31" origin="USER" relType="MODAL" subordinatedEventInstance="ei28" />
+<SLINK eventInstanceID="ei27" lid="l32" origin="USER" relType="MODAL" subordinatedEventInstance="ei29" />
+<SLINK eventInstanceID="ei34" lid="l39" origin="USER" relType="FACTIVE" subordinatedEventInstance="ei35" />
+<SLINK eventInstanceID="ei45" lid="l49" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei72" />
+<SLINK eventInstanceID="ei72" lid="l50" origin="USER" relType="MODAL" subordinatedEventInstance="ei47" />
+<SLINK eventInstanceID="ei48" lid="l52" origin="USER" relType="COUNTER_FACTIVE" subordinatedEventInstance="ei49" />
+<SLINK eventInstanceID="ei52" lid="l55" origin="USER" relType="MODAL" subordinatedEventInstance="ei53" />
+<SLINK eventInstanceID="ei53" lid="l57" origin="USER" relType="MODAL" subordinatedEventInstance="ei54" />
+<SLINK eventInstanceID="ei55" lid="l63" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei57" />
+<SLINK eventInstanceID="ei57" lid="l64" origin="USER" relType="MODAL" subordinatedEventInstance="ei58" />
+<SLINK eventInstanceID="ei60" lid="l66" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei62" />
+<SLINK eventInstanceID="ei63" lid="l76" origin="USER" relType="MODAL" subordinatedEventInstance="ei80" />
+<SLINK eventInstanceID="ei28" lid="l79" origin="USER" relType="CONDITIONAL" subordinatedEventInstance="ei25" />
+<SLINK eventInstanceID="ei29" lid="l80" origin="USER" relType="CONDITIONAL" subordinatedEventInstance="ei25" />
+<ALINK eventInstanceID="ei2" lid="l8" origin="USER" relType="TERMINATES" relatedToEventInstance="ei3" />
+</TimeML>

@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2002-01-02-0117</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2002-01-02" /></DCT>
+<TEXT>
+Jacques Chirac et Lionel Jospin, plus que jamais probables adversaires à la <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="NOUN" pred="PRÉSIDENTIELLE">présidentielle</EVENT> <SIGNAL sid="s2">de</SIGNAL> <TIMEX3 tid="t2" type="DATE" value="2002">2002</TIMEX3>, sont <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="VERB" pred="ENTRER" tense="PAST" vform="PASTPART">entrés</EVENT> dans <TIMEX3 temporalFunction="false" tid="t3" type="DATE" value="2002">la nouvelle année</TIMEX3> sous le signe de l'euro, chacun s'<EVENT class="OCCURRENCE" eid="e3" eiid="ei3" pos="VERB" pred="ATTACHER" vform="PRESPART">attachant</EVENT> à <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="VERB" pred="METTRE" vform="INFINITIVE">mettre</EVENT> en valeur son <EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="NOUN" pred="ACTION">action</EVENT> en faveur de la réussite de la monnaie unique. Dans ses vœux aux Français <SIGNAL sid="s4">à</SIGNAL> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t4" type="DATE" value="2002-01-02">un moment de l'année</TIMEX3> où ils ne sont pas encore <EVENT class="OCCURRENCE" eid="e7" eiid="ei7" polarity="NEG" pos="VERB" pred="MOBILISER" tense="PRESENT" vform="PASTPART">mobilisés</EVENT> par les <TIMEX3 temporalFunction="false" tid="t5" type="TIME" value="FUTURE_REF">prochaines</TIMEX3> <EVENT class="OCCURRENCE" eid="e8" eiid="ei8" pos="NOUN" pred="ÉCHÉANCE">échéances</EVENT> électorales, Chirac a <EVENT class="I_ACTION" eid="e9" eiid="ei9" pos="VERB" pred="ÉVITER" tense="PAST" vform="PASTPART">évité</EVENT> de <EVENT class="OCCURRENCE" eid="e10" eiid="ei10" pos="VERB" pred="POLÉMIQUER" vform="INFINITIVE">polémiquer</EVENT> directement avec le gouvernement.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="IDENTITY" relatedToTime="t2" timeID="t3" />
+<TLINK lid="l3" origin="USER" relType="IDENTITY" relatedToTime="t4" timeID="t1" />
+<TLINK lid="l4" origin="USER" relType="INCLUDES" relatedToTime="t4" timeID="t2" />
+<TLINK lid="l5" origin="USER" relType="AFTER" relatedToTime="t1" timeID="t5" />
+<TLINK eventInstanceID="ei2" lid="l6" origin="USER" relType="BEGINS" relatedToTime="t3" />
+<TLINK eventInstanceID="ei2" lid="l7" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei3" />
+<TLINK eventInstanceID="ei5" lid="l9" origin="USER" relType="OVERLAP_BEFORE" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei1" lid="l11" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" signalID="s2" />
+<TLINK eventInstanceID="ei7" lid="l12" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" signalID="s4" />
+<TLINK eventInstanceID="ei9" lid="l13" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" signalID="s4" />
+<TLINK eventInstanceID="ei8" lid="l16" origin="USER" relType="IS_INCLUDED" relatedToTime="t5" />
+<TLINK lid="l18" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" timeID="t5" />
+<SLINK eventInstanceID="ei3" lid="l10" origin="USER" relType="MODAL" subordinatedEventInstance="ei4" />
+<SLINK eventInstanceID="ei9" lid="l15" origin="USER" relType="COUNTER_FACTIVE" subordinatedEventInstance="ei10" />
+</TimeML>

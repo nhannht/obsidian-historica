@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2003-02-04-0456a</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2003-02-04" /></DCT>
+<TEXT>
+L'Algérie dans le noir. - Une <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="NOUN" pred="PANNE">panne</EVENT> générale de courant a <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="VERB" pred="PLONGER" tense="PAST" vform="PASTPART">plongé</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="TIME" value="2003-02-03TEV" valueFromFunction="tf5">hier soir</TIMEX3> l'Algérie dans le noir, dont la capitale Alger. La plupart des grandes villes algériennes ont également été <EVENT class="OCCURRENCE" eid="e3" eiid="ei3" pos="VERB" pred="TOUCHER" tense="PAST" vform="PASTPART">touchées</EVENT> par cette gigantesque <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="NOUN" pred="PANNE">panne</EVENT> qui serait <EVENT class="STATE" eid="e10" eiid="ei10" polarity="POS" pos="VERB" pred="DEVOIR" vform="PASTPART">due</EVENT> à un « <EVENT class="OCCURRENCE" eid="e6" eiid="ei6" pos="NOUN" pred="INCIDENT">incident</EVENT> » à la centrale Elhamma d'Alger, selon une source officielle. Cette nouvelle centrale, alimentée au gaz naturel, avait été <EVENT aspect="PERFECTIVE" class="OCCURRENCE" eid="e7" eiid="ei7" pos="VERB" pred="INAUGURER" tense="PAST" vform="PASTPART">inaugurée</EVENT> <SIGNAL sid="s2">il y a</SIGNAL> <TIMEX3 endPoint="t1" tid="t3" type="DURATION" value="PXM">quelques mois</TIMEX3> par le président Abdelaziz Bouteflika. Le courant <EVENT class="MODAL" eid="e8" eiid="ei8" pos="VERB" pred="DEVOIR" tense="IMPERFECT">devait</EVENT> être <EVENT class="OCCURRENCE" eid="e9" eiid="ei9" modality="OBLIGATION" pos="VERB" pred="RÉTABLIR" vform="PASTPART">rétablie</EVENT> en totalité <SIGNAL sid="s1">au cours de</SIGNAL> <TIMEX3 tid="t4" type="TIME" value="2003-02-03TNI">la nuit</TIMEX3>.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t2" />
+<TLINK lid="l2" origin="USER" relType="INCLUDES" relatedToTime="t4" timeID="t1" />
+<TLINK eventInstanceID="ei2" lid="l3" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei1" lid="l4" origin="USER" relType="IBEFORE" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei1" lid="l5" origin="USER" relType="IDENTITY" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei3" lid="l6" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei6" lid="l7" origin="USER" relType="BEFORE" relatedToEventInstance="ei4" />
+<TLINK lid="l8" origin="USER" relType="ENDED_BY" relatedToTime="t1" signalID="s2" timeID="t3" />
+<TLINK eventInstanceID="ei7" lid="l9" origin="USER" relType="BEGINS" relatedToTime="t3" />
+<TLINK eventInstanceID="ei7" lid="l10" origin="USER" relType="BEFORE" relatedToTime="t2" />
+<TLINK eventInstanceID="ei8" lid="l11" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" signalID="s1" />
+<SLINK eventInstanceID="ei8" lid="l12" origin="USER" relType="MODAL" subordinatedEventInstance="ei9" />
+</TimeML>

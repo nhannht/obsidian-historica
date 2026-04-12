@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-05-19-0489a</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-05-19" /></DCT>
+<TEXT>
+Grosse <EVENT class="STATE" eid="e15" eiid="ei15" pos="NOUN" pred="BRONCHITE">bronchite</EVENT> pour Eltsine.
+Le président russe Boris Eltsine a <EVENT class="I_ACTION" eid="e1" eiid="ei1" pos="VERB" pred="ANNULER" tense="PAST" vform="PASTPART">annulé</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="DATE" value="1999-05-18" valueFromFunction="tf17">hier</TIMEX3> une <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="NOUN" pred="RENCONTRE">rencontre</EVENT> avec le président du gouvernement espagnol Jose Maria Aznar en raison d'une <EVENT class="STATE" eid="e14" eiid="ei14" pos="NOUN" pred="BRONCHITE">bronchite</EVENT>, a <EVENT class="REPORTING" eid="e4" eiid="ei4" pos="VERB" pred="AFFIRMER" tense="PAST" vform="PASTPART">affirmé</EVENT> l'ambassade d'Espagne à Moscou. Cependant, le Kremlin a <EVENT class="I_ACTION" eid="e5" eiid="ei5" pos="VERB" pred="DÉMENTIR" tense="PAST" vform="PASTPART">démenti</EVENT> que le chef de l'Etat soit <EVENT class="STATE" eid="e12" eiid="ei12" mood="SUBJUNCTIVE" pos="ADJECTIVE" pred="MALADE" tense="PRESENT">malade</EVENT>, <EVENT class="REPORTING" eid="e6" eiid="ei6" pos="VERB" pred="INDIQUER" vform="PRESPART">indiquant</EVENT> laconiquement que l'<EVENT class="OCCURRENCE" eid="e7" eiid="ei7" pos="NOUN" pred="ENTRETIEN">entretien</EVENT> «ne <EVENT class="STATE" eid="e8" eiid="ei8" polarity="NEG" pos="VERB" pred="FIGURER" tense="IMPERFECT">figurait</EVENT> pas sur l'agenda» du chef de l'Etat. <TIMEX3 endPoint="t1" temporalFunction="true" tid="t3" type="DURATION" value="PXD" valueFromFunction="tf19">Ces derniers jours</TIMEX3>, M. Eltsine a <EVENT class="OCCURRENCE" eid="e9" eiid="ei9" pos="VERB" pred="MONTRER" tense="PAST" vform="PASTPART">montré</EVENT> des signes évidents de faiblesse, <EVENT class="OCCURRENCE" eid="e10" eiid="ei10" pos="VERB" pred="APPARAÎTRE" vform="PRESPART">apparaissant</EVENT> le visage très <EVENT class="STATE" eid="e13" eiid="ei13" pos="ADJECTIVE" pred="BOUFFI">bouffi</EVENT> et se <EVENT class="OCCURRENCE" eid="e11" eiid="ei11" pos="VERB" pred="DÉPLACER" vform="PRESPART">déplaçant</EVENT> avec difficulté.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t2" />
+<TLINK lid="l2" origin="USER" relType="INCLUDES" relatedToTime="t2" timeID="t3" />
+<TLINK lid="l3" origin="USER" relType="ENDED_BY" relatedToTime="t1" timeID="t3" />
+<TLINK eventInstanceID="ei1" lid="l4" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei4" lid="l6" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei4" lid="l7" origin="USER" relType="BEFORE" relatedToEventInstance="ei5" />
+<TLINK eventInstanceID="ei6" lid="l8" origin="USER" relType="DURING" relatedToEventInstance="ei5" />
+<TLINK eventInstanceID="ei14" lid="l10" origin="USER" relType="INCLUDES" relatedToTime="t2" />
+<TLINK eventInstanceID="ei7" lid="l12" origin="USER" relType="IDENTITY" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei9" lid="l13" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" />
+<TLINK eventInstanceID="ei10" lid="l14" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" />
+<TLINK eventInstanceID="ei13" lid="l15" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" />
+<TLINK eventInstanceID="ei11" lid="l16" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" />
+<TLINK eventInstanceID="ei15" lid="l17" origin="USER" relType="IDENTITY" relatedToEventInstance="ei14" />
+<TLINK eventInstanceID="ei1" lid="l19" origin="USER" relType="DURING" relatedToEventInstance="ei14" />
+<TLINK eventInstanceID="ei13" lid="l20" origin="USER" relType="DURING" relatedToEventInstance="ei10" />
+<SLINK eventInstanceID="ei1" lid="l5" origin="USER" relType="MODAL" subordinatedEventInstance="ei2" />
+<SLINK eventInstanceID="ei6" lid="l9" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei8" />
+<SLINK eventInstanceID="ei5" lid="l11" origin="USER" relType="NEG_EVIDENTIAL" subordinatedEventInstance="ei12" />
+<SLINK eventInstanceID="ei4" lid="l21" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei1" />
+</TimeML>

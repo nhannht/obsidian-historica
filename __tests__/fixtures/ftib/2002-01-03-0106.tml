@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2002-01-03-0106</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2002-01-03" /></DCT>
+<TEXT>
+Christiane Marchiani, épouse du député européen, et Marie-Danièle Faure, proche collaboratrice de Charles Pasqua, ont été <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="VERB" pred="METTRE" tense="PAST" vform="PASTPART">mises</EVENT> en examen <TIMEX3 tid="t2" type="DATE" value="2001-12-21">le 21 décembre</TIMEX3>. Elles sont <EVENT class="I_STATE" eid="e2" eiid="ei2" pos="VERB" pred="SOUPÇONNER" tense="PRESENT" vform="PASTPART">soupçonnées</EVENT> d'avoir <EVENT aspect="PERFECTIVE" class="OCCURRENCE" eid="e3" eiid="ei3" pos="VERB" pred="PERCEVOIR" vform="PASTPART">perçu</EVENT> des fonds <EVENT class="STATE" eid="e4" eiid="ei4" pos="VERB" pred="PROVENIR" vform="PRESPART">provenant</EVENT> d'une rançon de 3 millions de dollars <EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="VERB" pred="VERSER" vform="PASTPART">versée</EVENT> par l'Etat français en échange des otages du Liban. Jean-Paul Kauffmann, Marcel Carton et Marcel Fontaine avaient été <EVENT aspect="PERFECTIVE" class="OCCURRENCE" eid="e6" eiid="ei6" pos="VERB" pred="LIBÉRER" tense="PAST" vform="PASTPART">libérés</EVENT> <SIGNAL sid="s1">en</SIGNAL> <TIMEX3 tid="t3" type="DATE" value="1988-05">mai 1988</TIMEX3>, <TIMEX3 tid="t4" type="DURATION" value="PXD">quelques jours</TIMEX3> <SIGNAL sid="s3">avant</SIGNAL> le deuxième <EVENT class="OCCURRENCE" eid="e7" eiid="ei7" pos="NOUN" pred="TOUR">tour</EVENT> de l'<EVENT class="OCCURRENCE" eid="e8" eiid="ei8" pos="NOUN" pred="ÉLECTION">élection</EVENT> présidentielle. Le gouvernement de l'époque dont Jacques Chirac était le Premier ministre, a toujours <EVENT class="I_ACTION" eid="e10" eiid="ei10" pos="VERB" pred="NIER" tense="PAST" vform="PASTPART">nié</EVENT> l'<EVENT class="STATE" eid="e11" eiid="ei11" pos="NOUN" pred="EXISTENCE">existence</EVENT> de cette rançon.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t2" timeID="t3" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t2" />
+<TLINK eventInstanceID="ei1" lid="l3" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei2" lid="l4" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei5" lid="l7" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" />
+<TLINK eventInstanceID="ei6" lid="l8" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" />
+<TLINK eventInstanceID="ei6" lid="l9" origin="USER" relType="BEGINS" relatedToTime="t4" />
+<TLINK lid="l10" origin="USER" relType="ENDED_BY" relatedToEventInstance="ei7" signalID="s3" timeID="t4" />
+<TLINK eventInstanceID="ei7" lid="l11" origin="USER" relType="DURING" relatedToEventInstance="ei8" />
+<TLINK eventInstanceID="ei10" lid="l12" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei3" lid="l15" origin="USER" relType="DURING" relatedToEventInstance="ei5" />
+<TLINK eventInstanceID="ei5" lid="l16" origin="USER" relType="BEFORE" relatedToEventInstance="ei6" />
+<SLINK eventInstanceID="ei2" lid="l5" origin="USER" relType="MODAL" subordinatedEventInstance="ei3" />
+<SLINK eventInstanceID="ei10" lid="l13" origin="USER" relType="NEG_EVIDENTIAL" subordinatedEventInstance="ei11" />
+</TimeML>

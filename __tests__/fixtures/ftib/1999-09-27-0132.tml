@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-09-27-0132</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-09-27" /></DCT>
+<TEXT>
+La fraternité <EVENT class="STATE" eid="e1" eiid="ei1" pos="VERB" pred="PRÔNER" vform="PASTPART">prônée</EVENT> par Emmaüs «a <EVENT class="CAUSE" eid="e2" eiid="ei2" pos="VERB" pred="FAIRE" tense="PAST" vform="PASTPART">fait</EVENT> <EVENT class="OCCURRENCE" eid="e3" eiid="ei3" pos="VERB" pred="DÉPLACER" vform="INFINITIVE">déplacer</EVENT> des montagnes», a <EVENT class="REPORTING" eid="e4" eiid="ei4" pos="VERB" pred="DÉCLARER" tense="PAST" vform="PASTPART">déclaré</EVENT> le président Jacques Chirac à l'abbé Pierre <SIGNAL sid="s1">au cours d'</SIGNAL>une <EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="NOUN" pred="RENCONTRE">rencontre</EVENT> <EVENT class="OCCURRENCE" eid="e6" eiid="ei6" pos="VERB" pred="FILMER" vform="PASTPART">filmée</EVENT> dans les jardins de l'Elysée et <EVENT class="OCCURRENCE" eid="e7" eiid="ei7" pos="VERB" pred="RETRANSMETTRE" vform="PASTPART">retransmise</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="DATE" value="1999-09-26" valueFromFunction="TF17">hier</TIMEX3> à Orléans <SIGNAL sid="s2">lors d'</SIGNAL>un grand <EVENT class="OCCURRENCE" eid="e8" eiid="ei8" pos="NOUN" pred="SPECTACLE">spectacle</EVENT> <EVENT class="OCCURRENCE" eid="e9" eiid="ei9" pos="VERB" pred="ANIMER" vform="PASTPART">animé</EVENT> par Estelle Hallyday pour le 50e <EVENT class="OCCURRENCE" eid="e10" eiid="ei10" pos="NOUN" pred="ANNIVERSAIRE">anniversaire</EVENT> du mouvement.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t2" />
+<TLINK eventInstanceID="ei1" lid="l2" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei4" lid="l3" origin="USER" relType="DURING" relatedToEventInstance="ei5" signalID="s1" />
+<TLINK eventInstanceID="ei2" lid="l5" origin="USER" relType="IBEFORE" relatedToEventInstance="ei3" />
+<TLINK eventInstanceID="ei6" lid="l6" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei5" />
+<TLINK eventInstanceID="ei7" lid="l7" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei7" lid="l8" origin="USER" relType="DURING" relatedToEventInstance="ei8" signalID="s2" />
+<TLINK eventInstanceID="ei9" lid="l9" origin="USER" relType="DURING" relatedToEventInstance="ei8" />
+<TLINK eventInstanceID="ei8" lid="l10" origin="USER" relType="DURING" relatedToEventInstance="ei10" />
+<TLINK eventInstanceID="ei7" lid="l11" origin="USER" relType="AFTER" relatedToEventInstance="ei6" />
+<SLINK eventInstanceID="ei4" lid="l4" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei2" />
+</TimeML>

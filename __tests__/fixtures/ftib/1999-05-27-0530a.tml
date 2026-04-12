@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-05-27-0530a</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-05-27" /></DCT>
+<TEXT>
+Le terroriste Carlos <EVENT class="MODAL" eid="e1" eiid="ei1" pos="VERB" pred="DEVOIR" tense="FUTURE">devra</EVENT> <EVENT class="I_STATE" eid="e2" eiid="ei2" modality="OBLIGATION" pos="VERB" pred="ATTENDRE" vform="INFINITIVE">attendre</EVENT> <SIGNAL sid="s2">jusqu'au</SIGNAL> <TIMEX3 tid="t2" type="DATE" value="1999-06-02">2 juin</TIMEX3> pour <EVENT class="PERCEPTION" eid="e3" eiid="ei3" pos="VERB" pred="VOIR" vform="INFINITIVE">voir</EVENT> l'<EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="NOUN" pred="EXAMEN">examen</EVENT> par la chambre d'accusation de la Cour d'appel de Paris de la <EVENT class="I_ACTION" eid="e5" eiid="ei5" pos="NOUN" pred="DEMANDE">demande</EVENT> d'<EVENT class="OCCURRENCE" eid="e17" eiid="ei17" pos="NOUN" pred="EXTRADITION">extradition</EVENT> de la justice autrichienne. La Cour a <EVENT class="I_ACTION" eid="e6" eiid="ei6" pos="VERB" pred="REPORTER" tense="PAST" vform="PASTPART">reporté</EVENT> reporté <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t3" type="DATE" value="1999-05-26" valueFromFunction="TF17">hier</TIMEX3> pour un <EVENT class="OCCURRENCE" eid="e8" eiid="ei8" pos="NOUN" pred="PROBLÈME">problème</EVENT> de procédure cet <EVENT class="OCCURRENCE" eid="e9" eiid="ei9" pos="NOUN" pred="EXAMEN">examen</EVENT>. L'Autriche <EVENT class="OCCURRENCE" eid="e10" eiid="ei10" pos="VERB" pred="RÉCLAMER" tense="PRESENT">réclame</EVENT> Carlos afin de le <EVENT class="OCCURRENCE" eid="e11" eiid="ei11" pos="VERB" pred="JUGER" vform="INFINITIVE">juger</EVENT> pour «<EVENT class="OCCURRENCE" eid="e15" eiid="ei15" pos="NOUN" pred="HOMICIDE">homicides</EVENT> volontaires, <EVENT class="OCCURRENCE" eid="e16" eiid="ei16" pos="NOUN" pred="ENLÈVEMENT">enlèvements</EVENT> avec <EVENT class="OCCURRENCE" eid="e12" eiid="ei12" pos="NOUN" pred="CHANTAGE">chantage</EVENT> et <EVENT class="OCCURRENCE" eid="e13" eiid="ei13" pos="NOUN" pred="VIOLATION">violation</EVENT> de domicile», pour la <EVENT class="OCCURRENCE" eid="e14" eiid="ei14" pos="NOUN" pred="PRISE">prise</EVENT> d'otages des ministres de l'OPEP (Organisation des pays exportateurs de pétrole) à Vienne <SIGNAL sid="s1">en</SIGNAL> <TIMEX3 tid="t4" type="DATE" value="1975">1975</TIMEX3>.
+</TEXT>
+<TLINK eventInstanceID="ei2" lid="l2" origin="USER" relType="ENDED_BY" relatedToTime="t2" signalID="s2" />
+<TLINK lid="l3" origin="USER" relType="BEFORE" relatedToTime="t2" timeID="t1" />
+<TLINK lid="l4" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t3" />
+<TLINK lid="l5" origin="USER" relType="BEFORE" relatedToTime="t3" timeID="t4" />
+<TLINK eventInstanceID="ei3" lid="l6" origin="USER" relType="AFTER" relatedToEventInstance="ei1" />
+<TLINK eventInstanceID="ei3" lid="l7" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei5" lid="l9" origin="USER" relType="BEFORE" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei6" lid="l11" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" />
+<TLINK eventInstanceID="ei8" lid="l13" origin="USER" relType="BEFORE" relatedToEventInstance="ei6" />
+<TLINK eventInstanceID="ei10" lid="l14" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei11" lid="l15" origin="USER" relType="AFTER" relatedToEventInstance="ei10" />
+<TLINK eventInstanceID="ei12" lid="l17" origin="USER" relType="DURING" relatedToEventInstance="ei16" />
+<TLINK eventInstanceID="ei14" lid="l20" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" signalID="s1" />
+<TLINK eventInstanceID="ei13" lid="l25" origin="USER" relType="BEFORE" relatedToEventInstance="ei16" />
+<TLINK eventInstanceID="ei16" lid="l26" origin="USER" relType="BEGINS" relatedToEventInstance="ei14" />
+<TLINK eventInstanceID="ei15" lid="l27" origin="USER" relType="DURING" relatedToEventInstance="ei14" />
+<TLINK eventInstanceID="ei9" lid="l28" origin="USER" relType="IDENTITY" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei5" lid="l29" origin="USER" relType="BEFORE" relatedToTime="t3" />
+<TLINK eventInstanceID="ei1" lid="l34" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<SLINK eventInstanceID="ei1" lid="l1" origin="USER" relType="MODAL" subordinatedEventInstance="ei2" />
+<SLINK eventInstanceID="ei3" lid="l8" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei4" />
+<SLINK eventInstanceID="ei5" lid="l10" origin="USER" relType="MODAL" subordinatedEventInstance="ei17" />
+<SLINK eventInstanceID="ei6" lid="l12" origin="USER" relType="MODAL" subordinatedEventInstance="ei9" />
+<SLINK eventInstanceID="ei11" lid="l30" origin="USER" relType="MODAL" subordinatedEventInstance="ei14" />
+<SLINK eventInstanceID="ei11" lid="l31" origin="USER" relType="MODAL" subordinatedEventInstance="ei15" />
+<SLINK eventInstanceID="ei11" lid="l32" origin="USER" relType="MODAL" subordinatedEventInstance="ei13" />
+<SLINK eventInstanceID="ei11" lid="l33" origin="USER" relType="MODAL" subordinatedEventInstance="ei16" />
+</TimeML>

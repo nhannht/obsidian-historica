@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2002-01-21-0155</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2002-01-21" /></DCT>
+<TEXT>
+<SIGNAL sid="s1">Pendant</SIGNAL> <TIMEX3 beginPoint="t3" tid="t2" type="DURATION" value="P1W">une semaine</TIMEX3> <SIGNAL sid="s2">à partir de</SIGNAL> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t3" type="TIME" value="2002-01-21TMO" valueFromFunction="tf5">ce matin</TIMEX3>, le tribunal de Poitiers va <EVENT aspect="PROSPECTIVE" class="I_ACTION" eid="e2" eiid="ei2" pos="VERB" pred="TENTER" vform="INFINITIVE">tenter</EVENT> de <EVENT class="OCCURRENCE" eid="e3" eiid="ei3" pos="VERB" pred="DÉMÊLER" vform="INFINITIVE">démêler</EVENT> les responsabilités dans le gigantesque <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="NOUN" pred="CARAMBOLAGE">carambolage</EVENT> suivi d'<EVENT class="OCCURRENCE" eid="e12" eiid="ei12" pos="NOUN" pred="INCENDIE">incendies</EVENT> des véhicules, qui <TIMEX3 tid="t4" type="DATE" value="1993-11-10">le 10 novembre 93</TIMEX3>, sur l'A 10 près de Bordeaux, avait <EVENT aspect="PERFECTIVE" class="CAUSE" eid="e6" eiid="ei6" pos="VERB" pred="CAUSER" tense="PAST" vform="PASTPART">causé</EVENT> la <EVENT class="OCCURRENCE" eid="e7" eiid="ei7" pos="NOUN" pred="MORT">mort</EVENT> de 15 personnes et <EVENT aspect="PERFECTIVE" class="OCCURRENCE" eid="e8" eiid="ei8" pos="VERB" pred="BLESSER" tense="PAST" vform="PASTPART">blessé</EVENT> 53 autres. 80 parties civiles sont <EVENT class="STATE" eid="e10" eiid="ei10" pos="ADJECTIVE" pred="REPRÉSENTER" tense="PRESENT">représentées</EVENT> alors que 17 automobilistes et deux chauffeurs routiers sont <EVENT class="STATE" eid="e11" eiid="ei11" pos="ADJECTIVE" pred="POURSUIVRE" tense="PRESENT">poursuivis</EVENT>.
+</TEXT>
+<TLINK lid="l2" origin="USER" relType="IS_INCLUDED" relatedToTime="t1" timeID="t3" />
+<TLINK eventInstanceID="ei2" lid="l5" origin="USER" relType="SIMULTANEOUS" relatedToTime="t2" signalID="s1" />
+<TLINK eventInstanceID="ei4" lid="l8" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" />
+<TLINK eventInstanceID="ei4" lid="l9" origin="USER" relType="BEFORE" relatedToEventInstance="ei6" />
+<TLINK eventInstanceID="ei10" lid="l12" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei11" lid="l13" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK lid="l15" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t4" />
+<TLINK eventInstanceID="ei6" lid="l16" origin="USER" relType="BEFORE" relatedToEventInstance="ei7" />
+<TLINK eventInstanceID="ei8" lid="l17" origin="USER" relType="DURING" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei4" lid="l18" origin="USER" relType="BEFORE" relatedToEventInstance="ei12" />
+<TLINK lid="l19" origin="USER" relType="BEGUN_BY" relatedToTime="t3" signalID="s2" timeID="t2" />
+<SLINK eventInstanceID="ei2" lid="l3" origin="USER" relType="MODAL" subordinatedEventInstance="ei3" />
+</TimeML>

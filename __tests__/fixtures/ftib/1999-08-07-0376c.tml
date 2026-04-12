@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-08-07-0376c</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-08-07" /></DCT>
+<TEXT>
+L'académicien Théodore Monod, 97 ans, a <EVENT class="ASPECTUAL" eid="e1" eiid="ei1" pos="VERB" pred="ENTREPRENDRE" tense="PAST" vform="PASTPART">entrepris</EVENT> <TIMEX3 tid="t3" type="TIME" value="1999-08-06TMO">vendredi matin</TIMEX3> un <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="NOUN" pred="JEÛNE">jeûne</EVENT> d'interpellation antinucléaire de <TIMEX3 tid="t4" type="DURATION" value="P3D">trois jours</TIMEX3>, <EVENT class="STATE" eid="e8" eiid="ei8" pos="VERB" pred="ORGANISER" vform="PASTPART">organisé</EVENT> comme <TIMEX3 quant="EVERY" tid="t5" type="SET" value="P1Y">chaque année</TIMEX3> par le comité «Stop Essais ! » et la «Maison de Vigilance», à l'occasion du 54e <EVENT class="OCCURRENCE" eid="e3" eiid="ei3" pos="NOUN" pred="ANNIVERSAIRE">anniversaire</EVENT> des <EVENT class="OCCURRENCE" eid="e9" eiid="ei9" pos="NOUN" pred="BOMBE">bombes</EVENT> de Hiroshima et Nagasaki. Ce <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="NOUN" pred="JEÛNE">jeûne</EVENT> est <EVENT class="STATE" eid="e5" eiid="ei5" pos="VERB" pred="ORGANISER" vform="PASTPART">organisé</EVENT> à la salle des fêtes, à proximité de la base militaire 921 qui <EVENT class="STATE" eid="e7" eiid="ei7" pos="VERB" pred="ABRITER" tense="PRESENT">abrite</EVENT> le poste de commandement de la force de frappe française.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t3" />
+<TLINK eventInstanceID="ei1" lid="l4" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" />
+<TLINK eventInstanceID="ei2" lid="l5" origin="USER" relType="SIMULTANEOUS" relatedToTime="t4" />
+<TLINK eventInstanceID="ei8" lid="l6" origin="USER" relType="DURING" relatedToTime="t5" />
+<TLINK eventInstanceID="ei8" lid="l7" origin="USER" relType="BEFORE" relatedToEventInstance="ei3" />
+<TLINK eventInstanceID="ei9" lid="l9" origin="USER" relType="BEFORE" relatedToTime="t3" />
+<TLINK eventInstanceID="ei7" lid="l12" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei5" lid="l14" origin="USER" relType="BEFORE" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei4" lid="l16" origin="USER" relType="IDENTITY" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei8" lid="l17" origin="USER" relType="IDENTITY" relatedToEventInstance="ei5" />
+<TLINK eventInstanceID="ei3" lid="l18" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" />
+<ALINK eventInstanceID="ei1" lid="l3" origin="USER" relType="INITIATES" relatedToEventInstance="ei2" />
+</TimeML>

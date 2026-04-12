@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2002-09-01-0536</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2002-09-01" /></DCT>
+<TEXT>
+Les Français <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="VERB" pred="RETROUVER" tense="PRESENT">retrouvent</EVENT> l'optimisme.
+Près de deux tiers des Français (65 %) se <EVENT class="REPORTING" eid="e2" eiid="ei2" pos="VERB" pred="DIRE" tense="PRESENT">disent</EVENT> plutôt optimistes (56 %) ou très optimistes (9 %) en <EVENT class="I_STATE" eid="e3" eiid="ei3" pos="VERB" pred="PENSER" vform="GERUNDIVE">pensant</EVENT> à l'<EVENT class="OCCURRENCE" eid="e20" eiid="ei20" pos="NOUN" pred="AVENIR">avenir</EVENT>, selon un <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="NOUN" pred="SONDAGE">sondage</EVENT> sur le moral des Français <SIGNAL sid="s2">à</SIGNAL> la <EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="NOUN" pred="RENTRÉE">rentrée</EVENT> <SIGNAL sid="s7">de</SIGNAL> <TIMEX3 tid="t3" type="DATE" value="2002-09">septembre</TIMEX3> <EVENT class="OCCURRENCE" eid="e6" eiid="ei6" pos="VERB" pred="RÉALISER" vform="PASTPART">réalisé</EVENT> par l'IFOP pour Ouest-France.
+L'optimisme des Français <EVENT class="OCCURRENCE" eid="e7" eiid="ei7" pos="VERB" pred="ENREGISTRER" tense="PRESENT">enregistre</EVENT> une <EVENT class="OCCURRENCE" eid="e8" eiid="ei8" pos="NOUN" pred="HAUSSE">hausse</EVENT> de 10 points par rapport à <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t4" type="DATE" value="2001" valueFromFunction="TF13">l'année dernière</TIMEX3> <SIGNAL sid="s9">à</SIGNAL> <TIMEX3 anchorTimeID="t3" functionInDocument="NONE" temporalFunction="true" tid="t7" type="DATE" value="2001-09">la même époque</TIMEX3>.
+L'espoir est le mot qui qualifie le mieux l'état d'esprit de 30 % des personnes <EVENT class="OCCURRENCE" eid="e10" eiid="ei10" pos="VERB" pred="INTERROGER" vform="PASTPART">interrogées</EVENT> (en augmentation de 8 points par rapport à <TIMEX3 tid="t5" type="DATE" value="2001-08">août 2001</TIMEX3>), devant l'inquiétude (21 %, en <EVENT class="OCCURRENCE" eid="e22" eiid="ei22" pos="NOUN" pred="BAISSE">baisse</EVENT> de 9 points), l'attente (18 %), et l'optimisme (12 %).
+Cependant, <SIGNAL sid="s6">si</SIGNAL> 56 % des personnes <EVENT class="OCCURRENCE" eid="e12" eiid="ei12" pos="VERB" pred="INTERROGER" vform="PASTPART">interrogées</EVENT> <EVENT class="STATE" eid="e13" eiid="ei13" pos="VERB" pred="FAIRE" tense="PRESENT">font</EVENT> confiance au gouvernement Raffarin en matière de lutte contre l'insécurité, 71 % ne lui <EVENT class="STATE" eid="e15" eiid="ei15" polarity="NEG" pos="VERB" pred="FAIRE" tense="PRESENT">font</EVENT> pas confiance en matière d'augmentation du pouvoir d'achat et 64 % en matière de lutte contre le <EVENT class="OCCURRENCE" eid="e21" eiid="ei21" pos="NOUN" pred="CHÔMAGE">chômage</EVENT>. Par ailleurs, 58 % se <EVENT class="REPORTING" eid="e17" eiid="ei17" pos="VERB" pred="DIRE" tense="PRESENT">disent</EVENT> sceptiques en ce qui concerne la <EVENT class="OCCURRENCE" eid="e19" eiid="ei19" pos="NOUN" pred="BAISSE">baisse</EVENT> des impôts.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" timeID="t5" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t3" timeID="t4" />
+<TLINK lid="l3" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" timeID="t1" />
+<TLINK eventInstanceID="ei2" lid="l4" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei5" lid="l8" origin="USER" relType="IS_INCLUDED" relatedToTime="t3" signalID="s7" />
+<TLINK eventInstanceID="ei6" lid="l9" origin="USER" relType="IDENTITY" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei6" lid="l10" origin="USER" relType="DURING" relatedToEventInstance="ei5" signalID="s2" />
+<TLINK lid="l11" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" signalID="s9" timeID="t7" />
+<TLINK lid="l12" origin="USER" relType="BEFORE" relatedToEventInstance="ei7" timeID="t7" />
+<TLINK eventInstanceID="ei7" lid="l14" origin="USER" relType="IDENTITY" relatedToEventInstance="ei8" />
+<TLINK eventInstanceID="ei10" lid="l15" origin="USER" relType="DURING" relatedToEventInstance="ei6" />
+<TLINK eventInstanceID="ei22" lid="l16" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei8" />
+<TLINK eventInstanceID="ei10" lid="l17" origin="USER" relType="IDENTITY" relatedToEventInstance="ei12" />
+<TLINK lid="l22" origin="USER" relType="IDENTITY" relatedToTime="t5" timeID="t7" />
+<TLINK eventInstanceID="ei7" lid="l24" origin="USER" relType="INCLUDES" relatedToTime="t3" />
+<TLINK eventInstanceID="ei1" lid="l25" origin="USER" relType="IDENTITY" relatedToEventInstance="ei7" />
+<TLINK eventInstanceID="ei6" lid="l26" origin="USER" relType="DURING" relatedToEventInstance="ei13" />
+<TLINK eventInstanceID="ei6" lid="l27" origin="USER" relType="DURING" relatedToEventInstance="ei15" />
+<TLINK eventInstanceID="ei6" lid="l28" origin="USER" relType="DURING" relatedToEventInstance="ei17" />
+<TLINK eventInstanceID="ei2" lid="l30" origin="USER" relType="DURING" relatedToEventInstance="ei3" />
+<SLINK eventInstanceID="ei3" lid="l29" origin="USER" relType="MODAL" subordinatedEventInstance="ei20" />
+</TimeML>

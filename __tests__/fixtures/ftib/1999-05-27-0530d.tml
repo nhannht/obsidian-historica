@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-05-27-0530d</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-05-27" /></DCT>
+<TEXT>
+L'aviation indienne est <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="VERB" pred="ENTRER" tense="PAST" vform="PASTPART">entrée</EVENT> en action pour la première fois au Cachemire, <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="DATE" value="1999-05-26" valueFromFunction="tf17">hier</TIMEX3>, pour <EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="VERB" pred="DÉLOGER" vform="INFINITIVE">déloger</EVENT> des guérilleros musulmans, ce qui <EVENT class="OCCURRENCE" eid="e3" eiid="ei3" pos="VERB" pred="MARQUER" tense="PRESENT">marque</EVENT> une <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="NOUN" pred="ESCALADE">escalade</EVENT> dans le <EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="NOUN" pred="CONFLIT">conflit</EVENT> indo-pakistanais sur cette région himalayenne <EVENT class="STATE" eid="e6" eiid="ei6" pos="VERB" pred="DISPUTER" vform="PASTPART">disputée</EVENT> <SIGNAL sid="s1">depuis</SIGNAL> <TIMEX3 endPoint="t1" tid="t3" type="DURATION" value="P50Y">un demi-siècle</TIMEX3>. Le Pakistan a <EVENT class="I_ACTION" eid="e7" eiid="ei7" pos="VERB" pred="ACCUSER" tense="PAST" vform="PASTPART">accusé</EVENT> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t4" type="DATE" value="1999-05-26" valueFromFunction="tf17">hier</TIMEX3> l'aviation indienne d'avoir <EVENT class="OCCURRENCE" aspect="PERFECTIVE" eid="e8" eiid="ei11" pos="VERB" vform="PASTPART" pred="BOMBARDER">bombardé</EVENT> trois fois son territoire <SIGNAL sid="s2">lors de</SIGNAL> ces <EVENT class="OCCURRENCE" eid="e9" eiid="ei9" pos="NOUN" pred="FRAPPE">frappes</EVENT>.
+<EVENT class="OCCURRENCE" eid="e8" eiid="ei8" pos="VERB" pred="BOMBARDER"/>
+<EVENT class="OCCURRENCE" eid="e8" eiid="ei10" pos="VERB" pred="BOMBARDER"/>
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="IDENTITY" relatedToTime="t4" timeID="t2" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t2" />
+<TLINK lid="l3" origin="USER" relType="ENDED_BY" relatedToTime="t1" timeID="t3" />
+<TLINK eventInstanceID="ei1" lid="l4" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei1" lid="l5" origin="USER" relType="BEFORE" relatedToEventInstance="ei2" />
+<TLINK eventInstanceID="ei1" lid="l6" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei3" />
+<TLINK eventInstanceID="ei7" lid="l7" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" />
+<TLINK eventInstanceID="ei11" lid="l11" origin="USER" relType="DURING" relatedToEventInstance="ei9" signalID="s2" />
+<TLINK eventInstanceID="ei10" lid="l12" origin="USER" relType="DURING" relatedToEventInstance="ei9" signalID="s2" />
+<TLINK eventInstanceID="ei8" lid="l13" origin="USER" relType="DURING" relatedToEventInstance="ei9" signalID="s2" />
+<TLINK eventInstanceID="ei3" lid="l14" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei4" lid="l15" origin="USER" relType="DURING" relatedToEventInstance="ei5" />
+<TLINK eventInstanceID="ei6" lid="l16" origin="USER" relType="SIMULTANEOUS" relatedToTime="t3" signalID="s1" />
+<TLINK eventInstanceID="ei9" lid="l18" origin="USER" relType="AFTER" relatedToEventInstance="ei1" />
+<SLINK eventInstanceID="ei7" lid="l8" origin="USER" relType="MODAL" subordinatedEventInstance="ei10" />
+<SLINK eventInstanceID="ei7" lid="l9" origin="USER" relType="MODAL" subordinatedEventInstance="ei8" />
+<SLINK eventInstanceID="ei7" lid="l10" origin="USER" relType="MODAL" subordinatedEventInstance="ei11" />
+</TimeML>

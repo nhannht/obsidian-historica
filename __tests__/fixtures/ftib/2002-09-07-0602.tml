@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2002-09-07-0602</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2002-09-07" /></DCT>
+<TEXT>
+<EVENT class="STATE" eid="e71" eiid="ei71" pos="ADJECTIVE" pred="DÉCONTRACTER">Décontracté</EVENT> mais <EVENT class="STATE" eid="e72" eiid="ei72" pos="ADJECTIVE" pred="AVIDE">avide</EVENT> de <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="VERB" pred="PARTICIPER" vform="INFINITIVE">participer</EVENT> au vaste <EVENT class="OCCURRENCE" eid="e70" eiid="ei70" pos="NOUN" pred="CHANTIER">chantier</EVENT> de reconstruction d'une Gauche qui <EVENT class="STATE" eid="e2" eiid="ei2" pos="VERB" pred="DOUTE" tense="PRESENT">doute</EVENT>, Pierre Moscovici a <EVENT class="OCCURRENCE" eid="e3" eiid="ei3" pos="VERB" pred="EFFECTUER" tense="PAST" vform="PASTPART">effectué</EVENT> une <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="NOUN" pred="RENTRÉE">rentrée</EVENT> politique de fidélité, <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t2" type="TIME" value="2002-09-06TAF" valueFromFunction="tf5">hier après-midi</TIMEX3>. Se <EVENT class="STATE" eid="e5" eiid="ei5" pos="VERB" pred="PRÉSENTER" vform="PRESPART">présentant</EVENT> plus que jamais comme un simple militant et un élu montbéliardais de base, l'ancien ministre socialiste, se <EVENT class="OCCURRENCE" eid="e6" eiid="ei6" pos="VERB" pred="DÉFINIR" tense="PRESENT">définit</EVENT> trois axes de réflexion active. Sur le plan de la stratégie, il <EVENT class="I_STATE" eid="e7" eiid="ei7" pos="VERB" pred="ESTIMER" tense="PRESENT">estime</EVENT> que le PS <EVENT class="MODAL" eid="e8" eiid="ei8" pos="VERB" pred="DEVOIR" tense="PRESENT">doit</EVENT> <EVENT class="OCCURRENCE" eid="e9" eiid="ei9" modality="OBLIGATION" pos="VERB" pred="REPENSER" vform="INFINITIVE">repenser</EVENT> ses liens avec les forces de la Gauche : « <SIGNAL sid="s11">Sinon</SIGNAL>, la Droite est <EVENT class="STATE" eid="e73" eiid="ei73" pos="NOUN" pred="AU_POUVOIR">au pouvoir</EVENT> pour longtemps ». Sur celui de l'identité, il <EVENT class="I_STATE" eid="e10" eiid="ei10" pos="VERB" pred="VOULOIR" tense="PRESENT">veut</EVENT> « <EVENT class="OCCURRENCE" eid="e11" eiid="ei11" pos="VERB" pred="RETROUVER" vform="INFINITIVE">retrouver</EVENT> le sens des aspirations sociales, car les couches populaires n'ont pas <EVENT class="OCCURRENCE" eid="e13" eiid="ei13" polarity="NEG" pos="VERB" pred="VOTER" tense="PAST" vform="PASTPART">voté</EVENT> pour nous ». Enfin, sur le plan de l'idéologie, l'auteur du programme de Lionel Jospin <EVENT class="OCCURRENCE" eid="e14" eiid="ei14" pos="VERB" pred="PLAIDER" tense="PRESENT">plaide</EVENT> coupable en <EVENT class="REPORTING" eid="e15" eiid="ei15" pos="VERB" pred="APPELER" vform="GERUNDIVE">appelant</EVENT> de ses vœux « un nouveau projet qui serait <EVENT class="STATE" eid="e16" eiid="ei16" pos="VERB" pred="ISSU" vform="PASTPART">issu</EVENT> d'un <EVENT class="OCCURRENCE" eid="e81" eiid="ei81" pos="NOUN" pred="DÉBAT">débat</EVENT> profond, serein et fraternel pour <EVENT class="OCCURRENCE" eid="e18" eiid="ei18" pos="VERB" pred="RECRÉER" vform="INFINITIVE">recréer</EVENT> une Gauche authentique ».
+Le droit d'inventaire.
+Dans le Pays de Montbéliard plus précisément, le conseiller municipal et régional d'opposition, <EVENT class="OCCURRENCE" eid="e19" eiid="ei19" pos="VERB" pred="REJETTER" tense="PRESENT">rejette</EVENT> « le catastrophisme et l'autoflagellation », n'<EVENT class="I_STATE" eid="e20" eiid="ei20" polarity="NEG" pos="VERB" pred="HÉSITER" vform="PRESPART">hésitant</EVENT> pas à <EVENT class="OCCURRENCE" eid="e21" eiid="ei21" pos="VERB" pred="HUMANISER" vform="INFINITIVE">humaniser</EVENT> davantage son personnage : « J'<EVENT class="STATE" eid="e22" eiid="ei22" pos="VERB" pred="AVOIR" tense="PRESENT">ai</EVENT> l'expérience, le temps, la sagesse et la conviction. J'ai beaucoup <EVENT class="OCCURRENCE" eid="e25" eiid="ei25" pos="VERB" pred="APPRENDRE" tense="PAST" vform="PASTPART">appris</EVENT> en <EVENT class="OCCURRENCE" eid="e74" eiid="ei74" pred="PERDRE" vform="GERUNDIVE" pos="VERB">perdant</EVENT>. Dans le Pays de Montbéliard, je ne <EVENT class="I_STATE" eid="e26" eiid="ei26" polarity="NEG" pos="VERB" pred="LAISSER" tense="FUTURE">laisserai</EVENT> pas se <EVENT class="OCCURRENCE" eid="e27" eiid="ei27" pos="VERB" pred="DÉFAIRE" vform="INFINITIVE">défaire</EVENT> tout ce que j'ai <EVENT class="OCCURRENCE" eid="e28" eiid="ei28" pos="VERB" pred="FAIRE" tense="PAST" vform="PASTPART">fait</EVENT> <SIGNAL sid="s3">en</SIGNAL> <TIMEX3 tid="t3" type="DURATION" value="P10Y">dix ans</TIMEX3>. Je <EVENT class="I_STATE" eid="e29" eiid="ei29" pos="VERB" pred="SOUHAITER" tense="PRESENT">souhaite</EVENT> un PS <EVENT class="STATE" eid="e75" eiid="ei75" pos="ADJECTIVE" pred="UNIR">uni</EVENT>, <EVENT class="STATE" eid="e76" eiid="ei76" pos="ADJECTIVE" pred="COMPOSER">composé</EVENT> d'hommes et de femmes de talent, <EVENT class="STATE" eid="e77" eiid="ei77" pos="ADJECTIVE" pred="OUVRIR">ouvert</EVENT> à la parole des militants qui <EVENT class="MODAL" eid="e31" eiid="ei31" pos="VERB" pred="DEVOIR" tense="PRESENT">doivent</EVENT> <TIMEX3 tid="t4" type="TIME" value="PRESENT_REF">maintenant</TIMEX3> s'<EVENT class="OCCURRENCE" eid="e32" eiid="ei32" modality="OBLIGATION" pos="VERB" pred="EXPRIMER" vform="INFINITIVE">exprimer</EVENT>. Je suis pour le droit d'inventaire, mais sans <EVENT class="OCCURRENCE" eid="e78" eiid="ei78" pos="VERB" pred="RENIER" vform="INFINITIVE">renier</EVENT> le respect envers Lionel Jospin car dans cette double <EVENT class="OCCURRENCE" eid="e33" eiid="ei33" pos="NOUN" pred="DÉFAITE">défaite</EVENT>, nous <EVENT class="STATE" eid="e34" eiid="ei34" pos="VERB" pred="AVOIR" tense="PRESENT">avons</EVENT> une responsabilité collective... ».
+Au jeu des étiquettes et des courants, Pierre Moscovici <EVENT class="OCCURRENCE" eid="e35" eiid="ei35" polarity="POS" pos="VERB" pred="OPPOSER" tense="PRESENT">oppose</EVENT> sa <EVENT class="I_STATE" eid="e79" eiid="ei79" pos="NOUN" pred="VOLONTÉ">volonté</EVENT> de <EVENT class="STATE" eid="e36" eiid="ei36" pos="VERB" pred="DEMEURER" vform="INFINITIVE">demeurer</EVENT> « un homme libre », <EVENT class="OCCURRENCE" eid="e37" eiid="ei37" pos="VERB" pred="REJETER" vform="PRESPART">rejetant</EVENT> le terme de « social-libéralisme » tout en <EVENT class="STATE" eid="e38" eiid="ei38" pos="VERB" pred="PARTAGER" vform="GERUNDIVE">partageant</EVENT> les idées de François Hollande. Mais <EVENT class="OCCURRENCE" eid="e39" eiid="ei39" pos="VERB" pred="PLAIDER" vform="PRESPART">plaidant</EVENT> aussi en faveur d'une « sixième république qui <EVENT class="OCCURRENCE" eid="e40" eiid="ei40" pos="VERB" pred="REVALORISER" tense="PRESENT">revaloriserait</EVENT> la démocratie participative » comme le <EVENT class="I_STATE" eid="e41" eiid="ei41" pos="VERB" pred="SOUHAITER" tense="PRESENT">souhaite</EVENT> Arnaud Montebourg. Ses convictions, il les <EVENT class="OCCURRENCE" eid="e43" eiid="ei43" pos="VERB" pred="PUISER" tense="PRESENT">puise</EVENT> aussi bien dans la rigueur que le rêve : « Nous <EVENT class="MODAL" eid="e45" eiid="ei45" pos="VERB" pred="DEVOIR" tense="PRESENT">devons</EVENT> <EVENT class="OCCURRENCE" eid="e46" eiid="ei46" modality="NECESSITY" pos="VERB" pred="ORGANISER" vform="INFINITIVE">organiser</EVENT> et <EVENT class="OCCURRENCE" eid="e47" eiid="ei47" modality="NECESSITY" pos="VERB" pred="RÉGULER" vform="INFINITIVE">réguler</EVENT> le capitalisme, et <EVENT class="OCCURRENCE" eid="e48" eiid="ei48" modality="NECESSITY" pos="VERB" pred="FAIRE" vform="INFINITIVE">faire</EVENT> de l'Europe et de la démocratie l'utopie <SIGNAL sid="s6">de</SIGNAL> <TIMEX3 tid="t5" type="TIME" value="FUTURE_REF">l'avenir</TIMEX3> ». Avec en corollaire la <EVENT class="OCCURRENCE" eid="e49" eiid="ei49" pos="NOUN" pred="MISE">mise</EVENT> en place « d'un ordre juste pour <EVENT class="OCCURRENCE" eid="e51" eiid="ei51" pos="VERB" pred="COMBATTRE" vform="INFINITIVE">combattre</EVENT> la précarité et l'insécurité ».
+Un <TIMEX3 functionInDocument="NONE" temporalFunction="true" tid="t10" type="TIME" value="FUTURE_REF">avenir</TIMEX3> européen.
+Sur un plan plus personnel, Pierre Moscovici <EVENT class="I_STATE" eid="e52" eiid="ei52" pos="VERB" pred="VOULOIR" tense="PRESENT">veut</EVENT> <EVENT class="I_ACTION" eid="e53" eiid="ei53" pos="VERB" pred="PROUVER" vform="INFINITIVE">prouver</EVENT> qu'il <EVENT class="STATE" eid="e82" eiid="ei82" pos="VERB" pred="AVOIR" tense="PRESENT">a</EVENT> <TIMEX3 functionInDocument="NONE" temporalFunction="true" tid="t12" type="TIME" value="PRESENT_REF">toujours</TIMEX3> un avenir politique. L'ancien haut-fonctionnaire <EVENT class="OCCURRENCE" eid="e80" eiid="ei80" pos="VERB" pred="DÉTACHER" vform="PASTPART">détaché</EVENT> de la Cour des comptes, y <EVENT class="OCCURRENCE" eid="e54" eiid="ei54" pos="VERB" pred="REVENIR" tense="FUTURE">reviendra</EVENT> administrativement <TIMEX3 tid="t8" type="DATE" value="2002-11-07">le 7 novembre</TIMEX3>, mais <EVENT class="ASPECTUAL" eid="e55" eiid="ei55" pos="VERB" pred="CONTINUER" tense="FUTURE">continuera</EVENT> « à <EVENT class="STATE" eid="e56" eiid="ei56" pos="VERB" pred="TRAVAILLER" vform="INFINITIVE">travailler</EVENT> avec ardeur » au sein de la convention européenne, l'organisme chargé à Bruxelles de <EVENT class="OCCURRENCE" eid="e58" eiid="ei58" pos="VERB" pred="RÉNOVER" vform="INFINITIVE">rénover</EVENT> les institutions de l'Union. Un <EVENT class="OCCURRENCE" eid="e61" eiid="ei61" pos="NOUN" pred="TOUR">tour</EVENT> de passe-passe statutaire qui lui <EVENT class="I_ACTION" eid="e62" eiid="ei62" pos="VERB" pred="PERMETTRE" tense="PRESENT">permet</EVENT> de se <EVENT class="OCCURRENCE" eid="e63" eiid="ei63" pos="VERB" pred="PRÉSENTER" vform="INFINITIVE">présenter</EVENT> en position de force, compte tenu de son passé ministériel et de son <TIMEX3 functionInDocument="NONE" temporalFunction="true" tid="t11" type="TIME" value="PRESENT_REF">actuelle</TIMEX3> charge, aux <EVENT class="OCCURRENCE" eid="e66" eiid="ei66" pos="NOUN" pred="ÉLECTION">élections</EVENT> européennes <SIGNAL sid="s9">de</SIGNAL> <TIMEX3 tid="t9" type="DATE" value="2004">2004</TIMEX3> : « Je serai <EVENT class="STATE" eid="e83" eiid="ei83" pos="ADJECTIVE" pred="FIER">fier</EVENT>, <SIGNAL sid="s10">si</SIGNAL> les électeurs le <EVENT class="I_ACTION" eid="e67" eiid="ei67" pos="VERB" pred="DÉCIDER" tense="PRESENT">décident</EVENT>, de <EVENT class="STATE" eid="e68" eiid="ei68" pos="VERB" pred="REPRÉSENTER" vform="INFINITIVE">représenter</EVENT> le Pays de Montbéliard au parlement de Strasbourg... ».
+François ZIMMER
+</TEXT>
+<TLINK lid="l10022" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t2" />
+<TLINK lid="l10023" origin="USER" relType="BEFORE" relatedToTime="t8" timeID="t1" />
+<TLINK lid="l10024" origin="USER" relType="BEFORE" relatedToTime="t9" timeID="t8" />
+<TLINK lid="l10025" origin="USER" relType="INCLUDES" relatedToTime="t1" timeID="t4" />
+<TLINK lid="l10026" origin="USER" relType="INCLUDES" relatedToTime="t1" timeID="t11" />
+<TLINK lid="l10027" origin="USER" relType="INCLUDES" relatedToTime="t1" timeID="t12" />
+<TLINK lid="l10028" origin="USER" relType="AFTER" relatedToTime="t1" timeID="t5" />
+<TLINK lid="l10029" origin="USER" relType="AFTER" relatedToTime="t1" timeID="t10" />
+<TLINK eventInstanceID="ei71" lid="l10030" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei72" />
+<TLINK eventInstanceID="ei1" lid="l10031" origin="USER" relType="DURING" relatedToEventInstance="ei70" />
+<TLINK eventInstanceID="ei2" lid="l10032" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei3" lid="l10033" origin="USER" relType="IDENTITY" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei3" lid="l10034" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei3" lid="l10035" origin="USER" relType="DURING" relatedToEventInstance="ei71" />
+<TLINK eventInstanceID="ei6" lid="l10036" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei5" lid="l10037" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei6" />
+<TLINK eventInstanceID="ei7" lid="l10038" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei10" lid="l10039" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei13" lid="l10040" origin="USER" relType="BEFORE" relatedToTime="t2" />
+<TLINK eventInstanceID="ei14" lid="l10041" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei15" lid="l10042" origin="USER" relType="DURING" relatedToEventInstance="ei14" />
+<TLINK eventInstanceID="ei20" lid="l10043" origin="USER" relType="DURING" relatedToEventInstance="ei19" />
+<TLINK eventInstanceID="ei19" lid="l10044" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei22" lid="l10045" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei25" lid="l10046" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei26" lid="l10047" origin="USER" relType="AFTER" relatedToTime="t1" />
+<TLINK eventInstanceID="ei29" lid="l10048" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei78" lid="l10049" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei32" />
+<TLINK eventInstanceID="ei33" lid="l10050" origin="USER" relType="IDENTITY" relatedToEventInstance="ei74" />
+<TLINK eventInstanceID="ei35" lid="l10051" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei37" lid="l10052" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei35" />
+<TLINK eventInstanceID="ei38" lid="l10053" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei37" />
+<TLINK eventInstanceID="ei39" lid="l10054" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei37" />
+<TLINK eventInstanceID="ei41" lid="l10055" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei43" lid="l10056" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei45" lid="l10057" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei49" lid="l10058" origin="USER" relType="BEFORE" relatedToEventInstance="ei51" />
+<TLINK eventInstanceID="ei49" lid="l10059" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei48" />
+<TLINK eventInstanceID="ei52" lid="l10060" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei82" lid="l10061" origin="USER" relType="IS_INCLUDED" relatedToTime="t12" />
+<TLINK eventInstanceID="ei80" lid="l10062" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei54" lid="l10063" origin="USER" relType="IS_INCLUDED" relatedToTime="t8" />
+<TLINK eventInstanceID="ei58" lid="l10064" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei55" lid="l10065" origin="USER" relType="DURING" relatedToEventInstance="ei61" />
+<TLINK eventInstanceID="ei54" lid="l10066" origin="USER" relType="DURING" relatedToEventInstance="ei61" />
+<TLINK eventInstanceID="ei62" lid="l10067" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei61" />
+<TLINK eventInstanceID="ei66" lid="l10068" origin="USER" relType="IS_INCLUDED" relatedToTime="t9" signalID="s9" />
+<TLINK eventInstanceID="ei83" lid="l10069" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei68" />
+<TLINK eventInstanceID="ei67" lid="l10070" origin="USER" relType="DURING" relatedToEventInstance="ei66" />
+<TLINK lid="l10071" origin="USER" relType="BEFORE" relatedToTime="t1" timeID="t3" />
+<TLINK eventInstanceID="ei28" lid="l10072" origin="USER" relType="SIMULTANEOUS" relatedToTime="t3" />
+<TLINK eventInstanceID="ei25" lid="l10073" origin="USER" relType="DURING" relatedToEventInstance="ei74" />
+<TLINK eventInstanceID="ei34" lid="l10074" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei31" lid="l10075" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" />
+<TLINK eventInstanceID="ei35" lid="l10076" origin="USER" relType="DURING" relatedToEventInstance="ei79" />
+<TLINK eventInstanceID="ei54" lid="l10077" origin="USER" relType="BEGINS" relatedToEventInstance="ei55" />
+<TLINK eventInstanceID="ei16" lid="l10078" origin="USER" relType="DURING" relatedToEventInstance="ei81" />
+<TLINK eventInstanceID="ei18" lid="l10079" origin="USER" relType="AFTER" relatedToEventInstance="ei81" />
+<SLINK eventInstanceID="ei72" lid="l10000" origin="USER" relType="MODAL" subordinatedEventInstance="ei1" />
+<SLINK eventInstanceID="ei7" lid="l10001" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei8" />
+<SLINK eventInstanceID="ei8" lid="l10002" origin="USER" relType="MODAL" subordinatedEventInstance="ei9" />
+<SLINK eventInstanceID="ei9" lid="l10003" origin="USER" relType="CONDITIONAL" subordinatedEventInstance="ei73" />
+<SLINK eventInstanceID="ei10" lid="l10004" origin="USER" relType="MODAL" subordinatedEventInstance="ei11" />
+<SLINK eventInstanceID="ei29" lid="l10005" origin="USER" relType="MODAL" subordinatedEventInstance="ei75" />
+<SLINK eventInstanceID="ei31" lid="l10006" origin="USER" relType="MODAL" subordinatedEventInstance="ei32" />
+<SLINK eventInstanceID="ei79" lid="l10007" origin="USER" relType="MODAL" subordinatedEventInstance="ei36" />
+<SLINK eventInstanceID="ei39" lid="l10008" origin="USER" relType="MODAL" subordinatedEventInstance="ei40" />
+<SLINK eventInstanceID="ei45" lid="l10009" origin="USER" relType="MODAL" subordinatedEventInstance="ei46" />
+<SLINK eventInstanceID="ei45" lid="l10010" origin="USER" relType="MODAL" subordinatedEventInstance="ei47" />
+<SLINK eventInstanceID="ei45" lid="l10011" origin="USER" relType="MODAL" subordinatedEventInstance="ei48" />
+<SLINK eventInstanceID="ei52" lid="l10012" origin="USER" relType="MODAL" subordinatedEventInstance="ei53" />
+<SLINK eventInstanceID="ei62" lid="l10013" origin="USER" relType="MODAL" subordinatedEventInstance="ei63" />
+<SLINK eventInstanceID="ei67" lid="l10014" origin="USER" relType="CONDITIONAL" signalID="s10" subordinatedEventInstance="ei83" />
+<SLINK eventInstanceID="ei20" lid="l10015" origin="USER" relType="MODAL" subordinatedEventInstance="ei21" />
+<SLINK eventInstanceID="ei26" lid="l10016" origin="USER" relType="MODAL" subordinatedEventInstance="ei27" />
+<SLINK eventInstanceID="ei29" lid="l10017" origin="USER" relType="MODAL" subordinatedEventInstance="ei77" />
+<SLINK eventInstanceID="ei29" lid="l10018" origin="USER" relType="MODAL" subordinatedEventInstance="ei76" />
+<SLINK eventInstanceID="ei41" lid="l10019" origin="USER" relType="MODAL" subordinatedEventInstance="ei40" />
+<SLINK eventInstanceID="ei53" lid="l10020" origin="USER" relType="MODAL" subordinatedEventInstance="ei82" />
+<SLINK eventInstanceID="ei15" lid="l10021" origin="USER" relType="MODAL" subordinatedEventInstance="ei16" />
+<ALINK eventInstanceID="ei55" lid="l9999" origin="USER" relType="CONTINUES" relatedToEventInstance="ei56" />
+</TimeML>

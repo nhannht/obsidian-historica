@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2003-01-04-1029</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2003-01-04" /></DCT>
+<TEXT>
+OFFICES RELIGIEUX.
+Les <EVENT class="OCCURRENCE" eid="e3" eiid="ei3" pos="NOUN" pred="OFFICE">offices</EVENT> de l'Unité pastorale de Lure et sa région seront <EVENT class="OCCURRENCE" eid="e1" eiid="ei1" pos="VERB" pred="CÉLÉBRER" tense="FUTURE" vform="PASTPART">célébrés</EVENT> comme suit : <TIMEX3 tid="t2" type="DATE" value="2003-01-04">samedi 4 janvier</TIMEX3>, à <TIMEX3 tid="t3" type="TIME" value="2003-01-04T18:30">18 h 30</TIMEX3> : <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="NOUN" pred="MESSE">messe</EVENT> à Magny-vernois ; <TIMEX3 tid="t4" type="DATE" value="2003-01-05">Dimanche 5 janvier</TIMEX3>, à <TIMEX3 tid="t5" type="TIME" value="2003-01-05T09:15">9 h 15</TIMEX3>, <EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="NOUN" pred="MESSE">messe</EVENT> à Saint-germain, <TIMEX3 tid="t6" type="TIME" value="2003-01-05T10:30">10 h 30</TIMEX3>, <EVENT class="OCCURRENCE" eid="e6" eiid="ei6" pos="NOUN" pred="MESSE">messe</EVENT> à Lure, Bouhans et Vy-les-Lure.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="INCLUDES" relatedToTime="t2" timeID="t1" />
+<TLINK lid="l2" origin="USER" relType="BEFORE" relatedToTime="t4" timeID="t2" />
+<TLINK lid="l3" origin="USER" relType="BEFORE" relatedToTime="t6" timeID="t4" />
+<TLINK eventInstanceID="ei4" lid="l4" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei5" lid="l5" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" />
+<TLINK eventInstanceID="ei6" lid="l6" origin="USER" relType="IS_INCLUDED" relatedToTime="t6" />
+<TLINK eventInstanceID="ei4" lid="l7" origin="USER" relType="DURING" relatedToEventInstance="ei3" />
+<TLINK eventInstanceID="ei5" lid="l8" origin="USER" relType="DURING" relatedToEventInstance="ei3" />
+<TLINK eventInstanceID="ei6" lid="l9" origin="USER" relType="DURING" relatedToEventInstance="ei3" />
+<TLINK eventInstanceID="ei1" lid="l10" origin="USER" relType="IDENTITY" relatedToEventInstance="ei3" />
+</TimeML>

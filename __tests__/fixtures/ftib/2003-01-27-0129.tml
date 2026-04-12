@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>2003-01-27-0129</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="2003-01-27" /></DCT>
+<TEXT>
+Le président du Conseil représentatif des institutions juives de France Roger Cukierman a <EVENT class="CAUSE" eid="e3" eiid="ei3" pos="VERB" pred="CRÉER" tense="PAST" vform="PASTPART">créé</EVENT> la <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="NOUN" pred="POLÉMIQUE">polémique</EVENT> <SIGNAL sid="s1">lors du</SIGNAL> traditionnel <EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="NOUN" pred="DÎNER">dîner</EVENT> <TIMEX3 quant="EVERY" tid="t2" type="SET" value="P1Y">annuel</TIMEX3> du CRIF en <EVENT class="OCCURRENCE" eid="e6" eiid="ei6" pos="VERB" pred="ASSIMILER" vform="GERUNDIVE">assimilant</EVENT> antisionisme et antisémitisme et en <EVENT class="I_ACTION" eid="e7" eiid="ei7" pos="VERB" pred="DÉNONCER" vform="GERUNDIVE">dénonçant</EVENT> une «<EVENT class="STATE" eid="e11" eiid="ei11" pos="NOUN" pred="ALLIANCE">alliance</EVENT> brun-vert-rouge». Cette <EVENT class="REPORTING" eid="e8" eiid="ei8" pos="NOUN" pred="DÉCLARATION">déclaration</EVENT> a <EVENT class="CAUSE" eid="e9" eiid="ei9" pos="VERB" pred="PROVOQUER" tense="PAST" vform="PASTPART">provoqué</EVENT> le <EVENT class="OCCURRENCE" eid="e10" eiid="ei10" pos="NOUN" pred="DÉPART">départ</EVENT> du nouveau secrétaire national des Verts Gilles Lemaire.
+</TEXT>
+<TLINK eventInstanceID="ei3" lid="l1" origin="USER" relType="BEGINS" relatedToEventInstance="ei4" />
+<TLINK eventInstanceID="ei3" lid="l2" origin="USER" relType="DURING" relatedToEventInstance="ei5" />
+<TLINK eventInstanceID="ei5" lid="l3" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" />
+<TLINK eventInstanceID="ei6" lid="l4" origin="USER" relType="DURING" relatedToEventInstance="ei3" />
+<TLINK eventInstanceID="ei7" lid="l5" origin="USER" relType="DURING" relatedToEventInstance="ei3" />
+<TLINK eventInstanceID="ei7" lid="l7" origin="USER" relType="IDENTITY" relatedToEventInstance="ei8" />
+<TLINK eventInstanceID="ei8" lid="l8" origin="USER" relType="IBEFORE" relatedToEventInstance="ei9" />
+<TLINK eventInstanceID="ei9" lid="l9" origin="USER" relType="IBEFORE" relatedToEventInstance="ei10" />
+<TLINK eventInstanceID="ei5" lid="l10" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<SLINK eventInstanceID="ei7" lid="l6" origin="USER" relType="MODAL" subordinatedEventInstance="ei11" />
+</TimeML>

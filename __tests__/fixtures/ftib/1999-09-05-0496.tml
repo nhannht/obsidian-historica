@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL 
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-09-05-0496</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-09-05" /></DCT>
+<TEXT>
+LA FARANDOLE.
+La halte-garderie La Farandole <EVENT class="OCCURRENCE" eid="e3" eiid="ei3" pos="VERB" pred="ROUVRIR" tense="FUTURE">rouvrira</EVENT> ses portes <TIMEX3 tid="t2" type="DATE" value="1999-09-06">lundi 6 septembre</TIMEX3> <SIGNAL sid="s1">à partir de</SIGNAL> <TIMEX3 tid="t3" type="TIME" value="1999-09-06T08:30">8 h 30</TIMEX3>.
+Les premières <EVENT class="OCCURRENCE" eid="e4" eiid="ei4" pos="NOUN" pred="INSCRIPTION">inscriptions</EVENT> se <EVENT class="OCCURRENCE" eid="e5" eiid="ei5" pos="VERB" pred="FAIRE" tense="FUTURE">feront</EVENT> <TIMEX3 tid="t4" type="TIME" value="1999-09-06TAF">ce même lundi après-midi</TIMEX3>, <SIGNAL sid="s2">de</SIGNAL> <TIMEX3 tid="t5" type="TIME" value="1999-09-06T13:30">13 h 30</TIMEX3> <SIGNAL sid="s3">à</SIGNAL> <TIMEX3 tid="t6" type="TIME" value="1999-09-06T15:30">15 h 30</TIMEX3>. Les <EVENT class="OCCURRENCE" eid="e6" eiid="ei6" pos="NOUN" pred="INSCRIPTION">inscriptions</EVENT> <EVENT class="EVENT_CONTAINER" eid="e7" eiid="ei7" pos="VERB" pred="AVOIR" tense="FUTURE">auront</EVENT> lieu <SIGNAL sid="s4">ensuite</SIGNAL> <TIMEX3 quant="EVERY" tid="t7" type="SET" value="XXXX-WXX-4">tous les jeudis</TIMEX3> aux heures d'ouverture aux Epis, 4 bis, avenue du Général de Gaulle (tél. 03.83.74.37.70).
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="BEFORE" relatedToTime="t2" timeID="t1" />
+<TLINK lid="l2" origin="USER" relType="INCLUDES" relatedToTime="t4" timeID="t2" />
+<TLINK lid="l3" origin="USER" relType="BEFORE" relatedToTime="t4" timeID="t3" />
+<TLINK eventInstanceID="ei3" lid="l4" origin="USER" relType="BEGUN_BY" relatedToTime="t3" signalID="s1" />
+<TLINK lid="l5" origin="USER" relType="IS_INCLUDED" relatedToTime="t2" timeID="t3" />
+<TLINK eventInstanceID="ei5" lid="l6" origin="USER" relType="IDENTITY" relatedToEventInstance="ei4" />
+<TLINK lid="l7" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" timeID="t5" />
+<TLINK lid="l8" origin="USER" relType="IS_INCLUDED" relatedToTime="t4" timeID="t6" />
+<TLINK lid="l9" origin="USER" relType="AFTER" relatedToTime="t5" timeID="t6" />
+<TLINK eventInstanceID="ei5" lid="l10" origin="USER" relType="BEGUN_BY" relatedToTime="t5" signalID="s2" />
+<TLINK eventInstanceID="ei5" lid="l11" origin="USER" relType="ENDED_BY" relatedToTime="t6" signalID="s3" />
+<TLINK eventInstanceID="ei7" lid="l12" origin="USER" relType="IS_INCLUDED" relatedToTime="t7" />
+<TLINK eventInstanceID="ei7" lid="l13" origin="USER" relType="IDENTITY" relatedToEventInstance="ei6" />
+<TLINK lid="l16" origin="USER" relType="AFTER" relatedToTime="t2" signalID="s4" timeID="t7" />
+</TimeML>

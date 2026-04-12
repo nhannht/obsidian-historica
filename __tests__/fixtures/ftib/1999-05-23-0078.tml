@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Source: Est Républicain/CNRTL
+Copyright 2010 André Bittar 
+This file is part of the French TimeBank.
+The French TimeBank is distributed under the terms of the
+Lesser General Public License for Linguistic Resources.
+See file LICENSE (distributed with this file) or read the license at
+http://infolingu.univ-mlv.fr/DonneesLinguistiques/Lexiques-Grammaires/lgpllr.html
+//-->
+<TimeML>
+<DOCID>1999-05-23-0078</DOCID>
+<DCT><TIMEX3 functionInDocument="CREATION_TIME" tid="t1" type="DATE" value="1999-05-23" /></DCT>
+<TEXT>
+Rythmes <EVENT class="OCCURRENCE" eid="e65" eiid="ei65" pos="VERB" pred="AMENAGER" vform="PASTPART">aménagés</EVENT>.
+Son équipe d'école a <EVENT class="I_ACTION" eid="e1" eiid="ei1" pos="VERB" pred="DÉCIDER" tense="PAST" vform="PASTPART">décidé</EVENT> d'<EVENT class="OCCURRENCE" eid="e2" eiid="ei2" pos="VERB" pred="AMÉNAGER" vform="INFINITIVE">aménager</EVENT> ses rythmes de vie à l'école <SIGNAL sid="s1">dès</SIGNAL> <TIMEX3 tid="t2" type="DATE" value="1998-10">octobre 98</TIMEX3>. La municipalité a <EVENT class="ASPECTUAL" eid="e4" eiid="ei4" polarity="POS" pos="VERB" pred="ENGAGER" tense="PAST" vform="PASTPART">engagé</EVENT> une <EVENT class="I_STATE" eid="e5" eiid="ei5" pos="NOUN" pred="RÉFLEXION">réflexion</EVENT> générale sur un <EVENT class="OCCURRENCE" eid="e66" eiid="ei66" pos="NOUN" pred="PROJET">projet</EVENT> d'envergure <EVENT class="I_ACTION" eid="e6" eiid="ei6" pos="VERB" pred="VISER" vform="PRESPART">visant</EVENT> à <EVENT class="OCCURRENCE" eid="e7" eiid="ei7" pos="VERB" pred="CRÉER" vform="INFINITIVE">créer</EVENT> les cohérences indispensables entre scolarisation et animation de la vie sociale dans la commune. Le contrat éducatif local sera la complémentarité affirmée dans la diversité et une <EVENT class="OCCURRENCE" eid="e12" eiid="ei12" pos="NOUN" pred="COLLABORATION">collaboration</EVENT> <EVENT class="I_ACTION" eid="e68" eiid="ei68" pos="VERB" pred="ORGANISER" vform="PASTPART">organisée</EVENT> entre les différents partenaires, dans le respect de leurs prérogatives, en <EVENT class="I_ACTION" eid="e13" eiid="ei13" pos="VERB" pred="PROPOSER" vform="GERUNDIVE">proposant</EVENT> aux enfants et aux adolescents des <EVENT class="OCCURRENCE" eid="e69" eiid="ei69" pos="NOUN" pred="ACTIVITE">activités</EVENT> en dehors des heures scolaires, en <EVENT class="OCCURRENCE" eid="e14" eiid="ei14" pos="VERB" pred="VISER" vform="GERUNDIVE">visant</EVENT> un large public (enfants, adolescents, élèves maternelles, élémentaires et collèges).
+L'adjoint <EVENT class="REPORTING" eid="e15" eiid="ei15" pos="VERB" pred="PRÉCISER" tense="PAST">précisa</EVENT> : « Bavilliers <EVENT class="MODAL" eid="e16" eiid="ei16" pos="VERB" pred="POUVOIR" tense="PRESENT">peut</EVENT> <EVENT class="I_ACTION" eid="e70" eiid="ei70" modality="POSSIBILITY" pos="VERB" pred="REUSSIR" vform="INFINITIVE">réussir</EVENT> à <EVENT class="OCCURRENCE" eid="e18" eiid="ei18" pos="VERB" pred="DÉVELOPPER" vform="INFINITIVE">développer</EVENT> tous ces objectifs, car le <EVENT class="OCCURRENCE" eid="e71" eiid="ei71" pos="NOUN" pred="PROJET">projet</EVENT> <EVENT class="OCCURRENCE" eid="e72" eiid="ei72" pos="VERB" pred="PRESENTER" vform="PASTPART">présenté</EVENT> <EVENT class="STATE" eid="e19" eiid="ei19" pos="VERB" pred="RASSEMBLER" tense="PRESENT">rassemble</EVENT> tous les éléments nécessaires pour y <EVENT class="OCCURRENCE" eid="e20" eiid="ei20" pos="VERB" pred="PARVENIR" vform="INFINITIVE">parvenir</EVENT>. Ce <EVENT class="OCCURRENCE" eid="e73" eiid="ei73" pos="NOUN" pred="PROJET">projet</EVENT> a <EVENT class="I_STATE" eid="e21" eiid="ei21" pos="VERB" pred="DEMANDER" tense="PAST" vform="PASTPART">demandé</EVENT> un <EVENT class="OCCURRENCE" eid="e22" eiid="ei22" pos="NOUN" pred="TRAVAIL">travail</EVENT> sérieux de diagnostic local et d'état des lieux de l'existant, et <EVENT class="STATE" eid="e23" eiid="ei23" pos="VERB" pred="PRÉSENTER" tense="PRESENT">présente</EVENT> les schémas de développement de multiples activités, diverses et variées. La commune, <EVENT class="STATE" eid="e92" eiid="ei92" pos="ADJECTIVE" pred="CONSCIENT">consciente</EVENT> de l'enjeu, est <EVENT class="STATE" eid="e76" eiid="ei76" pos="ADJECTIVE" pred="PRÊT">prête</EVENT> à se <EVENT class="OCCURRENCE" eid="e24" eiid="ei24" pos="VERB" pred="LANCER" vform="INFINITIVE">lancer</EVENT> dans ces <EVENT class="OCCURRENCE" eid="e77" eiid="ei77" pos="NOUN" pred="PROJET">projets</EVENT>, car elle a <EVENT class="I_STATE" eid="e25" eiid="ei25" pos="VERB" pred="SAVOIR" tense="PAST" vform="PASTPART">su</EVENT> <EVENT class="OCCURRENCE" eid="e26" eiid="ei26" pos="VERB" pred="INITIER" vform="INFINITIVE">initier</EVENT> des politiques dynamiques en faveur de l'enfance, la petite enfance et le public jeune <EVENT class="STATE" eid="e27" eiid="ei27" pos="VERB" pred="OFFRIR" vform="PRESPART">offrant</EVENT> un panel de loisirs considérables conformes aux objectifs <EVENT class="OCCURRENCE" eid="e28" eiid="ei28" pos="VERB" pred="FIXER" vform="PASTPART">fixés</EVENT> par nos partenaires financiers ».
+Programme d'investissements.
+« De plus, <SIGNAL sid="s6">dès</SIGNAL> <TIMEX3 tid="t4" type="DATE" value="2001">l'année 2001</TIMEX3>, la municipalité <EVENT class="STATE" eid="e93" eiid="ei93" pos="ADJECTIVE" pred="CONSCIENT">consciente</EVENT> des besoins <EVENT class="STATE" eid="e29" eiid="ei29" pos="VERB" pred="EXPRIMER" vform="PASTPART">exprimés</EVENT>, <EVENT class="I_STATE" eid="e30" eiid="ei30" pos="VERB" pred="ENVISAGER" tense="PRESENT">envisage</EVENT> d'<EVENT class="OCCURRENCE" eid="e31" eiid="ei31" pos="VERB" pred="ENGAGER" vform="INFINITIVE">engager</EVENT> un lourd programme d'investissements <EVENT class="STATE" eid="e32" eiid="ei32" pos="VERB" pred="COMPRENDRE" vform="PRESPART">comprenant</EVENT> la <EVENT class="OCCURRENCE" eid="e33" eiid="ei33" pos="NOUN" pred="RESTRUCTURATION">restructuration</EVENT> des locaux de l'école maternelle et du centre de loisirs associé à l'école. La <EVENT class="OCCURRENCE" eid="e35" eiid="ei35" pos="NOUN" pred="CRÉATION">création</EVENT> d'un nouvel espace de restauration sur le site de l'école primaire. »
+« Ces deux <EVENT class="OCCURRENCE" eid="e82" eiid="ei82" pos="NOUN" pred="PROJET">projets</EVENT> <EVENT class="STATE" eid="e36" eiid="ei36" pos="VERB" pred="ALLER" tense="PRESENT">vont</EVENT> dans le sens de la politique <EVENT class="OCCURRENCE" eid="e37" eiid="ei37" pos="VERB" pred="MENER" vform="PASTPART">menée</EVENT> par les élus pour le <EVENT class="OCCURRENCE" eid="e38" eiid="ei38" pos="NOUN" pred="DÉVELOPPEMENT">développement</EVENT> de l'accueil des 0-6 ans et le <EVENT class="OCCURRENCE" eid="e39" eiid="ei39" pos="NOUN" pred="DÉVELOPPEMENT">développement</EVENT> des loisirs pour les 6-16 ans ».
+Un <EVENT class="OCCURRENCE" eid="e83" eiid="ei83" pos="NOUN" pred="PROJET">projet</EVENT> auquel sont étroitement <EVENT class="STATE" eid="e40" eiid="ei40" pos="VERB" pred="ASSOCIER" tense="PAST" vform="PASTPART">associés</EVENT> la Caf et Jeunesse et sport, ainsi que les différents acteurs locaux.
+La municipalité, la Caisse d'allocations familiales et Jeunesse et sports ont <EVENT class="OCCURRENCE" eid="e41" eiid="ei41" pos="VERB" pred="PRÉSENTER" tense="PAST" vform="PASTPART">présenté</EVENT>, au centre Jean-Moulin, la mouture finale du contrat éducatif local, le premier du Territoire de Belfort, qui sera <EVENT class="OCCURRENCE" eid="e43" eiid="ei43" pos="ADJECTIVE" pred="SIGNER" tense="FUTURE">signé</EVENT> <SIGNAL sid="s7">en</SIGNAL> <TIMEX3 anchorTimeID="t1" temporalFunction="true" tid="t7" type="DATE" value="1999-06" valueFromFunction="TF10">juin prochain</TIMEX3> avec le préfet.
+Daniel Lanquetin, maire, en préambule à cette <EVENT class="OCCURRENCE" eid="e44" eiid="ei44" pos="NOUN" pred="PRÉSENTATION">présentation</EVENT>, <EVENT class="REPORTING" eid="e45" eiid="ei45" pos="VERB" pred="RAPPELER" tense="PAST">rappela</EVENT> que le jeunesse a toujours été une préoccupation des élus : « Si nous avons <EVENT class="OCCURRENCE" eid="e46" eiid="ei46" pos="VERB" pred="METTRE" tense="PAST" vform="PASTPART">mis</EVENT> du temps pour <EVENT class="OCCURRENCE" eid="e47" eiid="ei47" pos="VERB" pred="ÉLABORER" vform="INFINITIVE">élaborer</EVENT> ce contrat, c'est que nous avons <EVENT class="I_ACTION" eid="e48" eiid="ei48" pos="VERB" pred="CHERCHER" tense="PAST" vform="PASTPART">cherché</EVENT> à <EVENT class="OCCURRENCE" eid="e49" eiid="ei49" pos="VERB" pred="TROUVER" vform="INFINITIVE">trouver</EVENT> les meilleures <EVENT class="OCCURRENCE" eid="e50" eiid="ei50" pos="NOUN" pred="SOLUTION">solutions</EVENT> dans notre collectivité. <EVENT class="OCCURRENCE" eid="e51" eiid="ei51" pos="VERB" pred="PRENDRE" vform="INFINITIVE">Prendre</EVENT> le projet dans sa globalité pour <EVENT class="CAUSE" eid="e52" eiid="ei52" pos="VERB" pred="AVOIR" vform="INFINITIVE">avoir</EVENT> un contrat qui soit cohérent, en relation avec nos partenaires, les intervenants locaux, tout en tenant compte des coûts budgétaires, afin de <EVENT class="I_ACTION" eid="e53" eiid="ei53" pos="VERB" pred="PERMETTRE" vform="INFINITIVE">permettre</EVENT> sa <EVENT class="OCCURRENCE" eid="e54" eiid="ei54" pos="NOUN" pred="RÉUSSITE">réussite</EVENT> et son <EVENT class="OCCURRENCE" eid="e87" eiid="ei87" pos="NOUN" pred="EFFICACITE">efficacité</EVENT> pour l'<EVENT class="OCCURRENCE" eid="e94" eiid="ei94" pos="NOUN" pred="ÉPANOUISSEMENT">épanouissement</EVENT> des enfants. »
+Le maire <EVENT class="OCCURRENCE" eid="e56" eiid="ei56" pos="VERB" pred="PASSER" tense="PAST">passa</EVENT> la <EVENT class="OCCURRENCE" eid="e57" eiid="ei57" pos="NOUN" pred="PAROLE">parole</EVENT> à Jean-Pierre Thabourin pour la <EVENT class="OCCURRENCE" eid="e58" eiid="ei58" pos="NOUN" pred="PRÉSENTATION">présentation</EVENT> du contrat éducatif local. Ces contrats concernent l'<EVENT class="OCCURRENCE" eid="e60" eiid="ei60" pos="NOUN" pred="AMÉNAGEMENT">aménagement</EVENT> du temps de l'activité de l'enfant, englobant les <EVENT class="OCCURRENCE" eid="e62" eiid="ei62" pos="NOUN" pred="AMÉNAGEMENT">aménagements</EVENT> liés au temps périscolaire et extra-scolaire <EVENT class="OCCURRENCE" eid="e63" eiid="ei63" pos="VERB" pred="METTRE" vform="PASTPART">mis</EVENT> en place <SIGNAL sid="s11">depuis</SIGNAL> <TIMEX3 tid="t8" type="DATE" value="1998">1998</TIMEX3>. L'école Maurice-Henry, qui <EVENT class="STATE" eid="e64" eiid="ei64" pos="VERB" pred="COMPTER" tense="PRESENT">compte</EVENT> 287 élèves, est le premier groupe scolaire du département de part son effectif.
+</TEXT>
+<TLINK lid="l1" origin="USER" relType="IS_INCLUDED" relatedToTime="t8" timeID="t2" />
+<TLINK lid="l2" origin="USER" relType="AFTER" relatedToTime="t2" timeID="t1" />
+<TLINK lid="l3" origin="USER" relType="BEFORE" relatedToTime="t7" timeID="t1" />
+<TLINK lid="l4" origin="USER" relType="BEFORE" relatedToTime="t4" timeID="t7" />
+<TLINK eventInstanceID="ei2" lid="l9" origin="USER" relType="IDENTITY" relatedToEventInstance="ei65" />
+<TLINK eventInstanceID="ei4" lid="l15" origin="USER" relType="BEGUN_BY" relatedToEventInstance="ei1" />
+<TLINK eventInstanceID="ei1" lid="l16" origin="USER" relType="BEGUN_BY" relatedToTime="t2" signalID="s1" />
+<TLINK eventInstanceID="ei13" lid="l20" origin="USER" relType="DURING" relatedToEventInstance="ei68" />
+<TLINK eventInstanceID="ei14" lid="l24" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei13" />
+<TLINK eventInstanceID="ei15" lid="l26" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei15" lid="l27" origin="USER" relType="AFTER" relatedToEventInstance="ei1" />
+<TLINK eventInstanceID="ei20" lid="l35" origin="USER" relType="AFTER" relatedToEventInstance="ei72" />
+<TLINK eventInstanceID="ei6" lid="l38" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei66" />
+<TLINK eventInstanceID="ei22" lid="l40" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei23" />
+<TLINK eventInstanceID="ei76" lid="l44" origin="USER" relType="DURING" relatedToEventInstance="ei92" />
+<TLINK eventInstanceID="ei24" lid="l45" origin="USER" relType="IAFTER" relatedToEventInstance="ei76" />
+<TLINK eventInstanceID="ei25" lid="l47" origin="USER" relType="BEFORE" relatedToEventInstance="ei76" />
+<TLINK eventInstanceID="ei27" lid="l49" origin="USER" relType="DURING" relatedToEventInstance="ei26" />
+<TLINK eventInstanceID="ei28" lid="l50" origin="USER" relType="BEFORE" relatedToEventInstance="ei26" />
+<TLINK eventInstanceID="ei93" lid="l53" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei29" lid="l54" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei30" lid="l55" origin="USER" relType="BEGUN_BY" relatedToTime="t4" signalID="s6" />
+<TLINK eventInstanceID="ei32" lid="l57" origin="USER" relType="BEFORE" relatedToEventInstance="ei30" />
+<TLINK eventInstanceID="ei32" lid="l58" origin="USER" relType="SIMULTANEOUS" relatedToEventInstance="ei33" />
+<TLINK eventInstanceID="ei35" lid="l59" origin="USER" relType="AFTER" relatedToEventInstance="ei30" />
+<TLINK eventInstanceID="ei37" lid="l61" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei36" lid="l62" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei39" lid="l66" origin="USER" relType="AFTER" relatedToEventInstance="ei37" />
+<TLINK eventInstanceID="ei38" lid="l67" origin="USER" relType="AFTER" relatedToEventInstance="ei37" />
+<TLINK eventInstanceID="ei40" lid="l68" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei41" lid="l69" origin="USER" relType="BEFORE" relatedToTime="t1" />
+<TLINK eventInstanceID="ei43" lid="l70" origin="USER" relType="IS_INCLUDED" relatedToTime="t7" signalID="s7" />
+<TLINK eventInstanceID="ei44" lid="l71" origin="USER" relType="IDENTITY" relatedToEventInstance="ei41" />
+<TLINK eventInstanceID="ei45" lid="l72" origin="USER" relType="BEGINS" relatedToEventInstance="ei44" />
+<TLINK eventInstanceID="ei46" lid="l74" origin="USER" relType="BEFORE" relatedToEventInstance="ei47" />
+<TLINK eventInstanceID="ei48" lid="l75" origin="USER" relType="DURING" relatedToEventInstance="ei46" />
+<TLINK eventInstanceID="ei52" lid="l79" origin="USER" relType="AFTER" relatedToEventInstance="ei51" />
+<TLINK eventInstanceID="ei53" lid="l80" origin="USER" relType="AFTER" relatedToEventInstance="ei52" />
+<TLINK eventInstanceID="ei94" lid="l83" origin="USER" relType="IAFTER" relatedToEventInstance="ei87" />
+<TLINK eventInstanceID="ei64" lid="l85" origin="USER" relType="INCLUDES" relatedToTime="t1" />
+<TLINK eventInstanceID="ei56" lid="l87" origin="USER" relType="AFTER" relatedToEventInstance="ei45" />
+<TLINK eventInstanceID="ei56" lid="l88" origin="USER" relType="IS_INCLUDED" relatedToEventInstance="ei44" />
+<TLINK eventInstanceID="ei57" lid="l90" origin="USER" relType="IDENTITY" relatedToEventInstance="ei56" />
+<TLINK eventInstanceID="ei63" lid="l93" origin="USER" relType="IDENTITY" relatedToEventInstance="ei62" />
+<TLINK eventInstanceID="ei63" lid="l94" origin="USER" relType="BEGUN_BY" relatedToTime="t8" signalID="s11" />
+<TLINK eventInstanceID="ei60" lid="l95" origin="USER" relType="AFTER" relatedToEventInstance="ei63" />
+<TLINK eventInstanceID="ei60" lid="l96" origin="USER" relType="IDENTITY" relatedToEventInstance="ei65" />
+<TLINK eventInstanceID="ei6" lid="l99" origin="USER" relType="DURING" relatedToEventInstance="ei66" />
+<TLINK eventInstanceID="ei32" lid="l100" origin="USER" relType="IDENTITY" relatedToEventInstance="ei33" />
+<TLINK eventInstanceID="ei43" lid="l101" origin="USER" relType="IS_INCLUDED" relatedToTime="t7" signalID="s7" />
+<TLINK eventInstanceID="ei68" lid="l103" origin="USER" relType="DURING" relatedToEventInstance="ei66" />
+<TLINK eventInstanceID="ei72" lid="l104" origin="USER" relType="BEFORE" relatedToEventInstance="ei15" />
+<TLINK eventInstanceID="ei19" lid="l105" origin="USER" relType="INCLUDES" relatedToEventInstance="ei72" />
+<TLINK eventInstanceID="ei94" lid="l107" origin="USER" relType="AFTER" relatedToEventInstance="ei54" />
+<TLINK eventInstanceID="ei58" lid="l108" origin="USER" relType="AFTER" relatedToEventInstance="ei56" />
+<TLINK eventInstanceID="ei58" lid="l109" origin="USER" relType="DURING" relatedToEventInstance="ei44" />
+<SLINK eventInstanceID="ei1" lid="l7" origin="USER" relType="MODAL" subordinatedEventInstance="ei2" />
+<SLINK eventInstanceID="ei5" lid="l11" origin="USER" relType="MODAL" subordinatedEventInstance="ei66" />
+<SLINK eventInstanceID="ei6" lid="l13" origin="USER" relType="MODAL" subordinatedEventInstance="ei7" />
+<SLINK eventInstanceID="ei68" lid="l18" origin="USER" relType="MODAL" subordinatedEventInstance="ei12" />
+<SLINK eventInstanceID="ei13" lid="l23" origin="USER" relType="MODAL" subordinatedEventInstance="ei69" />
+<SLINK eventInstanceID="ei15" lid="l28" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei16" />
+<SLINK eventInstanceID="ei16" lid="l29" origin="USER" relType="MODAL" subordinatedEventInstance="ei70" />
+<SLINK eventInstanceID="ei70" lid="l30" origin="USER" relType="FACTIVE" subordinatedEventInstance="ei18" />
+<SLINK eventInstanceID="ei15" lid="l36" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei21" />
+<SLINK eventInstanceID="ei21" lid="l39" origin="USER" relType="MODAL" subordinatedEventInstance="ei22" />
+<SLINK eventInstanceID="ei15" lid="l41" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei92" />
+<SLINK eventInstanceID="ei25" lid="l48" origin="USER" relType="FACTIVE" subordinatedEventInstance="ei26" />
+<SLINK eventInstanceID="ei30" lid="l56" origin="USER" relType="MODAL" subordinatedEventInstance="ei31" />
+<SLINK eventInstanceID="ei45" lid="l73" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei46" />
+<SLINK eventInstanceID="ei48" lid="l76" origin="USER" relType="MODAL" subordinatedEventInstance="ei49" />
+<SLINK eventInstanceID="ei45" lid="l78" origin="USER" relType="EVIDENTIAL" subordinatedEventInstance="ei51" />
+<SLINK eventInstanceID="ei53" lid="l81" origin="USER" relType="MODAL" subordinatedEventInstance="ei54" />
+<SLINK eventInstanceID="ei53" lid="l82" origin="USER" relType="MODAL" subordinatedEventInstance="ei87" />
+<SLINK eventInstanceID="ei53" lid="l98" origin="USER" relType="MODAL" subordinatedEventInstance="ei87" />
+<SLINK eventInstanceID="ei49" lid="l106" origin="USER" relType="MODAL" subordinatedEventInstance="ei50" />
+<ALINK eventInstanceID="ei24" lid="l46" origin="USER" relType="INITIATES" relatedToEventInstance="ei77" />
+<ALINK eventInstanceID="ei4" lid="l102" origin="USER" relType="INITIATES" relatedToEventInstance="ei5" />
+</TimeML>
