@@ -38,7 +38,9 @@ export default class HistoricaBlockManager {
 		this.plugin.registerMarkdownCodeBlockProcessor("historica", async (source, el, ctx) => {
 			try {
 				const blockId = extractBlockId(source)
-				const settings: HistoricaSettings = {...DefaultSettings, blockId}
+				const languageMatch = source.match(/^language:\s*(\S+)/m);
+				const language = languageMatch ? languageMatch[1].trim() : undefined;
+				const settings: HistoricaSettings = {...DefaultSettings, blockId, ...(language ? { language } : {})}
 
 				const {store, destroy} = createTimelineStore(this.plugin, settings, ctx)
 

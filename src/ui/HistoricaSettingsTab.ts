@@ -36,6 +36,25 @@ export class HistoricaSettingsTab extends PluginSettingTab {
 					})
 			);
 
+		new Setting(containerEl)
+			.setName("Parsing language")
+			.setDesc("Language used for date extraction. Auto-detect picks the language from the note text (recommended). Per-block overrides are set with language: <code> in the block.")
+			.addDropdown(dropdown =>
+				dropdown
+					.addOption("auto", "Auto-detect")
+					.addOption("en", "English")
+					.addOption("de", "Deutsch")
+					.addOption("fr", "Français")
+					.addOption("ja", "日本語")
+					.addOption("zh", "中文")
+					.addOption("nl", "Nederlands")
+					.setValue(this.plugin.pluginSettings.language ?? "auto")
+					.onChange(async value => {
+						this.plugin.pluginSettings.language = value;
+						await this.plugin.savePluginSettings();
+					})
+			);
+
 		// ── Advanced ───────────────────────────────────────────────────────────
 		new Setting(containerEl).setName("Advanced").setHeading();
 
