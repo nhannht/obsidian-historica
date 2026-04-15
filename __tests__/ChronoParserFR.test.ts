@@ -5,7 +5,7 @@
  */
 import { readFileSync, readdirSync, existsSync } from "fs";
 import { join } from "path";
-import * as fr from "chrono-node/fr";
+import { frCustomChrono } from "../src/compute/ChronoParser";
 
 const CORPUS_DIR = join(__dirname, "fixtures/ftib");
 
@@ -50,7 +50,8 @@ function isSelfContained(f: Fixture): boolean {
 }
 
 function tryParse(text: string, expected: { year: number; month?: number; day?: number }): boolean {
-	return fr.casual.parse(text).some(r => {
+	const parser = frCustomChrono;
+	return parser.parse(text).some(r => {
 		if (r.start.get("year") !== expected.year) return false;
 		if (expected.month && r.start.get("month") !== expected.month) return false;
 		if (expected.day && r.start.get("day") !== expected.day) return false;
@@ -63,7 +64,7 @@ describe("FTiB — chrono-node fr locale", () => {
 
 	it("corpus loaded", () => { expect(allFixtures.length).toBeGreaterThan(10); });
 
-	it("accuracy report", () => {
+	it("accuracy report", async () => {
 		const sc = allFixtures.filter(isSelfContained).filter(f => parseTimex3Val(f.val));
 		let hits = 0;
 		const missed: string[] = [];

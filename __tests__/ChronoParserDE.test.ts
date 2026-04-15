@@ -5,7 +5,7 @@
  */
 import * as nodeFs from "fs";
 import * as nodePath from "path";
-import * as de from "chrono-node/de";
+import { deCustomChrono } from "../src/compute/ChronoParser";
 
 const CORPUS_DIR = nodePath.join(__dirname, "fixtures/wikiwars_de/WikiWarsDE_20110412/keyinline");
 
@@ -56,7 +56,8 @@ function isSelfContained(f: Fixture): boolean {
 }
 
 function tryParse(text: string, expected: { year: number; month?: number; day?: number }): boolean {
-	const results = de.casual.parse(text);
+	const parser = deCustomChrono;
+	const results = parser.parse(text);
 	return results.some(r => {
 		if (r.start.get("year") !== expected.year) return false;
 		if (expected.month && r.start.get("month") !== expected.month) return false;
@@ -73,7 +74,7 @@ describe("WikiWarsDE — chrono-node de locale", () => {
 		expect(allFixtures.length).toBeGreaterThan(100);
 	});
 
-	it("accuracy report", () => {
+	it("accuracy report", async () => {
 		const parseable = allFixtures.filter(f => parseTimex2Val(f.val) !== null);
 		const sc = parseable.filter(isSelfContained);
 		let hits = 0;

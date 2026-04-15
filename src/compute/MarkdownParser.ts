@@ -7,7 +7,7 @@ import {Node, Parent} from "unist"
 import {Processor, unified} from "unified";
 import {HistoricaSettings, NodeAndTFile, TimelineEntry, SentenceWithOffset} from "@/src/types";
 import {deterministicEntryId} from "@/src/utils";
-import {Chrono, ParsedResult} from "chrono-node";
+import {Chrono, ParsedResult} from "@nhannht/chrono-node";
 
 type SentenceParse = { sentence: string; results: ParsedResult[]; hadForwardAnchor: boolean }
 
@@ -32,7 +32,7 @@ export default class MarkdownProcessor {
 
 	constructor(
 		public plugin: HistoricaPlugin,
-		_settings: HistoricaSettings
+		private settings: HistoricaSettings
 	) {
 		this.RemarkProcessor = unified().use(remarkGfm).use(remarkParse) as unknown as Processor
 	}
@@ -76,9 +76,10 @@ export default class MarkdownProcessor {
 	}
 
 	async extractValidSentencesFromFile(file: TFile, nodes: NodeAndTFile[]) {
-		const customChrono = await this.plugin.historicaChrono.setupCustomChrono()
-		const sentencesWithOffsets: SentenceWithOffset[] = []
 		const fileText = await this.plugin.app.vault.cachedRead(file)
+		const lang = this.settings.language ?? this.plugin.pluginSettings.language ?? "auto";
+		const customChrono = this.plugin.historicaChrono.getParserForLanguage(fileText, lang)
+		const sentencesWithOffsets: SentenceWithOffset[] = []
 
 		for (let ni = 0; ni < nodes.length; ni++) {
 			const n = nodes[ni]

@@ -1,5 +1,5 @@
-import * as chrono from "chrono-node";
-import {Chrono} from "chrono-node";
+import * as chrono from "@nhannht/chrono-node";
+import {Chrono} from "@nhannht/chrono-node";
 import {franc} from "franc";
 
 import {moment} from "../moment-fix";

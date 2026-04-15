@@ -1,9 +1,10 @@
 /**
- * Hand-curated Japanese date expression test for chrono-node Japanese (ja) locale.
- * Covers formal 年月日 patterns, relative expressions (昨日/今日/明日/来週), and weekday references.
- * No freely downloadable Japanese temporal corpus exists; fixtures are hand-curated.
+ * Hand-curated Japanese date expression test for HistoricaChrono JA locale.
+ * Covers formal 年月日 patterns, imperial era, BC years, centuries,
+ * relative expressions (昨日/今日/明日/来週), and weekday references.
  */
-import * as ja from "chrono-node/ja";
+import { jaCustomChrono } from "../src/compute/ChronoParser";
+import type { Chrono } from "@nhannht/chrono-node";
 
 interface Fixture { text: string; year?: number; month?: number; day?: number; label: string; }
 
@@ -23,6 +24,18 @@ const FIXTURES: Fixture[] = [
 	// Year only
 	{ text: "1945年", year: 1945, label: "year only" },
 	{ text: "2023年", year: 2023, label: "year only" },
+	// Imperial era years
+	{ text: "明治37年", year: 1904, label: "Meiji era" },
+	{ text: "昭和18年", year: 1943, label: "Showa era" },
+	{ text: "平成元年", year: 1989, label: "Heisei era (gannen=1)" },
+	{ text: "令和3年", year: 2021, label: "Reiwa era" },
+	{ text: "昭和18年1月", year: 1943, month: 1, label: "Showa era + month" },
+	// BC years
+	{ text: "紀元前492年", year: -492, label: "BC year" },
+	{ text: "紀元前5世紀", year: -450, label: "BC century" },
+	// Century (AD)
+	{ text: "20世紀", year: 1950, label: "20th century" },
+	{ text: "19世紀", year: 1850, label: "19th century" },
 	// Relative — requires REF
 	{ text: "昨日", year: 2026, month: 4, day: 11, label: "yesterday" },
 	{ text: "今日", year: 2026, month: 4, day: 12, label: "today" },
@@ -34,8 +47,8 @@ const FIXTURES: Fixture[] = [
 	{ text: "2024-03-15", year: 2024, month: 3, day: 15, label: "ISO date" },
 ];
 
-function tryParse(text: string, expected: Fixture): boolean {
-	const results = ja.casual.parse(text, REF);
+function tryParse(parser: Chrono, text: string, expected: Fixture): boolean {
+	const results = parser.parse(text, REF);
 	if (results.length === 0) return false;
 	const r = results[0].start;
 	if (expected.year !== undefined && r.get("year") !== expected.year) return false;
@@ -44,15 +57,17 @@ function tryParse(text: string, expected: Fixture): boolean {
 	return true;
 }
 
-describe("Japanese dates — chrono-node ja locale", () => {
-	it("accuracy report", () => {
+describe("Japanese dates — HistoricaChrono JA locale", () => {
+	it("accuracy report (≥50%)", async () => {
+		const parser: Chrono = jaCustomChrono;
+
 		let hits = 0;
 		const missed: string[] = [];
 		for (const f of FIXTURES) {
-			if (tryParse(f.text, f)) hits++;
-			else if (missed.length < 10) missed.push(`"${f.text}" [${f.label}]`);
+			if (tryParse(parser, f.text, f)) hits++;
+			else if (missed.length < 15) missed.push(`"${f.text}" [${f.label}]`);
 		}
-		console.log(`\n=== JA Accuracy (ja locale) ===`);
+		console.log(`\n=== JA Accuracy (HistoricaChrono JA) ===`);
 		console.log(`${hits}/${FIXTURES.length} (${(hits/FIXTURES.length*100).toFixed(1)}%)`);
 		if (missed.length > 0) { console.log("Misses:"); missed.forEach(m => console.log(`  - ${m}`)); }
 		expect(hits / FIXTURES.length).toBeGreaterThan(0.5);

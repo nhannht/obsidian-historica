@@ -1,6 +1,6 @@
 import {TFile} from "obsidian";
 import {Node, Point} from "unist";
-import {ParsedResult} from "chrono-node";
+import {ParsedResult} from "@nhannht/chrono-node";
 
 
 export type HistoricaSettings = {
@@ -8,18 +8,21 @@ export type HistoricaSettings = {
 	header: string,
 	footer: string,
 	autoSave?: boolean,
+	language?: string,
 }
 
 export type HistoricaPluginSettings = {
 	autoParseOnSave: boolean;
 	dateDisplayFormat: string;
 	dataDir: string;
+	language: string;
 };
 
 export const DEFAULT_PLUGIN_SETTINGS: HistoricaPluginSettings = {
 	autoParseOnSave: true,
 	dateDisplayFormat: "MMM D, YYYY",
 	dataDir: "historica-data",
+	language: "auto",
 };
 
 export type TimelineDocument = {

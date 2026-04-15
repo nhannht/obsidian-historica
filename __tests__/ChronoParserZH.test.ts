@@ -1,9 +1,10 @@
 /**
- * Hand-curated Chinese date expression test for chrono-node zh.hans locale.
+ * Hand-curated Chinese date expression test for HistoricaChrono ZH locale.
  * TempEval-2 ZH corpus is GBK-encoded and unusable as UTF-8; fixtures are hand-curated instead.
  * Known gap: N天前 / N小时前 relative expressions not supported (chrono-node issue #587).
  */
-import * as zh from "chrono-node/zh";
+import { zhCustomChrono } from "../src/compute/ChronoParser";
+import type { Chrono } from "@nhannht/chrono-node";
 
 interface Fixture { text: string; year?: number; month?: number; day?: number; label: string; }
 
@@ -39,36 +40,37 @@ const KNOWN_GAPS = [
 	{ text: "下个星期", label: "next week" },
 ];
 
-function tryParse(text: string, expected: Fixture): boolean {
-	const results = zh.hans.casual.parse(text, REF);
-	if (results.length === 0) return false;
-	const r = results[0].start;
-	if (expected.year !== undefined && r.get("year") !== expected.year) return false;
-	if (expected.month !== undefined && r.get("month") !== expected.month) return false;
-	if (expected.day !== undefined && r.get("day") !== expected.day) return false;
-	return true;
-}
-
-describe("Chinese dates — chrono-node zh.hans locale", () => {
+describe("Chinese dates — HistoricaChrono ZH locale", () => {
 	describe("known gaps (assert current failure, will fix in task 136)", () => {
 		it.each(KNOWN_GAPS.map(g => [g.text, g.label]))(
 			'"%s" not yet supported [%s]',
-			(text) => {
-				const results = zh.hans.casual.parse(text as string, REF);
+			async (text) => {
+				const parser: Chrono = zhCustomChrono;
+				const results = parser.parse(text as string, REF);
 				console.log(`  zh gap: "${text}" → ${results.length ? JSON.stringify(results[0].start.knownValues) : "null"}`);
 				expect(results.length).toBe(0);
 			}
 		);
 	});
 
-	it("accuracy report", () => {
+	it("accuracy report", async () => {
+		const parser: Chrono = zhCustomChrono;
 		let hits = 0;
 		const missed: string[] = [];
 		for (const f of FIXTURES) {
-			if (tryParse(f.text, f)) hits++;
+			const results = parser.parse(f.text, REF);
+			let ok = false;
+			if (results.length > 0) {
+				const r = results[0].start;
+				ok = true;
+				if (f.year !== undefined && r.get("year") !== f.year) ok = false;
+				if (f.month !== undefined && r.get("month") !== f.month) ok = false;
+				if (f.day !== undefined && r.get("day") !== f.day) ok = false;
+			}
+			if (ok) hits++;
 			else if (missed.length < 10) missed.push(`"${f.text}" [${f.label}]`);
 		}
-		console.log(`\n=== ZH Accuracy (zh.hans locale) ===`);
+		console.log(`\n=== ZH Accuracy (zhCustomChrono) ===`);
 		console.log(`${hits}/${FIXTURES.length} (${(hits/FIXTURES.length*100).toFixed(1)}%)`);
 		if (missed.length > 0) { console.log("Misses:"); missed.forEach(m => console.log(`  - ${m}`)); }
 		expect(hits / FIXTURES.length).toBeGreaterThan(0.5);
