@@ -12,11 +12,22 @@ Obsidian Historica is an Obsidian.md plugin that generates timelines from note c
 bun install               # Install dependencies
 bun run dev               # Dev mode (concurrent CSS watcher + esbuild watcher)
 bun run build             # Production build (minified CSS + tsc check + esbuild)
-bun test                  # Run tests (Bun native runner, ~150ms)
+bun test                  # Run all tests (Bun native runner, ~300ms)
+bun test __tests__/ChronoParser.test.ts          # English date parsing only
+bun test __tests__/ChronoParserDE.test.ts        # German (WikiWarsDE corpus)
+bun test __tests__/ChronoParserFR.test.ts        # French (FTiB corpus)
+bun test __tests__/ChronoParserJA.test.ts        # Japanese (hand-curated)
+bun test __tests__/ChronoParserJAWiki.test.ts    # Japanese (Wikipedia coverage)
+bun test __tests__/ChronoParserZH.test.ts        # Chinese (hand-curated + known gaps)
+bun test __tests__/ChronoParserZHWiki.test.ts    # Chinese (Wikipedia coverage)
 bun run doc:code          # Generate TypeDoc documentation
 ```
 
 The build produces three artifacts: `main.js`, `styles.css`, and `manifest.json`.
+
+## Test Corpora
+
+Multilingual NLP tests use real-world annotated corpora and Wikipedia articles. See `docs/test-datasets.md` for acquisition details, baselines, and known gaps per language.
 
 ## QA Testing (Obsidian CLI)
 
