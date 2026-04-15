@@ -15,6 +15,7 @@ interface TimelineState {
 	isParsing: boolean;
 	error: string | null;
 	showHidden: boolean;
+	sigFilter: number;
 	isDirty: boolean;
 	isSaving: boolean;
 	loaded: boolean;
@@ -34,6 +35,7 @@ interface TimelineActions {
 	expandAll(willExpand: boolean): void;
 	hideUnit(id: string, isHidden: boolean): void;
 	toggleShowHidden(): void;
+	setSigFilter(n: number): void;
 	removeAll(): void;
 	updateSettings(partial: Partial<HistoricaSettings>): void;
 	editHeaderOrFooter(content: string, type: "header" | "footer"): void;
@@ -109,6 +111,7 @@ export function createTimelineStore(
 		isParsing: false,
 		error: null,
 		showHidden: false,
+		sigFilter: 1,
 		isDirty: false,
 		isSaving: false,
 		loaded: false,
@@ -219,6 +222,10 @@ export function createTimelineStore(
 
 		toggleShowHidden() {
 			set({showHidden: !get().showHidden});
+		},
+
+		setSigFilter(n: number) {
+			set({sigFilter: n});
 		},
 
 		removeAll() {

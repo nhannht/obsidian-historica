@@ -28,6 +28,8 @@ export function TimelineToolbar(props: {
 	const sort = useTimelineStore(s => s.sort);
 	const expandAll = useTimelineStore(s => s.expandAll);
 	const toggleShowHidden = useTimelineStore(s => s.toggleShowHidden);
+	const sigFilter = useTimelineStore(s => s.sigFilter);
+	const setSigFilter = useTimelineStore(s => s.setSigFilter);
 	const toggleAutoSave = useTimelineStore(s => s.toggleAutoSave);
 	const parseFromFile = useTimelineStore(s => s.parseFromFile);
 	const isParsing = useTimelineStore(s => s.isParsing);
@@ -148,6 +150,22 @@ export function TimelineToolbar(props: {
 							{showHidden ? "Hide hidden" : `Show hidden (${hiddenCount})`}
 						</button>
 					)}
+
+					<div className="flex items-center gap-1.5 ml-1">
+						<span className="text-[color:--text-muted] font-mono text-[9px] whitespace-nowrap">
+							{sigFilter === 1 ? "sig: all" : `hiding: sig <${sigFilter}`}
+						</span>
+						<input
+							type="range"
+							min={1}
+							max={5}
+							step={1}
+							value={sigFilter}
+							onChange={e => setSigFilter(Number(e.target.value))}
+							className="w-16 accent-[--interactive-accent] cursor-pointer"
+							title={sigFilter === 1 ? "Significance filter: showing all" : `Hiding events below significance ${sigFilter}`}
+						/>
+					</div>
 				</div>
 			)}
 		</div>

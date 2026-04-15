@@ -1,28 +1,38 @@
-import React, { useCallback, useEffect, useRef, useState } from "react"
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { zoom as d3zoom, zoomIdentity, ZoomTransform, ZoomBehavior, D3ZoomEvent } from "d3-zoom"
 import { select } from "d3-selection"
-import { useD3TimelineEngine, BASE_HEIGHT } from "@/src/store/useD3TimelineEngine"
+import { useD3TimelineEngine } from "@/src/store/useD3TimelineEngine"
 import { SinglePlotUnit } from "@/src/ui/SinglePlotUnit"
 import { useTimelineStore } from "@/src/ui/TimelineContext"
 import { TimelineMinimap } from "@/src/ui/TimelineMinimap"
+import { BIG_HISTORY_ERAS } from "@/src/data/bigHistoryAnchors"
 
 const AXIS_WIDTH = 80   // px reserved for the left SVG axis
 const CARD_OFFSET = 8   // gap between axis and cards
 const VIEWPORT_H = 600  // visible height in px; zoom/pan navigates within
 
 export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
-	const units     = useTimelineStore(s => s.units)
+	const units      = useTimelineStore(s => s.units)
 	const showHidden = useTimelineStore(s => s.showHidden)
+	const sigFilter  = useTimelineStore(s => s.sigFilter)
 
-	const [zoomK, setZoomK]                = useState(1)
 	const [transform, setTransform]         = useState<ZoomTransform>(zoomIdentity)
 	const [zoomBehavior, setZoomBehavior]   = useState<ZoomBehavior<HTMLDivElement, unknown> | null>(null)
-	const containerRef                      = useRef<HTMLDivElement>(null)
+	const [expandedEras, setExpandedEras]   = useState<Set<string>>(
+		() => new Set(BIG_HISTORY_ERAS.map(e => e.id))
+	)
+	const containerRef = useRef<HTMLDivElement>(null)
 
-	const engine = useD3TimelineEngine(units, showHidden, true, zoomK)
+	const engine = useD3TimelineEngine(units, showHidden, transform.k)
 
-	// Attach d3.zoom — wheel = zoom, drag = pan
-	// Initial translate: pan so bottom of BASE_HEIGHT is visible (recent events first)
+	const toggleEra = useCallback((id: string) => {
+		setExpandedEras(prev => {
+			const next = new Set(prev)
+			next.has(id) ? next.delete(id) : next.add(id)
+			return next
+		})
+	}, [])
+
 	useEffect(() => {
 		const el = containerRef.current
 		if (!el) return
@@ -30,20 +40,25 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 			.scaleExtent([1, 1e9])
 			.on("zoom", (event: D3ZoomEvent<HTMLDivElement, unknown>) => {
 				setTransform(event.transform)
-				setZoomK(event.transform.k)
 			})
 		setZoomBehavior(() => zoom)
-		// Start view at bottom (present day), not top (Big Bang)
-		const initialY = -(BASE_HEIGHT - VIEWPORT_H)
-		const initial = zoomIdentity.translate(0, initialY)
-		select(el).call(zoom).call(zoom.transform, initial)
+		// BASE_HEIGHT === VIEWPORT_H at k=1, full data visible without translation
+		select(el).call(zoom).call(zoom.transform, zoomIdentity)
 		return () => { select(el).on(".zoom", null) }
 	}, [])
 
-	// Convert base-space y [0, BASE_HEIGHT] → screen y
 	const toScreenY = useCallback(
 		(y: number) => transform.applyY(y),
 		[transform],
+	)
+
+	const visibleEntries = useMemo(
+		() => engine.positionedEntries.filter(({ entry }) => {
+			const sig = entry.significance ?? (entry.isAnchor ? 3 : 1)
+			if (sig < sigFilter) return false
+			return !entry.eraId || expandedEras.has(entry.eraId)
+		}),
+		[engine.positionedEntries, expandedEras, sigFilter],
 	)
 
 	return (
@@ -56,6 +71,8 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 					viewportH={VIEWPORT_H}
 					zoomTargetRef={containerRef as React.RefObject<HTMLDivElement>}
 					zoomBehavior={zoomBehavior}
+					yearMin={engine.yearMin}
+					yearMax={engine.yearMax}
 				/>
 			</div>
 		)}
@@ -70,7 +87,6 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 				width={AXIS_WIDTH}
 				height={VIEWPORT_H}
 			>
-				{/* vertical line */}
 				<line
 					x1={AXIS_WIDTH - 1} y1={0}
 					x2={AXIS_WIDTH - 1} y2={VIEWPORT_H}
@@ -78,7 +94,6 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 					strokeWidth={1}
 				/>
 
-				{/* tick marks + labels */}
 				{engine.axisTicks.map((tick, i) => {
 					const sy = toScreenY(tick.y)
 					if (sy < -20 || sy > VIEWPORT_H + 20) return null
@@ -109,8 +124,7 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 					)
 				})}
 
-				{/* dot for each positioned entry */}
-				{engine.positionedEntries.map(({ entry, y }) => {
+				{visibleEntries.map(({ entry, y }) => {
 					const sy = toScreenY(y)
 					if (sy < -10 || sy > VIEWPORT_H + 10) return null
 					const sig = entry.significance ?? (entry.isAnchor ? 3 : 1)
@@ -131,14 +145,45 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 				})}
 			</svg>
 
+			{/* ── Era boundary markers (clickable) ───────────────────────── */}
+			{BIG_HISTORY_ERAS
+				.filter(era => era.startYear >= engine.yearMin && era.startYear <= engine.yearMax)
+				.map(era => {
+				const eraBaseY = engine.scale(era.startYear) as number
+				const sy = toScreenY(eraBaseY)
+				if (sy < -16 || sy > VIEWPORT_H + 4) return null
+				const isExpanded = expandedEras.has(era.id)
+				return (
+					<div
+						key={era.id}
+						className="absolute left-0 right-0 z-10 flex items-center cursor-pointer"
+						style={{ top: sy - 8 }}
+						onClick={e => { e.stopPropagation(); toggleEra(era.id) }}
+					>
+						{/* horizontal rule across card area */}
+						<div
+							className="absolute h-px bg-[--background-modifier-border] opacity-60"
+							style={{ left: AXIS_WIDTH, right: 0 }}
+						/>
+						{/* label pill */}
+						<div
+							className="absolute flex items-center gap-0.5 px-1 rounded text-[8px] font-mono uppercase tracking-wider bg-[--background-primary] text-[color:--text-faint] hover:text-[color:--text-normal] transition-colors"
+							style={{ left: AXIS_WIDTH + CARD_OFFSET }}
+						>
+							<span>{isExpanded ? "▼" : "▶"}</span>
+							<span>{era.label}</span>
+						</div>
+					</div>
+				)
+			})}
+
 			{/* ── Absolutely positioned cards ────────────────────────────── */}
 			<div
 				className="absolute top-0 bottom-0"
 				style={{ left: AXIS_WIDTH + CARD_OFFSET, right: 0 }}
 			>
-				{engine.positionedEntries.map(({ entry, y }, idx) => {
+				{visibleEntries.map(({ entry, y }, idx) => {
 					const sy = toScreenY(y)
-					// Cull cards well outside the viewport
 					if (sy < -150 || sy > VIEWPORT_H + 150) return null
 					return (
 						<div
@@ -169,7 +214,7 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 						<SinglePlotUnit
 							key={entry.id}
 							unit={entry}
-							index={engine.positionedEntries.length + idx}
+							index={visibleEntries.length + idx}
 							isSingleFile={isSingleFile}
 						/>
 					))}
@@ -178,7 +223,7 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 
 			{/* ── LoD badge ─────────────────────────────────────────────── */}
 			<div className="absolute top-1 right-1 text-[9px] text-[color:--text-faint] opacity-50 pointer-events-none font-mono">
-				sig ≥ {engine.visibleMinSig} · {engine.positionedEntries.length} events
+				sig ≥ {engine.visibleMinSig} · {visibleEntries.length} events
 			</div>
 		</div>
 		</div>
