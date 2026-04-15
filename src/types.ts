@@ -50,6 +50,9 @@ export type TimelineEntry = {
 	isExpanded: boolean,
 	isHidden?: boolean,
 	annotation?: string,
+	significance?: 1 | 2 | 3 | 4 | 5,
+	isAnchor?: boolean,
+	eraId?: string,
 }
 
 export type TimeData =  {
