@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
-import { zoom as d3zoom, zoomIdentity, ZoomTransform, ZoomBehavior, D3ZoomEvent } from "d3-zoom"
+import { zoom as d3zoom, zoomIdentity, zoomTransform, ZoomTransform, ZoomBehavior, D3ZoomEvent } from "d3-zoom"
 import { select } from "d3-selection"
-import { useD3TimelineEngine } from "@/src/store/useD3TimelineEngine"
+import { useD3TimelineEngine, BASE_HEIGHT } from "@/src/store/useD3TimelineEngine"
 import { SinglePlotUnit } from "@/src/ui/SinglePlotUnit"
 import { useTimelineStore } from "@/src/ui/TimelineContext"
 import { TimelineMinimap } from "@/src/ui/TimelineMinimap"
@@ -38,13 +38,28 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 		if (!el) return
 		const zoom = d3zoom<HTMLDivElement, unknown>()
 			.scaleExtent([1, 1e9])
+			// plain wheel = pan only; ctrl+wheel = zoom (industry standard for vertical timelines)
+			.filter(event => event.type === "wheel" ? event.ctrlKey : true)
 			.on("zoom", (event: D3ZoomEvent<HTMLDivElement, unknown>) => {
 				setTransform(event.transform)
 			})
 		setZoomBehavior(() => zoom)
-		// BASE_HEIGHT === VIEWPORT_H at k=1, full data visible without translation
 		select(el).call(zoom).call(zoom.transform, zoomIdentity)
-		return () => { select(el).on(".zoom", null) }
+
+		const onWheel = (e: WheelEvent) => {
+			if (e.ctrlKey) return   // let d3 handle ctrl+wheel zoom
+			e.preventDefault()
+			const t = zoomTransform(el)
+			const minY = -(t.k - 1) * BASE_HEIGHT
+			const clampedY = Math.max(minY, Math.min(0, t.y - e.deltaY))
+			select(el).call(zoom.transform, zoomIdentity.translate(0, clampedY).scale(t.k))
+		}
+		el.addEventListener("wheel", onWheel, { passive: false })
+
+		return () => {
+			select(el).on(".zoom", null)
+			el.removeEventListener("wheel", onWheel)
+		}
 	}, [])
 
 	const toScreenY = useCallback(
@@ -73,6 +88,7 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 					zoomBehavior={zoomBehavior}
 					yearMin={engine.yearMin}
 					yearMax={engine.yearMax}
+					positionedEntries={engine.positionedEntries}
 				/>
 			</div>
 		)}
@@ -90,8 +106,8 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 				<line
 					x1={AXIS_WIDTH - 1} y1={0}
 					x2={AXIS_WIDTH - 1} y2={VIEWPORT_H}
-					stroke="var(--background-modifier-border-hover)"
-					strokeWidth={1}
+					stroke="var(--background-modifier-border)"
+					strokeWidth={2}
 				/>
 
 				{engine.axisTicks.map((tick, i) => {
@@ -111,10 +127,10 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 							{tick.isMajor && (
 								<text
 									x={AXIS_WIDTH - 15}
-									y={4}
+									y={5}
 									textAnchor="end"
-									fontSize={9}
-									fill="var(--text-faint)"
+									fontSize={11}
+									fill="var(--text-muted)"
 									fontFamily="var(--font-monospace)"
 								>
 									{tick.label}
@@ -128,19 +144,18 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 					const sy = toScreenY(y)
 					if (sy < -10 || sy > VIEWPORT_H + 10) return null
 					const sig = entry.significance ?? (entry.isAnchor ? 3 : 1)
-					const r = 2 + sig * 1.5
-					const opacity = 0.35 + sig * 0.13
+					const r = 3 + sig * 1.5
+					const opacity = 0.55 + sig * 0.09
+					const fill = entry.isAnchor ? "var(--text-faint)" : "var(--interactive-accent)"
 					return (
-						<circle
-							key={`dot-${entry.id}`}
-							cx={AXIS_WIDTH - 1}
-							cy={sy}
-							r={r}
-							fill={entry.isAnchor
-								? "var(--color-accent)"
-								: "var(--interactive-accent)"}
-							opacity={opacity}
-						/>
+						<g key={`dot-${entry.id}`}>
+							{!entry.isAnchor && (
+								<circle cx={AXIS_WIDTH - 1} cy={sy} r={r + 4}
+									fill="var(--interactive-accent)" opacity={0.12} />
+							)}
+							<circle cx={AXIS_WIDTH - 1} cy={sy} r={r}
+								fill={fill} opacity={opacity} />
+						</g>
 					)
 				})}
 			</svg>
@@ -160,14 +175,12 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 						style={{ top: sy - 8 }}
 						onClick={e => { e.stopPropagation(); toggleEra(era.id) }}
 					>
-						{/* horizontal rule across card area */}
 						<div
-							className="absolute h-px bg-[--background-modifier-border] opacity-60"
+							className="absolute h-0.5 bg-[--background-modifier-border]"
 							style={{ left: AXIS_WIDTH, right: 0 }}
 						/>
-						{/* label pill */}
 						<div
-							className="absolute flex items-center gap-0.5 px-1 rounded text-[8px] font-mono uppercase tracking-wider bg-[--background-primary] text-[color:--text-faint] hover:text-[color:--text-normal] transition-colors"
+							className="absolute flex items-center gap-0.5 px-1.5 py-0.5 rounded border border-[--background-modifier-border] text-[11px] font-semibold uppercase tracking-wider bg-[--background-secondary] text-[color:--text-muted] hover:text-[color:--text-normal] transition-colors"
 							style={{ left: AXIS_WIDTH + CARD_OFFSET }}
 						>
 							<span>{isExpanded ? "▼" : "▶"}</span>
@@ -177,28 +190,34 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 				)
 			})}
 
-			{/* ── Absolutely positioned cards ────────────────────────────── */}
+			{/* ── Absolutely positioned cards (with collision avoidance) ─── */}
 			<div
 				className="absolute top-0 bottom-0"
 				style={{ left: AXIS_WIDTH + CARD_OFFSET, right: 0 }}
 			>
-				{visibleEntries.map(({ entry, y }, idx) => {
-					const sy = toScreenY(y)
-					if (sy < -150 || sy > VIEWPORT_H + 150) return null
-					return (
-						<div
-							key={entry.id}
-							className="absolute w-full"
-							style={{ top: sy, transform: "translateY(-50%)" }}
-						>
-							<SinglePlotUnit
-								unit={entry}
-								index={idx}
-								isSingleFile={isSingleFile}
-							/>
-						</div>
-					)
-				})}
+				{(() => {
+					const MIN_CARD_GAP = 28
+					let lastSy = -Infinity
+					return visibleEntries.map(({ entry, y }, idx) => {
+						const rawSy = toScreenY(y)
+						const sy = Math.max(rawSy, lastSy + MIN_CARD_GAP)
+						lastSy = sy
+						if (sy < -150 || sy > VIEWPORT_H + 150) return null
+						return (
+							<div
+								key={entry.id}
+								className="absolute w-full"
+								style={{ top: sy, transform: "translateY(-50%)" }}
+							>
+								<SinglePlotUnit
+									unit={entry}
+									index={idx}
+									isSingleFile={isSingleFile}
+								/>
+							</div>
+						)
+					})
+				})()}
 			</div>
 
 			{/* ── Undated / free entries ─────────────────────────────────── */}
@@ -222,7 +241,7 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 			)}
 
 			{/* ── LoD badge ─────────────────────────────────────────────── */}
-			<div className="absolute top-1 right-1 text-[9px] text-[color:--text-faint] opacity-50 pointer-events-none font-mono">
+			<div className="absolute top-2 right-2 px-2 py-0.5 rounded-full text-[10px] font-mono text-[color:--text-muted] bg-[--background-secondary] border border-[--background-modifier-border] opacity-80 pointer-events-none">
 				sig ≥ {engine.visibleMinSig} · {visibleEntries.length} events
 			</div>
 		</div>

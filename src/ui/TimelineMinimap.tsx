@@ -11,15 +11,6 @@ import { ZoomTransform, ZoomBehavior, zoomIdentity } from "d3-zoom"
 import { select } from "d3-selection"
 import { BASE_HEIGHT } from "@/src/store/useD3TimelineEngine"
 
-/** Era labels shown on the minimap — filtered to those within the active domain */
-const ALL_ERA_LABELS = [
-	{ year: -13_800_000_000, label: "Big Bang" },
-	{ year:  -4_500_000_000, label: "Earth" },
-	{ year:    -541_000_000, label: "Life" },
-	{ year:      -2_500_000, label: "Humanity" },
-	{ year:          -3_000, label: "Ancient" },
-	{ year:           1_500, label: "Modern" },
-]
 
 interface Props {
 	/** Current d3 zoom transform */
@@ -34,6 +25,8 @@ interface Props {
 	yearMin: number
 	/** Latest year of the active domain (from engine) */
 	yearMax: number
+	/** All positioned entries — used for density tick rendering */
+	positionedEntries: Array<{ entry: import("@/src/types").TimelineEntry; y: number }>
 }
 
 export function TimelineMinimap({
@@ -43,6 +36,7 @@ export function TimelineMinimap({
 	zoomBehavior,
 	yearMin,
 	yearMax,
+	positionedEntries,
 }: Props) {
 	const stripRef   = useRef<SVGSVGElement>(null)
 	const domainSpan = yearMax - yearMin
@@ -72,10 +66,6 @@ export function TimelineMinimap({
 	const viewLeft  = yearToMinimapX(Math.max(yearTop,    yearMin))
 	const viewRight = yearToMinimapX(Math.min(yearBottom, yearMax))
 
-	const eraLabels = ALL_ERA_LABELS.filter(
-		({ year }) => year >= yearMin && year <= yearMax
-	)
-
 	const nowYear = new Date().getFullYear()
 
 	const handleClick = useCallback((e: React.MouseEvent<SVGSVGElement>) => {
@@ -102,19 +92,19 @@ export function TimelineMinimap({
 			<rect x={0} y={8} width="100%" height={6}
 				rx={3} fill="var(--background-modifier-border)" />
 
-			{/* era labels within domain */}
-			{eraLabels.map(({ year, label }) => (
-				<text
-					key={label}
-					x={`${yearToMinimapX(year) * 100}%`}
-					y={6}
-					fontSize={7}
-					fill="var(--text-faint)"
-					textAnchor="middle"
-				>
-					{label}
-				</text>
-			))}
+			{/* event density ticks */}
+			{positionedEntries.map(({ entry, y }) => {
+				const xFrac = y / BASE_HEIGHT
+				const sig = entry.significance ?? (entry.isAnchor ? 3 : 1)
+				return (
+					<line key={entry.id}
+						x1={`${xFrac * 100}%`} y1={9} x2={`${xFrac * 100}%`} y2={13}
+						stroke={entry.isAnchor ? "var(--text-faint)" : "var(--interactive-accent)"}
+						strokeWidth={1.5}
+						opacity={0.2 + sig * 0.16}
+					/>
+				)
+			})}
 
 			{/* viewport indicator */}
 			<rect
