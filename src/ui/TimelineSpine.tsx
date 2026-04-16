@@ -225,7 +225,7 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 				{/* ── Virtualized card list ──────────────────────────────────── */}
 				<div
 					ref={scrollContainerRef}
-					className="absolute top-0 bottom-0 overflow-y-auto"
+					className="absolute top-0 bottom-0 overflow-y-auto historica-no-scrollbar"
 					style={{ left: AXIS_WIDTH + CARD_OFFSET, right: 0 }}
 					onScroll={e => setScrollTop(e.currentTarget.scrollTop)}
 				>

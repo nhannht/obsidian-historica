@@ -1,8 +1,9 @@
 @import 'react-quill-new/dist/quill.snow.css';
 
-@tailwind components;
-@tailwind utilities;
-@tailwind base;
+/* Tailwind v4 — preflight omitted to avoid conflicting with Obsidian's base styles */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
 /*button {*/
 /*	@apply p-3 text-xs*/
 /*}*/
@@ -88,17 +89,15 @@
 	}
 }
 
-@layer base {
-	* {
-		@apply border-border;
-	}
-	body {
-		@apply bg-background text-foreground;
-		font-feature-settings: "rlig" 1, "calt" 1;
-	}
+/* shadcn @layer base removed — Obsidian provides its own body/border styles */
+
+.historica-no-scrollbar {
+	scrollbar-width: none;
+	-ms-overflow-style: none;
 }
-
-
+.historica-no-scrollbar::-webkit-scrollbar {
+	display: none;
+}
 
 /*style 2*/
 
