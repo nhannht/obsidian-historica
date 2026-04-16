@@ -31,7 +31,7 @@ interface TimelineActions {
 	moveUnit(index: number, direction: "up" | "down"): void;
 	reorderUnit(fromIndex: number, toIndex: number): void;
 	sort(order: "asc" | "desc"): void;
-	expandUnit(id: string, isExpanded: boolean): void;
+	expandUnit(entry: TimelineEntry, isExpanded: boolean): void;
 	expandAll(willExpand: boolean): void;
 	hideUnit(id: string, isHidden: boolean): void;
 	toggleShowHidden(): void;
@@ -208,8 +208,14 @@ export function createTimelineStore(
 			set({units: [...sorted, ...nonUnix]});
 		},
 
-		expandUnit(id: string, isExpanded: boolean) {
-			set({units: get().units.map(u => u.id === id ? {...u, isExpanded} : u)});
+		expandUnit(entry: TimelineEntry, isExpanded: boolean) {
+			const units = get().units;
+			if (units.some(u => u.id === entry.id)) {
+				set({units: units.map(u => u.id === entry.id ? {...u, isExpanded} : u)});
+			} else {
+				// Entry not in units (e.g. a big history anchor) — add it so state persists
+				set({units: [...units, {...entry, isExpanded}]});
+			}
 		},
 
 		expandAll(willExpand: boolean) {

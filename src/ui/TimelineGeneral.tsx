@@ -21,9 +21,18 @@ export function AttachmentPlot(props: {
 			className={cn(props.className)} width={"230"}
 			path={props.path} plugin={props.plugin}/>
 	} else {
-		return <div>
-			<div onClick={props.handleClick} className={cn("rounded-full bg-accent text-lg",props.className)}>{file.extension.toUpperCase()}</div>
-		</div>
+		const name = file.basename.length > 18 ? file.basename.slice(0, 18) + "…" : file.basename
+		return (
+			<div
+				onClick={props.handleClick}
+				className={cn("flex items-center gap-1.5 px-2 py-1 rounded border border-[--background-modifier-border] bg-[--background-secondary] hover:bg-[--background-modifier-hover] cursor-pointer max-w-[160px]", props.className)}
+			>
+				<span className="shrink-0 px-1 py-0.5 text-[10px] font-mono rounded bg-[--interactive-accent]/20 text-[color:--text-accent] uppercase">
+					{file.extension}
+				</span>
+				<span className="text-xs text-[color:--text-muted] truncate">{name}</span>
+			</div>
+		)
 	}
 }
 
@@ -44,7 +53,7 @@ export function Content(props: {
 				className="text-[color:--text-normal]"
 								   content={props.unit.sentence.replace(props.unit.parsedResultText, `<historica-mark class="text-[color:--text-accent-hover]">${props.unit.parsedResultText}</historica-mark>`)}/>
 
-			<div className={"columns-2 md:columns-4 gap-4 space-y-4"}>
+			<div className={"flex flex-wrap gap-2 max-h-48 overflow-y-auto"}>
 				{props.unit.attachments.map((a) => {
 					return (
 						<AttachmentPlot

@@ -167,9 +167,11 @@ export function useD3TimelineEngine(
 		const yearMin = rawMin - pad
 		const yearMax = rawMax + pad
 
-		// Avoid double entryYear() call: filter and capture year in one pass
+		// Anchors: skip any whose id is already in userDated (user expanded/modified it)
+		const userIds = new Set(userDated.map(d => d.entry.id))
 		const anchorsInRange: Array<{ entry: TimelineEntry; year: number }> = []
 		for (const anchor of BIG_HISTORY_ANCHORS) {
+			if (userIds.has(anchor.id)) continue
 			const year = entryYear(anchor)
 			if (year !== null && year >= yearMin && year <= yearMax) {
 				anchorsInRange.push({ entry: anchor, year })

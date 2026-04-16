@@ -1,7 +1,8 @@
 import {Attachment, TimelineEntry} from "@/src/types";
 import {useTimeline, useTimelineStore} from "@/src/ui/TimelineContext";
 import {entrySig, generateRandomId, GetAllFileInVault, JumpToSource} from "@/src/utils";
-import React, {useMemo, useState} from "react";
+import React, {useEffect, useState} from "react";
+import {MarkdownNote} from "@/src/ui/MarkdownNote";
 import {AttachmentPlot, Content} from "@/src/ui/TimelineGeneral";
 import {
 	ContextMenu,
@@ -30,11 +31,23 @@ export const SinglePlotUnit = React.memo(function SinglePlotUnit(props: {
 	dragHandleProps?: React.HTMLAttributes<HTMLElement>,
 }) {
 	const {plugin} = useTimeline();
-	const allFiles = useMemo(() => GetAllFileInVault(plugin), [plugin]);
+	const [allFiles, setAllFiles] = useState(() => GetAllFileInVault(plugin));
 	const removeUnit = useTimelineStore(s => s.removeUnit);
 	const editUnit = useTimelineStore(s => s.editUnit);
 	const expandUnit = useTimelineStore(s => s.expandUnit);
 	const hideUnit = useTimelineStore(s => s.hideUnit);
+
+	useEffect(() => {
+		const refresh = () => setAllFiles(GetAllFileInVault(plugin));
+		plugin.app.vault.on('create', refresh);
+		plugin.app.vault.on('delete', refresh);
+		plugin.app.vault.on('rename', refresh);
+		return () => {
+			plugin.app.vault.off('create', refresh);
+			plugin.app.vault.off('delete', refresh);
+			plugin.app.vault.off('rename', refresh);
+		};
+	}, [plugin]);
 
 	const [annotation, setAnnotation] = useState(props.unit.annotation ?? "");
 
@@ -47,9 +60,8 @@ export const SinglePlotUnit = React.memo(function SinglePlotUnit(props: {
 		editUnit(id, {...props.unit, attachments: [...attachments, newAtt]})
 	}
 
-	function handleRemoveAttachment(uId: string, path: string) {
-		const attachments: Attachment[] = props.unit.attachments
-		const filtered = attachments.filter((a) => a.path !== path)
+	function handleRemoveAttachment(uId: string, attachmentId: string) {
+		const filtered = props.unit.attachments.filter((a) => a.id !== attachmentId)
 		editUnit(uId, {...props.unit, attachments: filtered})
 	}
 
@@ -83,7 +95,7 @@ export const SinglePlotUnit = React.memo(function SinglePlotUnit(props: {
 			{!props.unit.isExpanded && (
 				<div
 					className="flex items-center gap-2 cursor-pointer hover:bg-[--background-modifier-hover] rounded px-1 py-0.5"
-					onClick={() => expandUnit(props.unit.id, true)}
+					onClick={() => expandUnit(props.unit, true)}
 				>
 					<span className={`shrink-0 px-1.5 py-0.5 text-[11px] font-mono rounded ${isAnchor ? "bg-[--background-primary-alt]/50 text-[color:--text-faint]" : "bg-[--interactive-accent]/10 text-[color:--text-accent]"}`}
 					>{props.unit.parsedResultText}</span>
@@ -106,7 +118,7 @@ export const SinglePlotUnit = React.memo(function SinglePlotUnit(props: {
 					<div className="flex items-center gap-2 mb-2">
 						<span
 							className="text-xs text-[color:--text-muted] cursor-pointer hover:text-[color:--text-accent] flex items-center"
-							onClick={() => expandUnit(props.unit.id, false)}
+							onClick={() => expandUnit(props.unit, false)}
 							title="Collapse"
 						>
 							<svg className="w-3 h-3" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2"><path d="M2 8L6 4L10 8"/></svg>
@@ -145,7 +157,7 @@ export const SinglePlotUnit = React.memo(function SinglePlotUnit(props: {
 					{/* Sentence content */}
 					<ContextMenu>
 						<ContextMenuTrigger>
-							<Content unit={props.unit} plugin={plugin} handleExpandSingle={expandUnit}/>
+							<Content unit={props.unit} plugin={plugin} handleExpandSingle={(_, isExpanded) => expandUnit(props.unit, isExpanded)}/>
 						</ContextMenuTrigger>
 						<ContextMenuContent>
 							<ContextMenuItem onClick={() => removeUnit(props.unit.id)}>Remove</ContextMenuItem>
@@ -160,7 +172,8 @@ export const SinglePlotUnit = React.memo(function SinglePlotUnit(props: {
 										placeholder="Search attachments"
 										emptyText="No attachments"
 										onSelect={(value) => {
-											if (props.unit.attachments.some(a => a.path === value)) handleRemoveAttachment(props.unit.id, value)
+											const existing = props.unit.attachments.find(a => a.path === value)
+											if (existing) handleRemoveAttachment(props.unit.id, existing.id)
 											else handleAddAttachment(props.unit.id, value)
 										}}
 										renderItem={(f) => (
@@ -180,18 +193,12 @@ export const SinglePlotUnit = React.memo(function SinglePlotUnit(props: {
 					</ContextMenu>
 
 					{/* Inline annotation */}
-					<textarea
-						className="mt-2 w-full text-xs px-2 py-1 rounded bg-transparent border border-transparent hover:border-[--background-modifier-border] focus:border-[--interactive-accent] focus:outline-none text-[color:--text-muted] focus:text-[color:--text-normal] resize-none placeholder:text-[color:--text-faint] transition-colors"
-						rows={1}
-						placeholder="Add a note..."
+					<MarkdownNote
 						value={annotation}
-						onChange={e => setAnnotation(e.target.value)}
+						onChange={setAnnotation}
 						onBlur={handleAnnotationBlur}
-						onInput={e => {
-							const el = e.currentTarget;
-							el.style.height = "auto";
-							el.style.height = el.scrollHeight + "px";
-						}}
+						plugin={plugin}
+						sourcePath={props.unit.filePath}
 					/>
 
 					{/* Source file badge */}

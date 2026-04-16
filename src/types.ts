@@ -31,8 +31,10 @@ export type TimelineDocument = {
 }
 
 export type Attachment = {
-	id:string,
-	path:string,
+	id: string,
+	path: string,
+	caption?: string,
+	relationship?: string,
 }
 
 export type TimelineEntry = {
