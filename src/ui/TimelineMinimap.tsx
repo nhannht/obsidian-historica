@@ -7,20 +7,19 @@
  */
 
 import { useRef, useCallback } from "react"
-import { ZoomTransform, ZoomBehavior, zoomIdentity } from "d3-zoom"
-import { select } from "d3-selection"
 import { BASE_HEIGHT } from "@/src/store/useD3TimelineEngine"
+import { entrySig } from "@/src/utils"
 
 
 interface Props {
-	/** Current d3 zoom transform */
-	transform: ZoomTransform
+	/** Current scroll offset of the card container in px */
+	scrollTop: number
+	/** Current zoom scale (1 = fully zoomed out) */
+	zoomK: number
 	/** Viewport height in px — used to compute visible year range */
 	viewportH: number
-	/** Zoom element ref — used to programmatically zoom on click */
-	zoomTargetRef: React.RefObject<HTMLDivElement>
-	/** d3.zoom behavior instance */
-	zoomBehavior: ZoomBehavior<HTMLDivElement, unknown>
+	/** Card scroll container ref — used to programmatically scroll on click */
+	scrollContainerRef: React.RefObject<HTMLDivElement | null>
 	/** Earliest year of the active domain (from engine) */
 	yearMin: number
 	/** Latest year of the active domain (from engine) */
@@ -30,10 +29,10 @@ interface Props {
 }
 
 export function TimelineMinimap({
-	transform,
+	scrollTop,
+	zoomK,
 	viewportH,
-	zoomTargetRef,
-	zoomBehavior,
+	scrollContainerRef,
 	yearMin,
 	yearMax,
 	positionedEntries,
@@ -46,19 +45,15 @@ export function TimelineMinimap({
 		return (year - yearMin) / domainSpan
 	}
 
-	/** Minimap x fraction [0, 1] → calendar year */
-	function minimapXToYear(x: number): number {
-		return yearMin + x * domainSpan
-	}
-
 	/** Base-space y [0, BASE_HEIGHT] → calendar year (linear inverse of scale) */
 	function baseYToYear(y: number): number {
 		const t = Math.max(0, Math.min(1, y / BASE_HEIGHT))
 		return yearMin + t * domainSpan
 	}
 
-	const baseYTop    = (0 - transform.y) / transform.k
-	const baseYBottom = (viewportH - transform.y) / transform.k
+	// Inverse of toScreenY(y) = zoomK*y − scrollTop
+	const baseYTop    = scrollTop / zoomK
+	const baseYBottom = (scrollTop + viewportH) / zoomK
 
 	const yearTop    = baseYToYear(baseYTop)
 	const yearBottom = baseYToYear(baseYBottom)
@@ -70,15 +65,13 @@ export function TimelineMinimap({
 
 	const handleClick = useCallback((e: React.MouseEvent<SVGSVGElement>) => {
 		const el = stripRef.current
-		if (!el || !zoomTargetRef.current) return
-		const rect       = el.getBoundingClientRect()
-		const xFrac      = (e.clientX - rect.left) / rect.width
-		const clickedYear = minimapXToYear(xFrac)
-		const targetBaseY = yearToMinimapX(clickedYear) * BASE_HEIGHT
-		const newY        = viewportH / 2 - transform.k * targetBaseY
-		const newTransform = zoomIdentity.translate(0, newY).scale(transform.k)
-		select(zoomTargetRef.current).call(zoomBehavior.transform, newTransform)
-	}, [transform, viewportH, zoomTargetRef, zoomBehavior, yearMin, yearMax])
+		if (!el || !scrollContainerRef.current) return
+		const rect    = el.getBoundingClientRect()
+		const xFrac   = (e.clientX - rect.left) / rect.width
+		// yearToMinimapX(minimapXToYear(xFrac)) === xFrac, so targetBaseY = xFrac * BASE_HEIGHT
+		const targetScrollTop = zoomK * xFrac * BASE_HEIGHT - viewportH / 2
+		scrollContainerRef.current.scrollTo({ top: Math.max(0, targetScrollTop), behavior: "smooth" })
+	}, [zoomK, viewportH, scrollContainerRef])
 
 	return (
 		<svg
@@ -95,7 +88,7 @@ export function TimelineMinimap({
 			{/* event density ticks */}
 			{positionedEntries.map(({ entry, y }) => {
 				const xFrac = y / BASE_HEIGHT
-				const sig = entry.significance ?? (entry.isAnchor ? 3 : 1)
+				const sig   = entrySig(entry)
 				return (
 					<line key={entry.id}
 						x1={`${xFrac * 100}%`} y1={9} x2={`${xFrac * 100}%`} y2={13}

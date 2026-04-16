@@ -4,6 +4,7 @@ import {Point} from "unist";
 import HistoricaPlugin from "@/main";
 import {
 	TimelineDocument,
+	TimelineEntry,
 	HistoricaSettings,
 	TimeData
 } from "./types";
@@ -416,6 +417,10 @@ export function notePathToTitle(notePath: string): string {
 	if (!notePath) return "";
 	const base = notePath.split("/").pop() ?? "";
 	return base.endsWith(".md") ? base.slice(0, -3) : base;
+}
+
+export function entrySig(entry: TimelineEntry): number {
+	return entry.significance ?? (entry.isAnchor ? 3 : 1)
 }
 
 export function getNoteTags(plugin: HistoricaPlugin, notePath: string): string[] {
