@@ -1,4 +1,4 @@
-import {useRef, useEffect, useMemo} from "react";
+import {useRef, useEffect, useMemo, useState} from "react";
 import {useStore} from "zustand";
 import type {StoreApi} from "zustand";
 import HistoricaPlugin from "@/main";
@@ -7,7 +7,8 @@ import {TimelineI} from "@/src/ui/TimelineI";
 import {TimelineToolbar} from "@/src/ui/TimelineToolbar";
 import {TimelineContextMenu} from "@/src/ui/TimelineContextMenu";
 import {TimelineEmptyState} from "@/src/ui/TimelineEmptyState";
-import {TimelineProvider} from "@/src/ui/TimelineContext";
+import {TimelineProvider, VaultFilesProvider} from "@/src/ui/TimelineContext";
+import {GetAllFileInVault} from "@/src/utils";
 
 export function TimelineBlock(props: {
 	store: StoreApi<TimelineStore>;
@@ -28,10 +29,23 @@ export function TimelineBlock(props: {
 
 	const timelineRef = useRef<HTMLDivElement | null>(null);
 	const containerRef = useRef<HTMLDivElement | null>(null);
+	const [allFiles, setAllFiles] = useState(() => GetAllFileInVault(plugin));
 
 	useEffect(() => {
 		store.getState().load();
 	}, [store]);
+
+	useEffect(() => {
+		const refresh = () => setAllFiles(GetAllFileInVault(plugin));
+		plugin.app.vault.on('create', refresh);
+		plugin.app.vault.on('delete', refresh);
+		plugin.app.vault.on('rename', refresh);
+		return () => {
+			plugin.app.vault.off('create', refresh);
+			plugin.app.vault.off('delete', refresh);
+			plugin.app.vault.off('rename', refresh);
+		};
+	}, [plugin]);
 
 	useEffect(() => {
 		const el = containerRef.current;
@@ -62,6 +76,7 @@ export function TimelineBlock(props: {
 
 	return (
 		<TimelineProvider value={contextValue}>
+		<VaultFilesProvider value={allFiles}>
 			<div className="twp" ref={containerRef} tabIndex={-1} style={{outline: "none"}}>
 				{isUnsaved && (
 					<div className="flex items-center gap-1.5 px-3 py-1 text-xs text-[var(--text-warning)] bg-[var(--background-modifier-warning)] border-b border-[var(--background-modifier-border)]">
@@ -93,6 +108,7 @@ export function TimelineBlock(props: {
 					</div>
 				</TimelineContextMenu>
 			</div>
+		</VaultFilesProvider>
 		</TimelineProvider>
 	);
 }

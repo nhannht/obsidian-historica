@@ -6,6 +6,7 @@ import {TFile} from "obsidian";
 import ImageFromPath from "@/src/ui/ImageFromPath";
 import ShortendableParagraph from "@/src/ui/ShortendableParagraph";
 import {cn} from "@/src/lib/utils";
+import {truncate} from "@/src/utils";
 
 export function AttachmentPlot(props: {
 	path: string,
@@ -21,7 +22,7 @@ export function AttachmentPlot(props: {
 			className={cn(props.className)} width={"230"}
 			path={props.path} plugin={props.plugin}/>
 	} else {
-		const name = file.basename.length > 18 ? file.basename.slice(0, 18) + "…" : file.basename
+		const name = truncate(file.basename, 18)
 		return (
 			<div
 				onClick={props.handleClick}

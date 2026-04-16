@@ -3,6 +3,7 @@ import {type StoreApi} from "zustand/vanilla";
 import {useStore} from "zustand";
 import type {TimelineStore} from "@/src/store/createTimelineStore";
 import type HistoricaPlugin from "@/main";
+import type {TFile} from "obsidian";
 
 interface TimelineContextValue {
 	store: StoreApi<TimelineStore>;
@@ -10,13 +11,19 @@ interface TimelineContextValue {
 }
 
 const TimelineContext = createContext<TimelineContextValue | null>(null);
+const VaultFilesContext = createContext<TFile[]>([]);
 
 export const TimelineProvider = TimelineContext.Provider;
+export const VaultFilesProvider = VaultFilesContext.Provider;
 
 export function useTimeline() {
 	const ctx = useContext(TimelineContext);
 	if (!ctx) throw new Error("useTimeline must be used within a TimelineProvider");
 	return ctx;
+}
+
+export function useVaultFiles(): TFile[] {
+	return useContext(VaultFilesContext);
 }
 
 export function useTimelineStore<T>(selector: (state: TimelineStore) => T): T {

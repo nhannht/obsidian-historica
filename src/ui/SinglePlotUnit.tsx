@@ -1,7 +1,7 @@
 import {Attachment, TimelineEntry} from "@/src/types";
-import {useTimeline, useTimelineStore} from "@/src/ui/TimelineContext";
-import {entrySig, generateRandomId, GetAllFileInVault, JumpToSource} from "@/src/utils";
-import React, {useEffect, useState} from "react";
+import {useTimeline, useTimelineStore, useVaultFiles} from "@/src/ui/TimelineContext";
+import {entrySig, generateRandomId, JumpToSource, truncate} from "@/src/utils";
+import React, {useState} from "react";
 import {MarkdownNote} from "@/src/ui/MarkdownNote";
 import {AttachmentPlot, Content} from "@/src/ui/TimelineGeneral";
 import {
@@ -31,23 +31,11 @@ export const SinglePlotUnit = React.memo(function SinglePlotUnit(props: {
 	dragHandleProps?: React.HTMLAttributes<HTMLElement>,
 }) {
 	const {plugin} = useTimeline();
-	const [allFiles, setAllFiles] = useState(() => GetAllFileInVault(plugin));
+	const allFiles = useVaultFiles();
 	const removeUnit = useTimelineStore(s => s.removeUnit);
 	const editUnit = useTimelineStore(s => s.editUnit);
 	const expandUnit = useTimelineStore(s => s.expandUnit);
 	const hideUnit = useTimelineStore(s => s.hideUnit);
-
-	useEffect(() => {
-		const refresh = () => setAllFiles(GetAllFileInVault(plugin));
-		plugin.app.vault.on('create', refresh);
-		plugin.app.vault.on('delete', refresh);
-		plugin.app.vault.on('rename', refresh);
-		return () => {
-			plugin.app.vault.off('create', refresh);
-			plugin.app.vault.off('delete', refresh);
-			plugin.app.vault.off('rename', refresh);
-		};
-	}, [plugin]);
 
 	const [annotation, setAnnotation] = useState(props.unit.annotation ?? "");
 
@@ -72,9 +60,7 @@ export const SinglePlotUnit = React.memo(function SinglePlotUnit(props: {
 		}
 	}
 
-	const truncatedSentence = props.unit.sentence.length > 80
-		? props.unit.sentence.slice(0, 80) + "..."
-		: props.unit.sentence
+	const truncatedSentence = truncate(props.unit.sentence, 80)
 
 	const isHidden  = props.unit.isHidden ?? false
 	const isAnchor  = props.unit.isAnchor ?? false

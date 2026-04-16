@@ -145,6 +145,10 @@ export function GetAllFileInVault(plugin: HistoricaPlugin) {
 	return plugin.app.vault.getFiles()
 }
 
+export function truncate(text: string, maxLen: number): string {
+	return text.length > maxLen ? text.slice(0, maxLen) + "…" : text
+}
+
 export async function ReadImage(plugin:HistoricaPlugin,filepath:string){
 	const file = plugin.app.vault.getAbstractFileByPath(filepath)
 	if (file instanceof  TFile){

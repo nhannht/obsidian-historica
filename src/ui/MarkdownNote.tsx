@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Component, MarkdownRenderer } from "obsidian"
 import { EditorView, keymap } from "@codemirror/view"
 import { EditorState } from "@codemirror/state"
@@ -21,7 +21,6 @@ export function MarkdownNote(props: {
 	const [editing, setEditing] = useState(false)
 	const containerRef = useRef<HTMLDivElement>(null)
 	const previewRef = useRef<HTMLDivElement>(null)
-	const editorRef = useRef<EditorView | null>(null)
 	const onChangeRef = useRef(props.onChange)
 	const onBlurRef = useRef(props.onBlur)
 	onChangeRef.current = props.onChange
@@ -73,12 +72,8 @@ export function MarkdownNote(props: {
 			}),
 			parent: el,
 		})
-		editorRef.current = view
 		view.focus()
-		return () => {
-			view.destroy()
-			editorRef.current = null
-		}
+		return () => { view.destroy() }
 	}, [editing]) // eslint-disable-line react-hooks/exhaustive-deps
 
 	// Render markdown preview when not editing
@@ -92,14 +87,12 @@ export function MarkdownNote(props: {
 		return () => { component.unload() }
 	}, [editing, props.value, props.sourcePath, props.plugin.app])
 
-	const enterEdit = useCallback(() => setEditing(true), [])
-
 	// Empty placeholder
 	if (!editing && !props.value) {
 		return (
 			<div
 				className="mt-2 w-full text-xs px-2 py-1 rounded cursor-text text-[color:--text-faint] hover:bg-[--background-modifier-hover] transition-colors"
-				onClick={enterEdit}
+				onClick={() => setEditing(true)}
 			>
 				Add a note...
 			</div>
@@ -121,7 +114,7 @@ export function MarkdownNote(props: {
 		<div
 			ref={previewRef}
 			className="mt-2 w-full text-xs px-2 py-1 rounded cursor-text hover:bg-[--background-modifier-hover] transition-colors markdown-rendered [&_p]:m-0 [&_p:not(:last-child)]:mb-1"
-			onClick={enterEdit}
+			onClick={() => setEditing(true)}
 			title="Click to edit"
 		/>
 	)

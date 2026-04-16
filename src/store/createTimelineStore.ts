@@ -210,8 +210,14 @@ export function createTimelineStore(
 
 		expandUnit(entry: TimelineEntry, isExpanded: boolean) {
 			const units = get().units;
-			if (units.some(u => u.id === entry.id)) {
-				set({units: units.map(u => u.id === entry.id ? {...u, isExpanded} : u)});
+			let found = false;
+			const next = units.map(u => {
+				if (u.id !== entry.id) return u;
+				found = true;
+				return u.isExpanded === isExpanded ? u : {...u, isExpanded};
+			});
+			if (found) {
+				if (next !== units) set({units: next});
 			} else {
 				// Entry not in units (e.g. a big history anchor) — add it so state persists
 				set({units: [...units, {...entry, isExpanded}]});
