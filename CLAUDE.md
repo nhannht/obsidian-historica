@@ -42,12 +42,26 @@ DISPLAY=:99 /opt/Obsidian/obsidian --no-sandbox &
 # Wait ~5 seconds for startup
 ```
 
-### Build → Deploy → Reload Cycle
+### Dev Workflow
+
+`main.js` and `styles.css` are **symlinked** into the vault plugin dir — no copying needed.
 
 ```bash
-bun run build
-cp main.js styles.css manifest.json historica-test-vault/.obsidian/plugins/historica/
-obsidian plugin:reload vault=historica-test-vault id=historica
+# One-time setup (already done — skip if symlinks exist)
+ln -s /home/larvartar/nhannht-projects/obsidian-historica/main.js historica-test-vault/.obsidian/plugins/historica/main.js
+ln -s /home/larvartar/nhannht-projects/obsidian-historica/styles.css historica-test-vault/.obsidian/plugins/historica/styles.css
+
+# Start dev watcher (auto-rebuilds on save)
+tmux new-window -n 'historica-dev' 'bun run dev'
+
+# QA: reload plugin in Obsidian (after any rebuild)
+bun run qa
+```
+
+### Production Build
+
+```bash
+bun run build   # minified CSS + tsc check + esbuild
 ```
 
 ### Visual Verification

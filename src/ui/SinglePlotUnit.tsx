@@ -1,6 +1,6 @@
 import {Attachment, TimelineEntry} from "@/src/types";
 import {useTimeline, useTimelineStore} from "@/src/ui/TimelineContext";
-import {generateRandomId, GetAllFileInVault, JumpToSource} from "@/src/utils";
+import {entrySig, generateRandomId, GetAllFileInVault, JumpToSource} from "@/src/utils";
 import React, {useMemo, useState} from "react";
 import {AttachmentPlot, Content} from "@/src/ui/TimelineGeneral";
 import {
@@ -66,6 +66,7 @@ export const SinglePlotUnit = React.memo(function SinglePlotUnit(props: {
 
 	const isHidden  = props.unit.isHidden ?? false
 	const isAnchor  = props.unit.isAnchor ?? false
+	const sig       = entrySig(props.unit)
 
 	return (
 		<div key={props.unit.id} className={`relative pl-2 py-1 group ${isHidden ? "opacity-40" : ""}`}>
@@ -120,15 +121,21 @@ export const SinglePlotUnit = React.memo(function SinglePlotUnit(props: {
 						>
 							<svg className="w-3 h-3" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M5 2H2v8h8V7"/><path d="M7 1h4v4"/><line x1="11" y1="1" x2="6" y2="6"/></svg>
 						</span>
-						<div className="flex items-center gap-0.5 ml-auto" title="Significance (affects visibility at zoom levels)">
+						<div className="flex items-end gap-0.5 ml-auto cursor-pointer" title="Significance (affects visibility at zoom levels)">
 							{([1, 2, 3, 4, 5] as const).map(n => {
-								const sig = props.unit.significance ?? (isAnchor ? 3 : 1)
+								const filled = n <= sig
 								return (
 									<button
 										key={n}
-										className={`w-2 h-2 rounded-full transition-opacity cursor-pointer ${n <= sig ? "bg-[--interactive-accent] opacity-70 hover:opacity-100" : "bg-[--text-faint] opacity-20 hover:opacity-50"}`}
+										className="w-2 rounded-sm cursor-pointer transition-all"
+										style={{
+											height: `${n * 5 + 3}px`,
+											backgroundColor: filled ? "var(--interactive-accent)" : "transparent",
+											border: `1.5px solid ${filled ? "var(--interactive-accent)" : "color-mix(in srgb, var(--text-faint) 40%, transparent)"}`,
+											opacity: filled ? 1 : 0.6,
+										}}
 										onClick={e => { e.stopPropagation(); editUnit(props.unit.id, {...props.unit, significance: n}) }}
-										title={`Set significance to ${n}`}
+										title={`Significance ${n}/5`}
 									/>
 								)
 							})}

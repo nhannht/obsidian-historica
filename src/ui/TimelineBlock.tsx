@@ -71,7 +71,7 @@ export function TimelineBlock(props: {
 				)}
 				<TimelineToolbar timelineRef={timelineRef} />
 				<TimelineContextMenu timelineRef={timelineRef}>
-					<div className="relative min-h-full p-4 overflow-y-auto resize-y historica-no-scrollbar" style={{maxHeight: "70vh"}}>
+					<div className="relative p-4 overflow-hidden">
 						{isParsing && (
 							<div className="absolute inset-0 z-10 flex items-center justify-center bg-[var(--background-primary)]/80">
 								<div className="flex items-center gap-2 text-[var(--text-muted)]">

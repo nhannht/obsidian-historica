@@ -14,6 +14,7 @@ import { useMemo } from "react"
 import { scaleLinear } from "d3-scale"
 import type { TimelineEntry } from "@/src/types"
 import { BIG_HISTORY_ANCHORS } from "@/src/data/bigHistoryAnchors"
+import { entrySig } from "@/src/utils"
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 
@@ -197,10 +198,7 @@ export function useD3TimelineEngine(
 		const visibleSpanYears = (yearMax - yearMin) / zoomK
 		const minSig = minSigForZoom(visibleSpanYears)
 
-		const filtered = allDated.filter(({ entry }) => {
-			const sig = entry.significance ?? (entry.isAnchor ? 3 : 1)
-			return sig >= minSig
-		})
+		const filtered = allDated.filter(({ entry }) => entrySig(entry) >= minSig)
 
 		const positionedEntries: PositionedEntry[] = filtered.map(({ entry, year }) => ({
 			entry,

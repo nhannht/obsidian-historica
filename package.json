@@ -11,7 +11,8 @@
     "version": "node version-bump.mjs && git add manifest.json versions.json",
     "test": "bun test __tests__/",
     "changelog": "$HOME/go/bin/git-chglog -o CHANGELOG.md",
-    "doc:code": "typedoc "
+    "doc:code": "typedoc ",
+    "qa": "obsidian plugin:reload vault=historica-test-vault id=historica"
   },
   "keywords": [
     "timeline",

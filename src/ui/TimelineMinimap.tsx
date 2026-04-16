@@ -1,127 +1,182 @@
 /**
- * TimelineMinimap — thin horizontal strip showing current viewport position
- * within the dynamic linear domain computed from user data.
+ * TimelineMinimap — horizontal strip with:
+ *   - density histogram (event count per time bucket)
+ *   - draggable range handles to filter the visible time window
  *
- * Rendered at the top of TimelineSpine. Clicking anywhere on the minimap
- * jumps the main view to that position.
+ * Clicking outside the selected range pans it to center on the clicked point.
+ * Double-clicking resets to full range.
  */
 
-import { useRef, useCallback } from "react"
+import { useRef, useCallback, useMemo } from "react"
 import { BASE_HEIGHT } from "@/src/store/useD3TimelineEngine"
 import { entrySig } from "@/src/utils"
 
+const NUM_BUCKETS  = 30
+const DENSITY_H    = 16   // max bar height in px
+const TRACK_Y      = 20   // y where the track starts
+const TRACK_H      = 6    // track height
+const HANDLE_W     = 8    // handle width in px
+const TOTAL_H      = TRACK_Y + TRACK_H + 4
+const NOW_YEAR     = new Date().getFullYear()
 
 interface Props {
-	/** Current scroll offset of the card container in px */
-	scrollTop: number
-	/** Current zoom scale (1 = fully zoomed out) */
-	zoomK: number
-	/** Viewport height in px — used to compute visible year range */
-	viewportH: number
-	/** Card scroll container ref — used to programmatically scroll on click */
-	scrollContainerRef: React.RefObject<HTMLDivElement | null>
-	/** Earliest year of the active domain (from engine) */
+	/** Earliest year of the active domain */
 	yearMin: number
-	/** Latest year of the active domain (from engine) */
+	/** Latest year of the active domain */
 	yearMax: number
-	/** All positioned entries — used for density tick rendering */
+	/** Current selected range [leftYear, rightYear] */
+	yearRange: [number, number]
+	/** Called when the user drags a handle or clicks to pan */
+	onYearRangeChange: (range: [number, number]) => void
+	/** All positioned entries — used for density histogram */
 	positionedEntries: Array<{ entry: import("@/src/types").TimelineEntry; y: number }>
 }
 
 export function TimelineMinimap({
-	scrollTop,
-	zoomK,
-	viewportH,
-	scrollContainerRef,
 	yearMin,
 	yearMax,
+	yearRange,
+	onYearRangeChange,
 	positionedEntries,
 }: Props) {
-	const stripRef   = useRef<SVGSVGElement>(null)
+	const svgRef    = useRef<SVGSVGElement>(null)
 	const domainSpan = yearMax - yearMin
 
-	/** Calendar year → minimap x fraction [0, 1] */
-	function yearToMinimapX(year: number): number {
-		return (year - yearMin) / domainSpan
-	}
+	const [leftYear, rightYear] = yearRange
+	const leftFrac  = domainSpan > 0 ? (leftYear  - yearMin) / domainSpan : 0
+	const rightFrac = domainSpan > 0 ? (rightYear - yearMin) / domainSpan : 1
 
-	/** Base-space y [0, BASE_HEIGHT] → calendar year (linear inverse of scale) */
-	function baseYToYear(y: number): number {
-		const t = Math.max(0, Math.min(1, y / BASE_HEIGHT))
-		return yearMin + t * domainSpan
-	}
+	const { bucketCounts, maxCount } = useMemo(() => {
+		const counts = new Array(NUM_BUCKETS).fill(0)
+		for (const { entry, y } of positionedEntries) {
+			if (entry.isAnchor) continue
+			const frac   = Math.max(0, Math.min(1, y / BASE_HEIGHT))
+			const bucket = Math.min(NUM_BUCKETS - 1, Math.floor(frac * NUM_BUCKETS))
+			counts[bucket] += 1 + entrySig(entry) * 0.5
+		}
+		return { bucketCounts: counts, maxCount: Math.max(1, ...counts) }
+	}, [positionedEntries])
 
-	// Inverse of toScreenY(y) = zoomK*y − scrollTop
-	const baseYTop    = scrollTop / zoomK
-	const baseYBottom = (scrollTop + viewportH) / zoomK
+	const xToYear = useCallback((clientX: number): number => {
+		const el = svgRef.current
+		if (!el) return yearMin
+		const rect = el.getBoundingClientRect()
+		const frac = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width))
+		return yearMin + frac * domainSpan
+	}, [yearMin, domainSpan])
 
-	const yearTop    = baseYToYear(baseYTop)
-	const yearBottom = baseYToYear(baseYBottom)
+	const startDrag = useCallback((which: "left" | "right") => (e: React.MouseEvent) => {
+		e.preventDefault()
+		e.stopPropagation()
 
-	const viewLeft  = yearToMinimapX(Math.max(yearTop,    yearMin))
-	const viewRight = yearToMinimapX(Math.min(yearBottom, yearMax))
+		// Capture range at drag start so onMove clamps correctly
+		const capturedLeft  = leftYear
+		const capturedRight = rightYear
 
-	const nowYear = new Date().getFullYear()
+		const onMove = (ev: MouseEvent) => {
+			const year = xToYear(ev.clientX)
+			if (which === "left") {
+				onYearRangeChange([Math.min(year, capturedRight - 1), capturedRight])
+			} else {
+				onYearRangeChange([capturedLeft, Math.max(year, capturedLeft + 1)])
+			}
+		}
+		const onUp = () => {
+			window.removeEventListener("mousemove", onMove)
+			window.removeEventListener("mouseup", onUp)
+		}
+		window.addEventListener("mousemove", onMove)
+		window.addEventListener("mouseup", onUp)
+	}, [leftYear, rightYear, xToYear, onYearRangeChange])
 
 	const handleClick = useCallback((e: React.MouseEvent<SVGSVGElement>) => {
-		const el = stripRef.current
-		if (!el || !scrollContainerRef.current) return
-		const rect    = el.getBoundingClientRect()
-		const xFrac   = (e.clientX - rect.left) / rect.width
-		// yearToMinimapX(minimapXToYear(xFrac)) === xFrac, so targetBaseY = xFrac * BASE_HEIGHT
-		const targetScrollTop = zoomK * xFrac * BASE_HEIGHT - viewportH / 2
-		scrollContainerRef.current.scrollTo({ top: Math.max(0, targetScrollTop), behavior: "smooth" })
-	}, [zoomK, viewportH, scrollContainerRef])
+		const year   = xToYear(e.clientX)
+		const half   = (rightYear - leftYear) / 2
+		const newL   = Math.max(yearMin, year - half)
+		const newR   = Math.min(yearMax, newL + (rightYear - leftYear))
+		onYearRangeChange([newL, newR])
+	}, [xToYear, leftYear, rightYear, yearMin, yearMax, onYearRangeChange])
+
+	const handleDblClick = useCallback((e: React.MouseEvent) => {
+		e.stopPropagation()
+		onYearRangeChange([yearMin, yearMax])
+	}, [yearMin, yearMax, onYearRangeChange])
 
 	return (
-		<svg
-			ref={stripRef}
-			className="w-full cursor-pointer"
-			height={28}
-			onClick={handleClick}
-			style={{ display: "block" }}
-		>
-			{/* background track */}
-			<rect x={0} y={8} width="100%" height={6}
-				rx={3} fill="var(--background-modifier-border)" />
+		<div className="relative" style={{ height: TOTAL_H }}>
+			<svg
+				ref={svgRef}
+				className="w-full cursor-pointer"
+				height={TOTAL_H}
+				style={{ display: "block" }}
+				onClick={handleClick}
+				onDoubleClick={handleDblClick}
+			>
+				{bucketCounts.map((count, i) => {
+					const barH   = (count / maxCount) * DENSITY_H
+					const xPct   = (i / NUM_BUCKETS) * 100
+					const wPct   = (1 / NUM_BUCKETS) * 100
+					const bLeft  = i / NUM_BUCKETS
+					const bRight = (i + 1) / NUM_BUCKETS
+					const inRange = bLeft >= leftFrac - 0.01 && bRight <= rightFrac + 0.01
+					return (
+						<rect key={i}
+							x={`${xPct}%`}
+							y={TRACK_Y - barH}
+							width={`${wPct}%`}
+							height={barH}
+							fill={inRange ? "var(--interactive-accent)" : "var(--text-faint)"}
+							opacity={inRange ? 0.55 : 0.2}
+						/>
+					)
+				})}
 
-			{/* event density ticks */}
-			{positionedEntries.map(({ entry, y }) => {
-				const xFrac = y / BASE_HEIGHT
-				const sig   = entrySig(entry)
-				return (
-					<line key={entry.id}
-						x1={`${xFrac * 100}%`} y1={9} x2={`${xFrac * 100}%`} y2={13}
-						stroke={entry.isAnchor ? "var(--text-faint)" : "var(--interactive-accent)"}
-						strokeWidth={1.5}
-						opacity={0.2 + sig * 0.16}
-					/>
-				)
-			})}
+				<rect x={0} y={TRACK_Y} width="100%" height={TRACK_H}
+					rx={3} fill="var(--background-modifier-border)" />
 
-			{/* viewport indicator */}
-			<rect
-				x={`${viewLeft * 100}%`}
-				y={7}
-				width={`${Math.max(0.5, (viewRight - viewLeft) * 100)}%`}
-				height={8}
-				rx={2}
-				fill="var(--interactive-accent)"
-				opacity={0.6}
-			/>
-
-			{/* "now" tick — only when today is within the domain */}
-			{nowYear >= yearMin && nowYear <= yearMax && (
-				<line
-					x1={`${yearToMinimapX(nowYear) * 100}%`}
-					y1={8}
-					x2={`${yearToMinimapX(nowYear) * 100}%`}
-					y2={14}
-					stroke="var(--text-faint)"
-					strokeWidth={1}
-					opacity={0.4}
+				<rect
+					x={`${leftFrac * 100}%`}
+					y={TRACK_Y}
+					width={`${Math.max(0.5, (rightFrac - leftFrac) * 100)}%`}
+					height={TRACK_H}
+					rx={2}
+					fill="var(--interactive-accent)"
+					opacity={0.6}
 				/>
-			)}
-		</svg>
+
+				{NOW_YEAR >= yearMin && NOW_YEAR <= yearMax && (
+					<line
+						x1={`${((NOW_YEAR - yearMin) / domainSpan) * 100}%`}
+						y1={TRACK_Y}
+						x2={`${((NOW_YEAR - yearMin) / domainSpan) * 100}%`}
+						y2={TRACK_Y + TRACK_H}
+						stroke="var(--text-faint)"
+						strokeWidth={1}
+						opacity={0.5}
+					/>
+				)}
+			</svg>
+
+			{(["left", "right"] as const).map(side => (
+				<div
+					key={side}
+					style={{
+						position:    "absolute",
+						left:        `${(side === "left" ? leftFrac : rightFrac) * 100}%`,
+						top:         TRACK_Y - 2,
+						transform:   "translateX(-50%)",
+						width:       HANDLE_W,
+						height:      TRACK_H + 4,
+						background:  "var(--interactive-accent)",
+						borderRadius: 3,
+						cursor:      "ew-resize",
+						zIndex:      2,
+					}}
+					onMouseDown={startDrag(side)}
+					onClick={e => e.stopPropagation()}
+					onDoubleClick={handleDblClick}
+				/>
+			))}
+		</div>
 	)
 }

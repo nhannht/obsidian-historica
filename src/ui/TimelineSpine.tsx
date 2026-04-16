@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { zoom as d3zoom, zoomIdentity, ZoomBehavior, D3ZoomEvent } from "d3-zoom"
 import { select } from "d3-selection"
-import { useD3TimelineEngine } from "@/src/store/useD3TimelineEngine"
+import { useD3TimelineEngine, BASE_HEIGHT } from "@/src/store/useD3TimelineEngine"
 import { SinglePlotUnit } from "@/src/ui/SinglePlotUnit"
 import { useTimelineStore } from "@/src/ui/TimelineContext"
 import { TimelineMinimap } from "@/src/ui/TimelineMinimap"
@@ -24,12 +24,18 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 	const [expandedEras, setExpandedEras] = useState<Set<string>>(
 		() => new Set(BIG_HISTORY_ERAS.map(e => e.id))
 	)
+	const [yearRange, setYearRange] = useState<[number, number] | null>(null)
 
 	const containerRef       = useRef<HTMLDivElement>(null)
 	const scrollContainerRef = useRef<HTMLDivElement>(null)
 	const zoomKRef           = useRef(1)  // stale-closure escape hatch for zoom handler
 
 	const engine = useD3TimelineEngine(units, showHidden, zoomK)
+
+	// Reset range when the data domain changes (new parse, different file)
+	useEffect(() => {
+		setYearRange(null)
+	}, [engine.yearMin, engine.yearMax])
 
 	const toggleEra = useCallback((id: string) => {
 		setExpandedEras(prev => {
@@ -53,7 +59,7 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 				// Adjust scroll so the point under the cursor stays fixed during zoom
 				if (newK !== oldK && scrollContainerRef.current) {
 					const sc       = scrollContainerRef.current
-					const cursorY  = (event.sourceEvent as MouseEvent)?.offsetY ?? VIEWPORT_H / 2
+					const cursorY  = (event.sourceEvent as MouseEvent)?.offsetY ?? VIEWPORT_H / 2  // VIEWPORT_H fallback intentional here (zoom setup, not render height)
 					const baseYAtCursor = (cursorY + sc.scrollTop) / oldK
 					sc.scrollTop = Math.max(0, newK * baseYAtCursor - cursorY)
 				}
@@ -82,69 +88,139 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 		}
 	}, [])
 
+	// Drag-to-scroll on the card container
+	useEffect(() => {
+		const sc = scrollContainerRef.current
+		if (!sc) return
+
+		const DRAG_THRESHOLD = 5
+		let isPending = false
+		let isDragging = false
+		let startY = 0
+		let startScrollTop = 0
+
+		const onMouseDown = (e: MouseEvent) => {
+			const target = e.target as HTMLElement
+			if (target.closest('button, a, input, textarea, [role="button"]')) return
+			isPending = true
+			isDragging = false
+			startY = e.clientY
+			startScrollTop = sc.scrollTop
+		}
+
+		const onMouseMove = (e: MouseEvent) => {
+			if (!isPending && !isDragging) return
+			const dy = e.clientY - startY
+			if (!isDragging && Math.abs(dy) > DRAG_THRESHOLD) {
+				isDragging = true
+				isPending = false
+				sc.style.cursor = "grabbing"
+			}
+			if (isDragging) {
+				sc.scrollTop = startScrollTop - dy
+			}
+		}
+
+		const onMouseUp = (_e: MouseEvent) => {
+			if (isDragging) {
+				// Suppress the click that fires on mouseup after a drag
+				sc.addEventListener("click", (ev) => ev.stopPropagation(), { capture: true, once: true })
+			}
+			isPending = false
+			isDragging = false
+			sc.style.cursor = ""
+		}
+
+		sc.addEventListener("mousedown", onMouseDown)
+		window.addEventListener("mousemove", onMouseMove)
+		window.addEventListener("mouseup", onMouseUp)
+
+		return () => {
+			sc.removeEventListener("mousedown", onMouseDown)
+			window.removeEventListener("mousemove", onMouseMove)
+			window.removeEventListener("mouseup", onMouseUp)
+		}
+	}, [])
+
 	// toScreenY maps base-space y [0, BASE_HEIGHT] → screen px relative to container top
 	const toScreenY = useCallback(
 		(y: number) => zoomK * y - scrollTop,
 		[zoomK, scrollTop],
 	)
 
-	const visibleEntries = useMemo(
-		() => engine.positionedEntries.filter(({ entry }) => {
+	const effectiveRange = useMemo<[number, number]>(
+		() => yearRange ?? [engine.yearMin, engine.yearMax],
+		[yearRange, engine.yearMin, engine.yearMax],
+	)
+
+	const visibleEntries = useMemo(() => {
+		const [rangeL, rangeR] = effectiveRange
+		return engine.positionedEntries.filter(({ entry, y }) => {
 			const sig = entrySig(entry)
 			if (sig < sigFilter) return false
-			return !entry.eraId || expandedEras.has(entry.eraId)
-		}),
-		[engine.positionedEntries, expandedEras, sigFilter],
-	)
+			if (entry.eraId && !expandedEras.has(entry.eraId)) return false
+			if (!entry.isAnchor && yearRange) {
+				const entryYr = engine.yearMin + (y / BASE_HEIGHT) * (engine.yearMax - engine.yearMin)
+				if (entryYr < rangeL || entryYr > rangeR) return false
+			}
+			return true
+		})
+	}, [engine.positionedEntries, expandedEras, sigFilter, yearRange, effectiveRange, engine.yearMin, engine.yearMax])
 
 	// Virtualizer — dynamic height measurement via measureElement (ResizeObserver internally)
 	const virtualizer = useVirtualizer({
 		count:          visibleEntries.length,
 		getScrollElement: () => scrollContainerRef.current,
-		estimateSize:   (i) => visibleEntries[i]?.entry.isExpanded ? 240 : 24,
+		estimateSize:   (i) => visibleEntries[i]?.entry.isExpanded ? 240 : 32,
 		measureElement: (el) => el.getBoundingClientRect().height,
 		getItemKey:     (i) => visibleEntries[i]?.entry.id ?? i,
 		overscan:       3,
 	})
 
+	// Container height adapts to content: shrinks for small timelines, caps at VIEWPORT_H for large ones
+	const containerH = Math.min(VIEWPORT_H, virtualizer.getTotalSize() || VIEWPORT_H)
+
 	return (
 		<div className="flex flex-col">
 			{/* ── Minimap strip ────────────────────────────────────────────── */}
 			{zoomBehavior && (
-				<div className="px-2 py-1 border-b border-[--background-modifier-border]">
-					<TimelineMinimap
-						scrollTop={scrollTop}
-						zoomK={zoomK}
-						viewportH={VIEWPORT_H}
-						scrollContainerRef={scrollContainerRef}
-						yearMin={engine.yearMin}
-						yearMax={engine.yearMax}
-						positionedEntries={engine.positionedEntries}
-					/>
+				<div className="px-2 py-1 border-b border-[--background-modifier-border] flex items-center gap-2">
+					<div className="flex-1 min-w-0">
+						<TimelineMinimap
+							yearMin={engine.yearMin}
+							yearMax={engine.yearMax}
+							yearRange={effectiveRange}
+							onYearRangeChange={setYearRange}
+							positionedEntries={engine.positionedEntries}
+						/>
+					</div>
+					<div className="shrink-0 px-2 py-0.5 rounded-full text-[10px] font-mono text-[color:--text-muted] bg-[--background-secondary] border border-[--background-modifier-border] opacity-80 pointer-events-none whitespace-nowrap">
+						sig ≥ {engine.visibleMinSig} · {visibleEntries.length} events
+					</div>
 				</div>
 			)}
 
 			<div
 				ref={containerRef}
 				className="relative overflow-hidden select-none"
-				style={{ height: VIEWPORT_H }}
+				style={{ height: containerH }}
 			>
 				{/* ── SVG axis spine ─────────────────────────────────────────── */}
 				<svg
 					className="absolute inset-0 pointer-events-none"
 					width={AXIS_WIDTH}
-					height={VIEWPORT_H}
+					height={containerH}
 				>
 					<line
 						x1={AXIS_WIDTH - 1} y1={0}
-						x2={AXIS_WIDTH - 1} y2={VIEWPORT_H}
+						x2={AXIS_WIDTH - 1} y2={containerH}
 						stroke="var(--background-modifier-border)"
 						strokeWidth={2}
 					/>
 
 					{engine.axisTicks.map((tick, i) => {
 						const sy = toScreenY(tick.y)
-						if (sy < -20 || sy > VIEWPORT_H + 20) return null
+						if (sy < -20 || sy > containerH + 20) return null
 						return (
 							<g key={i} transform={`translate(0,${sy})`}>
 								<line
@@ -174,7 +250,7 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 
 					{visibleEntries.map(({ entry, y }) => {
 						const sy = toScreenY(y)
-						if (sy < -10 || sy > VIEWPORT_H + 10) return null
+						if (sy < -10 || sy > containerH + 10) return null
 						const sig     = entrySig(entry)
 						const r       = 3 + sig * 1.5
 						const opacity = 0.55 + sig * 0.09
@@ -198,22 +274,22 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 					.map(era => {
 						const eraBaseY  = engine.scale(era.startYear) as number
 						const sy        = toScreenY(eraBaseY)
-						if (sy < -16 || sy > VIEWPORT_H + 4) return null
+						if (sy < -16 || sy > containerH + 4) return null
 						const isExpanded = expandedEras.has(era.id)
 						return (
 							<div
 								key={era.id}
-								className="absolute left-0 right-0 z-10 flex items-center cursor-pointer"
+								className="absolute left-0 right-0 z-10 pointer-events-none"
 								style={{ top: sy - 8 }}
-								onClick={e => { e.stopPropagation(); toggleEra(era.id) }}
 							>
 								<div
 									className="absolute h-0.5 bg-[--background-modifier-border]"
 									style={{ left: AXIS_WIDTH, right: 0 }}
 								/>
 								<div
-									className="absolute flex items-center gap-0.5 px-1.5 py-0.5 rounded border border-[--background-modifier-border] text-[11px] font-semibold uppercase tracking-wider bg-[--background-secondary] text-[color:--text-muted] hover:text-[color:--text-normal] transition-colors"
+									className="absolute flex items-center gap-0.5 px-1.5 py-0.5 rounded border border-[--background-modifier-border] text-[11px] font-semibold uppercase tracking-wider bg-[--background-secondary] text-[color:--text-muted] hover:text-[color:--text-normal] transition-colors pointer-events-auto cursor-pointer"
 									style={{ left: AXIS_WIDTH + CARD_OFFSET }}
+									onClick={e => { e.stopPropagation(); toggleEra(era.id) }}
 								>
 									<span>{isExpanded ? "▼" : "▶"}</span>
 									<span>{era.label}</span>
@@ -275,10 +351,7 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 					</div>
 				)}
 
-				{/* ── LoD badge ─────────────────────────────────────────────── */}
-				<div className="absolute top-2 right-2 px-2 py-0.5 rounded-full text-[10px] font-mono text-[color:--text-muted] bg-[--background-secondary] border border-[--background-modifier-border] opacity-80 pointer-events-none">
-					sig ≥ {engine.visibleMinSig} · {visibleEntries.length} events
-				</div>
+
 			</div>
 		</div>
 	)

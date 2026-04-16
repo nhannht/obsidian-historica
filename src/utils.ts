@@ -420,7 +420,7 @@ export function notePathToTitle(notePath: string): string {
 }
 
 export function entrySig(entry: TimelineEntry): number {
-	return entry.significance ?? (entry.isAnchor ? 3 : 1)
+	return entry.significance ?? (entry.isAnchor ? 3 : 2)
 }
 
 export function getNoteTags(plugin: HistoricaPlugin, notePath: string): string[] {
