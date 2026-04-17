@@ -4,26 +4,10 @@ import {generateRandomId, JumpToSource, truncate} from "@/src/utils";
 import React, {useState} from "react";
 import {MarkdownNote} from "@/src/ui/MarkdownNote";
 import {AttachmentPlot, Content} from "@/src/ui/TimelineGeneral";
-import {
-	ContextMenu,
-	ContextMenuContent,
-	ContextMenuItem,
-	ContextMenuSeparator,
-	ContextMenuSub,
-	ContextMenuSubContent,
-	ContextMenuSubTrigger,
-	ContextMenuTrigger,
-} from "@/src/ui/shadcn/ContextMenu";
 import {FilePicker} from "@/src/ui/FilePicker";
 import {Check} from "@/src/ui/icons";
-import {cn} from "@/src/lib/utils";
-import {Badge} from "@/src/ui/shadcn/Badge"
-import {
-	Tooltip,
-	TooltipContent,
-	TooltipProvider,
-	TooltipTrigger,
-} from "@/src/ui/shadcn/Tooltip"
+import {NativeContextMenu} from "@/src/ui/NativeContextMenu";
+import {HoverTooltip} from "@/src/ui/HoverTooltip";
 
 export const SinglePlotUnit = React.memo(function SinglePlotUnit(props: {
 	unit: TimelineEntry,
@@ -175,43 +159,34 @@ export const SinglePlotUnit = React.memo(function SinglePlotUnit(props: {
 					</div>
 
 					{/* Sentence content */}
-					<ContextMenu>
-						<ContextMenuTrigger>
-							<Content unit={props.unit} plugin={plugin} handleExpandSingle={(_, isExpanded) => expandUnit(props.unit, isExpanded)}/>
-						</ContextMenuTrigger>
-						<ContextMenuContent>
-							<ContextMenuItem onClick={async () => await JumpToSource(props.unit.nodePos, props.unit.filePath, props.unit.sentence, plugin)}>Jump to source</ContextMenuItem>
-							<ContextMenuSub>
-								<ContextMenuSubTrigger>Add attachment</ContextMenuSubTrigger>
-								<ContextMenuSubContent>
-									<FilePicker
-										className="w-80"
-										files={allFiles}
-										placeholder="Search attachments"
-										emptyText="No attachments"
-										onSelect={(value) => {
-											const existing = props.unit.attachments.find(a => a.path === value)
-											if (existing) handleRemoveAttachment(props.unit.id, existing.id)
-											else handleAddAttachment(props.unit.id, value)
-										}}
-										renderItem={(f) => (
-											<>
-												<Check className={cn("mr-2 h-4 w-4", props.unit.attachments.some(a => a.path === f.path) ? "opacity-100" : "opacity-0")}/>
-												<TooltipProvider><Tooltip><TooltipTrigger asChild>
-													<div className="text-wrap w-full text-left">{f.path}</div>
-												</TooltipTrigger><TooltipContent>
-													<AttachmentPlot path={f.path} plugin={plugin}/>
-												</TooltipContent></Tooltip></TooltipProvider>
-											</>
-										)}
-									/>
-								</ContextMenuSubContent>
-							</ContextMenuSub>
-							<ContextMenuSeparator />
-							<ContextMenuItem onClick={() => hideUnit(props.unit.id, !isHidden)}>{isHidden ? "Show" : "Hide from view"}</ContextMenuItem>
-							<ContextMenuItem onClick={() => dismissUnit(props.unit.id)} className="text-[color:--text-muted]">Dismiss extraction</ContextMenuItem>
-						</ContextMenuContent>
-					</ContextMenu>
+					<NativeContextMenu items={[
+						{type: "item", label: "Jump to source", onClick: async () => await JumpToSource(props.unit.nodePos, props.unit.filePath, props.unit.sentence, plugin)},
+						{type: "item", label: "Add attachment ›", submenuContent: (
+							<FilePicker
+								files={allFiles}
+								placeholder="Search attachments"
+								emptyText="No attachments"
+								onSelect={(value) => {
+									const existing = props.unit.attachments.find(a => a.path === value);
+									if (existing) handleRemoveAttachment(props.unit.id, existing.id);
+									else handleAddAttachment(props.unit.id, value);
+								}}
+								renderItem={(f) => (
+									<>
+										<Check style={{width: 16, height: 16, marginRight: 8, opacity: props.unit.attachments.some(a => a.path === f.path) ? 1 : 0, flexShrink: 0}}/>
+										<HoverTooltip content={<AttachmentPlot path={f.path} plugin={plugin}/>}>
+											<div style={{textWrap: "wrap", width: "100%", textAlign: "left"}}>{f.path}</div>
+										</HoverTooltip>
+									</>
+								)}
+							/>
+						)},
+						{type: "separator"},
+						{type: "item", label: isHidden ? "Show" : "Hide from view", onClick: () => hideUnit(props.unit.id, !isHidden)},
+						{type: "item", label: "Dismiss extraction", muted: true, onClick: () => dismissUnit(props.unit.id)},
+					]}>
+						<Content unit={props.unit} plugin={plugin} handleExpandSingle={(_, isExpanded) => expandUnit(props.unit, isExpanded)}/>
+					</NativeContextMenu>
 
 					{/* Inline annotation */}
 					<div
@@ -234,10 +209,18 @@ export const SinglePlotUnit = React.memo(function SinglePlotUnit(props: {
 
 					{/* Source file badge */}
 					{!props.isSingleFile && <div className="mt-1.5">
-						<Badge
+						<span
 							onClick={async () => await JumpToSource(props.unit.nodePos, props.unit.filePath, props.unit.sentence, plugin)}
-							className="text-xs hover:cursor-pointer hover:text-[--text-accent-hover] opacity-60 hover:opacity-100"
-							variant="outline">{props.unit.filePath}</Badge>
+							style={{
+								display: "inline-flex", alignItems: "center",
+								fontSize: 11, padding: "2px 8px", borderRadius: 9999,
+								border: "1px solid var(--background-modifier-border)",
+								color: "var(--text-muted)", opacity: 0.6, cursor: "pointer",
+								transition: "opacity 0.07s",
+							}}
+							onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
+							onMouseLeave={e => (e.currentTarget.style.opacity = "0.6")}
+						>{props.unit.filePath}</span>
 					</div>}
 				</div>
 			)}

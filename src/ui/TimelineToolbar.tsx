@@ -1,15 +1,7 @@
 import {useMemo, useState} from "react";
 import {useTimeline, useTimelineStore} from "@/src/ui/TimelineContext";
 import {ExportAsJSONToClipboard, ExportAsMarkdownToClipboard, ExportAsPlainTextToClipboard, exportTimelineAsPng, exportTimelineAsHtml, getAllMarkdownFileInVault} from "@/src/utils";
-import {
-	ContextMenu,
-	ContextMenuContent,
-	ContextMenuItem,
-	ContextMenuSub,
-	ContextMenuSubContent,
-	ContextMenuSubTrigger,
-	ContextMenuTrigger
-} from "@/src/ui/shadcn/ContextMenu";
+import {NativeDropdownMenu} from "@/src/ui/NativeDropdownMenu";
 import {FilePicker} from "@/src/ui/FilePicker";
 
 const btnClass = "px-2 py-0.5 rounded text-[color:--text-muted] hover:text-[color:--text-normal] hover:bg-[--background-modifier-hover] cursor-pointer";
@@ -109,57 +101,55 @@ export function TimelineToolbar(props: {
 						{allExpanded ? "Fold all" : "Expand all"}
 					</button>
 
-					<ContextMenu>
-						<ContextMenuTrigger><button className={btnClass}>Sort</button></ContextMenuTrigger>
-						<ContextMenuContent>
-							<ContextMenuItem onClick={() => sort("asc")}>Ascending</ContextMenuItem>
-							<ContextMenuItem onClick={() => sort("desc")}>Descending</ContextMenuItem>
-						</ContextMenuContent>
-					</ContextMenu>
+					<NativeDropdownMenu
+						trigger="Sort"
+						triggerClassName={btnClass}
+						items={[
+							{type: "item", label: "Ascending", onClick: () => sort("asc")},
+							{type: "item", label: "Descending", onClick: () => sort("desc")},
+						]}
+					/>
 
-					<ContextMenu>
-						<ContextMenuTrigger>
-							<button
-								className={btnClass}
-								disabled={isParsing}
-								onClick={() => {
+					<NativeDropdownMenu
+						trigger={isParsing ? "Parsing..." : "Parse"}
+						triggerClassName={btnClass}
+						disabled={isParsing}
+						onTriggerClick={() => {
+							const f = plugin.app.workspace.getActiveFile();
+							if (f) parseFromFile(f.path);
+						}}
+						items={[
+							...(plugin.app.workspace.getActiveFile() ? [{
+								type: "item" as const,
+								label: "Parse this file",
+								onClick: () => {
 									const f = plugin.app.workspace.getActiveFile();
 									if (f) parseFromFile(f.path);
-								}}
-							>{isParsing ? "Parsing..." : "Parse"}</button>
-						</ContextMenuTrigger>
-						<ContextMenuContent>
-							{plugin.app.workspace.getActiveFile() && (
-								<ContextMenuItem onClick={() => {
-									const f = plugin.app.workspace.getActiveFile();
-									if (f) parseFromFile(f.path);
-								}}>Parse this file</ContextMenuItem>
-							)}
-							<ContextMenuSub>
-								<ContextMenuSubTrigger>Parse from file...</ContextMenuSubTrigger>
-								<ContextMenuSubContent>
-									<FilePicker
-										files={markdownFiles}
-										placeholder="search file path"
-										emptyText="No file selected"
-										onSelect={(value) => parseFromFile(value)}
-									/>
-								</ContextMenuSubContent>
-							</ContextMenuSub>
-						</ContextMenuContent>
-					</ContextMenu>
+								},
+							}] : []),
+							{type: "item", label: "Parse from file...", submenuContent: (
+								<FilePicker
+									files={markdownFiles}
+									placeholder="search file path"
+									emptyText="No file selected"
+									onSelect={(value) => parseFromFile(value)}
+								/>
+							)},
+						]}
+					/>
 
-					<ContextMenu>
-						<ContextMenuTrigger><button className={btnClass}>Export</button></ContextMenuTrigger>
-						<ContextMenuContent>
-							<ContextMenuItem onClick={() => handleExportPng("save")}>PNG (save file)</ContextMenuItem>
-							<ContextMenuItem onClick={() => handleExportPng("clipboard")}>PNG (clipboard)</ContextMenuItem>
-							<ContextMenuItem onClick={() => ExportAsPlainTextToClipboard({units, settings})}>Plain text (clipboard)</ContextMenuItem>
-							<ContextMenuItem onClick={() => ExportAsJSONToClipboard({units, settings})}>JSON (clipboard)</ContextMenuItem>
-							<ContextMenuItem onClick={() => ExportAsMarkdownToClipboard({units, settings}, plugin)}>Markdown (clipboard)</ContextMenuItem>
-							<ContextMenuItem onClick={() => exportTimelineAsHtml({units, settings}, plugin)}>HTML (save file)</ContextMenuItem>
-						</ContextMenuContent>
-					</ContextMenu>
+					<NativeDropdownMenu
+						trigger="Export"
+						triggerClassName={btnClass}
+						items={[
+							{type: "item", label: "PNG (save file)", onClick: () => handleExportPng("save")},
+							{type: "item", label: "PNG (clipboard)", onClick: () => handleExportPng("clipboard")},
+							{type: "item", label: "Plain text (clipboard)", onClick: () => ExportAsPlainTextToClipboard({units, settings})},
+							{type: "item", label: "JSON (clipboard)", onClick: () => ExportAsJSONToClipboard({units, settings})},
+							{type: "item", label: "Markdown (clipboard)", onClick: () => ExportAsMarkdownToClipboard({units, settings}, plugin)},
+							{type: "item", label: "HTML (save file)", onClick: () => exportTimelineAsHtml({units, settings}, plugin)},
+						]}
+					/>
 
 					<button
 						className={`px-2 py-0.5 rounded cursor-pointer ${isDirty ? "text-[color:--text-accent] hover:bg-[--background-modifier-hover]" : "text-[color:--text-muted] hover:text-[color:--text-normal] hover:bg-[--background-modifier-hover]"}`}

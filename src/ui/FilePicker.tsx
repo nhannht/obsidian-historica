@@ -1,5 +1,4 @@
-import type {ReactNode} from "react";
-import {Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList} from "@/src/ui/shadcn/Command";
+import {ReactNode, useMemo, useState} from "react";
 
 interface FilePickerProps<T extends { path: string }> {
 	files: T[];
@@ -20,19 +19,51 @@ export function FilePicker<T extends { path: string }>({
 	autoFocus,
 	renderItem,
 }: FilePickerProps<T>) {
+	const [query, setQuery] = useState("");
+
+	const filtered = useMemo(
+		() => files.filter(f => f.path.toLowerCase().includes(query.toLowerCase())),
+		[files, query]
+	);
+
 	return (
-		<Command className={className}>
-			<CommandInput placeholder={placeholder} autoFocus={autoFocus} />
-			<CommandList>
-				<CommandEmpty>{emptyText}</CommandEmpty>
-				<CommandGroup>
-					{files.map(f => (
-						<CommandItem key={f.path} value={f.path} onSelect={onSelect}>
-							{renderItem ? renderItem(f) : f.path}
-						</CommandItem>
-					))}
-				</CommandGroup>
-			</CommandList>
-		</Command>
+		<div style={{minWidth: 240}} className={className}>
+			<div style={{borderBottom: "1px solid var(--background-modifier-border)"}}>
+				<input
+					autoFocus={autoFocus}
+					value={query}
+					onChange={e => setQuery(e.target.value)}
+					placeholder={placeholder}
+					style={{
+						width: "100%", boxSizing: "border-box",
+						padding: "8px 12px", fontSize: 13,
+						background: "transparent", border: "none", outline: "none",
+						color: "var(--text-normal)",
+					}}
+				/>
+			</div>
+			<div style={{maxHeight: 260, overflowY: "auto"}}>
+				{filtered.length === 0 ? (
+					<div style={{padding: "8px 12px", fontSize: 12, color: "var(--text-faint)"}}>
+						{emptyText}
+					</div>
+				) : filtered.map(f => (
+					<div
+						key={f.path}
+						onMouseDown={() => onSelect(f.path)}
+						onMouseEnter={e => (e.currentTarget.style.background = "var(--background-secondary)")}
+						onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+						style={{
+							display: "flex", alignItems: "center", gap: 6,
+							padding: "7px 12px", fontSize: 13, cursor: "pointer",
+							background: "transparent",
+							color: "var(--text-normal)",
+						}}
+					>
+						{renderItem ? renderItem(f) : f.path}
+					</div>
+				))}
+			</div>
+		</div>
 	);
 }

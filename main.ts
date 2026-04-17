@@ -7,6 +7,7 @@ import {findOrphanedDataFiles} from "@/src/utils";
 import {OrphanCleanupModal} from "@/src/ui/OrphanCleanupModal";
 import {HISTORICA_SIDEBAR_VIEW_TYPE, HistoricaSidebarView} from "@/src/ui/HistoricaSidebarView";
 import {HISTORICA_GLOBAL_VIEW_TYPE, GlobalTimelineView} from "@/src/ui/GlobalTimelineView";
+import {HISTORICA_GALLERY_VIEW_TYPE, DesignGalleryView} from "@/src/ui/DesignGalleryView";
 import {HistoricaSettingsTab} from "@/src/ui/HistoricaSettingsTab";
 import {HistoricaPluginSettings, DEFAULT_PLUGIN_SETTINGS} from "@/src/types";
 import {VaultIndexManager} from "@/src/data/VaultIndexManager";
@@ -64,6 +65,11 @@ export default class HistoricaPlugin extends Plugin {
 			(leaf) => new GlobalTimelineView(leaf, this)
 		);
 
+		this.registerView(
+			HISTORICA_GALLERY_VIEW_TYPE,
+			(leaf) => new DesignGalleryView(leaf, this)
+		);
+
 		this.addRibbonIcon("calendar-clock", "Open Historica Timeline Sidebar", () => {
 			this.activateSidebar();
 		});
@@ -85,6 +91,12 @@ export default class HistoricaPlugin extends Plugin {
 		});
 
 		this.addCommand({
+			id: "open-historica-design-gallery",
+			name: "Open Design Gallery",
+			callback: () => this.activateGallery(),
+		});
+
+		this.addCommand({
 			id: "clean-orphaned-data-files",
 			name: "Clean up orphaned timeline data files",
 			callback: async () => {
@@ -101,7 +113,6 @@ export default class HistoricaPlugin extends Plugin {
 	async activateSidebar(): Promise<void> {
 		const existing = this.app.workspace.getLeavesOfType(HISTORICA_SIDEBAR_VIEW_TYPE);
 		if (existing.length > 0) {
-			// Toggle: already open → close it
 			existing[0].detach();
 			return;
 		}
@@ -111,17 +122,23 @@ export default class HistoricaPlugin extends Plugin {
 	}
 
 	async activateGlobalTimeline(): Promise<void> {
-		const existing = this.app.workspace.getLeavesOfType(HISTORICA_GLOBAL_VIEW_TYPE);
+		return this.activateTabView(HISTORICA_GLOBAL_VIEW_TYPE);
+	}
+
+	async activateGallery(): Promise<void> {
+		return this.activateTabView(HISTORICA_GALLERY_VIEW_TYPE);
+	}
+
+	private async activateTabView(viewType: string): Promise<void> {
+		const existing = this.app.workspace.getLeavesOfType(viewType);
 		if (existing.length > 0) {
-			// Already open — reveal and focus it
 			this.app.workspace.revealLeaf(existing[0]);
 			return;
 		}
 		const leaf = this.app.workspace.getLeaf("tab");
-		await leaf.setViewState({type: HISTORICA_GLOBAL_VIEW_TYPE, active: true});
+		await leaf.setViewState({type: viewType, active: true});
 		this.app.workspace.revealLeaf(leaf);
 	}
-
 
 	override async onunload() {
 	}

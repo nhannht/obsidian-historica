@@ -203,3 +203,10 @@
 	margin: 8px 0;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+	@keyframes historica-spin   { to { transform: rotate(360deg); } }
+	@keyframes historica-pulse  { 0%,100%{opacity:0.2} 50%{opacity:1} }
+	@keyframes historica-bounce { 0%,80%,100%{transform:translateY(0);opacity:0.4} 40%{transform:translateY(-4px);opacity:1} }
+	@keyframes historica-sweep  { 0%{transform:translateX(-110%)} 100%{transform:translateX(300%)} }
+}
+

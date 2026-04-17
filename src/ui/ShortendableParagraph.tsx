@@ -1,5 +1,4 @@
-import { Card, CardContent } from "@/src/ui/shadcn/Card"
-import {cn} from "@/src/lib/utils";
+import {useState} from "react";
 import {sanitizeHtml, truncate} from "@/src/utils";
 
 export default function ShortendableParagraph(props: {
@@ -7,14 +6,22 @@ export default function ShortendableParagraph(props: {
 	className?: string,
 	isExpanded: boolean,
 }) {
-	const displayText = props.isExpanded ? props.content : truncate(props.content, 150)
+	const [hovered, setHovered] = useState(false);
+	const displayText = props.isExpanded ? props.content : truncate(props.content, 150);
 
 	return (
-		<Card className={cn("w-full max-w-2xl hover:border-[--interactive-accent] border-0 hover:border-2",props.className)}>
-			<CardContent className="pt-6 ">
-				<p  className="mb-4 break-words ql-editor" dangerouslySetInnerHTML={{__html: sanitizeHtml(displayText)}}/>
-
-			</CardContent>
-		</Card>
-	)
+		<div
+			className={props.className}
+			style={{
+				width: "100%", maxWidth: "42rem", borderRadius: 6, boxSizing: "border-box",
+				border: `2px solid ${hovered ? "var(--interactive-accent)" : "transparent"}`,
+				padding: "24px 24px 0",
+				transition: "border-color 0.11s",
+			}}
+			onMouseEnter={() => setHovered(true)}
+			onMouseLeave={() => setHovered(false)}
+		>
+			<p className="mb-4 break-words ql-editor" dangerouslySetInnerHTML={{__html: sanitizeHtml(displayText)}}/>
+		</div>
+	);
 }
