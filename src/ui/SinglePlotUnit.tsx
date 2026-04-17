@@ -57,7 +57,7 @@ export const SinglePlotUnit = React.memo(function SinglePlotUnit(props: {
 		: null;
 
 	const precisionOpacity = props.unit.precision === "full" ? 1 : props.unit.precision === "partial" ? 0.45 : 0.15;
-	const isApproximate = precisionOpacity <= 0.15;
+	const isApproximate = props.unit.precision === "approximate";
 	const precisionTitle = props.unit.precision === "full"
 		? "Precision: full (year, month, day)"
 		: props.unit.precision === "partial"
