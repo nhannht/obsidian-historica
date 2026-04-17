@@ -53,6 +53,13 @@
 		--ring: 215 20.2% 65.1%;
 
 		--radius: 0.5rem;
+
+		--historica-dur-micro:  70ms;
+		--historica-dur-snap:   110ms;
+		--historica-dur-reveal: 150ms;
+		--historica-dur-sweep:  400ms;
+		--historica-ease-arrive: cubic-bezier(0.2, 0, 0, 1);
+		--historica-ease-depart: cubic-bezier(0.2, 0, 0.8, 1);
 	}
 
 	.dark {

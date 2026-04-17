@@ -1,6 +1,8 @@
 import { TFile } from "obsidian";
+import { motion } from "motion/react";
 import type HistoricaPlugin from "@/main";
 import { GlobalEntry } from "./useVaultEntries";
+import { DUR } from "@/src/ui/animTokens";
 
 function formatDate(entry: GlobalEntry): string {
 	// parsedResultText is already human-readable (e.g. "509 BC", "Jan 15, 2023")
@@ -23,28 +25,31 @@ export function EntryCard({ entry, plugin }: EntryCardProps) {
 	}
 
 	return (
-		<div className="historica-entry-card flex gap-3 px-4 py-3 border-b border-[var(--background-modifier-border)] hover:bg-[var(--background-secondary)] transition-colors">
-			{/* Date marker */}
-			<div className="flex-shrink-0 w-28 pt-0.5">
-				<span className="text-xs font-mono text-[var(--text-muted)]">
-					{formatDate(entry)}
-				</span>
-			</div>
-
-			{/* Content */}
-			<div className="flex-1 min-w-0">
-				<p className="text-sm text-[var(--text-normal)] line-clamp-2 leading-snug">
+		<motion.div
+			initial={{opacity: 0, y: 2}}
+			animate={{opacity: 1, y: 0}}
+			transition={{duration: DUR.reveal}}
+			style={{
+				display: "flex", gap: 12, padding: "8px 12px",
+				borderBottom: "1px solid color-mix(in srgb, var(--background-modifier-border) 30%, transparent)",
+			}}
+		>
+			<span style={{fontFamily: "monospace", fontSize: 11, color: "var(--text-muted)", minWidth: 96, flexShrink: 0, paddingTop: 1}}>
+				{formatDate(entry)}
+			</span>
+			<div style={{flex: 1, minWidth: 0}}>
+				<div style={{fontSize: 13, color: "var(--text-normal)", lineHeight: 1.4, marginBottom: 3}}>
 					{entry.sentence}
-				</p>
+				</div>
 				{entry.notePath && (
-					<button
+					<span
 						onClick={openNote}
-						className="mt-1 text-xs text-[var(--text-accent)] hover:underline truncate max-w-full text-left"
+						style={{fontSize: 11, color: "var(--text-accent)", opacity: 0.8, cursor: "pointer"}}
 					>
 						{entry.noteTitle || entry.notePath}
-					</button>
+					</span>
 				)}
 			</div>
-		</div>
+		</motion.div>
 	);
 }

@@ -28,38 +28,51 @@ export function UnparsedPanel() {
 	}
 
 	return (
-		<div className="border-t border-[--background-modifier-border] mt-2 text-xs">
-			{/* Header */}
+		<div style={{borderTop: "1px solid var(--background-modifier-border)", marginTop: 8}}>
 			<button
-				className="w-full flex items-center gap-1.5 px-3 py-1.5 text-left text-[color:var(--text-muted)] hover:text-[color:var(--text-normal)] hover:bg-[--background-modifier-hover] cursor-pointer"
+				style={{
+					width: "100%", display: "flex", alignItems: "baseline", gap: 8,
+					padding: "8px 12px 10px", textAlign: "left", background: "none", border: "none", cursor: "pointer",
+					borderBottom: open ? "2px solid var(--background-modifier-border)" : "2px solid transparent",
+				}}
 				onClick={() => setOpen(o => !o)}
 			>
-				<svg className="w-3 h-3 transition-transform shrink-0" style={{transform: open ? "rotate(90deg)" : "rotate(0deg)"}} viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 2L8 6L4 10"/></svg>
-				<span className="font-medium">{unparsedSentences.length} unmatched sentence{unparsedSentences.length !== 1 ? "s" : ""}</span>
-				<span className="opacity-50 font-normal">— no date found</span>
+				<span style={{fontFamily: "monospace", fontSize: 8, letterSpacing: "0.12em", color: "var(--text-faint)", opacity: 0.55}}>UNDATED</span>
+				<span style={{fontFamily: "monospace", fontSize: 16, color: "var(--text-accent)", lineHeight: 1}}>{unparsedSentences.length}</span>
+				<span style={{fontSize: 11, color: "var(--text-faint)"}}>fragment{unparsedSentences.length !== 1 ? "s" : ""} without timestamp</span>
+				<svg style={{width: 9, height: 9, marginLeft: "auto", color: "var(--text-faint)", opacity: 0.4, flexShrink: 0, transition: "transform var(--historica-dur-snap, 110ms)", transform: open ? "rotate(90deg)" : "rotate(0deg)"}} viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 2L8 6L4 10"/></svg>
 			</button>
 
 			{open && (
-				<div className="px-3 pb-3">
-					<div className="flex flex-col gap-1 mt-1">
-						{pageItems.map((sentence, i) => {
-							const globalIdx = page * PAGE_SIZE + i;
-							const isTagging = taggingIdx === globalIdx;
-							return (
-								<div key={globalIdx} className="flex flex-col gap-1 py-1 border-b border-[--background-modifier-border]/50 last:border-0">
-									<span className="text-[color:var(--text-muted)] leading-snug">{sentence}</span>
+				<div style={{padding: "0 12px 12px"}}>
+					{pageItems.map((sentence, i) => {
+						const globalIdx = page * PAGE_SIZE + i;
+						const isTagging = taggingIdx === globalIdx;
+						return (
+							<div key={globalIdx} style={{
+								display: "flex", gap: 12, padding: "10px 0",
+								borderBottom: i < pageItems.length - 1
+									? "1px solid color-mix(in srgb, var(--background-modifier-border) 35%, transparent)"
+									: "none",
+							}}>
+								<span style={{
+									fontFamily: "monospace", fontSize: 9, color: "var(--text-faint)",
+									opacity: 0.35, minWidth: 18, paddingTop: 2, userSelect: "none",
+								}}>{String(globalIdx + 1).padStart(2, "0")}</span>
+								<div style={{flex: 1}}>
+									<div style={{fontSize: 12, color: "var(--text-muted)", lineHeight: 1.5, marginBottom: 5}}>{sentence}</div>
 									{!isTagging && (
-										<button
-											className="self-start text-[10px] text-[color:var(--text-faint)] hover:text-[color:var(--text-accent)] cursor-pointer opacity-60 hover:opacity-100"
+										<span
+											style={{fontSize: 10, fontFamily: "monospace", color: "var(--text-faint)", letterSpacing: "0.04em", opacity: 0.5, cursor: "pointer"}}
 											onClick={() => { setTaggingIdx(globalIdx); setDateInput(""); }}
-										>Tag with date…</button>
+										>TAG →</span>
 									)}
 									{isTagging && (
-										<div className="flex items-center gap-1.5 mt-0.5">
+										<div style={{display: "flex", alignItems: "center", gap: 6}}>
 											<input
 												autoFocus
 												type="text"
-												className="flex-1 text-xs px-2 py-0.5 rounded border border-[--background-modifier-border] bg-[--background-primary] text-[color:var(--text-normal)] outline-none focus:border-[--interactive-accent]"
+												style={{flex: 1, fontSize: 11, padding: "2px 6px", borderRadius: 2, border: "1px solid var(--background-modifier-border)", background: "var(--background-primary)", color: "var(--text-normal)", outline: "none"}}
 												placeholder="e.g. March 1492"
 												value={dateInput}
 												onChange={e => setDateInput(e.target.value)}
@@ -69,34 +82,32 @@ export function UnparsedPanel() {
 												}}
 											/>
 											<button
-												className="text-[10px] px-2 py-0.5 rounded bg-[--interactive-accent] text-[color:var(--text-on-accent)] cursor-pointer hover:opacity-90 disabled:opacity-40"
+												style={{fontSize: 10, padding: "2px 8px", borderRadius: 2, background: "var(--interactive-accent)", color: "var(--text-on-accent)", border: "none", cursor: dateInput.trim() ? "pointer" : "default", opacity: dateInput.trim() ? 1 : 0.4}}
 												disabled={!dateInput.trim()}
 												onClick={() => handleTag(sentence)}
 											>Add</button>
-											<button
-												className="text-[10px] text-[color:var(--text-faint)] hover:text-[color:var(--text-muted)] cursor-pointer"
+											<span
+												style={{fontSize: 10, color: "var(--text-faint)", cursor: "pointer", opacity: 0.6}}
 												onClick={() => { setTaggingIdx(null); setDateInput(""); }}
-											>Cancel</button>
+											>Cancel</span>
 										</div>
 									)}
 								</div>
-							);
-						})}
-					</div>
+							</div>
+						);
+					})}
 
 					{totalPages > 1 && (
-						<div className="flex items-center gap-2 mt-2 text-[color:var(--text-faint)]">
-							<button
-								className="hover:text-[color:var(--text-muted)] disabled:opacity-30 cursor-pointer"
-								disabled={page === 0}
-								onClick={() => setPage(p => p - 1)}
-							>← Prev</button>
-							<span>{page + 1} / {totalPages}</span>
-							<button
-								className="hover:text-[color:var(--text-muted)] disabled:opacity-30 cursor-pointer"
-								disabled={page >= totalPages - 1}
-								onClick={() => setPage(p => p + 1)}
-							>Next →</button>
+						<div style={{display: "flex", alignItems: "center", gap: 8, marginTop: 8, fontSize: 10, fontFamily: "monospace", color: "var(--text-faint)"}}>
+							<span
+								style={{cursor: page === 0 ? "default" : "pointer", opacity: page === 0 ? 0.3 : 0.7}}
+								onClick={() => page > 0 && setPage(p => p - 1)}
+							>← Prev</span>
+							<span style={{opacity: 0.5}}>{page + 1} / {totalPages}</span>
+							<span
+								style={{cursor: page >= totalPages - 1 ? "default" : "pointer", opacity: page >= totalPages - 1 ? 0.3 : 0.7}}
+								onClick={() => page < totalPages - 1 && setPage(p => p + 1)}
+							>Next →</span>
 						</div>
 					)}
 				</div>

@@ -79,6 +79,7 @@
     "d3-shape": "^3.2.0",
     "franc": "^6.2.0",
     "html-to-image": "^1.11.13",
+    "motion": "^12.38.0",
     "react": "19",
     "react-dom": "19",
     "react-quill-new": "^3.8.3",

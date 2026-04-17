@@ -1,3 +1,5 @@
+import {motion} from "motion/react";
+import {DUR} from "../animTokens";
 import {Section, Row, Tile} from "./helpers";
 import {PILL_RADIUS} from "./constants";
 import {RugHeat} from "../RugHeat";
@@ -55,17 +57,23 @@ export function GlobalTimelineSection() {
 						</div>
 						<RugHeat years={rugYears} min={1066} max={1600} width={456} tickH={10} stripeH={5}/>
 					</div>
-					{entries.map(({date, sentence, note}) => (
-						<div key={date} style={{
-							display: "flex", gap: 12, padding: "8px 12px",
-							borderBottom: "1px solid color-mix(in srgb, var(--background-modifier-border) 30%, transparent)",
-						}}>
+					{entries.map(({date, sentence, note}, i) => (
+						<motion.div
+							key={date}
+							initial={{opacity: 0, y: 2}}
+							animate={{opacity: 1, y: 0}}
+							transition={{duration: DUR.reveal, delay: i < 8 ? i * 0.02 : 0}}
+							style={{
+								display: "flex", gap: 12, padding: "8px 12px",
+								borderBottom: "1px solid color-mix(in srgb, var(--background-modifier-border) 30%, transparent)",
+							}}
+						>
 							<span style={{fontFamily: "monospace", fontSize: 11, color: "var(--text-muted)", minWidth: 96, flexShrink: 0, paddingTop: 1}}>{date}</span>
 							<div style={{flex: 1, minWidth: 0}}>
 								<div style={{fontSize: 13, color: "var(--text-normal)", lineHeight: 1.4, marginBottom: 3}}>{sentence}</div>
 								<span style={{fontSize: 11, color: "var(--text-accent)", opacity: 0.8}}>{note}</span>
 							</div>
-						</div>
+						</motion.div>
 					))}
 				</div>
 			</div>

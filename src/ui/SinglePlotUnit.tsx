@@ -57,11 +57,18 @@ export const SinglePlotUnit = React.memo(function SinglePlotUnit(props: {
 		: null;
 
 	const precisionOpacity = props.unit.precision === "full" ? 1 : props.unit.precision === "partial" ? 0.45 : 0.15;
+	const isApproximate = precisionOpacity <= 0.15;
 	const precisionTitle = props.unit.precision === "full"
 		? "Precision: full (year, month, day)"
 		: props.unit.precision === "partial"
 			? "Precision: partial (year certain)"
 			: "Precision: approximate (year inferred)";
+
+	const chipStyle: React.CSSProperties = isApproximate
+		? {fontFamily: "monospace", fontSize: 11, color: "var(--text-faint)", opacity: 0.6, border: "1px dashed color-mix(in srgb, var(--text-faint) 40%, transparent)", padding: "2px 6px", borderRadius: 3, flexShrink: 0}
+		: isAnchor
+		? {fontFamily: "monospace", fontSize: 11, color: "var(--text-faint)", background: "color-mix(in srgb, var(--background-primary-alt) 50%, transparent)", padding: "2px 6px", borderRadius: 3, flexShrink: 0}
+		: {fontFamily: "monospace", fontSize: 11, color: "var(--text-accent)", background: "color-mix(in srgb, var(--interactive-accent) 10%, transparent)", padding: "2px 6px", borderRadius: 3, flexShrink: 0};
 
 	return (
 		<div key={props.unit.id} className={`relative pl-2 py-1 group ${isHidden ? "opacity-40" : ""}`}>
@@ -76,8 +83,7 @@ export const SinglePlotUnit = React.memo(function SinglePlotUnit(props: {
 					className="flex items-center gap-2 cursor-pointer hover:bg-[--background-modifier-hover] rounded px-1 py-0.5"
 					onClick={() => expandUnit(props.unit, true)}
 				>
-					<span className={`shrink-0 px-1.5 py-0.5 text-[11px] font-mono rounded ${isAnchor ? "bg-[--background-primary-alt]/50 text-[color:--text-faint]" : "bg-[--interactive-accent]/10 text-[color:--text-accent]"}`}
-					>{props.unit.parsedResultText}</span>
+					<span style={chipStyle}>{props.unit.parsedResultText}</span>
 					{manualBadge}
 					<span className="text-xs text-[color:--text-muted] truncate flex-1">{truncatedSentence}</span>
 					<svg className="w-3 h-3 shrink-0 opacity-40 group-hover:opacity-70 text-[color:--text-faint]" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 2L8 6L4 10"/></svg>
@@ -86,12 +92,10 @@ export const SinglePlotUnit = React.memo(function SinglePlotUnit(props: {
 
 			{/* Expanded: card surface wrapping chip + controls + content */}
 			{props.unit.isExpanded && (
-				<div className="rounded-md border border-[--background-modifier-border] bg-[--background-secondary] px-3 py-2 mt-1">
+				<div style={{borderRadius: 5, padding: "8px 12px", marginTop: 4, border: isApproximate ? "1px dashed var(--background-modifier-border)" : "1px solid var(--background-modifier-border)", background: isApproximate ? "transparent" : "var(--background-secondary)"}}>
 					{/* Chip — own row above controls */}
 					<div className="mb-1.5 flex items-center gap-1.5">
-						<span className={`px-2 py-0.5 text-[11px] font-mono rounded ${isAnchor ? "bg-[--background-primary-alt]/50 text-[color:--text-faint]" : "bg-[--interactive-accent]/10 text-[color:--text-accent]"}`}>
-							{props.unit.parsedResultText}
-						</span>
+						<span style={chipStyle}>{props.unit.parsedResultText}</span>
 						{manualBadge}
 					</div>
 
@@ -159,6 +163,7 @@ export const SinglePlotUnit = React.memo(function SinglePlotUnit(props: {
 					</div>
 
 					{/* Sentence content */}
+					<div style={isApproximate ? {opacity: 0.7} : {}}>
 					<NativeContextMenu items={[
 						{type: "item", label: "Jump to source", onClick: async () => await JumpToSource(props.unit.nodePos, props.unit.filePath, props.unit.sentence, plugin)},
 						{type: "item", label: "Add attachment ›", submenuContent: (
@@ -187,6 +192,7 @@ export const SinglePlotUnit = React.memo(function SinglePlotUnit(props: {
 					]}>
 						<Content unit={props.unit} plugin={plugin} handleExpandSingle={(_, isExpanded) => expandUnit(props.unit, isExpanded)}/>
 					</NativeContextMenu>
+					</div>
 
 					{/* Inline annotation */}
 					<div

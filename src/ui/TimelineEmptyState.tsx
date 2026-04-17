@@ -12,37 +12,45 @@ export function TimelineEmptyState() {
 	const markdownFiles = useMemo(() => getAllMarkdownFileInVault(plugin), [plugin]);
 	const currentFile = plugin.app.workspace.getActiveFile();
 
-	const btnBase = "w-64 px-4 py-2 rounded text-sm font-medium cursor-pointer";
-	const btnPrimary = `${btnBase} bg-[--interactive-accent] text-[--text-on-accent] hover:opacity-90`;
-	const btnSecondary = `${btnBase} border border-[--background-modifier-border] bg-[--background-primary] text-[color:--text-normal] hover:bg-[--background-modifier-hover]`;
-
 	return (
-		<div className="p-6 flex flex-col items-center gap-3">
-			<p className="text-sm text-[color:--text-muted]">No dates found yet</p>
-			<p className="text-xs text-[color:--text-muted] opacity-70 text-center max-w-xs mb-2">Historica reads your existing prose and extracts every date it finds. It does not create entries — parse a note that contains dates in its text.</p>
-
+		<div style={{padding: "32px 16px", textAlign: "center"}}>
+			<div style={{fontSize: 13, color: "var(--text-faint)", marginBottom: 8}}>No dates found in this note yet</div>
+			<div style={{fontSize: 11, color: "var(--text-faint)", opacity: 0.7, lineHeight: 1.5, marginBottom: 14}}>
+				Historica reads your existing prose and extracts every date it finds.
+			</div>
 			{currentFile && (
-				<button className={btnPrimary} disabled={isParsing} onClick={() => parseFromFile(currentFile.path)}>
-					{isParsing ? "Parsing..." : "Parse this file"}
-				</button>
-			)}
-
-			{!isShowFilePicker ? (
-				<button className={btnSecondary} disabled={isParsing} onClick={() => setIsShowFilePicker(true)}>
-					Parse from another file...
-				</button>
-			) : (
-				<FilePicker
-					className="w-80"
-					files={markdownFiles}
-					placeholder="Search files..."
-					emptyText="No files found"
-					autoFocus
-					onSelect={async (value) => {
-						setIsShowFilePicker(false);
-						await parseFromFile(value);
+				<span
+					style={{
+						display: "inline-block",
+						fontSize: 11, fontFamily: "monospace",
+						color: "var(--text-accent)",
+						border: "1px solid color-mix(in srgb, var(--interactive-accent) 40%, transparent)",
+						padding: "4px 12px", borderRadius: 3, cursor: isParsing ? "default" : "pointer",
+						opacity: isParsing ? 0.5 : 1,
 					}}
-				/>
+					onClick={() => !isParsing && parseFromFile(currentFile.path)}
+				>{isParsing ? "Parsing…" : "Parse this file"}</span>
+			)}
+			{!isShowFilePicker ? (
+				<div style={{marginTop: 8}}>
+					<span
+						style={{fontSize: 11, color: "var(--text-faint)", opacity: 0.6, cursor: "pointer"}}
+						onClick={() => setIsShowFilePicker(true)}
+					>or choose another file…</span>
+				</div>
+			) : (
+				<div style={{marginTop: 8}}>
+					<FilePicker
+						files={markdownFiles}
+						placeholder="Search files…"
+						emptyText="No files found"
+						autoFocus
+						onSelect={async (value) => {
+							setIsShowFilePicker(false);
+							await parseFromFile(value);
+						}}
+					/>
+				</div>
 			)}
 		</div>
 	);

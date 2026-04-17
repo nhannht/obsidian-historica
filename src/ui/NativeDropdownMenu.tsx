@@ -8,11 +8,12 @@ interface NativeDropdownMenuProps {
 	trigger: ReactNode;
 	items: MenuNode[];
 	triggerClassName?: string;
+	triggerStyle?: React.CSSProperties;
 	disabled?: boolean;
 	onTriggerClick?: () => void;
 }
 
-export function NativeDropdownMenu({trigger, items, triggerClassName, disabled, onTriggerClick}: NativeDropdownMenuProps) {
+export function NativeDropdownMenu({trigger, items, triggerClassName, triggerStyle, disabled, onTriggerClick}: NativeDropdownMenuProps) {
 	const [open, setOpen] = useState(false);
 	const [pos, setPos] = useState({x: 0, y: 0});
 	const buttonRef = useRef<HTMLButtonElement>(null);
@@ -31,7 +32,7 @@ export function NativeDropdownMenu({trigger, items, triggerClassName, disabled, 
 
 	return (
 		<>
-			<button ref={buttonRef} className={triggerClassName} disabled={disabled} onClick={handleClick}>
+			<button ref={buttonRef} className={triggerClassName} style={triggerStyle} disabled={disabled} onClick={handleClick}>
 				{trigger}
 			</button>
 			{open && createPortal(
