@@ -54,6 +54,14 @@ export default class MarkdownProcessor {
 			const idx = occurrenceCount.get(s.text) ?? 0
 			occurrenceCount.set(s.text, idx + 1)
 
+			const yearCertain = best.start.isCertain("year");
+			const monthCertain = best.start.isCertain("month");
+			const dayCertain = best.start.isCertain("day");
+			const precision: "full" | "partial" | "approximate" =
+				yearCertain && monthCertain && dayCertain ? "full"
+				: yearCertain ? "partial"
+				: "approximate";
+
 			units.push({
 				nodePos: s.node.node.position ? s.node.node.position : {
 					start: {line: 1, column: 1, offset: 0},
@@ -69,10 +77,23 @@ export default class MarkdownProcessor {
 				},
 				id: deterministicEntryId(s.text, idx),
 				attachments: [],
-				isExpanded: false
+				isExpanded: false,
+				precision,
 			})
 		}
 		return units
+	}
+
+	async getAllSentencesRaw(file: TFile, nodes: NodeAndTFile[]): Promise<string[]> {
+		const fileText = await this.plugin.app.vault.cachedRead(file)
+		const all: string[] = []
+		for (const n of nodes) {
+			if (n.file.path !== file.path) continue
+			const paragraphText = fileText.slice(n.node.position?.start.offset, n.node.position?.end.offset)
+			const cleanText = stripMarkdownLinks(paragraphText)
+			all.push(...this.sentencesTokenize(cleanText))
+		}
+		return all
 	}
 
 	async extractValidSentencesFromFile(file: TFile, nodes: NodeAndTFile[]) {

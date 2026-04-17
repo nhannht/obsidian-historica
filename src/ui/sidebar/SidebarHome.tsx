@@ -1,8 +1,6 @@
 import { useMemo } from "react";
 import type HistoricaPlugin from "@/main";
 import { useVaultEntries } from "@/src/ui/global/useVaultEntries";
-import { OnThisDay } from "@/src/ui/global/OnThisDay";
-import { GapPrompts } from "@/src/ui/sidebar/GapPrompts";
 
 interface SidebarHomeProps {
 	plugin: HistoricaPlugin;
@@ -29,9 +27,6 @@ export function SidebarHome({ plugin, message }: SidebarHomeProps) {
 
 	return (
 		<div className="flex flex-col h-full overflow-hidden text-[var(--text-normal)]">
-			{/* On This Day */}
-			{!loading && <OnThisDay entries={entries} />}
-
 			{/* Placeholder message */}
 			<div className="px-4 py-3 text-sm text-[var(--text-muted)] border-b border-[var(--background-modifier-border)]">
 				{message}
@@ -61,9 +56,6 @@ export function SidebarHome({ plugin, message }: SidebarHomeProps) {
 					</div>
 				</div>
 			)}
-
-			{/* Timeline gaps */}
-			<GapPrompts entries={entries} loading={loading} />
 
 			{loading && (
 				<div className="flex-1 flex items-center justify-center text-xs text-[var(--text-muted)]">

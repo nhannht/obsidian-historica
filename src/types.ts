@@ -12,14 +12,12 @@ export type HistoricaSettings = {
 }
 
 export type HistoricaPluginSettings = {
-	autoParseOnSave: boolean;
 	dateDisplayFormat: string;
 	dataDir: string;
 	language: string;
 };
 
 export const DEFAULT_PLUGIN_SETTINGS: HistoricaPluginSettings = {
-	autoParseOnSave: true,
 	dateDisplayFormat: "MMM D, YYYY",
 	dataDir: "historica-data",
 	language: "auto",
@@ -27,7 +25,9 @@ export const DEFAULT_PLUGIN_SETTINGS: HistoricaPluginSettings = {
 
 export type TimelineDocument = {
 	settings:HistoricaSettings,
-	units:TimelineEntry[]
+	units:TimelineEntry[],
+	lastParsedAt?: number,
+	parserVersion?: string,
 }
 
 export type Attachment = {
@@ -51,10 +51,13 @@ export type TimelineEntry = {
 	attachments: Attachment[],
 	isExpanded: boolean,
 	isHidden?: boolean,
+	isDismissed?: boolean,
 	annotation?: string,
 	significance?: 1 | 2 | 3 | 4 | 5,
 	isAnchor?: boolean,
 	eraId?: string,
+	precision?: "full" | "partial" | "approximate",
+	manuallyTagged?: boolean,
 }
 
 export type TimeData =  {

@@ -18,8 +18,8 @@ export function TimelineEmptyState() {
 
 	return (
 		<div className="p-6 flex flex-col items-center gap-3">
-			<p className="text-sm text-[color:--text-muted]">No timeline entries yet</p>
-			<p className="text-xs text-[color:--text-muted] opacity-70 text-center max-w-xs mb-2">Historica finds every date in your writing. Try it on any note with prose — journals, research notes, history essays.</p>
+			<p className="text-sm text-[color:--text-muted]">No dates found yet</p>
+			<p className="text-xs text-[color:--text-muted] opacity-70 text-center max-w-xs mb-2">Historica reads your existing prose and extracts every date it finds. It does not create entries — parse a note that contains dates in its text.</p>
 
 			{currentFile && (
 				<button className={btnPrimary} disabled={isParsing} onClick={() => parseFromFile(currentFile.path)}>

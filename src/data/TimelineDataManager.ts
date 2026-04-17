@@ -127,39 +127,6 @@ export default class TimelineDataManager {
 		return updated;
 	}
 
-	async importFromFile(path: string): Promise<TimelineDocument | null> {
-		const file = this.plugin.app.vault.getAbstractFileByPath(path);
-		if (!(file instanceof TFile)) {
-			new Notice(`File ${path} does not exist or is not a file`, 10000);
-			return null;
-		}
-
-		try {
-			const content = await this.plugin.app.vault.read(file);
-			let data: TimelineDocument;
-
-			if (path.endsWith(".md")) {
-				data = parseHmd(content);
-			} else {
-				data = JSON.parse(content);
-			}
-
-			if (data && data.units && data.units.length > 0) {
-				new Notice(`Imported ${data.units.length} units from ${path}`, 10000);
-				return data;
-			} else if (data && data.units && data.units.length === 0) {
-				new Notice("No units stored in this file", 10000);
-				return null;
-			} else {
-				new Notice("File is corrupted, cannot import", 10000);
-				return null;
-			}
-		} catch {
-			new Notice("Failed to parse file", 10000);
-			return null;
-		}
-	}
-
 	private async ensureDataDir(): Promise<void> {
 		const dir = this.plugin.app.vault.getAbstractFileByPath(this.plugin.dataDir);
 		if (!dir || !(dir instanceof TFolder)) {

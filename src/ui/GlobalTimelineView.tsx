@@ -5,7 +5,6 @@ import type HistoricaPlugin from "@/main";
 import { getNoteTags } from "@/src/utils";
 import { useVaultEntries } from "./global/useVaultEntries";
 import { VirtualCardList } from "./global/VirtualCardList";
-import { OnThisDay } from "./global/OnThisDay";
 import { DensitySparkline } from "./global/DensitySparkline";
 import { FilterBar, FilterState, DEFAULT_FILTERS } from "./global/FilterBar";
 
@@ -85,9 +84,6 @@ function GlobalTimelineRoot({ plugin }: { plugin: HistoricaPlugin }) {
 
 	return (
 		<div className="historica-global-timeline flex flex-col h-full overflow-hidden">
-			{/* On This Day strip */}
-			{!loading && <OnThisDay entries={entries} />}
-
 			{/* Density sparkline */}
 			{!loading && <DensitySparkline entries={entries} />}
 

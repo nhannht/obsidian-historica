@@ -1,12 +1,12 @@
 import {createStore, type StoreApi} from "zustand/vanilla";
 import {temporal} from "zundo";
 import {MarkdownPostProcessorContext, Notice, TFile} from "obsidian";
-import {moment} from "../moment-fix";
 import HistoricaPlugin from "@/main";
 import {TimelineDocument, HistoricaSettings, TimelineEntry} from "@/src/types";
 import {generateRandomId, UpdateBlockSetting} from "@/src/utils";
 import TimelineDataManager, {dataFilePath} from "@/src/data/TimelineDataManager";
 import MarkdownProcessor from "@/src/compute/MarkdownParser";
+import {CURRENT_PARSER_VERSION} from "@/src/compute/ChronoParser";
 
 interface TimelineState {
 	units: TimelineEntry[];
@@ -19,29 +19,30 @@ interface TimelineState {
 	isDirty: boolean;
 	isSaving: boolean;
 	loaded: boolean;
+	isStale: boolean;
+	isVersionMismatch: boolean;
+	coverageStats: {datesFound: number; sentencesScanned: number} | null;
+	unparsedSentences: string[];
+	lastParsedAt: number | undefined;
 	lastAction: "undo" | "redo" | null;
 }
 
 interface TimelineActions {
 	load(): Promise<void>;
 	manualSave(): Promise<void>;
-	addUnit(index: number): Promise<void>;
-	removeUnit(id: string): void;
+	dismissUnit(id: string): void;
 	editUnit(id: string, updatedUnit: TimelineEntry): void;
-	moveUnit(index: number, direction: "up" | "down"): void;
-	reorderUnit(fromIndex: number, toIndex: number): void;
 	sort(order: "asc" | "desc"): void;
 	expandUnit(entry: TimelineEntry, isExpanded: boolean): void;
 	expandAll(willExpand: boolean): void;
 	hideUnit(id: string, isHidden: boolean): void;
 	toggleShowHidden(): void;
 	setSigFilter(n: number): void;
-	removeAll(): void;
 	updateSettings(partial: Partial<HistoricaSettings>): void;
 	editHeaderOrFooter(content: string, type: "header" | "footer"): void;
 	parseFromFile(path: string, autoTriggered?: boolean): Promise<void>;
-	importFromTimeline(path: string): Promise<void>;
 	toggleAutoSave(): void;
+	tagSentence(sentence: string, dateText: string, filePath: string): void;
 	undo(): void;
 	redo(): void;
 }
@@ -100,8 +101,8 @@ export function createTimelineStore(
 	};
 
 	const buildSaveData = (): TimelineDocument => {
-		const {settings, units} = store.getState();
-		return {settings, units};
+		const {settings, units, lastParsedAt} = store.getState();
+		return {settings, units, lastParsedAt, parserVersion: CURRENT_PARSER_VERSION};
 	};
 
 	const store = createStore<TimelineStore>()(temporal((set, get) => ({
@@ -115,6 +116,11 @@ export function createTimelineStore(
 		isDirty: false,
 		isSaving: false,
 		loaded: false,
+		isStale: false,
+		isVersionMismatch: false,
+		coverageStats: null,
+		unparsedSentences: [],
+		lastParsedAt: undefined,
 		lastAction: null,
 
 		async load() {
@@ -123,11 +129,26 @@ export function createTimelineStore(
 				if (settings.blockId !== "-1") {
 					const data = await dataManager.load(settings.blockId);
 					if (data) {
+						// Check if source file has been modified since last parse
+						let isStale = false;
+						if (data.lastParsedAt && data.units.length > 0) {
+							const sourcePath = data.units[0].filePath;
+							const sourceFile = sourcePath
+								? plugin.app.vault.getAbstractFileByPath(sourcePath)
+								: null;
+							if (sourceFile instanceof TFile) {
+								isStale = sourceFile.stat.mtime > data.lastParsedAt;
+							}
+						}
+						const isVersionMismatch = !!data.parserVersion && data.parserVersion !== CURRENT_PARSER_VERSION;
 						set({
 							units: data.units,
 							settings: {...data.settings, autoSave: data.settings.autoSave ?? true},
 							isLoading: false,
 							loaded: true,
+							isStale,
+							isVersionMismatch,
+							lastParsedAt: data.lastParsedAt,
 						});
 						return;
 					}
@@ -152,49 +173,17 @@ export function createTimelineStore(
 			}
 		},
 
-		async addUnit(index: number) {
-			await ensureBlockId();
-			const {units} = get();
-			const newUnit: TimelineEntry = {
-				attachments: [],
-				parsedResultText: "title",
-				time: {value: moment().unix().toString(), style: "unix"},
-				sentence: "main content",
-				filePath: "",
-				id: generateRandomId(),
-				isExpanded: true,
-				nodePos: {start: {line: 1, column: 1}, end: {line: 1, column: 1}},
-			};
-			const before = units.slice(0, index);
-			const after = units.slice(index);
-			set({units: [...before, newUnit, ...after]});
-		},
 
-		removeUnit(id: string) {
-			set({units: get().units.filter(u => u.id !== id)});
+
+		dismissUnit(id: string) {
+			set({units: get().units.map(u => u.id === id ? {...u, isDismissed: true} : u)});
 		},
 
 		editUnit(id: string, updated: TimelineEntry) {
 			set({units: get().units.map(u => u.id === id ? updated : u)});
 		},
 
-		moveUnit(index: number, direction: "up" | "down") {
-			const units = [...get().units];
-			if (direction === "up" && index > 0) {
-				[units[index], units[index - 1]] = [units[index - 1], units[index]];
-			} else if (direction === "down" && index < units.length - 1) {
-				[units[index], units[index + 1]] = [units[index + 1], units[index]];
-			}
-			set({units});
-		},
 
-		reorderUnit(fromIndex: number, toIndex: number) {
-			if (fromIndex === toIndex) return;
-			const units = [...get().units];
-			const [moved] = units.splice(fromIndex, 1);
-			units.splice(toIndex, 0, moved);
-			set({ units });
-		},
 
 		sort(order: "asc" | "desc") {
 			const {units} = get();
@@ -240,9 +229,6 @@ export function createTimelineStore(
 			set({sigFilter: n});
 		},
 
-		removeAll() {
-			set({units: []});
-		},
 
 		updateSettings(partial: Partial<HistoricaSettings>) {
 			set({settings: {...get().settings, ...partial}});
@@ -269,6 +255,13 @@ export function createTimelineStore(
 					: await parser.parseFilesAndGetNodeData(file);
 				const sentences = await parser.extractValidSentencesFromFile(file, nodes);
 				const parsed = await parser.getPlotUnits(sentences);
+
+				const allRaw = await parser.getAllSentencesRaw(file, nodes);
+				const matchedTexts = new Set(sentences.map(s => s.text));
+				set({
+					coverageStats: {datesFound: parsed.length, sentencesScanned: sentences.length},
+					unparsedSentences: allRaw.filter(t => t.length >= 15 && !matchedTexts.has(t)),
+				});
 
 				if (parsed.length === 0) {
 					if (!autoTriggered) new Notice("No dates found in this file", 5000);
@@ -306,7 +299,7 @@ export function createTimelineStore(
 				const finalSettings = isNewBlock
 					? {...settings, blockId: generateRandomId()}
 					: settings;
-				set({units: merged, settings: finalSettings});
+				set({units: merged, settings: finalSettings, isStale: false, lastParsedAt: Date.now()});
 
 				// Save data BEFORE writing blockId to markdown.
 				// Writing blockId triggers Obsidian to re-render the block (new store + load()).
@@ -323,13 +316,33 @@ export function createTimelineStore(
 			}
 		},
 
-		async importFromTimeline(path: string) {
-			const {units} = get();
-			await ensureBlockId();
-			const data = await dataManager.importFromFile(path);
-			if (data) {
-				set({units: [...units, ...data.units]});
+
+
+		tagSentence(sentence: string, dateText: string, filePath: string) {
+			const {settings} = get();
+			const lang = settings.language ?? plugin.pluginSettings.language ?? "auto";
+			const chrono = plugin.historicaChrono.getParserForLanguage(dateText, lang);
+			const results = chrono.parse(dateText);
+			if (results.length === 0) {
+				new Notice("Could not parse that date — try a format like 'March 1492' or '15 Jan 1600'", 4000);
+				return;
 			}
+			const result = results[0];
+			const entry: TimelineEntry = {
+				id: generateRandomId(),
+				sentence,
+				filePath,
+				parsedResultText: result.text,
+				time: {value: result.date().getTime().toString(), style: "unix"},
+				attachments: [],
+				isExpanded: false,
+				precision: "approximate",
+				manuallyTagged: true,
+			};
+			set({
+				units: [...get().units, entry],
+				unparsedSentences: get().unparsedSentences.filter(s => s !== sentence),
+			});
 		},
 
 		toggleAutoSave() {

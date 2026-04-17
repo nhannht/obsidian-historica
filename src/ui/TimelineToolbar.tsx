@@ -33,6 +33,8 @@ export function TimelineToolbar(props: {
 	const toggleAutoSave = useTimelineStore(s => s.toggleAutoSave);
 	const parseFromFile = useTimelineStore(s => s.parseFromFile);
 	const isParsing = useTimelineStore(s => s.isParsing);
+	const isStale = useTimelineStore(s => s.isStale);
+	const coverageStats = useTimelineStore(s => s.coverageStats);
 
 	const [isCollapsed, setIsCollapsed] = useState(false);
 	const markdownFiles = useMemo(() => getAllMarkdownFileInVault(plugin), [plugin]);
@@ -72,9 +74,34 @@ export function TimelineToolbar(props: {
 						Historica
 					</span>
 					<span className="text-[color:--text-muted]">{visibleCount} entries{hiddenCount > 0 ? ` (${hiddenCount} hidden)` : ""}</span>
+					{isStale && (
+						<button
+							className="text-[color:--text-muted] opacity-60 hover:opacity-100 hover:text-[color:--text-accent] cursor-pointer"
+							title="Source file changed since last extraction — re-parse to update"
+							onClick={() => {
+								const f = plugin.app.workspace.getActiveFile();
+								if (f) parseFromFile(f.path);
+							}}
+						>
+							↻
+						</button>
+					)}
 				</div>
 				<span className={saveStatusColor}>{saveStatus}</span>
 			</div>
+
+			{coverageStats && (
+				<div className="flex items-center gap-1.5 pb-0.5 text-[10px] text-[color:var(--text-faint)]">
+					<span className="font-mono">{coverageStats.datesFound} dates</span>
+					<span>·</span>
+					<span className="font-mono">{coverageStats.sentencesScanned} sentences</span>
+					{coverageStats.sentencesScanned > 0 && (
+						<span className="opacity-50 font-mono">
+							{Math.round((coverageStats.datesFound / coverageStats.sentencesScanned) * 100)}%
+						</span>
+					)}
+				</div>
+			)}
 
 			{!isCollapsed && (
 				<div className="flex items-center gap-1 flex-wrap">

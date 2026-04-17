@@ -10,19 +10,6 @@ export class HistoricaSettingsTab extends PluginSettingTab {
 		const { containerEl } = this;
 		containerEl.empty();
 
-		// ── Behaviour ──────────────────────────────────────────────────────────
-		new Setting(containerEl)
-			.setName("Auto-parse on save")
-			.setDesc("Automatically extract dates from a note whenever you save it. Disable if you prefer to trigger parsing manually.")
-			.addToggle(toggle =>
-				toggle
-					.setValue(this.plugin.pluginSettings.autoParseOnSave)
-					.onChange(async value => {
-						this.plugin.pluginSettings.autoParseOnSave = value;
-						await this.plugin.savePluginSettings();
-					})
-			);
-
 		new Setting(containerEl)
 			.setName("Date display format")
 			.setDesc("moment.js format string used when displaying dates in timeline cards (e.g. MMM D, YYYY · YYYY-MM-DD).")

@@ -5,6 +5,8 @@ import {franc} from "franc";
 import {moment} from "../moment-fix";
 
 
+export const CURRENT_PARSER_VERSION = "1";
+
 const BCEpattern: RegExp[] = [
 	/\b(\d{1,4})\s+B\.?C\.?E?\.?\b/i,
 	/\b(\d{1,4})\s+Before\s+\w{1,2}\s+Christ\b/i,

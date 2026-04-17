@@ -21,7 +21,6 @@ export function TimelineContextMenu(props: {
 	const settings = useTimelineStore(s => s.settings);
 	const sort = useTimelineStore(s => s.sort);
 	const expandAll = useTimelineStore(s => s.expandAll);
-	const removeAll = useTimelineStore(s => s.removeAll);
 	const parseFromFile = useTimelineStore(s => s.parseFromFile);
 	const isParsing = useTimelineStore(s => s.isParsing);
 
@@ -44,7 +43,6 @@ export function TimelineContextMenu(props: {
 				</ContextMenuSub>
 				<ContextMenuItem onClick={() => expandAll(true)}>Expand All</ContextMenuItem>
 				<ContextMenuItem onClick={() => expandAll(false)}>Fold All</ContextMenuItem>
-				<ContextMenuItem onClick={removeAll}>Remove All</ContextMenuItem>
 				<ContextMenuSub>
 					<ContextMenuSubTrigger disabled={isParsing}>{isParsing ? "Parsing..." : "Parse timeline from file"}</ContextMenuSubTrigger>
 					<ContextMenuSubContent>

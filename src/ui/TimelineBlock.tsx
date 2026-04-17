@@ -9,6 +9,7 @@ import {TimelineContextMenu} from "@/src/ui/TimelineContextMenu";
 import {TimelineEmptyState} from "@/src/ui/TimelineEmptyState";
 import {TimelineProvider, VaultFilesProvider} from "@/src/ui/TimelineContext";
 import {GetAllFileInVault} from "@/src/utils";
+import {UnparsedPanel} from "@/src/ui/UnparsedPanel";
 
 export function TimelineBlock(props: {
 	store: StoreApi<TimelineStore>;
@@ -21,6 +22,7 @@ export function TimelineBlock(props: {
 	const isLoading = useStore(store, s => s.isLoading);
 	const isParsing = useStore(store, s => s.isParsing);
 	const error = useStore(store, s => s.error);
+	const isVersionMismatch = useStore(store, s => s.isVersionMismatch);
 
 	const isUnsaved =
 		settings.blockId !== "-1" &&
@@ -84,6 +86,11 @@ export function TimelineBlock(props: {
 						<span>Not yet saved — entries won't appear in Global Timeline until saved</span>
 					</div>
 				)}
+				{isVersionMismatch && (
+					<div className="flex items-center gap-1.5 px-3 py-1 text-xs text-[color:var(--text-muted)] bg-[var(--background-secondary)] border-b border-[var(--background-modifier-border)]">
+						<span>Parsed with an older extractor version — re-extract to update.</span>
+					</div>
+				)}
 				<TimelineToolbar timelineRef={timelineRef} />
 				<TimelineContextMenu timelineRef={timelineRef}>
 					<div className="relative p-4 overflow-hidden">
@@ -107,6 +114,7 @@ export function TimelineBlock(props: {
 						)}
 					</div>
 				</TimelineContextMenu>
+				<UnparsedPanel />
 			</div>
 		</VaultFilesProvider>
 		</TimelineProvider>
