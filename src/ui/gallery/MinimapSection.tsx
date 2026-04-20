@@ -36,12 +36,15 @@ function MinimapDemo({
 	yearMin,
 	yearMax,
 	initialRange,
+	initialFilter,
 }: {
 	yearMin: number
 	yearMax: number
 	initialRange: [number, number]
+	initialFilter?: [number, number]
 }) {
-	const [range, setRange] = useState<[number, number]>(initialRange)
+	const [range, setRange]   = useState<[number, number]>(initialRange)
+	const [filter, setFilter] = useState<[number, number] | undefined>(initialFilter)
 	return (
 		<div style={{ display: "flex", alignItems: "center", gap: 8 }}>
 			<div style={{ flex: 1, minWidth: 0 }}>
@@ -51,6 +54,8 @@ function MinimapDemo({
 					yearRange={range}
 					onYearRangeChange={setRange}
 					positionedEntries={MOCK_ENTRIES}
+					filterRange={filter}
+					onFilterRangeChange={initialFilter ? setFilter : undefined}
 				/>
 			</div>
 			<StatPill value={`sig ≥ 1 · ${MOCK_ENTRIES.length} events`} />
@@ -62,14 +67,25 @@ export function MinimapSection() {
 	return (
 		<Section id="minimap" title="Timeline Minimap">
 			<Row gap={16}>
-				<Tile label="full range selected (default)">
-					<MinimapDemo yearMin={1938} yearMax={1946} initialRange={[1938, 1946]} />
+				<Tile label="view box only — no filter bar">
+					<MinimapDemo
+						yearMin={1938} yearMax={1946}
+						initialRange={[1939, 1944]}
+					/>
 				</Tile>
-				<Tile label="partial range — handles visible">
-					<MinimapDemo yearMin={1938} yearMax={1946} initialRange={[1939, 1944]} />
+				<Tile label="view box + filter bar — both interactive">
+					<MinimapDemo
+						yearMin={1938} yearMax={1946}
+						initialRange={[1939, 1944]}
+						initialFilter={[1940, 1945]}
+					/>
 				</Tile>
-				<Tile label="narrow zoom — right side">
-					<MinimapDemo yearMin={1938} yearMax={1946} initialRange={[1943, 1946]} />
+				<Tile label="full range selected + filter narrow">
+					<MinimapDemo
+						yearMin={1938} yearMax={1946}
+						initialRange={[1938, 1946]}
+						initialFilter={[1941, 1943]}
+					/>
 				</Tile>
 			</Row>
 		</Section>
