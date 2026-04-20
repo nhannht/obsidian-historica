@@ -18,7 +18,7 @@ import { entrySig } from "@/src/utils"
 const NUM_BUCKETS  = 30
 const DENSITY_H    = 16   // max density bar height in px
 const TRACK_Y      = 20   // y where the track starts (density bars fill 0..TRACK_Y)
-const TRACK_H      = 6    // track height
+const TRACK_H      = 8    // track height
 const TAB_W        = 18   // view-box top tab width
 const TAB_H        = 12   // view-box top tab height
 const DIAMOND      = 12   // diamond handle bounding box size (width & height)
@@ -240,8 +240,8 @@ export function TimelineMinimap({
 					</rect>
 				)}
 
-				{/* View box — light fill so it's visible in production (no filter bar),
-				     outline stroke marks it as a distinct frame above the filter bar */}
+				{/* View box — filled + outlined so it reads as a distinct framed box.
+				     Opacity drops when filter bar is present so filter bar dominates. */}
 				<rect
 					x={`${leftFrac * 100}%`}
 					y={TRACK_Y}
@@ -249,9 +249,9 @@ export function TimelineMinimap({
 					height={TRACK_H}
 					rx={2}
 					fill="var(--interactive-accent)"
-					fillOpacity={hasFilter ? 0.12 : 0.4}
 					stroke="var(--interactive-accent)"
-					strokeWidth={1.5}
+					strokeWidth={2}
+					opacity={hasFilter ? 0.25 : 0.65}
 				>
 					<title>{`Viewing: ${Math.round(leftYear)} – ${Math.round(rightYear)}`}</title>
 				</rect>
