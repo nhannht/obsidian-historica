@@ -29,7 +29,7 @@ export function SignificanceBars() {
 											background: "var(--interactive-accent)", opacity: 0.75,
 											flexShrink: 0, marginRight: 2, marginBottom: 1,
 										}}/>
-										<SignalBars sig={sig} size="md"/>
+										<SignalBars sig={sig}/>
 									</div>
 								)}
 								<span style={{fontSize: 9, fontFamily: "monospace", color: "var(--text-faint)"}}>{label}</span>

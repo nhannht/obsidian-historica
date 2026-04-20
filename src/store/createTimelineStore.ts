@@ -42,7 +42,8 @@ interface TimelineActions {
 	editHeaderOrFooter(content: string, type: "header" | "footer"): void;
 	parseFromFile(path: string, autoTriggered?: boolean): Promise<void>;
 	toggleAutoSave(): void;
-	tagSentence(sentence: string, dateText: string, filePath: string): void;
+	toggleAnchorOnUnit(id: string): void;
+	tagSentence(sentence: string, dateText: string, filePath: string): Promise<void>;
 	undo(): void;
 	redo(): void;
 }
@@ -101,8 +102,8 @@ export function createTimelineStore(
 	};
 
 	const buildSaveData = (): TimelineDocument => {
-		const {settings, units, lastParsedAt} = store.getState();
-		return {settings, units, lastParsedAt, parserVersion: CURRENT_PARSER_VERSION};
+		const {settings, units, unparsedSentences, lastParsedAt} = store.getState();
+		return {settings, units, unparsedSentences, lastParsedAt, parserVersion: CURRENT_PARSER_VERSION};
 	};
 
 	const store = createStore<TimelineStore>()(temporal((set, get) => ({
@@ -143,6 +144,7 @@ export function createTimelineStore(
 						const isVersionMismatch = !!data.parserVersion && data.parserVersion !== CURRENT_PARSER_VERSION;
 						set({
 							units: data.units,
+							unparsedSentences: data.unparsedSentences ?? [],
 							settings: {...data.settings, autoSave: data.settings.autoSave ?? true},
 							isLoading: false,
 							loaded: true,
@@ -318,7 +320,7 @@ export function createTimelineStore(
 
 
 
-		tagSentence(sentence: string, dateText: string, filePath: string) {
+		async tagSentence(sentence: string, dateText: string, filePath: string) {
 			const {settings} = get();
 			const lang = settings.language ?? plugin.pluginSettings.language ?? "auto";
 			const chrono = plugin.historicaChrono.getParserForLanguage(dateText, lang);
@@ -339,10 +341,22 @@ export function createTimelineStore(
 				precision: "approximate",
 				manuallyTagged: true,
 			};
+			const isNewBlock = settings.blockId === "-1";
+			const finalSettings = isNewBlock
+				? {...settings, blockId: generateRandomId()}
+				: settings;
 			set({
 				units: [...get().units, entry],
 				unparsedSentences: get().unparsedSentences.filter(s => s !== sentence),
+				settings: finalSettings,
 			});
+			// New block: setupAutoSave skips blockId === "-1", so save explicitly.
+			// Save data first, then write blockId to fence (same ordering as parseFromFile).
+			if (isNewBlock) {
+				await dataManager.save(buildSaveData());
+				set({isDirty: false});
+				if (ctx) await UpdateBlockSetting(finalSettings, ctx, plugin);
+			}
 		},
 
 		toggleAutoSave() {
@@ -353,6 +367,13 @@ export function createTimelineStore(
 				dataManager.save(buildSaveData())
 					.catch((e) => console.error("Failed to persist autoSave preference:", e));
 			}
+		},
+
+		toggleAnchorOnUnit(id: string) {
+			const units = get().units;
+			const unit = units.find(u => u.id === id);
+			if (!unit) return;
+			set({units: units.map(u => u.id === id ? {...u, isAnchor: !u.isAnchor || undefined} : u)});
 		},
 
 		undo() {

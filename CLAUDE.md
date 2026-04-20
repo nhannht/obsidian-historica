@@ -140,6 +140,8 @@ src/
   moment-fix.ts                      -- moment type shim
   data/
     TimelineDataManager.ts           -- vault I/O for timeline data
+    VaultIndexManager.ts             -- cross-vault anchor index (_index.json)
+    HmdParser.ts                     -- HMD format parser/serializer
   compute/
     MarkdownParser.ts                -- markdown AST to sentences
     ChronoParser.ts                  -- chrono-node date extraction
@@ -148,27 +150,81 @@ src/
   backgroundLogic/
     HistoricaBlockManager.tsx        -- code block processor
   ui/
-    TimelineBlock.tsx                -- top-level React component
-    TimelineI.tsx                    -- timeline visualization
+    gallery/                         -- DESIGN SYSTEM (source of truth, see below)
+      GlobalTimelineSection.tsx      -- gallery spec for global timeline
+      EntryCard.tsx                  -- gallery spec for entry card
+      ContextMenuSection.tsx         -- gallery spec for context menu
+      ToolbarSection.tsx             -- gallery spec for toolbar
+      BlockTimeline.tsx              -- gallery spec for block timeline
+      ... (other gallery sections)
+    global/                          -- actual global timeline view implementation
+    sidebar/                         -- sidebar view implementation
+    TimelineBlock.tsx                -- top-level block React component
+    TimelineSpine.tsx                -- timeline spine + axis + virtualizer
     SinglePlotUnit.tsx               -- individual plot unit card
-    SinglePlotUnitEditor.tsx         -- rich text editor for units
-    HeaderAndFooterEditor.tsx        -- header/footer editor
+    TimelineToolbar.tsx              -- toolbar controls
     TimelineGeneral.tsx              -- Content + AttachmentPlot
-    ImageFromPath.tsx                -- image loader
-    AttachmentEditor.tsx             -- attachment management
+    NativeContextMenu.tsx            -- right-click context menu (no Radix)
+    NativeDropdownMenu.tsx           -- toolbar dropdown menu (no Radix)
+    HoverTooltip.tsx                 -- hover tooltip (no Radix)
+    FilePicker.tsx                   -- file search picker (no cmdk)
     ShortendableParagraph.tsx        -- text truncation
-    shadcn/                          -- shadcn/ui components
+    RugHeat.tsx                      -- tick rug + density stripe heatmap
+    TimelineMinimap.tsx              -- minimap strip
+    ImageFromPath.tsx                -- image loader
   style/                             -- CSS
 ```
 
 ### UI Layer
 
-- React 19 with shadcn/ui components (`src/ui/shadcn/`) built on Radix UI primitives
-- Zustand for state management -- each block gets its own store instance
-- Rich text editing via react-quill-new (`SinglePlotUnitEditor.tsx`, `HeaderAndFooterEditor.tsx`)
-- TailwindCSS with scoped preflight to avoid leaking styles into Obsidian
-- Context menus for per-unit and global timeline operations
+- React 19, **no Radix UI / shadcn** — all primitives are native React+CSS using Obsidian CSS vars
+- Zustand for state management — each block gets its own store instance
+- TailwindCSS v4 with scoped preflight to avoid leaking styles into Obsidian
+- Context menus: `NativeContextMenu` (right-click) and `NativeDropdownMenu` (toolbar buttons)
 - HTML sanitization via `sanitizeHtml()` on all rendered HTML content
+
+### Design System — Gallery is Source of Truth (Storybook pattern)
+
+**`src/ui/gallery/`** is a live component showcase (like Storybook). The gallery is the **source of truth** for all UI in this project.
+
+#### The iron rule: one component, two consumers
+
+Every visible UI element must be a **shared React component** in `src/ui/`. The gallery renders it with mock data. Production renders the exact same component with real data. There is no third option.
+
+- **Never** write inline styles in production that duplicate what a shared component does.
+- **Never** copy-paste JSX between gallery and production — extract it into a component.
+- **Never** pass different layout JSX to a shared component's render slots if it produces visually different output. If gallery and production look different, they are NOT sharing a component — fix it.
+- **"Shared style tokens" is not sharing.** Exporting a `CSSProperties` object and using it in two places is NOT component reuse. The component itself (JSX + styles + structure) must be shared.
+
+#### Mock data must be enriched — show everything
+
+Gallery mock data must exercise **every conditional branch** so all UI elements are visible. Never pass null/empty/zero values that cause sections to disappear. If a component has `{stats && (...)}` or `{hiddenCount > 0 && (...)}`, the gallery must pass data that makes those branches render. The gallery should show the richest possible state — the user needs to see every element the component can produce.
+
+#### How to add a new UI element
+
+1. Create the component in `src/ui/` (e.g. `TimelineToolbarUI.tsx`)
+2. Add a gallery section that imports and renders it with sample props
+3. Import the same component in production, pass real data via props or a thin wrapper that reads from the store
+4. Verify: gallery and production must render **pixel-identical** structure (data values differ, layout does not)
+
+#### Consequence: if gallery and production differ visually, production is wrong
+
+The gallery defines what the component looks like. If production renders differently — wrong borders, extra buttons, different spacing — production is using a different code path. Fix production to use the shared component, or update the shared component to handle both cases via props.
+
+#### Gallery sections and the shared components they showcase
+
+| Gallery section | Shared component(s) used |
+|---|---|
+| `gallery/GlobalTimelineSection.tsx` | `RugHeat`, entry row layout |
+| `gallery/BlockTimeline.tsx` | `TimelineToolbarUI`, `PrecisionGutter`, `SignalBars`, `DateChip` |
+| `gallery/ContextMenuSection.tsx` | `NativeContextMenu`, `NativeDropdownMenu` |
+| `gallery/ToolbarSection.tsx` | `TimelineToolbarUI` |
+| `gallery/FilePickerSection.tsx` | `FilePicker` |
+| `gallery/BadgeSection.tsx` | `ManualBadge` |
+| `gallery/EntryCard.tsx` | `PrecisionGutter`, `DateChip`, `ManualBadge`, `AnnotationBlock` |
+| `gallery/SignificanceBars.tsx` | `SignalBars` |
+| `gallery/PrecisionBar.tsx` | `PrecisionGutter` |
+| `gallery/LoadingStates.tsx` | `Spinner` |
 
 ## Obsidian API Documentation (Context7)
 
@@ -190,7 +246,7 @@ mcp__context7__query-docs(libraryId: "/websites/obsidian_md_plugins", query: "yo
 ## Build System
 
 - **Bundler**: esbuild (`esbuild.config.mjs`) — outputs CommonJS `main.js`
-- **CSS**: TailwindCSS 3 with `tailwindcss-scoped-preflight` to isolate styles
+- **CSS**: TailwindCSS v4 with `tailwindcss-scoped-preflight` to isolate styles
 - **TypeScript**: Strict mode, ES6 target, path alias `@/*` → project root
 - **SVG**: Imported as React components via `esbuild-plugin-svgr`
 - **Externals**: `obsidian`, `electron`, `@codemirror/*`, `@lezer/*`
@@ -253,7 +309,7 @@ Serena includes the symbol signature in the `body` param but does NOT remove the
 
 **Always pass `projectPath`:**
 ```
-projectPath="/home/ubuntu/nhannht-projects/obsidian-historica"
+projectPath="/home/larvartar/nhannht-projects/obsidian-historica"
 ```
 
 ### Decision flowchart

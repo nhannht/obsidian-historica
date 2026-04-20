@@ -112,6 +112,8 @@ export default class TimelineDataManager {
 		// Update vault index — fire and forget, never block the save path
 		const notePath = data.units[0]?.filePath ?? "";
 		this.plugin.vaultIndex.updateEntry(blockId, notePath, data.units.length);
+		const anchorUnits = data.units.filter(u => u.isAnchor);
+		this.plugin.vaultIndex.updateAnchors(blockId, anchorUnits);
 	}
 
 	async ensureBlockId(

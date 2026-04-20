@@ -1,4 +1,6 @@
 import {Section} from "./helpers";
+import {DateChip} from "../DateChip";
+import {SectionLabel} from "../SectionLabel";
 
 export function TypeScale() {
 	return (
@@ -11,7 +13,7 @@ export function TypeScale() {
 			}}>
 				<div style={{display: "flex", alignItems: "baseline", gap: 24}}>
 					<span style={{fontSize: 9, fontFamily: "monospace", color: "var(--text-faint)", minWidth: 60}}>9px mono</span>
-					<span style={{fontSize: 9, fontFamily: "monospace", color: "var(--text-faint)", letterSpacing: "0.1em", textTransform: "uppercase"}}>SOURCE · MANUAL · ~3Y GAP</span>
+					<SectionLabel>SOURCE · MANUAL · ~3Y GAP</SectionLabel>
 				</div>
 				<div style={{display: "flex", alignItems: "baseline", gap: 24}}>
 					<span style={{fontSize: 9, fontFamily: "monospace", color: "var(--text-faint)", minWidth: 60}}>10px sc</span>
@@ -19,19 +21,8 @@ export function TypeScale() {
 				</div>
 				<div style={{display: "flex", alignItems: "baseline", gap: 24}}>
 					<span style={{fontSize: 9, fontFamily: "monospace", color: "var(--text-faint)", minWidth: 60}}>11px mono</span>
-					<span style={{
-						fontFamily: "monospace", fontSize: 11,
-						color: "var(--text-accent)",
-						background: "color-mix(in srgb, var(--interactive-accent) 10%, transparent)",
-						padding: "2px 7px", borderRadius: 3,
-					}}>March 1492</span>
-					<span style={{
-						fontFamily: "monospace", fontSize: 11,
-						color: "var(--text-faint)",
-						padding: "2px 7px",
-						border: "1px dashed color-mix(in srgb, var(--text-faint) 40%, transparent)",
-						borderRadius: 3,
-					}}>~1490s</span>
+					<DateChip variant="normal">March 1492</DateChip>
+					<DateChip variant="approximate">~1490s</DateChip>
 				</div>
 				<div style={{display: "flex", alignItems: "baseline", gap: 24}}>
 					<span style={{fontSize: 9, fontFamily: "monospace", color: "var(--text-faint)", minWidth: 60}}>12px ui</span>

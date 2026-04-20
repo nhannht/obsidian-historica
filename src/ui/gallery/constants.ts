@@ -1,6 +1,4 @@
-export const SIG_LEVELS = [1, 2, 3, 4, 5] as const;
-export const PILL_RADIUS = 9999;
-export const BOUNCE_DELAYS = [0, 0.15, 0.3] as const;
+export {SIG_LEVELS} from "../constants";
 
 export const NAV_SECTIONS = [
 	{id: "type-scale",        label: "Type"},

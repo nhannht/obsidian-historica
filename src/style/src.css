@@ -98,6 +98,11 @@
 
 /* shadcn @layer base removed — Obsidian provides its own body/border styles */
 
+.historica-source-pill:hover {
+	color: var(--text-accent) !important;
+	opacity: 1 !important;
+}
+
 .historica-no-scrollbar {
 	scrollbar-width: none;
 	-ms-overflow-style: none;

@@ -8,6 +8,9 @@ import {FilePicker} from "@/src/ui/FilePicker";
 import {Check} from "@/src/ui/icons";
 import {NativeContextMenu} from "@/src/ui/NativeContextMenu";
 import {HoverTooltip} from "@/src/ui/HoverTooltip";
+import {ManualBadge, AnchorBadge} from "@/src/ui/ManualBadge";
+import {SourceFilePill} from "@/src/ui/SourceFilePill";
+import {EntryCardUI} from "@/src/ui/EntryCardUI";
 
 export const SinglePlotUnit = React.memo(function SinglePlotUnit(props: {
 	unit: TimelineEntry,
@@ -20,9 +23,10 @@ export const SinglePlotUnit = React.memo(function SinglePlotUnit(props: {
 	const editUnit = useTimelineStore(s => s.editUnit);
 	const expandUnit = useTimelineStore(s => s.expandUnit);
 	const hideUnit = useTimelineStore(s => s.hideUnit);
+	const toggleAnchorOnUnit = useTimelineStore(s => s.toggleAnchorOnUnit);
 
 	const [annotation, setAnnotation] = useState(props.unit.annotation ?? "");
-	const [showSigBars, setShowSigBars] = useState(false);
+
 
 	function handleAddAttachment(id: string, filePath: string) {
 		const attachments: Attachment[] = props.unit.attachments
@@ -49,11 +53,14 @@ export const SinglePlotUnit = React.memo(function SinglePlotUnit(props: {
 
 	const isHidden  = props.unit.isHidden ?? false
 	const isAnchor  = props.unit.isAnchor ?? false
-	const sigSet    = props.unit.significance !== undefined
-	const sig       = props.unit.significance ?? 0
+	const sig       = props.unit.significance ?? (isAnchor ? 3 : 2)
 
 	const manualBadge = props.unit.manuallyTagged
-		? <span className="shrink-0 px-1 py-0.5 text-[9px] rounded border border-[--background-modifier-border] text-[color:var(--text-faint)] opacity-70" title="Manually tagged — not auto-extracted">manual</span>
+		? <ManualBadge title="Manually tagged — not auto-extracted"/>
+		: null;
+
+	const anchorBadge = isAnchor
+		? <AnchorBadge title={`From anchor pack: ${props.unit.filePath}`}/>
 		: null;
 
 	const precisionOpacity = props.unit.precision === "full" ? 1 : props.unit.precision === "partial" ? 0.45 : 0.15;
@@ -64,171 +71,72 @@ export const SinglePlotUnit = React.memo(function SinglePlotUnit(props: {
 			? "Precision: partial (year certain)"
 			: "Precision: approximate (year inferred)";
 
-	const chipStyle: React.CSSProperties = isApproximate
-		? {fontFamily: "monospace", fontSize: 11, color: "var(--text-faint)", opacity: 0.6, border: "1px dashed color-mix(in srgb, var(--text-faint) 40%, transparent)", padding: "2px 6px", borderRadius: 3, flexShrink: 0}
-		: isAnchor
-		? {fontFamily: "monospace", fontSize: 11, color: "var(--text-faint)", background: "color-mix(in srgb, var(--background-primary-alt) 50%, transparent)", padding: "2px 6px", borderRadius: 3, flexShrink: 0}
-		: {fontFamily: "monospace", fontSize: 11, color: "var(--text-accent)", background: "color-mix(in srgb, var(--interactive-accent) 10%, transparent)", padding: "2px 6px", borderRadius: 3, flexShrink: 0};
+	const chipVariant = isApproximate ? "approximate" as const : isAnchor ? "anchor" as const : "normal" as const;
 
 	return (
-		<div key={props.unit.id} className={`relative pl-2 py-1 group ${isHidden ? "opacity-40" : ""}`}>
-			<div
-				style={{position: "absolute", left: 0, top: 2, bottom: 2, width: 3, backgroundColor: "var(--interactive-accent)", opacity: precisionOpacity, borderRadius: 2}}
-				title={precisionTitle}
-			/>
-
-			{/* Compact: chip + sentence preview + expand chevron */}
-			{!props.unit.isExpanded && (
-				<div
-					className="flex items-center gap-2 cursor-pointer hover:bg-[--background-modifier-hover] rounded px-1 py-0.5"
-					onClick={() => expandUnit(props.unit, true)}
-				>
-					<span style={chipStyle}>{props.unit.parsedResultText}</span>
-					{manualBadge}
-					<span className="text-xs text-[color:--text-muted] truncate flex-1">{truncatedSentence}</span>
-					<svg className="w-3 h-3 shrink-0 opacity-40 group-hover:opacity-70 text-[color:--text-faint]" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 2L8 6L4 10"/></svg>
-				</div>
-			)}
-
-			{/* Expanded: card surface wrapping chip + controls + content */}
-			{props.unit.isExpanded && (
-				<div style={{borderRadius: 5, padding: "8px 12px", marginTop: 4, border: isApproximate ? "1px dashed var(--background-modifier-border)" : "1px solid var(--background-modifier-border)", background: isApproximate ? "transparent" : "var(--background-secondary)"}}>
-					{/* Chip — own row above controls */}
-					<div className="mb-1.5 flex items-center gap-1.5">
-						<span style={chipStyle}>{props.unit.parsedResultText}</span>
-						{manualBadge}
-					</div>
-
-					{/* Controls row: collapse + jump + sig dots */}
-					<div className="flex items-center gap-2 mb-2">
-						<span
-							className="text-xs text-[color:--text-muted] cursor-pointer hover:text-[color:--text-accent] flex items-center"
-							onClick={() => expandUnit(props.unit, false)}
-							title="Collapse"
-						>
-							<svg className="w-3 h-3" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2"><path d="M2 8L6 4L10 8"/></svg>
-						</span>
-						<span
-							className="text-xs text-[color:--text-muted] cursor-pointer hover:text-[color:--text-accent] flex items-center"
-							onClick={async (e) => {
-								e.stopPropagation();
-								await JumpToSource(props.unit.nodePos, props.unit.filePath, props.unit.sentence, plugin)
+		<EntryCardUI
+			expanded={!!props.unit.isExpanded}
+			isHidden={isHidden}
+			isApproximate={isApproximate}
+			precisionOpacity={precisionOpacity}
+			precisionTitle={precisionTitle}
+			chipVariant={chipVariant}
+			chipText={props.unit.parsedResultText}
+			badges={<>{manualBadge}{anchorBadge}</>}
+			truncatedSentence={truncatedSentence}
+			onExpand={() => expandUnit(props.unit, true)}
+			onCollapse={() => expandUnit(props.unit, false)}
+			onJumpToSource={async () => await JumpToSource(props.unit.nodePos, props.unit.filePath, props.unit.sentence, plugin)}
+			sig={sig}
+			onSigChange={n => editUnit(props.unit.id, {...props.unit, significance: n as 1|2|3|4|5})}
+			contentSlot={
+				<NativeContextMenu items={[
+					{type: "item", label: "Jump to source", onClick: async () => await JumpToSource(props.unit.nodePos, props.unit.filePath, props.unit.sentence, plugin)},
+					{type: "item", label: "Add attachment ›", submenuContent: (
+						<FilePicker
+							files={allFiles}
+							placeholder="Search attachments"
+							emptyText="No attachments"
+							onSelect={(value) => {
+								const existing = props.unit.attachments.find(a => a.path === value);
+								if (existing) handleRemoveAttachment(props.unit.id, existing.id);
+								else handleAddAttachment(props.unit.id, value);
 							}}
-							title="Jump to source"
-						>
-							<svg className="w-3 h-3" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M5 2H2v8h8V7"/><path d="M7 1h4v4"/><line x1="11" y1="1" x2="6" y2="6"/></svg>
-						</span>
-						<div className="flex items-center gap-1.5 ml-auto">
-							{!sigSet && !showSigBars && (
-								<button
-									className="text-[10px] text-[color:var(--text-faint)] opacity-50 hover:opacity-100 hover:text-[color:var(--text-accent)] cursor-pointer px-1 py-0.5 rounded"
-									onClick={e => { e.stopPropagation(); setShowSigBars(true); }}
-									title="Assign significance"
-								>Set sig</button>
-							)}
-							{(sigSet || showSigBars) && (
+							renderItem={(f) => (
 								<>
-									{sigSet && (
-										<span
-											style={{width: 5, height: 5, borderRadius: "50%", backgroundColor: "var(--interactive-accent)", opacity: 0.7, flexShrink: 0}}
-											title="Significance set by you"
-										/>
-									)}
-									<div className="flex items-end gap-0.5 cursor-pointer" title={sigSet ? `Significance ${sig}/5` : "Click a bar to set"}>
-										{([1, 2, 3, 4, 5] as const).map(n => {
-											const filled = sigSet && n <= sig;
-											return (
-												<button
-													key={n}
-													className="w-2 rounded-sm cursor-pointer transition-all"
-													style={{
-														height: `${n * 5 + 3}px`,
-														backgroundColor: filled ? "var(--interactive-accent)" : "transparent",
-														border: `1.5px solid ${filled ? "var(--interactive-accent)" : "color-mix(in srgb, var(--text-faint) 40%, transparent)"}`,
-														opacity: filled ? 1 : 0.4,
-													}}
-													onClick={e => {
-														e.stopPropagation();
-														editUnit(props.unit.id, {...props.unit, significance: n});
-														setShowSigBars(false);
-													}}
-													title={`Set significance to ${n}/5`}
-												/>
-											)
-										})}
-									</div>
+									<Check style={{width: 16, height: 16, marginRight: 8, opacity: props.unit.attachments.some(a => a.path === f.path) ? 1 : 0, flexShrink: 0}}/>
+									<HoverTooltip content={<AttachmentPlot path={f.path} plugin={plugin}/>}>
+										<div style={{textWrap: "wrap", width: "100%", textAlign: "left"}}>{f.path}</div>
+									</HoverTooltip>
 								</>
 							)}
-						</div>
-					</div>
-
-					{/* Sentence content */}
-					<div style={isApproximate ? {opacity: 0.7} : {}}>
-					<NativeContextMenu items={[
-						{type: "item", label: "Jump to source", onClick: async () => await JumpToSource(props.unit.nodePos, props.unit.filePath, props.unit.sentence, plugin)},
-						{type: "item", label: "Add attachment ›", submenuContent: (
-							<FilePicker
-								files={allFiles}
-								placeholder="Search attachments"
-								emptyText="No attachments"
-								onSelect={(value) => {
-									const existing = props.unit.attachments.find(a => a.path === value);
-									if (existing) handleRemoveAttachment(props.unit.id, existing.id);
-									else handleAddAttachment(props.unit.id, value);
-								}}
-								renderItem={(f) => (
-									<>
-										<Check style={{width: 16, height: 16, marginRight: 8, opacity: props.unit.attachments.some(a => a.path === f.path) ? 1 : 0, flexShrink: 0}}/>
-										<HoverTooltip content={<AttachmentPlot path={f.path} plugin={plugin}/>}>
-											<div style={{textWrap: "wrap", width: "100%", textAlign: "left"}}>{f.path}</div>
-										</HoverTooltip>
-									</>
-								)}
-							/>
-						)},
-						{type: "separator"},
-						{type: "item", label: isHidden ? "Show" : "Hide from view", onClick: () => hideUnit(props.unit.id, !isHidden)},
-						{type: "item", label: "Dismiss extraction", muted: true, onClick: () => dismissUnit(props.unit.id)},
-					]}>
-						<Content unit={props.unit} plugin={plugin} handleExpandSingle={(_, isExpanded) => expandUnit(props.unit, isExpanded)}/>
-					</NativeContextMenu>
-					</div>
-
-					{/* Inline annotation */}
-					<div
-						className="mt-2"
-						style={annotation.trim() ? {borderLeft: "2px solid rgba(251,191,36,0.5)", paddingLeft: 10} : {}}
-					>
-						{annotation.trim() && (
-							<span style={{fontSize: 10, fontVariant: "small-caps", color: "var(--text-faint)", letterSpacing: "0.04em"}}>annotation</span>
-						)}
-						<div style={annotation.trim() ? {fontStyle: "italic"} : {}}>
-							<MarkdownNote
-								value={annotation}
-								onChange={setAnnotation}
-								onBlur={handleAnnotationBlur}
-								plugin={plugin}
-								sourcePath={props.unit.filePath}
-							/>
-						</div>
-					</div>
-
-					{/* Source file badge */}
-					{!props.isSingleFile && <div className="mt-1.5">
-						<span
-							onClick={async () => await JumpToSource(props.unit.nodePos, props.unit.filePath, props.unit.sentence, plugin)}
-							style={{
-								display: "inline-flex", alignItems: "center",
-								fontSize: 11, padding: "2px 8px", borderRadius: 9999,
-								border: "1px solid var(--background-modifier-border)",
-								color: "var(--text-muted)", opacity: 0.6, cursor: "pointer",
-								transition: "opacity 0.07s",
-							}}
-							onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
-							onMouseLeave={e => (e.currentTarget.style.opacity = "0.6")}
-						>{props.unit.filePath}</span>
-					</div>}
-				</div>
-			)}
-		</div>)
+						/>
+					)},
+					{type: "separator"},
+					{type: "item", label: isHidden ? "Show" : "Hide from view", onClick: () => hideUnit(props.unit.id, !isHidden)},
+					{type: "item", label: isAnchor ? "Remove anchor" : "Mark as anchor", onClick: () => toggleAnchorOnUnit(props.unit.id)},
+					{type: "item", label: "Dismiss extraction", muted: true, onClick: () => dismissUnit(props.unit.id)},
+				]}>
+					<Content unit={props.unit} plugin={plugin} handleExpandSingle={(_, isExpanded) => expandUnit(props.unit, isExpanded)}/>
+				</NativeContextMenu>
+			}
+			hasAnnotation={!!annotation.trim()}
+			annotationSlot={
+				<MarkdownNote
+					value={annotation}
+					onChange={setAnnotation}
+					onBlur={handleAnnotationBlur}
+					plugin={plugin}
+					sourcePath={props.unit.filePath}
+				/>
+			}
+			sourceFilePill={!props.isSingleFile
+				? <SourceFilePill
+					path={props.unit.filePath}
+					onClick={async () => await JumpToSource(props.unit.nodePos, props.unit.filePath, props.unit.sentence, plugin)}
+				/>
+				: undefined
+			}
+		/>
+	)
 })

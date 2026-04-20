@@ -1,49 +1,54 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { zoom as d3zoom, zoomIdentity, ZoomBehavior, D3ZoomEvent } from "d3-zoom"
 import { select } from "d3-selection"
-import { useD3TimelineEngine, BASE_HEIGHT } from "@/src/store/useD3TimelineEngine"
+import { useD3TimelineEngine, BASE_HEIGHT, entryYear } from "@/src/store/useD3TimelineEngine"
 import { SinglePlotUnit } from "@/src/ui/SinglePlotUnit"
-import { useTimelineStore } from "@/src/ui/TimelineContext"
+import { useTimeline, useTimelineStore } from "@/src/ui/TimelineContext"
 import { TimelineMinimap } from "@/src/ui/TimelineMinimap"
-import { BIG_HISTORY_ERAS } from "@/src/data/bigHistoryAnchors"
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { entrySig } from "@/src/utils"
+import type { TimelineEntry } from "@/src/types"
+import { StatPill } from "@/src/ui/StatPill"
+import { SectionLabel } from "@/src/ui/SectionLabel"
+
+function useGlobalAnchorEntries(currentBlockId: string): TimelineEntry[] {
+	const { plugin } = useTimeline()
+	const units = useTimelineStore(s => s.units)
+
+	return useMemo(
+		() => plugin.vaultIndex.getAnchorEntries(currentBlockId),
+		// Re-derive when local units change (anchor toggle triggers save → index update)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[plugin, currentBlockId, units],
+	)
+}
 
 const AXIS_WIDTH  = 80    // px reserved for the left SVG axis
 const CARD_OFFSET = 8     // gap between axis and cards
 const VIEWPORT_H  = 600   // visible height in px
 
 export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
-	const units      = useTimelineStore(s => s.units)
-	const showHidden = useTimelineStore(s => s.showHidden)
-	const sigFilter  = useTimelineStore(s => s.sigFilter)
+	const units        = useTimelineStore(s => s.units)
+	const showHidden   = useTimelineStore(s => s.showHidden)
+	const sigFilter    = useTimelineStore(s => s.sigFilter)
+	const currentBlockId = useTimelineStore(s => s.settings.blockId)
 
 	const [zoomK, setZoomK]               = useState(1)
 	const [scrollTop, setScrollTop]       = useState(0)
 	const [zoomBehavior, setZoomBehavior] = useState<ZoomBehavior<HTMLDivElement, unknown> | null>(null)
-	const [expandedEras, setExpandedEras] = useState<Set<string>>(
-		() => new Set(BIG_HISTORY_ERAS.map(e => e.id))
-	)
-	const [yearRange, setYearRange] = useState<[number, number] | null>(null)
+	const [yearRange, setYearRange]       = useState<[number, number] | null>(null)
 
 	const containerRef       = useRef<HTMLDivElement>(null)
 	const scrollContainerRef = useRef<HTMLDivElement>(null)
 	const zoomKRef           = useRef(1)  // stale-closure escape hatch for zoom handler
 
-	const engine = useD3TimelineEngine(units, showHidden, zoomK)
+	const anchorUnits = useGlobalAnchorEntries(currentBlockId)
+	const engine = useD3TimelineEngine(units, anchorUnits, showHidden, zoomK)
 
 	// Reset range when the data domain changes (new parse, different file)
 	useEffect(() => {
 		setYearRange(null)
 	}, [engine.yearMin, engine.yearMax])
-
-	const toggleEra = useCallback((id: string) => {
-		setExpandedEras(prev => {
-			const next = new Set(prev)
-			next.has(id) ? next.delete(id) : next.add(id)
-			return next
-		})
-	}, [])
 
 	useEffect(() => {
 		const el = containerRef.current
@@ -88,10 +93,11 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 		}
 	}, [])
 
-	// Drag-to-scroll on the card container
+	// Drag-to-scroll on the whole container (axis + cards)
 	useEffect(() => {
+		const container = containerRef.current
 		const sc = scrollContainerRef.current
-		if (!sc) return
+		if (!container || !sc) return
 
 		const DRAG_THRESHOLD = 5
 		let isPending = false
@@ -114,7 +120,7 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 			if (!isDragging && Math.abs(dy) > DRAG_THRESHOLD) {
 				isDragging = true
 				isPending = false
-				sc.style.cursor = "grabbing"
+				container.style.cursor = "grabbing"
 			}
 			if (isDragging) {
 				sc.scrollTop = startScrollTop - dy
@@ -124,29 +130,30 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 		const onMouseUp = (_e: MouseEvent) => {
 			if (isDragging) {
 				// Suppress the click that fires on mouseup after a drag
-				sc.addEventListener("click", (ev) => ev.stopPropagation(), { capture: true, once: true })
+				container.addEventListener("click", (ev) => ev.stopPropagation(), { capture: true, once: true })
 			}
 			isPending = false
 			isDragging = false
-			sc.style.cursor = ""
+			container.style.cursor = ""
 		}
 
-		sc.addEventListener("mousedown", onMouseDown)
+		container.addEventListener("mousedown", onMouseDown)
 		window.addEventListener("mousemove", onMouseMove)
 		window.addEventListener("mouseup", onMouseUp)
 
 		return () => {
-			sc.removeEventListener("mousedown", onMouseDown)
+			container.removeEventListener("mousedown", onMouseDown)
 			window.removeEventListener("mousemove", onMouseMove)
 			window.removeEventListener("mouseup", onMouseUp)
 		}
 	}, [])
 
-	// toScreenY maps base-space y [0, BASE_HEIGHT] → screen px relative to container top
-	const toScreenY = useCallback(
-		(y: number) => zoomK * y - scrollTop,
-		[zoomK, scrollTop],
-	)
+	// Scroll to top when minimap year-range jumps (ensures visible entries align with filter)
+	useEffect(() => {
+		if (scrollContainerRef.current) {
+			scrollContainerRef.current.scrollTop = 0
+		}
+	}, [yearRange?.[0], yearRange?.[1]])
 
 	const effectiveRange = useMemo<[number, number]>(
 		() => yearRange ?? [engine.yearMin, engine.yearMax],
@@ -158,14 +165,13 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 		return engine.positionedEntries.filter(({ entry, y }) => {
 			const sig = entrySig(entry)
 			if (sig < sigFilter) return false
-			if (entry.eraId && !expandedEras.has(entry.eraId)) return false
-			if (!entry.isAnchor && yearRange) {
+			if (yearRange) {
 				const entryYr = engine.yearMin + (y / BASE_HEIGHT) * (engine.yearMax - engine.yearMin)
 				if (entryYr < rangeL || entryYr > rangeR) return false
 			}
 			return true
 		})
-	}, [engine.positionedEntries, expandedEras, sigFilter, yearRange, effectiveRange, engine.yearMin, engine.yearMax])
+	}, [engine.positionedEntries, sigFilter, yearRange, effectiveRange, engine.yearMin, engine.yearMax])
 
 	// Virtualizer — dynamic height measurement via measureElement (ResizeObserver internally)
 	const virtualizer = useVirtualizer({
@@ -177,8 +183,22 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 		overscan:       3,
 	})
 
-	// Container height adapts to content: shrinks for small timelines, caps at VIEWPORT_H for large ones
+	// Container adapts to content, caps at VIEWPORT_H
 	const containerH = Math.min(VIEWPORT_H, virtualizer.getTotalSize() || VIEWPORT_H)
+
+	// Year labels: placed at the first card in each year group
+	const firstInYear = useMemo(() => {
+		const map = new Map<number, number>() // index → year
+		let lastYear = -Infinity
+		for (let i = 0; i < visibleEntries.length; i++) {
+			const year = entryYear(visibleEntries[i].entry)
+			if (year !== null && year !== lastYear) {
+				map.set(i, year)
+				lastYear = year
+			}
+		}
+		return map
+	}, [visibleEntries])
 
 	return (
 		<div className="flex flex-col">
@@ -194,18 +214,16 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 							positionedEntries={engine.positionedEntries}
 						/>
 					</div>
-					<div className="shrink-0 px-2 py-0.5 rounded-full text-[10px] font-mono text-[color:--text-muted] bg-[--background-secondary] border border-[--background-modifier-border] opacity-80 pointer-events-none whitespace-nowrap">
-						sig ≥ {engine.visibleMinSig} · {visibleEntries.length} events
-					</div>
+					<StatPill value={`sig ≥ ${engine.visibleMinSig} · ${visibleEntries.length} events`}/>
 				</div>
 			)}
 
 			<div
 				ref={containerRef}
-				className="relative overflow-hidden select-none"
+				className="relative overflow-hidden select-none cursor-grab"
 				style={{ height: containerH }}
 			>
-				{/* ── SVG axis spine ─────────────────────────────────────────── */}
+				{/* ── SVG axis spine — dots aligned to card positions ─────── */}
 				<svg
 					className="absolute inset-0 pointer-events-none"
 					width={AXIS_WIDTH}
@@ -218,45 +236,36 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 						strokeWidth={2}
 					/>
 
-					{engine.axisTicks.map((tick, i) => {
-						const sy = toScreenY(tick.y)
+					{virtualizer.getVirtualItems().map(vi => {
+						const { entry } = visibleEntries[vi.index]
+						const sy = vi.start + 14 - scrollTop
 						if (sy < -20 || sy > containerH + 20) return null
-						return (
-							<g key={i} transform={`translate(0,${sy})`}>
-								<line
-									x1={tick.isMajor ? AXIS_WIDTH - 12 : AXIS_WIDTH - 5}
-									y1={0}
-									x2={AXIS_WIDTH - 1}
-									y2={0}
-									stroke="var(--background-modifier-border)"
-									strokeWidth={tick.isMajor ? 1.5 : 0.8}
-									opacity={tick.isMajor ? 1 : 0.5}
-								/>
-								{tick.isMajor && (
-									<text
-										x={AXIS_WIDTH - 15}
-										y={5}
-										textAnchor="end"
-										fontSize={11}
-										fill="var(--text-muted)"
-										fontFamily="var(--font-monospace)"
-									>
-										{tick.label}
-									</text>
-								)}
-							</g>
-						)
-					})}
 
-					{visibleEntries.map(({ entry, y }) => {
-						const sy = toScreenY(y)
-						if (sy < -10 || sy > containerH + 10) return null
 						const sig     = entrySig(entry)
 						const r       = 3 + sig * 1.5
 						const opacity = 0.55 + sig * 0.09
-						const fill    = entry.isAnchor ? "var(--text-faint)" : "var(--interactive-accent)"
+						const fill    = entry.isAnchor ? "var(--text-warning)" : "var(--interactive-accent)"
+						const year    = entryYear(entry)
+						const dateLine = year !== null && entry.parsedResultText !== String(year)
+							? `${entry.parsedResultText} → ${year}`
+							: entry.parsedResultText
+						const tip     = `${dateLine}${entry.sentence ? "\n" + entry.sentence.slice(0, 100) : ""}\nSignificance: ${sig}/5${entry.isAnchor ? " (anchor)" : ""}`
+
+						const yearLabel = firstInYear.get(vi.index)
+
 						return (
-							<g key={`dot-${entry.id}`}>
+							<g key={`dot-${entry.id}`} style={{pointerEvents: "auto", cursor: "default"}}>
+								<title>{tip}</title>
+								{yearLabel !== undefined && (
+									<>
+										<line x1={AXIS_WIDTH - 12} y1={sy} x2={AXIS_WIDTH - 1} y2={sy}
+											stroke="var(--background-modifier-border)" strokeWidth={1.5} />
+										<text x={AXIS_WIDTH - 15} y={sy + 4} textAnchor="end"
+											fontSize={11} fill="var(--text-muted)" fontFamily="var(--font-monospace)">
+											{yearLabel}
+										</text>
+									</>
+								)}
 								{!entry.isAnchor && (
 									<circle cx={AXIS_WIDTH - 1} cy={sy} r={r + 4}
 										fill="var(--interactive-accent)" opacity={0.12} />
@@ -267,36 +276,6 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 						)
 					})}
 				</svg>
-
-				{/* ── Era boundary markers (clickable) ───────────────────────── */}
-				{BIG_HISTORY_ERAS
-					.filter(era => era.startYear >= engine.yearMin && era.startYear <= engine.yearMax)
-					.map(era => {
-						const eraBaseY  = engine.scale(era.startYear) as number
-						const sy        = toScreenY(eraBaseY)
-						if (sy < -16 || sy > containerH + 4) return null
-						const isExpanded = expandedEras.has(era.id)
-						return (
-							<div
-								key={era.id}
-								className="absolute left-0 right-0 z-10 pointer-events-none"
-								style={{ top: sy - 8 }}
-							>
-								<div
-									className="absolute h-0.5 bg-[--background-modifier-border]"
-									style={{ left: AXIS_WIDTH, right: 0 }}
-								/>
-								<div
-									className="absolute flex items-center gap-0.5 px-1.5 py-0.5 rounded border border-[--background-modifier-border] text-[11px] font-semibold uppercase tracking-wider bg-[--background-secondary] text-[color:--text-muted] hover:text-[color:--text-normal] transition-colors pointer-events-auto cursor-pointer"
-									style={{ left: AXIS_WIDTH + CARD_OFFSET }}
-									onClick={e => { e.stopPropagation(); toggleEra(era.id) }}
-								>
-									<span>{isExpanded ? "▼" : "▶"}</span>
-									<span>{era.label}</span>
-								</div>
-							</div>
-						)
-					})}
 
 				{/* ── Virtualized card list ──────────────────────────────────── */}
 				<div
@@ -337,22 +316,14 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 						className="absolute bottom-0 left-0 right-0 bg-[--background-primary] border-t border-[--background-modifier-border] px-2 pt-1"
 						style={{ left: AXIS_WIDTH + CARD_OFFSET }}
 					>
-						<div className="text-[9px] uppercase tracking-widest text-[color:--text-faint] mb-1">
-							Undated
-						</div>
-						{engine.freeEntries.map((entry, idx) => (
-							<SinglePlotUnit
-								key={entry.id}
-								unit={entry}
-								index={visibleEntries.length + idx}
-								isSingleFile={isSingleFile}
-							/>
+						<SectionLabel className="mb-1">Undated</SectionLabel>
+						{engine.freeEntries.map((entry) => (
+							<SinglePlotUnit key={entry.id} unit={entry} index={0} isSingleFile={isSingleFile}/>
 						))}
 					</div>
 				)}
-
-
 			</div>
 		</div>
 	)
 }
+

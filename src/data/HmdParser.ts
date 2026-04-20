@@ -30,6 +30,7 @@ function parseCommentLine(
 	line: string,
 	setId: (id: string) => void,
 	setHidden: () => void,
+	setAnchor: () => void,
 	addExtra: (line: string) => void,
 ) {
 	const inner = line.slice(2, -2).trim();
@@ -37,6 +38,8 @@ function parseCommentLine(
 		setId(inner.slice(3).trim());
 	} else if (inner === "hidden") {
 		setHidden();
+	} else if (inner === "anchor") {
+		setAnchor();
 	} else {
 		addExtra(line);
 	}
@@ -68,6 +71,7 @@ export function parseHmd(content: string): HmdParseResult {
 	let currentSource = "";
 	let currentId = "";
 	let currentHidden = false;
+	let currentAnchor = false;
 	let currentAttachments: Attachment[] = [];
 	let currentExtraComments: string[] = [];
 	let bodyLines: string[] = [];
@@ -79,6 +83,9 @@ export function parseHmd(content: string): HmdParseResult {
 	let autoSave = true;
 	let header = "";
 	let footer = "";
+	let lastParsedAt: number | undefined = undefined;
+	let parserVersion: string | undefined = undefined;
+	let unparsedSentences: string[] = [];
 
 	function flushEntry() {
 		if (!currentTitle && !currentDate) return;
@@ -96,6 +103,7 @@ export function parseHmd(content: string): HmdParseResult {
 			attachments: currentAttachments,
 			isExpanded: false,
 			isHidden: currentHidden ? true : undefined,
+			isAnchor: currentAnchor ? true : undefined,
 		};
 
 		if (currentExtraComments.length > 0) {
@@ -113,6 +121,7 @@ export function parseHmd(content: string): HmdParseResult {
 		currentSource = "";
 		currentId = "";
 		currentHidden = false;
+		currentAnchor = false;
 		currentAttachments = [];
 		currentExtraComments = [];
 		bodyLines = [];
@@ -136,6 +145,15 @@ export function parseHmd(content: string): HmdParseResult {
 					break;
 				case "footer":
 					footer = String(val);
+					break;
+				case "lastParsedAt":
+					lastParsedAt = Number(val) || undefined;
+					break;
+				case "parserVersion":
+					parserVersion = String(val) || undefined;
+					break;
+				case "unparsedSentences":
+					try { unparsedSentences = JSON.parse(String(val)); } catch { unparsedSentences = []; }
 					break;
 				default:
 					extraFrontmatter.push([key, String(val)]);
@@ -177,6 +195,7 @@ export function parseHmd(content: string): HmdParseResult {
 					parseCommentLine(line,
 						id => currentId = id,
 						() => currentHidden = true,
+						() => currentAnchor = true,
 						l => currentExtraComments.push(l),
 					);
 				} else if (line === "attachments:") {
@@ -214,6 +233,7 @@ export function parseHmd(content: string): HmdParseResult {
 					parseCommentLine(line,
 						id => currentId = id,
 						() => currentHidden = true,
+						() => currentAnchor = true,
 						l => currentExtraComments.push(l),
 					);
 				} else {
@@ -242,6 +262,9 @@ export function parseHmd(content: string): HmdParseResult {
 	return {
 		settings,
 		units,
+		unparsedSentences: unparsedSentences.length > 0 ? unparsedSentences : undefined,
+		lastParsedAt,
+		parserVersion,
 		_extraFrontmatter: extraFrontmatter.length > 0 ? extraFrontmatter : undefined,
 		_extraComments: extraComments.size > 0 ? extraComments : undefined,
 	};
@@ -291,6 +314,15 @@ export function serializeHmd(data: HmdParseResult): string {
 	if (data.settings.footer !== undefined) {
 		out.push(`footer: "${data.settings.footer}"`);
 	}
+	if (data.lastParsedAt !== undefined) {
+		out.push(`lastParsedAt: ${data.lastParsedAt}`);
+	}
+	if (data.parserVersion !== undefined) {
+		out.push(`parserVersion: "${data.parserVersion}"`);
+	}
+	if (data.unparsedSentences && data.unparsedSentences.length > 0) {
+		out.push(`unparsedSentences: ${JSON.stringify(data.unparsedSentences)}`);
+	}
 	if (data._extraFrontmatter) {
 		for (const [key, val] of data._extraFrontmatter) {
 			out.push(`${key}: "${val}"`);
@@ -317,6 +349,10 @@ export function serializeHmd(data: HmdParseResult): string {
 
 		if (unit.isHidden) {
 			out.push("%%hidden%%");
+		}
+
+		if (unit.isAnchor) {
+			out.push("%%anchor%%");
 		}
 
 		const extras = data._extraComments?.get(unit.id);

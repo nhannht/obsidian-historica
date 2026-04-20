@@ -1,8 +1,9 @@
 import {motion} from "motion/react";
 import {DUR} from "../animTokens";
 import {Section, Row, Tile} from "./helpers";
-import {PILL_RADIUS} from "./constants";
 import {RugHeat} from "../RugHeat";
+import {FilterChip} from "../FilterChip";
+import {DateChip} from "../DateChip";
 
 export function GlobalTimelineSection() {
 	const rugYears = [1066, 1075, 1087, 1154, 1170, 1215, 1265, 1284, 1337, 1348, 1381, 1415, 1455, 1485, 1492, 1509, 1517, 1534, 1558, 1588];
@@ -44,15 +45,7 @@ export function GlobalTimelineSection() {
 							<span style={{display: "inline-flex", alignItems: "center", gap: 4, fontSize: 12, color: "var(--text-muted)", cursor: "pointer"}}>
 								<span>▸</span> Filter
 							</span>
-							<span style={{
-								display: "inline-flex", alignItems: "center", gap: 4,
-								fontSize: 10, padding: "1px 7px",
-								background: "color-mix(in srgb, var(--interactive-accent) 10%, transparent)",
-								border: "1px solid color-mix(in srgb, var(--interactive-accent) 30%, transparent)",
-								borderRadius: PILL_RADIUS, color: "var(--text-accent)",
-							}}>
-								1066 – 1600 <span style={{opacity: 0.5, cursor: "pointer"}}>×</span>
-							</span>
+							<FilterChip label="1066 – 1600" active onRemove={() => {}}/>
 							<span style={{marginLeft: "auto", fontSize: 10, fontFamily: "monospace", color: "var(--text-faint)"}}>20 entries</span>
 						</div>
 						<RugHeat years={rugYears} min={1066} max={1600} width={456} tickH={10} stripeH={5}/>
@@ -68,7 +61,7 @@ export function GlobalTimelineSection() {
 								borderBottom: "1px solid color-mix(in srgb, var(--background-modifier-border) 30%, transparent)",
 							}}
 						>
-							<span style={{fontFamily: "monospace", fontSize: 11, color: "var(--text-muted)", minWidth: 96, flexShrink: 0, paddingTop: 1}}>{date}</span>
+							<span style={{minWidth: 96, flexShrink: 0, paddingTop: 1}}><DateChip variant={date.startsWith("~") ? "approximate" : "normal"} size="sm">{date}</DateChip></span>
 							<div style={{flex: 1, minWidth: 0}}>
 								<div style={{fontSize: 13, color: "var(--text-normal)", lineHeight: 1.4, marginBottom: 3}}>{sentence}</div>
 								<span style={{fontSize: 11, color: "var(--text-accent)", opacity: 0.8}}>{note}</span>

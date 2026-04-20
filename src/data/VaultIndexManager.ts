@@ -2,15 +2,23 @@ import { TFile, TFolder } from "obsidian";
 import type HistoricaPlugin from "@/main";
 import { parseHmd } from "./HmdParser";
 import { notePathToTitle } from "@/src/utils";
+import type { TimelineEntry } from "@/src/types";
+
+export type AnchorSnapshot = Pick<TimelineEntry, 'id' | 'parsedResultText' | 'time' | 'filePath' | 'sentence'>;
 
 export type VaultIndexEntry = {
 	notePath: string;
 	noteTitle: string;
 	lastModified: number;
 	entryCount: number;
+	anchors?: AnchorSnapshot[];
 };
 
 export type VaultIndex = Record<string, VaultIndexEntry>;
+
+function toAnchorSnapshot(u: TimelineEntry): AnchorSnapshot {
+	return { id: u.id, parsedResultText: u.parsedResultText, time: u.time, filePath: u.filePath, sentence: u.sentence };
+}
 
 export class VaultIndexManager {
 	private index: VaultIndex = {};
@@ -43,11 +51,13 @@ export class VaultIndexManager {
 				const data = parseHmd(content);
 				if (!data) return null;
 				const notePath = data.units[0]?.filePath ?? "";
+				const anchorUnits = data.units.filter(u => u.isAnchor);
 				return [child.basename, {
 					notePath,
 					noteTitle: notePathToTitle(notePath),
 					lastModified: child.stat.mtime,
 					entryCount: data.units.length,
+					anchors: anchorUnits.length > 0 ? anchorUnits.map(toAnchorSnapshot) : undefined,
 				}] as const;
 			} catch {
 				return null;
@@ -61,13 +71,43 @@ export class VaultIndexManager {
 	}
 
 	updateEntry(blockId: string, notePath: string, entryCount: number): void {
+		const existing = this.index[blockId];
 		this.index[blockId] = {
 			notePath,
 			noteTitle: notePathToTitle(notePath),
 			lastModified: Date.now(),
 			entryCount,
+			anchors: existing?.anchors,
 		};
 		this.schedulePersist();
+	}
+
+	updateAnchors(blockId: string, anchorUnits: TimelineEntry[]): void {
+		const entry = this.index[blockId];
+		if (!entry) return;
+		const snapshots = anchorUnits.map(toAnchorSnapshot);
+		this.index[blockId] = {
+			...entry,
+			anchors: snapshots.length > 0 ? snapshots : undefined,
+		};
+		this.schedulePersist();
+	}
+
+	getAnchorEntries(excludeBlockId: string): TimelineEntry[] {
+		const result: TimelineEntry[] = [];
+		for (const [blockId, entry] of Object.entries(this.index)) {
+			if (blockId === excludeBlockId || !entry.anchors) continue;
+			for (const snap of entry.anchors) {
+				result.push({
+					...snap,
+					attachments: [],
+					isExpanded: false,
+					isAnchor: true,
+					id: `anchor:${blockId}:${snap.id}`,
+				});
+			}
+		}
+		return result;
 	}
 
 	getIndex(): VaultIndex {

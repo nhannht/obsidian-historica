@@ -1,5 +1,7 @@
 import {useState} from "react";
 import {useTimeline, useTimelineStore} from "@/src/ui/TimelineContext";
+import {ChevronRight} from "@/src/ui/icons";
+import {SectionLabel} from "@/src/ui/SectionLabel";
 
 const PAGE_SIZE = 20;
 
@@ -37,10 +39,10 @@ export function UnparsedPanel() {
 				}}
 				onClick={() => setOpen(o => !o)}
 			>
-				<span style={{fontFamily: "monospace", fontSize: 8, letterSpacing: "0.12em", color: "var(--text-faint)", opacity: 0.55}}>UNDATED</span>
+				<SectionLabel>UNDATED</SectionLabel>
 				<span style={{fontFamily: "monospace", fontSize: 16, color: "var(--text-accent)", lineHeight: 1}}>{unparsedSentences.length}</span>
 				<span style={{fontSize: 11, color: "var(--text-faint)"}}>fragment{unparsedSentences.length !== 1 ? "s" : ""} without timestamp</span>
-				<svg style={{width: 9, height: 9, marginLeft: "auto", color: "var(--text-faint)", opacity: 0.4, flexShrink: 0, transition: "transform var(--historica-dur-snap, 110ms)", transform: open ? "rotate(90deg)" : "rotate(0deg)"}} viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 2L8 6L4 10"/></svg>
+				<ChevronRight style={{width: 9, height: 9, marginLeft: "auto", color: "var(--text-faint)", opacity: 0.4, flexShrink: 0, transition: "transform var(--historica-dur-snap, 110ms)", transform: open ? "rotate(90deg)" : "rotate(0deg)"}}/>
 			</button>
 
 			{open && (

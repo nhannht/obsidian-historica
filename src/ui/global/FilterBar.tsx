@@ -1,7 +1,10 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useRef, useEffect } from "react";
 import type HistoricaPlugin from "@/main";
 import { notePathToTitle, getNoteTags } from "@/src/utils";
 import { GlobalEntry } from "./useVaultEntries";
+import { RugHeat } from "@/src/ui/RugHeat";
+import { FilterChip } from "@/src/ui/FilterChip";
+import { StatPill } from "@/src/ui/StatPill";
 
 export interface FilterState {
 	yearMin: number | null;
@@ -22,27 +25,35 @@ interface FilterBarProps {
 	plugin: HistoricaPlugin;
 	filters: FilterState;
 	onChange: (f: FilterState) => void;
+	filteredCount: number;
 }
 
-export function FilterBar({ allEntries, plugin, filters, onChange }: FilterBarProps) {
+export function FilterBar({ allEntries, plugin, filters, onChange, filteredCount }: FilterBarProps) {
 	const [expanded, setExpanded] = useState(false);
+	const rugRef = useRef<HTMLDivElement>(null);
+	const [rugWidth, setRugWidth] = useState(400);
 
-	const { absoluteMin, absoluteMax, notes, tags } = useMemo(() => {
-		// Use pre-computed year from GlobalEntry to avoid repeated new Date() calls
+	useEffect(() => {
+		const el = rugRef.current;
+		if (!el) return;
+		const ro = new ResizeObserver(([entry]) => setRugWidth(entry.contentRect.width));
+		ro.observe(el);
+		return () => ro.disconnect();
+	}, []);
+
+	const { absoluteMin, absoluteMax, notes, tags, rugYears } = useMemo(() => {
 		const years = allEntries.map(e => e.year).filter((y): y is number => y !== null);
-
 		const uniqueNotes = [...new Set(allEntries.map(e => e.notePath).filter(Boolean))].sort();
-
 		const tagSet = new Set<string>();
 		for (const notePath of uniqueNotes) {
 			for (const t of getNoteTags(plugin, notePath)) tagSet.add(t);
 		}
-
 		return {
 			absoluteMin: years.length ? years.reduce((a, b) => Math.min(a, b)) : null,
 			absoluteMax: years.length ? years.reduce((a, b) => Math.max(a, b)) : null,
 			notes: uniqueNotes,
 			tags: [...tagSet].sort(),
+			rugYears: years,
 		};
 	}, [allEntries, plugin]);
 
@@ -55,9 +66,11 @@ export function FilterBar({ allEntries, plugin, filters, onChange }: FilterBarPr
 		filters.tagFilter !== "",
 	].filter(Boolean).length;
 
+	const showRug = absoluteMin !== null && absoluteMax !== null && absoluteMin !== absoluteMax;
+
 	return (
 		<div className="flex-shrink-0 border-b border-[var(--background-modifier-border)]">
-			{/* Collapsed row */}
+			{/* Header row */}
 			<div className="flex items-center gap-2 px-4 py-1.5">
 				<button
 					onClick={() => setExpanded(e => !e)}
@@ -72,27 +85,36 @@ export function FilterBar({ allEntries, plugin, filters, onChange }: FilterBarPr
 					)}
 				</button>
 
-				{/* Active filter chips (quick clear) */}
 				{filters.noteFilter && (
-					<Chip label={notePathToTitle(filters.noteFilter)} onRemove={() => onChange({ ...filters, noteFilter: "" })} />
+					<FilterChip label={notePathToTitle(filters.noteFilter)} onRemove={() => onChange({ ...filters, noteFilter: "" })} />
 				)}
 				{filters.tagFilter && (
-					<Chip label={filters.tagFilter} onRemove={() => onChange({ ...filters, tagFilter: "" })} />
+					<FilterChip label={filters.tagFilter} onRemove={() => onChange({ ...filters, tagFilter: "" })} />
 				)}
+
+				<span style={{ marginLeft: "auto" }}>
+					<StatPill value={`${filteredCount}${filteredCount !== allEntries.length ? ` / ${allEntries.length}` : ""} events`}/>
+				</span>
 				{activeCount > 0 && (
 					<button
 						onClick={() => onChange(DEFAULT_FILTERS)}
-						className="ml-auto text-xs text-[var(--text-muted)] hover:text-[var(--text-normal)]"
+						className="text-xs text-[var(--text-muted)] hover:text-[var(--text-normal)]"
 					>
-						Clear all
+						Clear
 					</button>
 				)}
 			</div>
 
+			{/* RugHeat — always visible */}
+			{showRug && (
+				<div ref={rugRef} className="px-4 pb-2">
+					<RugHeat years={rugYears} min={absoluteMin!} max={absoluteMax!} width={Math.max(1, rugWidth)} tickH={10} stripeH={5} />
+				</div>
+			)}
+
 			{/* Expanded panel */}
 			{expanded && (
 				<div className="px-4 pb-3 flex flex-col gap-3">
-					{/* Year range */}
 					{absoluteMin !== null && absoluteMax !== null && absoluteMin !== absoluteMax && (
 						<div className="flex flex-col gap-1">
 							<span className="text-xs text-[var(--text-muted)]">
@@ -119,7 +141,6 @@ export function FilterBar({ allEntries, plugin, filters, onChange }: FilterBarPr
 						</div>
 					)}
 
-					{/* Source note */}
 					{notes.length > 0 && (
 						<div className="flex items-center gap-2">
 							<span className="text-xs text-[var(--text-muted)] flex-shrink-0">Note</span>
@@ -130,44 +151,27 @@ export function FilterBar({ allEntries, plugin, filters, onChange }: FilterBarPr
 							>
 								<option value="">All notes</option>
 								{notes.map(n => (
-									<option key={n} value={n}>
-										{notePathToTitle(n)}
-									</option>
+									<option key={n} value={n}>{notePathToTitle(n)}</option>
 								))}
 							</select>
 						</div>
 					)}
 
-					{/* Tags */}
 					{tags.length > 0 && (
 						<div className="flex flex-wrap gap-1.5 items-center">
 							<span className="text-xs text-[var(--text-muted)]">Tag</span>
 							{tags.map(tag => (
-								<button
+								<FilterChip
 									key={tag}
+									label={tag}
+									active={filters.tagFilter === tag}
 									onClick={() => onChange({ ...filters, tagFilter: filters.tagFilter === tag ? "" : tag })}
-									className={`text-xs px-2 py-0.5 rounded-full border transition-colors ${
-										filters.tagFilter === tag
-											? "bg-[var(--color-accent)] text-white border-[var(--color-accent)]"
-											: "border-[var(--background-modifier-border)] text-[var(--text-muted)] hover:border-[var(--color-accent)]"
-									}`}
-								>
-									{tag}
-								</button>
+								/>
 							))}
 						</div>
 					)}
 				</div>
 			)}
 		</div>
-	);
-}
-
-function Chip({ label, onRemove }: { label: string; onRemove: () => void }) {
-	return (
-		<span className="flex items-center gap-1 text-xs bg-[var(--background-secondary)] px-2 py-0.5 rounded-full border border-[var(--background-modifier-border)]">
-			{label}
-			<button onClick={onRemove} className="text-[var(--text-muted)] hover:text-[var(--text-normal)]">×</button>
-		</span>
 	);
 }

@@ -7,6 +7,7 @@ import ImageFromPath from "@/src/ui/ImageFromPath";
 import ShortendableParagraph from "@/src/ui/ShortendableParagraph";
 import {cn} from "@/src/lib/utils";
 import {truncate} from "@/src/utils";
+import {FileExtBadge} from "@/src/ui/ManualBadge";
 
 export function AttachmentPlot(props: {
 	path: string,
@@ -28,9 +29,7 @@ export function AttachmentPlot(props: {
 				onClick={props.handleClick}
 				className={cn("flex items-center gap-1.5 px-2 py-1 rounded border border-[--background-modifier-border] bg-[--background-secondary] hover:bg-[--background-modifier-hover] cursor-pointer max-w-[160px]", props.className)}
 			>
-				<span className="shrink-0 px-1 py-0.5 text-[10px] font-mono rounded bg-[--interactive-accent]/20 text-[color:--text-accent] uppercase">
-					{file.extension}
-				</span>
+				<FileExtBadge ext={file.extension}/>
 				<span className="text-xs text-[color:--text-muted] truncate">{name}</span>
 			</div>
 		)

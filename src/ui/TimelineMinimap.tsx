@@ -16,7 +16,8 @@ const DENSITY_H    = 16   // max bar height in px
 const TRACK_Y      = 20   // y where the track starts
 const TRACK_H      = 6    // track height
 const HANDLE_W     = 8    // handle width in px
-const TOTAL_H      = TRACK_Y + TRACK_H + 4
+const LABEL_H      = 12    // space for year labels below track
+const TOTAL_H      = TRACK_Y + TRACK_H + LABEL_H
 const NOW_YEAR     = new Date().getFullYear()
 
 interface Props {
@@ -46,15 +47,17 @@ export function TimelineMinimap({
 	const leftFrac  = domainSpan > 0 ? (leftYear  - yearMin) / domainSpan : 0
 	const rightFrac = domainSpan > 0 ? (rightYear - yearMin) / domainSpan : 1
 
-	const { bucketCounts, maxCount } = useMemo(() => {
+	const { bucketCounts, rawCounts, maxCount } = useMemo(() => {
 		const counts = new Array(NUM_BUCKETS).fill(0)
+		const raw    = new Array(NUM_BUCKETS).fill(0)
 		for (const { entry, y } of positionedEntries) {
 			if (entry.isAnchor) continue
 			const frac   = Math.max(0, Math.min(1, y / BASE_HEIGHT))
 			const bucket = Math.min(NUM_BUCKETS - 1, Math.floor(frac * NUM_BUCKETS))
 			counts[bucket] += 1 + entrySig(entry) * 0.5
+			raw[bucket] += 1
 		}
-		return { bucketCounts: counts, maxCount: Math.max(1, ...counts) }
+		return { bucketCounts: counts, rawCounts: raw, maxCount: Math.max(1, ...counts) }
 	}, [positionedEntries])
 
 	const xToYear = useCallback((clientX: number): number => {
@@ -89,6 +92,33 @@ export function TimelineMinimap({
 		window.addEventListener("mouseup", onUp)
 	}, [leftYear, rightYear, xToYear, onYearRangeChange])
 
+	// Center-drag: drag the bar itself to slide the entire range window
+	const startBarDrag = useCallback((e: React.MouseEvent) => {
+		e.preventDefault()
+		e.stopPropagation()
+
+		const startYear = xToYear(e.clientX)
+		const rangeWidth = rightYear - leftYear
+		const capturedLeft = leftYear
+
+		const onMove = (ev: MouseEvent) => {
+			const currentYear = xToYear(ev.clientX)
+			const delta = currentYear - startYear
+			let newL = capturedLeft + delta
+			let newR = newL + rangeWidth
+			// Clamp to domain bounds
+			if (newL < yearMin) { newL = yearMin; newR = yearMin + rangeWidth }
+			if (newR > yearMax) { newR = yearMax; newL = yearMax - rangeWidth }
+			onYearRangeChange([newL, newR])
+		}
+		const onUp = () => {
+			window.removeEventListener("mousemove", onMove)
+			window.removeEventListener("mouseup", onUp)
+		}
+		window.addEventListener("mousemove", onMove)
+		window.addEventListener("mouseup", onUp)
+	}, [leftYear, rightYear, xToYear, yearMin, yearMax, onYearRangeChange])
+
 	const handleClick = useCallback((e: React.MouseEvent<SVGSVGElement>) => {
 		const year   = xToYear(e.clientX)
 		const half   = (rightYear - leftYear) / 2
@@ -119,15 +149,20 @@ export function TimelineMinimap({
 					const bLeft  = i / NUM_BUCKETS
 					const bRight = (i + 1) / NUM_BUCKETS
 					const inRange = bLeft >= leftFrac - 0.01 && bRight <= rightFrac + 0.01
+					const bYearL = Math.round(yearMin + bLeft * domainSpan)
+					const bYearR = Math.round(yearMin + bRight * domainSpan)
+					const n = rawCounts[i]
 					return (
 						<rect key={i}
 							x={`${xPct}%`}
 							y={TRACK_Y - barH}
 							width={`${wPct}%`}
-							height={barH}
+							height={Math.max(barH, 2)}
 							fill={inRange ? "var(--interactive-accent)" : "var(--text-faint)"}
-							opacity={inRange ? 0.55 : 0.2}
-						/>
+							opacity={barH > 0 ? (inRange ? 0.55 : 0.2) : 0}
+						>
+							<title>{`${bYearL} – ${bYearR}: ${n} event${n !== 1 ? "s" : ""}`}</title>
+						</rect>
 					)
 				})}
 
@@ -142,7 +177,17 @@ export function TimelineMinimap({
 					rx={2}
 					fill="var(--interactive-accent)"
 					opacity={0.6}
-				/>
+				>
+					<title>{`Viewing: ${Math.round(leftYear)} – ${Math.round(rightYear)}`}</title>
+				</rect>
+
+				{/* Year labels */}
+				<text x={2} y={TRACK_Y + TRACK_H + 10} fontSize={8} fill="var(--text-faint)" fontFamily="var(--font-monospace)">
+					{Math.round(yearMin)}
+				</text>
+				<text x="99%" y={TRACK_Y + TRACK_H + 10} fontSize={8} fill="var(--text-faint)" fontFamily="var(--font-monospace)" textAnchor="end">
+					{Math.round(yearMax)}
+				</text>
 
 				{NOW_YEAR >= yearMin && NOW_YEAR <= yearMax && (
 					<line
@@ -156,6 +201,22 @@ export function TimelineMinimap({
 					/>
 				)}
 			</svg>
+
+			{/* Center-drag bar overlay — sits between the two handles */}
+			<div
+				style={{
+					position: "absolute",
+					left: `${leftFrac * 100}%`,
+					top: TRACK_Y - 2,
+					width: `${Math.max(0.5, (rightFrac - leftFrac) * 100)}%`,
+					height: TRACK_H + 4,
+					cursor: "grab",
+					zIndex: 1,
+				}}
+				onMouseDown={startBarDrag}
+				onClick={e => e.stopPropagation()}
+				onDoubleClick={handleDblClick}
+			/>
 
 			{(["left", "right"] as const).map(side => (
 				<div

@@ -28,7 +28,7 @@ export function Tile({label, children}: {label: string; children: React.ReactNod
 				{label}
 			</div>
 			<div style={{
-				background: "var(--background-secondary)",
+				background: "var(--background-primary)",
 				border: "1px solid var(--background-modifier-border)",
 				borderRadius: 5, padding: 14,
 			}}>

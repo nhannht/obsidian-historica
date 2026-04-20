@@ -26,6 +26,7 @@ export const DEFAULT_PLUGIN_SETTINGS: HistoricaPluginSettings = {
 export type TimelineDocument = {
 	settings:HistoricaSettings,
 	units:TimelineEntry[],
+	unparsedSentences?: string[],
 	lastParsedAt?: number,
 	parserVersion?: string,
 }

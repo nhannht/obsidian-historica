@@ -2,7 +2,7 @@
  * D3-based timeline engine — linear scale with dynamic domain.
  *
  * Domain is computed from user data: [userMin − 10%, userMax + 10%].
- * Big History anchors are included only when they fall within the domain.
+ * Anchor pack entries are included only when they fall within the domain.
  * LoD filtering uses visible span in years (totalSpan / zoomK).
  *
  * Year convention in TimelineEntry.time:
@@ -13,7 +13,6 @@
 import { useMemo } from "react"
 import { scaleLinear } from "d3-scale"
 import type { TimelineEntry } from "@/src/types"
-import { BIG_HISTORY_ANCHORS } from "@/src/data/bigHistoryAnchors"
 import { entrySig } from "@/src/utils"
 
 // ── Constants ─────────────────────────────────────────────────────────────────
@@ -136,6 +135,7 @@ export type D3TimelineEngine = {
 
 export function useD3TimelineEngine(
 	units: TimelineEntry[],
+	anchorUnits: TimelineEntry[],
 	showHidden: boolean,
 	zoomK: number = 1,
 ): D3TimelineEngine {
@@ -167,10 +167,10 @@ export function useD3TimelineEngine(
 		const yearMin = rawMin - pad
 		const yearMax = rawMax + pad
 
-		// Anchors: skip any whose id is already in userDated (user expanded/modified it)
+		// Anchor packs: inject entries from user-designated anchor blocks within domain
 		const userIds = new Set(userDated.map(d => d.entry.id))
 		const anchorsInRange: Array<{ entry: TimelineEntry; year: number }> = []
-		for (const anchor of BIG_HISTORY_ANCHORS) {
+		for (const anchor of anchorUnits) {
 			if (userIds.has(anchor.id)) continue
 			const year = entryYear(anchor)
 			if (year !== null && year >= yearMin && year <= yearMax) {
@@ -192,7 +192,7 @@ export function useD3TimelineEngine(
 		const axisTicks = buildAxisTicks(scale, yearMin, yearMax)
 
 		return { yearMin, yearMax, scale, axisTicks, allDated, freeEntries }
-	}, [units, showHidden])
+	}, [units, anchorUnits, showHidden])
 
 	// ── LoD memo: recomputes on zoom (cheap) ─────────────────────────────────
 	return useMemo(() => {

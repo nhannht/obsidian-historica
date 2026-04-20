@@ -1,4 +1,5 @@
 import {Section, Row, Tile} from "./helpers";
+import {ChevronRight} from "../icons";
 
 export function UnparsedPanel() {
 	const sentences = [
@@ -88,7 +89,7 @@ export function UnparsedPanel() {
 						<div style={{
 							display: "flex", alignItems: "center", gap: 8, marginBottom: 12,
 						}}>
-							<svg style={{width: 10, height: 10, flexShrink: 0, color: "var(--text-faint)", transform: "rotate(90deg)"}} viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M4 2L8 6L4 10"/></svg>
+							<ChevronRight style={{width: 10, height: 10, flexShrink: 0, color: "var(--text-faint)", transform: "rotate(90deg)"}}/>
 							<span style={{fontSize: 11, color: "var(--text-muted)", fontWeight: 500}}>
 								3 sentences —{" "}
 								<span style={{fontWeight: 400, color: "var(--text-faint)"}}>no date extracted</span>

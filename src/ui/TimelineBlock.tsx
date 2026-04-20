@@ -10,6 +10,10 @@ import {TimelineEmptyState} from "@/src/ui/TimelineEmptyState";
 import {TimelineProvider, VaultFilesProvider} from "@/src/ui/TimelineContext";
 import {GetAllFileInVault} from "@/src/utils";
 import {UnparsedPanel} from "@/src/ui/UnparsedPanel";
+import {InlineLoadingState} from "@/src/ui/InlineLoadingState";
+import {ErrorState} from "@/src/ui/ErrorState";
+import {StatusBanner} from "@/src/ui/StatusBanner";
+import {ParsingOverlay} from "@/src/ui/ParsingOverlay";
 
 export function TimelineBlock(props: {
 	store: StoreApi<TimelineStore>;
@@ -69,11 +73,11 @@ export function TimelineBlock(props: {
 	const contextValue = useMemo(() => ({store, plugin}), [store, plugin]);
 
 	if (isLoading) {
-		return <div className="twp p-4">Loading timeline...</div>;
+		return <div className="twp p-4"><InlineLoadingState message="Loading timeline\u2026"/></div>;
 	}
 
 	if (error) {
-		return <div className="twp p-4 text-red-500">Error: {error}</div>;
+		return <div className="twp p-4"><ErrorState message={error}/></div>;
 	}
 
 	return (
@@ -81,30 +85,15 @@ export function TimelineBlock(props: {
 		<VaultFilesProvider value={allFiles}>
 			<div className="twp" ref={containerRef} tabIndex={-1} style={{outline: "none"}}>
 				{isUnsaved && (
-					<div className="flex items-center gap-1.5 px-3 py-1 text-xs text-[var(--text-warning)] bg-[var(--background-modifier-warning)] border-b border-[var(--background-modifier-border)]">
-						<span>⚠</span>
-						<span>Not yet saved — entries won't appear in Global Timeline until saved</span>
-					</div>
+					<StatusBanner icon="⚠" message="Not yet saved — entries won't appear in Global Timeline until saved" variant="warning"/>
 				)}
 				{isVersionMismatch && (
-					<div className="flex items-center gap-1.5 px-3 py-1 text-xs text-[color:var(--text-muted)] bg-[var(--background-secondary)] border-b border-[var(--background-modifier-border)]">
-						<span>Parsed with an older extractor version — re-extract to update.</span>
-					</div>
+					<StatusBanner message="Parsed with an older extractor version — re-extract to update." variant="info"/>
 				)}
 				<TimelineToolbar timelineRef={timelineRef} />
 				<TimelineContextMenu timelineRef={timelineRef}>
 					<div className="relative p-4 overflow-hidden">
-						{isParsing && (
-							<div className="absolute inset-0 z-10 flex items-center justify-center bg-[var(--background-primary)]/80">
-								<div className="flex items-center gap-2 text-[var(--text-muted)]">
-									<svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
-										<circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-										<path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-									</svg>
-									Parsing...
-								</div>
-							</div>
-						)}
+						<ParsingOverlay visible={isParsing}/>
 						{units.length > 0 ? (
 							<div className="p-4">
 								<TimelineI timelineRef={timelineRef} isDisplayHeader={true} isDisplayFooter={true}/>

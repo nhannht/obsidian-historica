@@ -66,3 +66,33 @@ export const GripVertical = (props: IconProps) => (
 export const X = (props: IconProps) => (
 	<Icon {...props}><path d="M18 6 6 18"/><path d="m6 6 12 12"/></Icon>
 )
+
+export const ExternalLink = (props: IconProps) => (
+	<Icon {...props}><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></Icon>
+)
+
+export const Refresh = (props: IconProps) => (
+	<Icon {...props}><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/></Icon>
+)
+
+/* ── Small toolbar icons (12×12 viewBox) ── */
+
+const SmallIcon = ({children, ...props}: IconProps & {children: React.ReactNode}) => (
+	<svg xmlns="http://www.w3.org/2000/svg" width={11} height={11} viewBox="0 0 12 12" fill="none" stroke="currentColor" aria-hidden {...props}>{children}</svg>
+)
+
+export const SmallCheck = (props: IconProps) => (
+	<SmallIcon strokeWidth={2.5} {...props}><polyline points="1,6 4,9 11,2"/></SmallIcon>
+)
+
+export const SmallExport = (props: IconProps) => (
+	<SmallIcon strokeWidth={1.8} {...props}><path d="M2 9h8M6 2v5M3 5l3 3 3-3"/></SmallIcon>
+)
+
+export const SmallSave = (props: IconProps) => (
+	<SmallIcon strokeWidth={1.8} {...props}><path d="M2 2h7l1 1v7H2z"/><path d="M4 2v3h4V2"/><rect x="3" y="7" width="6" height="3" rx="0.5"/></SmallIcon>
+)
+
+export const SmallChevronDown = (props: IconProps) => (
+	<SmallIcon strokeWidth={2} {...props}><path d="M2 4L6 8L10 4"/></SmallIcon>
+)
