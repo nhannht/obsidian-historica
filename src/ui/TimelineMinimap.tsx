@@ -225,7 +225,7 @@ export function TimelineMinimap({
 				<rect x={0} y={TRACK_Y} width="100%" height={TRACK_H}
 					rx={3} fill="var(--background-modifier-border)" />
 
-				{/* Filter bar fill — behind view box */}
+				{/* Filter / shader bar — solid accent fill, the prominent colored element */}
 				{hasFilter && (
 					<rect
 						x={`${fLeftFrac * 100}%`}
@@ -233,22 +233,21 @@ export function TimelineMinimap({
 						width={`${Math.max(0.5, (fRightFrac - fLeftFrac) * 100)}%`}
 						height={TRACK_H - 2}
 						rx={2}
-						fill="var(--text-muted)"
-						opacity={0.3}
+						fill="var(--interactive-accent)"
+						opacity={0.55}
 					>
 						<title>{`Filter: ${Math.round(fL)} – ${Math.round(fR)}`}</title>
 					</rect>
 				)}
 
-				{/* View box — outlined rect so it reads as a distinct box */}
+				{/* View box — outline-only frame, no fill, sits on top as a viewport window */}
 				<rect
 					x={`${leftFrac * 100}%`}
 					y={TRACK_Y}
 					width={`${Math.max(0.5, (rightFrac - leftFrac) * 100)}%`}
 					height={TRACK_H}
 					rx={2}
-					fill="var(--interactive-accent)"
-					fillOpacity={0.3}
+					fill="none"
 					stroke="var(--interactive-accent)"
 					strokeWidth={1.5}
 				>
@@ -330,9 +329,9 @@ export function TimelineMinimap({
 						transform:    "translateX(-50%)",
 						width:        6,
 						height:       TRACK_H - 2,
-						background:   "var(--text-muted)",
+						background:   "var(--interactive-accent)",
 						borderRadius: 2,
-						opacity:      0.75,
+						opacity:      0.85,
 						cursor:       "ew-resize",
 						zIndex:       4,
 					}}
@@ -352,7 +351,7 @@ export function TimelineMinimap({
 						width:        KNOB_R * 2,
 						height:       KNOB_R * 2,
 						borderRadius: "50%",
-						border:       "1.5px solid var(--text-muted)",
+						border:       "1.5px solid var(--interactive-accent)",
 						background:   "var(--background-primary)",
 						cursor:       "grab",
 						zIndex:       4,
