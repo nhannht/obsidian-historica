@@ -1,13 +1,22 @@
 /**
  * TimelineMinimap — horizontal strip with:
  *   - density histogram (event count per time bucket)
- *   - view box: draggable viewport indicator (top tab = pan, ◈ diamonds = resize)
- *   - filter bar (optional): year-range filter overlay (bottom knob = pan, dots = resize)
+ *   - view box: a frame that STRADDLES the track — protrudes VB_ABOVE above and
+ *     VB_BELOW below the rail (top tab = pan, ◈ diamonds at track mid = resize)
+ *   - filter bar (optional): solid accent fill ON the track (bottom knob = pan, dots = resize)
  *
- * The two bars share the same track. Their pan handles go in opposite
- * vertical directions (tab ↑, knob ↓) so they never collide.
+ * Layout (y values with defaults):
+ *   y=2   ┌──tab──┐              ← top tab (grab to pan view box)
+ *   y=12  ╔═══════╧═════════════╗  ← view box top (HTML div, pointerEvents:none)
+ *          ║  density bars here  ║
+ *   y=24  ══◈═══════════════════◈══  ← minimap track (SVG rect, gray)
+ *          ║  ●══filter bar══●   ║  ← filter bar (SVG rect, solid accent)
+ *   y=30  ║         ○           ║  ← filter knob (HTML circle, grabs to pan)
+ *   y=38  ╚═════════════════════╝  ← view box bottom
+ *   y=54  1938               1946  ← year labels
  *
- * Clicking the track pans the view box to center on that year.
+ * Pan handles go opposite vertical directions (tab ↑, knob ↓) so they never collide.
+ * Clicking the SVG pans the view box to center on that year.
  * Double-clicking resets the view box to the full domain.
  */
 
@@ -15,17 +24,23 @@ import { useRef, useCallback, useMemo } from "react"
 import { BASE_HEIGHT } from "@/src/store/useD3TimelineEngine"
 import { entrySig } from "@/src/utils"
 
-const NUM_BUCKETS  = 30
-const DENSITY_H    = 16   // max density bar height in px
-const TRACK_Y      = 20   // y where the track starts (density bars fill 0..TRACK_Y)
-const TRACK_H      = 8    // track height
-const TAB_W        = 18   // view-box top tab width
-const TAB_H        = 12   // view-box top tab height
-const DIAMOND      = 12   // diamond handle bounding box size (width & height)
-const KNOB_R       = 5    // filter bottom knob radius
-const LABEL_H      = 12   // year label height below knob
-const TOTAL_H      = TRACK_Y + TRACK_H + KNOB_R * 2 + 4 + LABEL_H
-const NOW_YEAR     = new Date().getFullYear()
+const NUM_BUCKETS = 30
+const DENSITY_H   = 12   // max density bar height in px
+const TAB_W       = 18   // view-box top tab width
+const TAB_H       = 10   // view-box top tab height
+const VB_ABOVE    = 12   // view box protrudes this far above track
+const TRACK_H     = 6    // track height
+const VB_BELOW    = 8    // view box protrudes this far below track
+const VB_H        = VB_ABOVE + TRACK_H + VB_BELOW  // = 26
+const DIAMOND     = 12   // diamond handle bounding box size (width & height)
+const KNOB_R      = 5    // filter bottom knob radius
+const LABEL_H     = 12   // year label height
+
+const TAB_Y       = 2               // top of top tab (component-absolute y)
+const VB_Y        = TAB_Y + TAB_H  // = 12, top of view box frame
+const TRACK_Y     = VB_Y + VB_ABOVE // = 24, top of the minimap track
+const TOTAL_H     = VB_Y + VB_H + LABEL_H + 4  // = 54
+const NOW_YEAR    = new Date().getFullYear()
 
 interface Props {
 	/** Earliest year of the active domain */
@@ -182,14 +197,14 @@ export function TimelineMinimap({
 	}, [yearMin, yearMax, onYearRangeChange])
 
 	// ── Derived positions ─────────────────────────────────────────────────────
+	const trackMid      = TRACK_Y + TRACK_H / 2
 	const tabCenterPct  = ((leftFrac + rightFrac) / 2) * 100
 	const knobCenterPct = ((fLeftFrac + fRightFrac) / 2) * 100
-	const trackMid      = TRACK_Y + TRACK_H / 2
 
 	return (
 		<div className="relative" style={{ height: TOTAL_H }}>
 
-			{/* ── SVG: density bars + track + bar fills ────────────────────── */}
+			{/* ── SVG: density bars + gray track + filter bar fill ─────────── */}
 			<svg
 				ref={svgRef}
 				className="w-full cursor-pointer"
@@ -198,7 +213,7 @@ export function TimelineMinimap({
 				onClick={handleClick}
 				onDoubleClick={handleDblClick}
 			>
-				{/* Density histogram */}
+				{/* Density histogram — bars sit in VB_ABOVE zone above the track */}
 				{bucketCounts.map((count, i) => {
 					const barH   = (count / maxCount) * DENSITY_H
 					const xPct   = (i / NUM_BUCKETS) * 100
@@ -214,7 +229,7 @@ export function TimelineMinimap({
 							x={`${xPct}%`} y={TRACK_Y - barH}
 							width={`${wPct}%`} height={Math.max(barH, 2)}
 							fill={inView ? "var(--interactive-accent)" : "var(--text-faint)"}
-							opacity={barH > 0 ? (inView ? 0.55 : 0.2) : 0}
+							opacity={barH > 0 ? (inView ? 0.5 : 0.18) : 0}
 						>
 							<title>{`${bYearL} – ${bYearR}: ${n} event${n !== 1 ? "s" : ""}`}</title>
 						</rect>
@@ -225,7 +240,7 @@ export function TimelineMinimap({
 				<rect x={0} y={TRACK_Y} width="100%" height={TRACK_H}
 					rx={3} fill="var(--background-modifier-border)" />
 
-				{/* Filter / shader bar — solid accent fill, the prominent colored element */}
+				{/* Filter bar — solid accent fill on the track */}
 				{hasFilter && (
 					<rect
 						x={`${fLeftFrac * 100}%`}
@@ -234,27 +249,11 @@ export function TimelineMinimap({
 						height={TRACK_H - 2}
 						rx={2}
 						fill="var(--interactive-accent)"
-						opacity={0.55}
+						opacity={0.7}
 					>
 						<title>{`Filter: ${Math.round(fL)} – ${Math.round(fR)}`}</title>
 					</rect>
 				)}
-
-				{/* View box — filled + outlined so it reads as a distinct framed box.
-				     Opacity drops when filter bar is present so filter bar dominates. */}
-				<rect
-					x={`${leftFrac * 100}%`}
-					y={TRACK_Y}
-					width={`${Math.max(0.5, (rightFrac - leftFrac) * 100)}%`}
-					height={TRACK_H}
-					rx={2}
-					fill="var(--interactive-accent)"
-					stroke="var(--interactive-accent)"
-					strokeWidth={2}
-					opacity={hasFilter ? 0.25 : 0.65}
-				>
-					<title>{`Viewing: ${Math.round(leftYear)} – ${Math.round(rightYear)}`}</title>
-				</rect>
 
 				{/* "Now" marker */}
 				{NOW_YEAR >= yearMin && NOW_YEAR <= yearMax && (
@@ -276,13 +275,31 @@ export function TimelineMinimap({
 				</text>
 			</svg>
 
-			{/* ── View box: top tab (pan) — bg-primary + accent border so it
-			     pops above both the density bars and the track ────────────── */}
+			{/* ── View box frame: straddles the track — protrudes VB_ABOVE above
+			     and VB_BELOW below the rail. pointerEvents none so SVG clicks
+			     pass through the frame ───────────────────────────────────── */}
+			<div
+				style={{
+					position:      "absolute",
+					left:          `${leftFrac * 100}%`,
+					top:           VB_Y,
+					width:         `${Math.max(0.5, (rightFrac - leftFrac) * 100)}%`,
+					height:        VB_H,
+					border:        "1.5px solid var(--interactive-accent)",
+					borderRadius:  4,
+					background:    "color-mix(in srgb, var(--interactive-accent) 10%, transparent)",
+					pointerEvents: "none",
+					zIndex:        2,
+				}}
+			/>
+
+			{/* ── View box: top tab (pan) — sits above view box, borderBottom
+			     none so it connects visually to the frame ────────────────── */}
 			<div
 				style={{
 					position:     "absolute",
 					left:         `${tabCenterPct}%`,
-					top:          TRACK_Y - TAB_H,
+					top:          TAB_Y,
 					transform:    "translateX(-50%)",
 					width:        TAB_W,
 					height:       TAB_H,
@@ -298,21 +315,21 @@ export function TimelineMinimap({
 				onDoubleClick={handleDblClick}
 			/>
 
-			{/* ── View box: diamond edge handles (resize) ───────────────────── */}
+			{/* ── View box: diamond edge handles (resize) — at track mid, view box x-edges ── */}
 			{(["left", "right"] as const).map(side => (
 				<div
 					key={`vb-${side}`}
 					style={{
-						position:  "absolute",
-						left:      `${(side === "left" ? leftFrac : rightFrac) * 100}%`,
-						top:       trackMid - DIAMOND / 2,
-						transform: "translateX(-50%)",
-						width:     DIAMOND,
-						height:    DIAMOND,
-						background:  "var(--interactive-accent)",
-						clipPath:  "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)",
-						cursor:    "ew-resize",
-						zIndex:    5,
+						position:   "absolute",
+						left:       `${(side === "left" ? leftFrac : rightFrac) * 100}%`,
+						top:        trackMid - DIAMOND / 2,
+						transform:  "translateX(-50%)",
+						width:      DIAMOND,
+						height:     DIAMOND,
+						background: "var(--interactive-accent)",
+						clipPath:   "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)",
+						cursor:     "ew-resize",
+						zIndex:     5,
 					}}
 					onMouseDown={startDrag(side)}
 					onClick={e => e.stopPropagation()}
@@ -320,29 +337,35 @@ export function TimelineMinimap({
 				/>
 			))}
 
-			{/* ── Filter bar: dot edge handles (resize) ─────────────────────── */}
+			{/* ── Filter bar: grip edge handles (resize) — tall pill with inner lines ── */}
 			{hasFilter && (["left", "right"] as const).map(side => (
 				<div
 					key={`fb-${side}`}
 					style={{
 						position:     "absolute",
 						left:         `${(side === "left" ? fLeftFrac : fRightFrac) * 100}%`,
-						top:          TRACK_Y + 1,
+						top:          TRACK_Y - 4,
 						transform:    "translateX(-50%)",
-						width:        6,
-						height:       TRACK_H - 2,
+						width:        10,
+						height:       TRACK_H + 8,
 						background:   "var(--interactive-accent)",
-						borderRadius: 2,
-						opacity:      0.85,
+						borderRadius: 3,
 						cursor:       "ew-resize",
-						zIndex:       4,
+						zIndex:       5,
+						display:      "flex",
+						alignItems:   "center",
+						justifyContent: "center",
+						gap:          2,
 					}}
 					onMouseDown={startFilterDrag(side)}
 					onClick={e => e.stopPropagation()}
-				/>
+				>
+					<div style={{ width: 1.5, height: "55%", background: "rgba(255,255,255,0.65)", borderRadius: 1 }} />
+					<div style={{ width: 1.5, height: "55%", background: "rgba(255,255,255,0.65)", borderRadius: 1 }} />
+				</div>
 			))}
 
-			{/* ── Filter bar: bottom knob (pan) ─────────────────────────────── */}
+			{/* ── Filter bar: bottom knob (pan) — below the track ───────────── */}
 			{hasFilter && (
 				<div
 					style={{

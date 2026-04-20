@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { zoom as d3zoom, zoomIdentity, ZoomBehavior, D3ZoomEvent } from "d3-zoom"
 import { select } from "d3-selection"
 import { useD3TimelineEngine, BASE_HEIGHT, entryYear } from "@/src/store/useD3TimelineEngine"
@@ -36,7 +36,8 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 	const [zoomK, setZoomK]               = useState(1)
 	const [scrollTop, setScrollTop]       = useState(0)
 	const [zoomBehavior, setZoomBehavior] = useState<ZoomBehavior<HTMLDivElement, unknown> | null>(null)
-	const [yearRange, setYearRange]       = useState<[number, number] | null>(null)
+	// Year-range filter: null = show all, set = filter entries to this year range (filter bar)
+	const [yearFilter, setYearFilter]     = useState<[number, number] | null>(null)
 
 	const containerRef       = useRef<HTMLDivElement>(null)
 	const scrollContainerRef = useRef<HTMLDivElement>(null)
@@ -45,10 +46,8 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 	const anchorUnits = useGlobalAnchorEntries(currentBlockId)
 	const engine = useD3TimelineEngine(units, anchorUnits, showHidden, zoomK)
 
-	// Reset range when the data domain changes (new parse, different file)
-	useEffect(() => {
-		setYearRange(null)
-	}, [engine.yearMin, engine.yearMax])
+	// Reset year filter when domain changes (new parse / different file)
+	useEffect(() => { setYearFilter(null) }, [engine.yearMin, engine.yearMax])
 
 	useEffect(() => {
 		const el = containerRef.current
@@ -148,30 +147,16 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 		}
 	}, [])
 
-	// Scroll to top when minimap year-range jumps (ensures visible entries align with filter)
-	useEffect(() => {
-		if (scrollContainerRef.current) {
-			scrollContainerRef.current.scrollTop = 0
-		}
-	}, [yearRange?.[0], yearRange?.[1]])
-
-	const effectiveRange = useMemo<[number, number]>(
-		() => yearRange ?? [engine.yearMin, engine.yearMax],
-		[yearRange, engine.yearMin, engine.yearMax],
-	)
-
 	const visibleEntries = useMemo(() => {
-		const [rangeL, rangeR] = effectiveRange
 		return engine.positionedEntries.filter(({ entry, y }) => {
-			const sig = entrySig(entry)
-			if (sig < sigFilter) return false
-			if (yearRange) {
+			if (entrySig(entry) < sigFilter) return false
+			if (yearFilter) {
 				const entryYr = engine.yearMin + (y / BASE_HEIGHT) * (engine.yearMax - engine.yearMin)
-				if (entryYr < rangeL || entryYr > rangeR) return false
+				if (entryYr < yearFilter[0] || entryYr > yearFilter[1]) return false
 			}
 			return true
 		})
-	}, [engine.positionedEntries, sigFilter, yearRange, effectiveRange, engine.yearMin, engine.yearMax])
+	}, [engine.positionedEntries, sigFilter, yearFilter, engine.yearMin, engine.yearMax])
 
 	// Virtualizer — dynamic height measurement via measureElement (ResizeObserver internally)
 	const virtualizer = useVirtualizer({
@@ -185,6 +170,34 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 
 	// Container adapts to content, caps at VIEWPORT_H
 	const containerH = Math.min(VIEWPORT_H, virtualizer.getTotalSize() || VIEWPORT_H)
+
+	// Stable fallback for filterRange prop — avoids creating a new array ref every render
+	const fullDomainRange = useMemo<[number, number]>(
+		() => [engine.yearMin, engine.yearMax],
+		[engine.yearMin, engine.yearMax],
+	)
+
+	// Minimap view box: maps scroll position onto the active year range
+	// (constrained to filter range when a filter is set, so view box stays inside filter bar)
+	const totalVirtualH     = virtualizer.getTotalSize() || 1
+	const filterDomainLeft  = yearFilter ? yearFilter[0] : engine.yearMin
+	const filterDomainRight = yearFilter ? yearFilter[1] : engine.yearMax
+	const viewportYearRange = useMemo<[number, number]>(() => {
+		const startFrac = Math.max(0, Math.min(1, scrollTop / totalVirtualH))
+		const endFrac   = Math.max(0, Math.min(1, (scrollTop + containerH) / totalVirtualH))
+		const span = filterDomainRight - filterDomainLeft
+		return [filterDomainLeft + startFrac * span, filterDomainLeft + endFrac * span]
+	}, [scrollTop, containerH, filterDomainLeft, filterDomainRight, totalVirtualH])
+
+	// Dragging the minimap view box scrolls within the active filter domain
+	const handleMinimapScroll = useCallback(([newLeft]: [number, number]) => {
+		const sc = scrollContainerRef.current
+		if (!sc) return
+		const span = filterDomainRight - filterDomainLeft
+		if (span <= 0) return
+		const startFrac = (newLeft - filterDomainLeft) / span
+		sc.scrollTop = Math.max(0, startFrac * sc.scrollHeight)
+	}, [filterDomainLeft, filterDomainRight])
 
 	// Year labels: placed at the first card in each year group
 	const firstInYear = useMemo(() => {
@@ -209,9 +222,11 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 						<TimelineMinimap
 							yearMin={engine.yearMin}
 							yearMax={engine.yearMax}
-							yearRange={effectiveRange}
-							onYearRangeChange={setYearRange}
+							yearRange={viewportYearRange}
+							onYearRangeChange={handleMinimapScroll}
 							positionedEntries={engine.positionedEntries}
+							filterRange={yearFilter ?? fullDomainRange}
+							onFilterRangeChange={setYearFilter}
 						/>
 					</div>
 					<StatPill value={`sig ≥ ${engine.visibleMinSig} · ${visibleEntries.length} events`}/>
