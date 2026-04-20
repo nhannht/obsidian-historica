@@ -19,8 +19,8 @@ const NUM_BUCKETS  = 30
 const DENSITY_H    = 16   // max density bar height in px
 const TRACK_Y      = 20   // y where the track starts (density bars fill 0..TRACK_Y)
 const TRACK_H      = 6    // track height
-const TAB_W        = 14   // view-box top tab width
-const TAB_H        = 10   // view-box top tab height
+const TAB_W        = 18   // view-box top tab width
+const TAB_H        = 12   // view-box top tab height
 const DIAMOND      = 12   // diamond handle bounding box size (width & height)
 const KNOB_R       = 5    // filter bottom knob radius
 const LABEL_H      = 12   // year label height below knob
@@ -240,7 +240,7 @@ export function TimelineMinimap({
 					</rect>
 				)}
 
-				{/* View box fill */}
+				{/* View box — outlined rect so it reads as a distinct box */}
 				<rect
 					x={`${leftFrac * 100}%`}
 					y={TRACK_Y}
@@ -248,7 +248,9 @@ export function TimelineMinimap({
 					height={TRACK_H}
 					rx={2}
 					fill="var(--interactive-accent)"
-					opacity={0.55}
+					fillOpacity={0.3}
+					stroke="var(--interactive-accent)"
+					strokeWidth={1.5}
 				>
 					<title>{`Viewing: ${Math.round(leftYear)} – ${Math.round(rightYear)}`}</title>
 				</rect>
@@ -273,7 +275,8 @@ export function TimelineMinimap({
 				</text>
 			</svg>
 
-			{/* ── View box: top tab (pan) ───────────────────────────────────── */}
+			{/* ── View box: top tab (pan) — bg-primary + accent border so it
+			     pops above both the density bars and the track ────────────── */}
 			<div
 				style={{
 					position:     "absolute",
@@ -282,11 +285,12 @@ export function TimelineMinimap({
 					transform:    "translateX(-50%)",
 					width:        TAB_W,
 					height:       TAB_H,
-					background:   "var(--interactive-accent)",
+					background:   "var(--background-primary)",
+					border:       "1.5px solid var(--interactive-accent)",
+					borderBottom: "none",
 					borderRadius: "3px 3px 0 0",
 					cursor:       "grab",
-					zIndex:       4,
-					opacity:      0.85,
+					zIndex:       6,
 				}}
 				onMouseDown={startBarDrag}
 				onClick={e => e.stopPropagation()}
