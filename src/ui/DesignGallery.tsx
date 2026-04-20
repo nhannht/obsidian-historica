@@ -13,6 +13,7 @@ import {LoadingStates} from "./gallery/LoadingStates";
 import {ToolbarSection} from "./gallery/ToolbarSection";
 import {BlockTimeline} from "./gallery/BlockTimeline";
 import {GlobalTimelineSection} from "./gallery/GlobalTimelineSection";
+import {MinimapSection} from "./gallery/MinimapSection";
 
 export function DesignGallery() {
 	return (
@@ -70,6 +71,7 @@ export function DesignGallery() {
 				<ToolbarSection/>
 				<BlockTimeline/>
 				<GlobalTimelineSection/>
+				<MinimapSection/>
 			</div>
 		</div>
 	);

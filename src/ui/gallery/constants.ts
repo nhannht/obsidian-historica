@@ -15,4 +15,5 @@ export const NAV_SECTIONS = [
 	{id: "toolbar",           label: "Toolbar"},
 	{id: "block-timeline",    label: "Block"},
 	{id: "global-timeline",   label: "Global"},
+	{id: "minimap",           label: "Minimap"},
 ];
