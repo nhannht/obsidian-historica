@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { zoom as d3zoom, zoomIdentity, ZoomBehavior, D3ZoomEvent } from "d3-zoom"
 import { select } from "d3-selection"
-import { useD3TimelineEngine, BASE_HEIGHT, entryYear } from "@/src/store/useD3TimelineEngine"
+import { useD3TimelineEngine, entryYear } from "@/src/store/useD3TimelineEngine"
 import { SinglePlotUnit } from "@/src/ui/SinglePlotUnit"
 import { useTimeline, useTimelineStore } from "@/src/ui/TimelineContext"
 import { TimelineMinimap } from "@/src/ui/TimelineMinimap"
@@ -148,15 +148,17 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 	}, [])
 
 	const visibleEntries = useMemo(() => {
-		return engine.positionedEntries.filter(({ entry, y }) => {
+		const filterMin = yearFilter ? Math.floor(yearFilter[0]) : null
+		const filterMax = yearFilter ? Math.ceil(yearFilter[1])  : null
+		return engine.positionedEntries.filter(({ entry }) => {
 			if (entrySig(entry) < sigFilter) return false
-			if (yearFilter) {
-				const entryYr = engine.yearMin + (y / BASE_HEIGHT) * (engine.yearMax - engine.yearMin)
-				if (entryYr < yearFilter[0] || entryYr > yearFilter[1]) return false
+			if (filterMin !== null && filterMax !== null) {
+				const yr = entryYear(entry)
+				if (yr !== null && (yr < filterMin || yr > filterMax)) return false
 			}
 			return true
 		})
-	}, [engine.positionedEntries, sigFilter, yearFilter, engine.yearMin, engine.yearMax])
+	}, [engine.positionedEntries, sigFilter, yearFilter])
 
 	// Virtualizer — dynamic height measurement via measureElement (ResizeObserver internally)
 	const virtualizer = useVirtualizer({
@@ -217,19 +219,35 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 		<div className="flex flex-col">
 			{/* ── Minimap strip ────────────────────────────────────────────── */}
 			{zoomBehavior && (
-				<div className="px-2 py-1 border-b border-[--background-modifier-border] flex items-center gap-2">
-					<div className="flex-1 min-w-0">
-						<TimelineMinimap
-							yearMin={engine.yearMin}
-							yearMax={engine.yearMax}
-							yearRange={viewportYearRange}
-							onYearRangeChange={handleMinimapScroll}
-							positionedEntries={engine.positionedEntries}
-							filterRange={yearFilter ?? fullDomainRange}
-							onFilterRangeChange={setYearFilter}
-						/>
+				<div className="px-2 pt-1 pb-1 border-b border-[--background-modifier-border]">
+					{/* Filter year range pill — centered above minimap, updates live on drag */}
+					<div style={{ display: "flex", justifyContent: "center", marginBottom: 3 }}>
+						<div style={{
+							fontSize: 9,
+							fontFamily: "var(--font-monospace)",
+							color: "var(--text-muted)",
+							border: "1px solid var(--background-modifier-border)",
+							borderRadius: 4,
+							padding: "1px 8px",
+							lineHeight: 1.5,
+						}}>
+							{Math.round((yearFilter ?? fullDomainRange)[0])} – {Math.round((yearFilter ?? fullDomainRange)[1])}
+						</div>
 					</div>
-					<StatPill value={`sig ≥ ${engine.visibleMinSig} · ${visibleEntries.length} events`}/>
+					<div className="flex items-center gap-2">
+						<div className="flex-1 min-w-0">
+							<TimelineMinimap
+								yearMin={engine.yearMin}
+								yearMax={engine.yearMax}
+								yearRange={viewportYearRange}
+								onYearRangeChange={handleMinimapScroll}
+								positionedEntries={engine.positionedEntries}
+								filterRange={yearFilter ?? fullDomainRange}
+								onFilterRangeChange={setYearFilter}
+							/>
+						</div>
+						<StatPill value={`sig ≥ ${engine.visibleMinSig} · ${visibleEntries.length} events`}/>
+					</div>
 				</div>
 			)}
 
