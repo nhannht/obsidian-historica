@@ -42,6 +42,7 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 	const containerRef       = useRef<HTMLDivElement>(null)
 	const scrollContainerRef = useRef<HTMLDivElement>(null)
 	const zoomKRef           = useRef(1)  // stale-closure escape hatch for zoom handler
+	const scrollRafRef       = useRef(0)
 
 	const anchorUnits = useGlobalAnchorEntries(currentBlockId)
 	const engine = useD3TimelineEngine(units, anchorUnits, showHidden, zoomK)
@@ -148,8 +149,8 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 	}, [])
 
 	const visibleEntries = useMemo(() => {
-		const filterMin = yearFilter ? Math.floor(yearFilter[0]) : null
-		const filterMax = yearFilter ? Math.ceil(yearFilter[1])  : null
+		const filterMin = yearFilter ? Math.round(yearFilter[0]) : null
+		const filterMax = yearFilter ? Math.round(yearFilter[1]) : null
 		return engine.positionedEntries.filter(({ entry }) => {
 			if (entrySig(entry) < sigFilter) return false
 			if (filterMin !== null && filterMax !== null) {
@@ -170,8 +171,8 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 		overscan:       3,
 	})
 
-	// Container adapts to content, caps at VIEWPORT_H
-	const containerH = Math.min(VIEWPORT_H, virtualizer.getTotalSize() || VIEWPORT_H)
+	const rawTotalH     = virtualizer.getTotalSize()
+	const containerH    = Math.min(VIEWPORT_H, rawTotalH || VIEWPORT_H)
 
 	// Stable fallback for filterRange prop — avoids creating a new array ref every render
 	const fullDomainRange = useMemo<[number, number]>(
@@ -181,7 +182,7 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 
 	// Minimap view box: maps scroll position onto the active year range
 	// (constrained to filter range when a filter is set, so view box stays inside filter bar)
-	const totalVirtualH     = virtualizer.getTotalSize() || 1
+	const totalVirtualH     = rawTotalH || 1
 	const filterDomainLeft  = yearFilter ? yearFilter[0] : engine.yearMin
 	const filterDomainRight = yearFilter ? yearFilter[1] : engine.yearMax
 	const viewportYearRange = useMemo<[number, number]>(() => {
@@ -315,7 +316,11 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 					ref={scrollContainerRef}
 					className="absolute top-0 bottom-0 overflow-y-auto historica-no-scrollbar"
 					style={{ left: AXIS_WIDTH + CARD_OFFSET, right: 0 }}
-					onScroll={e => setScrollTop(e.currentTarget.scrollTop)}
+					onScroll={e => {
+						const top = e.currentTarget.scrollTop
+						cancelAnimationFrame(scrollRafRef.current)
+						scrollRafRef.current = requestAnimationFrame(() => setScrollTop(top))
+					}}
 				>
 					<div style={{ height: virtualizer.getTotalSize(), position: "relative" }}>
 						{virtualizer.getVirtualItems().map(virtualItem => {
