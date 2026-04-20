@@ -240,14 +240,16 @@ export function TimelineMinimap({
 					</rect>
 				)}
 
-				{/* View box — outline-only frame, no fill, sits on top as a viewport window */}
+				{/* View box — light fill so it's visible in production (no filter bar),
+				     outline stroke marks it as a distinct frame above the filter bar */}
 				<rect
 					x={`${leftFrac * 100}%`}
 					y={TRACK_Y}
 					width={`${Math.max(0.5, (rightFrac - leftFrac) * 100)}%`}
 					height={TRACK_H}
 					rx={2}
-					fill="none"
+					fill="var(--interactive-accent)"
+					fillOpacity={hasFilter ? 0.12 : 0.4}
 					stroke="var(--interactive-accent)"
 					strokeWidth={1.5}
 				>
