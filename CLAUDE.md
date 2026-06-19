@@ -4,7 +4,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What This Is
 
-Obsidian Historica is an Obsidian.md plugin that generates timelines from note content using NLP date extraction. It parses markdown text, extracts sentences with dates via chrono-node, and renders interactive timeline visualizations. Desktop-only, English-focused.
+Obsidian Historica is an Obsidian.md plugin that generates timelines from note content using NLP date extraction. It parses markdown text, extracts sentences with dates via chrono-node, and renders interactive timeline visualizations. Desktop-only. English-first, with auto-detected multilingual parsing (EN, DE, FR, JA, ZH, NL, VI).
+
+## Task Tracking (YouTrack) - MANDATORY
+
+All tracked work for this repo lives in YouTrack project **OBH** (`obsidian-historica`). This is the home; do not use any other tracker.
+
+- Create an OBH issue for any work that outlives the session (feature, bug, multi-phase build) BEFORE starting it. Update its State as work progresses: `Open` → `In Progress` → `Fixed` (→ `Verified` once confirmed).
+- Log work items (spent time) on the issue when a chunk of work completes (`log_work`).
+- OBH uses the default scheme: Type {Bug, Feature, Task, Epic, …}, State {Submitted, Open, In Progress, …, Fixed, Won't fix, Verified}. Always call `get_issue_fields_schema` for OBH before `create_issue` / `update_issue`.
+- The built-in session task list (`TaskCreate`/`TaskUpdate`) is for within-session steps only - it is NOT the backlog. Anything that must persist goes in OBH.
 
 ## Build & Dev Commands
 
@@ -20,6 +29,8 @@ bun test __tests__/ChronoParserJA.test.ts        # Japanese (hand-curated)
 bun test __tests__/ChronoParserJAWiki.test.ts    # Japanese (Wikipedia coverage)
 bun test __tests__/ChronoParserZH.test.ts        # Chinese (hand-curated + known gaps)
 bun test __tests__/ChronoParserZHWiki.test.ts    # Chinese (Wikipedia coverage)
+bun test __tests__/ChronoParserNL.test.ts        # Dutch (WikiWars-NL curated)
+bun test __tests__/HmdParser.test.ts             # HMD storage format parse/serialize round-trip
 bun run doc:code          # Generate TypeDoc documentation
 ```
 
@@ -112,22 +123,22 @@ obsidian dev:cdp method="Runtime.evaluate" params='{"expression":"1+1"}'
 
 1. **Block Registration**: `main.ts` -> `HistoricaBlockManager` registers a markdown code block processor for historica blocks
 2. **Store Creation**: `HistoricaBlockManager` creates a per-block Zustand store via `createTimelineStore()`, passing plugin, settings, and block context
-3. **Data Loading**: Store `load()` action reads saved JSON from `historica-data/{blockId}.json` or parses the current file via the compute layer
-4. **Content Extraction**: `src/compute/MarkdownParser.ts` uses remark/unified to parse markdown AST, then natural.js to tokenize sentences
-5. **Date Parsing**: `src/compute/ChronoParser.ts` wraps chrono-node with custom parsers (YYYY/MM/DD, B.C.E/A.D.E patterns, etc.)
+3. **Data Loading**: Store `load()` action reads the saved HMD file `historica-data/{blockId}.md` (legacy `.json` is migrated to HMD on read), or parses the current file via the compute layer
+4. **Content Extraction**: `src/compute/MarkdownParser.ts` uses remark/unified to parse markdown AST, then `Intl.Segmenter` to split sentences (natural.js was removed)
+5. **Date Parsing**: `src/compute/ChronoParser.ts` wraps a per-language chrono-node clone with custom parsers (YYYY/MM/DD, B.C.E/A.D.E patterns, CJK/era/century parsers, etc.); `detectLanguage()` + the `language` setting pick the locale
 6. **Rendering**: `src/ui/TimelineBlock.tsx` consumes the store via `useStore()` and renders TimelineI
-7. **Persistence**: Auto-save via `store.subscribe()` writes to `historica-data/{blockId}.json` on state change. Manual save assigns blockId if not set.
+7. **Persistence**: Auto-save via `store.subscribe()` serializes to `historica-data/{blockId}.md` (HMD format) on state change. Manual save assigns blockId if not set.
 
 ### Key Entry Points
 
 - **`main.ts`**: Plugin class (`HistoricaPlugin`) -- registers block processor, handles dark mode
 - **`src/backgroundLogic/HistoricaBlockManager.tsx`**: Block processor -- parses settings, creates Zustand store, mounts React
 - **`src/store/createTimelineStore.ts`**: Zustand store factory -- all state and actions (add/remove/edit/sort/expand/save/parse/import)
-- **`src/data/TimelineDataManager.ts`**: Vault I/O layer -- load/save JSON, ensure blockId, import from file
+- **`src/data/TimelineDataManager.ts`**: Vault I/O layer -- load/save HMD (`.md`), migrate legacy JSON, ensure blockId, import from file
 - **`src/compute/MarkdownParser.ts`**: Markdown to sentences extraction pipeline
 - **`src/compute/ChronoParser.ts`**: Date/time NLP parsing with custom chrono-node parsers
 - **`src/ui/TimelineBlock.tsx`**: Top-level React component -- context menu, loading/error/empty states
-- **`src/types.ts`**: All type definitions (`HistoricaSettingNg`, `PlotUnitNg`, `HistoricaFileData`, `TimeData`, `Attachment`)
+- **`src/types.ts`**: All type definitions (`HistoricaSettings`, `HistoricaPluginSettings`, `TimelineEntry`, `TimelineDocument`, `TimeData`, `Attachment`)
 - **`src/utils.ts`**: Utility functions (export to JSON/PNG/MD, vault helpers, HTML sanitization)
 
 ### File Structure
@@ -139,9 +150,12 @@ src/
   utils.ts                           -- utility functions
   moment-fix.ts                      -- moment type shim
   data/
-    TimelineDataManager.ts           -- vault I/O for timeline data
+    TimelineDataManager.ts           -- vault I/O for timeline data (HMD + JSON migration)
     VaultIndexManager.ts             -- cross-vault anchor index (_index.json)
     HmdParser.ts                     -- HMD format parser/serializer
+    HmdDateFormat.ts                 -- date <-> HMD string formatting
+    HmdPostProcessor.ts              -- markdown post-processor for rendered HMD
+    HmdEditorExtension.ts            -- CodeMirror 6 extension for editing HMD
   compute/
     MarkdownParser.ts                -- markdown AST to sentences
     ChronoParser.ts                  -- chrono-node date extraction
@@ -259,7 +273,7 @@ Git tag push triggers `.github/workflows/release.yml`: generates changelog via g
 
 **CRITICAL: For ALL code files, you MUST use Serena MCP and JetBrains MCP tools instead of built-in Read/Edit/Grep/Write. Built-in tools are ONLY for non-code files (markdown, PDFs, JSON config, etc.).**
 
-The projectPath for all JetBrains calls is `/home/ubuntu/nhannht-projects/obsidian-historica`.
+The projectPath for all JetBrains calls is `/home/larvartar/nhannht-projects/obsidian-historica`.
 
 ### Tool Split: Serena = Code Intelligence, JetBrains = IDE Capabilities
 
