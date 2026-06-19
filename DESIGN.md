@@ -38,6 +38,7 @@ colors:
   anchor: "{colors.int-orange-4}"
   anchor-text: "#A14916"
   anchor-tint: "{colors.int-orange-tint}"
+  danger: "{colors.int-orange-4}"
 typography:
   ui-default:
     fontFamily: "Inter, ui-sans-serif, system-ui, sans-serif"
@@ -282,6 +283,7 @@ Semantic roles and their Int source (light theme):
 | `anchor`            | Orange 4 (Primary)   | `#E56D17` | cross-vault anchor marker |
 | `anchor-text`       | Orange (dark, AA)    | `#A14916` | anchor text on `anchor-tint` |
 | `anchor-tint`       | Orange 9 (tint)      | `#FFF4EB` | anchor chip / ref-badge background |
+| `danger`            | Orange 4             | `#E56D17` | error text / destructive markers (the Int kit ships no red) |
 
 **Accent rule (WCAG AA).** Int's `Blue 4 #3574F0` is a mid-tone: white text on it
 sits at ~4.3:1, just under AA, and so does the accent on a light tint. So `primary`
@@ -289,14 +291,15 @@ is used for **fills, strokes, and dots** (no contrast rule), while
 `accent-strong` (Int Blue 2) carries any **accent text** and any **fill that holds
 white text**. This is Int's own pattern - its links use Blue 2, not Blue 4.
 
-**Status.** Errors map to Int `Red 4 #DB3B4B`, success to Int `Green 4 #208A3C`,
-warnings/anchors to Int `Orange 4 #E56D17` - used as markers/fills, with darker
-tones for text.
+**Status.** The imported Int kit ships only blue, gray, and orange ramps - no red or
+green. Errors therefore use the `danger` token (Orange 4 `#E56D17` light, Dark/Orange 6
+`#E08855` dark); there is no separate success color, and warnings/anchors share the
+orange ramp. Used as text and markers, with darker tones where contrast needs it.
 
 **Dark theme** (Int UI dark - becomes a second Figma mode):
 `surface #1E1F22`, `surface-secondary #2B2D30`, `border #393B40`,
 `on-surface #DFE1E5`, `on-surface-muted #9DA0A8`, `on-surface-faint #6F737A`,
-`primary #3574F0` (accent text lightens to ~`#548AF7`). In dark mode body, muted,
+`primary #3574F0` (accent text lightens to ~`#548AF7`), `danger #E08855`. In dark mode body, muted,
 and anchor text stay AA-normal; the two short accent labels that ride Int's lighter
 dark blue - the date chip (~3.9:1) and the selected menu row (~3.3:1) - meet WCAG
 AA-large only. This is an accepted characteristic of Int's dark palette, kept to
