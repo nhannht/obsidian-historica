@@ -20,14 +20,6 @@ jobs:
         with:
           node-version: '21'
 
-      - name: "📔 Generate a changelog"
-        uses: orhun/git-cliff-action@v3
-        with:
-          config: cliff.toml
-          args: --verbose --latest
-        env:
-          OUTPUT: CHANGELOG_temp.md
-
 
 
 
@@ -50,7 +42,7 @@ jobs:
           gh release create "$tag" \
           --title="$tag" \
           --draft \
-          --notes-file=CHANGELOG_temp.md \
+          --notes-file=RELEASE_NOTES.md \
           main.js manifest.json styles.css LICENSE README.md
 
       
