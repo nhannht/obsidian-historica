@@ -7,8 +7,8 @@ interface MenuPanelProps {
 }
 
 const PANEL_STYLE: React.CSSProperties = {
-	background: "var(--background-primary)",
-	border: "1px solid var(--background-modifier-border)",
+	background: "var(--int-surface)",
+	border: "1px solid var(--int-border)",
 	borderRadius: 3,
 	padding: "3px 0",
 	minWidth: 180,
@@ -17,13 +17,13 @@ const PANEL_STYLE: React.CSSProperties = {
 
 const ITEM_BASE: React.CSSProperties = {
 	display: "flex", alignItems: "center", justifyContent: "space-between",
-	padding: "5px 10px", fontSize: 12, fontFamily: "monospace",
+	padding: "5px 10px", fontSize: 12, fontFamily: "var(--int-font-mono)",
 	cursor: "pointer", userSelect: "none",
 };
 
 function itemStyles(item: MenuItem): React.CSSProperties {
 	return {
-		color: item.muted || item.disabled ? "var(--text-faint)" : "var(--text-normal)",
+		color: item.muted || item.disabled ? "var(--int-on-surface-faint)" : "var(--int-on-surface)",
 		opacity: item.disabled ? 0.5 : 1,
 	};
 }
@@ -56,7 +56,7 @@ function SubmenuPanel({item, onClose}: {item: MenuItem; onClose: () => void}) {
 			style={{...ITEM_BASE, ...itemStyles(item)}}
 			onMouseEnter={e => {
 				handleEnter();
-				if (!item.disabled) (e.currentTarget as HTMLDivElement).style.background = "var(--background-secondary)";
+				if (!item.disabled) (e.currentTarget as HTMLDivElement).style.background = "var(--int-surface-secondary)";
 			}}
 			onMouseLeave={e => {
 				handleLeave();
@@ -89,14 +89,14 @@ export function MenuPanel({items, onClose}: MenuPanelProps) {
 			{items.map((node, i) => (
 				<Fragment key={i}>
 					{node.type === "separator" ? (
-						<div style={{borderTop: "1px solid var(--background-modifier-border)", margin: "3px 0"}}/>
+						<div style={{borderTop: "1px solid var(--int-border)", margin: "3px 0"}}/>
 					) : (node.submenu || node.submenuContent) ? (
 						<SubmenuPanel item={node} onClose={onClose}/>
 					) : (
 						<div
 							style={{...ITEM_BASE, ...itemStyles(node)}}
 							onMouseEnter={e => {
-								if (!node.disabled) (e.currentTarget as HTMLDivElement).style.background = "var(--background-secondary)";
+								if (!node.disabled) (e.currentTarget as HTMLDivElement).style.background = "var(--int-surface-secondary)";
 							}}
 							onMouseLeave={e => {
 								(e.currentTarget as HTMLDivElement).style.background = "transparent";

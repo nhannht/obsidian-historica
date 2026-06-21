@@ -14,7 +14,7 @@ export default function ShortendableParagraph(props: {
 			className={props.className}
 			style={{
 				width: "100%", maxWidth: "42rem", borderRadius: 6, boxSizing: "border-box",
-				border: `2px solid ${hovered ? "var(--interactive-accent)" : "transparent"}`,
+				border: `2px solid ${hovered ? "var(--int-primary)" : "transparent"}`,
 				padding: "24px 24px 0",
 				transition: "border-color 0.11s",
 			}}

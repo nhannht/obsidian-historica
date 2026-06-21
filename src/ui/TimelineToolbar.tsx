@@ -35,7 +35,7 @@ export function TimelineToolbar(props: {
 	const allExpanded = units.length > 0 && units.every(u => u.isExpanded);
 
 	const saveStatus = isSaving ? "Saving…" : isDirty ? "Unsaved" : settings.blockId === "-1" ? "Not saved yet" : "Saved";
-	const saveStatusColor = isDirty ? "var(--text-accent)" : "var(--text-muted)";
+	const saveStatusColor = isDirty ? "var(--int-accent-strong)" : "var(--int-on-surface-muted)";
 	const saveStatusOpacity = isDirty ? 1 : 0.6;
 
 	const handleExportPng = (mode: "save" | "clipboard") => {
