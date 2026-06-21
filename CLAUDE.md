@@ -75,19 +75,29 @@ bun run qa
 bun run build   # minified CSS + tsc check + esbuild
 ```
 
-### Visual Verification
+### Visual Verification (verify via DOM, NOT screenshots)
+
+Do NOT take screenshots to check rendering. Verify via the DOM and computed styles -
+deterministic, non-intrusive, and a better test than an image for CSS/token changes.
 
 ```bash
-# Take screenshot (view with Read tool)
-obsidian dev:screenshot path=/tmp/historica-qa.png
-
-# Query DOM to verify timeline rendered
+# Query DOM to verify the timeline rendered
 obsidian dev:dom selector=".historica-timeline" text
 obsidian dev:dom selector=".historica-timeline" all    # all matches
+
+# Assert resolved styling / Int tokens via computed styles
+obsidian eval code="getComputedStyle(document.querySelector('.historica-timeline')).backgroundColor"
 
 # Inspect CSS
 obsidian dev:css selector=".historica-timeline" prop=display
 ```
+
+Screenshots: `obsidian dev:screenshot` / `dev:cdp Page.captureScreenshot` HANG whenever the
+Obsidian window is occluded (a real X11 limitation - the compositor stops producing frames for
+hidden windows). Do NOT work around it by raising the window (`Page.bringToFront`, steals focus)
+or by grabbing the X display (`import`/`scrot`/`ffmpeg x11grab`, captures the user's live
+screen). If a screenshot is genuinely required, ask the user to take it. See
+`~/.claude/rules/obsidian-qa.md`.
 
 ### Error Checking
 
