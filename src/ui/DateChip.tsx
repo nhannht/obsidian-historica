@@ -9,11 +9,11 @@ const VARIANT_STYLES: Record<Variant, React.CSSProperties> = {
 		background: "var(--int-accent-tint)",
 	},
 	approximate: {
-		color: "var(--int-on-surface-faint)", opacity: 0.6,
+		color: "var(--int-on-surface-muted)", opacity: 0.6,
 		border: "1px dashed color-mix(in srgb, var(--int-on-surface-faint) 40%, transparent)",
 	},
 	anchor: {
-		color: "var(--int-anchor)",
+		color: "var(--int-anchor-text)",
 		background: "var(--int-anchor-tint)",
 		border: "1px solid color-mix(in srgb, var(--int-anchor) 30%, transparent)",
 	},

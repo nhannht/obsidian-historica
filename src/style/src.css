@@ -131,7 +131,7 @@
 	font-size: 0.75em;
 	font-weight: 600;
 	color: var(--int-on-primary);
-	background: var(--int-primary);
+	background: var(--int-accent-strong);
 	padding: 2px 10px;
 	border-radius: 12px;
 	margin-bottom: 6px;

@@ -9,7 +9,7 @@ export function StatPill({value, label}: {
 			fontSize: 10, fontFamily: "var(--int-font-mono)",
 			padding: "2px 8px", borderRadius: 9999,
 			color: "var(--int-on-surface-muted)",
-			background: "color-mix(in srgb, var(--int-on-surface-muted) 8%, transparent)",
+			background: "var(--int-surface-secondary)",
 		}}>
 			<span>{value}</span>
 			{label && <span style={{opacity: 0.6}}>{label}</span>}

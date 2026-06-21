@@ -14,7 +14,7 @@ export function AnnotationBlock({children, hasContent}: {
 					annotation
 				</span>
 			)}
-			<div style={hasContent ? {fontStyle: "italic", color: "var(--int-on-surface-muted)"} : {}}>
+			<div style={hasContent ? {color: "var(--int-on-surface-muted)"} : {}}>
 				{children}
 			</div>
 		</div>
