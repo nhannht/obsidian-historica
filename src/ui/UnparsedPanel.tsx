@@ -30,19 +30,19 @@ export function UnparsedPanel() {
 	}
 
 	return (
-		<div style={{borderTop: "1px solid var(--background-modifier-border)", marginTop: 8}}>
+		<div style={{borderTop: "1px solid var(--int-border)", marginTop: 8}}>
 			<button
 				style={{
 					width: "100%", display: "flex", alignItems: "baseline", gap: 8,
 					padding: "8px 12px 10px", textAlign: "left", background: "none", border: "none", cursor: "pointer",
-					borderBottom: open ? "2px solid var(--background-modifier-border)" : "2px solid transparent",
+					borderBottom: open ? "2px solid var(--int-border)" : "2px solid transparent",
 				}}
 				onClick={() => setOpen(o => !o)}
 			>
 				<SectionLabel>UNDATED</SectionLabel>
-				<span style={{fontFamily: "monospace", fontSize: 16, color: "var(--text-accent)", lineHeight: 1}}>{unparsedSentences.length}</span>
-				<span style={{fontSize: 11, color: "var(--text-faint)"}}>fragment{unparsedSentences.length !== 1 ? "s" : ""} without timestamp</span>
-				<ChevronRight style={{width: 9, height: 9, marginLeft: "auto", color: "var(--text-faint)", opacity: 0.4, flexShrink: 0, transition: "transform var(--historica-dur-snap, 110ms)", transform: open ? "rotate(90deg)" : "rotate(0deg)"}}/>
+				<span style={{fontFamily: "var(--int-font-mono)", fontSize: 16, color: "var(--int-accent-strong)", lineHeight: 1}}>{unparsedSentences.length}</span>
+				<span style={{fontSize: 11, color: "var(--int-on-surface-faint)"}}>fragment{unparsedSentences.length !== 1 ? "s" : ""} without timestamp</span>
+				<ChevronRight style={{width: 9, height: 9, marginLeft: "auto", color: "var(--int-on-surface-faint)", opacity: 0.4, flexShrink: 0, transition: "transform var(--historica-dur-snap, 110ms)", transform: open ? "rotate(90deg)" : "rotate(0deg)"}}/>
 			</button>
 
 			{open && (
@@ -54,18 +54,18 @@ export function UnparsedPanel() {
 							<div key={globalIdx} style={{
 								display: "flex", gap: 12, padding: "10px 0",
 								borderBottom: i < pageItems.length - 1
-									? "1px solid color-mix(in srgb, var(--background-modifier-border) 35%, transparent)"
+									? "1px solid color-mix(in srgb, var(--int-border) 35%, transparent)"
 									: "none",
 							}}>
 								<span style={{
-									fontFamily: "monospace", fontSize: 9, color: "var(--text-faint)",
+									fontFamily: "var(--int-font-mono)", fontSize: 9, color: "var(--int-on-surface-faint)",
 									opacity: 0.35, minWidth: 18, paddingTop: 2, userSelect: "none",
 								}}>{String(globalIdx + 1).padStart(2, "0")}</span>
 								<div style={{flex: 1}}>
-									<div style={{fontSize: 12, color: "var(--text-muted)", lineHeight: 1.5, marginBottom: 5}}>{sentence}</div>
+									<div style={{fontSize: 12, color: "var(--int-on-surface-muted)", lineHeight: 1.5, marginBottom: 5}}>{sentence}</div>
 									{!isTagging && (
 										<span
-											style={{fontSize: 10, fontFamily: "monospace", color: "var(--text-faint)", letterSpacing: "0.04em", opacity: 0.5, cursor: "pointer"}}
+											style={{fontSize: 10, fontFamily: "var(--int-font-mono)", color: "var(--int-on-surface-faint)", letterSpacing: "0.04em", opacity: 0.5, cursor: "pointer"}}
 											onClick={() => { setTaggingIdx(globalIdx); setDateInput(""); }}
 										>TAG →</span>
 									)}
@@ -74,7 +74,7 @@ export function UnparsedPanel() {
 											<input
 												autoFocus
 												type="text"
-												style={{flex: 1, fontSize: 11, padding: "2px 6px", borderRadius: 2, border: "1px solid var(--background-modifier-border)", background: "var(--background-primary)", color: "var(--text-normal)", outline: "none"}}
+												style={{flex: 1, fontSize: 11, padding: "2px 6px", borderRadius: 2, border: "1px solid var(--int-border)", background: "var(--int-surface)", color: "var(--int-on-surface)", outline: "none"}}
 												placeholder="e.g. March 1492"
 												value={dateInput}
 												onChange={e => setDateInput(e.target.value)}
@@ -84,12 +84,12 @@ export function UnparsedPanel() {
 												}}
 											/>
 											<button
-												style={{fontSize: 10, padding: "2px 8px", borderRadius: 2, background: "var(--interactive-accent)", color: "var(--text-on-accent)", border: "none", cursor: dateInput.trim() ? "pointer" : "default", opacity: dateInput.trim() ? 1 : 0.4}}
+												style={{fontSize: 10, padding: "2px 8px", borderRadius: 2, background: "var(--int-primary)", color: "var(--int-on-primary)", border: "none", cursor: dateInput.trim() ? "pointer" : "default", opacity: dateInput.trim() ? 1 : 0.4}}
 												disabled={!dateInput.trim()}
 												onClick={() => handleTag(sentence)}
 											>Add</button>
 											<span
-												style={{fontSize: 10, color: "var(--text-faint)", cursor: "pointer", opacity: 0.6}}
+												style={{fontSize: 10, color: "var(--int-on-surface-faint)", cursor: "pointer", opacity: 0.6}}
 												onClick={() => { setTaggingIdx(null); setDateInput(""); }}
 											>Cancel</span>
 										</div>
@@ -100,7 +100,7 @@ export function UnparsedPanel() {
 					})}
 
 					{totalPages > 1 && (
-						<div style={{display: "flex", alignItems: "center", gap: 8, marginTop: 8, fontSize: 10, fontFamily: "monospace", color: "var(--text-faint)"}}>
+						<div style={{display: "flex", alignItems: "center", gap: 8, marginTop: 8, fontSize: 10, fontFamily: "var(--int-font-mono)", color: "var(--int-on-surface-faint)"}}>
 							<span
 								style={{cursor: page === 0 ? "default" : "pointer", opacity: page === 0 ? 0.3 : 0.7}}
 								onClick={() => page > 0 && setPage(p => p - 1)}
