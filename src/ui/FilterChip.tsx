@@ -9,11 +9,11 @@ export function FilterChip({label, onRemove, active, onClick}: {
 			onClick={onClick}
 			style={{
 				display: "inline-flex", alignItems: "center", gap: 4,
-				fontSize: 11, fontFamily: "monospace",
+				fontSize: 11, fontFamily: "var(--int-font-mono)",
 				padding: "2px 8px", borderRadius: 9999,
-				border: `1px solid ${active ? "var(--interactive-accent)" : "var(--background-modifier-border)"}`,
-				color: active ? "var(--text-accent)" : "var(--text-muted)",
-				background: active ? "color-mix(in srgb, var(--interactive-accent) 10%, transparent)" : "transparent",
+				border: `1px solid ${active ? "var(--int-primary)" : "var(--int-border)"}`,
+				color: active ? "var(--int-accent-strong)" : "var(--int-on-surface-muted)",
+				background: active ? "var(--int-accent-tint)" : "transparent",
 				cursor: onClick ? "pointer" : undefined,
 				transition: "all 0.15s",
 			}}

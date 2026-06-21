@@ -5,17 +5,17 @@ type Size = "sm" | "md";
 
 const VARIANT_STYLES: Record<Variant, React.CSSProperties> = {
 	normal: {
-		color: "var(--text-accent)",
-		background: "color-mix(in srgb, var(--interactive-accent) 10%, transparent)",
+		color: "var(--int-accent-strong)",
+		background: "var(--int-accent-tint)",
 	},
 	approximate: {
-		color: "var(--text-faint)", opacity: 0.6,
-		border: "1px dashed color-mix(in srgb, var(--text-faint) 40%, transparent)",
+		color: "var(--int-on-surface-faint)", opacity: 0.6,
+		border: "1px dashed color-mix(in srgb, var(--int-on-surface-faint) 40%, transparent)",
 	},
 	anchor: {
-		color: "var(--text-warning)",
-		background: "color-mix(in srgb, var(--text-warning) 10%, transparent)",
-		border: "1px solid color-mix(in srgb, var(--text-warning) 30%, transparent)",
+		color: "var(--int-anchor)",
+		background: "var(--int-anchor-tint)",
+		border: "1px solid color-mix(in srgb, var(--int-anchor) 30%, transparent)",
 	},
 };
 
@@ -30,7 +30,7 @@ export function DateChip({children, variant = "normal", size = "md"}: {
 	size?: Size;
 }) {
 	return (
-		<span style={{fontFamily: "monospace", flexShrink: 0, ...SIZE_STYLES[size], ...VARIANT_STYLES[variant]}}>
+		<span style={{fontFamily: "var(--int-font-mono)", flexShrink: 0, ...SIZE_STYLES[size], ...VARIANT_STYLES[variant]}}>
 			{children}
 		</span>
 	);

@@ -4,9 +4,9 @@ export function ManualBadge({title}: {title?: string}) {
 			title={title}
 			style={{
 				flexShrink: 0,
-				fontSize: 9, fontFamily: "monospace",
-				color: "var(--text-faint)", opacity: 0.65,
-				border: "2px solid var(--text-faint)",
+				fontSize: 9, fontFamily: "var(--int-font-mono)",
+				color: "var(--int-on-surface-faint)", opacity: 0.65,
+				border: "2px solid var(--int-on-surface-faint)",
 				padding: "1px 5px",
 				textTransform: "uppercase", letterSpacing: "0.1em",
 			}}
@@ -22,9 +22,9 @@ export function AnchorBadge({title}: {title?: string}) {
 			title={title}
 			style={{
 				flexShrink: 0,
-				fontSize: 9, fontFamily: "monospace",
-				color: "var(--text-warning)", opacity: 0.8,
-				border: "1px solid color-mix(in srgb, var(--text-warning) 35%, transparent)",
+				fontSize: 9, fontFamily: "var(--int-font-mono)",
+				color: "var(--int-anchor)", opacity: 0.8,
+				border: "1px solid color-mix(in srgb, var(--int-anchor) 35%, transparent)",
 				padding: "1px 5px", borderRadius: 2,
 			}}
 		>
@@ -38,9 +38,9 @@ export function FileExtBadge({ext}: {ext: string}) {
 		<span
 			style={{
 				flexShrink: 0,
-				fontSize: 10, fontFamily: "monospace",
-				color: "var(--text-accent)",
-				background: "color-mix(in srgb, var(--interactive-accent) 20%, transparent)",
+				fontSize: 10, fontFamily: "var(--int-font-mono)",
+				color: "var(--int-accent-strong)",
+				background: "var(--int-accent-tint)",
 				padding: "2px 4px", borderRadius: 3,
 				textTransform: "uppercase",
 			}}
