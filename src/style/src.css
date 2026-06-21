@@ -42,6 +42,11 @@
 		--int-anchor-tint:       #FFF4EB;
 		--int-danger:            #E56D17;
 
+		/* Type families - Int UI. Stacks with fallbacks per DESIGN.md (no bundled
+		   font files). Theme-invariant, so defined here only (cascade to body.dark). */
+		--int-font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+		--int-font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
 		--historica-dur-micro:  70ms;
 		--historica-dur-snap:   110ms;
 		--historica-dur-reveal: 150ms;
