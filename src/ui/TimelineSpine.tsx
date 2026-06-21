@@ -225,9 +225,9 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 					<div style={{ display: "flex", justifyContent: "center", marginBottom: 3 }}>
 						<div style={{
 							fontSize: 9,
-							fontFamily: "var(--font-monospace)",
-							color: "var(--text-muted)",
-							border: "1px solid var(--background-modifier-border)",
+							fontFamily: "var(--int-font-mono)",
+							color: "var(--int-on-surface-muted)",
+							border: "1px solid var(--int-border)",
 							borderRadius: 4,
 							padding: "1px 8px",
 							lineHeight: 1.5,
@@ -266,7 +266,7 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 					<line
 						x1={AXIS_WIDTH - 1} y1={0}
 						x2={AXIS_WIDTH - 1} y2={containerH}
-						stroke="var(--background-modifier-border)"
+						stroke="var(--int-border)"
 						strokeWidth={2}
 					/>
 
@@ -278,7 +278,7 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 						const sig     = entrySig(entry)
 						const r       = 3 + sig * 1.5
 						const opacity = 0.55 + sig * 0.09
-						const fill    = entry.isAnchor ? "var(--text-warning)" : "var(--interactive-accent)"
+						const fill    = entry.isAnchor ? "var(--int-anchor)" : "var(--int-primary)"
 						const year    = entryYear(entry)
 						const dateLine = year !== null && entry.parsedResultText !== String(year)
 							? `${entry.parsedResultText} → ${year}`
@@ -293,16 +293,16 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 								{yearLabel !== undefined && (
 									<>
 										<line x1={AXIS_WIDTH - 12} y1={sy} x2={AXIS_WIDTH - 1} y2={sy}
-											stroke="var(--background-modifier-border)" strokeWidth={1.5} />
+											stroke="var(--int-border)" strokeWidth={1.5} />
 										<text x={AXIS_WIDTH - 15} y={sy + 4} textAnchor="end"
-											fontSize={11} fill="var(--text-muted)" fontFamily="var(--font-monospace)">
+											fontSize={11} fill="var(--int-on-surface-muted)" fontFamily="var(--int-font-mono)">
 											{yearLabel}
 										</text>
 									</>
 								)}
 								{!entry.isAnchor && (
 									<circle cx={AXIS_WIDTH - 1} cy={sy} r={r + 4}
-										fill="var(--interactive-accent)" opacity={0.12} />
+										fill="var(--int-primary)" opacity={0.12} />
 								)}
 								<circle cx={AXIS_WIDTH - 1} cy={sy} r={r}
 									fill={fill} opacity={opacity} />

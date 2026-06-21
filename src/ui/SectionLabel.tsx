@@ -8,9 +8,9 @@ export function SectionLabel({children, className}: {
 		<div
 			className={className}
 			style={{
-				fontSize: 9, fontFamily: "monospace",
+				fontSize: 9, fontFamily: "var(--int-font-mono)",
 				textTransform: "uppercase", letterSpacing: "0.08em",
-				color: "var(--text-faint)",
+				color: "var(--int-on-surface-faint)",
 			}}
 		>
 			{children}

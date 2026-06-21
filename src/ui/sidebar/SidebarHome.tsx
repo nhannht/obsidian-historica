@@ -26,26 +26,26 @@ export function SidebarHome({ plugin, message }: SidebarHomeProps) {
 	}, [entries, loading, plugin]);
 
 	return (
-		<div className="flex flex-col h-full overflow-hidden text-[var(--text-normal)]">
+		<div className="flex flex-col h-full overflow-hidden text-[var(--int-on-surface)]">
 			{/* Placeholder message */}
-			<div className="px-4 py-3 text-sm text-[var(--text-muted)] border-b border-[var(--background-modifier-border)]">
+			<div className="px-4 py-3 text-sm text-[var(--int-on-surface-muted)] border-b border-[var(--int-border)]">
 				{message}
 			</div>
 
 			{/* Vault stats */}
 			{stats && (
 				<div className="px-4 py-3 flex flex-col gap-2">
-					<span className="text-xs font-semibold text-[var(--text-accent)] uppercase tracking-wide">
+					<span className="text-xs font-semibold text-[var(--int-accent-strong)] uppercase tracking-wide">
 						Vault Index
 					</span>
 					<div className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-xs">
-						<span className="text-[var(--text-muted)]">Events indexed</span>
+						<span className="text-[var(--int-on-surface-muted)]">Events indexed</span>
 						<span className="font-medium">{stats.totalEvents.toLocaleString()}</span>
-						<span className="text-[var(--text-muted)]">Notes parsed</span>
+						<span className="text-[var(--int-on-surface-muted)]">Notes parsed</span>
 						<span className="font-medium">{stats.totalNotes.toLocaleString()}</span>
 						{stats.earliest && (
 							<>
-								<span className="text-[var(--text-muted)]">Earliest event</span>
+								<span className="text-[var(--int-on-surface-muted)]">Earliest event</span>
 								<span className="font-medium">
 									{stats.earliest.getFullYear() < 0
 										? `${Math.abs(stats.earliest.getFullYear())} BC`
@@ -58,7 +58,7 @@ export function SidebarHome({ plugin, message }: SidebarHomeProps) {
 			)}
 
 			{loading && (
-				<div className="flex-1 flex items-center justify-center text-xs text-[var(--text-muted)]">
+				<div className="flex-1 flex items-center justify-center text-xs text-[var(--int-on-surface-muted)]">
 					Loading vault index…
 				</div>
 			)}

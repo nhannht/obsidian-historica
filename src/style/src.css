@@ -17,42 +17,35 @@
 /*}*/
 
 /*.historica-mark-smart-theme {*/
-/*	@apply text-[color:var(--text-accent)]*/
+/*	@apply text-[color:var(--int-accent-strong)]*/
 /*}*/
 
 
 @layer base {
 	:root {
-		--background: 0 0% 100%;
-		--foreground: 222.2 47.4% 11.2%;
+		/* Historica design tokens - Int UI light theme.
+		   Source of truth: DESIGN.md + Figma "Historica" collection (file lZDShhe5jmcA4fsqiatm4Y).
+		   Dark values live in the .dark block below; main.ts mirrors Obsidian's
+		   .theme-dark onto body.dark so these flip with the host light/dark toggle. */
+		--int-primary:           #3574F0;
+		--int-accent-strong:     #315FBD;
+		--int-accent-tint:       #EDF3FF;
+		--int-on-primary:        #FFFFFF;
+		--int-surface:           #FFFFFF;
+		--int-surface-secondary: #F7F8FA;
+		--int-border:            #DFE1E5;
+		--int-on-surface:        #27282E;
+		--int-on-surface-muted:  #6C707E;
+		--int-on-surface-faint:  #818594;
+		--int-anchor:            #E56D17;
+		--int-anchor-text:       #A14916;
+		--int-anchor-tint:       #FFF4EB;
+		--int-danger:            #E56D17;
 
-		--muted: 210 40% 96.1%;
-		--muted-foreground: 215.4 16.3% 46.9%;
-
-		--popover: 0 0% 100%;
-		--popover-foreground: 222.2 47.4% 11.2%;
-
-		--border: 214.3 31.8% 91.4%;
-		--input: 214.3 31.8% 91.4%;
-
-		--card: 0 0% 100%;
-		--card-foreground: 222.2 47.4% 11.2%;
-
-		--primary: 222.2 47.4% 11.2%;
-		--primary-foreground: 210 40% 98%;
-
-		--secondary: 210 40% 96.1%;
-		--secondary-foreground: 222.2 47.4% 11.2%;
-
-		--accent: 210 40% 96.1%;
-		--accent-foreground: 222.2 47.4% 11.2%;
-
-		--destructive: 0 100% 50%;
-		--destructive-foreground: 210 40% 98%;
-
-		--ring: 215 20.2% 65.1%;
-
-		--radius: 0.5rem;
+		/* Type families - Int UI. Stacks with fallbacks per DESIGN.md (no bundled
+		   font files). Theme-invariant, so defined here only (cascade to body.dark). */
+		--int-font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+		--int-font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
 		--historica-dur-micro:  70ms;
 		--historica-dur-snap:   110ms;
@@ -62,44 +55,29 @@
 		--historica-ease-depart: cubic-bezier(0.2, 0, 0.8, 1);
 	}
 
+	/* Int UI dark theme - overrides the tokens above when body.dark is set. */
 	.dark {
-		--background: 224 71% 4%;
-		--foreground: 213 31% 91%;
-
-		--muted: 223 47% 11%;
-		--muted-foreground: 215.4 16.3% 56.9%;
-
-		--accent: 216 34% 17%;
-		--accent-foreground: 210 40% 98%;
-
-		--popover: 224 71% 4%;
-		--popover-foreground: 215 20.2% 65.1%;
-
-		--border: 216 34% 17%;
-		--input: 216 34% 17%;
-
-		--card: 224 71% 4%;
-		--card-foreground: 213 31% 91%;
-
-		--primary: 210 40% 98%;
-		--primary-foreground: 222.2 47.4% 1.2%;
-
-		--secondary: 222.2 47.4% 11.2%;
-		--secondary-foreground: 210 40% 98%;
-
-		--destructive: 0 63% 31%;
-		--destructive-foreground: 210 40% 98%;
-
-		--ring: 216 34% 17%;
-
-		--radius: 0.5rem;
+		--int-primary:           #3574F0;
+		--int-accent-strong:     #548AF7;
+		--int-accent-tint:       #25324D;
+		--int-on-primary:        #FFFFFF;
+		--int-surface:           #1E1F22;
+		--int-surface-secondary: #2B2D30;
+		--int-border:            #393B40;
+		--int-on-surface:        #DFE1E5;
+		--int-on-surface-muted:  #9DA0A8;
+		--int-on-surface-faint:  #6F737A;
+		--int-anchor:            #E08855;
+		--int-anchor-text:       #FACEAF;
+		--int-anchor-tint:       #45322B;
+		--int-danger:            #E08855;
 	}
 }
 
 /* shadcn @layer base removed — Obsidian provides its own body/border styles */
 
 .historica-source-pill:hover {
-	color: var(--text-accent) !important;
+	color: var(--int-accent-strong) !important;
 	opacity: 1 !important;
 }
 
@@ -120,7 +98,7 @@
 	position: relative;
 	padding-left: 28px;
 	margin-left: 12px;
-	border-left: 2px solid var(--interactive-accent-hover);
+	border-left: 2px solid var(--int-accent-strong);
 }
 
 /* Timeline dot */
@@ -131,14 +109,14 @@
 	top: 16px;
 	width: 10px;
 	height: 10px;
-	background: var(--interactive-accent);
+	background: var(--int-primary);
 	border-radius: 50%;
-	border: 2px solid var(--background-primary);
+	border: 2px solid var(--int-surface);
 }
 
 .historica-hmd-card {
-	background: var(--background-secondary);
-	border: 1px solid var(--background-modifier-border);
+	background: var(--int-surface-secondary);
+	border: 1px solid var(--int-border);
 	border-radius: 8px;
 	padding: 16px 20px;
 	transition: box-shadow 0.15s ease;
@@ -152,8 +130,8 @@
 	display: inline-block;
 	font-size: 0.75em;
 	font-weight: 600;
-	color: var(--text-on-accent);
-	background: var(--interactive-accent);
+	color: var(--int-on-primary);
+	background: var(--int-accent-strong);
 	padding: 2px 10px;
 	border-radius: 12px;
 	margin-bottom: 6px;
@@ -163,7 +141,7 @@
 .historica-hmd-title {
 	font-size: 1.15em;
 	font-weight: 700;
-	color: var(--text-normal);
+	color: var(--int-on-surface);
 	margin-bottom: 4px;
 	line-height: 1.3;
 }
@@ -171,8 +149,8 @@
 .historica-hmd-body {
 	padding-left: 40px;
 	margin-left: 12px;
-	border-left: 2px solid var(--interactive-accent-hover);
-	color: var(--text-muted);
+	border-left: 2px solid var(--int-accent-strong);
+	color: var(--int-on-surface-muted);
 	font-size: 0.95em;
 	line-height: 1.6;
 }
@@ -188,7 +166,7 @@
 }
 
 .historica-hmd-source a {
-	color: var(--text-accent);
+	color: var(--int-accent-strong);
 	text-decoration: none;
 }
 
@@ -209,7 +187,7 @@
 
 .historica-hmd-separator {
 	height: 2px;
-	background: var(--interactive-accent);
+	background: var(--int-primary);
 	opacity: 0.3;
 	border-radius: 1px;
 	margin: 8px 0;

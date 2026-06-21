@@ -34,19 +34,19 @@ export function GlobalTimelineSection() {
 			</Row>
 
 			<div style={{marginTop: 16}}>
-				<div style={{fontSize: 9, fontFamily: "monospace", color: "var(--text-faint)", marginBottom: 8, letterSpacing: "0.06em"}}>full layout · E1 in context</div>
+				<div style={{fontSize: 9, fontFamily: "var(--int-font-mono)", color: "var(--int-on-surface-faint)", marginBottom: 8, letterSpacing: "0.06em"}}>full layout · E1 in context</div>
 				<div style={{
-					border: "1px solid var(--background-modifier-border)",
+					border: "1px solid var(--int-border)",
 					borderRadius: 5, width: 480, overflow: "hidden",
 					display: "flex", flexDirection: "column",
 				}}>
-					<div style={{borderBottom: "1px solid var(--background-modifier-border)", padding: "6px 12px 8px"}}>
+					<div style={{borderBottom: "1px solid var(--int-border)", padding: "6px 12px 8px"}}>
 						<div style={{display: "flex", alignItems: "center", gap: 8, marginBottom: 8}}>
-							<span style={{display: "inline-flex", alignItems: "center", gap: 4, fontSize: 12, color: "var(--text-muted)", cursor: "pointer"}}>
+							<span style={{display: "inline-flex", alignItems: "center", gap: 4, fontSize: 12, color: "var(--int-on-surface-muted)", cursor: "pointer"}}>
 								<span>▸</span> Filter
 							</span>
 							<FilterChip label="1066 – 1600" active onRemove={() => {}}/>
-							<span style={{marginLeft: "auto", fontSize: 10, fontFamily: "monospace", color: "var(--text-faint)"}}>20 entries</span>
+							<span style={{marginLeft: "auto", fontSize: 10, fontFamily: "var(--int-font-mono)", color: "var(--int-on-surface-faint)"}}>20 entries</span>
 						</div>
 						<RugHeat years={rugYears} min={1066} max={1600} width={456} tickH={10} stripeH={5}/>
 					</div>
@@ -58,13 +58,13 @@ export function GlobalTimelineSection() {
 							transition={{duration: DUR.reveal, delay: i < 8 ? i * 0.02 : 0}}
 							style={{
 								display: "flex", gap: 12, padding: "8px 12px",
-								borderBottom: "1px solid color-mix(in srgb, var(--background-modifier-border) 30%, transparent)",
+								borderBottom: "1px solid color-mix(in srgb, var(--int-border) 30%, transparent)",
 							}}
 						>
 							<span style={{minWidth: 96, flexShrink: 0, paddingTop: 1}}><DateChip variant={date.startsWith("~") ? "approximate" : "normal"} size="sm">{date}</DateChip></span>
 							<div style={{flex: 1, minWidth: 0}}>
-								<div style={{fontSize: 13, color: "var(--text-normal)", lineHeight: 1.4, marginBottom: 3}}>{sentence}</div>
-								<span style={{fontSize: 11, color: "var(--text-accent)", opacity: 0.8}}>{note}</span>
+								<div style={{fontSize: 13, color: "var(--int-on-surface)", lineHeight: 1.4, marginBottom: 3}}>{sentence}</div>
+								<span style={{fontSize: 11, color: "var(--int-accent-strong)", opacity: 0.8}}>{note}</span>
 							</div>
 						</motion.div>
 					))}

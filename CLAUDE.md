@@ -75,19 +75,29 @@ bun run qa
 bun run build   # minified CSS + tsc check + esbuild
 ```
 
-### Visual Verification
+### Visual Verification (verify via DOM, NOT screenshots)
+
+Do NOT take screenshots to check rendering. Verify via the DOM and computed styles -
+deterministic, non-intrusive, and a better test than an image for CSS/token changes.
 
 ```bash
-# Take screenshot (view with Read tool)
-obsidian dev:screenshot path=/tmp/historica-qa.png
-
-# Query DOM to verify timeline rendered
+# Query DOM to verify the timeline rendered
 obsidian dev:dom selector=".historica-timeline" text
 obsidian dev:dom selector=".historica-timeline" all    # all matches
+
+# Assert resolved styling / Int tokens via computed styles
+obsidian eval code="getComputedStyle(document.querySelector('.historica-timeline')).backgroundColor"
 
 # Inspect CSS
 obsidian dev:css selector=".historica-timeline" prop=display
 ```
+
+Screenshots: `obsidian dev:screenshot` / `dev:cdp Page.captureScreenshot` HANG whenever the
+Obsidian window is occluded (a real X11 limitation - the compositor stops producing frames for
+hidden windows). Do NOT work around it by raising the window (`Page.bringToFront`, steals focus)
+or by grabbing the X display (`import`/`scrot`/`ffmpeg x11grab`, captures the user's live
+screen). If a screenshot is genuinely required, ask the user to take it. See
+`~/.claude/rules/obsidian-qa.md`.
 
 ### Error Checking
 
@@ -164,7 +174,7 @@ src/
   backgroundLogic/
     HistoricaBlockManager.tsx        -- code block processor
   ui/
-    gallery/                         -- DESIGN SYSTEM (source of truth, see below)
+    gallery/                         -- DESIGN SYSTEM gallery (live implementation mirror, see below)
       GlobalTimelineSection.tsx      -- gallery spec for global timeline
       EntryCard.tsx                  -- gallery spec for entry card
       ContextMenuSection.tsx         -- gallery spec for context menu
@@ -197,9 +207,18 @@ src/
 - Context menus: `NativeContextMenu` (right-click) and `NativeDropdownMenu` (toolbar buttons)
 - HTML sanitization via `sanitizeHtml()` on all rendered HTML content
 
-### Design System — Gallery is Source of Truth (Storybook pattern)
+### Design System - Figma designs it, the Gallery renders it (Storybook pattern)
 
-**`src/ui/gallery/`** is a live component showcase (like Storybook). The gallery is the **source of truth** for all UI in this project.
+Two artifacts, each the source of truth for a different layer. Neither overrides the other:
+
+| Artifact | Source of truth for |
+|---|---|
+| **Figma + `DESIGN.md`** (file `lZDShhe5jmcA4fsqiatm4Y`) | the **design** - tokens, colors, spacing, the Int UI branded look |
+| **`src/ui/gallery/`** (live showcase, like Storybook) | the **implementation** - the canonical render of the real components |
+
+The gallery is NOT where components live - it is a live **mirror** that imports the same shared components production uses, renders them with mock data, and lets you screenshot-compare against the Figma frame. Keeping the gallery render matching the Figma frame is the design-QA loop.
+
+Today the gallery render diverges from Figma because components still consume Obsidian CSS vars (host theme), not the Int tokens Figma uses - closing that gap is the OBH-5 migration.
 
 #### The iron rule: one component, two consumers
 
@@ -209,6 +228,7 @@ Every visible UI element must be a **shared React component** in `src/ui/`. The 
 - **Never** copy-paste JSX between gallery and production — extract it into a component.
 - **Never** pass different layout JSX to a shared component's render slots if it produces visually different output. If gallery and production look different, they are NOT sharing a component — fix it.
 - **"Shared style tokens" is not sharing.** Exporting a `CSSProperties` object and using it in two places is NOT component reuse. The component itself (JSX + styles + structure) must be shared.
+- **Components live in `src/ui/`, NOT in `src/ui/gallery/`.** The gallery and production are its two consumers - both import from `src/ui/`. Production must NEVER import from `gallery/`; that would pull mock-data scaffolding into the shipped build.
 
 #### Mock data must be enriched — show everything
 
@@ -223,7 +243,7 @@ Gallery mock data must exercise **every conditional branch** so all UI elements 
 
 #### Consequence: if gallery and production differ visually, production is wrong
 
-The gallery defines what the component looks like. If production renders differently — wrong borders, extra buttons, different spacing — production is using a different code path. Fix production to use the shared component, or update the shared component to handle both cases via props.
+The gallery shows the canonical render of the shared component. If production renders differently - wrong borders, extra buttons, different spacing - production is using a different code path. Fix production to use the shared component, or update the shared component to handle both cases via props. And if the gallery render itself does not match the Figma frame, the shared component (or the tokens it consumes) is wrong - fix it there, once, and both consumers update.
 
 #### Gallery sections and the shared components they showcase
 

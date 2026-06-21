@@ -228,7 +228,7 @@ export function TimelineMinimap({
 						<rect key={i}
 							x={`${xPct}%`} y={TRACK_Y - barH}
 							width={`${wPct}%`} height={Math.max(barH, 2)}
-							fill={inView ? "var(--interactive-accent)" : "var(--text-faint)"}
+							fill={inView ? "var(--int-primary)" : "var(--int-on-surface-faint)"}
 							opacity={barH > 0 ? (inView ? 0.5 : 0.18) : 0}
 						>
 							<title>{`${bYearL} – ${bYearR}: ${n} event${n !== 1 ? "s" : ""}`}</title>
@@ -238,7 +238,7 @@ export function TimelineMinimap({
 
 				{/* Gray track */}
 				<rect x={0} y={TRACK_Y} width="100%" height={TRACK_H}
-					rx={3} fill="var(--background-modifier-border)" />
+					rx={3} fill="var(--int-border)" />
 
 				{/* Filter bar — solid accent fill on the track */}
 				{hasFilter && (
@@ -248,7 +248,7 @@ export function TimelineMinimap({
 						width={`${Math.max(0.5, (fRightFrac - fLeftFrac) * 100)}%`}
 						height={TRACK_H - 2}
 						rx={2}
-						fill="var(--interactive-accent)"
+						fill="var(--int-primary)"
 						opacity={0.7}
 					>
 						<title>{`Filter: ${Math.round(fL)} – ${Math.round(fR)}`}</title>
@@ -260,17 +260,17 @@ export function TimelineMinimap({
 					<line
 						x1={`${((NOW_YEAR - yearMin) / domainSpan) * 100}%`} y1={TRACK_Y}
 						x2={`${((NOW_YEAR - yearMin) / domainSpan) * 100}%`} y2={TRACK_Y + TRACK_H}
-						stroke="var(--text-faint)" strokeWidth={1} opacity={0.5}
+						stroke="var(--int-on-surface-faint)" strokeWidth={1} opacity={0.5}
 					/>
 				)}
 
 				{/* Year labels */}
 				<text x={2} y={TOTAL_H - 1}
-					fontSize={8} fill="var(--text-faint)" fontFamily="var(--font-monospace)">
+					fontSize={8} fill="var(--int-on-surface-faint)" fontFamily="var(--int-font-mono)">
 					{Math.round(yearMin)}
 				</text>
 				<text x="99%" y={TOTAL_H - 1}
-					fontSize={8} fill="var(--text-faint)" fontFamily="var(--font-monospace)" textAnchor="end">
+					fontSize={8} fill="var(--int-on-surface-faint)" fontFamily="var(--int-font-mono)" textAnchor="end">
 					{Math.round(yearMax)}
 				</text>
 			</svg>
@@ -285,9 +285,9 @@ export function TimelineMinimap({
 					top:           VB_Y,
 					width:         `${Math.max(0.5, (rightFrac - leftFrac) * 100)}%`,
 					height:        VB_H,
-					border:        "1.5px solid var(--interactive-accent)",
+					border:        "1.5px solid var(--int-primary)",
 					borderRadius:  4,
-					background:    "color-mix(in srgb, var(--interactive-accent) 10%, transparent)",
+					background:    "color-mix(in srgb, var(--int-primary) 10%, transparent)",
 					pointerEvents: "none",
 					zIndex:        2,
 				}}
@@ -303,8 +303,8 @@ export function TimelineMinimap({
 					transform:    "translateX(-50%)",
 					width:        TAB_W,
 					height:       TAB_H,
-					background:   "var(--background-primary)",
-					border:       "1.5px solid var(--interactive-accent)",
+					background:   "var(--int-surface)",
+					border:       "1.5px solid var(--int-primary)",
 					borderBottom: "none",
 					borderRadius: "3px 3px 0 0",
 					cursor:       "grab",
@@ -326,7 +326,7 @@ export function TimelineMinimap({
 						transform:  "translateX(-50%)",
 						width:      DIAMOND,
 						height:     DIAMOND,
-						background: "var(--interactive-accent)",
+						background: "var(--int-primary)",
 						clipPath:   "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)",
 						cursor:     "ew-resize",
 						zIndex:     5,
@@ -348,7 +348,7 @@ export function TimelineMinimap({
 						transform:    "translateX(-50%)",
 						width:        10,
 						height:       TRACK_H + 8,
-						background:   "var(--interactive-accent)",
+						background:   "var(--int-primary)",
 						borderRadius: 3,
 						cursor:       "ew-resize",
 						zIndex:       5,
@@ -360,8 +360,8 @@ export function TimelineMinimap({
 					onMouseDown={startFilterDrag(side)}
 					onClick={e => e.stopPropagation()}
 				>
-					<div style={{ width: 1.5, height: "55%", background: "rgba(255,255,255,0.65)", borderRadius: 1 }} />
-					<div style={{ width: 1.5, height: "55%", background: "rgba(255,255,255,0.65)", borderRadius: 1 }} />
+					<div style={{ width: 1.5, height: "55%", background: "color-mix(in srgb, var(--int-on-primary) 65%, transparent)", borderRadius: 1 }} />
+					<div style={{ width: 1.5, height: "55%", background: "color-mix(in srgb, var(--int-on-primary) 65%, transparent)", borderRadius: 1 }} />
 				</div>
 			))}
 
@@ -376,8 +376,8 @@ export function TimelineMinimap({
 						width:        KNOB_R * 2,
 						height:       KNOB_R * 2,
 						borderRadius: "50%",
-						border:       "1.5px solid var(--interactive-accent)",
-						background:   "var(--background-primary)",
+						border:       "1.5px solid var(--int-primary)",
+						background:   "var(--int-surface)",
 						cursor:       "grab",
 						zIndex:       4,
 					}}

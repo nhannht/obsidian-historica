@@ -3,7 +3,7 @@ import {SIG_LEVELS} from "./constants";
 export function SignalBars({sig, onBarClick}: {sig: number; onBarClick?: (level: number) => void}) {
 	return (
 		<div style={{display: "flex", alignItems: "center", gap: 6}}>
-			<span style={{fontSize: 10, fontFamily: "monospace", color: "var(--text-faint)", minWidth: 8, textAlign: "right"}}>
+			<span style={{fontSize: 10, fontFamily: "var(--int-font-mono)", color: "var(--int-on-surface-faint)", minWidth: 8, textAlign: "right"}}>
 				{sig}
 			</span>
 			<input
@@ -19,10 +19,10 @@ export function SignalBars({sig, onBarClick}: {sig: number; onBarClick?: (level:
 					width: 80,
 					height: 4,
 					cursor: onBarClick ? "pointer" : "default",
-					accentColor: "var(--interactive-accent)",
+					accentColor: "var(--int-primary)",
 				}}
 			/>
-			<span style={{fontSize: 10, fontFamily: "monospace", color: "var(--text-faint)"}}>{SIG_LEVELS.length}</span>
+			<span style={{fontSize: 10, fontFamily: "var(--int-font-mono)", color: "var(--int-on-surface-faint)"}}>{SIG_LEVELS.length}</span>
 		</div>
 	);
 }

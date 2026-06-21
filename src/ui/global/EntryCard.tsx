@@ -31,20 +31,20 @@ export function EntryCard({ entry, plugin }: EntryCardProps) {
 			transition={{duration: DUR.reveal}}
 			style={{
 				display: "flex", gap: 12, padding: "8px 12px",
-				borderBottom: "1px solid color-mix(in srgb, var(--background-modifier-border) 30%, transparent)",
+				borderBottom: "1px solid color-mix(in srgb, var(--int-border) 30%, transparent)",
 			}}
 		>
-			<span style={{fontFamily: "monospace", fontSize: 11, color: "var(--text-muted)", minWidth: 96, flexShrink: 0, paddingTop: 1}}>
+			<span style={{fontFamily: "var(--int-font-mono)", fontSize: 11, color: "var(--int-on-surface-muted)", minWidth: 96, flexShrink: 0, paddingTop: 1}}>
 				{formatDate(entry)}
 			</span>
 			<div style={{flex: 1, minWidth: 0}}>
-				<div style={{fontSize: 13, color: "var(--text-normal)", lineHeight: 1.4, marginBottom: 3}}>
+				<div style={{fontSize: 13, color: "var(--int-on-surface)", lineHeight: 1.4, marginBottom: 3}}>
 					{entry.sentence}
 				</div>
 				{entry.notePath && (
 					<span
 						onClick={openNote}
-						style={{fontSize: 11, color: "var(--text-accent)", opacity: 0.8, cursor: "pointer"}}
+						style={{fontSize: 11, color: "var(--int-accent-strong)", opacity: 0.8, cursor: "pointer"}}
 					>
 						{entry.noteTitle || entry.notePath}
 					</span>

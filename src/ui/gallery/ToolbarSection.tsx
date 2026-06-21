@@ -81,13 +81,13 @@ export function ToolbarSection() {
 				<Tile label="save status · variants">
 					<div style={{display: "flex", flexDirection: "column", gap: 8}}>
 						{[
-							{label: "Saved",         color: "var(--text-muted)",   opacity: 0.5},
-							{label: "Unsaved",        color: "var(--text-accent)",  opacity: 1},
-							{label: "Saving…",        color: "var(--text-muted)",   opacity: 0.7},
-							{label: "Not saved yet",  color: "var(--text-faint)",   opacity: 0.5},
+							{label: "Saved",         color: "var(--int-on-surface-muted)",   opacity: 0.5},
+							{label: "Unsaved",        color: "var(--int-accent-strong)",  opacity: 1},
+							{label: "Saving…",        color: "var(--int-on-surface-muted)",   opacity: 0.7},
+							{label: "Not saved yet",  color: "var(--int-on-surface-faint)",   opacity: 0.5},
 						].map(({label, color, opacity}) => (
 							<div key={label} style={{display: "flex", alignItems: "center", gap: 6}}>
-								<span style={{fontSize: 10, color, opacity, fontFamily: "monospace", minWidth: 90}}>{label}</span>
+								<span style={{fontSize: 10, color, opacity, fontFamily: "var(--int-font-mono)", minWidth: 90}}>{label}</span>
 								{label === "Saving…" && <Spinner size={10}/>}
 							</div>
 						))}

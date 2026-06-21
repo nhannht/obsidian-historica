@@ -8,7 +8,7 @@ import {StatPill} from "./StatPill";
 
 export const toolbarBtn: CSSProperties = {
 	fontSize: 11, padding: "2px 6px", borderRadius: 3,
-	color: "var(--text-muted)", cursor: "pointer",
+	color: "var(--int-on-surface-muted)", cursor: "pointer",
 	border: "1px solid transparent", background: "transparent",
 	boxShadow: "none",
 };
@@ -16,12 +16,12 @@ export const toolbarBtn: CSSProperties = {
 export const toolbarIconBtn: CSSProperties = {
 	display: "flex", alignItems: "center", justifyContent: "center",
 	width: 22, height: 22, borderRadius: 3,
-	color: "var(--text-muted)", cursor: "pointer",
+	color: "var(--int-on-surface-muted)", cursor: "pointer",
 	background: "transparent", boxShadow: "none",
 	border: "none", padding: 0,
 };
 
-const DIVIDER = <div style={{width: 1, height: 14, background: "var(--background-modifier-border)", margin: "0 2px", flexShrink: 0}}/>;
+const DIVIDER = <div style={{width: 1, height: 14, background: "var(--int-border)", margin: "0 2px", flexShrink: 0}}/>;
 
 /* ── SigDots (inline, not a separate file) ── */
 
@@ -38,8 +38,8 @@ function SigDots({value, onChange}: {value: number; onChange?: (threshold: numbe
 						title={n === value ? "Clear filter" : `Show sig ≥ ${n}`}
 						style={{
 							width: 7, height: 7, borderRadius: "50%",
-							background: filled ? "var(--interactive-accent)" : "transparent",
-							border: `1.5px solid ${filled ? "var(--interactive-accent)" : "var(--text-faint)"}`,
+							background: filled ? "var(--int-primary)" : "transparent",
+							border: `1.5px solid ${filled ? "var(--int-primary)" : "var(--int-on-surface-faint)"}`,
 							cursor: onChange ? "pointer" : "default",
 						}}
 					/>
@@ -49,7 +49,7 @@ function SigDots({value, onChange}: {value: number; onChange?: (threshold: numbe
 				<span
 					onClick={() => onChange(1)}
 					title="Clear sig filter"
-					style={{fontSize: 9, color: "var(--text-faint)", cursor: "pointer", marginLeft: 2, lineHeight: 1}}
+					style={{fontSize: 9, color: "var(--int-on-surface-faint)", cursor: "pointer", marginLeft: 2, lineHeight: 1}}
 				>×</span>
 			)}
 		</div>
@@ -104,7 +104,7 @@ export interface TimelineToolbarUIProps {
 export function TimelineToolbarUI({
 	entryCountText,
 	saveStatus,
-	saveStatusColor = "var(--text-muted)",
+	saveStatusColor = "var(--int-on-surface-muted)",
 	saveStatusOpacity = 0.6,
 	isSaving = false,
 	stats,
@@ -149,33 +149,33 @@ export function TimelineToolbarUI({
 
 	return (
 		<div style={{
-			border: "1px solid var(--background-modifier-border)",
+			border: "1px solid var(--int-border)",
 			borderRadius: 5, overflow: "hidden",
 		}}>
 			{/* Header row */}
 			<div style={{
 				display: "flex", alignItems: "center", justifyContent: "space-between",
 				padding: "5px 10px",
-				borderBottom: isCollapsed ? undefined : "1px solid var(--background-modifier-border)",
+				borderBottom: isCollapsed ? undefined : "1px solid var(--int-border)",
 			}}>
 				<div style={{display: "flex", alignItems: "center", gap: 6}}>
 					<span
-						style={{fontSize: 12, fontWeight: 600, color: "var(--text-normal)", cursor: "pointer", display: "flex", alignItems: "center", gap: 4}}
+						style={{fontSize: 12, fontWeight: 600, color: "var(--int-on-surface)", cursor: "pointer", display: "flex", alignItems: "center", gap: 4}}
 						onClick={() => setIsCollapsed(c => !c)}
 					>
 						Historica
 						<span style={{transition: "transform 110ms", transform: isCollapsed ? "rotate(-90deg)" : "rotate(0deg)", display: "flex"}}>
-							<SmallChevronDown style={{width: 10, height: 10, color: "var(--text-faint)", opacity: 0.5}}/>
+							<SmallChevronDown style={{width: 10, height: 10, color: "var(--int-on-surface-faint)", opacity: 0.5}}/>
 						</span>
 					</span>
 					{headerExtra}
 				</div>
 				<div style={{display: "flex", alignItems: "center", gap: 4}}>
 					{isSaving && <Spinner size={10}/>}
-					<span style={{fontSize: 10, fontFamily: "monospace", color: "var(--text-faint)", opacity: 0.5}}>
+					<span style={{fontSize: 10, fontFamily: "var(--int-font-mono)", color: "var(--int-on-surface-faint)", opacity: 0.5}}>
 						{entryCountText}
 					</span>
-					<span style={{fontSize: 10, color: "var(--text-faint)", opacity: 0.4, margin: "0 2px"}}>·</span>
+					<span style={{fontSize: 10, color: "var(--int-on-surface-faint)", opacity: 0.4, margin: "0 2px"}}>·</span>
 					<span style={{fontSize: 10, color: saveStatusColor, opacity: saveStatusOpacity}}>{saveStatus}</span>
 				</div>
 			</div>
@@ -186,7 +186,7 @@ export function TimelineToolbarUI({
 					<div style={{
 						display: "flex", alignItems: "center", gap: 6,
 						padding: "3px 10px",
-						borderBottom: "1px solid color-mix(in srgb, var(--background-modifier-border) 50%, transparent)",
+						borderBottom: "1px solid color-mix(in srgb, var(--int-border) 50%, transparent)",
 					}}>
 						<StatPill value={stats.dates} label="dates"/>
 						<StatPill value={stats.sentences} label="sentences"/>
@@ -220,7 +220,7 @@ export function TimelineToolbarUI({
 					<div style={{marginLeft: "auto", display: "flex", gap: 2}}>
 						{exportButton}
 						<span
-							style={{...toolbarIconBtn, color: isDirty ? "var(--text-accent)" : "var(--text-muted)", opacity: isDirty ? 1 : 0.5}}
+							style={{...toolbarIconBtn, color: isDirty ? "var(--int-accent-strong)" : "var(--int-on-surface-muted)", opacity: isDirty ? 1 : 0.5}}
 							onClick={onSave}
 							title="Save"
 						>

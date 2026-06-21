@@ -10,10 +10,10 @@ export function SourceFilePill({path, onClick}: {
 			className="historica-source-pill"
 			style={{
 				display: "inline-flex", alignItems: "center",
-				fontSize: 11, fontFamily: "monospace",
+				fontSize: 11, fontFamily: "var(--int-font-mono)",
 				padding: "2px 8px", borderRadius: 9999,
-				border: "1px solid var(--background-modifier-border)",
-				color: "var(--text-muted)",
+				border: "1px solid var(--int-border)",
+				color: "var(--int-on-surface-muted)",
 				opacity: 0.6,
 				cursor: onClick ? "pointer" : undefined,
 				transition: "color 0.15s, opacity 0.15s",

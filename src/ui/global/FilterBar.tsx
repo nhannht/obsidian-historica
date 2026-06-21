@@ -69,17 +69,17 @@ export function FilterBar({ allEntries, plugin, filters, onChange, filteredCount
 	const showRug = absoluteMin !== null && absoluteMax !== null && absoluteMin !== absoluteMax;
 
 	return (
-		<div className="flex-shrink-0 border-b border-[var(--background-modifier-border)]">
+		<div className="flex-shrink-0 border-b border-[var(--int-border)]">
 			{/* Header row */}
 			<div className="flex items-center gap-2 px-4 py-1.5">
 				<button
 					onClick={() => setExpanded(e => !e)}
-					className="flex items-center gap-1.5 text-xs text-[var(--text-muted)] hover:text-[var(--text-normal)] transition-colors"
+					className="flex items-center gap-1.5 text-xs text-[var(--int-on-surface-muted)] hover:text-[var(--int-on-surface)] transition-colors"
 				>
 					<span>{expanded ? "▾" : "▸"}</span>
 					<span>Filter</span>
 					{activeCount > 0 && (
-						<span className="bg-[var(--color-accent)] text-white rounded-full px-1.5 py-0.5 text-[10px] leading-none">
+						<span className="bg-[var(--int-accent-strong)] text-white rounded-full px-1.5 py-0.5 text-[10px] leading-none">
 							{activeCount}
 						</span>
 					)}
@@ -98,7 +98,7 @@ export function FilterBar({ allEntries, plugin, filters, onChange, filteredCount
 				{activeCount > 0 && (
 					<button
 						onClick={() => onChange(DEFAULT_FILTERS)}
-						className="text-xs text-[var(--text-muted)] hover:text-[var(--text-normal)]"
+						className="text-xs text-[var(--int-on-surface-muted)] hover:text-[var(--int-on-surface)]"
 					>
 						Clear
 					</button>
@@ -117,7 +117,7 @@ export function FilterBar({ allEntries, plugin, filters, onChange, filteredCount
 				<div className="px-4 pb-3 flex flex-col gap-3">
 					{absoluteMin !== null && absoluteMax !== null && absoluteMin !== absoluteMax && (
 						<div className="flex flex-col gap-1">
-							<span className="text-xs text-[var(--text-muted)]">
+							<span className="text-xs text-[var(--int-on-surface-muted)]">
 								Year range: {yearMin} – {yearMax}
 							</span>
 							<div className="flex gap-2 items-center">
@@ -127,7 +127,7 @@ export function FilterBar({ allEntries, plugin, filters, onChange, filteredCount
 									max={absoluteMax}
 									value={yearMin}
 									onChange={e => onChange({ ...filters, yearMin: parseInt(e.target.value) })}
-									className="flex-1 accent-[var(--color-accent)]"
+									className="flex-1 accent-[var(--int-accent-strong)]"
 								/>
 								<input
 									type="range"
@@ -135,7 +135,7 @@ export function FilterBar({ allEntries, plugin, filters, onChange, filteredCount
 									max={absoluteMax}
 									value={yearMax}
 									onChange={e => onChange({ ...filters, yearMax: parseInt(e.target.value) })}
-									className="flex-1 accent-[var(--color-accent)]"
+									className="flex-1 accent-[var(--int-accent-strong)]"
 								/>
 							</div>
 						</div>
@@ -143,11 +143,11 @@ export function FilterBar({ allEntries, plugin, filters, onChange, filteredCount
 
 					{notes.length > 0 && (
 						<div className="flex items-center gap-2">
-							<span className="text-xs text-[var(--text-muted)] flex-shrink-0">Note</span>
+							<span className="text-xs text-[var(--int-on-surface-muted)] flex-shrink-0">Note</span>
 							<select
 								value={filters.noteFilter}
 								onChange={e => onChange({ ...filters, noteFilter: e.target.value })}
-								className="flex-1 text-xs bg-[var(--background-primary)] border border-[var(--background-modifier-border)] rounded px-2 py-1 text-[var(--text-normal)]"
+								className="flex-1 text-xs bg-[var(--int-surface)] border border-[var(--int-border)] rounded px-2 py-1 text-[var(--int-on-surface)]"
 							>
 								<option value="">All notes</option>
 								{notes.map(n => (
@@ -159,7 +159,7 @@ export function FilterBar({ allEntries, plugin, filters, onChange, filteredCount
 
 					{tags.length > 0 && (
 						<div className="flex flex-wrap gap-1.5 items-center">
-							<span className="text-xs text-[var(--text-muted)]">Tag</span>
+							<span className="text-xs text-[var(--int-on-surface-muted)]">Tag</span>
 							{tags.map(tag => (
 								<FilterChip
 									key={tag}

@@ -31,13 +31,13 @@ export function EntryCard() {
 							badges={<ManualBadge/>}
 							sig={3}
 							contentSlot={
-								<div style={{fontSize: 13, color: "var(--text-normal)", lineHeight: 1.55}}>
+								<div style={{fontSize: 13, color: "var(--int-on-surface)", lineHeight: 1.55}}>
 									Columbus sailed west from Palos de la Frontera, reaching the Bahamas in October of that year.
 								</div>
 							}
 							hasAnnotation={true}
 							annotationSlot={
-								<div style={{fontSize: 12, color: "var(--text-muted)"}}>Key turning point in European expansion westward.</div>
+								<div style={{fontSize: 12, color: "var(--int-on-surface-muted)"}}>Key turning point in European expansion westward.</div>
 							}
 							sourceFilePill={<SourceFilePill path="notes/Columbus.md"/>}
 						/>
@@ -56,7 +56,7 @@ export function EntryCard() {
 							badges={<AnchorBadge/>}
 							sig={4}
 							contentSlot={
-								<div style={{fontSize: 13, color: "var(--text-normal)", lineHeight: 1.55}}>
+								<div style={{fontSize: 13, color: "var(--int-on-surface)", lineHeight: 1.55}}>
 									The late 15th century saw rapid expansion of European maritime exploration.
 								</div>
 							}

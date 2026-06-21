@@ -377,6 +377,141 @@ describe("8. Edge cases", () => {
 	});
 });
 
+// ─── Persisted entry state (significance, annotation, precision, flags) ──
+
+describe("Persisted entry state", () => {
+	it("parses significance inline field", () => {
+		const input = [
+			"---",
+			'blockId: "100"',
+			"---",
+			"",
+			"## Event",
+			"date:: 2020-01-01",
+			"significance:: 4",
+			"",
+			"Body.",
+			"",
+		].join("\n");
+		const u = parseHmd(input).units[0];
+		expect(u.significance).toBe(4);
+	});
+
+	it("ignores out-of-range significance", () => {
+		const input = [
+			"---",
+			'blockId: "100"',
+			"---",
+			"",
+			"## Event",
+			"date:: 2020-01-01",
+			"significance:: 9",
+			"",
+			"Body.",
+			"",
+		].join("\n");
+		const u = parseHmd(input).units[0];
+		expect(u.significance).toBeUndefined();
+	});
+
+	it("parses single-line annotation", () => {
+		const input = [
+			"---",
+			'blockId: "100"',
+			"---",
+			"",
+			"## Event",
+			"date:: 2020-01-01",
+			"annotation:: This date is disputed by some historians.",
+			"",
+			"Body.",
+			"",
+		].join("\n");
+		const u = parseHmd(input).units[0];
+		expect(u.annotation).toBe("This date is disputed by some historians.");
+	});
+
+	it("round-trips a multiline annotation via newline escaping", () => {
+		const doc: HmdParseResult = {
+			settings: {blockId: "100", autoSave: true, header: "", footer: ""},
+			units: [{
+				id: "a1",
+				parsedResultText: "Event",
+				sentence: "Body.",
+				time: {style: "unix", value: "1577836800000"},
+				filePath: "",
+				attachments: [],
+				isExpanded: false,
+				annotation: "First line.\nSecond line with a \\ backslash.",
+			}],
+		};
+		const serialized = serializeHmd(doc);
+		// Serialized annotation must be a single line (no raw newline inside it)
+		const annLine = serialized.split("\n").find(l => l.startsWith("annotation:: "));
+		expect(annLine).toBeDefined();
+		const reparsed = parseHmd(serialized);
+		expect(reparsed.units[0].annotation).toBe("First line.\nSecond line with a \\ backslash.");
+	});
+
+	it("parses %%manual%%, %%dismissed%%, %%precision%% comments", () => {
+		const input = [
+			"---",
+			'blockId: "100"',
+			"---",
+			"",
+			"## Event",
+			"date:: 2020-01-01",
+			"%%id: x1%%",
+			"%%manual%%",
+			"%%dismissed%%",
+			"%%precision: partial%%",
+			"",
+			"Body.",
+			"",
+		].join("\n");
+		const u = parseHmd(input).units[0];
+		expect(u.manuallyTagged).toBe(true);
+		expect(u.isDismissed).toBe(true);
+		expect(u.precision).toBe("partial");
+	});
+
+	it("ignores an invalid precision value", () => {
+		const input = [
+			"---",
+			'blockId: "100"',
+			"---",
+			"",
+			"## Event",
+			"date:: 2020-01-01",
+			"%%precision: bogus%%",
+			"",
+			"Body.",
+			"",
+		].join("\n");
+		const u = parseHmd(input).units[0];
+		expect(u.precision).toBeUndefined();
+	});
+
+	it("does not leak recognized comments into _extraComments", () => {
+		const input = [
+			"---",
+			'blockId: "100"',
+			"---",
+			"",
+			"## Event",
+			"date:: 2020-01-01",
+			"%%id: x1%%",
+			"%%manual%%",
+			"%%precision: full%%",
+			"",
+			"Body.",
+			"",
+		].join("\n");
+		const result = parseHmd(input);
+		expect(result._extraComments?.get("x1")).toBeUndefined();
+	});
+});
+
 // ─── Round-trip ─────────────────────────────────────────────────────
 
 describe("Round-trip", () => {
@@ -455,6 +590,27 @@ describe("Round-trip", () => {
 			"On June 6, Allied forces landed.",
 			"",
 		].join("\n")],
+		["entry with significance, annotation, precision and flags", [
+			"---",
+			'blockId: "100"',
+			"autoSave: true",
+			'header: ""',
+			'footer: ""',
+			"---",
+			"",
+			"## Manual Event",
+			"date:: 978307200000",
+			"source:: notes.md",
+			"significance:: 5",
+			"annotation:: Disputed; see footnote.",
+			"%%id: m1%%",
+			"%%manual%%",
+			"%%dismissed%%",
+			"%%precision: approximate%%",
+			"",
+			"A manually tagged event.",
+			"",
+		].join("\n")],
 	];
 
 	it.each(roundTripCases)("parse then serialize is stable: %s", (_name, input) => {
@@ -480,6 +636,11 @@ describe("Round-trip", () => {
 			expect(reparsed.units[i].filePath).toBe(parsed.units[i].filePath);
 			expect(reparsed.units[i].id).toBe(parsed.units[i].id);
 			expect(reparsed.units[i].isHidden).toBe(parsed.units[i].isHidden);
+			expect(reparsed.units[i].significance).toBe(parsed.units[i].significance);
+			expect(reparsed.units[i].annotation).toBe(parsed.units[i].annotation);
+			expect(reparsed.units[i].manuallyTagged).toBe(parsed.units[i].manuallyTagged);
+			expect(reparsed.units[i].isDismissed).toBe(parsed.units[i].isDismissed);
+			expect(reparsed.units[i].precision).toBe(parsed.units[i].precision);
 			expect(reparsed.units[i].attachments.map((a: any) => a.path))
 				.toEqual(parsed.units[i].attachments.map((a: any) => a.path));
 		}

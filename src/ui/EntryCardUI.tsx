@@ -82,8 +82,8 @@ export function EntryCardUI({
 			{expanded && (
 				<div style={{
 					borderRadius: 5, padding: "8px 12px", marginTop: 4,
-					border: isApproximate ? "1px dashed var(--background-modifier-border)" : "1px solid var(--background-modifier-border)",
-					background: isApproximate ? "transparent" : "var(--background-secondary)",
+					border: isApproximate ? "1px dashed var(--int-border)" : "1px solid var(--int-border)",
+					background: isApproximate ? "transparent" : "var(--int-surface-secondary)",
 				}}>
 					{/* Chip row */}
 					<div className="mb-1.5 flex items-center gap-1.5">

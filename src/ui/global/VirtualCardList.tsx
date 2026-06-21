@@ -21,7 +21,7 @@ export function VirtualCardList({ entries, plugin }: VirtualCardListProps) {
 
 	if (entries.length === 0) {
 		return (
-			<div className="flex-1 flex items-center justify-center text-sm text-[var(--text-muted)]">
+			<div className="flex-1 flex items-center justify-center text-sm text-[var(--int-on-surface-muted)]">
 				No dated entries found across the vault.
 			</div>
 		);

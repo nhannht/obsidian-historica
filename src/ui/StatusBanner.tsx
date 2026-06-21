@@ -2,19 +2,19 @@ import type {ReactNode} from "react";
 
 const VARIANT_STYLES: Record<string, {bg: string; border: string; color: string}> = {
 	warning: {
-		bg: "color-mix(in srgb, var(--text-warning) 8%, transparent)",
-		border: "color-mix(in srgb, var(--text-warning) 25%, transparent)",
-		color: "var(--text-warning)",
+		bg: "color-mix(in srgb, var(--int-anchor) 8%, transparent)",
+		border: "color-mix(in srgb, var(--int-anchor) 25%, transparent)",
+		color: "var(--int-anchor)",
 	},
 	info: {
-		bg: "color-mix(in srgb, var(--text-muted) 6%, transparent)",
-		border: "color-mix(in srgb, var(--text-muted) 15%, transparent)",
-		color: "var(--text-muted)",
+		bg: "color-mix(in srgb, var(--int-on-surface-muted) 6%, transparent)",
+		border: "color-mix(in srgb, var(--int-on-surface-muted) 15%, transparent)",
+		color: "var(--int-on-surface-muted)",
 	},
 	muted: {
 		bg: "transparent",
 		border: "transparent",
-		color: "var(--text-muted)",
+		color: "var(--int-on-surface-muted)",
 	},
 };
 
@@ -30,7 +30,7 @@ export function StatusBanner({icon, message, variant = "info", onClick}: {
 			onClick={onClick}
 			style={{
 				display: "flex", alignItems: "center", gap: 6,
-				fontSize: 11, fontFamily: "monospace",
+				fontSize: 11, fontFamily: "var(--int-font-mono)",
 				color: s.color, background: s.bg,
 				border: `1px solid ${s.border}`,
 				padding: "4px 8px", borderRadius: 4,

@@ -7,7 +7,7 @@ export function InlineLoadingState({message = "Loading\u2026", size = 16}: {
 	return (
 		<div style={{
 			flex: 1, display: "flex", alignItems: "center", justifyContent: "center",
-			gap: 8, fontSize: 13, color: "var(--text-muted)",
+			gap: 8, fontSize: 13, color: "var(--int-on-surface-muted)",
 		}}>
 			<Spinner size={size}/>
 			<span>{message}</span>

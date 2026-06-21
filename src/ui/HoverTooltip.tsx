@@ -37,8 +37,8 @@ export function HoverTooltip({children, content, delay = 400}: HoverTooltipProps
 				<div style={{
 					position: "fixed", left: pos.x + 12, top: pos.y + 12,
 					zIndex: 10000, pointerEvents: "none",
-					background: "var(--background-primary)",
-					border: "1px solid var(--background-modifier-border)",
+					background: "var(--int-surface)",
+					border: "1px solid var(--int-border)",
 					borderRadius: 4, padding: 6, maxWidth: 260,
 					boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
 				}}>

@@ -3,7 +3,7 @@ export function PrecisionGutter({opacity, radius = 2, title}: {opacity: number; 
 	return (
 		<div title={title} style={{
 			position: "absolute", left: 0, top: 0, bottom: 0, width: 3,
-			background: "var(--interactive-accent)", opacity, borderRadius: radius,
+			background: "var(--int-primary)", opacity, borderRadius: radius,
 			transition: "opacity var(--historica-dur-snap, 110ms)",
 		}}/>
 	);
