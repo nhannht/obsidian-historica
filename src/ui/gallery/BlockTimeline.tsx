@@ -26,12 +26,12 @@ export function BlockTimeline() {
 							{entries.map(({date, sentence, precision, sig}) => (
 								<div key={date} style={{
 									position: "relative", paddingLeft: 10,
-									borderBottom: "1px solid color-mix(in srgb, var(--background-modifier-border) 30%, transparent)",
+									borderBottom: "1px solid color-mix(in srgb, var(--int-border) 30%, transparent)",
 								}}>
 									<PrecisionGutter opacity={precision} radius={0}/>
 									<div style={{display: "flex", alignItems: "center", gap: 8, padding: "6px 8px"}}>
 										<DateChip variant="normal" size="sm">{date}</DateChip>
-										<span style={{fontSize: 12, color: "var(--text-muted)", flex: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap"}}>{sentence}</span>
+										<span style={{fontSize: 12, color: "var(--int-on-surface-muted)", flex: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap"}}>{sentence}</span>
 										{sig !== null && <SignalBars sig={sig}/>}
 										<ChevronRight style={{width: 10, height: 10, opacity: 0.3, flexShrink: 0}}/>
 									</div>
@@ -40,11 +40,11 @@ export function BlockTimeline() {
 							<div style={{
 								display: "flex", alignItems: "center", gap: 6,
 								padding: "5px 10px",
-								borderTop: "1px solid var(--background-modifier-border)",
+								borderTop: "1px solid var(--int-border)",
 							}}>
-								<ChevronRight style={{width: 10, height: 10, color: "var(--text-faint)", flexShrink: 0}}/>
-								<span style={{fontSize: 11, color: "var(--text-muted)", fontWeight: 500}}>3 unmatched sentences</span>
-								<span style={{fontSize: 10, color: "var(--text-faint)", opacity: 0.6}}>— no date found</span>
+								<ChevronRight style={{width: 10, height: 10, color: "var(--int-on-surface-faint)", flexShrink: 0}}/>
+								<span style={{fontSize: 11, color: "var(--int-on-surface-muted)", fontWeight: 500}}>3 unmatched sentences</span>
+								<span style={{fontSize: 10, color: "var(--int-on-surface-faint)", opacity: 0.6}}>no date found</span>
 							</div>
 						</TimelineToolbarUI>
 					</div>
@@ -58,15 +58,15 @@ export function BlockTimeline() {
 							saveStatusOpacity={0.5}
 						>
 							<div style={{padding: "32px 16px", textAlign: "center"}}>
-								<div style={{fontSize: 13, color: "var(--text-faint)", marginBottom: 8}}>No dates found in this note yet</div>
-								<div style={{fontSize: 11, color: "var(--text-faint)", opacity: 0.7, lineHeight: 1.5}}>
+								<div style={{fontSize: 13, color: "var(--int-on-surface-faint)", marginBottom: 8}}>No dates found in this note yet</div>
+								<div style={{fontSize: 11, color: "var(--int-on-surface-faint)", opacity: 0.7, lineHeight: 1.5}}>
 									Historica reads your existing prose and extracts every date it finds.
 								</div>
 								<span style={{
 									display: "inline-block",
-									marginTop: 14, fontSize: 11, fontFamily: "monospace",
-									color: "var(--text-accent)",
-									border: "1px solid color-mix(in srgb, var(--interactive-accent) 40%, transparent)",
+									marginTop: 14, fontSize: 11, fontFamily: "var(--int-font-mono)",
+									color: "var(--int-accent-strong)",
+									border: "1px solid color-mix(in srgb, var(--int-primary) 40%, transparent)",
 									padding: "4px 12px", borderRadius: 3, cursor: "pointer",
 								}}>Parse this file</span>
 							</div>

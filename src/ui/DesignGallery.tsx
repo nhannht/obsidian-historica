@@ -19,35 +19,35 @@ export function DesignGallery() {
 	return (
 		<div style={{
 			height: "100%", overflowY: "auto",
-			background: "var(--background-primary)",
-			color: "var(--text-normal)",
-			fontFamily: "var(--font-interface)",
+			background: "var(--int-surface)",
+			color: "var(--int-on-surface)",
+			fontFamily: "var(--int-font-sans)",
 		}}>
 			<div style={{
 				position: "sticky", top: 0, zIndex: 10,
-				background: "var(--background-primary)",
-				borderBottom: "1px solid var(--background-modifier-border)",
+				background: "var(--int-surface)",
+				borderBottom: "1px solid var(--int-border)",
 				padding: "8px 24px",
 				display: "flex", alignItems: "center", gap: 4, flexWrap: "wrap",
 			}}>
 				<span style={{
-					fontSize: 9, fontFamily: "monospace", color: "var(--text-faint)",
+					fontSize: 9, fontFamily: "var(--int-font-mono)", color: "var(--int-on-surface-faint)",
 					letterSpacing: "0.1em", marginRight: 12, opacity: 0.6,
 				}}>HISTORICA · GALLERY</span>
 				{NAV_SECTIONS.map(({id, label}) => (
 					<a key={id} href={`#${id}`} style={{
-						fontSize: 10, fontFamily: "monospace",
-						color: "var(--text-faint)",
+						fontSize: 10, fontFamily: "var(--int-font-mono)",
+						color: "var(--int-on-surface-faint)",
 						textDecoration: "none", padding: "2px 6px",
 						border: "1px solid transparent",
 						borderRadius: 3,
 					}}
 					onMouseEnter={e => {
-						e.currentTarget.style.color = "var(--text-accent)";
-						e.currentTarget.style.borderColor = "var(--background-modifier-border)";
+						e.currentTarget.style.color = "var(--int-accent-strong)";
+						e.currentTarget.style.borderColor = "var(--int-border)";
 					}}
 					onMouseLeave={e => {
-						e.currentTarget.style.color = "var(--text-faint)";
+						e.currentTarget.style.color = "var(--int-on-surface-faint)";
 						e.currentTarget.style.borderColor = "transparent";
 					}}
 					>

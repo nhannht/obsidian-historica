@@ -18,21 +18,21 @@ export function SignificanceBars() {
 							<div key={label} style={{display: "flex", flexDirection: "column", alignItems: "center", gap: 6}}>
 								{sig === null ? (
 									<div style={{
-										fontSize: 10, color: "var(--text-faint)", opacity: 0.5,
-										padding: "2px 6px", border: "1px dashed color-mix(in srgb, var(--text-faint) 40%, transparent)",
-										borderRadius: 3, fontFamily: "monospace",
+										fontSize: 10, color: "var(--int-on-surface-faint)", opacity: 0.5,
+										padding: "2px 6px", border: "1px dashed color-mix(in srgb, var(--int-on-surface-faint) 40%, transparent)",
+										borderRadius: 3, fontFamily: "var(--int-font-mono)",
 									}}>—</div>
 								) : (
 									<div style={{display: "flex", alignItems: "flex-end", gap: 3}}>
 										<span style={{
 											width: 5, height: 5, borderRadius: "50%",
-											background: "var(--interactive-accent)", opacity: 0.75,
+											background: "var(--int-primary)", opacity: 0.75,
 											flexShrink: 0, marginRight: 2, marginBottom: 1,
 										}}/>
 										<SignalBars sig={sig}/>
 									</div>
 								)}
-								<span style={{fontSize: 9, fontFamily: "monospace", color: "var(--text-faint)"}}>{label}</span>
+								<span style={{fontSize: 9, fontFamily: "var(--int-font-mono)", color: "var(--int-on-surface-faint)"}}>{label}</span>
 							</div>
 						))}
 					</Row>
@@ -43,7 +43,7 @@ export function SignificanceBars() {
 						<span key={n} style={{
 							display: "inline-block", marginRight: 8,
 							fontFamily: "Georgia, serif", fontSize: 13,
-							color: i === 0 ? "var(--text-faint)" : "var(--text-accent)",
+							color: i === 0 ? "var(--int-on-surface-faint)" : "var(--int-accent-strong)",
 							opacity: i === 0 ? 0.4 : i / 5,
 						}}>{n}</span>
 					))}
@@ -54,12 +54,12 @@ export function SignificanceBars() {
 						{[null, 2, 4].map((sig, si) => (
 							<div key={si} style={{display: "flex", gap: 4}}>
 								{sig === null
-									? <span style={{fontSize: 10, fontFamily: "monospace", color: "var(--text-faint)", opacity: 0.4}}>○ ○ ○ ○ ○</span>
+									? <span style={{fontSize: 10, fontFamily: "var(--int-font-mono)", color: "var(--int-on-surface-faint)", opacity: 0.4}}>○ ○ ○ ○ ○</span>
 									: SIG_LEVELS.map(n => (
 										<div key={n} style={{
 											width: 8, height: 8, borderRadius: "50%",
-											background: n <= sig ? "var(--interactive-accent)" : "transparent",
-											border: `1.5px solid ${n <= sig ? "var(--interactive-accent)" : "color-mix(in srgb, var(--text-faint) 35%, transparent)"}`,
+											background: n <= sig ? "var(--int-primary)" : "transparent",
+											border: `1.5px solid ${n <= sig ? "var(--int-primary)" : "color-mix(in srgb, var(--int-on-surface-faint) 35%, transparent)"}`,
 											opacity: n <= sig ? 1 : 0.4,
 										}}/>
 									))

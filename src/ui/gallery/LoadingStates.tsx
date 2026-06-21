@@ -20,7 +20,7 @@ export function LoadingStates() {
 
 				<Tile label="InlineLoadingState">
 					<div style={{
-						border: "1px solid var(--background-modifier-border)",
+						border: "1px solid var(--int-border)",
 						borderRadius: 5, width: 260, padding: "16px 12px",
 					}}>
 						<InlineLoadingState message="Loading timeline\u2026"/>
@@ -30,7 +30,7 @@ export function LoadingStates() {
 				<Tile label="ParsingOverlay">
 					<div style={{
 						position: "relative",
-						border: "1px solid var(--background-modifier-border)",
+						border: "1px solid var(--int-border)",
 						borderRadius: 5, width: 260, height: 80,
 					}}>
 						<ParsingOverlay visible={true}/>
@@ -39,7 +39,7 @@ export function LoadingStates() {
 
 				<Tile label="ErrorState">
 					<div style={{
-						border: "1px solid var(--background-modifier-border)",
+						border: "1px solid var(--int-border)",
 						borderRadius: 5, width: 260,
 					}}>
 						<ErrorState message="Failed to load timeline data"/>

@@ -17,7 +17,7 @@ export function PrecisionBar() {
 							<div key={label} style={{position: "relative", paddingLeft: 10, display: "flex", alignItems: "center", gap: 10}}>
 								<PrecisionGutter opacity={opacity}/>
 								<DateChip variant="normal">March 1492</DateChip>
-								<span style={{fontSize: 10, color: "var(--text-faint)"}}>{label}</span>
+								<span style={{fontSize: 10, color: "var(--int-on-surface-faint)"}}>{label}</span>
 							</div>
 						))}
 					</div>
@@ -30,7 +30,7 @@ export function PrecisionBar() {
 								<span style={{opacity}}>
 									<DateChip variant={variant}>{variant === "approximate" ? "~1490s" : "March 1492"}</DateChip>
 								</span>
-								<span style={{fontSize: 10, color: "var(--text-faint)"}}>{label}</span>
+								<span style={{fontSize: 10, color: "var(--int-on-surface-faint)"}}>{label}</span>
 							</div>
 						))}
 					</div>
