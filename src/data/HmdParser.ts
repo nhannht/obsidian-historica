@@ -26,22 +26,45 @@ const FIELDS = 3;
 const ATTACHMENTS = 4;
 const BODY = 5;
 
-function parseCommentLine(
-	line: string,
+// Annotations are multiline markdown but live on a single `annotation::` line,
+// so newlines and backslashes are escaped on write and restored on read.
+function escapeInline(value: string): string {
+	return value.replace(/\\/g, "\\\\").replace(/\n/g, "\\n");
+}
+
+function unescapeInline(value: string): string {
+	return value.replace(/\\(.)/g, (_, c) => (c === "n" ? "\n" : c));
+}
+
+type CommentHandlers = {
 	setId: (id: string) => void,
 	setHidden: () => void,
 	setAnchor: () => void,
+	setManual: () => void,
+	setDismissed: () => void,
+	setPrecision: (p: "full" | "partial" | "approximate") => void,
 	addExtra: (line: string) => void,
-) {
+};
+
+function parseCommentLine(line: string, h: CommentHandlers) {
 	const inner = line.slice(2, -2).trim();
 	if (inner.startsWith("id:")) {
-		setId(inner.slice(3).trim());
+		h.setId(inner.slice(3).trim());
 	} else if (inner === "hidden") {
-		setHidden();
+		h.setHidden();
 	} else if (inner === "anchor") {
-		setAnchor();
+		h.setAnchor();
+	} else if (inner === "manual") {
+		h.setManual();
+	} else if (inner === "dismissed") {
+		h.setDismissed();
+	} else if (inner.startsWith("precision:")) {
+		const p = inner.slice("precision:".length).trim();
+		if (p === "full" || p === "partial" || p === "approximate") {
+			h.setPrecision(p);
+		}
 	} else {
-		addExtra(line);
+		h.addExtra(line);
 	}
 }
 
@@ -72,6 +95,11 @@ export function parseHmd(content: string): HmdParseResult {
 	let currentId = "";
 	let currentHidden = false;
 	let currentAnchor = false;
+	let currentManual = false;
+	let currentDismissed = false;
+	let currentSignificance: 1 | 2 | 3 | 4 | 5 | undefined = undefined;
+	let currentAnnotation = "";
+	let currentPrecision: "" | "full" | "partial" | "approximate" = "";
 	let currentAttachments: Attachment[] = [];
 	let currentExtraComments: string[] = [];
 	let bodyLines: string[] = [];
@@ -104,6 +132,11 @@ export function parseHmd(content: string): HmdParseResult {
 			isExpanded: false,
 			isHidden: currentHidden ? true : undefined,
 			isAnchor: currentAnchor ? true : undefined,
+			isDismissed: currentDismissed ? true : undefined,
+			manuallyTagged: currentManual ? true : undefined,
+			significance: currentSignificance,
+			annotation: currentAnnotation || undefined,
+			precision: currentPrecision || undefined,
 		};
 
 		if (currentExtraComments.length > 0) {
@@ -122,6 +155,11 @@ export function parseHmd(content: string): HmdParseResult {
 		currentId = "";
 		currentHidden = false;
 		currentAnchor = false;
+		currentManual = false;
+		currentDismissed = false;
+		currentSignificance = undefined;
+		currentAnnotation = "";
+		currentPrecision = "";
 		currentAttachments = [];
 		currentExtraComments = [];
 		bodyLines = [];
@@ -162,6 +200,16 @@ export function parseHmd(content: string): HmdParseResult {
 		}
 	}
 
+	const commentHandlers: CommentHandlers = {
+		setId: id => currentId = id,
+		setHidden: () => currentHidden = true,
+		setAnchor: () => currentAnchor = true,
+		setManual: () => currentManual = true,
+		setDismissed: () => currentDismissed = true,
+		setPrecision: p => currentPrecision = p,
+		addExtra: l => currentExtraComments.push(l),
+	};
+
 	for (let i = 0; i < lines.length; i++) {
 		const line = lines[i];
 
@@ -192,12 +240,7 @@ export function parseHmd(content: string): HmdParseResult {
 				if (line.trim() === "") {
 					state = BODY;
 				} else if (line.startsWith("%%") && line.endsWith("%%")) {
-					parseCommentLine(line,
-						id => currentId = id,
-						() => currentHidden = true,
-						() => currentAnchor = true,
-						l => currentExtraComments.push(l),
-					);
+					parseCommentLine(line, commentHandlers);
 				} else if (line === "attachments:") {
 					state = ATTACHMENTS;
 				} else {
@@ -215,6 +258,14 @@ export function parseHmd(content: string): HmdParseResult {
 							case "source":
 								currentSource = val;
 								break;
+							case "significance": {
+								const n = parseInt(val);
+								if (n >= 1 && n <= 5) currentSignificance = n as 1 | 2 | 3 | 4 | 5;
+								break;
+							}
+							case "annotation":
+								currentAnnotation = unescapeInline(val);
+								break;
 						}
 					}
 				}
@@ -230,12 +281,7 @@ export function parseHmd(content: string): HmdParseResult {
 						path,
 					});
 				} else if (line.startsWith("%%") && line.endsWith("%%")) {
-					parseCommentLine(line,
-						id => currentId = id,
-						() => currentHidden = true,
-						() => currentAnchor = true,
-						l => currentExtraComments.push(l),
-					);
+					parseCommentLine(line, commentHandlers);
 				} else {
 					state = BODY;
 					bodyLines.push(line);
@@ -345,6 +391,14 @@ export function serializeHmd(data: HmdParseResult): string {
 			out.push(`source:: ${unit.filePath}`);
 		}
 
+		if (unit.significance !== undefined) {
+			out.push(`significance:: ${unit.significance}`);
+		}
+
+		if (unit.annotation) {
+			out.push(`annotation:: ${escapeInline(unit.annotation)}`);
+		}
+
 		out.push(`%%id: ${unit.id}%%`);
 
 		if (unit.isHidden) {
@@ -353,6 +407,18 @@ export function serializeHmd(data: HmdParseResult): string {
 
 		if (unit.isAnchor) {
 			out.push("%%anchor%%");
+		}
+
+		if (unit.manuallyTagged) {
+			out.push("%%manual%%");
+		}
+
+		if (unit.isDismissed) {
+			out.push("%%dismissed%%");
+		}
+
+		if (unit.precision) {
+			out.push(`%%precision: ${unit.precision}%%`);
 		}
 
 		const extras = data._extraComments?.get(unit.id);
