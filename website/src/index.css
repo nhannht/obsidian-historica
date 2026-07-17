@@ -1,0 +1,89 @@
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/jetbrains-mono";
+@import "@fontsource-variable/newsreader/opsz.css";
+@import "@fontsource-variable/newsreader/opsz-italic.css";
+@import "tailwindcss";
+
+@theme {
+  /* Site shell (liquid-glass dark) */
+  --color-void: #05070c;
+  --color-panel: #0b0e16;
+  --color-fg: #e9ebf1;
+  --color-muted: #9da3b0;
+  --color-faint: #71767f;
+  --color-blue: #3574f0;
+  --color-blue-bright: #548af7;
+  --color-violet: #6c4fe0;
+  --color-orange: #e08855;
+
+  /* Int UI dark tokens (product mock stays faithful to DESIGN.md) */
+  --color-int-surface: #1e1f22;
+  --color-int-panel: #2b2d30;
+  --color-int-border: #393b40;
+  --color-int-fg: #dfe1e5;
+  --color-int-muted: #9da0a8;
+  --color-int-faint: #6f737a;
+
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo,
+    monospace;
+  --font-serif: "Newsreader Variable", Georgia, "Times New Roman", serif;
+
+  /* StarBorder (ReactBits) animations */
+  --animate-star-movement-bottom: star-movement-bottom linear infinite alternate;
+  --animate-star-movement-top: star-movement-top linear infinite alternate;
+
+  @keyframes star-movement-bottom {
+    0% {
+      transform: translate(0%, 0%);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-100%, 0%);
+      opacity: 0;
+    }
+  }
+  @keyframes star-movement-top {
+    0% {
+      transform: translate(0%, 0%);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(100%, 0%);
+      opacity: 0;
+    }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-void);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(53, 116, 240, 0.35);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-blue-bright);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
