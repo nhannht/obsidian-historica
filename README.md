@@ -1,3 +1,12 @@
+<h1 align="center">Historica</h1>
+
+<p align="center"><b>Turn prose into a timeline, automatically.</b><br/>
+An Obsidian plugin that reads your notes, finds every date with NLP, and renders an interactive timeline - right inside a code block.</p>
+
+![Historica marketing site hero](showcase/website-hero.png)
+
+<p align="center"><sub>More shots in <a href="showcase/">showcase/</a>. The marketing site source lives at <a href="website/">website/</a>.</sub></p>
+
 <div align="center" style="color:red">
 <sub>
 (Not) Smart and dynamic extraction point of time in your note
