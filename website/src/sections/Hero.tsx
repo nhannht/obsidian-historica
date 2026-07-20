@@ -52,6 +52,7 @@ export default function Hero() {
           distortionScale={-60}
           greenOffset={5}
           blueOffset={10}
+          className="glass-frosted"
         >
           <div className="w-full overflow-hidden rounded-[21px]">
             <div className="flex items-center gap-2 px-4 py-3">

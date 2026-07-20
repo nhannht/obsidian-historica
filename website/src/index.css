@@ -55,6 +55,16 @@
   }
 }
 
+/* Frosted override for large GlassSurface panes. The SVG displacement chain
+   re-filters the whole pane every frame the WebGL background animates; on the
+   1024x414 hero window that costs a full frame budget (38fps measured), while
+   this frosted chain holds 60fps. !important beats the component's inline style
+   so the vendored file stays untouched. The small nav pill keeps true liquid
+   displacement. */
+.glass-frosted {
+  backdrop-filter: blur(12px) saturate(1.5) brightness(1.08) !important;
+}
+
 html {
   scroll-behavior: smooth;
 }
