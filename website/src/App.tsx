@@ -3,6 +3,7 @@ import Nav from "@/sections/Nav"
 import Hero from "@/sections/Hero"
 import CodeBand from "@/sections/CodeBand"
 import HowItWorks from "@/sections/HowItWorks"
+import ShowcaseBand from "@/sections/ShowcaseBand"
 import Features from "@/sections/Features"
 import LanguagesBand from "@/sections/LanguagesBand"
 import HmdBand from "@/sections/HmdBand"
@@ -22,6 +23,7 @@ export default function App() {
         <Hero />
         <CodeBand />
         <HowItWorks />
+        <ShowcaseBand />
         <Features />
         <LanguagesBand />
         <HmdBand />
