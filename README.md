@@ -10,10 +10,10 @@ An Obsidian plugin that reads your notes, finds every date with NLP, and renders
 ---
 
 > [!note]
-> These docs cover version 0.3.xx and above, which changed the UX/UI heavily compared to legacy versions. Desktop only - mobile support was dropped in 0.3.
+> These docs cover the redesigned UI shipped in 0.3; the current release is 0.4.x. Desktop only - mobile support was dropped in 0.3.
 >
-> User documentation: https://historica.pages.dev\
-> API documentation: https://obsidian-historica-code-doc.pages.dev/
+> - User documentation: [historica.pages.dev](https://historica.pages.dev)
+> - API documentation: [obsidian-historica-code-doc.pages.dev](https://obsidian-historica-code-doc.pages.dev/)
 
 ## Quick start
 
@@ -24,17 +24,22 @@ Create a `historica` block in any note:
 ```
 ````
 
-That is it. The block reads the content of the current file (everything except code blocks), splits it into sentences, and every sentence containing a string that parses as a date or time shows up in the timeline.
+That is it. The block reads the prose of the current file (code blocks are ignored), splits it into sentences, and every sentence containing a string that parses as a date or time becomes a timeline entry.
 
 ## Languages
 
 Historica is English-first, but it also parses several other languages. By default the `language` setting is `auto`: it detects the language of each note and picks the matching parser. Besides English it currently handles German, French, Japanese, Chinese, Dutch, and Vietnamese (English has the richest coverage; the others focus on absolute dates, months, centuries, and eras). You can also pin a language explicitly instead of `auto`.
 
-Parsing is tested against real annotated corpora (WikiWarsDE, WikiWars-NL, French FTiB, and hand-curated Japanese and Chinese sets). See [docs/test-datasets.md](docs/test-datasets.md).
+Parsing is tested against real annotated corpora - WikiWarsDE, WikiWars-NL, French FTiB, and hand-curated Japanese and Chinese sets. The suites live in [`__tests__/`](__tests__/).
 
-## Editing and context menus
+## Editing
 
-Right-click the timeline to open the context menus. There are two: one for actions that affect the entire timeline (sort, export, save, re-parse) and one for a single plot unit (edit, re-date, annotate, dismiss). The `edit` action opens a rich text editor where you can rewrite an entry however you like - even paste images into it. See the [user documentation](https://historica.pages.dev) for the full tour with screenshots.
+Every entry expands into a card with a significance slider (1-5), a free-text note, and attachments picked from your vault. Right-clicking gives you two menus:
+
+- On the timeline: sort, expand or fold all entries, re-parse the note, and export (PNG, HTML, Markdown, JSON, plain text).
+- On an expanded card: jump to the source sentence, add an attachment, hide the entry, mark it as an anchor, or dismiss a bad extraction.
+
+To reword an entry or fix its date, edit the source sentence and re-parse - or hand-edit the saved timeline file, which is plain Markdown (see below).
 
 ![Expanded entry cards with significance sliders and annotations](showcase/plugin-entry-cards.png)
 
@@ -44,7 +49,7 @@ Right-click the timeline to open the context menus. There are two: one for actio
 
 A fresh empty `historica` block is bound to the hidden blockId `-1`, and blocks with blockId `-1` do not auto-save: re-render the block and your customizations are gone. So save the plot:
 
-- Right-click, global context menu, `save`. The data is written to `historica-data/xxxx.md` and the block is modified to store the file id. From then on every change auto-saves.
+- Click the save button at the right end of the toolbar (the status beside it reads `Not saved yet`). The data is written to `historica-data/xxxx.md` and the generated id is stamped into the block. From then on every change auto-saves.
 - Or give the block an id yourself when you create it:
 
 ````
@@ -57,7 +62,7 @@ A fresh empty `historica` block is bound to the hidden blockId `-1`, and blocks 
 
 Now the block auto-saves to `historica-data/It-is-so-kute-and-I-know-it.md`.
 
-Saved timelines are plain Markdown in the HMD format - YAML frontmatter for settings, one `## heading` per entry, inline fields for date and significance. Obsidian can open and even render them directly; you can read, diff, grep, and hand-edit them. The format spec is in [docs/hmd-spec.md](docs/hmd-spec.md).
+Saved timelines are plain Markdown in the HMD format - YAML frontmatter for settings, one `## heading` per entry, inline fields for date and significance. Obsidian can open and even render them directly; you can read, diff, grep, and hand-edit them. The format spec is in [docs/hmd-spec.md](docs/hmd-spec.md). Saved blocks are also indexed into the vault-wide Global Timeline view (command palette: `Historica: Open Global Timeline`).
 
 ## Install
 
