@@ -220,6 +220,28 @@ The gallery is NOT where components live - it is a live **mirror** that imports 
 
 Today the gallery render diverges from Figma because components still consume Obsidian CSS vars (host theme), not the Int tokens Figma uses - closing that gap is the OBH-5 migration.
 
+#### Sketch: `website/design/Historica.sketch` (website + brand mark)
+
+Separate from the Figma file above, which owns the plugin design system. This Sketch file owns the website look and the brand mark. Structure map - keep in sync in the same turn as any structural change (page/artboard/symbol added, renamed, or removed):
+
+| Page | Contents |
+|---|---|
+| `00 Foundation` | `Style Tile - Dark (1280)` - Int/Web swatch chips, type ramp, Liquid Glass samples. `Brand Mark` (660x540) - the plugin icon on dark and light, plus instances at 16/18/24/32/48 |
+| `01 Landing` | landing page layout |
+| `Symbols` | `Brand Mark / Icon` (200x200) - symbol master for the mark |
+
+**The brand mark is one glyph with three renders**, and they must not drift:
+
+| Where | Form | Accent |
+|---|---|---|
+| `website/public/favicon.svg` | 32px grid, on a `#05070C` plate | `#E08855` hardcoded (the plate is always dark) |
+| `src/ui/historicaIcon.ts` | 100x100 grid, transparent, `currentColor` | `var(--int-anchor)` - flips per theme |
+| Sketch `Brand Mark / Icon` | 200x200 (100-grid at 2x) | dark and light variants shown side by side |
+
+Proportions are shared and load-bearing: 3:1 node-to-spine, 0.5 gap-to-node-diameter, 1.5 pill-to-node-diameter, rows aligned, content filling 72x84 of the 100 box. Change one render, change all three.
+
+`anchor` is a **two-mode token** (`#E56D17` light, `#E08855` dark - DESIGN.md "Status"). Anything rendering on both themes must read `var(--int-anchor)`, never a hardcoded hex.
+
 #### The iron rule: one component, two consumers
 
 Every visible UI element must be a **shared React component** in `src/ui/`. The gallery renders it with mock data. Production renders the exact same component with real data. There is no third option.
