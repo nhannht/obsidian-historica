@@ -1,4 +1,4 @@
-import {Notice, Plugin} from 'obsidian';
+import {Notice, Plugin, addIcon} from 'obsidian';
 import HistoricaBlockManager from "@/src/backgroundLogic/HistoricaBlockManager";
 import HistoricaChrono from "@/src/compute/ChronoParser";
 import {registerHmdPostProcessor} from "@/src/data/HmdPostProcessor";
@@ -11,6 +11,7 @@ import {HISTORICA_GALLERY_VIEW_TYPE, DesignGalleryView} from "@/src/ui/DesignGal
 import {HistoricaSettingsTab} from "@/src/ui/HistoricaSettingsTab";
 import {HistoricaPluginSettings, DEFAULT_PLUGIN_SETTINGS} from "@/src/types";
 import {VaultIndexManager} from "@/src/data/VaultIndexManager";
+import {HISTORICA_ICON_ID, HISTORICA_ICON_SVG} from "@/src/ui/historicaIcon";
 
 export default class HistoricaPlugin extends Plugin {
 	historicaChrono = new HistoricaChrono()
@@ -46,6 +47,8 @@ export default class HistoricaPlugin extends Plugin {
 	}
 
 	override async onload() {
+		// Must precede registerView/addRibbonIcon - both resolve the icon by id.
+		addIcon(HISTORICA_ICON_ID, HISTORICA_ICON_SVG)
 		await this.loadPluginSettings()
 		this.darkModeAdapt()
 		this.vaultIndex.buildFull().catch(console.error)
@@ -70,11 +73,11 @@ export default class HistoricaPlugin extends Plugin {
 			(leaf) => new DesignGalleryView(leaf, this)
 		);
 
-		this.addRibbonIcon("calendar-clock", "Open Historica Timeline Sidebar", () => {
+		this.addRibbonIcon(HISTORICA_ICON_ID, "Open Historica Timeline Sidebar", () => {
 			this.activateSidebar();
 		});
 
-		this.addRibbonIcon("globe", "Open Historica Global Timeline", () => {
+		this.addRibbonIcon(HISTORICA_ICON_ID, "Open Historica Global Timeline", () => {
 			this.activateGlobalTimeline();
 		});
 

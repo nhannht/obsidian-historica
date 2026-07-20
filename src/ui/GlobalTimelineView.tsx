@@ -7,6 +7,7 @@ import { useVaultEntries } from "./global/useVaultEntries";
 import { VirtualCardList } from "./global/VirtualCardList";
 import { FilterBar, FilterState, DEFAULT_FILTERS } from "./global/FilterBar";
 import { InlineLoadingState } from "./InlineLoadingState";
+import { HISTORICA_ICON_ID } from "@/src/ui/historicaIcon";
 
 export const HISTORICA_GLOBAL_VIEW_TYPE = "historica-global-timeline";
 
@@ -28,7 +29,7 @@ export class GlobalTimelineView extends ItemView {
 	}
 
 	override getIcon(): string {
-		return "globe";
+		return HISTORICA_ICON_ID;
 	}
 
 	override async onOpen(): Promise<void> {

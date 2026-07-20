@@ -2,6 +2,7 @@ import {ItemView, WorkspaceLeaf} from "obsidian";
 import {createRoot, Root} from "react-dom/client";
 import {StrictMode} from "react";
 import {DesignGallery} from "@/src/ui/DesignGallery";
+import {HISTORICA_ICON_ID} from "@/src/ui/historicaIcon";
 
 export const HISTORICA_GALLERY_VIEW_TYPE = "historica-design-gallery";
 
@@ -21,7 +22,7 @@ export class DesignGalleryView extends ItemView {
 	}
 
 	override getIcon(): string {
-		return "palette";
+		return HISTORICA_ICON_ID;
 	}
 
 	override async onOpen(): Promise<void> {

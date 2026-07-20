@@ -7,6 +7,7 @@ import {BlockInfo, SidebarShell} from "@/src/ui/SidebarShell";
 import {SidebarHome} from "@/src/ui/sidebar/SidebarHome";
 import {extractBlockId} from "@/src/backgroundLogic/HistoricaBlockManager";
 import {DefaultSettings, HistoricaSettings} from "@/src/types";
+import {HISTORICA_ICON_ID} from "@/src/ui/historicaIcon";
 
 export const HISTORICA_SIDEBAR_VIEW_TYPE = "historica-sidebar";
 
@@ -31,7 +32,7 @@ export class HistoricaSidebarView extends ItemView {
 	}
 
 	override getIcon(): string {
-		return "calendar-clock";
+		return HISTORICA_ICON_ID;
 	}
 
 	override async onOpen(): Promise<void> {
