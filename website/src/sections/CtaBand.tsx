@@ -1,4 +1,3 @@
-import GlassSurface from "@/components/GlassSurface"
 import LinkButton from "@/components/LinkButton"
 import ShinyText from "@/components/ShinyText"
 
@@ -9,15 +8,9 @@ export default function CtaBand() {
         <div className="absolute bottom-[-160px] left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-blue/20 blur-[150px]" />
       </div>
       <div className="mx-auto max-w-3xl">
-        <GlassSurface
-          width="100%"
-          height="auto"
-          borderRadius={28}
-          backgroundOpacity={0.18}
-          distortionScale={-60}
-          greenOffset={5}
-          blueOffset={10}
-        >
+        {/* Paper, not glass: this card scrolls with the content layer. Persistent
+            glass stays reserved for the two floating panes (nav pill, hero window). */}
+        <div className="w-full rounded-[28px] border border-white/10 bg-panel shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_24px_60px_rgba(0,0,0,0.45)]">
           <div className="w-full px-6 py-12 text-center md:px-12">
             <h2 className="text-3xl font-semibold tracking-[-0.02em] md:text-[40px]">
               <ShinyText
@@ -45,7 +38,7 @@ export default function CtaBand() {
               </LinkButton>
             </div>
           </div>
-        </GlassSurface>
+        </div>
       </div>
     </section>
   )
