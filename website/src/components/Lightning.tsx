@@ -15,12 +15,18 @@ const Lightning: React.FC<LightningProps> = ({ hue = 230, xOffset = 0, speed = 1
     const canvas = canvasRef.current;
     if (!canvas) return;
 
+    // Pixel budget: cap the backbuffer long edge and DPR; CSS stretches the
+    // canvas. The effect is soft glow under opacity-60, upscaling is invisible.
+    const MAX_EDGE = 1300;
     const resizeCanvas = () => {
-      canvas.width = canvas.clientWidth;
-      canvas.height = canvas.clientHeight;
+      const width = canvas.clientWidth;
+      const height = canvas.clientHeight;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const scale = Math.min(dpr, MAX_EDGE / Math.max(width, height, 1));
+      canvas.width = Math.max(1, Math.round(width * scale));
+      canvas.height = Math.max(1, Math.round(height * scale));
     };
     resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
 
     const gl = canvas.getContext('webgl', { alpha: true, premultipliedAlpha: false });
     if (!gl) {
@@ -161,25 +167,51 @@ const Lightning: React.FC<LightningProps> = ({ hue = 230, xOffset = 0, speed = 1
     const uIntensityLocation = gl.getUniformLocation(program, 'uIntensity');
     const uSizeLocation = gl.getUniformLocation(program, 'uSize');
 
+    // Static uniforms: set once, not per frame.
+    gl.uniform1f(uHueLocation, hue);
+    gl.uniform1f(uXOffsetLocation, xOffset);
+    gl.uniform1f(uSpeedLocation, speed);
+    gl.uniform1f(uIntensityLocation, intensity);
+    gl.uniform1f(uSizeLocation, size);
+
     const startTime = performance.now();
-    const render = () => {
-      resizeCanvas();
+    const drawFrame = (t: number) => {
       gl.viewport(0, 0, canvas.width, canvas.height);
       gl.uniform2f(iResolutionLocation, canvas.width, canvas.height);
-      const currentTime = performance.now();
-      gl.uniform1f(iTimeLocation, (currentTime - startTime) / 1000.0);
-      gl.uniform1f(uHueLocation, hue);
-      gl.uniform1f(uXOffsetLocation, xOffset);
-      gl.uniform1f(uSpeedLocation, speed);
-      gl.uniform1f(uIntensityLocation, intensity);
-      gl.uniform1f(uSizeLocation, size);
+      gl.uniform1f(iTimeLocation, (t - startTime) / 1000.0);
       gl.drawArrays(gl.TRIANGLES, 0, 6);
-      requestAnimationFrame(render);
     };
-    requestAnimationFrame(render);
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const handleResize = () => {
+      resizeCanvas();
+      if (reducedMotion) drawFrame(performance.now());
+    };
+    window.addEventListener('resize', handleResize);
+
+    // Frame-rate cadence: a slow-moving background reads identically at 30fps.
+    // The 0.5ms slack lets 60Hz vsync land on every 2nd frame, not every 3rd.
+    const FRAME_MS = 1000 / 30 - 0.5;
+    let last = -Infinity;
+    let rafId = 0;
+    const update = (t: number) => {
+      rafId = requestAnimationFrame(update);
+      if (t - last < FRAME_MS) return;
+      last = t;
+      drawFrame(t);
+    };
+
+    if (reducedMotion) {
+      drawFrame(performance.now());
+    } else {
+      rafId = requestAnimationFrame(update);
+    }
 
     return () => {
-      window.removeEventListener('resize', resizeCanvas);
+      cancelAnimationFrame(rafId);
+      window.removeEventListener('resize', handleResize);
+      gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
   }, [hue, xOffset, speed, intensity, size]);
 
