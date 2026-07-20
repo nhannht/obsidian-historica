@@ -3,9 +3,9 @@
 <p align="center"><b>Turn prose into a timeline, automatically.</b><br/>
 An Obsidian plugin that reads your notes, finds every date with NLP, and renders an interactive timeline - right inside a code block.</p>
 
-![Historica marketing site hero](showcase/website-hero.png)
+![Historica timeline rendered from prose inside Obsidian](showcase/plugin-timeline.png)
 
-<p align="center"><sub>More shots in <a href="showcase/">showcase/</a>. The marketing site source lives at <a href="website/">website/</a>.</sub></p>
+<p align="center"><sub>Real screenshot, not a mock: the note's prose above, the timeline it produced below. More shots in <a href="showcase/">showcase/</a>. The marketing site source lives at <a href="website/">website/</a>.</sub></p>
 
 ---
 
@@ -35,6 +35,10 @@ Parsing is tested against real annotated corpora (WikiWarsDE, WikiWars-NL, Frenc
 ## Editing and context menus
 
 Right-click the timeline to open the context menus. There are two: one for actions that affect the entire timeline (sort, export, save, re-parse) and one for a single plot unit (edit, re-date, annotate, dismiss). The `edit` action opens a rich text editor where you can rewrite an entry however you like - even paste images into it. See the [user documentation](https://historica.pages.dev) for the full tour with screenshots.
+
+![Expanded entry cards with significance sliders and annotations](showcase/plugin-entry-cards.png)
+
+![Per-entry context menu: jump to source, attach, anchor, dismiss](showcase/plugin-context-menu.png)
 
 ## Save your plot
 
