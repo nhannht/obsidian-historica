@@ -65,6 +65,22 @@
   backdrop-filter: blur(12px) saturate(1.5) brightness(1.08) !important;
 }
 
+/* MagicBento ships its demo layout (cards 3/4 span 2 rows), which leaves big
+   voids in text-only cards. The approved design (OBH-18) is a uniform 3x2
+   feature grid; neutralize the demo spans from outside so the vendored file
+   stays untouched. */
+@media (min-width: 1024px) {
+  .bento-section .card-responsive {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+  .bento-section .card-responsive .card:nth-child(3),
+  .bento-section .card-responsive .card:nth-child(4),
+  .bento-section .card-responsive .card:nth-child(6) {
+    grid-column: auto !important;
+    grid-row: auto !important;
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }
