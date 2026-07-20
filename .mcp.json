@@ -1,19 +1,11 @@
 {
   "mcpServers": {
-    "serena": {
-      "type": "stdio",
-      "command": "uvx",
+    "shadcn": {
+      "command": "npx",
       "args": [
-        "--from",
-        "git+https://github.com/oraios/serena",
-        "serena",
-        "start-mcp-server",
-        "--context",
-        "claude-code",
-        "--project",
-        "/home/ubuntu/nhannht-projects/obsidian-historica"
-      ],
-      "env": {}
+        "shadcn@latest",
+        "mcp"
+      ]
     }
   }
 }
