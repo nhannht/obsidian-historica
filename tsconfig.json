@@ -46,6 +46,7 @@
       "__tests__",
       "test",
       "node_modules",
-      "vendor"
+      "vendor",
+      "website"
     ]
 }
