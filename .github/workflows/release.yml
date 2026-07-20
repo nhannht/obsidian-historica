@@ -15,19 +15,32 @@ jobs:
           fetch-depth: 0
 
 
-      - name: set up npm
+      # Node 22 LTS. esbuild.config.mjs is invoked with `node` by the build
+      # script, so a runtime is still required alongside bun.
+      - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: '21'
+          node-version: '22'
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
 
 
 
 
 
+      # Installs from the committed bun.lock. `yarn` here found no lockfile and
+      # resolved every dependency fresh on each run, so a newly published
+      # transitive version could break a build that had not changed - which is
+      # what broke the first 0.4.1 attempt: a fresh validate-npm-package-name
+      # dropped support for the Node 21 this workflow pinned. --frozen-lockfile
+      # makes the install reproducible and fails loudly on lockfile drift.
       - name: Build plugin
         run: |
-          yarn
-          yarn run build
+          bun install --frozen-lockfile
+          bun run build
 
       - name: "Get the tag"
         id: get_tag
