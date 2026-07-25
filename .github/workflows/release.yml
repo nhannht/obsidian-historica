@@ -10,7 +10,7 @@ jobs:
     permissions: write-all
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -42,10 +42,29 @@ jobs:
           bun install --frozen-lockfile
           bun run build
 
+      # `::set-output` is a deprecated command GitHub can disable at any time,
+      # and it feeds the tag name straight into the release step. If it ever
+      # stops working the step gets an empty tag and the release fails.
       - name: "Get the tag"
         id: get_tag
-        run: echo ::set-output name=tag::${GITHUB_REF#refs/tags/}
+        run: echo "tag=${GITHUB_REF#refs/tags/}" >> "$GITHUB_OUTPUT"
 
+      # Obsidian resolves a plugin by looking for a release tagged exactly as
+      # the version in manifest.json. A tag that disagrees with the manifest
+      # produces a release no client can find, which is what gets a plugin
+      # dropped from community-plugins.json. Fail here instead.
+      - name: Check the tag matches manifest.json
+        run: |
+          tag="${{ steps.get_tag.outputs.tag }}"
+          manifest_version=$(jq -r .version manifest.json)
+          if [ "$tag" != "$manifest_version" ]; then
+            echo "Tag '$tag' does not match manifest.json version '$manifest_version'." >&2
+            exit 1
+          fi
+
+      # Published, not a draft. A draft release is invisible to Obsidian's
+      # plugin fetcher, so a draft leaves master advertising a version that
+      # no client can install - the state that got 0.4.1 delisted.
       - name: Create release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -54,7 +73,6 @@ jobs:
 
           gh release create "$tag" \
           --title="$tag" \
-          --draft \
           --notes-file=RELEASE_NOTES.md \
           main.js manifest.json styles.css LICENSE README.md
 
