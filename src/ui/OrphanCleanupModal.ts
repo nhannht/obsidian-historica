@@ -30,7 +30,7 @@ export class OrphanCleanupModal extends Modal {
 			let deleted = 0;
 			for (const f of this.orphans) {
 				try {
-					await this.app.vault.delete(f);
+					await this.app.fileManager.trashFile(f);
 					deleted++;
 				} catch {
 					new Notice(`Failed to delete ${f.path}`);

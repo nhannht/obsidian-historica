@@ -289,6 +289,20 @@ export async function ExportAsPlainTextToClipboard(data: TimelineDocument) {
 	await copyToClipboard(lines.join("\n").trim(), "Plain text")
 }
 
+// toPng returns a data: URL, which is already the bytes we need. Round-tripping it
+// through fetch() to reach .blob() asked the network layer for something local, and
+// Obsidian bans fetch in plugins in favour of requestUrl, which cannot read data: URLs
+// either. Decoding it directly avoids both.
+function dataUrlToBlob(dataUrl: string): Blob {
+	const commaAt = dataUrl.indexOf(",");
+	const header = dataUrl.slice(0, commaAt);
+	const mime = /:(.*?);/.exec(header)?.[1] ?? "image/png";
+	const binary = atob(dataUrl.slice(commaAt + 1));
+	const bytes = new Uint8Array(binary.length);
+	for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+	return new Blob([bytes], {type: mime});
+}
+
 export async function exportTimelineAsPng(element: HTMLElement, mode: "save" | "clipboard") {
 	const {toPng} = await import("html-to-image");
 	const imageData = await toPng(element);
@@ -301,8 +315,7 @@ export async function exportTimelineAsPng(element: HTMLElement, mode: "save" | "
 		document.body.removeChild(link);
 		new Notice("Image saved", 10000);
 	} else {
-		const response = await fetch(imageData);
-		const blob = await response.blob();
+		const blob = dataUrlToBlob(imageData);
 		try {
 			await navigator.clipboard.write([new ClipboardItem({[blob.type]: blob})]);
 			new Notice("Image copied to clipboard", 10000);

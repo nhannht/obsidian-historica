@@ -46,7 +46,7 @@ export default class TimelineDataManager {
 					// Migrate: write HMD, delete JSON
 					const hmd = serializeHmd(data);
 					await this.plugin.app.vault.create(mdPath, hmd);
-					await this.plugin.app.vault.delete(jsonFile);
+					await this.plugin.app.fileManager.trashFile(jsonFile);
 					new Notice(`Migrated timeline ${blockId} from JSON to HMD`, 5000);
 					const newFile = this.plugin.app.vault.getAbstractFileByPath(mdPath);
 					if (newFile instanceof TFile) {

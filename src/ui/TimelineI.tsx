@@ -6,7 +6,7 @@ import {TimelineSpine} from "@/src/ui/TimelineSpine";
 export function TimelineI(props: {
 	isDisplayHeader: boolean;
 	isDisplayFooter: boolean;
-	timelineRef?: React.MutableRefObject<HTMLDivElement | null>,
+	timelineRef?: React.RefObject<HTMLDivElement | null>,
 }) {
 	const settings = useTimelineStore(s => s.settings);
 	const units = useTimelineStore(s => s.units);

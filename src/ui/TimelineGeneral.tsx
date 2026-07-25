@@ -16,20 +16,30 @@ export function AttachmentPlot(props: {
 	handleClick? : ()=>void
 
 }) {
-	const [file] = useState<TFile>(props.plugin.app.vault.getAbstractFileByPath(props.path) as TFile)
-	if (["png", "jpeg", "jpg"].includes(file.extension)) {
+	// getAbstractFileByPath returns null for a path that no longer resolves, and a
+	// TFolder for a directory. Casting either to TFile made the next line throw and
+	// took the whole timeline render down with it, so narrow instead and fall back
+	// to the stored path when the attachment has been deleted or renamed.
+	const [file] = useState<TFile | null>(() => {
+		const found = props.plugin.app.vault.getAbstractFileByPath(props.path)
+		return found instanceof TFile ? found : null
+	})
+	const fileName = props.path.split("/").pop() ?? props.path
+	const extension = file ? file.extension : (fileName.includes(".") ? fileName.split(".").pop() ?? "" : "")
+	const basename = file ? file.basename : fileName.replace(/\.[^.]*$/, "")
+	if (["png", "jpeg", "jpg"].includes(extension)) {
 		return <ImageFromPath
 			handleClick={props.handleClick}
 			className={cn(props.className)} width={"230"}
 			path={props.path} plugin={props.plugin}/>
 	} else {
-		const name = truncate(file.basename, 18)
+		const name = truncate(basename, 18)
 		return (
 			<div
 				onClick={props.handleClick}
 				className={cn("flex items-center gap-1.5 px-2 py-1 rounded border border-[--background-modifier-border] bg-[--background-secondary] hover:bg-[--background-modifier-hover] cursor-pointer max-w-[160px]", props.className)}
 			>
-				<FileExtBadge ext={file.extension}/>
+				<FileExtBadge ext={extension}/>
 				<span className="text-xs text-[color:--text-muted] truncate">{name}</span>
 			</div>
 		)
