@@ -71,10 +71,13 @@ jobs:
         run: |
           tag=${{ steps.get_tag.outputs.tag }}
 
+          # Only the three files Obsidian installs. The directory review flags
+          # anything else as an unsupported extra, and it never downloads them.
+          # LICENSE and README.md stay in the repo, where they are read.
           gh release create "$tag" \
           --title="$tag" \
           --notes-file=RELEASE_NOTES.md \
-          main.js manifest.json styles.css LICENSE README.md
+          main.js manifest.json styles.css
 
       
 
