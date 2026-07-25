@@ -1,4 +1,5 @@
 import {useState} from "react";
+import {Notice} from "obsidian";
 import {useTimeline, useTimelineStore} from "@/src/ui/TimelineContext";
 import {ChevronRight} from "@/src/ui/icons";
 import {SectionLabel} from "@/src/ui/SectionLabel";
@@ -6,9 +7,8 @@ import {SectionLabel} from "@/src/ui/SectionLabel";
 const PAGE_SIZE = 20;
 
 export function UnparsedPanel() {
-	const {plugin} = useTimeline();
+	const {plugin, store} = useTimeline();
 	const unparsedSentences = useTimelineStore(s => s.unparsedSentences);
-	const tagSentence = useTimelineStore(s => s.tagSentence);
 
 	const [open, setOpen] = useState(false);
 	const [page, setPage] = useState(0);
@@ -20,10 +20,17 @@ export function UnparsedPanel() {
 	const totalPages = Math.ceil(unparsedSentences.length / PAGE_SIZE);
 	const pageItems = unparsedSentences.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
 
+	// tagSentence is pulled from store.getState() rather than a reactive selector: it is a
+	// stable dispatcher, and selecting a bare method reference (s => s.tagSentence) trips
+	// @typescript-eslint/unbound-method. It can reject (no internal error handling), so the
+	// failure is surfaced here rather than left as an unhandled rejection.
 	function handleTag(sentence: string) {
 		if (!dateInput.trim()) return;
 		const filePath = plugin.app.workspace.getActiveFile()?.path ?? "";
-		tagSentence(sentence, dateInput.trim(), filePath);
+		store.getState().tagSentence(sentence, dateInput.trim(), filePath).catch((error: unknown) => {
+			console.error("Historica: failed to tag sentence", error);
+			new Notice("Historica: failed to tag sentence");
+		});
 		setTaggingIdx(null);
 		setDateInput("");
 		if (pageItems.length === 1 && page > 0) setPage(p => p - 1);

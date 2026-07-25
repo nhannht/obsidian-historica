@@ -1,4 +1,5 @@
 import {useMemo} from "react";
+import {Notice} from "obsidian";
 import {useTimeline, useTimelineStore} from "@/src/ui/TimelineContext";
 import {ExportAsJSONToClipboard, ExportAsMarkdownToClipboard, ExportAsPlainTextToClipboard, exportTimelineAsPng, exportTimelineAsHtml, getAllMarkdownFileInVault} from "@/src/utils";
 import {NativeDropdownMenu} from "@/src/ui/NativeDropdownMenu";
@@ -11,19 +12,13 @@ import {StatusBanner} from "@/src/ui/StatusBanner";
 export function TimelineToolbar(props: {
 	timelineRef: React.RefObject<HTMLDivElement | null>;
 }) {
-	const {plugin} = useTimeline();
+	const {plugin, store} = useTimeline();
 	const units = useTimelineStore(s => s.units);
 	const settings = useTimelineStore(s => s.settings);
 	const isDirty = useTimelineStore(s => s.isDirty);
 	const isSaving = useTimelineStore(s => s.isSaving);
-	const manualSave = useTimelineStore(s => s.manualSave);
-	const sort = useTimelineStore(s => s.sort);
-	const expandAll = useTimelineStore(s => s.expandAll);
 	const showHidden = useTimelineStore(s => s.showHidden);
-	const toggleShowHidden = useTimelineStore(s => s.toggleShowHidden);
 	const sigFilter = useTimelineStore(s => s.sigFilter);
-	const setSigFilter = useTimelineStore(s => s.setSigFilter);
-	const parseFromFile = useTimelineStore(s => s.parseFromFile);
 	const isParsing = useTimelineStore(s => s.isParsing);
 	const isStale = useTimelineStore(s => s.isStale);
 	const unparsedSentences = useTimelineStore(s => s.unparsedSentences);
@@ -38,8 +33,33 @@ export function TimelineToolbar(props: {
 	const saveStatusColor = isDirty ? "var(--int-accent-strong)" : "var(--int-on-surface-muted)";
 	const saveStatusOpacity = isDirty ? 1 : 0.6;
 
+	// exportTimelineAsPng does not catch its own errors in "save" mode, so failures
+	// here would otherwise be an unhandled rejection.
 	const handleExportPng = (mode: "save" | "clipboard") => {
-		if (props.timelineRef.current) exportTimelineAsPng(props.timelineRef.current, mode);
+		if (props.timelineRef.current) {
+			exportTimelineAsPng(props.timelineRef.current, mode).catch((error: unknown) => {
+				console.error("Historica: failed to export timeline as PNG", error);
+				new Notice("Historica: failed to export timeline as PNG");
+			});
+		}
+	};
+
+	// manualSave and parseFromFile are pulled from store.getState() rather than a reactive
+	// selector: they are stable dispatchers, and selecting a bare method reference
+	// (s => s.manualSave) trips @typescript-eslint/unbound-method. Both can reject, so
+	// failures are surfaced here rather than left as unhandled rejections.
+	const handleSave = () => {
+		store.getState().manualSave().catch((error: unknown) => {
+			console.error("Historica: failed to save timeline", error);
+			new Notice("Historica: failed to save timeline");
+		});
+	};
+
+	const handleParseFile = (path: string) => {
+		store.getState().parseFromFile(path).catch((error: unknown) => {
+			console.error("Historica: failed to parse file", error);
+			new Notice("Historica: failed to parse file");
+		});
 	};
 
 	const dates = units.length;
@@ -62,16 +82,16 @@ export function TimelineToolbar(props: {
 			showHidden={showHidden}
 			sigFilter={sigFilter}
 			isDirty={isDirty}
-			onExpandAll={expandAll}
-			onToggleShowHidden={toggleShowHidden}
-			onSigFilterChange={setSigFilter}
-			onSave={() => manualSave()}
+			onExpandAll={willExpand => store.getState().expandAll(willExpand)}
+			onToggleShowHidden={() => store.getState().toggleShowHidden()}
+			onSigFilterChange={threshold => store.getState().setSigFilter(threshold)}
+			onSave={handleSave}
 			headerExtra={isStale ? (
 				<StatusBanner
 					icon={<Refresh style={{width: 12, height: 12}}/>}
 					message="Source changed"
 					variant="muted"
-					onClick={() => { const f = plugin.app.workspace.getActiveFile(); if (f) parseFromFile(f.path); }}
+					onClick={() => { const f = plugin.app.workspace.getActiveFile(); if (f) handleParseFile(f.path); }}
 				/>
 			) : undefined}
 			parseSlot={
@@ -92,14 +112,14 @@ export function TimelineToolbar(props: {
 						...(plugin.app.workspace.getActiveFile() ? [{
 							type: "item" as const,
 							label: "Parse this file",
-							onClick: () => { const f = plugin.app.workspace.getActiveFile(); if (f) parseFromFile(f.path); },
+							onClick: () => { const f = plugin.app.workspace.getActiveFile(); if (f) handleParseFile(f.path); },
 						}] : []),
 						{type: "item", label: "Parse from file…", submenuContent: (
 							<FilePicker
 								files={markdownFiles}
 								placeholder="search file path"
 								emptyText="No file selected"
-								onSelect={value => parseFromFile(value)}
+								onSelect={value => handleParseFile(value)}
 							/>
 						)},
 					]}
@@ -110,8 +130,8 @@ export function TimelineToolbar(props: {
 					trigger="↑↓ Sort"
 					triggerStyle={toolbarBtn}
 					items={[
-						{type: "item", label: "Ascending",  onClick: () => sort("asc")},
-						{type: "item", label: "Descending", onClick: () => sort("desc")},
+						{type: "item", label: "Ascending",  onClick: () => store.getState().sort("asc")},
+						{type: "item", label: "Descending", onClick: () => store.getState().sort("desc")},
 					]}
 				/>
 			}
@@ -122,10 +142,12 @@ export function TimelineToolbar(props: {
 					items={[
 						{type: "item", label: "PNG (save file)",         onClick: () => handleExportPng("save")},
 						{type: "item", label: "PNG (clipboard)",         onClick: () => handleExportPng("clipboard")},
-						{type: "item", label: "Plain text (clipboard)",  onClick: () => ExportAsPlainTextToClipboard({units, settings})},
-						{type: "item", label: "JSON (clipboard)",        onClick: () => ExportAsJSONToClipboard({units, settings})},
-						{type: "item", label: "Markdown (clipboard)",    onClick: () => ExportAsMarkdownToClipboard({units, settings}, plugin)},
-						{type: "item", label: "HTML (save file)",        onClick: () => exportTimelineAsHtml({units, settings}, plugin)},
+						// These export helpers already report their own failures via Notice,
+						// so the promise is intentionally not awaited here.
+						{type: "item", label: "Plain text (clipboard)",  onClick: () => { void ExportAsPlainTextToClipboard({units, settings}); }},
+						{type: "item", label: "JSON (clipboard)",        onClick: () => { void ExportAsJSONToClipboard({units, settings}); }},
+						{type: "item", label: "Markdown (clipboard)",    onClick: () => { void ExportAsMarkdownToClipboard({units, settings}, plugin); }},
+						{type: "item", label: "HTML (save file)",        onClick: () => { void exportTimelineAsHtml({units, settings}, plugin); }},
 					]}
 				/>
 			}

@@ -1,7 +1,8 @@
 import {Attachment, TimelineEntry} from "@/src/types";
-import {useTimeline, useTimelineStore, useVaultFiles} from "@/src/ui/TimelineContext";
+import {useTimeline, useVaultFiles} from "@/src/ui/TimelineContext";
 import {generateRandomId, JumpToSource, truncate} from "@/src/utils";
 import React, {useState} from "react";
+import {Notice} from "obsidian";
 import {MarkdownNote} from "@/src/ui/MarkdownNote";
 import {AttachmentPlot, Content} from "@/src/ui/TimelineGeneral";
 import {FilePicker} from "@/src/ui/FilePicker";
@@ -17,36 +18,42 @@ export const SinglePlotUnit = React.memo(function SinglePlotUnit(props: {
 	index: number,
 	isSingleFile?: boolean,
 }) {
-	const {plugin} = useTimeline();
+	const {plugin, store} = useTimeline();
 	const allFiles = useVaultFiles();
-	const dismissUnit = useTimelineStore(s => s.dismissUnit);
-	const editUnit = useTimelineStore(s => s.editUnit);
-	const expandUnit = useTimelineStore(s => s.expandUnit);
-	const hideUnit = useTimelineStore(s => s.hideUnit);
-	const toggleAnchorOnUnit = useTimelineStore(s => s.toggleAnchorOnUnit);
 
 	const [annotation, setAnnotation] = useState(props.unit.annotation ?? "");
 
-
+	// Actions are pulled from store.getState() rather than a reactive selector: they are
+	// stable dispatchers that never need to trigger a re-render, and selecting a bare
+	// method reference (s => s.editUnit) trips @typescript-eslint/unbound-method.
 	function handleAddAttachment(id: string, filePath: string) {
 		const attachments: Attachment[] = props.unit.attachments
 		const newAtt: Attachment = {
 			id: generateRandomId(),
 			path: filePath
 		}
-		editUnit(id, {...props.unit, attachments: [...attachments, newAtt]})
+		store.getState().editUnit(id, {...props.unit, attachments: [...attachments, newAtt]})
 	}
 
 	function handleRemoveAttachment(uId: string, attachmentId: string) {
 		const filtered = props.unit.attachments.filter((a) => a.id !== attachmentId)
-		editUnit(uId, {...props.unit, attachments: filtered})
+		store.getState().editUnit(uId, {...props.unit, attachments: filtered})
 	}
 
 	function handleAnnotationBlur() {
 		const trimmed = annotation.trim();
 		if (trimmed !== (props.unit.annotation ?? "").trim()) {
-			editUnit(props.unit.id, {...props.unit, annotation: trimmed || undefined})
+			store.getState().editUnit(props.unit.id, {...props.unit, annotation: trimmed || undefined})
 		}
+	}
+
+	// JumpToSource can fail (missing file, editor errors) and does not report its own
+	// errors, so failures are surfaced here rather than left as an unhandled rejection.
+	function handleJumpToSource() {
+		JumpToSource(props.unit.nodePos, props.unit.filePath, props.unit.sentence, plugin).catch((error: unknown) => {
+			console.error("Historica: failed to jump to source", error);
+			new Notice("Historica: failed to jump to source");
+		});
 	}
 
 	const truncatedSentence = truncate(props.unit.sentence, 80)
@@ -84,14 +91,14 @@ export const SinglePlotUnit = React.memo(function SinglePlotUnit(props: {
 			chipText={props.unit.parsedResultText}
 			badges={<>{manualBadge}{anchorBadge}</>}
 			truncatedSentence={truncatedSentence}
-			onExpand={() => expandUnit(props.unit, true)}
-			onCollapse={() => expandUnit(props.unit, false)}
-			onJumpToSource={async () => await JumpToSource(props.unit.nodePos, props.unit.filePath, props.unit.sentence, plugin)}
+			onExpand={() => store.getState().expandUnit(props.unit, true)}
+			onCollapse={() => store.getState().expandUnit(props.unit, false)}
+			onJumpToSource={handleJumpToSource}
 			sig={sig}
-			onSigChange={n => editUnit(props.unit.id, {...props.unit, significance: n as 1|2|3|4|5})}
+			onSigChange={n => store.getState().editUnit(props.unit.id, {...props.unit, significance: n as 1|2|3|4|5})}
 			contentSlot={
 				<NativeContextMenu items={[
-					{type: "item", label: "Jump to source", onClick: async () => await JumpToSource(props.unit.nodePos, props.unit.filePath, props.unit.sentence, plugin)},
+					{type: "item", label: "Jump to source", onClick: handleJumpToSource},
 					{type: "item", label: "Add attachment ›", submenuContent: (
 						<FilePicker
 							files={allFiles}
@@ -113,11 +120,11 @@ export const SinglePlotUnit = React.memo(function SinglePlotUnit(props: {
 						/>
 					)},
 					{type: "separator"},
-					{type: "item", label: isHidden ? "Show" : "Hide from view", onClick: () => hideUnit(props.unit.id, !isHidden)},
-					{type: "item", label: isAnchor ? "Remove anchor" : "Mark as anchor", onClick: () => toggleAnchorOnUnit(props.unit.id)},
-					{type: "item", label: "Dismiss extraction", muted: true, onClick: () => dismissUnit(props.unit.id)},
+					{type: "item", label: isHidden ? "Show" : "Hide from view", onClick: () => store.getState().hideUnit(props.unit.id, !isHidden)},
+					{type: "item", label: isAnchor ? "Remove anchor" : "Mark as anchor", onClick: () => store.getState().toggleAnchorOnUnit(props.unit.id)},
+					{type: "item", label: "Dismiss extraction", muted: true, onClick: () => store.getState().dismissUnit(props.unit.id)},
 				]}>
-					<Content unit={props.unit} plugin={plugin} handleExpandSingle={(_, isExpanded) => expandUnit(props.unit, isExpanded)}/>
+					<Content unit={props.unit} plugin={plugin} handleExpandSingle={(_, isExpanded) => store.getState().expandUnit(props.unit, isExpanded)}/>
 				</NativeContextMenu>
 			}
 			hasAnnotation={!!annotation.trim()}
@@ -133,7 +140,7 @@ export const SinglePlotUnit = React.memo(function SinglePlotUnit(props: {
 			sourceFilePill={!props.isSingleFile
 				? <SourceFilePill
 					path={props.unit.filePath}
-					onClick={async () => await JumpToSource(props.unit.nodePos, props.unit.filePath, props.unit.sentence, plugin)}
+					onClick={handleJumpToSource}
 				/>
 				: undefined
 			}

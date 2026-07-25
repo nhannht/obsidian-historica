@@ -2,7 +2,7 @@ import {TimelineEntry} from "@/src/types";
 import {JumpToSource} from "@/src/utils";
 import HistoricaPlugin from "@/main";
 import { useState} from "react";
-import {TFile} from "obsidian";
+import {TFile, Notice} from "obsidian";
 import ImageFromPath from "@/src/ui/ImageFromPath";
 import ShortendableParagraph from "@/src/ui/ShortendableParagraph";
 import {cn} from "@/src/lib/utils";
@@ -69,9 +69,12 @@ export function Content(props: {
 						<AttachmentPlot
 
 							className={"hover:cursor-pointer"}
-							handleClick={async ()=>{
+							handleClick={()=>{
 								// console.log(a)
-								await JumpToSource(undefined, a.path, undefined, props.plugin)
+								JumpToSource(undefined, a.path, undefined, props.plugin).catch((error: unknown) => {
+									console.error("Historica: failed to jump to source", error);
+									new Notice("Historica: failed to jump to source");
+								})
 
 							}}
 

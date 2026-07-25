@@ -38,7 +38,9 @@ export function TimelineBlock(props: {
 	const [allFiles, setAllFiles] = useState(() => GetAllFileInVault(plugin));
 
 	useEffect(() => {
-		store.getState().load();
+		// load() catches its own errors and reports them via the `error` state field
+		// (rendered below as ErrorState), so it never rejects to this caller.
+		void store.getState().load();
 	}, [store]);
 
 	useEffect(() => {

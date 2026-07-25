@@ -1,4 +1,4 @@
-import { TFile } from "obsidian";
+import { TFile, Notice } from "obsidian";
 import { motion } from "motion/react";
 import type HistoricaPlugin from "@/main";
 import { GlobalEntry } from "./useVaultEntries";
@@ -20,7 +20,10 @@ export function EntryCard({ entry, plugin }: EntryCardProps) {
 		if (!entry.notePath) return;
 		const file = plugin.app.vault.getAbstractFileByPath(entry.notePath);
 		if (file instanceof TFile) {
-			plugin.app.workspace.getLeaf().openFile(file);
+			plugin.app.workspace.getLeaf().openFile(file).catch((error: unknown) => {
+				console.error("Historica: failed to open note", error);
+				new Notice("Historica: failed to open note");
+			});
 		}
 	}
 

@@ -25,7 +25,8 @@ export default class HistoricaPlugin extends Plugin {
 	}
 
 	async loadPluginSettings(): Promise<void> {
-		this.pluginSettings = Object.assign({}, DEFAULT_PLUGIN_SETTINGS, await this.loadData());
+		const savedData = await this.loadData() as Partial<HistoricaPluginSettings> | null;
+		this.pluginSettings = Object.assign({}, DEFAULT_PLUGIN_SETTINGS, savedData ?? {});
 	}
 
 	async savePluginSettings(): Promise<void> {
@@ -73,29 +74,35 @@ export default class HistoricaPlugin extends Plugin {
 			(leaf) => new DesignGalleryView(leaf, this)
 		);
 
-		this.addRibbonIcon(HISTORICA_ICON_ID, "Open Historica Timeline Sidebar", () => {
-			this.activateSidebar();
+		this.addRibbonIcon(HISTORICA_ICON_ID, "Open historica timeline sidebar", () => {
+			this.activateSidebar().catch((error: unknown) => {
+				console.error("Historica: failed to open timeline sidebar", error);
+				new Notice("Historica: failed to open timeline sidebar");
+			});
 		});
 
-		this.addRibbonIcon(HISTORICA_ICON_ID, "Open Historica Global Timeline", () => {
-			this.activateGlobalTimeline();
+		this.addRibbonIcon(HISTORICA_ICON_ID, "Open historica global timeline", () => {
+			this.activateGlobalTimeline().catch((error: unknown) => {
+				console.error("Historica: failed to open global timeline", error);
+				new Notice("Historica: failed to open global timeline");
+			});
 		});
 
 		this.addCommand({
 			id: "open-historica-sidebar",
-			name: "Open Timeline Sidebar",
+			name: "Open timeline sidebar",
 			callback: () => this.activateSidebar(),
 		});
 
 		this.addCommand({
 			id: "open-historica-global-timeline",
-			name: "Open Global Timeline",
+			name: "Open global timeline",
 			callback: () => this.activateGlobalTimeline(),
 		});
 
 		this.addCommand({
 			id: "open-historica-design-gallery",
-			name: "Open Design Gallery",
+			name: "Open design gallery",
 			callback: () => this.activateGallery(),
 		});
 
@@ -121,7 +128,7 @@ export default class HistoricaPlugin extends Plugin {
 		}
 		const leaf = this.app.workspace.getRightLeaf(false);
 		await leaf?.setViewState({type: HISTORICA_SIDEBAR_VIEW_TYPE, active: true});
-		if (leaf) this.app.workspace.revealLeaf(leaf);
+		if (leaf) await this.app.workspace.revealLeaf(leaf);
 	}
 
 	async activateGlobalTimeline(): Promise<void> {
@@ -135,14 +142,14 @@ export default class HistoricaPlugin extends Plugin {
 	private async activateTabView(viewType: string): Promise<void> {
 		const existing = this.app.workspace.getLeavesOfType(viewType);
 		if (existing.length > 0) {
-			this.app.workspace.revealLeaf(existing[0]);
+			await this.app.workspace.revealLeaf(existing[0]);
 			return;
 		}
 		const leaf = this.app.workspace.getLeaf("tab");
 		await leaf.setViewState({type: viewType, active: true});
-		this.app.workspace.revealLeaf(leaf);
+		await this.app.workspace.revealLeaf(leaf);
 	}
 
-	override async onunload() {
+	override onunload() {
 	}
 }
