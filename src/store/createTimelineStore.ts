@@ -326,7 +326,7 @@ export function createTimelineStore(
 			const chrono = plugin.historicaChrono.getParserForLanguage(dateText, lang);
 			const results = chrono.parse(dateText);
 			if (results.length === 0) {
-				new Notice("Could not parse that date — try a format like 'March 1492' or '15 Jan 1600'", 4000);
+				new Notice("Could not parse that date. Try a format like 'March 1492' or '15 Jan 1600'", 4000);
 				return;
 			}
 			const result = results[0];
