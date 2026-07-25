@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 import { scopedPreflightStyles, isolateInsideOfContainer } from 'tailwindcss-scoped-preflight';
+import typography from '@tailwindcss/typography';
 
 
 module.exports = {
@@ -17,7 +18,7 @@ module.exports = {
 		extend: {},
 	},
 	plugins: [
-		require('@tailwindcss/typography'),
+		typography,
 		scopedPreflightStyles({
 			isolationStrategy: isolateInsideOfContainer('.twp', {
 				except: '.no-twp', // optional, to exclude some elements under .twp from being preflighted, like external markup

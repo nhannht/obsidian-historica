@@ -85,8 +85,8 @@ export function TimelineMinimap({
 
 	// ── Density histogram ─────────────────────────────────────────────────────
 	const { bucketCounts, rawCounts, maxCount } = useMemo(() => {
-		const counts = new Array(NUM_BUCKETS).fill(0)
-		const raw    = new Array(NUM_BUCKETS).fill(0)
+		const counts: number[] = new Array<number>(NUM_BUCKETS).fill(0)
+		const raw: number[]    = new Array<number>(NUM_BUCKETS).fill(0)
 		for (const { entry, y } of positionedEntries) {
 			if (entry.isAnchor) continue
 			const frac   = Math.max(0, Math.min(1, y / BASE_HEIGHT))

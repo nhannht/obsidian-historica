@@ -95,13 +95,19 @@ export function isDeterministicId(id: string): boolean {
 }
 
 
+// `el` is the rendered container element for this block. Obsidian sets it on the
+// context object at runtime, but it is an internal property not declared on the
+// public `MarkdownPostProcessorContext` type.
+interface MarkdownPostProcessorContextWithEl extends MarkdownPostProcessorContext {
+	el: HTMLElement;
+}
+
 export async function UpdateBlockSetting(settings: HistoricaSettings,
 										 blockCtx: MarkdownPostProcessorContext,
 										 plugin: HistoricaPlugin
 ) {
 	const sourcePath = blockCtx.sourcePath
-	//@ts-expect-error: el not define in blockCtx
-	const elInfo = blockCtx.getSectionInfo(blockCtx.el)
+	const elInfo = blockCtx.getSectionInfo((blockCtx as MarkdownPostProcessorContextWithEl).el)
 	if (elInfo) {
 		let linesFromFile = elInfo.text.split(/(.*?\n)/g)
 		linesFromFile.forEach((e: string, i: number) => {
@@ -172,7 +178,7 @@ export function sanitizeHtml(html: string): string {
 		.replace(/\bon\w+\s*=/gi, "data-blocked=");
 }
 
-export function SelectRandomElement(r: any[]): any {
+export function SelectRandomElement<T>(r: T[]): T | null {
 	if (r.length === 0) {
 		return null;
 	}
@@ -188,13 +194,18 @@ export function GetAllHistoricaDataFile(plugin: HistoricaPlugin) {
 	)
 }
 
+function hasBlockId(value: unknown): value is { blockId: string } {
+	return typeof value === "object" && value !== null && "blockId" in value
+		&& typeof value.blockId === "string"
+}
+
 function extractBlockIdFromSource(source: string): string {
 	const trimmed = source.trim()
 	if (trimmed === "") return "-1"
 	if (/^[a-zA-Z0-9_-]+$/.test(trimmed)) return trimmed
 	try {
-		const parsed = JSON.parse(trimmed)
-		if (typeof parsed === "object" && parsed !== null && parsed.blockId && parsed.blockId.trim() !== "-1") {
+		const parsed: unknown = JSON.parse(trimmed)
+		if (hasBlockId(parsed) && parsed.blockId.trim() !== "-1") {
 			return parsed.blockId.trim()
 		}
 	} catch { /* not JSON */ }
@@ -229,7 +240,7 @@ async function copyToClipboard(text: string, label: string) {
 		await navigator.clipboard.writeText(text)
 		new Notice(`${label} copied to clipboard`)
 	} catch (error) {
-		new Notice(`Export failed: ${error}`)
+		new Notice(`Export failed: ${error instanceof Error ? error.message : String(error)}`)
 	}
 }
 export async function ExportAsJSONToClipboard(data: TimelineDocument) {
@@ -442,7 +453,12 @@ export function entrySig(entry: TimelineEntry): number {
 
 export function getNoteTags(plugin: HistoricaPlugin, notePath: string): string[] {
 	const cache = plugin.app.metadataCache.getCache(notePath);
-	const front: string[] = cache?.frontmatter?.tags ?? [];
+	const frontmatterTags: unknown = cache?.frontmatter?.tags;
+	const front: string[] = Array.isArray(frontmatterTags)
+		? frontmatterTags.filter((t): t is string => typeof t === "string")
+		: typeof frontmatterTags === "string"
+			? [frontmatterTags]
+			: [];
 	const inline = (cache?.tags ?? []).map((t: { tag: string }) => t.tag);
 	return [...front, ...inline];
 }

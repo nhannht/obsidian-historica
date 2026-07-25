@@ -4,6 +4,7 @@ import {TFile} from "obsidian";
 import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse";
 import {Node, Parent} from "unist"
+import {Root as MdastRoot} from "mdast";
 import {Processor, unified} from "unified";
 import {HistoricaSettings, NodeAndTFile, TimelineEntry, SentenceWithOffset} from "@/src/types";
 import {deterministicEntryId} from "@/src/utils";
@@ -201,7 +202,10 @@ export default class MarkdownProcessor {
 		return false
 	}
 
-	private async recursiveGetNodeDataFromSingleFile(node: Node, file: TFile, nodes: NodeAndTFile[]) {
+	// No I/O happens here. The traversal is synchronous. Do not mark this `async`;
+	// a forEach over an async recursive call would be a floating promise (results
+	// would race the caller's await) instead of the guaranteed-synchronous walk this is.
+	private recursiveGetNodeDataFromSingleFile(node: Node, file: TFile, nodes: NodeAndTFile[]): void {
 		if (node.type == "paragraph") {
 			nodes.push({node, file})
 		}
@@ -216,7 +220,7 @@ export default class MarkdownProcessor {
 		const nodes: NodeAndTFile[] = []
 		const fileContent = await this.plugin.app.vault.cachedRead(file)
 		const parseTree: Node = this.RemarkProcessor.parse(fileContent)
-		await this.recursiveGetNodeDataFromSingleFile(parseTree, file, nodes)
+		this.recursiveGetNodeDataFromSingleFile(parseTree, file, nodes)
 		return nodes
 	}
 
@@ -239,13 +243,13 @@ export default class MarkdownProcessor {
 	async parseFilesAndGetNodeDataForSection(file: TFile, blockId: string): Promise<NodeAndTFile[]> {
 		const nodes: NodeAndTFile[] = []
 		const fileContent = await this.plugin.app.vault.cachedRead(file)
-		const parseTree = this.RemarkProcessor.parse(fileContent) as Parent
+		const parseTree = this.RemarkProcessor.parse(fileContent) as MdastRoot
 		const children = parseTree.children
 
 		// Find the fenced code block node whose value contains blockId
 		let blockIdx = -1
 		for (let i = 0; i < children.length; i++) {
-			const child = children[i] as any
+			const child = children[i]
 			if (child.type === 'code' && typeof child.value === 'string' && child.value.includes(blockId)) {
 				blockIdx = i
 				break
@@ -259,10 +263,10 @@ export default class MarkdownProcessor {
 		let sectionStartIdx = -1
 		let sectionDepth = 0
 		for (let i = blockIdx - 1; i >= 0; i--) {
-			const child = children[i] as any
+			const child = children[i]
 			if (child.type === 'heading') {
 				sectionStartIdx = i
-				sectionDepth = child.depth as number
+				sectionDepth = child.depth
 				break
 			}
 		}
@@ -273,8 +277,8 @@ export default class MarkdownProcessor {
 		// Walk forward from sectionStartIdx to find the boundary: next heading at same or higher level
 		let sectionEndIdx = children.length
 		for (let i = sectionStartIdx + 1; i < children.length; i++) {
-			const child = children[i] as any
-			if (child.type === 'heading' && (child.depth as number) <= sectionDepth) {
+			const child = children[i]
+			if (child.type === 'heading' && child.depth <= sectionDepth) {
 				sectionEndIdx = i
 				break
 			}
@@ -282,7 +286,7 @@ export default class MarkdownProcessor {
 
 		// Collect all paragraph nodes within [sectionStartIdx+1, sectionEndIdx)
 		for (let i = sectionStartIdx + 1; i < sectionEndIdx; i++) {
-			await this.recursiveGetNodeDataFromSingleFile(children[i], file, nodes)
+			this.recursiveGetNodeDataFromSingleFile(children[i], file, nodes)
 		}
 
 		return nodes

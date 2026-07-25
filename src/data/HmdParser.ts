@@ -33,7 +33,7 @@ function escapeInline(value: string): string {
 }
 
 function unescapeInline(value: string): string {
-	return value.replace(/\\(.)/g, (_, c) => (c === "n" ? "\n" : c));
+	return value.replace(/\\(.)/g, (_match: string, c: string) => (c === "n" ? "\n" : c));
 }
 
 type CommentHandlers = {
@@ -191,7 +191,12 @@ export function parseHmd(content: string): HmdParseResult {
 					parserVersion = String(val) || undefined;
 					break;
 				case "unparsedSentences":
-					try { unparsedSentences = JSON.parse(String(val)); } catch { unparsedSentences = []; }
+					try {
+						const parsedValue: unknown = JSON.parse(String(val));
+						unparsedSentences = Array.isArray(parsedValue)
+							? parsedValue.filter((s): s is string => typeof s === "string")
+							: [];
+					} catch { unparsedSentences = []; }
 					break;
 				default:
 					extraFrontmatter.push([key, String(val)]);

@@ -14,6 +14,15 @@ function jsonDataFilePath(blockId: string, dataDir = HISTORICA_DATA_DIR): string
 	return `${dataDir}/${blockId}.json`;
 }
 
+// Legacy JSON data files are external, on-disk payloads whose shape is not guaranteed,
+// so parse as unknown and narrow before trusting it as a TimelineDocument.
+function isLegacyTimelineDocument(value: unknown): value is TimelineDocument {
+	return typeof value === "object" && value !== null
+		&& "settings" in value && "units" in value
+		&& typeof value.settings === "object" && value.settings !== null
+		&& Array.isArray(value.units);
+}
+
 export default class TimelineDataManager {
 	constructor(private plugin: HistoricaPlugin) {}
 
@@ -41,8 +50,9 @@ export default class TimelineDataManager {
 		if (jsonFile instanceof TFile) {
 			try {
 				const content = await this.plugin.app.vault.read(jsonFile);
-				const data: TimelineDocument = JSON.parse(content);
-				if (data && data.settings && data.units) {
+				const parsed: unknown = JSON.parse(content);
+				if (isLegacyTimelineDocument(parsed)) {
+					const data = parsed;
 					// Migrate: write HMD, delete JSON
 					const hmd = serializeHmd(data);
 					await this.plugin.app.vault.create(mdPath, hmd);

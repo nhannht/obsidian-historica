@@ -6,6 +6,12 @@ import {createTimelineStore} from "@/src/store/createTimelineStore";
 import {TimelineBlock} from "@/src/ui/TimelineBlock";
 
 import {MarkdownRenderChild} from "obsidian";
+
+function hasBlockId(value: unknown): value is { blockId: string } {
+	return typeof value === "object" && value !== null && "blockId" in value
+		&& typeof value.blockId === "string"
+}
+
 export function extractBlockId(source: string): string {
 	// Strip comment lines (lines starting with #) to allow self-documenting comments in the code fence
 	const stripped = source.split('\n')
@@ -20,8 +26,8 @@ export function extractBlockId(source: string): string {
 
 	// Legacy JSON format: {"blockId": "abc123", ...}
 	try {
-		const parsed = JSON.parse(stripped)
-		if (typeof parsed === "object" && parsed !== null && parsed.blockId && parsed.blockId.trim() !== "-1") {
+		const parsed: unknown = JSON.parse(stripped)
+		if (hasBlockId(parsed) && parsed.blockId.trim() !== "-1") {
 			return parsed.blockId.trim()
 		}
 	} catch {

@@ -39,7 +39,9 @@ class SourceLinkWidget extends WidgetType {
 		anchor.textContent = this.path;
 		anchor.addEventListener("click", (e) => {
 			e.preventDefault();
-			this.plugin.app.workspace.openLinkText(this.path, this.sourcePath);
+			this.plugin.app.workspace.openLinkText(this.path, this.sourcePath).catch((err: unknown) => {
+				console.error("Historica: failed to open link", this.path, err);
+			});
 		});
 		span.appendChild(anchor);
 		return span;
