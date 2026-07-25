@@ -1,5 +1,5 @@
 import * as chrono from "@nhannht/chrono-node";
-import {Chrono} from "@nhannht/chrono-node";
+import {Chrono, ParsingContext, ParsingResult} from "@nhannht/chrono-node";
 import {franc} from "franc";
 
 import {moment} from "../moment-fix";
@@ -34,7 +34,7 @@ function parseMonthName(name: string): number {
 // "the previous year", "the following year", "the next year"
 export const previousFollowingYearParser = {
 	pattern: () => /\b(?:the\s+)?(previous|preceding|prior|following|next|subsequent)\s+year\b/i,
-	extract: (context: any, match: any) => {
+	extract: (context: ParsingContext, match: RegExpMatchArray) => {
 		const refYear = context.refDate.getFullYear()
 		const dir = /previous|preceding|prior/i.test(match[1]) ? -1 : 1
 		return {day: 1, month: 1, year: refYear + dir}
@@ -44,7 +44,7 @@ export const previousFollowingYearParser = {
 // "N years/decades later/earlier", "just 14 years later", "a decade earlier"
 export const nYearsLaterEarlierParser = {
 	pattern: () => /\b(?:just\s+)?(\d+|a|one|two|three|four|five|six|seven|eight|nine|ten)\s+(year|years|decade|decades|century|centuries)\s+(earlier|later|before|after|hence)\b/i,
-	extract: (context: any, match: any) => {
+	extract: (context: ParsingContext, match: RegExpMatchArray) => {
 		const refYear = context.refDate.getFullYear()
 		const n = wordNumbers[match[1].toLowerCase()] ?? parseInt(match[1])
 		if (isNaN(n)) return null
@@ -57,7 +57,7 @@ export const nYearsLaterEarlierParser = {
 // "a year after Marathon", "two decades before X"
 export const nYearsAfterBeforeParser = {
 	pattern: () => /\b(\d+|a|one|two|three|four|five|six|seven|eight|nine|ten)\s+(year|years|decade|decades|century|centuries)\s+(after|before|since)\s+\w+/i,
-	extract: (context: any, match: any) => {
+	extract: (context: ParsingContext, match: RegExpMatchArray) => {
 		const refYear = context.refDate.getFullYear()
 		const n = wordNumbers[match[1].toLowerCase()] ?? parseInt(match[1])
 		if (isNaN(n)) return null
@@ -70,7 +70,7 @@ export const nYearsAfterBeforeParser = {
 // "the rest of 496", "early 496", "mid 480" — bare number with BC polarity from anchor
 export const restOfYearParser = {
 	pattern: () => /\b(?:the\s+rest\s+of|the\s+end\s+of|the\s+start\s+of|the\s+beginning\s+of)\s+(\d{1,4})\b/i,
-	extract: (context: any, match: any) => {
+	extract: (context: ParsingContext, match: RegExpMatchArray) => {
 		const refYear = context.refDate.getFullYear()
 		const rawYear = parseInt(match[1])
 		if (refYear < 0) return {day: 1, month: 1, year: -rawYear}
@@ -81,7 +81,7 @@ export const restOfYearParser = {
 // "Early in spring", "late winter", "mid autumn" — season with modifier
 export const seasonWithModifierParser = {
 	pattern: () => /\b(?:early|late|mid)\s+(?:in\s+)?(spring|summer|autumn|fall|winter)\b/i,
-	extract: (context: any, match: any) => {
+	extract: (context: ParsingContext, match: RegExpMatchArray) => {
 		const refYear = context.refDate.getFullYear()
 		return {day: 1, month: seasonMonths[match[1].toLowerCase()] ?? 1, year: refYear}
 	}
@@ -90,7 +90,7 @@ export const seasonWithModifierParser = {
 // Bare season (no preposition): "Spring", "Winter" — only in 2-pass context
 export const bareSeasonParser = {
 	pattern: () => /\b(spring|summer|autumn|fall|winter)\b/i,
-	extract: (context: any, match: any) => {
+	extract: (context: ParsingContext, match: RegExpMatchArray) => {
 		const refYear = context.refDate.getFullYear()
 		const currentYear = new Date().getFullYear()
 		// Only activate in 2-pass context (refDate differs from current year)
@@ -102,7 +102,7 @@ export const bareSeasonParser = {
 // Bare month in BC context: "mid-August", "September" — only when anchor is BC
 export const bcMonthParser = {
 	pattern: () => /\b(?:mid[- ]?)?(January|February|March|April|May|June|July|August|September|October|November|December)\b/i,
-	extract: (context: any, match: any) => {
+	extract: (context: ParsingContext, match: RegExpMatchArray) => {
 		const refYear = context.refDate.getFullYear()
 		// Only activate for BC context — let chrono built-in handle AD months
 		if (refYear >= 0) return null
@@ -113,7 +113,7 @@ export const bcMonthParser = {
 
 export const standaloneYearParser = {
 	pattern: () => /\b(\d{4})\b/i,
-	extract: (_context: any, match: any) => {
+	extract: (_context: ParsingContext, match: RegExpMatchArray) => {
 		const year = parseInt(match[1])
 		if (year < 1000 || year > 2099) return null
 		return {day: 1, month: 1, year}
@@ -122,22 +122,22 @@ export const standaloneYearParser = {
 
 export const prepositionYearParser = {
 	pattern: () => /\b(in|at|on|from|to|year|by|since|until|around|circa|c\.|ca\.)\s+(\d{4})\b/i,
-	extract: (_context: any, match: any) => ({day: 1, month: 1, year: parseInt(match[2])})
+	extract: (_context: ParsingContext, match: RegExpMatchArray) => ({day: 1, month: 1, year: parseInt(match[2])})
 }
 
 export const yyyyMmDdParser = {
-	pattern: () => /\b(\d{4})[\/,-](\d{1,2})[\/,-](\d{1,3})\b/i,
-	extract: (_context: any, match: any) => ({day: parseInt(match[3]), month: parseInt(match[2]), year: parseInt(match[1])})
+	pattern: () => /\b(\d{4})[/,-](\d{1,2})[/,-](\d{1,3})\b/i,
+	extract: (_context: ParsingContext, match: RegExpMatchArray) => ({day: parseInt(match[3]), month: parseInt(match[2]), year: parseInt(match[1])})
 }
 
 export const mmDdYyyyParser = {
-	pattern: () => /\b(\d{1,2})[\/,-](\d{1,2})[\/,-](\d{4})\b/i,
-	extract: (_context: any, match: any) => ({day: parseInt(match[2]), month: parseInt(match[1]), year: parseInt(match[3])})
+	pattern: () => /\b(\d{1,2})[/,-](\d{1,2})[/,-](\d{4})\b/i,
+	extract: (_context: ParsingContext, match: RegExpMatchArray) => ({day: parseInt(match[2]), month: parseInt(match[1]), year: parseInt(match[3])})
 }
 
 export const ddMonYyyyParser = {
 	pattern: () => /\b(\d{1,2})\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d{1,7})\b/i,
-	extract: (_context: any, match: any) => ({
+	extract: (_context: ParsingContext, match: RegExpMatchArray) => ({
 		day: parseInt(match[1]),
 		month: parseMonthName(match[2]),
 		year: parseInt(match[3])
@@ -146,7 +146,7 @@ export const ddMonYyyyParser = {
 
 export const monDdYyyyParser = {
 	pattern: () => /\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d{1,2})\s+(\d{4})\b/i,
-	extract: (_context: any, match: any) => ({
+	extract: (_context: ParsingContext, match: RegExpMatchArray) => ({
 		day: parseInt(match[2]),
 		month: parseMonthName(match[1]),
 		year: parseInt(match[3])
@@ -154,18 +154,18 @@ export const monDdYyyyParser = {
 }
 
 export const yyyyMmParser = {
-	pattern: () => /\b(\d{4})[\/,-](\d{1,2})\b/i,
-	extract: (_context: any, match: any) => ({day: 1, month: parseInt(match[2]), year: parseInt(match[1])})
+	pattern: () => /\b(\d{4})[/,-](\d{1,2})\b/i,
+	extract: (_context: ParsingContext, match: RegExpMatchArray) => ({day: 1, month: parseInt(match[2]), year: parseInt(match[1])})
 }
 
 export const mmYyyyParser = {
-	pattern: () => /\b(\d{1,2})[\/,-](\d{4})\b/i,
-	extract: (_context: any, match: any) => ({day: 1, month: parseInt(match[1]), year: parseInt(match[2])})
+	pattern: () => /\b(\d{1,2})[/,-](\d{4})\b/i,
+	extract: (_context: ParsingContext, match: RegExpMatchArray) => ({day: 1, month: parseInt(match[1]), year: parseInt(match[2])})
 }
 
 export const monYyyyParser = {
 	pattern: () => /\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d{1,7})\b/i,
-	extract: (_context: any, match: any) => ({
+	extract: (_context: ParsingContext, match: RegExpMatchArray) => ({
 		day: 1,
 		month: parseMonthName(match[1]),
 		year: parseInt(match[2])
@@ -175,7 +175,7 @@ export const monYyyyParser = {
 // Season + year: "the spring of 1916", "summer 1942"
 export const seasonYearParser = {
 	pattern: () => /\b(spring|summer|autumn|fall|winter)\s+(?:of\s+)?(\d{4})\b/i,
-	extract: (_context: any, match: any) => ({
+	extract: (_context: ParsingContext, match: RegExpMatchArray) => ({
 		day: 1,
 		month: seasonMonths[match[1].toLowerCase()] ?? 1,
 		year: parseInt(match[2])
@@ -186,7 +186,7 @@ export const seasonYearParser = {
 // Only produces results when a referenceDate provides the year (2-pass parsing)
 export const seasonWithPrepositionParser = {
 	pattern: () => /\b(?:the|in|during|during the|by)\s+(spring|summer|autumn|fall|winter)\b/i,
-	extract: (context: any, match: any) => {
+	extract: (context: ParsingContext, match: RegExpMatchArray) => {
 		const refYear = context.refDate.getFullYear()
 		return {day: 1, month: seasonMonths[match[1].toLowerCase()] ?? 1, year: refYear}
 	}
@@ -195,20 +195,20 @@ export const seasonWithPrepositionParser = {
 // early/late/mid + year: "early 1941", "late 1942", "mid-1943"
 export const earlyLateYearParser = {
 	pattern: () => /\b(early|late|mid|the\s+start\s+of|the\s+end\s+of|the\s+beginning\s+of)\s+-?(\d{4})\b/i,
-	extract: (_context: any, match: any) => ({day: 1, month: 1, year: parseInt(match[2])})
+	extract: (_context: ParsingContext, match: RegExpMatchArray) => ({day: 1, month: 1, year: parseInt(match[2])})
 }
 
 // BC range pattern: "499-493 BC", "492-490 BCE" — extracts the first number as a BC date
 export const bcRangeParser = {
 	pattern: () => /\b(\d{1,4})\s*[-–]\s*\d{1,4}\s+(?:BC|BCE|B\.C\.?E?\.?)\b/i,
-	extract: (_context: any, match: any) => ({year: -parseInt(match[1])})
+	extract: (_context: ParsingContext, match: RegExpMatchArray) => ({year: -parseInt(match[1])})
 }
 
 // Refiner: correct month/season-only results in BC context
 // Chrono's built-in month parser uses refDate but may compute wrong year
 // (e.g., "September" with ref Jan 480 BC → Sep 481 BC instead of Sep 480 BC)
 export const bcMonthRefiner = {
-	refine: (context: any, results: any[]) => {
+	refine: (context: ParsingContext, results: ParsingResult[]) => {
 		const refYear = context.refDate.getFullYear()
 		if (refYear >= 0) return results
 		for (const r of results) {
@@ -237,7 +237,7 @@ const JA_ERA_BASE: Record<string, number> = {
 
 export const cjkYearMonthParser = {
 	pattern: () => /(\d{3,4})年(\d{1,2})月(?!\d{1,2}日)/,
-	extract: (_context: any, match: RegExpMatchArray) => ({
+	extract: (_context: ParsingContext, match: RegExpMatchArray) => ({
 		year: parseInt(match[1]),
 		month: parseInt(match[2]),
 		day: 1,
@@ -246,7 +246,7 @@ export const cjkYearMonthParser = {
 
 export const cjkYearOnlyParser = {
 	pattern: () => /(?<![0-9])(\d{3,4})年(?!\d{1,2}月)/,
-	extract: (_context: any, match: RegExpMatchArray) => ({
+	extract: (_context: ParsingContext, match: RegExpMatchArray) => ({
 		year: parseInt(match[1]),
 		month: 1,
 		day: 1,
@@ -261,7 +261,7 @@ export const cjkYearOnlyParser = {
 export const jaEraYearParser = {
 	// 元年 = gannen = first year of era (year 1)
 	pattern: () => /(明治|大正|昭和|平成|令和)(元|\d{1,2})年(?:(\d{1,2})月(?:(\d{1,2})日)?)?/,
-	extract: (_context: any, match: RegExpMatchArray) => {
+	extract: (_context: ParsingContext, match: RegExpMatchArray) => {
 		const eraName = match[1]
 		const eraNum = match[2] === '元' ? 1 : parseInt(match[2])
 		const base = JA_ERA_BASE[eraName]
@@ -281,7 +281,7 @@ export const jaEraYearParser = {
  */
 export const jaKigenzenParser = {
 	pattern: () => /紀元前(\d{1,4})年(?:(\d{1,2})月(?:(\d{1,2})日)?)?/,
-	extract: (_context: any, match: RegExpMatchArray) => {
+	extract: (_context: ParsingContext, match: RegExpMatchArray) => {
 		const year = -parseInt(match[1])
 		const result: Record<string, number> = {year, month: 1, day: 1}
 		if (match[2]) result.month = parseInt(match[2])
@@ -299,7 +299,7 @@ export const jaCenturyParser = makeBCCenturyParser("紀元前", "世紀")
 function buildLocale(base: Chrono, setup: (c: Chrono) => void): Chrono {
 	const result = base.clone()
 	result.refiners = result.refiners.filter(
-		(r: any) => r.constructor.name !== "UnlikelyFormatFilter"
+		(r) => r.constructor.name !== "UnlikelyFormatFilter"
 	)
 	setup(result)
 	return result
@@ -311,7 +311,7 @@ function makeMonthYearParser(monthMap: Record<string, number>) {
 	const re = new RegExp(`(${names})\\s+(\\d{4})`, "i")
 	return {
 		pattern: () => re,
-		extract: (_context: any, match: RegExpMatchArray) => ({
+		extract: (_context: ParsingContext, match: RegExpMatchArray) => ({
 			year: parseInt(match[2]),
 			month: monthMap[match[1].toLowerCase()],
 			day: 1,
@@ -324,7 +324,7 @@ function makeBCCenturyParser(bcPrefix: string, centurySuffix: string) {
 	const re = new RegExp(`(${bcPrefix})?(\\d{1,2})${centurySuffix}`)
 	return {
 		pattern: () => re,
-		extract: (_context: any, match: RegExpMatchArray) => {
+		extract: (_context: ParsingContext, match: RegExpMatchArray) => {
 			const century = parseInt(match[2])
 			// Midpoint of century N: N=20 → 1901–2000 → midpoint 1950
 			const midpoint = (century - 1) * 100 + 50
@@ -344,7 +344,7 @@ const deMonthYearParser = makeMonthYearParser(DE_MONTH_MAP)
 
 const bareYearParser = {
 	pattern: () => /(?<![0-9])(\d{4})(?![0-9])/,
-	extract: (_context: any, match: RegExpMatchArray) => {
+	extract: (_context: ParsingContext, match: RegExpMatchArray) => {
 		const year = parseInt(match[1])
 		if (year < 1000 || year > 2099) return null
 		return { year, month: 1, day: 1 }
@@ -369,7 +369,7 @@ const zhCenturyParser = makeBCCenturyParser("公元前", "世[纪紀]")
 const nlCenturyParser = {
 	// Matches "20e eeuw", "21ste eeuw", "19de eeuw", "de 20e eeuw", etc.
 	pattern: () => /\b(\d{1,2})(?:e|ste|de)?\s+eeuw\b/i,
-	extract: (_context: any, match: RegExpMatchArray) => {
+	extract: (_context: ParsingContext, match: RegExpMatchArray) => {
 		const century = parseInt(match[1])
 		// Midpoint of century: century 20 → 1901-2000 → midpoint 1950
 		const midpoint = (century - 1) * 100 + 50
@@ -409,8 +409,8 @@ export default class HistoricaChrono {
 				ddMonYyyyParser, monDdYyyyParser, yyyyMmParser, mmYyyyParser, monYyyyParser,
 				seasonYearParser, seasonWithPrepositionParser, earlyLateYearParser, bcRangeParser,
 			)
-			for (const p of BCEpattern) c.parsers.push({ pattern: () => p, extract: (_: any, m: any) => ({year: -parseInt(m[1])}) })
-			for (const p of ADpattern)  c.parsers.push({ pattern: () => p, extract: (_: any, m: any) => ({year:  parseInt(m[1])}) })
+			for (const p of BCEpattern) c.parsers.push({ pattern: () => p, extract: (_: ParsingContext, m: RegExpMatchArray) => ({year: -parseInt(m[1])}) })
+			for (const p of ADpattern)  c.parsers.push({ pattern: () => p, extract: (_: ParsingContext, m: RegExpMatchArray) => ({year:  parseInt(m[1])}) })
 			c.refiners.push(bcMonthRefiner)
 		})
 		return this._customChrono
