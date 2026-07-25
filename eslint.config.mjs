@@ -27,5 +27,12 @@ export default defineConfig([
 				tsconfigRootDir: import.meta.dirname,
 			},
 		},
+		rules: {
+			// TypeScript already reports undefined identifiers, and it reports none
+			// here. The base rule cannot see the global React namespace that
+			// jsx: "react-jsx" relies on, so it flags every `React.` type annotation
+			// in a file that correctly has no React import.
+			"no-undef": "off",
+		},
 	},
 ]);
