@@ -15,6 +15,7 @@ export default defineConfig([
 		"styles.css",
 		"docs/**",
 		"__tests__/**",
+		"test/**",
 		"historica-test-vault/**",
 	]),
 	...obsidianmd.configs.recommended,
