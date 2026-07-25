@@ -108,7 +108,7 @@ export function FilterBar({ allEntries, plugin, filters, onChange, filteredCount
 			{/* RugHeat — always visible */}
 			{showRug && (
 				<div ref={rugRef} className="px-4 pb-2">
-					<RugHeat years={rugYears} min={absoluteMin!} max={absoluteMax!} width={Math.max(1, rugWidth)} tickH={10} stripeH={5} />
+					<RugHeat years={rugYears} min={absoluteMin} max={absoluteMax} width={Math.max(1, rugWidth)} tickH={10} stripeH={5} />
 				</div>
 			)}
 

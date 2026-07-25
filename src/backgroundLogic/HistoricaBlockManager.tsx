@@ -44,7 +44,7 @@ export default class HistoricaBlockManager {
 
 				const {store, destroy} = createTimelineStore(this.plugin, settings, ctx)
 
-				const root = el.createEl("div", {cls: "root"})
+				const root = el.createDiv({cls: "root"})
 				const reactRoot = createRoot(root)
 
 				reactRoot.render(
@@ -63,7 +63,7 @@ export default class HistoricaBlockManager {
 				}
 				ctx.addChild(child)
 			} catch (e) {
-				el.createEl("div", {
+				el.createDiv({
 					cls: "historica-error",
 					text: `Failed to load timeline: ${(e as Error).message}. Use an empty block or a block ID.`
 				})

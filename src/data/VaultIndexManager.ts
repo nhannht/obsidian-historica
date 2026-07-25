@@ -22,7 +22,7 @@ function toAnchorSnapshot(u: TimelineEntry): AnchorSnapshot {
 
 export class VaultIndexManager {
 	private index: VaultIndex = {};
-	private persistTimer: ReturnType<typeof setTimeout> | null = null;
+	private persistTimer: number | null = null;
 
 	constructor(private plugin: HistoricaPlugin) {}
 
@@ -115,8 +115,8 @@ export class VaultIndexManager {
 	}
 
 	private schedulePersist(): void {
-		if (this.persistTimer) clearTimeout(this.persistTimer);
-		this.persistTimer = setTimeout(() => {
+		if (this.persistTimer) window.clearTimeout(this.persistTimer);
+		this.persistTimer = window.setTimeout(() => {
 			this.persistTimer = null;
 			this.persist().catch((e: unknown) =>
 				console.error("[historica] Failed to persist vault index:", e)

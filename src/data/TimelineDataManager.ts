@@ -2,7 +2,7 @@ import {MarkdownPostProcessorContext, Notice, TFile, TFolder} from "obsidian";
 import HistoricaPlugin from "@/main";
 import {TimelineDocument, HistoricaSettings} from "@/src/types";
 import {generateRandomId, UpdateBlockSetting, deterministicEntryId, isDeterministicId} from "@/src/utils";
-import {parseHmd, serializeHmd, HmdParseResult} from "./HmdParser";
+import {parseHmd, serializeHmd} from "./HmdParser";
 
 export const HISTORICA_DATA_DIR = "historica-data";
 
@@ -44,7 +44,7 @@ export default class TimelineDataManager {
 				const data: TimelineDocument = JSON.parse(content);
 				if (data && data.settings && data.units) {
 					// Migrate: write HMD, delete JSON
-					const hmd = serializeHmd(data as HmdParseResult);
+					const hmd = serializeHmd(data);
 					await this.plugin.app.vault.create(mdPath, hmd);
 					await this.plugin.app.vault.delete(jsonFile);
 					new Notice(`Migrated timeline ${blockId} from JSON to HMD`, 5000);
@@ -78,7 +78,7 @@ export default class TimelineDataManager {
 		});
 
 		const migratedData = {...data, units: migrated};
-		const hmd = serializeHmd(migratedData as HmdParseResult);
+		const hmd = serializeHmd(migratedData);
 		await this.plugin.app.vault.modify(file, hmd);
 		return migratedData;
 	}
@@ -88,7 +88,7 @@ export default class TimelineDataManager {
 		if (blockId === "-1") return;
 
 		const filePath = dataFilePath(blockId, this.plugin.dataDir);
-		const hmd = serializeHmd(data as HmdParseResult);
+		const hmd = serializeHmd(data);
 
 		try {
 			const existing = this.plugin.app.vault.getAbstractFileByPath(filePath);

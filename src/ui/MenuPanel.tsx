@@ -30,11 +30,11 @@ function itemStyles(item: MenuItem): React.CSSProperties {
 
 function SubmenuPanel({item, onClose}: {item: MenuItem; onClose: () => void}) {
 	const triggerRef = useRef<HTMLDivElement>(null);
-	const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+	const closeTimerRef = useRef<number | null>(null);
 	const [subPos, setSubPos] = useState<{x: number; y: number} | null>(null);
 
 	function handleEnter() {
-		if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+		if (closeTimerRef.current) window.clearTimeout(closeTimerRef.current);
 		if (!triggerRef.current) return;
 		const rect = triggerRef.current.getBoundingClientRect();
 		let x = rect.right + 2;
@@ -44,7 +44,7 @@ function SubmenuPanel({item, onClose}: {item: MenuItem; onClose: () => void}) {
 	}
 
 	function handleLeave() {
-		closeTimerRef.current = setTimeout(() => setSubPos(null), 150);
+		closeTimerRef.current = window.setTimeout(() => setSubPos(null), 150);
 	}
 
 	const hasSubmenu = item.submenu && item.submenu.length > 0;
@@ -56,11 +56,11 @@ function SubmenuPanel({item, onClose}: {item: MenuItem; onClose: () => void}) {
 			style={{...ITEM_BASE, ...itemStyles(item)}}
 			onMouseEnter={e => {
 				handleEnter();
-				if (!item.disabled) (e.currentTarget as HTMLDivElement).style.background = "var(--int-surface-secondary)";
+				if (!item.disabled) (e.currentTarget).style.background = "var(--int-surface-secondary)";
 			}}
 			onMouseLeave={e => {
 				handleLeave();
-				(e.currentTarget as HTMLDivElement).style.background = "transparent";
+				(e.currentTarget).style.background = "transparent";
 			}}
 		>
 			<span>{item.label}</span>
@@ -70,7 +70,7 @@ function SubmenuPanel({item, onClose}: {item: MenuItem; onClose: () => void}) {
 				<div
 					style={{position: "fixed", left: subPos.x, top: subPos.y, zIndex: 10000}}
 					onMouseEnter={() => {
-						if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+						if (closeTimerRef.current) window.clearTimeout(closeTimerRef.current);
 					}}
 					onMouseLeave={handleLeave}
 					onMouseDown={e => e.stopPropagation()}
@@ -96,10 +96,10 @@ export function MenuPanel({items, onClose}: MenuPanelProps) {
 						<div
 							style={{...ITEM_BASE, ...itemStyles(node)}}
 							onMouseEnter={e => {
-								if (!node.disabled) (e.currentTarget as HTMLDivElement).style.background = "var(--int-surface-secondary)";
+								if (!node.disabled) (e.currentTarget).style.background = "var(--int-surface-secondary)";
 							}}
 							onMouseLeave={e => {
-								(e.currentTarget as HTMLDivElement).style.background = "transparent";
+								(e.currentTarget).style.background = "transparent";
 							}}
 							onMouseDown={e => {
 								e.stopPropagation();

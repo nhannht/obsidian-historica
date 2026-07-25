@@ -93,7 +93,7 @@ function buildAxisTicks(
 	const ticks: AxisTick[] = []
 	const start = Math.ceil(yearMin / step) * step
 	for (let year = start; year <= yearMax; year += step) {
-		const y = scale(year) as number
+		const y = scale(year)
 		if (!isFinite(y)) continue
 		ticks.push({
 			y,
@@ -204,7 +204,7 @@ export function useD3TimelineEngine(
 
 		const positionedEntries: PositionedEntry[] = filtered.map(({ entry, year }) => ({
 			entry,
-			y: scale(year) as number,
+			y: scale(year),
 		}))
 
 		return {

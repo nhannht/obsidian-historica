@@ -293,7 +293,7 @@ export async function exportTimelineAsPng(element: HTMLElement, mode: "save" | "
 	const {toPng} = await import("html-to-image");
 	const imageData = await toPng(element);
 	if (mode === "save") {
-		const link = document.createElement("a");
+		const link = createEl("a");
 		link.href = imageData;
 		link.download = "historica-timeline.png";
 		document.body.appendChild(link);

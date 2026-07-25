@@ -319,7 +319,7 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 					onScroll={e => {
 						const top = e.currentTarget.scrollTop
 						cancelAnimationFrame(scrollRafRef.current)
-						scrollRafRef.current = requestAnimationFrame(() => setScrollTop(top))
+						scrollRafRef.current = window.requestAnimationFrame(() => setScrollTop(top))
 					}}
 				>
 					<div style={{ height: virtualizer.getTotalSize(), position: "relative" }}>

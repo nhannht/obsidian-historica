@@ -60,7 +60,7 @@ function setupAutoSave(
 	buildSaveData: () => TimelineDocument,
 	dataManager: TimelineDataManager,
 ): () => void {
-	let saveTimeout: ReturnType<typeof setTimeout> | null = null;
+	let saveTimeout: number | null = null;
 
 	const unsubscribe = store.subscribe((state, prev) => {
 		if (!state.loaded) return;
@@ -69,8 +69,8 @@ function setupAutoSave(
 		if (state.units !== prev.units || state.settings !== prev.settings) {
 			store.setState({isDirty: true});
 			if (state.settings.autoSave && state.settings.blockId !== "-1" && state.units.length > 0) {
-				if (saveTimeout) clearTimeout(saveTimeout);
-				saveTimeout = setTimeout(() => {
+				if (saveTimeout) window.clearTimeout(saveTimeout);
+				saveTimeout = window.setTimeout(() => {
 					store.setState({isSaving: true});
 					dataManager.save(buildSaveData())
 						.then(() => store.setState({isDirty: false, isSaving: false}))
@@ -81,7 +81,7 @@ function setupAutoSave(
 	});
 
 	return () => {
-		if (saveTimeout) clearTimeout(saveTimeout);
+		if (saveTimeout) window.clearTimeout(saveTimeout);
 		unsubscribe();
 	};
 }

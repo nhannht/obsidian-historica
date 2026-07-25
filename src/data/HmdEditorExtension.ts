@@ -16,7 +16,7 @@ class DateBadgeWidget extends WidgetType {
 	constructor(private formatted: string) { super(); }
 
 	toDOM(): HTMLElement {
-		const span = document.createElement("span");
+		const span = createSpan();
 		span.className = "historica-hmd-date-badge historica-hmd-editor-widget";
 		span.textContent = this.formatted;
 		return span;
@@ -31,9 +31,9 @@ class SourceLinkWidget extends WidgetType {
 	constructor(private path: string, private plugin: HistoricaPlugin, private sourcePath: string) { super(); }
 
 	toDOM(): HTMLElement {
-		const span = document.createElement("span");
+		const span = createSpan();
 		span.className = "historica-hmd-source historica-hmd-editor-widget";
-		const anchor = document.createElement("a");
+		const anchor = createEl("a");
 		anchor.className = "internal-link";
 		anchor.dataset.href = this.path;
 		anchor.textContent = this.path;
@@ -52,7 +52,7 @@ class SourceLinkWidget extends WidgetType {
 
 class SeparatorWidget extends WidgetType {
 	toDOM(): HTMLElement {
-		const hr = document.createElement("div");
+		const hr = createDiv();
 		hr.className = "historica-hmd-separator";
 		return hr;
 	}

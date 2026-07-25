@@ -11,7 +11,7 @@ import {Chrono, ParsedResult} from "@nhannht/chrono-node";
 
 type SentenceParse = { sentence: string; results: ParsedResult[]; hadForwardAnchor: boolean }
 
-const yieldThread = () => new Promise<void>(r => setTimeout(r, 0))
+const yieldThread = () => new Promise<void>(r => window.setTimeout(r, 0))
 
 function stripMarkdownLinks(text: string): string {
 	return text.replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
@@ -240,7 +240,7 @@ export default class MarkdownProcessor {
 		const nodes: NodeAndTFile[] = []
 		const fileContent = await this.plugin.app.vault.cachedRead(file)
 		const parseTree = this.RemarkProcessor.parse(fileContent) as Parent
-		const children = parseTree.children as Node[]
+		const children = parseTree.children
 
 		// Find the fenced code block node whose value contains blockId
 		let blockIdx = -1

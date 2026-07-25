@@ -10,21 +10,21 @@ interface HoverTooltipProps {
 export function HoverTooltip({children, content, delay = 400}: HoverTooltipProps) {
 	const [visible, setVisible] = useState(false);
 	const [pos, setPos] = useState({x: 0, y: 0});
-	const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+	const timerRef = useRef<number | null>(null);
 
-	useEffect(() => () => { if (timerRef.current) clearTimeout(timerRef.current); }, []);
+	useEffect(() => () => { if (timerRef.current) window.clearTimeout(timerRef.current); }, []);
 
 	function handleMouseEnter(e: React.MouseEvent) {
 		const x = e.clientX;
 		const y = e.clientY;
-		timerRef.current = setTimeout(() => {
+		timerRef.current = window.setTimeout(() => {
 			setPos({x, y});
 			setVisible(true);
 		}, delay);
 	}
 
 	function handleMouseLeave() {
-		if (timerRef.current) clearTimeout(timerRef.current);
+		if (timerRef.current) window.clearTimeout(timerRef.current);
 		setVisible(false);
 	}
 

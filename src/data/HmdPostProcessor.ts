@@ -48,23 +48,23 @@ export function registerHmdPostProcessor(plugin: HistoricaPlugin) {
 				i++;
 			}
 
-			const card = document.createElement("div");
+			const card = createDiv();
 			card.className = "historica-hmd-card";
 
-			const badge = document.createElement("div");
+			const badge = createDiv();
 			badge.className = "historica-hmd-date-badge";
 			badge.textContent = formatHmdDate(dateValue, dateStyle);
 			card.appendChild(badge);
 
-			const titleEl = document.createElement("div");
+			const titleEl = createDiv();
 			titleEl.className = "historica-hmd-title";
 			titleEl.textContent = title;
 			card.appendChild(titleEl);
 
 			if (source) {
-				const sourceEl = document.createElement("div");
+				const sourceEl = createDiv();
 				sourceEl.className = "historica-hmd-source";
-				const anchor = document.createElement("a");
+				const anchor = createEl("a");
 				anchor.className = "internal-link";
 				anchor.dataset.href = source;
 				anchor.textContent = source;
