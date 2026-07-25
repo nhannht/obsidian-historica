@@ -70,7 +70,9 @@ export function registerHmdPostProcessor(plugin: HistoricaPlugin) {
 				anchor.textContent = source;
 				anchor.addEventListener("click", (e) => {
 					e.preventDefault();
-					plugin.app.workspace.openLinkText(source, ctx.sourcePath);
+					plugin.app.workspace.openLinkText(source, ctx.sourcePath).catch((err: unknown) => {
+						console.error("Historica: failed to open link", source, err);
+					});
 				});
 				sourceEl.appendChild(anchor);
 				card.appendChild(sourceEl);
@@ -84,19 +86,19 @@ export function registerHmdPostProcessor(plugin: HistoricaPlugin) {
 
 		if (firstLine.startsWith("date::") || firstLine.startsWith("%%") || firstLine === "attachments:") {
 			el.empty();
-			el.style.display = "none";
+			el.addClass("historica-hmd-hidden");
 			return;
 		}
 
 		if (sectionLines.every(l => l.trim().startsWith("- [[") || l.trim() === "")) {
 			el.empty();
-			el.style.display = "none";
+			el.addClass("historica-hmd-hidden");
 			return;
 		}
 
 		if (el.querySelector("hr")) {
 			el.empty();
-			el.style.display = "none";
+			el.addClass("historica-hmd-hidden");
 			return;
 		}
 

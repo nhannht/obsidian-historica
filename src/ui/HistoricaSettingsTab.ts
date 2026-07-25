@@ -1,5 +1,6 @@
 import { App, PluginSettingTab, Setting } from "obsidian";
 import type HistoricaPlugin from "@/main";
+import { DEFAULT_PLUGIN_SETTINGS } from "@/src/types";
 
 export class HistoricaSettingsTab extends PluginSettingTab {
 	constructor(app: App, private plugin: HistoricaPlugin) {
@@ -15,10 +16,10 @@ export class HistoricaSettingsTab extends PluginSettingTab {
 			.setDesc("moment.js format string used when displaying dates in timeline cards (e.g. MMM D, YYYY · YYYY-MM-DD).")
 			.addText(text =>
 				text
-					.setPlaceholder("MMM D, YYYY")
+					.setPlaceholder(DEFAULT_PLUGIN_SETTINGS.dateDisplayFormat)
 					.setValue(this.plugin.pluginSettings.dateDisplayFormat)
 					.onChange(async value => {
-						this.plugin.pluginSettings.dateDisplayFormat = value.trim() || "MMM D, YYYY";
+						this.plugin.pluginSettings.dateDisplayFormat = value.trim() || DEFAULT_PLUGIN_SETTINGS.dateDisplayFormat;
 						await this.plugin.savePluginSettings();
 					})
 			);
@@ -47,10 +48,14 @@ export class HistoricaSettingsTab extends PluginSettingTab {
 
 		new Setting(containerEl)
 			.setName("Data directory")
+			// "Historica" stays capitalized here on purpose: it is the plugin's own brand name,
+			// same as "Obsidian" would be. The obsidianmd/ui/sentence-case rule doesn't have
+			// this plugin's own name in its default brand list, so it flags this as a false
+			// positive. Known and accepted; not suppressed.
 			.setDesc("Vault-relative folder where Historica stores timeline data files. Changing this does not move existing files — rename the folder manually first.")
 			.addText(text =>
 				text
-					.setPlaceholder("historica-data")
+					.setPlaceholder(DEFAULT_PLUGIN_SETTINGS.dataDir)
 					.setValue(this.plugin.pluginSettings.dataDir)
 					.onChange(async value => {
 						const trimmed = value.trim();

@@ -28,7 +28,7 @@ export class HistoricaSidebarView extends ItemView {
 	}
 
 	override getDisplayText(): string {
-		return "Historica Timeline";
+		return "Historica timeline";
 	}
 
 	override getIcon(): string {
@@ -39,7 +39,9 @@ export class HistoricaSidebarView extends ItemView {
 		this.registerEvent(
 			this.app.workspace.on("active-leaf-change", (leaf) => {
 				if (leaf === this.leaf) return;
-				this.refresh();
+				this.refresh().catch((err: unknown) => {
+					console.error("Historica: sidebar refresh failed", err);
+				});
 			})
 		);
 		// Only full-refresh when the set of blockIds in the active file changes —
@@ -50,7 +52,7 @@ export class HistoricaSidebarView extends ItemView {
 				const content = await this.app.vault.read(file);
 				const blocks = this.findBlocks(content);
 				const ids = JSON.stringify(blocks.map(b => b.blockId));
-				if (ids !== this.currentBlockIds) this.refresh();
+				if (ids !== this.currentBlockIds) await this.refresh();
 			})
 		);
 		await this.refresh();
@@ -88,7 +90,9 @@ export class HistoricaSidebarView extends ItemView {
 
 	private selectBlock(blockId: string): void {
 		this.currentBlockId = blockId;
-		this.refresh();
+		this.refresh().catch((err: unknown) => {
+			console.error("Historica: sidebar refresh failed", err);
+		});
 	}
 
 	async refresh(): Promise<void> {

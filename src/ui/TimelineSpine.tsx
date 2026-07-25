@@ -18,7 +18,7 @@ function useGlobalAnchorEntries(currentBlockId: string): TimelineEntry[] {
 	return useMemo(
 		() => plugin.vaultIndex.getAnchorEntries(currentBlockId),
 		// Re-derive when local units change (anchor toggle triggers save → index update)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps -- units is read only to trigger a re-derive, not used inside the memo callback
 		[plugin, currentBlockId, units],
 	)
 }
@@ -57,7 +57,7 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 		const zoom = d3zoom<HTMLDivElement, unknown>()
 			.scaleExtent([1, 1e9])
 			// Only ctrl+wheel triggers zoom — plain wheel handled below for native scroll
-			.filter(event => event.type === "wheel" && (event as WheelEvent).ctrlKey)
+			.filter((event: Event) => event.type === "wheel" && (event as WheelEvent).ctrlKey)
 			.on("zoom", (event: D3ZoomEvent<HTMLDivElement, unknown>) => {
 				const newK = event.transform.k
 				const oldK = zoomKRef.current
@@ -73,7 +73,7 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 			})
 
 		setZoomBehavior(() => zoom)
-		select(el).call(zoom).call(zoom.transform, zoomIdentity)
+		select(el).call(zoom).call(sel => zoom.transform(sel, zoomIdentity))
 
 		// Plain wheel → native scroll on card container (ctrl+wheel handled by D3 above)
 		const onWheel = (e: WheelEvent) => {
@@ -120,7 +120,7 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 			if (!isDragging && Math.abs(dy) > DRAG_THRESHOLD) {
 				isDragging = true
 				isPending = false
-				container.style.cursor = "grabbing"
+				container.addClass("historica-dragging")
 			}
 			if (isDragging) {
 				sc.scrollTop = startScrollTop - dy
@@ -134,7 +134,7 @@ export function TimelineSpine({ isSingleFile }: { isSingleFile: boolean }) {
 			}
 			isPending = false
 			isDragging = false
-			container.style.cursor = ""
+			container.removeClass("historica-dragging")
 		}
 
 		container.addEventListener("mousedown", onMouseDown)

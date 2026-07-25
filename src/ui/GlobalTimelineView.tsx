@@ -25,7 +25,7 @@ export class GlobalTimelineView extends ItemView {
 	}
 
 	override getDisplayText(): string {
-		return "Historica Global Timeline";
+		return "Historica global timeline";
 	}
 
 	override getIcon(): string {
@@ -34,9 +34,7 @@ export class GlobalTimelineView extends ItemView {
 
 	override async onOpen(): Promise<void> {
 		this.contentEl.empty();
-		this.contentEl.style.display = "flex";
-		this.contentEl.style.flexDirection = "column";
-		this.contentEl.style.height = "100%";
+		this.contentEl.addClass("historica-view-content");
 		this.reactRoot = createRoot(this.contentEl);
 		this.reactRoot.render(
 			<StrictMode>

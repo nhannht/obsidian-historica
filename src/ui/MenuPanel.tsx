@@ -53,15 +53,10 @@ function SubmenuPanel({item, onClose}: {item: MenuItem; onClose: () => void}) {
 	return (
 		<div
 			ref={triggerRef}
+			className={item.disabled ? "historica-menu-item historica-menu-item-disabled" : "historica-menu-item"}
 			style={{...ITEM_BASE, ...itemStyles(item)}}
-			onMouseEnter={e => {
-				handleEnter();
-				if (!item.disabled) (e.currentTarget).style.background = "var(--int-surface-secondary)";
-			}}
-			onMouseLeave={e => {
-				handleLeave();
-				(e.currentTarget).style.background = "transparent";
-			}}
+			onMouseEnter={handleEnter}
+			onMouseLeave={handleLeave}
 		>
 			<span>{item.label}</span>
 			{(hasSubmenu || hasContent) && <span style={{opacity: 0.5, marginLeft: 8}}>›</span>}
@@ -94,13 +89,8 @@ export function MenuPanel({items, onClose}: MenuPanelProps) {
 						<SubmenuPanel item={node} onClose={onClose}/>
 					) : (
 						<div
+							className={node.disabled ? "historica-menu-item historica-menu-item-disabled" : "historica-menu-item"}
 							style={{...ITEM_BASE, ...itemStyles(node)}}
-							onMouseEnter={e => {
-								if (!node.disabled) (e.currentTarget).style.background = "var(--int-surface-secondary)";
-							}}
-							onMouseLeave={e => {
-								(e.currentTarget).style.background = "transparent";
-							}}
 							onMouseDown={e => {
 								e.stopPropagation();
 								if (!node.disabled && node.onClick) {

@@ -50,13 +50,11 @@ export function FilePicker<T extends { path: string }>({
 				) : filtered.map(f => (
 					<div
 						key={f.path}
+						className="historica-filepicker-item"
 						onMouseDown={() => onSelect(f.path)}
-						onMouseEnter={e => (e.currentTarget.style.background = "var(--int-surface-secondary)")}
-						onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
 						style={{
 							display: "flex", alignItems: "center", gap: 6,
 							padding: "7px 12px", fontSize: 13, cursor: "pointer",
-							background: "transparent",
 							color: "var(--int-on-surface)",
 						}}
 					>

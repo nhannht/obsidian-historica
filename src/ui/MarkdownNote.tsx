@@ -74,7 +74,8 @@ export function MarkdownNote(props: {
 		})
 		view.focus()
 		return () => { view.destroy() }
-	}, [editing]) // eslint-disable-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps -- intentionally excludes props.value; the editor doc is seeded once on entering edit mode and must not be clobbered by later prop updates while the user is typing
+	}, [editing])
 
 	// Render markdown preview when not editing
 	useEffect(() => {
@@ -83,7 +84,9 @@ export function MarkdownNote(props: {
 		el.replaceChildren()
 		const component = new Component()
 		component.load()
-		MarkdownRenderer.render(props.plugin.app, props.value, el, props.sourcePath, component)
+		MarkdownRenderer.render(props.plugin.app, props.value, el, props.sourcePath, component).catch((err: unknown) => {
+			console.error("Historica: failed to render markdown note", err)
+		})
 		return () => { component.unload() }
 	}, [editing, props.value, props.sourcePath, props.plugin.app])
 

@@ -35,20 +35,10 @@ export function DesignGallery() {
 					letterSpacing: "0.1em", marginRight: 12, opacity: 0.6,
 				}}>HISTORICA · GALLERY</span>
 				{NAV_SECTIONS.map(({id, label}) => (
-					<a key={id} href={`#${id}`} style={{
+					<a key={id} href={`#${id}`} className="historica-gallery-nav-link" style={{
 						fontSize: 10, fontFamily: "var(--int-font-mono)",
-						color: "var(--int-on-surface-faint)",
 						textDecoration: "none", padding: "2px 6px",
-						border: "1px solid transparent",
 						borderRadius: 3,
-					}}
-					onMouseEnter={e => {
-						e.currentTarget.style.color = "var(--int-accent-strong)";
-						e.currentTarget.style.borderColor = "var(--int-border)";
-					}}
-					onMouseLeave={e => {
-						e.currentTarget.style.color = "var(--int-on-surface-faint)";
-						e.currentTarget.style.borderColor = "transparent";
 					}}
 					>
 						{label}

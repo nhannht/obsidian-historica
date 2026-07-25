@@ -13,32 +13,36 @@ export class OrphanCleanupModal extends Modal {
 		});
 
 		const list = contentEl.createEl("ul", {cls: "historica-orphan-list"});
-		list.style.cssText = "max-height:200px;overflow-y:auto;margin:8px 0;padding-left:1.5em;font-family:var(--int-font-mono);font-size:0.85em";
 		for (const f of this.orphans) {
 			list.createEl("li", {text: f.path});
 		}
 
-		const btnRow = contentEl.createDiv();
-		btnRow.style.cssText = "display:flex;gap:8px;justify-content:flex-end;margin-top:16px";
+		const btnRow = contentEl.createDiv({cls: "historica-orphan-btn-row"});
 
 		const cancelBtn = btnRow.createEl("button", {text: "Cancel"});
 		cancelBtn.addEventListener("click", () => this.close());
 
-		const deleteBtn = btnRow.createEl("button", {text: `Delete ${this.orphans.length} file${this.orphans.length === 1 ? "" : "s"}`});
-		deleteBtn.style.cssText = "background:var(--int-danger);color:var(--int-on-primary);border:none;padding:4px 12px;border-radius:4px;cursor:pointer";
-		deleteBtn.addEventListener("click", async () => {
-			let deleted = 0;
-			for (const f of this.orphans) {
-				try {
-					await this.app.fileManager.trashFile(f);
-					deleted++;
-				} catch {
-					new Notice(`Failed to delete ${f.path}`);
-				}
-			}
-			new Notice(`Deleted ${deleted} orphaned data file${deleted === 1 ? "" : "s"}`);
-			this.close();
+		const deleteBtn = btnRow.createEl("button", {
+			text: `Delete ${this.orphans.length} file${this.orphans.length === 1 ? "" : "s"}`,
+			cls: "historica-orphan-delete-btn",
 		});
+		deleteBtn.addEventListener("click", () => {
+			void this.performDelete();
+		});
+	}
+
+	private async performDelete() {
+		let deleted = 0;
+		for (const f of this.orphans) {
+			try {
+				await this.app.fileManager.trashFile(f);
+				deleted++;
+			} catch {
+				new Notice(`Failed to delete ${f.path}`);
+			}
+		}
+		new Notice(`Deleted ${deleted} orphaned data file${deleted === 1 ? "" : "s"}`);
+		this.close();
 	}
 
 	override onClose() {
