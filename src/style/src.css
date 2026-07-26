@@ -76,9 +76,29 @@
 
 /* shadcn @layer base removed — Obsidian provides its own body/border styles */
 
+/* The base look lives here rather than in a JSX style prop. As an inline style
+   it beat every stylesheet selector, so the hover rule below needed !important
+   to win - and a theme or snippet could not override either one. */
+.historica-source-pill {
+	display: inline-flex;
+	align-items: center;
+	font-size: 11px;
+	font-family: var(--int-font-mono);
+	padding: 2px 8px;
+	border-radius: 9999px;
+	border: 1px solid var(--int-border);
+	color: var(--int-on-surface-muted);
+	opacity: 0.6;
+	transition: color 0.15s, opacity 0.15s;
+}
+
+.historica-source-pill-clickable {
+	cursor: pointer;
+}
+
 .historica-source-pill:hover {
-	color: var(--int-accent-strong) !important;
-	opacity: 1 !important;
+	color: var(--int-accent-strong);
+	opacity: 1;
 }
 
 .historica-no-scrollbar {
