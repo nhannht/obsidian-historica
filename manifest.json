@@ -1,7 +1,7 @@
 {
 	"id": "historica",
 	"name": "historica",
-	"version": "0.4.2",
+	"version": "0.4.3",
 	"minAppVersion": "1.7.2",
 	"description": "Your writing already contains a timeline. Historica finds it — NLP-powered date extraction from any note.",
 	"author": "Nhan Nguyen",
