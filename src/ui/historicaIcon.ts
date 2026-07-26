@@ -1,7 +1,8 @@
 /**
  * The Historica brand mark, adapted for Obsidian's icon system.
  *
- * Derived from the website favicon (`website/public/favicon.svg`), which is a
+ * Derived from the website favicon (`public/favicon.svg` in the
+ * nhannht/historica-website repository), which is a
  * 32px app-mark on a `#05070C` plate. Obsidian icons render transparent and in
  * the theme's `currentColor`, so the plate is dropped and the fills become
  * `currentColor` - otherwise the icon is a dark tile on light themes and the

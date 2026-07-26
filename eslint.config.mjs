@@ -6,11 +6,7 @@ import { defineConfig, globalIgnores } from "eslint/config";
 import obsidianmd from "eslint-plugin-obsidianmd";
 
 export default defineConfig([
-	// `website/` is a separate Vite sub-project that ships nothing to the plugin.
-	// Linting it as plugin source reports Obsidian API violations against code
-	// that never runs inside Obsidian.
 	globalIgnores([
-		"website/**",
 		"main.js",
 		"styles.css",
 		"docs/**",

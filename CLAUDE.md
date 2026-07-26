@@ -220,7 +220,9 @@ The gallery is NOT where components live - it is a live **mirror** that imports 
 
 Today the gallery render diverges from Figma because components still consume Obsidian CSS vars (host theme), not the Int tokens Figma uses - closing that gap is the OBH-5 migration.
 
-#### Sketch: `website/design/Historica.sketch` (website + brand mark)
+#### Sketch: `design/Historica.sketch` in the **nhannht/historica-website** repo (website + brand mark)
+
+Lives in the website repo, not here. The marketing site moved out of this repo in 0.4.3, because the Obsidian plugin directory scans a plugin repo whole and lints every file in it as plugin source - a Vite app that ships nothing to the plugin was producing most of the review's warnings. The Sketch file went with the site it describes.
 
 Separate from the Figma file above, which owns the plugin design system. This Sketch file owns the website look and the brand mark. Structure map - keep in sync in the same turn as any structural change (page/artboard/symbol added, renamed, or removed):
 
@@ -234,7 +236,7 @@ Separate from the Figma file above, which owns the plugin design system. This Sk
 
 | Where | Form | Accent |
 |---|---|---|
-| `website/public/favicon.svg` | 32px grid, on a `#05070C` plate | `#E08855` hardcoded (the plate is always dark) |
+| `public/favicon.svg` (website repo) | 32px grid, on a `#05070C` plate | `#E08855` hardcoded (the plate is always dark) |
 | `src/ui/historicaIcon.ts` | 100x100 grid, transparent, `currentColor` | `var(--int-anchor)` - flips per theme |
 | Sketch `Brand Mark / Icon` | 200x200 (100-grid at 2x) | dark and light variants shown side by side |
 

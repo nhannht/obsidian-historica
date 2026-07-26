@@ -5,7 +5,7 @@ An Obsidian plugin that reads your notes, finds every date with NLP, and renders
 
 ![Historica timeline rendered from prose inside Obsidian](showcase/plugin-timeline.png)
 
-<p align="center"><sub>Real screenshot, not a mock: the note's prose above, the timeline it produced below. More shots in <a href="showcase/">showcase/</a>. The marketing site source lives at <a href="website/">website/</a>.</sub></p>
+<p align="center"><sub>Real screenshot, not a mock: the note's prose above, the timeline it produced below. More shots in <a href="showcase/">showcase/</a>. The marketing site source lives in its own repository, <a href="https://github.com/nhannht/historica-website">nhannht/historica-website</a>.</sub></p>
 
 ---
 
