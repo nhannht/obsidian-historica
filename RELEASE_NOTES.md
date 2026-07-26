@@ -1,18 +1,17 @@
-## Historica 0.4.3
+## Historica 0.4.4
 
-A maintenance release. Nothing changes in how the plugin behaves; what changed is what ships inside it. `main.js` is 192 KB smaller and `styles.css` is 37 KB smaller, and neither carries a React runtime, a dead editor library, or a marketing site's stylesheet any more.
-
-### Fixed
-- **Older Obsidian versions were offered a build they cannot run.** `versions.json` claimed 0.4.0 and 0.4.2 needed app version 0.2.4, and listed a 1.0.0 release that has never existed. The plugin actually needs 1.7.2. An app on an older version would either be sent after a download that is not there, or handed a build that fails to load. Every entry now states the version it really needs.
-- The data-directory setting description and the block ID comment written into your notes both contained an em dash. The block ID line is rewritten on every save, so that character was landing in vault files.
-- The source-file pill can be restyled by a theme or a CSS snippet now. Its look was set inline on the element, which overrides any stylesheet, and its hover state needed `!important` to get around that. Both are ordinary CSS rules now, and `styles.css` no longer contains `!important` anywhere.
+**This release requires Obsidian 1.13.0.** If you are on an older version, Obsidian will keep offering you 0.4.3, which is unaffected and needs only 1.7.2. Nothing is stranded.
 
 ### Changed
-- **The plugin renders with Preact instead of React.** Same components, same behaviour; Preact is the smaller implementation of the same API, and it does not carry React's script-preloading machinery. That machinery was dead code the plugin never called, but it was still in every download, and it was the one hard error on the plugin directory's automated review. `main.js` drops from 1,420,949 to 1,224,121 bytes.
-- **The Quill editor stylesheet is no longer a dependency.** The plugin stopped mounting that editor a while ago but still pulled the whole package in for its CSS, of which it used less than half. The rules that render existing entry content are now included directly, with Quill's licence notice. A package with an open security advisory leaves the tree.
-- **`styles.css` no longer contains the marketing site's CSS.** Tailwind scans the project for class names, and the site used to live in this repository, so its utility classes were being generated into the plugin's stylesheet. Between that and the Quill change, `styles.css` drops from 62,844 to 24,651 bytes.
-- Twenty-one packages nothing imported are gone: ten Radix UI components left over from before the UI was rewritten, the shadcn CLI, the Jest test stack the project replaced with bun's runner, and an SVG build plugin with no SVG to transform. Most of the advisories the directory review reported came through these.
+- **Settings are searchable.** The settings tab is now declared rather than hand-rendered, which is what lets Obsidian's settings search find "Date display format", "Parsing language" and "Data directory" instead of them being invisible to it. That API arrived in 1.13.0, and supporting both it and the old rendering path would have meant two descriptions of the same three settings kept in step by hand, so the floor moved instead.
+- A blank date format or data directory is now refused with a message under the field. Before, a blank value was quietly swapped for the default, so the field looked empty while dates rendered in a format you had not chosen.
 
-### Internal
-- Released assets now carry GitHub build provenance attestations, so anyone can verify a download was built from this repository: `gh attestation verify main.js --repo nhannht/obsidian-historica`.
-- The marketing site moved to its own repository. The plugin directory scans a plugin repo whole and lints every file as plugin source, so a Vite app that ships nothing to the plugin was producing most of the review's warnings.
+### Removed
+- `bun run doc:code` and TypeDoc. It had been broken for some time - `typedoc-plugin-inline-sources` requires TypeDoc 0.28.x and the project pinned 0.27.9, so it crashed before writing anything - and it generated API documentation nobody read. The plugin and the marketing site are the two things this project ships.
+- `postcss.config.js` and `tailwind.config.js`, both dead. Tailwind v4 does not read either without an `@config` directive, which this project does not have. Verified by rebuilding with each removed: `styles.css` came out byte-identical. Worth knowing if you ever read those files and believed them: `important: true` and the scoped preflight they configured were never in effect.
+- The eight packages that existed only to serve those two files and TypeDoc: postcss, autoprefixer, tailwindcss-scoped-preflight, @tailwindcss/typography, typedoc and its three plugins.
+- Two exported helpers in `utils.ts` with no callers, `GetAllDirInVault` and `GetAllHistoricaDataFile`.
+
+### Fixed
+- Dependency advisories are down from 13 to 1. Six had a fix available inside the same major version, so pinning them cost nothing: js-yaml, fast-uri, shell-quote (the one rated critical), markdown-it, linkify-it and postcss. None of these ever shipped to users - they are build and lint tooling - but they were noise hiding anything real.
+- The last one, in brace-expansion, is left deliberately. Its fix only exists in a major version that changed the module's export shape, which breaks every consumer that calls it as a function, including ESLint. Pinning it makes the audit report zero and the toolchain throw. It is a denial of service reachable only by feeding a hostile glob pattern to your own linter.
