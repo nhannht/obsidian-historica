@@ -31,14 +31,15 @@ bun test __tests__/ChronoParserZH.test.ts        # Chinese (hand-curated + known
 bun test __tests__/ChronoParserZHWiki.test.ts    # Chinese (Wikipedia coverage)
 bun test __tests__/ChronoParserNL.test.ts        # Dutch (WikiWars-NL curated)
 bun test __tests__/HmdParser.test.ts             # HMD storage format parse/serialize round-trip
-bun run doc:code          # Generate TypeDoc documentation
 ```
+
+There is no docs-generation step. The repo ships two things: the plugin, and the marketing site in the separate `nhannht/historica-website` repo. TypeDoc was removed in 0.4.4 - it had been broken for some time (`typedoc-plugin-inline-sources` requires TypeDoc 0.28.x against the pinned 0.27.9) and generated output nobody read.
 
 The build produces three artifacts: `main.js`, `styles.css`, and `manifest.json`.
 
 ## Test Corpora
 
-Multilingual NLP tests use real-world annotated corpora and Wikipedia articles. See `docs/test-datasets.md` for acquisition details, baselines, and known gaps per language.
+Multilingual NLP tests use real-world annotated corpora and Wikipedia articles. Fixtures live in `__tests__/fixtures/`; each language's test file states its own corpus and baseline. (`docs/` holds one file, `hmd-spec.md`, the storage-format spec. The `docs/test-datasets.md` this section used to point at does not exist.)
 
 ## QA Testing (Obsidian CLI)
 

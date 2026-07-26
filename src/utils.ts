@@ -139,10 +139,6 @@ export async function UpdateBlockSetting(settings: HistoricaSettings,
 
 }
 
-export function GetAllDirInVault(plugin: HistoricaPlugin) {
-	return plugin.app.vault.getAllFolders()
-}
-
 export function getAllMarkdownFileInVault(plugin: HistoricaPlugin) {
 	return plugin.app.vault.getMarkdownFiles()
 }
@@ -188,11 +184,6 @@ export function SelectRandomElement<T>(r: T[]): T | null {
 
 
 
-export function GetAllHistoricaDataFile(plugin: HistoricaPlugin) {
-	return plugin.app.vault.getFiles().filter(f =>
-		f.path.startsWith(HISTORICA_DATA_DIR) && f.extension === "json"
-	)
-}
 
 function hasBlockId(value: unknown): value is { blockId: string } {
 	return typeof value === "object" && value !== null && "blockId" in value
