@@ -62,6 +62,21 @@ jobs:
             exit 1
           fi
 
+      # Signs each released asset with a provenance statement tied to this
+      # workflow run and this commit, so anyone can prove the binary was built
+      # here from this source with `gh attestation verify main.js --repo
+      # nhannht/obsidian-historica`. The directory review reports assets without
+      # one. Runs before the release is created so no asset is ever downloadable
+      # unattested. `permissions: write-all` above already grants the id-token
+      # and attestations scopes this needs.
+      - name: Attest build provenance
+        uses: actions/attest-build-provenance@v4
+        with:
+          subject-path: |
+            main.js
+            manifest.json
+            styles.css
+
       # Published, not a draft. A draft release is invisible to Obsidian's
       # plugin fetcher, so a draft leaves master advertising a version that
       # no client can install - the state that got 0.4.1 delisted.
