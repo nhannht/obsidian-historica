@@ -1,6 +1,6 @@
 {
   "name": "obsidian-historica",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "Intelligently generates timeline from your content ... like a bro!",
   "main": "main.js",
   "scripts": {
@@ -10,7 +10,6 @@
     "build": "tailwindcss -i src/style/src.css -o styles.css --minify && tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
     "version": "node version-bump.mjs && git add manifest.json versions.json",
     "test": "bun test __tests__/",
-    "doc:code": "typedoc ",
     "qa": "obsidian plugin:reload vault=historica-test-vault id=historica"
   },
   "keywords": [
@@ -28,23 +27,15 @@
     "@codemirror/state": "^6.0.0",
     "@codemirror/view": "^6.0.0",
     "@tailwindcss/cli": "^4.2.2",
-    "@tailwindcss/typography": "^0.5.19",
     "@types/node": "^20.19.39",
     "@types/unist": "^3.0.3",
-    "autoprefixer": "^10.4.27",
     "concurrently": "^9.2.1",
     "esbuild": "^0.25.0",
     "eslint": "^9",
     "eslint-plugin-obsidianmd": "0.4.1",
-    "obsidian": "1.12.3",
-    "postcss": "^8.5.9",
+    "obsidian": "1.13.1",
     "tailwindcss": "^4.2.2",
-    "tailwindcss-scoped-preflight": "^3.5.9",
     "tslib": "2.4.0",
-    "typedoc": "^0.27.9",
-    "typedoc-plugin-inline-sources": "^1.3.0",
-    "typedoc-theme-hierarchy": "^5.0.5",
-    "typedoc-umlclass": "^0.10.2",
     "typescript": "6.0.2",
     "typescript-eslint": "^8"
   },
@@ -82,9 +73,6 @@
     "js-yaml": "^4.2.0",
     "fast-uri": "^3.1.4",
     "shell-quote": "^1.8.4",
-    "markdown-it": "^14.2.0",
-    "linkify-it": "^5.0.1",
-    "brace-expansion": "^2.1.2",
-    "postcss": "^8.5.23"
+    "brace-expansion": "^2.1.2"
   }
 }
