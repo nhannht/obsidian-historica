@@ -1,7 +1,6 @@
 import esbuild from "esbuild";
 import process from "process";
 import {builtinModules as builtins} from "node:module";
-import svgr from 'esbuild-plugin-svgr'
 
 const banner =
 	`/*
@@ -35,9 +34,9 @@ const context = await esbuild.context({
 		...builtins],
 	// Third-party only. Plugin source imports preact/compat by name, so nothing
 	// here claims a react package that is not installed. But
-	// @tanstack/react-virtual, motion, zustand and the svgr plugin's generated
-	// components all import "react" themselves, and those imports have to
-	// resolve somewhere. esbuild applies an alias to subpaths too, so
+	// @tanstack/react-virtual, motion and zustand all import "react"
+	// themselves, and those imports have to resolve somewhere. esbuild applies
+	// an alias to subpaths too, so
 	// "react/jsx-runtime" lands on "preact/compat/jsx-runtime" and
 	// "react-dom/client" on "preact/compat/client", both of which preact ships.
 	alias: {
@@ -75,7 +74,6 @@ const context = await esbuild.context({
 				}))
 			},
 		},
-		svgr()
 	],
 	loader:{
 		'.jpeg':'dataurl',

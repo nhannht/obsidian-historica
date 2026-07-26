@@ -1,6 +1,6 @@
 {
   "name": "obsidian-historica",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Intelligently generates timeline from your content ... like a bro!",
   "main": "main.js",
   "scripts": {
@@ -34,7 +34,6 @@
     "autoprefixer": "^10.4.27",
     "concurrently": "^9.2.1",
     "esbuild": "^0.25.0",
-    "esbuild-plugin-svgr": "^3.1.1",
     "eslint": "^9",
     "eslint-plugin-obsidianmd": "0.4.1",
     "obsidian": "1.12.3",
