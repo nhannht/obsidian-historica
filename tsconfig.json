@@ -39,8 +39,7 @@
 		}
 	},
 	"include": [
-      "**/*.ts",
-      "node_modules/ts-jest/globals.d.ts"
+      "**/*.ts"
     ],
 	"exclude": [
       "__tests__",
