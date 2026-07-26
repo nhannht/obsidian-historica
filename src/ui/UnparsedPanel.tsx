@@ -84,7 +84,7 @@ export function UnparsedPanel() {
 												style={{flex: 1, fontSize: 11, padding: "2px 6px", borderRadius: 2, border: "1px solid var(--int-border)", background: "var(--int-surface)", color: "var(--int-on-surface)", outline: "none"}}
 												placeholder="e.g. March 1492"
 												value={dateInput}
-												onChange={e => setDateInput(e.target.value)}
+												onChange={e => setDateInput(e.currentTarget.value)}
 												onKeyDown={e => {
 													if (e.key === "Enter") handleTag(sentence);
 													if (e.key === "Escape") { setTaggingIdx(null); setDateInput(""); }

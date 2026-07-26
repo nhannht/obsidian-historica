@@ -16,7 +16,7 @@ export function NativeContextMenu({items, children}: NativeContextMenuProps) {
 
 	useCloseOnOutsideOrEscape(open, () => setOpen(false), panelRef);
 
-	function handleContextMenu(e: React.MouseEvent) {
+	function handleContextMenu(e: React.MouseEvent<HTMLDivElement>) {
 		e.preventDefault();
 		setPos({x: e.clientX, y: e.clientY});
 		setOpen(true);

@@ -32,7 +32,7 @@ export function FilePicker<T extends { path: string }>({
 				<input
 					autoFocus={autoFocus}
 					value={query}
-					onChange={e => setQuery(e.target.value)}
+					onChange={e => setQuery(e.currentTarget.value)}
 					placeholder={placeholder}
 					style={{
 						width: "100%", boxSizing: "border-box",

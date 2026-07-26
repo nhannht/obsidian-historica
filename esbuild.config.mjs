@@ -33,6 +33,18 @@ const context = await esbuild.context({
 		"@lezer/highlight",
 		"@lezer/lr",
 		...builtins],
+	// Preact in React's place. The plugin's own React surface is small - roots,
+	// portals, the standard hooks, context, Fragment, StrictMode, memo - and
+	// preact/compat covers all of it, but the third-party components
+	// (@tanstack/react-virtual, motion, zustand, the svgr output) import "react"
+	// by name, so the substitution belongs here rather than in the imports.
+	// esbuild applies an alias to subpaths too, so "react/jsx-runtime" resolves
+	// to "preact/compat/jsx-runtime" and "react-dom/client" to
+	// "preact/compat/client", both of which preact ships.
+	alias: {
+		react: "preact/compat",
+		"react-dom": "preact/compat",
+	},
 	format: "cjs",
 	target: "es2018",
 	logLevel: "info",

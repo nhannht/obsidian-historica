@@ -126,7 +126,7 @@ export function FilterBar({ allEntries, plugin, filters, onChange, filteredCount
 									min={absoluteMin}
 									max={absoluteMax}
 									value={yearMin}
-									onChange={e => onChange({ ...filters, yearMin: parseInt(e.target.value) })}
+									onChange={e => onChange({ ...filters, yearMin: parseInt(e.currentTarget.value) })}
 									className="flex-1 accent-[var(--int-accent-strong)]"
 								/>
 								<input
@@ -134,7 +134,7 @@ export function FilterBar({ allEntries, plugin, filters, onChange, filteredCount
 									min={absoluteMin}
 									max={absoluteMax}
 									value={yearMax}
-									onChange={e => onChange({ ...filters, yearMax: parseInt(e.target.value) })}
+									onChange={e => onChange({ ...filters, yearMax: parseInt(e.currentTarget.value) })}
 									className="flex-1 accent-[var(--int-accent-strong)]"
 								/>
 							</div>
@@ -146,7 +146,7 @@ export function FilterBar({ allEntries, plugin, filters, onChange, filteredCount
 							<span className="text-xs text-[var(--int-on-surface-muted)] flex-shrink-0">Note</span>
 							<select
 								value={filters.noteFilter}
-								onChange={e => onChange({ ...filters, noteFilter: e.target.value })}
+								onChange={e => onChange({ ...filters, noteFilter: e.currentTarget.value })}
 								className="flex-1 text-xs bg-[var(--int-surface)] border border-[var(--int-border)] rounded px-2 py-1 text-[var(--int-on-surface)]"
 							>
 								<option value="">All notes</option>

@@ -23,6 +23,7 @@
 		"noUnusedLocals": true,
 		"noImplicitReturns": true,
 		"jsx": "react-jsx",
+		"jsxImportSource": "preact",
 
 		"lib": [
 			"DOM",
@@ -35,7 +36,10 @@
 			"node"
 		],
 		"paths": {
-			"@/*": ["./*"]
+			"@/*": ["./*"],
+			"react": ["./node_modules/preact/compat/"],
+			"react-dom": ["./node_modules/preact/compat/"],
+			"react-dom/client": ["./node_modules/preact/compat/client"]
 		}
 	},
 	"include": [

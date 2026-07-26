@@ -14,7 +14,7 @@ export function HoverTooltip({children, content, delay = 400}: HoverTooltipProps
 
 	useEffect(() => () => { if (timerRef.current) window.clearTimeout(timerRef.current); }, []);
 
-	function handleMouseEnter(e: React.MouseEvent) {
+	function handleMouseEnter(e: React.MouseEvent<HTMLDivElement>) {
 		const x = e.clientX;
 		const y = e.clientY;
 		timerRef.current = window.setTimeout(() => {

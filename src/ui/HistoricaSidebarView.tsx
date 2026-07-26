@@ -1,5 +1,9 @@
 import {ItemView, TFile, WorkspaceLeaf} from "obsidian";
-import {createRoot, Root} from "react-dom/client";
+import {createRoot} from "react-dom/client";
+
+// preact/compat/client types createRoot's return inline instead of exporting a
+// named Root type the way react-dom/client does.
+type Root = ReturnType<typeof createRoot>;
 import {StrictMode} from "react";
 import HistoricaPlugin from "@/main";
 import {createTimelineStore} from "@/src/store/createTimelineStore";

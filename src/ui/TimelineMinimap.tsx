@@ -107,7 +107,7 @@ export function TimelineMinimap({
 	}, [yearMin, domainSpan])
 
 	// ── View box: edge drag (resize) ──────────────────────────────────────────
-	const startDrag = useCallback((which: "left" | "right") => (e: React.MouseEvent) => {
+	const startDrag = useCallback((which: "left" | "right") => (e: React.MouseEvent<Element>) => {
 		e.preventDefault()
 		e.stopPropagation()
 		const capL = leftYear, capR = rightYear
@@ -125,7 +125,7 @@ export function TimelineMinimap({
 	}, [leftYear, rightYear, xToYear, onYearRangeChange])
 
 	// ── View box: top-tab drag (pan) ──────────────────────────────────────────
-	const startBarDrag = useCallback((e: React.MouseEvent) => {
+	const startBarDrag = useCallback((e: React.MouseEvent<Element>) => {
 		e.preventDefault()
 		e.stopPropagation()
 		const startY     = xToYear(e.clientX)
@@ -144,7 +144,7 @@ export function TimelineMinimap({
 	}, [leftYear, rightYear, xToYear, yearMin, yearMax, onYearRangeChange])
 
 	// ── Filter bar: edge drag (resize) ────────────────────────────────────────
-	const startFilterDrag = useCallback((which: "left" | "right") => (e: React.MouseEvent) => {
+	const startFilterDrag = useCallback((which: "left" | "right") => (e: React.MouseEvent<Element>) => {
 		if (!onFilterRangeChange) return
 		e.preventDefault()
 		e.stopPropagation()
@@ -163,7 +163,7 @@ export function TimelineMinimap({
 	}, [fL, fR, xToYear, onFilterRangeChange])
 
 	// ── Filter bar: bottom-knob drag (pan) ────────────────────────────────────
-	const startFilterBarDrag = useCallback((e: React.MouseEvent) => {
+	const startFilterBarDrag = useCallback((e: React.MouseEvent<Element>) => {
 		if (!onFilterRangeChange) return
 		e.preventDefault()
 		e.stopPropagation()
@@ -191,7 +191,7 @@ export function TimelineMinimap({
 		onYearRangeChange([newL, newR])
 	}, [xToYear, leftYear, rightYear, yearMin, yearMax, onYearRangeChange])
 
-	const handleDblClick = useCallback((e: React.MouseEvent) => {
+	const handleDblClick = useCallback((e: React.MouseEvent<Element>) => {
 		e.stopPropagation()
 		onYearRangeChange([yearMin, yearMax])
 	}, [yearMin, yearMax, onYearRangeChange])
@@ -211,7 +211,7 @@ export function TimelineMinimap({
 				height={TOTAL_H}
 				style={{ display: "block" }}
 				onClick={handleClick}
-				onDoubleClick={handleDblClick}
+				onDblClick={handleDblClick}
 			>
 				{/* Density histogram — bars sit in VB_ABOVE zone above the track */}
 				{bucketCounts.map((count, i) => {
@@ -312,7 +312,7 @@ export function TimelineMinimap({
 				}}
 				onMouseDown={startBarDrag}
 				onClick={e => e.stopPropagation()}
-				onDoubleClick={handleDblClick}
+				onDblClick={handleDblClick}
 			/>
 
 			{/* ── View box: diamond edge handles (resize) — at track mid, view box x-edges ── */}
@@ -333,7 +333,7 @@ export function TimelineMinimap({
 					}}
 					onMouseDown={startDrag(side)}
 					onClick={e => e.stopPropagation()}
-					onDoubleClick={handleDblClick}
+					onDblClick={handleDblClick}
 				/>
 			))}
 
@@ -383,7 +383,7 @@ export function TimelineMinimap({
 					}}
 					onMouseDown={startFilterBarDrag}
 					onClick={e => e.stopPropagation()}
-					onDoubleClick={handleDblClick}
+					onDblClick={handleDblClick}
 				/>
 			)}
 		</div>

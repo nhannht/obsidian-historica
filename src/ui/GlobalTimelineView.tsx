@@ -1,6 +1,10 @@
 import { ItemView, WorkspaceLeaf } from "obsidian";
 import { StrictMode, useState, useMemo } from "react";
-import { createRoot, Root } from "react-dom/client";
+import { createRoot } from "react-dom/client";
+
+// preact/compat/client types createRoot's return inline instead of exporting a
+// named Root type the way react-dom/client does.
+type Root = ReturnType<typeof createRoot>;
 import type HistoricaPlugin from "@/main";
 import { getNoteTags } from "@/src/utils";
 import { useVaultEntries } from "./global/useVaultEntries";

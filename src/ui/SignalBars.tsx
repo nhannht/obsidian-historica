@@ -12,7 +12,7 @@ export function SignalBars({sig, onBarClick}: {sig: number; onBarClick?: (level:
 				max={SIG_LEVELS.length}
 				step={1}
 				value={sig}
-				onChange={onBarClick ? e => onBarClick(Number(e.target.value)) : undefined}
+				onChange={onBarClick ? e => onBarClick(Number(e.currentTarget.value)) : undefined}
 				readOnly={!onBarClick}
 				title={`Significance ${sig}/${SIG_LEVELS.length}`}
 				style={{
