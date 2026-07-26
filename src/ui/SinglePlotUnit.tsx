@@ -1,7 +1,7 @@
 import {Attachment, TimelineEntry} from "@/src/types";
 import {useTimeline, useVaultFiles} from "@/src/ui/TimelineContext";
 import {generateRandomId, JumpToSource, truncate} from "@/src/utils";
-import React, {useState} from "react";
+import React, {useState} from "preact/compat";
 import {Notice} from "obsidian";
 import {MarkdownNote} from "@/src/ui/MarkdownNote";
 import {AttachmentPlot, Content} from "@/src/ui/TimelineGeneral";

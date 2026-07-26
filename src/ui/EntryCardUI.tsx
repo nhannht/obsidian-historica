@@ -1,4 +1,4 @@
-import {ReactNode} from "react";
+import {ReactNode} from "preact/compat";
 import {PrecisionGutter} from "./PrecisionGutter";
 import {DateChip} from "./DateChip";
 import {SignalBars} from "./SignalBars";

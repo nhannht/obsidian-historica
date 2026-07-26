@@ -1,4 +1,4 @@
-import {useMemo} from "react";
+import {useMemo} from "preact/compat";
 
 export function RugHeat({years, min, max, width, tickH = 10, stripeH = 5}: {
 	years: number[], min: number, max: number,

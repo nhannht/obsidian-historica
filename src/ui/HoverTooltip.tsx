@@ -1,5 +1,6 @@
-import {ReactNode, useEffect, useRef, useState} from "react";
-import {createPortal} from "react-dom";
+import {ReactNode, useEffect, useRef, useState} from "preact/compat";
+import type {TargetedMouseEvent} from "preact";
+import {createPortal} from "preact/compat";
 
 interface HoverTooltipProps {
 	children: ReactNode;
@@ -14,7 +15,7 @@ export function HoverTooltip({children, content, delay = 400}: HoverTooltipProps
 
 	useEffect(() => () => { if (timerRef.current) window.clearTimeout(timerRef.current); }, []);
 
-	function handleMouseEnter(e: React.MouseEvent<HTMLDivElement>) {
+	function handleMouseEnter(e: TargetedMouseEvent<HTMLDivElement>) {
 		const x = e.clientX;
 		const y = e.clientY;
 		timerRef.current = window.setTimeout(() => {

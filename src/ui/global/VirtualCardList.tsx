@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef } from "preact/compat";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import type HistoricaPlugin from "@/main";
 import { GlobalEntry } from "./useVaultEntries";

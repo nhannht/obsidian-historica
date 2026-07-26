@@ -20,7 +20,8 @@
  * Double-clicking resets the view box to the full domain.
  */
 
-import { useRef, useCallback, useMemo } from "react"
+import { useRef, useCallback, useMemo } from "preact/compat"
+import type {TargetedMouseEvent} from "preact";
 import { BASE_HEIGHT } from "@/src/store/useD3TimelineEngine"
 import { entrySig } from "@/src/utils"
 
@@ -107,7 +108,7 @@ export function TimelineMinimap({
 	}, [yearMin, domainSpan])
 
 	// ── View box: edge drag (resize) ──────────────────────────────────────────
-	const startDrag = useCallback((which: "left" | "right") => (e: React.MouseEvent<Element>) => {
+	const startDrag = useCallback((which: "left" | "right") => (e: TargetedMouseEvent<Element>) => {
 		e.preventDefault()
 		e.stopPropagation()
 		const capL = leftYear, capR = rightYear
@@ -125,7 +126,7 @@ export function TimelineMinimap({
 	}, [leftYear, rightYear, xToYear, onYearRangeChange])
 
 	// ── View box: top-tab drag (pan) ──────────────────────────────────────────
-	const startBarDrag = useCallback((e: React.MouseEvent<Element>) => {
+	const startBarDrag = useCallback((e: TargetedMouseEvent<Element>) => {
 		e.preventDefault()
 		e.stopPropagation()
 		const startY     = xToYear(e.clientX)
@@ -144,7 +145,7 @@ export function TimelineMinimap({
 	}, [leftYear, rightYear, xToYear, yearMin, yearMax, onYearRangeChange])
 
 	// ── Filter bar: edge drag (resize) ────────────────────────────────────────
-	const startFilterDrag = useCallback((which: "left" | "right") => (e: React.MouseEvent<Element>) => {
+	const startFilterDrag = useCallback((which: "left" | "right") => (e: TargetedMouseEvent<Element>) => {
 		if (!onFilterRangeChange) return
 		e.preventDefault()
 		e.stopPropagation()
@@ -163,7 +164,7 @@ export function TimelineMinimap({
 	}, [fL, fR, xToYear, onFilterRangeChange])
 
 	// ── Filter bar: bottom-knob drag (pan) ────────────────────────────────────
-	const startFilterBarDrag = useCallback((e: React.MouseEvent<Element>) => {
+	const startFilterBarDrag = useCallback((e: TargetedMouseEvent<Element>) => {
 		if (!onFilterRangeChange) return
 		e.preventDefault()
 		e.stopPropagation()
@@ -183,7 +184,7 @@ export function TimelineMinimap({
 	}, [fL, fR, xToYear, yearMin, yearMax, onFilterRangeChange])
 
 	// ── Track click / double-click ────────────────────────────────────────────
-	const handleClick = useCallback((e: React.MouseEvent<SVGSVGElement>) => {
+	const handleClick = useCallback((e: TargetedMouseEvent<SVGSVGElement>) => {
 		const year = xToYear(e.clientX)
 		const half = (rightYear - leftYear) / 2
 		const newL = Math.max(yearMin, year - half)
@@ -191,7 +192,7 @@ export function TimelineMinimap({
 		onYearRangeChange([newL, newR])
 	}, [xToYear, leftYear, rightYear, yearMin, yearMax, onYearRangeChange])
 
-	const handleDblClick = useCallback((e: React.MouseEvent<Element>) => {
+	const handleDblClick = useCallback((e: TargetedMouseEvent<Element>) => {
 		e.stopPropagation()
 		onYearRangeChange([yearMin, yearMax])
 	}, [yearMin, yearMax, onYearRangeChange])

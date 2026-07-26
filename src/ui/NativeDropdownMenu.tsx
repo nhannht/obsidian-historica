@@ -1,5 +1,6 @@
-import {ReactNode, useRef, useState} from "react";
-import {createPortal} from "react-dom";
+import {ReactNode, useRef, useState} from "preact/compat";
+import type {CSSProperties} from "preact";
+import {createPortal} from "preact/compat";
 import {MenuNode} from "@/src/ui/menuTypes";
 import {MenuPanel} from "@/src/ui/MenuPanel";
 import {useCloseOnOutsideOrEscape} from "@/src/ui/useCloseOnOutsideOrEscape";
@@ -8,7 +9,7 @@ interface NativeDropdownMenuProps {
 	trigger: ReactNode;
 	items: MenuNode[];
 	triggerClassName?: string;
-	triggerStyle?: React.CSSProperties;
+	triggerStyle?: CSSProperties;
 	disabled?: boolean;
 	onTriggerClick?: () => void;
 }

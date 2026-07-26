@@ -1,4 +1,4 @@
-import {useMemo, useState} from "react";
+import {useMemo, useState} from "preact/compat";
 import {Notice} from "obsidian";
 import {useTimeline, useTimelineStore} from "@/src/ui/TimelineContext";
 import {getAllMarkdownFileInVault} from "@/src/utils";

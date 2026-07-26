@@ -1,5 +1,5 @@
 import {sanitizeHtml} from "@/src/utils";
-import React from "react";
+import React from "preact/compat";
 import {useTimelineStore} from "@/src/ui/TimelineContext";
 import {TimelineSpine} from "@/src/ui/TimelineSpine";
 

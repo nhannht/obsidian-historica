@@ -1,4 +1,5 @@
-import {Fragment, useRef, useState} from "react";
+import {Fragment, useRef, useState} from "preact/compat";
+import type {CSSProperties} from "preact";
 import {MenuItem, MenuNode} from "@/src/ui/menuTypes";
 
 interface MenuPanelProps {
@@ -6,7 +7,7 @@ interface MenuPanelProps {
 	onClose: () => void;
 }
 
-const PANEL_STYLE: React.CSSProperties = {
+const PANEL_STYLE: CSSProperties = {
 	background: "var(--int-surface)",
 	border: "1px solid var(--int-border)",
 	borderRadius: 3,
@@ -15,13 +16,13 @@ const PANEL_STYLE: React.CSSProperties = {
 	boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
 };
 
-const ITEM_BASE: React.CSSProperties = {
+const ITEM_BASE: CSSProperties = {
 	display: "flex", alignItems: "center", justifyContent: "space-between",
 	padding: "5px 10px", fontSize: 12, fontFamily: "var(--int-font-mono)",
 	cursor: "pointer", userSelect: "none",
 };
 
-function itemStyles(item: MenuItem): React.CSSProperties {
+function itemStyles(item: MenuItem): CSSProperties {
 	return {
 		color: item.muted || item.disabled ? "var(--int-on-surface-faint)" : "var(--int-on-surface)",
 		opacity: item.disabled ? 0.5 : 1,

@@ -10,7 +10,7 @@
  *   style:"free"  → value is plain integer year string (negative = BC/prehistoric)
  */
 
-import { useMemo } from "react"
+import { useMemo } from "preact/compat"
 import { scaleLinear } from "d3-scale"
 import type { TimelineEntry } from "@/src/types"
 import { entrySig } from "@/src/utils"

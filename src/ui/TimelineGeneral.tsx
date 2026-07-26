@@ -1,7 +1,7 @@
 import {TimelineEntry} from "@/src/types";
 import {JumpToSource} from "@/src/utils";
 import HistoricaPlugin from "@/main";
-import { useState} from "react";
+import { useState} from "preact/compat";
 import {TFile, Notice} from "obsidian";
 import ImageFromPath from "@/src/ui/ImageFromPath";
 import ShortendableParagraph from "@/src/ui/ShortendableParagraph";

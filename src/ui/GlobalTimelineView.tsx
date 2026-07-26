@@ -1,10 +1,6 @@
 import { ItemView, WorkspaceLeaf } from "obsidian";
-import { StrictMode, useState, useMemo } from "react";
-import { createRoot } from "react-dom/client";
-
-// preact/compat/client types createRoot's return inline instead of exporting a
-// named Root type the way react-dom/client does.
-type Root = ReturnType<typeof createRoot>;
+import { StrictMode, useState, useMemo } from "preact/compat";
+import { createRoot } from "preact/compat/client";
 import type HistoricaPlugin from "@/main";
 import { getNoteTags } from "@/src/utils";
 import { useVaultEntries } from "./global/useVaultEntries";
@@ -12,6 +8,10 @@ import { VirtualCardList } from "./global/VirtualCardList";
 import { FilterBar, FilterState, DEFAULT_FILTERS } from "./global/FilterBar";
 import { InlineLoadingState } from "./InlineLoadingState";
 import { HISTORICA_ICON_ID } from "@/src/ui/historicaIcon";
+
+// preact/compat/client types createRoot's return inline instead of exporting a
+// named Root type the way react-dom/client does.
+type Root = ReturnType<typeof createRoot>;
 
 export const HISTORICA_GLOBAL_VIEW_TYPE = "historica-global-timeline";
 

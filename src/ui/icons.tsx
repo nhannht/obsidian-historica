@@ -1,4 +1,4 @@
-import React, {SVGProps} from "react"
+import React, {SVGProps} from "preact/compat"
 
 type IconProps = SVGProps<SVGSVGElement>
 

@@ -1,4 +1,4 @@
-import type {ReactNode} from "react";
+import type {ReactNode} from "preact/compat";
 
 const VARIANT_STYLES: Record<string, {bg: string; border: string; color: string}> = {
 	warning: {

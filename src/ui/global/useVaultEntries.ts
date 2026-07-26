@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "preact/compat";
 import { TFile } from "obsidian";
 import type HistoricaPlugin from "@/main";
 import { parseHmd } from "@/src/data/HmdParser";

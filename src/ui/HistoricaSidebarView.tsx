@@ -1,10 +1,6 @@
 import {ItemView, TFile, WorkspaceLeaf} from "obsidian";
-import {createRoot} from "react-dom/client";
-
-// preact/compat/client types createRoot's return inline instead of exporting a
-// named Root type the way react-dom/client does.
-type Root = ReturnType<typeof createRoot>;
-import {StrictMode} from "react";
+import {createRoot} from "preact/compat/client";
+import {StrictMode} from "preact/compat";
 import HistoricaPlugin from "@/main";
 import {createTimelineStore} from "@/src/store/createTimelineStore";
 import {BlockInfo, SidebarShell} from "@/src/ui/SidebarShell";
@@ -12,6 +8,10 @@ import {SidebarHome} from "@/src/ui/sidebar/SidebarHome";
 import {extractBlockId} from "@/src/backgroundLogic/HistoricaBlockManager";
 import {DefaultSettings, HistoricaSettings} from "@/src/types";
 import {HISTORICA_ICON_ID} from "@/src/ui/historicaIcon";
+
+// preact/compat/client types createRoot's return inline instead of exporting a
+// named Root type the way react-dom/client does.
+type Root = ReturnType<typeof createRoot>;
 
 export const HISTORICA_SIDEBAR_VIEW_TYPE = "historica-sidebar";
 

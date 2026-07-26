@@ -1,4 +1,4 @@
-import {ReactNode, useMemo, useState} from "react";
+import {ReactNode, useMemo, useState} from "preact/compat";
 
 interface FilePickerProps<T extends { path: string }> {
 	files: T[];

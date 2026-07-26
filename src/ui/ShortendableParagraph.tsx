@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useState} from "preact/compat";
 import {sanitizeHtml, truncate} from "@/src/utils";
 
 export default function ShortendableParagraph(props: {

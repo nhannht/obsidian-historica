@@ -1,12 +1,12 @@
 import {ItemView, WorkspaceLeaf} from "obsidian";
-import {createRoot} from "react-dom/client";
+import {createRoot} from "preact/compat/client";
+import {StrictMode} from "preact/compat";
+import {DesignGallery} from "@/src/ui/DesignGallery";
+import {HISTORICA_ICON_ID} from "@/src/ui/historicaIcon";
 
 // preact/compat/client types createRoot's return inline instead of exporting a
 // named Root type the way react-dom/client does.
 type Root = ReturnType<typeof createRoot>;
-import {StrictMode} from "react";
-import {DesignGallery} from "@/src/ui/DesignGallery";
-import {HISTORICA_ICON_ID} from "@/src/ui/historicaIcon";
 
 export const HISTORICA_GALLERY_VIEW_TYPE = "historica-design-gallery";
 

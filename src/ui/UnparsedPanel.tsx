@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useState} from "preact/compat";
 import {Notice} from "obsidian";
 import {useTimeline, useTimelineStore} from "@/src/ui/TimelineContext";
 import {ChevronRight} from "@/src/ui/icons";

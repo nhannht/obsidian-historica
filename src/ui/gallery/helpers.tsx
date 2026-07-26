@@ -1,4 +1,4 @@
-import {CSSProperties} from "react";
+import type {CSSProperties} from "preact";
 
 export function Section({id, title, children}: {id: string; title: string; children: React.ReactNode}) {
 	return (

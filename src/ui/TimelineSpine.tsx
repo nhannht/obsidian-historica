@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "preact/compat"
 import { zoom as d3zoom, zoomIdentity, ZoomBehavior, D3ZoomEvent } from "d3-zoom"
 import { select } from "d3-selection"
 import { useD3TimelineEngine, entryYear } from "@/src/store/useD3TimelineEngine"

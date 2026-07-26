@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo } from "preact/compat";
 import type HistoricaPlugin from "@/main";
 import { useVaultEntries } from "@/src/ui/global/useVaultEntries";
 

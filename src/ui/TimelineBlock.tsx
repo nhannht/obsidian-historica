@@ -1,4 +1,4 @@
-import {useRef, useEffect, useMemo, useState} from "react";
+import {useRef, useEffect, useMemo, useState} from "preact/compat";
 import {useStore} from "zustand";
 import type {StoreApi} from "zustand";
 import HistoricaPlugin from "@/main";

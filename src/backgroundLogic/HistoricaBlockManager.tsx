@@ -1,6 +1,6 @@
 import HistoricaPlugin from "../../main";
-import {createRoot} from "react-dom/client";
-import {StrictMode} from "react";
+import {createRoot} from "preact/compat/client";
+import {StrictMode} from "preact/compat";
 import {DefaultSettings, HistoricaSettings} from "@/src/types";
 import {createTimelineStore} from "@/src/store/createTimelineStore";
 import {TimelineBlock} from "@/src/ui/TimelineBlock";

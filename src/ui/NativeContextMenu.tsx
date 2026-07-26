@@ -1,5 +1,6 @@
-import {ReactNode, useRef, useState} from "react";
-import {createPortal} from "react-dom";
+import {ReactNode, useRef, useState} from "preact/compat";
+import type {TargetedMouseEvent} from "preact";
+import {createPortal} from "preact/compat";
 import {MenuNode} from "@/src/ui/menuTypes";
 import {MenuPanel} from "@/src/ui/MenuPanel";
 import {useCloseOnOutsideOrEscape} from "@/src/ui/useCloseOnOutsideOrEscape";
@@ -16,7 +17,7 @@ export function NativeContextMenu({items, children}: NativeContextMenuProps) {
 
 	useCloseOnOutsideOrEscape(open, () => setOpen(false), panelRef);
 
-	function handleContextMenu(e: React.MouseEvent<HTMLDivElement>) {
+	function handleContextMenu(e: TargetedMouseEvent<HTMLDivElement>) {
 		e.preventDefault();
 		setPos({x: e.clientX, y: e.clientY});
 		setOpen(true);

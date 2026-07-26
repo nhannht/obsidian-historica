@@ -1,4 +1,4 @@
-import {useMemo, type ReactNode} from "react";
+import {useMemo, type ReactNode} from "preact/compat";
 import {Notice} from "obsidian";
 import {useTimeline, useTimelineStore} from "@/src/ui/TimelineContext";
 import {ExportAsJSONToClipboard, ExportAsMarkdownToClipboard, exportTimelineAsPng, getAllMarkdownFileInVault} from "@/src/utils";

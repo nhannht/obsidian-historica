@@ -1,4 +1,4 @@
-import {createContext, useContext} from "react";
+import {createContext, useContext} from "preact/compat";
 import {type StoreApi} from "zustand/vanilla";
 import {useStore} from "zustand";
 import type {TimelineStore} from "@/src/store/createTimelineStore";

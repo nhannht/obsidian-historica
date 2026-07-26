@@ -1,4 +1,4 @@
-import {ReactNode} from "react";
+import {ReactNode} from "preact/compat";
 
 export type MenuSeparator = {type: "separator"};
 

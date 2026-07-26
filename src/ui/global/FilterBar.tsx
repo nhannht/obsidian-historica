@@ -1,4 +1,4 @@
-import { useMemo, useState, useRef, useEffect } from "react";
+import { useMemo, useState, useRef, useEffect } from "preact/compat";
 import type HistoricaPlugin from "@/main";
 import { notePathToTitle, getNoteTags } from "@/src/utils";
 import { GlobalEntry } from "./useVaultEntries";

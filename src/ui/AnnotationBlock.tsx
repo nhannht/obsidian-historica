@@ -1,4 +1,4 @@
-import type React from "react";
+import type React from "preact/compat";
 
 export function AnnotationBlock({children, hasContent}: {
 	children: React.ReactNode;

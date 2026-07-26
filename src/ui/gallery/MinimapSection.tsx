@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState } from "preact/compat"
 import { Section, Row, Tile } from "./helpers"
 import { TimelineMinimap } from "@/src/ui/TimelineMinimap"
 import { StatPill } from "@/src/ui/StatPill"

@@ -1,9 +1,10 @@
-import type React from "react";
+import type React from "preact/compat";
+import type {CSSProperties} from "preact";
 
 type Variant = "normal" | "approximate" | "anchor";
 type Size = "sm" | "md";
 
-const VARIANT_STYLES: Record<Variant, React.CSSProperties> = {
+const VARIANT_STYLES: Record<Variant, CSSProperties> = {
 	normal: {
 		color: "var(--int-accent-strong)",
 		background: "var(--int-accent-tint)",
@@ -19,7 +20,7 @@ const VARIANT_STYLES: Record<Variant, React.CSSProperties> = {
 	},
 };
 
-const SIZE_STYLES: Record<Size, React.CSSProperties> = {
+const SIZE_STYLES: Record<Size, CSSProperties> = {
 	md: {fontSize: 11, padding: "2px 6px", borderRadius: 3},
 	sm: {fontSize: 10, padding: "1px 5px", borderRadius: 2},
 };

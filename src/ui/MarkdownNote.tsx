@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "preact/compat"
 import { Component, MarkdownRenderer } from "obsidian"
 import { EditorView, keymap } from "@codemirror/view"
 import { EditorState } from "@codemirror/state"

@@ -1,4 +1,5 @@
-import {CSSProperties, ReactNode, useState} from "react";
+import {ReactNode, useState} from "preact/compat";
+import type {CSSProperties} from "preact";
 import {Spinner} from "./Spinner";
 import {SIG_LEVELS} from "./constants";
 import {SmallCheck, SmallChevronDown, SmallExport, SmallSave} from "./icons";

@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useState} from "preact/compat";
 import {ReadImage} from "@/src/utils";
 import HistoricaPlugin from "@/main";
 import {arrayBufferToBase64} from "obsidian";
