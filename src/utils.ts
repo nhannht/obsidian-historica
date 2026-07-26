@@ -116,7 +116,7 @@ export async function UpdateBlockSetting(settings: HistoricaSettings,
 		// Write blockId with a self-documenting comment so users know what the number means
 		linesFromFile.splice(elInfo.lineStart + 1,
 			elInfo.lineEnd - elInfo.lineStart - 1,
-			"# Block ID — links this block to its saved timeline data. Do not edit.\n" + settings.blockId, "\n")
+			"# Block ID - links this block to its saved timeline data. Do not edit.\n" + settings.blockId, "\n")
 		const newSettingsString = linesFromFile.join("")
 		const file = plugin.app.vault.getAbstractFileByPath(sourcePath)
 		if (file) {

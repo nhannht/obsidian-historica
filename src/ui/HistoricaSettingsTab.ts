@@ -52,7 +52,7 @@ export class HistoricaSettingsTab extends PluginSettingTab {
 			// same as "Obsidian" would be. The obsidianmd/ui/sentence-case rule doesn't have
 			// this plugin's own name in its default brand list, so it flags this as a false
 			// positive. Known and accepted; not suppressed.
-			.setDesc("Vault-relative folder where Historica stores timeline data files. Changing this does not move existing files — rename the folder manually first.")
+			.setDesc("Vault-relative folder where Historica stores timeline data files. Changing this does not move existing files - rename the folder manually first.")
 			.addText(text =>
 				text
 					.setPlaceholder(DEFAULT_PLUGIN_SETTINGS.dataDir)
