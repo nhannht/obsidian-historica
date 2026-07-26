@@ -1,4 +1,4 @@
-@import 'react-quill-new/dist/quill.snow.css';
+@import './quill-editor.css';
 
 /* Tailwind v4 — preflight omitted to avoid conflicting with Obsidian's base styles */
 @layer theme, base, components, utilities;
